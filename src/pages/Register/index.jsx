@@ -6,13 +6,27 @@ import { GoogleLoginButton, PrimaryButton } from '@/components/Button'
 import { MassiveLogo } from '@/components/icons'
 import { PasswordInput, TextInput } from '@/components/inputs'
 import Separator from '@/components/Separator'
+import {
+  registerSchema,
+  useYupValidationResolver
+} from '@/lib/useYupValidationResolver'
 
 const Register = () => {
+  const resolver = useYupValidationResolver(registerSchema)
+
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm()
+  } = useForm({
+    resolver,
+    defaultValues: {
+      fullName: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    }
+  })
 
   const onSubmit = data => {
     console.log(data)
@@ -32,7 +46,9 @@ const Register = () => {
               register={register}
             />
             {errors.fullName && (
-              <span className='error'>{errors.fullName.message}</span>
+              <span className='register-page__error'>
+                {errors.fullName.message}
+              </span>
             )}
             <TextInput
               name='email'
@@ -40,15 +56,21 @@ const Register = () => {
               register={register}
             />
             {errors.email && (
-              <span className='error'>{errors.email.message}</span>
+              <span className='register-page__error'>
+                {errors.email.message}
+              </span>
             )}
             <PasswordInput name='password' register={register} />
             {errors.password && (
-              <span className='error'>{errors.password.message}</span>
+              <span className='register-page__error'>
+                {errors.password.message}
+              </span>
             )}
             <PasswordInput name='confirmPassword' register={register} />
             {errors.confirmPassword && (
-              <span className='error'>{errors.confirmPassword.message}</span>
+              <span className='register-page__error'>
+                {errors.confirmPassword.message}
+              </span>
             )}
           </div>
           <PrimaryButton type='submit'>Register</PrimaryButton>
