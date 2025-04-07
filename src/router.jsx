@@ -4,7 +4,7 @@ import RootRedirect from './components/RootRedirect'
 import { AuthLayout, PublicLayout } from './layouts'
 import LoginPage from './pages/Login'
 import PricingPlansPage from './pages/PricingPlans'
-import RegisterPage from './pages/Register/Register'
+import RegisterPage from './pages/Register'
 
 const router = createBrowserRouter([
   {
