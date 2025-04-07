@@ -2,34 +2,36 @@ import './styles.scss'
 
 import clsx from 'clsx'
 
+/* TODO: 
+  - Make separate use-form input component for Register
+  OR
+  - Use react-hook-form for all inputs =>
+    refactor login page for react-hook-form.
+*/
 const Input = ({
   id,
-  name,
   type = 'text',
-  value,
-  onChange,
   placeholder = '',
   required = false,
   autoComplete = 'off',
   className = '',
-  rightElement = null
+  rightElement = null,
+  ...rest
 }) => {
   return (
     <div className='input'>
       <input
         id={id}
-        name={name}
         type={type}
         autoComplete={autoComplete}
         required={required}
-        value={value}
-        onChange={onChange}
         placeholder={placeholder}
         className={clsx(
           'input__field',
           { 'input__field--with-icon': !!rightElement },
           className
         )}
+        {...rest}
       />
       {rightElement && <div className='input__icon'>{rightElement}</div>}
     </div>

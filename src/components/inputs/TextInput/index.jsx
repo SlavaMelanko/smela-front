@@ -1,9 +1,7 @@
-import React from 'react'
-
 import Input from '../Input'
 
-const TextInput = props => {
-  return <Input {...props} type='text' />
+const TextInput = ({ name, register, ...props }) => {
+  return <Input {...register(name)} {...props} type='text' />
 }
 
 export default TextInput

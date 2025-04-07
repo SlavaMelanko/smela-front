@@ -1,9 +1,9 @@
 import { Eye, EyeOff } from 'lucide-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import Input from '../Input'
 
-const PasswordInput = ({ value, onChange, ...rest }) => {
+const PasswordInput = ({ name, register, ...rest }) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const toggleIcon = showPassword ? (
@@ -14,11 +14,10 @@ const PasswordInput = ({ value, onChange, ...rest }) => {
 
   return (
     <Input
+      {...register(name)}
       {...rest}
       type={showPassword ? 'text' : 'password'}
       placeholder='••••••••'
-      value={value}
-      onChange={onChange}
       rightElement={
         <button
           type='button'
