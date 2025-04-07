@@ -35,8 +35,6 @@
     margin-top: $spacing-2xl;
   }
   &__error {
-    color: var(--text-error);
-    font-size: $font-size-sm;
-    margin-top: $spacing-sm;
+    color: $text-error;
   }
 }
