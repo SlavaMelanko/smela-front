@@ -10,8 +10,8 @@
   padding: $spacing-md;
   background-color: var(--background);
 
-  &__theme-toggle {
-    @include theme-toggle-position;
+  &__fixed-controls {
+    @include fixed-controls-top-right;
   }
 
   &__content {
