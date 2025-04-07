@@ -1,0 +1,33 @@
+@use '../../styles/variables' as *;
+
+.theme-toggle {
+  &__sun {
+    color: var(--button-primary-bg);
+    transition: color $transition-default;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-sm;
+    color: var(--text-primary);
+    cursor: pointer;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: $border-radius-full;
+    box-shadow: $shadow-sm;
+    transition:
+      background-color $transition-default,
+      color $transition-default,
+      border-color $transition-default;
+
+    &:hover {
+      border-color: var(--card-hover-border);
+
+      .theme-toggle__sun {
+        color: var(--button-primary-hover);
+      }
+    }
+  }
+}

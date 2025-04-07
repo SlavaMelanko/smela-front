@@ -1,0 +1,6 @@
+@use '../../../styles/variables' as *;
+
+.forgot-your-password-prompt {
+  color: var(--text-secondary);
+  text-align: center;
+}

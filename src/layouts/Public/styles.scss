@@ -1,0 +1,16 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.public-layout {
+  padding: $spacing-3xl $spacing-md;
+
+  &__theme-toggle {
+    @include theme-toggle-position;
+  }
+
+  &__container {
+    width: 100%;
+    max-width: $breakpoint-xl;
+    margin: 0 auto;
+  }
+}

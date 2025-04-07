@@ -1,0 +1,8 @@
+@use 'variables' as *;
+
+@mixin theme-toggle-position {
+  position: fixed;
+  top: $spacing-md;
+  right: $spacing-md;
+  z-index: $z-index-toggle;
+}

@@ -1,0 +1,31 @@
+@use '../../styles/variables' as *;
+
+.separator {
+  position: relative;
+
+  &__line-wrapper {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  &__line {
+    width: 100%;
+    border-top: 1px solid var(--border-color);
+  }
+
+  &__text-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    font-size: $font-size-xs;
+  }
+
+  &__text {
+    padding: 0 $spacing-sm;
+    color: var(--text-secondary);
+    background-color: var(--background);
+    transition: background-color $transition-default;
+  }
+}

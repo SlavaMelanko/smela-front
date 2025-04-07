@@ -1,0 +1,41 @@
+@use '../../styles/variables' as *;
+
+.login-page {
+  &__card {
+    padding: $spacing-2xl;
+    background-color: var(--background);
+    border-radius: $border-radius-md;
+    transition: all $transition-default;
+  }
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    margin: $spacing-2xl 0;
+    color: var(--text-primary);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    margin-bottom: $spacing-2xl;
+  }
+
+  &__separator {
+    margin: $spacing-sm 0;
+  }
+
+  &__prompts {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2xl;
+    align-items: center;
+    margin-top: $spacing-2xl;
+  }
+}

@@ -1,0 +1,21 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.auth-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: $spacing-md;
+  background-color: var(--background);
+
+  &__theme-toggle {
+    @include theme-toggle-position;
+  }
+
+  &__content {
+    width: 100%;
+    max-width: 28rem; // 448px ~ md
+  }
+}
