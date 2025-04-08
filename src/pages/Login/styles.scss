@@ -38,4 +38,8 @@
     align-items: center;
     margin-top: $spacing-2xl;
   }
+
+  &__error {
+    color: $text-error;
+  }
 }

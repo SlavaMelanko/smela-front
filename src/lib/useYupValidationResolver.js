@@ -69,3 +69,16 @@ export const registerSchema = yup.object({
     .boolean()
     .oneOf([true], 'Please accept the terms and privacy policy to proceed.')
 })
+
+export const loginSchema = yup.object({
+  email: yup
+    .string()
+    .required('Email is required!')
+    .email('Please enter a valid email address!'),
+
+  password: yup
+    .string()
+    .required('Password is required!')
+    .min(6, 'Password must have at least 6 characters!')
+    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters!')
+})
