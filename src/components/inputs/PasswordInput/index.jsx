@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import Input from '../Input'
 
-const PasswordInput = ({ name, register, ...rest }) => {
+const PasswordInput = ({ name, onChange, onBlur, value, ...rest }) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const toggleIcon = showPassword ? (
@@ -14,7 +14,10 @@ const PasswordInput = ({ name, register, ...rest }) => {
 
   return (
     <Input
-      {...register(name)}
+      name={name}
+      value={value}
+      onChange={onChange}
+      onBlur={onBlur}
       {...rest}
       type={showPassword ? 'text' : 'password'}
       placeholder='••••••••'

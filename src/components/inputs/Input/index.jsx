@@ -2,12 +2,6 @@ import './styles.scss'
 
 import clsx from 'clsx'
 
-/* TODO: 
-  - Make separate use-form input component for Register
-  OR
-  - Use react-hook-form for all inputs =>
-    refactor login page for react-hook-form.
-*/
 const Input = ({
   id,
   type = 'text',
@@ -16,6 +10,10 @@ const Input = ({
   autoComplete = 'off',
   className = '',
   rightElement = null,
+  onChange,
+  onBlur,
+  value,
+  name,
   ...rest
 }) => {
   return (
@@ -23,6 +21,10 @@ const Input = ({
       <input
         id={id}
         type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
         autoComplete={autoComplete}
         required={required}
         placeholder={placeholder}

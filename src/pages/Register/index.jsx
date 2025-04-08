@@ -43,7 +43,7 @@ const Register = () => {
             <TextInput
               name='fullName'
               placeholder='John Doe'
-              register={register}
+              {...register('fullName')}
             />
             {errors.fullName && (
               <span className='register-page__error'>
@@ -53,20 +53,23 @@ const Register = () => {
             <TextInput
               name='email'
               placeholder='example@email.com'
-              register={register}
+              {...register('email')}
             />
             {errors.email && (
               <span className='register-page__error'>
                 {errors.email.message}
               </span>
             )}
-            <PasswordInput name='password' register={register} />
+            <PasswordInput name='password' {...register('password')} />
             {errors.password && (
               <span className='register-page__error'>
                 {errors.password.message}
               </span>
             )}
-            <PasswordInput name='confirmPassword' register={register} />
+            <PasswordInput
+              name='confirmPassword'
+              {...register('confirmPassword')}
+            />
             {errors.confirmPassword && (
               <span className='register-page__error'>
                 {errors.confirmPassword.message}
