@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { GoogleLoginButton, PrimaryButton } from '@/components/Button'
 import { MassiveLogo } from '@/components/icons'
 import { PasswordInput, TextInput } from '@/components/inputs'
+import FormField from '@/components/inputs/Form'
 import Separator from '@/components/Separator'
 import {
   loginSchema,
@@ -41,27 +42,26 @@ const Login = () => {
         </div>
         <form className='login-page__form' onSubmit={handleSubmit(onSubmit)}>
           <div className='login-page__fields'>
-            <TextInput
-              name='email'
-              placeholder='example@email.com'
-              required={true}
-              {...register('email')}
-            />
-            {errors.email && (
-              <p className='login-page__error' hidden={!errors.email}>
-                {errors.email.message}
-              </p>
-            )}
-            <PasswordInput
+            <FormField label='Email' name='email' error={errors.email?.message}>
+              <TextInput
+                name='email'
+                placeholder='example@email.com'
+                required={true}
+                {...register('email')}
+              />
+            </FormField>
+
+            <FormField
+              label='Password'
               name='password'
-              required={true}
-              {...register('password')}
-            />
-            {errors.password && (
-              <p className='login-page__error' hidden={!errors.password}>
-                {errors.password.message}
-              </p>
-            )}
+              error={errors.password?.message}
+            >
+              <PasswordInput
+                name='password'
+                required={true}
+                {...register('password')}
+              />
+            </FormField>
           </div>
           <PrimaryButton type='submit'>Login</PrimaryButton>
         </form>
