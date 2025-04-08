@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { GoogleLoginButton, PrimaryButton } from '@/components/Button'
 import { MassiveLogo } from '@/components/icons'
 import { PasswordInput, TextInput } from '@/components/inputs'
+import FormField from '@/components/inputs/Form'
 import Separator from '@/components/Separator'
 import {
   registerSchema,
@@ -40,51 +41,51 @@ const Register = () => {
         </div>
         <form className='register-page__form' onSubmit={handleSubmit(onSubmit)}>
           <div className='register-page__fields'>
-            <TextInput
+            <FormField
+              label='Full Name'
               name='fullName'
-              placeholder='John Doe'
-              required={true}
-              {...register('fullName')}
-            />
-            {errors.fullName && (
-              <p className='register-page__error' hidden={!errors.fullName}>
-                {errors.fullName.message}
-              </p>
-            )}
-            <TextInput
-              name='email'
-              placeholder='example@email.com'
-              required={true}
-              {...register('email')}
-            />
-            {errors.email && (
-              <p className='register-page__error' hidden={!errors.email}>
-                {errors.email.message}
-              </p>
-            )}
-            <PasswordInput
-              required={true}
+              error={errors.fullName?.message}
+            >
+              <TextInput
+                name='fullName'
+                placeholder='John Doe'
+                required={true}
+                {...register('fullName')}
+              />
+            </FormField>
+
+            <FormField label='Email' name='email' error={errors.email?.message}>
+              <TextInput
+                name='email'
+                placeholder='example@email.com'
+                required={true}
+                {...register('email')}
+              />
+            </FormField>
+
+            <FormField
+              label='Password'
               name='password'
-              {...register('password')}
-            />
-            {errors.password && (
-              <p className='register-page__error' hidden={!errors.password}>
-                {errors.password.message}
-              </p>
-            )}
-            <PasswordInput
+              error={errors.password?.message}
+            >
+              <PasswordInput
+                name='password'
+                required={true}
+                {...register('password')}
+              />
+            </FormField>
+
+            <FormField
+              label='Confirm Password'
               name='confirmPassword'
-              required={true}
-              {...register('confirmPassword')}
-            />
-            {errors.confirmPassword && (
-              <p
-                className='register-page__error'
-                hidden={!errors.confirmPassword}
-              >
-                {errors.confirmPassword.message}
-              </p>
-            )}
+              error={errors.confirmPassword?.message}
+            >
+              <PasswordInput
+                name='confirmPassword'
+                required={true}
+                {...register('confirmPassword')}
+              />
+            </FormField>
           </div>
           <PrimaryButton type='submit'>Register</PrimaryButton>
         </form>
