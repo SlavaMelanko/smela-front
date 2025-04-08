@@ -12,6 +12,9 @@ import {
   useYupValidationResolver
 } from '@/lib/useYupValidationResolver'
 
+import ForgotYourPasswordPrompt from '../Login/ForgotYourPasswordPrompt'
+import LoginPrompt from './LoginPrompt'
+
 const Register = () => {
   const resolver = useYupValidationResolver(registerSchema)
 
@@ -94,12 +97,8 @@ const Register = () => {
         </div>
         <GoogleLoginButton />
         <div className='register-page__prompts'>
-          <p>
-            Already have an account? <a href='/login'>Login</a>
-          </p>
-          <p>
-            Forgot your password? <a href='/forgot-password'>Reset it</a>
-          </p>
+          <LoginPrompt />
+          <ForgotYourPasswordPrompt />
         </div>
       </div>
     </div>
