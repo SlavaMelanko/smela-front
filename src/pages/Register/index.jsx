@@ -46,9 +46,9 @@ const Register = () => {
               {...register('fullName')}
             />
             {errors.fullName && (
-              <span className='register-page__error'>
+              <p className='register-page__error' hidden={!errors.fullName}>
                 {errors.fullName.message}
-              </span>
+              </p>
             )}
             <TextInput
               name='email'
@@ -56,24 +56,27 @@ const Register = () => {
               {...register('email')}
             />
             {errors.email && (
-              <span className='register-page__error'>
+              <p className='register-page__error' hidden={!errors.email}>
                 {errors.email.message}
-              </span>
+              </p>
             )}
             <PasswordInput name='password' {...register('password')} />
             {errors.password && (
-              <span className='register-page__error'>
+              <p className='register-page__error' hidden={!errors.password}>
                 {errors.password.message}
-              </span>
+              </p>
             )}
             <PasswordInput
               name='confirmPassword'
               {...register('confirmPassword')}
             />
             {errors.confirmPassword && (
-              <span className='register-page__error'>
+              <p
+                className='register-page__error'
+                hidden={!errors.confirmPassword}
+              >
                 {errors.confirmPassword.message}
-              </span>
+              </p>
             )}
           </div>
           <PrimaryButton type='submit'>Register</PrimaryButton>
