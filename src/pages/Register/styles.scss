@@ -54,7 +54,7 @@
   }
 
   &__error {
-    color: $text-error;
+    color: var(--text-error);
   }
 }
 
@@ -73,6 +73,6 @@
 
   &__error {
     font-size: $font-size-sm;
-    color: $text-error;
+    color: var(--text-error);
   }
 }
