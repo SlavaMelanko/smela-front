@@ -47,6 +47,7 @@ const Login = () => {
                 name='email'
                 placeholder='example@email.com'
                 required={true}
+                error={errors.email?.message}
                 {...register('email')}
               />
             </FormField>
@@ -59,6 +60,7 @@ const Login = () => {
               <PasswordInput
                 name='password'
                 required={true}
+                error={errors.password?.message}
                 {...register('password')}
               />
             </FormField>
