@@ -73,12 +73,12 @@ export const registerSchema = yup.object({
 export const loginSchema = yup.object({
   email: yup
     .string()
-    .required('Email is required!')
-    .email('Please enter a valid email address!'),
+    .required('Please provide your email address.')
+    .email('Kindly enter a valid email address.'),
 
   password: yup
     .string()
-    .required('Password is required!')
-    .min(6, 'Password must have at least 6 characters!')
-    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters!')
+    .required('Please enter your password.')
+    .min(6, 'Your password should have at least 6 characters.')
+    .matches(/[a-zA-Z]/, 'Your password should only contain Latin letters.')
 })
