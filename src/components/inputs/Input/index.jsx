@@ -14,6 +14,7 @@ const Input = ({
   onBlur,
   value,
   name,
+  error,
   ...rest
 }) => {
   return (
@@ -31,6 +32,7 @@ const Input = ({
         className={clsx(
           'input__field',
           { 'input__field--with-icon': !!rightElement },
+          { 'input__field--error': !!error },
           className
         )}
         {...rest}
