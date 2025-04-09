@@ -109,14 +109,16 @@ const Register = () => {
               name={FormFieldEnum.ACCEPT_TERMS}
               error={errors.acceptTerms?.message}
             >
-              <label>
+              <div className='register-page__checkbox'>
                 <input
                   type='checkbox'
                   {...register(FormFieldEnum.ACCEPT_TERMS)}
                 />
-                I accept the <a href='/terms'>terms</a> and{' '}
-                <a href='/privacy'>privacy policy</a>.
-              </label>
+                <label className='register-page__checkbox-label'>
+                  I Accept Massive’s <a href='/terms'>Terms & Conditions</a> and{' '}
+                  <a href='/privacy'>Privacy Policy</a>
+                </label>
+              </div>
             </FormField>
           </div>
           <PrimaryButton type='submit'>Register</PrimaryButton>

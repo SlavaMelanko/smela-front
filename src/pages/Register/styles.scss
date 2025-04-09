@@ -29,10 +29,30 @@
     flex-direction: row;
     justify-content: space-between;
     gap: $spacing-md;
+
+    @media (max-width: $breakpoint-md) {
+      flex-direction: column;
+    }
   }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    &-label {
+      font-size: $font-size-sm;
+
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+
   &__separator {
     margin: $spacing-sm 0;
   }
+
   &__prompts {
     display: flex;
     flex-direction: column;
