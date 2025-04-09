@@ -37,11 +37,17 @@ export const useYupValidationResolver = validationSchema =>
   )
 
 export const registerSchema = yup.object({
-  fullName: yup
+  firstName: yup
     .string()
-    .required('Full name is required!')
-    .min(2, 'Full name must have at least 2 characters!')
-    .max(50, 'Full name must have at most 50 characters!'),
+    .required('First name is required!')
+    .min(2, 'First name must have at least 2 characters!')
+    .max(50, 'First name must have at most 50 characters!'),
+
+  lastName: yup
+    .string()
+    .required('Last name is required!')
+    .min(2, 'Last name must have at least 2 characters!')
+    .max(50, 'Last name must have at most 50 characters!'),
 
   email: yup
     .string()
@@ -53,8 +59,13 @@ export const registerSchema = yup.object({
     .required('Password is required!')
     .min(6, 'Password must have at least 6 characters!')
     .matches(/[a-zA-Z]/, 'Password can only contain Latin letters!'),
+
   confirmPassword: yup
     .string()
     .required('Confirm password is required!')
-    .oneOf([yup.ref('password')], 'Passwords must match!')
+    .oneOf([yup.ref('password')], 'Passwords must match!'),
+
+  acceptTerms: yup
+    .boolean()
+    .oneOf([true], 'You must accept the terms and privacy policy!')
 })

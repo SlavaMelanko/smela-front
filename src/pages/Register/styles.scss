@@ -24,6 +24,12 @@
     gap: $spacing-md;
     margin-bottom: $spacing-2xl;
   }
+  &__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: $spacing-md;
+  }
   &__separator {
     margin: $spacing-sm 0;
   }

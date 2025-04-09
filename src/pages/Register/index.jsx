@@ -13,6 +13,7 @@ import {
 } from '@/lib/useYupValidationResolver'
 
 import ForgotYourPasswordPrompt from '../Login/ForgotYourPasswordPrompt'
+import FormFieldEnum, { getDefaultValues } from './formFields'
 import LoginPrompt from './LoginPrompt'
 
 const Register = () => {
@@ -24,12 +25,7 @@ const Register = () => {
     formState: { errors }
   } = useForm({
     resolver,
-    defaultValues: {
-      fullName: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-    }
+    defaultValues: getDefaultValues()
   })
 
   const onSubmit = data => {
@@ -44,50 +40,83 @@ const Register = () => {
         </div>
         <form className='register-page__form' onSubmit={handleSubmit(onSubmit)}>
           <div className='register-page__fields'>
+            <div className='register-page__row'>
+              <FormField
+                label='First Name'
+                name={FormFieldEnum.FIRST_NAME}
+                error={errors.firstName?.message}
+              >
+                <TextInput
+                  name={FormFieldEnum.FIRST_NAME}
+                  placeholder='Insert first name'
+                  required={true}
+                  {...register(FormFieldEnum.FIRST_NAME)}
+                />
+              </FormField>
+
+              <FormField
+                label='Last Name'
+                name={FormFieldEnum.LAST_NAME}
+                error={errors.lastName?.message}
+              >
+                <TextInput
+                  name={FormFieldEnum.LAST_NAME}
+                  placeholder='Insert last name'
+                  required={true}
+                  {...register(FormFieldEnum.LAST_NAME)}
+                />
+              </FormField>
+            </div>
+
             <FormField
-              label='Full Name'
-              name='fullName'
-              error={errors.fullName?.message}
+              label='Email'
+              name={FormFieldEnum.EMAIL}
+              error={errors.email?.message}
             >
               <TextInput
-                name='fullName'
-                placeholder='John Doe'
-                required={true}
-                {...register('fullName')}
-              />
-            </FormField>
-
-            <FormField label='Email' name='email' error={errors.email?.message}>
-              <TextInput
-                name='email'
+                name={FormFieldEnum.EMAIL}
                 placeholder='example@email.com'
                 required={true}
-                {...register('email')}
+                {...register(FormFieldEnum.EMAIL)}
               />
             </FormField>
 
             <FormField
               label='Password'
-              name='password'
+              name={FormFieldEnum.PASSWORD}
               error={errors.password?.message}
             >
               <PasswordInput
-                name='password'
+                name={FormFieldEnum.PASSWORD}
                 required={true}
-                {...register('password')}
+                {...register(FormFieldEnum.PASSWORD)}
               />
             </FormField>
 
             <FormField
               label='Confirm Password'
-              name='confirmPassword'
+              name={FormFieldEnum.CONFIRM_PASSWORD}
               error={errors.confirmPassword?.message}
             >
               <PasswordInput
-                name='confirmPassword'
+                name={FormFieldEnum.CONFIRM_PASSWORD}
                 required={true}
-                {...register('confirmPassword')}
+                {...register(FormFieldEnum.CONFIRM_PASSWORD)}
               />
+            </FormField>
+
+            <FormField
+              name={FormFieldEnum.ACCEPT_TERMS}
+              error={errors.acceptTerms?.message}
+            >
+              <label>
+                <input
+                  type='checkbox'
+                  {...register(FormFieldEnum.ACCEPT_TERMS)}
+                />
+                I accept the <a href='/terms'>terms</a> and{' '}
+                <a href='/privacy'>privacy policy</a>.
+              </label>
             </FormField>
           </div>
           <PrimaryButton type='submit'>Register</PrimaryButton>
