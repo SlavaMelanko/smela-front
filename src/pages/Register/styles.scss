@@ -24,16 +24,6 @@
     gap: $spacing-md;
     margin-bottom: $spacing-2xl;
   }
-  &__row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: $spacing-md;
-
-    @media (max-width: $breakpoint-md) {
-      flex-direction: column;
-    }
-  }
 
   &__checkbox {
     display: flex;

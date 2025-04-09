@@ -40,33 +40,31 @@ const Register = () => {
         </div>
         <form className='register-page__form' onSubmit={handleSubmit(onSubmit)}>
           <div className='register-page__fields'>
-            <div className='register-page__row'>
-              <FormField
-                label='First Name'
+            <FormField
+              label='First Name'
+              name={FormFieldEnum.FIRST_NAME}
+              error={errors.firstName?.message}
+            >
+              <TextInput
                 name={FormFieldEnum.FIRST_NAME}
-                error={errors.firstName?.message}
-              >
-                <TextInput
-                  name={FormFieldEnum.FIRST_NAME}
-                  placeholder='Insert first name'
-                  required={true}
-                  {...register(FormFieldEnum.FIRST_NAME)}
-                />
-              </FormField>
+                placeholder='Insert first name'
+                required={true}
+                {...register(FormFieldEnum.FIRST_NAME)}
+              />
+            </FormField>
 
-              <FormField
-                label='Last Name'
+            <FormField
+              label='Last Name'
+              name={FormFieldEnum.LAST_NAME}
+              error={errors.lastName?.message}
+            >
+              <TextInput
                 name={FormFieldEnum.LAST_NAME}
-                error={errors.lastName?.message}
-              >
-                <TextInput
-                  name={FormFieldEnum.LAST_NAME}
-                  placeholder='Insert last name'
-                  required={true}
-                  {...register(FormFieldEnum.LAST_NAME)}
-                />
-              </FormField>
-            </div>
+                placeholder='Insert last name'
+                required={true}
+                {...register(FormFieldEnum.LAST_NAME)}
+              />
+            </FormField>
 
             <FormField
               label='Email'
@@ -115,7 +113,7 @@ const Register = () => {
                   {...register(FormFieldEnum.ACCEPT_TERMS)}
                 />
                 <label className='register-page__checkbox-label'>
-                  I Accept Massive’s <a href='/terms'>Terms & Conditions</a> and{' '}
+                  I agree to the <a href='/terms'>Terms</a> &{' '}
                   <a href='/privacy'>Privacy Policy</a>
                 </label>
               </div>
