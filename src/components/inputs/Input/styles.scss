@@ -28,7 +28,7 @@
 
     &--error {
       border-color: $text-error;
-      border-width: 0px;
+      border-width: 0;
       border-bottom-width: 1px;
 
       &:focus {
