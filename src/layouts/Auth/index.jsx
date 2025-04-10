@@ -3,12 +3,14 @@ import './styles.scss'
 import { Outlet } from 'react-router-dom'
 
 import { MassiveLogo } from '@/components/icons'
+import LanguageSelector from '@/components/LanguageSelector'
 import ThemeToggle from '@/components/ThemeToggle'
 
 const AuthLayout = () => {
   return (
     <div className='auth-layout'>
-      <div className='auth-layout__theme-toggle'>
+      <div className='auth-layout__fixed-controls'>
+        <LanguageSelector />
         <ThemeToggle />
       </div>
 

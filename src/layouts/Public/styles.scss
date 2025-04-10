@@ -4,8 +4,8 @@
 .public-layout {
   padding: $spacing-3xl $spacing-md;
 
-  &__theme-toggle {
-    @include theme-toggle-position;
+  &__fixed-controls {
+    @include fixed-controls-top-right;
   }
 
   &__container {
