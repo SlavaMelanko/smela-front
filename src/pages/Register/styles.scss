@@ -1,20 +1,6 @@
 @use '../../styles/variables' as *;
 
 .register-page {
-  &__card {
-    padding: $spacing-2xl;
-    background-color: var(--background);
-    border-radius: $border-radius-md;
-    transition: all $transition-default;
-  }
-
-  &__logo {
-    display: flex;
-    justify-content: center;
-    margin: $spacing-2xl 0;
-    color: var(--text-primary);
-  }
-
   &__form {
     display: flex;
     flex-direction: column;
@@ -54,25 +40,6 @@
   }
 
   &__error {
-    color: var(--text-error);
-  }
-}
-
-.form-field {
-  &__label {
-    display: block;
-    font-size: $font-size-md;
-    font-weight: $font-weight-medium;
-    color: var(--text-primary);
-  }
-
-  &__control {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__error {
-    font-size: $font-size-sm;
     color: var(--text-error);
   }
 }

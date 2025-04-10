@@ -3,9 +3,8 @@ import './styles.scss'
 import { useForm } from 'react-hook-form'
 
 import { GoogleLoginButton, PrimaryButton } from '@/components/Button'
-import { MassiveLogo } from '@/components/icons'
+import FormField from '@/components/form/Field'
 import { PasswordInput, TextInput } from '@/components/inputs'
-import FormField from '@/components/inputs/Form'
 import Separator from '@/components/Separator'
 import {
   registerSchema,
@@ -34,106 +33,102 @@ const Register = () => {
 
   return (
     <div className='register-page'>
-      <div className='register-page__card'>
-        <div className='register-page__logo'>
-          <MassiveLogo width={240} height={45} />
-        </div>
-        <form className='register-page__form' onSubmit={handleSubmit(onSubmit)}>
-          <div className='register-page__fields'>
-            <FormField
-              label='First Name'
+      <form className='register-page__form' onSubmit={handleSubmit(onSubmit)}>
+        <div className='register-page__fields'>
+          <FormField
+            label='First Name'
+            name={FormFieldEnum.FIRST_NAME}
+            error={errors.firstName?.message}
+            required
+          >
+            <TextInput
               name={FormFieldEnum.FIRST_NAME}
+              placeholder='Insert first name'
               error={errors.firstName?.message}
-            >
-              <TextInput
-                name={FormFieldEnum.FIRST_NAME}
-                placeholder='Insert first name'
-                required={true}
-                error={errors.firstName?.message}
-                {...register(FormFieldEnum.FIRST_NAME)}
-              />
-            </FormField>
+              {...register(FormFieldEnum.FIRST_NAME)}
+            />
+          </FormField>
 
-            <FormField
-              label='Last Name'
+          <FormField
+            label='Last Name'
+            name={FormFieldEnum.LAST_NAME}
+            error={errors.lastName?.message}
+            required
+          >
+            <TextInput
               name={FormFieldEnum.LAST_NAME}
+              placeholder='Insert last name'
               error={errors.lastName?.message}
-            >
-              <TextInput
-                name={FormFieldEnum.LAST_NAME}
-                placeholder='Insert last name'
-                required={true}
-                error={errors.lastName?.message}
-                {...register(FormFieldEnum.LAST_NAME)}
-              />
-            </FormField>
+              {...register(FormFieldEnum.LAST_NAME)}
+            />
+          </FormField>
 
-            <FormField
-              label='Email'
+          <FormField
+            label='Email'
+            name={FormFieldEnum.EMAIL}
+            error={errors.email?.message}
+            required
+          >
+            <TextInput
               name={FormFieldEnum.EMAIL}
+              placeholder='example@email.com'
               error={errors.email?.message}
-            >
-              <TextInput
-                name={FormFieldEnum.EMAIL}
-                placeholder='example@email.com'
-                required={true}
-                error={errors.email?.message}
-                {...register(FormFieldEnum.EMAIL)}
-              />
-            </FormField>
+              {...register(FormFieldEnum.EMAIL)}
+            />
+          </FormField>
 
-            <FormField
-              label='Password'
+          <FormField
+            label='Password'
+            name={FormFieldEnum.PASSWORD}
+            error={errors.password?.message}
+            required
+          >
+            <PasswordInput
               name={FormFieldEnum.PASSWORD}
               error={errors.password?.message}
-            >
-              <PasswordInput
-                name={FormFieldEnum.PASSWORD}
-                required={true}
-                error={errors.password?.message}
-                {...register(FormFieldEnum.PASSWORD)}
-              />
-            </FormField>
+              {...register(FormFieldEnum.PASSWORD)}
+            />
+          </FormField>
 
-            <FormField
-              label='Confirm Password'
+          <FormField
+            label='Confirm Password'
+            name={FormFieldEnum.CONFIRM_PASSWORD}
+            error={errors.confirmPassword?.message}
+            required
+          >
+            <PasswordInput
               name={FormFieldEnum.CONFIRM_PASSWORD}
               error={errors.confirmPassword?.message}
-            >
-              <PasswordInput
-                name={FormFieldEnum.CONFIRM_PASSWORD}
-                required={true}
-                error={errors.confirmPassword?.message}
-                {...register(FormFieldEnum.CONFIRM_PASSWORD)}
-              />
-            </FormField>
+              {...register(FormFieldEnum.CONFIRM_PASSWORD)}
+            />
+          </FormField>
 
-            <FormField
-              name={FormFieldEnum.ACCEPT_TERMS}
-              error={errors.acceptTerms?.message}
-            >
-              <div className='register-page__checkbox'>
-                <input
-                  type='checkbox'
-                  {...register(FormFieldEnum.ACCEPT_TERMS)}
-                />
-                <label className='register-page__checkbox-label'>
-                  I agree to the <a href='/terms'>Terms</a> &{' '}
-                  <a href='/privacy'>Privacy Policy</a>
-                </label>
-              </div>
-            </FormField>
-          </div>
-          <PrimaryButton type='submit'>Register</PrimaryButton>
-        </form>
-        <div className='register-page__separator'>
-          <Separator />
+          <FormField
+            name={FormFieldEnum.ACCEPT_TERMS}
+            error={errors.acceptTerms?.message}
+            required
+          >
+            <div className='register-page__checkbox'>
+              <input
+                type='checkbox'
+                {...register(FormFieldEnum.ACCEPT_TERMS)}
+              />
+              <label className='register-page__checkbox-label'>
+                I agree to the <a href='/terms'>Terms</a> &{' '}
+                <a href='/privacy'>Privacy Policy</a>
+              </label>
+            </div>
+          </FormField>
         </div>
-        <GoogleLoginButton />
-        <div className='register-page__prompts'>
-          <LoginPrompt />
-          <ForgotYourPasswordPrompt />
-        </div>
+        <PrimaryButton type='submit'>Register</PrimaryButton>
+      </form>
+      <div className='register-page__separator'>
+        <Separator />
+      </div>
+      <GoogleLoginButton />
+      <div className='register-page__prompts'>
+        <LoginPrompt />
+        <ForgotYourPasswordPrompt />
       </div>
     </div>
   )

@@ -1,8 +1,10 @@
 @use 'variables' as *;
 
-@mixin theme-toggle-position {
+@mixin fixed-controls-top-right {
   position: fixed;
   top: $spacing-md;
   right: $spacing-md;
   z-index: $z-index-toggle;
+  display: flex;
+  gap: $spacing-md;
 }

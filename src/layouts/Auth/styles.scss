@@ -10,12 +10,26 @@
   padding: $spacing-md;
   background-color: var(--background);
 
-  &__theme-toggle {
-    @include theme-toggle-position;
+  &__fixed-controls {
+    @include fixed-controls-top-right;
+  }
+
+  &__container {
+    width: 100%;
+    max-width: 28rem; // 448px ~ md
   }
 
   &__content {
-    width: 100%;
-    max-width: 28rem; // 448px ~ md
+    padding: $spacing-2xl;
+    background-color: var(--background);
+    border-radius: $border-radius-md;
+    transition: all $transition-default;
+  }
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    margin: $spacing-2xl 0;
+    color: var(--text-primary);
   }
 }

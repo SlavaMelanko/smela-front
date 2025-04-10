@@ -3,7 +3,6 @@ import './styles.scss'
 import { useForm } from 'react-hook-form'
 
 import { GoogleLoginButton, PrimaryButton } from '@/components/Button'
-import { MassiveLogo } from '@/components/icons'
 import { PasswordInput, TextInput } from '@/components/inputs'
 import FormField from '@/components/inputs/Form'
 import Separator from '@/components/Separator'

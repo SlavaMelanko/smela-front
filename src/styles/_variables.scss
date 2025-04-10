@@ -21,6 +21,11 @@ $font-weight-normal: 400;
 $font-weight-medium: 500;
 $font-weight-bold: 700;
 
+// Line heights
+$line-height-sm: 1.2;
+$line-height-md: 1.4;
+$line-height-lg: 1.6;
+
 // Border radius
 $border-radius-sm: 0.375rem;
 $border-radius-md: 0.5rem;
@@ -33,7 +38,7 @@ $breakpoint-lg: 1024px;
 $breakpoint-xl: 1280px;
 
 // Transitions
-$transition-default: 0.3s ease;
+$transition-default: 0.3s ease-in-out;
 
 // Z-index
 $z-index-toggle: 10;
