@@ -1,6 +1,6 @@
 const FormField = ({ label, name, error, children }) => {
   return (
-    <div className='form-field'>
+    <div className={`form-field ${error ? 'form-field--has-error' : ''}`}>
       {label && (
         <label htmlFor={name} className='form-field__label'>
           {label}
@@ -9,7 +9,7 @@ const FormField = ({ label, name, error, children }) => {
 
       <div className='form-field__control'>{children}</div>
 
-      {error && <p className='form-field__error'>{error}</p>}
+      {error && <div className='form-field__error'>{error}</div>}
     </div>
   )
 }

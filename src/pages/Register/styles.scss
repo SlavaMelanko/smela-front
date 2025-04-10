@@ -44,21 +44,60 @@
   }
 }
 
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
 .form-field {
+  position: relative;
+  transition: 0.3s ease-in-out;
+
   &__label {
     display: block;
     font-size: $font-size-md;
     font-weight: $font-weight-medium;
     color: var(--text-primary);
+
+    &::after {
+      content: '*';
+      color: var(--text-error);
+      margin-left: $spacing-xs;
+    }
   }
 
   &__control {
     display: flex;
     flex-direction: column;
+    margin-bottom: 1rem;
   }
 
   &__error {
     font-size: $font-size-sm;
     color: var(--text-error);
+    bottom: -10px;
+    position: absolute;
+    text-align: left;
+    transform-origin: top;
+    overflow: hidden;
+
+    opacity: 0;
+    transform: translateY(-10px) scaleY(0);
+
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
+
+  &--has-error {
+    .form-field__error {
+      animation-name: slide-down;
+    }
   }
 }
