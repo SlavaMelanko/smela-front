@@ -6,10 +6,8 @@ import { GoogleLoginButton, PrimaryButton } from '@/components/Button'
 import FormField from '@/components/form/Field'
 import { PasswordInput, TextInput } from '@/components/inputs'
 import Separator from '@/components/Separator'
-import {
-  registerSchema,
-  useYupValidationResolver
-} from '@/lib/useYupValidationResolver'
+import { useYupValidationResolver } from '@/lib/useYupValidationResolver'
+import { registerSchema } from '@/lib/validation/schemas/auth'
 
 import ForgotYourPasswordPrompt from '../Login/ForgotYourPasswordPrompt'
 import FormFieldEnum, { getDefaultValues } from './formFields'
