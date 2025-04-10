@@ -1,6 +1,15 @@
-const FormField = ({ label, name, error, children }) => {
+import './styles.scss'
+
+import clsx from 'clsx'
+
+const FormField = ({ label, name, error, children, required }) => {
+  const containerClass = clsx('form-field', {
+    'form-field--with-error': !!error,
+    'form-field--required': required
+  })
+
   return (
-    <div className={`form-field ${error ? 'form-field--has-error' : ''}`}>
+    <div className={containerClass}>
       {label && (
         <label htmlFor={name} className='form-field__label'>
           {label}

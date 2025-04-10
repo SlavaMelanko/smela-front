@@ -3,7 +3,7 @@ import './styles.scss'
 import { useForm } from 'react-hook-form'
 
 import { GoogleLoginButton, PrimaryButton } from '@/components/Button'
-import FormField from '@/components/Form'
+import FormField from '@/components/form/Field'
 import { PasswordInput, TextInput } from '@/components/inputs'
 import Separator from '@/components/Separator'
 import {
@@ -39,6 +39,7 @@ const Register = () => {
             label='First Name'
             name={FormFieldEnum.FIRST_NAME}
             error={errors.firstName?.message}
+            required
           >
             <TextInput
               name={FormFieldEnum.FIRST_NAME}
@@ -52,6 +53,7 @@ const Register = () => {
             label='Last Name'
             name={FormFieldEnum.LAST_NAME}
             error={errors.lastName?.message}
+            required
           >
             <TextInput
               name={FormFieldEnum.LAST_NAME}
@@ -65,6 +67,7 @@ const Register = () => {
             label='Email'
             name={FormFieldEnum.EMAIL}
             error={errors.email?.message}
+            required
           >
             <TextInput
               name={FormFieldEnum.EMAIL}
@@ -78,6 +81,7 @@ const Register = () => {
             label='Password'
             name={FormFieldEnum.PASSWORD}
             error={errors.password?.message}
+            required
           >
             <PasswordInput
               name={FormFieldEnum.PASSWORD}
@@ -90,6 +94,7 @@ const Register = () => {
             label='Confirm Password'
             name={FormFieldEnum.CONFIRM_PASSWORD}
             error={errors.confirmPassword?.message}
+            required
           >
             <PasswordInput
               name={FormFieldEnum.CONFIRM_PASSWORD}
@@ -101,6 +106,7 @@ const Register = () => {
           <FormField
             name={FormFieldEnum.ACCEPT_TERMS}
             error={errors.acceptTerms?.message}
+            required
           >
             <div className='register-page__checkbox'>
               <input
