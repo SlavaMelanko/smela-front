@@ -2,33 +2,23 @@ import './styles.scss'
 
 import clsx from 'clsx'
 import { ChevronDown } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
+
+import useOutsideClick from '@/hooks/useOutsideClick'
 
 import Dropdown from './Dropdown'
+import Flag from './Flag'
 import { languages } from './languages'
 
 const LanguageSelector = ({ className = '' }) => {
   const [currentLanguage, setCurrentLanguage] = useState(languages[0])
-  const [isOpen, setIsOpen] = useState(false)
-  const ref = useRef(null)
+  const { ref, isActive, setIsActive } = useOutsideClick()
 
-  useEffect(() => {
-    const handleClickOutside = event => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setIsOpen(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  const toggle = () => setIsOpen(prev => !prev)
+  const toggle = () => setIsActive(prev => !prev)
 
   const handleSelect = lang => {
     setCurrentLanguage(lang)
-    setIsOpen(false)
+    setIsActive(false)
     // TODO: i18n logic
   }
 
@@ -39,11 +29,15 @@ const LanguageSelector = ({ className = '' }) => {
         className='language-selector__button'
         aria-label='Change language'
       >
-        <span className='language-selector__flag'>{currentLanguage.flag}</span>
+        <Flag
+          code={currentLanguage.code}
+          flag={currentLanguage.flag}
+          className='language-selector__flag'
+        />
         <ChevronDown className='language-selector__icon' />
       </button>
 
-      {isOpen && (
+      {isActive && (
         <Dropdown
           languages={languages}
           currentLanguage={currentLanguage}
