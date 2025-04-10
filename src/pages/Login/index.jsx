@@ -30,12 +30,18 @@ const Login = () => {
   const onSubmit = data => {
     console.log(data)
   }
+  // TODO: required as default? 🤔
 
   return (
     <div className='login-page'>
       <form className='login-page__form' onSubmit={handleSubmit(onSubmit)}>
         <div className='login-page__fields'>
-          <FormField label='Email' name='email' error={errors.email?.message}>
+          <FormField
+            label='Email'
+            name='email'
+            error={errors.email?.message}
+            required
+          >
             <TextInput
               name='email'
               placeholder='example@email.com'
@@ -48,6 +54,7 @@ const Login = () => {
             label='Password'
             name='password'
             error={errors.password?.message}
+            required
           >
             <PasswordInput
               name='password'
