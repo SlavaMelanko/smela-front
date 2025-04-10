@@ -34,6 +34,7 @@ const PricingPlansPage = () => {
         }
       ],
       buttonText: 'Sign Up Now',
+      redirectPath: '/register',
       hasDiscount: true
     },
     {
@@ -70,6 +71,7 @@ const PricingPlansPage = () => {
         }
       ],
       buttonText: 'Sign Up Now',
+      redirectPath: '/register',
       hasDiscount: true
     },
     {
@@ -106,6 +108,7 @@ const PricingPlansPage = () => {
         }
       ],
       buttonText: 'Sign Up Now',
+      redirectPath: '/register',
       hasDiscount: true
     },
     {
@@ -142,6 +145,7 @@ const PricingPlansPage = () => {
         }
       ],
       buttonText: 'Sign Up Now',
+      redirectPath: '/register',
       hasDiscount: true
     },
     {
@@ -154,6 +158,7 @@ const PricingPlansPage = () => {
       },
       customMessage: 'Not seeing a plan that fits your needs? We can help.',
       buttonText: 'Contact Us',
+      redirectPath: '/register',
       hasDiscount: false
     }
   ]

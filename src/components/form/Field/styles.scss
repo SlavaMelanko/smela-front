@@ -1,0 +1,60 @@
+@use '../../../styles/variables' as *;
+
+.form-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all $transition-default;
+
+  &__label {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    line-height: $line-height-md;
+    color: var(--text-primary);
+
+    .form-field--required &::after {
+      margin-left: $spacing-xs;
+      color: var(--text-error);
+      content: '*';
+    }
+  }
+
+  &__control {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__error {
+    position: absolute;
+    bottom: -#{$spacing-lg};
+    overflow: hidden;
+    font-size: $font-size-xs;
+    color: var(--text-error);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(-12px);
+    animation: fade-slide-down 0.3s ease-out forwards;
+  }
+
+  &--with-error {
+    margin-bottom: $spacing-md;
+
+    .form-field__error {
+      animation-name: fade-slide-down;
+    }
+  }
+}
+
+@keyframes fade-slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

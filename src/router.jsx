@@ -4,6 +4,7 @@ import RootRedirect from './components/RootRedirect'
 import { AuthLayout, PublicLayout } from './layouts'
 import LoginPage from './pages/Login'
 import PricingPlansPage from './pages/PricingPlans'
+import RegisterPage from './pages/Register'
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,10 @@ const router = createBrowserRouter([
   },
   {
     element: <AuthLayout />,
-    children: [{ path: 'login', element: <LoginPage /> }]
+    children: [
+      { path: 'login', element: <LoginPage /> },
+      { path: 'register', element: <RegisterPage /> }
+    ]
   },
   {
     path: '*',

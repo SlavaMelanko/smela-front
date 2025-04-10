@@ -25,6 +25,16 @@
     &--with-icon {
       padding-right: 2.5rem;
     }
+
+    &--error {
+      border-color: var(--text-error);
+      border-width: 0;
+      border-bottom-width: 1px;
+
+      &:focus {
+        border-bottom-color: var(--text-error);
+      }
+    }
   }
 
   &__icon {

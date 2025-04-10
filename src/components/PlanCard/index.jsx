@@ -1,6 +1,7 @@
 import './styles.scss'
 
 import { Globe } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const PlanCard = ({
   title,
@@ -10,10 +11,17 @@ const PlanCard = ({
   totalPrice,
   features,
   buttonText,
+  redirectPath,
   hasDiscount,
   customPricing,
   customMessage
 }) => {
+  const navigate = useNavigate()
+
+  const handleNavigate = () => {
+    navigate(redirectPath)
+  }
+
   return (
     <div className='plan-card'>
       {hasDiscount && (
@@ -73,7 +81,9 @@ const PlanCard = ({
         </>
       )}
 
-      <button className='plan-card__button'>{buttonText}</button>
+      <button className='plan-card__button' onClick={handleNavigate}>
+        {buttonText}
+      </button>
     </div>
   )
 }
