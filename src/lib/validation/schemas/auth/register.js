@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 import { email, firstName, lastName, password } from './rules'
 
-export const registerSchema = yup.object({
+export const register = yup.object({
   firstName,
   lastName,
   email,

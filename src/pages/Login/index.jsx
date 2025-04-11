@@ -7,13 +7,13 @@ import FormField from '@/components/form/Field'
 import { PasswordInput, TextInput } from '@/components/inputs'
 import Separator from '@/components/Separator'
 import { useYupValidationResolver } from '@/lib/useYupValidationResolver'
-import { loginSchema } from '@/lib/validation/schemas/auth'
+import { login } from '@/lib/validation/schemas/auth'
 
 import ForgotYourPasswordPrompt from './ForgotYourPasswordPrompt'
 import SignupPrompt from './SignupPrompt'
 
 const Login = () => {
-  const resolver = useYupValidationResolver(loginSchema)
+  const resolver = useYupValidationResolver(login)
 
   const {
     register,
