@@ -1,29 +1,12 @@
 import * as yup from 'yup'
 
+import { email, firstName, lastName, password } from './rules'
+
 export const registerSchema = yup.object({
-  firstName: yup
-    .string()
-    .required('Please provide your first name.')
-    .min(2, 'Your first name should have at least 2 characters.')
-    .max(50, 'Your first name can have up to 50 characters.'),
-
-  lastName: yup
-    .string()
-    .required('Please provide your last name.')
-    .min(2, 'Your last name should have at least 2 characters.')
-    .max(50, 'Your last name can have up to 50 characters.'),
-
-  email: yup
-    .string()
-    .required('Please provide your email address.')
-    .email('Kindly enter a valid email address.'),
-
-  password: yup
-    .string()
-    .required('Please create a password.')
-    .min(6, 'Your password should have at least 6 characters.')
-    .matches(/[a-zA-Z]/, 'Your password should only contain Latin letters.'),
-
+  firstName,
+  lastName,
+  email,
+  password,
   confirmPassword: yup
     .string()
     .required('Please confirm your password.')
