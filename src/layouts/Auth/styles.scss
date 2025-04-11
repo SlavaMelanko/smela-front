@@ -2,13 +2,11 @@
 @use '../../styles/mixins' as *;
 
 .auth-layout {
-  display: flex;
+  @include flex-center;
+
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   min-height: 100vh;
   padding: $spacing-md;
-  background-color: var(--background);
 
   &__fixed-controls {
     @include fixed-controls-top-right;
@@ -27,8 +25,8 @@
   }
 
   &__logo {
-    display: flex;
-    justify-content: center;
+    @include flex-center;
+
     margin: $spacing-2xl 0;
     color: var(--text-primary);
   }

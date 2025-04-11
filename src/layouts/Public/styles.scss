@@ -2,6 +2,10 @@
 @use '../../styles/mixins' as *;
 
 .public-layout {
+  @include flex-center;
+
+  flex-direction: column;
+  min-height: 100vh;
   padding: $spacing-3xl $spacing-md;
 
   &__fixed-controls {
