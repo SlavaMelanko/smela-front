@@ -42,7 +42,6 @@ const Register = () => {
             required
           >
             <TextInput
-              name={FormFieldEnum.FIRST_NAME}
               placeholder='Insert first name'
               {...register(FormFieldEnum.FIRST_NAME)}
             />
@@ -55,7 +54,6 @@ const Register = () => {
             required
           >
             <TextInput
-              name={FormFieldEnum.LAST_NAME}
               placeholder='Insert last name'
               {...register(FormFieldEnum.LAST_NAME)}
             />
@@ -68,7 +66,6 @@ const Register = () => {
             required
           >
             <TextInput
-              name={FormFieldEnum.EMAIL}
               placeholder='example@email.com'
               {...register(FormFieldEnum.EMAIL)}
             />
@@ -80,10 +77,7 @@ const Register = () => {
             error={errors.password?.message}
             required
           >
-            <PasswordInput
-              name={FormFieldEnum.PASSWORD}
-              {...register(FormFieldEnum.PASSWORD)}
-            />
+            <PasswordInput {...register(FormFieldEnum.PASSWORD)} />
           </FormField>
 
           <FormField
@@ -92,10 +86,7 @@ const Register = () => {
             error={errors.confirmPassword?.message}
             required
           >
-            <PasswordInput
-              name={FormFieldEnum.CONFIRM_PASSWORD}
-              {...register(FormFieldEnum.CONFIRM_PASSWORD)}
-            />
+            <PasswordInput {...register(FormFieldEnum.CONFIRM_PASSWORD)} />
           </FormField>
 
           <FormField

@@ -38,15 +38,11 @@ const Login = () => {
       <form className='login-page__form' onSubmit={handleSubmit(onSubmit)}>
         <div className='login-page__fields'>
           <FormField name='email' error={errors.email?.message} required>
-            <TextInput
-              name='email'
-              placeholder='example@email.com'
-              {...register('email')}
-            />
+            <TextInput placeholder='example@email.com' {...register('email')} />
           </FormField>
 
           <FormField name='password' error={errors.password?.message} required>
-            <PasswordInput name='password' {...register('password')} />
+            <PasswordInput {...register('password')} />
           </FormField>
         </div>
 

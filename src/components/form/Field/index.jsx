@@ -9,9 +9,13 @@ const FormField = ({ name, label, required, children, error }) => {
     'form-field--with-error': !!error
   })
 
-  const childrenWrapper = error
+  const wrappedChild = error
     ? React.cloneElement(children, {
-        className: clsx(children.props.className, 'input__field--error')
+        ...children.props,
+        name,
+        className: clsx(children.props.className, {
+          'input__field--error': !!error
+        })
       })
     : children
 
@@ -23,7 +27,7 @@ const FormField = ({ name, label, required, children, error }) => {
         </label>
       )}
 
-      <div className='form-field__control'>{childrenWrapper}</div>
+      <div className='form-field__control'>{wrappedChild}</div>
 
       {error && <div className='form-field__error'>{error}</div>}
     </div>
