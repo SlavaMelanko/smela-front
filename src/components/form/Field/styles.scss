@@ -34,7 +34,7 @@
     color: var(--text-error);
     white-space: nowrap;
     opacity: 0;
-    transform: translateY(-12px);
+    transform: translateY(-6px);
     animation: fade-slide-down 0.3s ease-out forwards;
   }
 
@@ -50,7 +50,7 @@
 @keyframes fade-slide-down {
   0% {
     opacity: 0;
-    transform: translateY(-12px);
+    transform: translateY(-6px);
   }
 
   100% {

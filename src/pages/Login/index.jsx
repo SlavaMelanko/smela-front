@@ -41,17 +41,12 @@ const Login = () => {
             <TextInput
               name='email'
               placeholder='example@email.com'
-              error={errors.email?.message}
               {...register('email')}
             />
           </FormField>
 
           <FormField name='password' error={errors.password?.message} required>
-            <PasswordInput
-              name='password'
-              error={errors.password?.message}
-              {...register('password')}
-            />
+            <PasswordInput name='password' {...register('password')} />
           </FormField>
         </div>
 

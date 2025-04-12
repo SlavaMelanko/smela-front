@@ -1,12 +1,19 @@
 import './styles.scss'
 
 import clsx from 'clsx'
+import React from 'react'
 
-const FormField = ({ label, name, error, children, required }) => {
+const FormField = ({ name, label, required, children, error }) => {
   const containerClass = clsx('form-field', {
-    'form-field--with-error': !!error,
-    'form-field--required': required
+    'form-field--required': required,
+    'form-field--with-error': !!error
   })
+
+  const childrenWrapper = error
+    ? React.cloneElement(children, {
+        className: clsx(children.props.className, 'input__field--error')
+      })
+    : children
 
   return (
     <div className={containerClass}>
@@ -16,7 +23,7 @@ const FormField = ({ label, name, error, children, required }) => {
         </label>
       )}
 
-      <div className='form-field__control'>{children}</div>
+      <div className='form-field__control'>{childrenWrapper}</div>
 
       {error && <div className='form-field__error'>{error}</div>}
     </div>
