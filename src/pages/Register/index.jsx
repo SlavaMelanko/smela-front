@@ -2,7 +2,7 @@ import './styles.scss'
 
 import { useForm } from 'react-hook-form'
 
-import { GoogleLoginButton, PrimaryButton } from '@/components/Button'
+import { GoogleOAuthButton, PrimaryButton } from '@/components/buttons'
 import FormField from '@/components/form/Field'
 import { PasswordInput, TextInput } from '@/components/inputs'
 import Separator from '@/components/Separator'
@@ -120,12 +120,16 @@ const Register = () => {
             </div>
           </FormField>
         </div>
+
         <PrimaryButton type='submit'>Register</PrimaryButton>
       </form>
+
       <div className='register-page__separator'>
         <Separator />
       </div>
-      <GoogleLoginButton />
+
+      <GoogleOAuthButton text='Continue with Google' />
+
       <div className='register-page__prompts'>
         <LoginPrompt />
         <ForgotYourPasswordPrompt />

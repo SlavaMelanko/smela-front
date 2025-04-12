@@ -14,3 +14,12 @@
   align-items: center;
   justify-content: center;
 }
+
+@mixin button-base {
+  width: 100%;
+  padding: 0.75rem $spacing-md;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  border-radius: $border-radius-sm;
+  transition: all $transition-default;
+}
