@@ -1,0 +1,13 @@
+{
+  "auth": {
+    "login": "Login",
+    "continueWithGoogle": "Continue with Google",
+    "dontHaveAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "forgotPassword": "Forgot your password?"
+  },
+  "common": {
+    "processing": "Processing...",
+    "or": "or"
+  }
+}

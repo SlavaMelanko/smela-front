@@ -1,6 +1,6 @@
 import './styles.scss'
 
-const Separator = ({ text = 'or' }) => {
+const Separator = ({ text }) => {
   return (
     <div className='separator'>
       <div className='separator__line-wrapper'>

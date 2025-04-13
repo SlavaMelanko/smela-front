@@ -2,10 +2,12 @@ import { createContext, useEffect, useState } from 'react'
 
 import storage from '@/lib/storage'
 
+const THEME_STORAGE_KEY = 'theme'
+
 const ThemeContext = createContext()
 
 const getInitialTheme = () => {
-  const savedTheme = storage.get('theme')
+  const savedTheme = storage.get(THEME_STORAGE_KEY)
 
   if (savedTheme) {
     return savedTheme
@@ -26,7 +28,7 @@ export const ThemeProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    storage.set('theme', theme)
+    storage.set(THEME_STORAGE_KEY, theme)
 
     const root = document.documentElement
 
