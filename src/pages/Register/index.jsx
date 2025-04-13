@@ -21,7 +21,7 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     resolver,
     defaultValues: getDefaultValues()
@@ -107,7 +107,9 @@ const Register = () => {
           </FormField>
         </div>
 
-        <PrimaryButton type='submit'>Register</PrimaryButton>
+        <PrimaryButton type='submit' disabled={isSubmitting}>
+          {isSubmitting ? 'Processing...' : 'Register'}
+        </PrimaryButton>
       </form>
 
       <div className='register-page__separator'>

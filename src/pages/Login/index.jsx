@@ -20,7 +20,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     resolver,
     defaultValues: {
@@ -46,7 +46,9 @@ const Login = () => {
           </FormField>
         </div>
 
-        <PrimaryButton type='submit'>Login</PrimaryButton>
+        <PrimaryButton type='submit' disabled={isSubmitting}>
+          {isSubmitting ? 'Processing...' : 'Login'}
+        </PrimaryButton>
       </form>
 
       <div className='login-page__separator'>
