@@ -1,6 +1,7 @@
 import './styles.scss'
 
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 import { GoogleOAuthButton, PrimaryButton } from '@/components/buttons'
 import FormField from '@/components/form/Field'
@@ -15,6 +16,7 @@ import ForgotYourPasswordPrompt from './ForgotYourPasswordPrompt'
 import SignupPrompt from './SignupPrompt'
 
 const Login = () => {
+  const { t } = useTranslation()
   const resolver = useYupValidationResolver(loginSchema)
 
   const {
@@ -47,15 +49,15 @@ const Login = () => {
         </div>
 
         <PrimaryButton type='submit' disabled={isSubmitting}>
-          {isSubmitting ? 'Processing...' : 'Login'}
+          {isSubmitting ? t('common.processing') : t('auth.login')}
         </PrimaryButton>
       </form>
 
       <div className='login-page__separator'>
-        <Separator />
+        <Separator text={t('common.or')} />
       </div>
 
-      <GoogleOAuthButton text='Continue with Google' />
+      <GoogleOAuthButton text={t('auth.continueWithGoogle')} />
 
       <div className='login-page__prompts'>
         <SignupPrompt />

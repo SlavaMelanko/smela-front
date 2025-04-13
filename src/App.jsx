@@ -1,12 +1,16 @@
 import { RouterProvider } from 'react-router-dom'
 
-import { ThemeProvider } from './contexts/ThemeContext'
+import { LocaleProvider } from '@/contexts/LocaleContext'
+import { ThemeProvider } from '@/contexts/ThemeContext'
+
 import router from './router.jsx'
 
 function App() {
   return (
     <ThemeProvider>
-      <RouterProvider router={router} />
+      <LocaleProvider>
+        <RouterProvider router={router} />
+      </LocaleProvider>
     </ThemeProvider>
   )
 }

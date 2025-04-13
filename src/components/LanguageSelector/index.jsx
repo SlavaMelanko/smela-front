@@ -2,8 +2,9 @@ import './styles.scss'
 
 import clsx from 'clsx'
 import { ChevronDown } from 'lucide-react'
-import { useState } from 'react'
+import { useContext } from 'react'
 
+import LocaleContext from '@/contexts/LocaleContext'
 import useOutsideClick from '@/hooks/useOutsideClick'
 
 import Dropdown from './Dropdown'
@@ -11,15 +12,18 @@ import Flag from './Flag'
 import { languages } from './languages'
 
 const LanguageSelector = ({ className = '' }) => {
-  const [currentLanguage, setCurrentLanguage] = useState(languages[0])
+  const { locale, changeLocale } = useContext(LocaleContext)
+
   const { ref, isActive, setIsActive } = useOutsideClick()
+
+  const currentLanguage =
+    languages.find(lang => lang.code === locale) || languages[0]
 
   const toggle = () => setIsActive(prev => !prev)
 
   const handleSelect = lang => {
-    setCurrentLanguage(lang)
+    changeLocale(lang.code)
     setIsActive(false)
-    // TODO: i18n logic
   }
 
   return (
