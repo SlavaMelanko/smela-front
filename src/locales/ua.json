@@ -2,9 +2,11 @@
   "auth": {
     "login": "Увійти",
     "continueWithGoogle": "Увійти через Google",
+    "haveAccount": "Вже маєте акаунт?",
     "dontHaveAccount": "Новенький тут?",
     "signUp": "Зареєструватися",
-    "forgotPassword": "От халепа! Забули пароль?"
+    "forgotPassword": "От халепа! Забули пароль?",
+    "reset": "Скинути пароль"
   },
   "common": {
     "processing": "В процесі...",

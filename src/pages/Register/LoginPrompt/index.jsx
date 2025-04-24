@@ -1,10 +1,17 @@
+import './styles.scss'
+
+import { useTranslation } from 'react-i18next'
+
 import InternalLink from '@/components/links/InternalLink'
 
 const LoginPrompt = () => {
+  const { t } = useTranslation()
+
   return (
-    <p className='login-prompt'>
-      Already have an account? <InternalLink to='/login'>Log in</InternalLink>
-    </p>
+    <div className='login-prompt'>
+      {t('auth.haveAccount')}
+      <InternalLink to='/login'>{t('auth.login')}</InternalLink>
+    </div>
   )
 }
 

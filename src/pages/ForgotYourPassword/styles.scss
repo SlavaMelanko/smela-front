@@ -1,0 +1,23 @@
+@use '../../styles/variables' as *;
+
+.forgot-password-page {
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    margin-bottom: $spacing-2xl;
+  }
+
+  &__prompt {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+    align-items: center;
+    margin-top: $spacing-2xl;
+  }
+}

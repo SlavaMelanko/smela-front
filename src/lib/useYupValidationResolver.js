@@ -36,6 +36,15 @@ export const useYupValidationResolver = validationSchema =>
     [validationSchema]
   )
 
+export const resetPasswordSchema = yup.object({
+  email: yup
+    .string()
+    .required('Please provide your email address.')
+    .email('Kindly enter a valid email address.'),
+
+  captcha: yup.string().required('Please complete the CAPTCHA verification.')
+})
+
 export const registerSchema = yup.object({
   firstName: yup
     .string()

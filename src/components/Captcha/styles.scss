@@ -1,0 +1,10 @@
+.captcha-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // Wrapper added by HCaptcha
+  > div {
+    max-height: 74px;
+  }
+}

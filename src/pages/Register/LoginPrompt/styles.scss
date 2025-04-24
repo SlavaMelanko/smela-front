@@ -1,1 +1,8 @@
 @use '../../../styles/variables' as *;
+
+.login-prompt {
+  color: var(--text-secondary);
+  text-align: center;
+  display: flex;
+  gap: 4px;
+}

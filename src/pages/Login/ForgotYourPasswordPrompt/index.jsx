@@ -9,7 +9,7 @@ const ForgotYourPasswordPrompt = () => {
 
   return (
     <p className='forgot-your-password-prompt'>
-      <InternalLink to='/forgot-password' size='sm'>
+      <InternalLink to='/forgot-your-password' size='sm'>
         {t('auth.forgotPassword')}
       </InternalLink>
     </p>
