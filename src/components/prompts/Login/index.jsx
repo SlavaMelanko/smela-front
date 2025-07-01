@@ -1,3 +1,5 @@
+import './styles.scss'
+
 import InternalLink from '@/components/links/InternalLink'
 import useLocale from '@/hooks/useLocale'
 
