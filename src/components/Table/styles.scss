@@ -1,0 +1,34 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.table {
+  width: 100%;
+  overflow: hidden;
+  font-size: $font-size-sm;
+  color: var(--text-primary);
+  border-collapse: collapse;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-md;
+
+  th,
+  td {
+    padding: $spacing-md $spacing-lg;
+    text-align: center;
+    border: 1px solid var(--border-color);
+  }
+
+  th {
+    font-weight: $font-weight-semibold;
+    color: var(--text-primary);
+    cursor: pointer;
+    user-select: none;
+    background: var(--bg-primary);
+    transition: background $transition-default;
+
+    &:hover {
+      background: var(--bg-secondary);
+    }
+  }
+}
