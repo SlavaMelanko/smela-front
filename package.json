@@ -17,8 +17,7 @@
     "lint:styles": "stylelint 'src/**/*.{scss,css}'",
     "lint:styles:fix": "stylelint 'src/**/*.{scss,css}' --fix",
     "prepare": "husky",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "storybook": "storybook dev -p 6006"
   },
   "lint-staged": {
     "*.{js,jsx}": [

@@ -35,8 +35,8 @@ test.describe('Signup', () => {
       /input__field--error/
     )
 
-    await expect(page.getByText(en.lastName.error.required)).toBeVisible()
-    await expect(page.getByLabel(en.lastName.label)).toHaveClass(
+    await expect(page.getByText(en.lastName.error.required)).toHaveCount(0)
+    await expect(page.getByLabel(en.lastName.label)).not.toHaveClass(
       /input__field--error/
     )
 

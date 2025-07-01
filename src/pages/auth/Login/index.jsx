@@ -54,7 +54,6 @@ const Login = () => {
       <GoogleOAuthButton
         text={t('continueWithGoogle')}
         onClick={handleLoginWithGoogle}
-        disabled
       />
       <div className='login-page__prompts'>
         <SignupPrompt />

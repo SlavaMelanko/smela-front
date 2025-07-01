@@ -16,7 +16,7 @@ echo "Running lint-staged..."
 
 npx lint-staged
 
-echo "Lint staged completed✅" 
+echo "Lint staged completed✅"
 
 echo "Checking for staged styles..."
 STAGED_STYLES=$(echo "$STAGED_FILES" | grep -E '\.scss$|\.css$' || true)
