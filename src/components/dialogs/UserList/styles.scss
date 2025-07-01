@@ -1,0 +1,20 @@
+@use '../../Table/styles.scss' as *;
+
+.user-list {
+  &__controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  &__search-input {
+    flex: 1;
+  }
+
+  &__pagination {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+  }
+}
