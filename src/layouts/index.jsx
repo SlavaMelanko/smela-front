@@ -1,4 +1,6 @@
 import AuthLayout from './Auth'
+import LegalLayout from './Legal'
 import PublicLayout from './Public'
+import UserLayout from './User'
 
-export { AuthLayout, PublicLayout }
+export { AuthLayout, LegalLayout, PublicLayout, UserLayout }

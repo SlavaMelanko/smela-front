@@ -1,23 +1,25 @@
+@use '../../../styles/variables' as *;
+
 .internal-link {
-  font-weight: 500;
+  font-weight: $font-weight-medium;
   color: #7678ed;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.3s;
 
   &:hover {
     color: #5658cd;
   }
 
   &--sm {
-    font-size: 0.875rem;
+    font-size: $font-size-xs;
   }
 
   &--md {
-    font-size: 1rem;
+    font-size: $font-size-sm;
   }
 
   &--lg {
-    font-size: 1.125rem;
+    font-size: $font-size-md;
   }
 
   &--underline-hover {

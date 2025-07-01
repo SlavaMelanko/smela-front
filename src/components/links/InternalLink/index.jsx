@@ -8,7 +8,9 @@ const InternalLink = ({
   children,
   size = 'md',
   underline = 'hover', // 'hover' | 'always' | 'none'
-  className = ''
+  className = '',
+  newTab = false,
+  ...rest
 }) => {
   const underlineClass =
     underline === 'always'
@@ -26,6 +28,8 @@ const InternalLink = ({
         underlineClass,
         className
       )}
+      {...(newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      {...rest}
     >
       {children}
     </Link>

@@ -1,0 +1,69 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.modal-content {
+  @include flex-column;
+
+  position: relative;
+  z-index: $z-index-modal;
+  width: 100%;
+  max-width: $modal-size-md;
+  max-height: 90vh;
+  margin: $spacing-md;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-lg;
+
+  &--xs {
+    max-width: $modal-size-xs;
+  }
+
+  &--sm {
+    max-width: $modal-size-sm;
+  }
+
+  &--md {
+    max-width: $modal-size-md;
+  }
+
+  &--lg {
+    max-width: $modal-size-lg;
+  }
+
+  &--xl {
+    max-width: $modal-size-xl;
+  }
+
+  &--full {
+    width: 100vw;
+    max-width: $modal-size-full;
+    height: 100vh;
+    max-height: 100vh;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  &--centered {
+    margin: auto;
+  }
+
+  &--full-height {
+    height: 90vh;
+    max-height: 90vh;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    &:not(&--full) {
+      max-width: calc(100vw - #{$spacing-lg});
+      margin: $spacing-md auto;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    &:not(&--full) {
+      max-width: calc(100vw - #{$spacing-md});
+      margin: $spacing-sm auto;
+    }
+  }
+}

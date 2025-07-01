@@ -1,0 +1,44 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.mobile-menu-toggle {
+  @include action-button-base;
+
+  position: relative;
+  width: 2.125rem; // 34px
+  height: 2.125rem; // 34px
+
+  // Inner icons (hamburger & close)
+  &__icon {
+    @include flex-center;
+
+    position: absolute;
+    transition:
+      opacity $transition-default,
+      transform $transition-default;
+  }
+
+  // Default (sidebar closed) states
+  &__icon--menu {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+
+  &__icon--close {
+    opacity: 0;
+    transform: rotate(90deg) scale(0);
+  }
+
+  // Modifier: sidebar open → show X, hide hamburger
+  &--open {
+    .mobile-menu-toggle__icon--menu {
+      opacity: 0;
+      transform: rotate(90deg) scale(0);
+    }
+
+    .mobile-menu-toggle__icon--close {
+      opacity: 1;
+      transform: rotate(0) scale(1);
+    }
+  }
+}

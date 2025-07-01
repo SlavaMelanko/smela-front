@@ -1,0 +1,49 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.sidebar-sub-item {
+  @include flex-center;
+
+  gap: $spacing-xs;
+
+  &__button {
+    @include sidebar-button-base($spacing-xs, $spacing-sm);
+
+    font-size: $font-size-xs;
+    font-weight: $font-weight-light;
+  }
+
+  &--active {
+    .sidebar-sub-item__button {
+      color: var(--orange);
+    }
+
+    .active-indicator {
+      background-color: var(--orange);
+    }
+  }
+
+  &__content-left {
+    display: flex;
+    flex: 1;
+    gap: $spacing-sm;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  &__label {
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: $font-weight-normal;
+    white-space: nowrap;
+  }
+
+  &__content-right {
+    display: flex;
+    flex-shrink: 0;
+    gap: $spacing-xs;
+    align-items: center;
+    padding-right: $spacing-sm;
+  }
+}

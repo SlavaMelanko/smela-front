@@ -1,0 +1,5 @@
+@use '../../../../styles/mixins' as *;
+
+.reset-password-password-form {
+  @include form-layout;
+}

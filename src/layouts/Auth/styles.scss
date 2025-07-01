@@ -2,32 +2,33 @@
 @use '../../styles/mixins' as *;
 
 .auth-layout {
-  @include flex-center;
+  @include flex-center-column;
 
-  flex-direction: column;
   min-height: 100vh;
   padding: $spacing-md;
 
-  &__fixed-controls {
-    @include fixed-controls-top-right;
+  &__user-preferences {
+    @include controls-top-right;
   }
 
   &__container {
+    @include flex-column;
+
+    gap: $spacing-2xl;
     width: 100%;
     max-width: 28rem; // 448px ~ md
   }
 
-  &__content {
-    padding: $spacing-2xl;
-    background-color: var(--background);
-    border-radius: $border-radius-md;
-    transition: all $transition-default;
-  }
-
-  &__logo {
+  &__header {
     @include flex-center;
 
-    margin: $spacing-2xl 0;
     color: var(--text-primary);
+  }
+
+  &__content {
+    padding: 0 $spacing-2xl;
+    background-color: var(--bg-primary);
+    border-radius: $border-radius-md;
+    transition: all $transition-default;
   }
 }

@@ -14,6 +14,17 @@
     border-color: var(--button-primary-bg);
   }
 
+  &:disabled {
+    color: var(--text-disabled);
+    cursor: not-allowed;
+    background-color: var(--button-disabled-bg);
+    border-color: var(--border-disabled);
+
+    &:hover {
+      border-color: var(--border-disabled);
+    }
+  }
+
   &__icon {
     @include flex-center;
 

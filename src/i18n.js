@@ -8,16 +8,12 @@ import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
 import storage from '@/lib/storage'
-import en from '@/locales/en.json'
-import ua from '@/locales/ua.json'
+import { resources } from '@/locales'
 
 export const LOCALE_STORAGE_KEY = 'preferred_locale'
 
 i18n.use(initReactI18next).init({
-  resources: {
-    en: { translation: en },
-    ua: { translation: ua }
-  },
+  resources: resources,
   lng: storage.get(LOCALE_STORAGE_KEY, 'en'),
   fallbackLng: 'en',
   interpolation: {

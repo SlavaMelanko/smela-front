@@ -1,7 +1,6 @@
 import './styles.scss'
 
-import { Moon, Sun } from 'lucide-react'
-
+import { MoonIcon, SunIcon } from '@/components/icons'
 import useTheme from '@/hooks/useTheme'
 
 const ThemeToggle = () => {
@@ -9,17 +8,13 @@ const ThemeToggle = () => {
 
   return (
     <button
-      className='theme-toggle__button'
+      className='theme-toggle'
       onClick={toggleTheme}
       aria-label={
         theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
       }
     >
-      {theme === 'dark' ? (
-        <Sun size={20} className='theme-toggle__sun' />
-      ) : (
-        <Moon size={20} />
-      )}
+      {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
     </button>
   )
 }

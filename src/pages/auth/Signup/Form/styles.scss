@@ -1,0 +1,13 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.signup-form {
+  @include form-layout;
+
+  &__terms-and-conditions {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-light;
+    color: var(--text-disabled);
+    text-align: center;
+  }
+}

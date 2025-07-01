@@ -1,0 +1,6 @@
+echo "Run affected playwright tests..."
+npm run test:e2e:ci
+
+echo "pre-push activities finished!"
+
+echo "Don't push on main branch on Friday!🚀"

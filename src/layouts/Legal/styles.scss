@@ -1,0 +1,29 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.legal-layout {
+  @include flex-center-column;
+
+  min-height: 100vh;
+  padding: $spacing-4xl $spacing-md;
+
+  &__user-preferences {
+    @include controls-top-right;
+  }
+
+  &__container {
+    @include flex-center-column;
+
+    flex-grow: 1;
+    gap: $spacing-2xl;
+    width: 100%;
+    max-width: $breakpoint-lg;
+    margin: 0 auto;
+  }
+
+  &__content {
+    flex-grow: 1;
+    width: 100%;
+    padding: $spacing-md;
+  }
+}

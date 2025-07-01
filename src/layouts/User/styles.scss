@@ -1,0 +1,46 @@
+@use '../../styles/mixins' as *;
+@use '../../styles/variables' as *;
+
+.user-layout {
+  @include flex-column;
+
+  height: 100vh;
+
+  &__header {
+    z-index: $z-index-header;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    height: $header-height;
+    padding: 0 $spacing-xl;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+
+    @media (max-width: $breakpoint-md) {
+      padding: 0 $spacing-md;
+    }
+  }
+
+  &__main {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+  }
+
+  &__sidebar {
+    width: $sidebar-width;
+    overflow: hidden;
+    transition: width $transition-default;
+
+    &--collapsed {
+      width: 0;
+      transition-delay: $transition-default;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    padding: 1rem;
+    overflow: auto;
+  }
+}

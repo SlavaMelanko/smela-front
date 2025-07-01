@@ -6,9 +6,19 @@
 
   color: white;
   background-color: var(--button-primary-bg);
-  border: none;
 
   &:hover {
     background-color: var(--button-primary-hover);
+  }
+
+  &--outlined {
+    color: var(--button-primary-bg);
+    background-color: transparent;
+    border: 1px solid var(--button-primary-bg);
+
+    &:hover {
+      color: white;
+      background-color: var(--button-primary-bg);
+    }
   }
 }

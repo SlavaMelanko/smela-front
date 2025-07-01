@@ -1,0 +1,21 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+@use '../../../../styles/functions' as *;
+
+.bandwidth-container {
+  @include flex-center;
+
+  gap: $spacing-sm;
+
+  &__value {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-medium;
+    color: var(--text-primary);
+    transition: color $transition-default;
+  }
+
+  &__stub {
+    height: min-height-from-font($font-size-lg);
+    margin-bottom: $spacing-xl;
+  }
+}

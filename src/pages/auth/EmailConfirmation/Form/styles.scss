@@ -1,0 +1,5 @@
+@use '../../../../styles/mixins' as *;
+
+.email-confirmation-form {
+  @include form-layout;
+}

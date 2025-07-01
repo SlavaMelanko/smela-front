@@ -1,0 +1,63 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.notification-panel {
+  position: fixed;
+  top: calc($header-height + 1rem); // space between header and panel
+  right: $font-size-sm; // space from right edge
+  width: 100%;
+  max-width: 28rem;
+  height: calc(100vh - $header-height - 2rem); // top + bottom spacing
+  padding: $spacing-xl;
+  overflow-y: auto;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-lg;
+  transform: translateX(calc(100% + $font-size-sm));
+  transition: transform $transition-default;
+
+  &--open {
+    transform: translateX(0);
+  }
+
+  @media (max-width: $breakpoint-md) {
+    right: $font-size-sm;
+    left: $font-size-sm;
+    width: auto;
+    max-width: none;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacing-md;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: $font-weight-semibold;
+    color: var(--text-primary);
+  }
+
+  &__close {
+    @include flex-center;
+
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+  }
+
+  &__list {
+    @include flex-column;
+
+    gap: $spacing-md;
+  }
+
+  &__empty {
+    font-size: $font-size-xs;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+}

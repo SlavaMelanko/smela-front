@@ -3,6 +3,7 @@ import reactPlugin from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import storybook from 'eslint-plugin-storybook'
 import globals from 'globals'
 
 export default [
@@ -40,10 +41,8 @@ export default [
       'simple-import-sort/exports': 'error',
       'padding-line-between-statements': [
         'error',
-
         // Keep a line before return
         { blankLine: 'always', prev: '*', next: 'return' },
-
         // Blank lines after imports, vars
         {
           blankLine: 'always',
@@ -55,28 +54,29 @@ export default [
           prev: ['import', 'const', 'let', 'var'],
           next: ['import', 'const', 'let', 'var']
         },
-
         // Add spacing before if, for, while, switch
         {
           blankLine: 'always',
           prev: '*',
           next: ['if', 'for', 'while', 'switch', 'try']
         },
-
         // Add spacing after blocks and functions
         {
           blankLine: 'always',
           prev: ['block', 'block-like', 'function', 'multiline-expression'],
           next: '*'
         },
-
         // Optional: before function declarations (helps in React utils)
         {
           blankLine: 'always',
           prev: '*',
           next: 'function'
         }
-      ]
+      ],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'prefer-const': 'error',
+      'no-unsafe-optional-chaining': 'error',
+      'react/jsx-no-useless-fragment': 'error'
     },
     settings: {
       react: {
@@ -92,5 +92,25 @@ export default [
         }
       }
     }
-  }
+  },
+  {
+    files: ['**/*.test.{js,jsx}'],
+    languageOptions: {
+      globals: {
+        ...globals.jest
+      }
+    }
+  },
+  {
+    files: ['src/tests/jest.setup.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.jest,
+        global: true
+      }
+    }
+  },
+  ...storybook.configs['flat/recommended']
 ]

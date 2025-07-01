@@ -1,0 +1,45 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.header {
+  @include flex-center;
+
+  gap: $spacing-md;
+  justify-content: space-between;
+  width: 100%;
+
+  &__logo {
+    @include flex-center;
+
+    width: calc($sidebar-width - 2 * $spacing-xl);
+    height: 100%;
+
+    svg {
+      display: block;
+      height: auto;
+    }
+
+    @media (max-width: $breakpoint-md) {
+      width: auto;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    gap: $spacing-sm;
+    align-items: center;
+  }
+
+  &__toggle,
+  &__language {
+    @media (max-width: $breakpoint-md) {
+      display: none;
+    }
+  }
+
+  &__mobile-menu-toggle {
+    @media (min-width: $breakpoint-lg) {
+      display: none;
+    }
+  }
+}

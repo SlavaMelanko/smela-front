@@ -1,0 +1,5 @@
+/// Calculates min-height based on font size and line height
+/// Default line height is set in ./_reset.scss
+@function min-height-from-font($font-size, $line-height: 1.5) {
+  @return $font-size * $line-height;
+}

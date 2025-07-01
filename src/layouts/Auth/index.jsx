@@ -1,26 +1,36 @@
 import './styles.scss'
 
+import { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 
+import Copyright from '@/components/Copyright'
+import { LanguageSelector } from '@/components/dropdowns'
 import { MassiveLogo } from '@/components/icons'
-import LanguageSelector from '@/components/LanguageSelector'
+import { Spinner } from '@/components/Spinner'
 import ThemeToggle from '@/components/ThemeToggle'
 
 const AuthLayout = () => {
   return (
     <div className='auth-layout'>
-      <div className='auth-layout__fixed-controls'>
-        <LanguageSelector />
+      <div className='auth-layout__user-preferences'>
         <ThemeToggle />
+        <LanguageSelector />
       </div>
 
       <div className='auth-layout__container'>
-        <div className='auth-layout__content'>
-          <div className='auth-layout__logo'>
-            <MassiveLogo width={240} height={45} />
-          </div>
-          <Outlet />
-        </div>
+        <header className='auth-layout__header'>
+          <MassiveLogo width={240} height={45} />
+        </header>
+
+        <main className='auth-layout__content'>
+          <Suspense fallback={<Spinner centered />}>
+            <Outlet />
+          </Suspense>
+        </main>
+
+        <footer className='auth-layout__footer'>
+          <Copyright />
+        </footer>
       </div>
     </div>
   )

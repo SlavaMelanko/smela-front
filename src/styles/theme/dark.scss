@@ -1,27 +1,33 @@
 .dark {
   color-scheme: dark;
 
+  --orange: #e66e5a;
+  --purple: #8b5cf6;
+
   // Background colors
-  --background: #111827;
-  --card-background: #1f2937;
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
 
   // Text colors
   --text-primary: #f9fafb;
   --text-secondary: #d1d5db;
+  --text-disabled: #6b7280;
 
   // Border colors
   --border-color: #374151;
-  --card-hover-border: #8b5cf6;
+  --border-hover: var(--purple);
+  --border-disabled: #4b5563;
 
   // Highlight/emphasis colors for user attention
   --highlight-bg: #831843;
   --highlight-text: #fbcfe8;
 
   // Button colors
-  --button-primary-bg: #ff9681;
-  --button-primary-hover: #f8826e;
-  --button-offer-bg: #8b5cf6;
+  --button-primary-bg: var(--orange);
+  --button-primary-hover: #ff9681;
+  --button-offer-bg: var(--purple);
   --button-offer-hover: #7c3aed;
+  --button-disabled-bg: #1f2937;
 
   // Gradient colors
   --gradient-start: #1f2937;

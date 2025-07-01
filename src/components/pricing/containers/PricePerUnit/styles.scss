@@ -1,0 +1,20 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/functions' as *;
+
+.price-per-unit {
+  color: var(--text-secondary);
+  text-align: center;
+  transition: color $transition-default;
+
+  &__original {
+    margin-right: $spacing-sm;
+    color: var(--text-secondary);
+    text-decoration: line-through;
+    transition: color $transition-default;
+  }
+
+  &__stub {
+    height: min-height-from-font($font-size-sm);
+    margin-bottom: $spacing-lg;
+  }
+}

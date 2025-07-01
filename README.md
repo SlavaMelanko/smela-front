@@ -4,4 +4,4 @@ Second version of our live [portal](https://partners.joinmassive.com), rebuilt f
 
 1. Fix architectural issues
 1. Improve maintainability
-1. Improve the user experience
+1. Enhance the user experience

@@ -1,0 +1,20 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.enterprise-tab {
+  @include flex-center-column;
+
+  gap: $spacing-2xl;
+  width: 22rem;
+  height: 28.75rem; // card height
+
+  &__text {
+    font-size: $font-size-md;
+    text-align: center;
+  }
+
+  &__contact-us {
+    width: 100%;
+    margin: 0;
+  }
+}

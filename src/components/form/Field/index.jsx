@@ -3,21 +3,25 @@ import './styles.scss'
 import clsx from 'clsx'
 import React from 'react'
 
+import useLocale from '@/hooks/useLocale'
+
+const getTranslatedErrorMessage = (error, t) =>
+  error?.message ? t(error.message) : null
+
 const FormField = ({ name, label, required, children, error }) => {
+  const { t } = useLocale()
+
   const containerClass = clsx('form-field', {
     'form-field--required': required,
     'form-field--with-error': !!error
   })
 
-  const wrappedChild = error
-    ? React.cloneElement(children, {
-        ...children.props,
-        name,
-        className: clsx(children.props.className, {
-          'input__field--error': !!error
-        })
-      })
-    : children
+  const wrappedChild = React.cloneElement(children, {
+    ...children.props,
+    name,
+    id: name,
+    error
+  })
 
   return (
     <div className={containerClass}>
@@ -29,7 +33,9 @@ const FormField = ({ name, label, required, children, error }) => {
 
       <div className='form-field__control'>{wrappedChild}</div>
 
-      {error && <div className='form-field__error'>{error}</div>}
+      <div className='form-field__error'>
+        {getTranslatedErrorMessage(error, t)}
+      </div>
     </div>
   )
 }

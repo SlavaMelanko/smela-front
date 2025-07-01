@@ -1,0 +1,48 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.modal-footer {
+  @include flex-center;
+
+  flex-shrink: 0;
+
+  &--border-top {
+    border-top: 1px solid var(--border-color);
+  }
+
+  &--justify-start {
+    justify-content: flex-start;
+  }
+
+  &--justify-center {
+    justify-content: center;
+  }
+
+  &--justify-end {
+    justify-content: flex-end;
+  }
+
+  &--justify-between {
+    justify-content: space-between;
+  }
+
+  &--spacing-none {
+    gap: 0;
+    padding: 0;
+  }
+
+  &--spacing-sm {
+    gap: $spacing-sm;
+    padding: $spacing-md $spacing-xl;
+  }
+
+  &--spacing-default {
+    gap: $spacing-md;
+    padding: $spacing-lg $spacing-xl;
+  }
+
+  &--spacing-lg {
+    gap: $spacing-lg;
+    padding: $spacing-xl $spacing-2xl;
+  }
+}

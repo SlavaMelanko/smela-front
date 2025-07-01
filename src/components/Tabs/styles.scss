@@ -1,0 +1,51 @@
+@use '../../styles/variables' as *;
+
+.custom-tabs {
+  display: flex;
+  flex-direction: column;
+
+  &__list-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__list {
+    display: inline-flex;
+    border: 1px solid var(--border-color);
+    border-radius: $border-radius-md;
+  }
+
+  &__trigger {
+    padding: 0.5rem 3rem;
+    margin: 0.25rem;
+    font-weight: $font-weight-medium;
+    color: var(--text-secondary);
+    text-align: center;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border-radius: $border-radius-xs;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: var(--text-primary);
+    }
+
+    &--active {
+      color: var(--text-primary);
+      background-color: var(--bg-secondary);
+    }
+  }
+
+  &__content {
+    padding: 1rem;
+  }
+
+  &__panel {
+    display: none;
+
+    &--active {
+      display: block;
+    }
+  }
+}

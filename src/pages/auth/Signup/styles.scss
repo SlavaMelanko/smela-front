@@ -1,0 +1,15 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.signup-page {
+  &__separator {
+    margin: $spacing-sm 0;
+  }
+
+  &__prompts {
+    @include flex-center-column;
+
+    gap: $spacing-xl;
+    margin-top: $spacing-2xl;
+  }
+}

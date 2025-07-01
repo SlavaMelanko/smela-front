@@ -1,7 +1,7 @@
 @use 'variables' as *;
 
-@mixin fixed-controls-top-right {
-  position: fixed;
+@mixin controls-top-right {
+  position: absolute;
   top: $spacing-md;
   right: $spacing-md;
   z-index: $z-index-toggle;
@@ -15,11 +15,124 @@
   justify-content: center;
 }
 
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-center-column {
+  @include flex-center;
+
+  flex-direction: column;
+}
+
 @mixin button-base {
   width: 100%;
   padding: 0.75rem $spacing-md;
   font-weight: $font-weight-medium;
   cursor: pointer;
+  border: none;
   border-radius: $border-radius-sm;
   transition: all $transition-default;
+}
+
+@mixin action-button-base {
+  @include flex-center;
+
+  padding: $spacing-xs;
+  color: var(--text-primary);
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: $border-radius-full;
+  transition: all $transition-default;
+
+  &:hover {
+    border-color: var(--border-hover);
+  }
+}
+
+@mixin dropdown-base {
+  position: absolute;
+  top: $spacing-xl;
+  right: 0;
+  width: 12rem;
+  margin-top: $spacing-xs;
+  pointer-events: none;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-sm;
+  box-shadow: $shadow-sm;
+  opacity: 0;
+  transition: 0.3s all;
+
+  &--open {
+    top: 2.5rem;
+    pointer-events: all;
+    opacity: 1;
+  }
+}
+
+@mixin dropdown-item-base {
+  display: flex;
+  gap: $spacing-sm;
+  align-items: center;
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: none;
+
+  &:hover {
+    background-color: var(--highlight-bg);
+  }
+
+  &--active {
+    background-color: var(--highlight-bg);
+  }
+
+  &--first {
+    border-top-left-radius: $border-radius-sm;
+    border-top-right-radius: $border-radius-sm;
+  }
+
+  &--last {
+    border-bottom-right-radius: $border-radius-sm;
+    border-bottom-left-radius: $border-radius-sm;
+  }
+
+  &--danger {
+    color: var(--text-error);
+  }
+}
+
+@mixin form-layout {
+  display: flex;
+  flex-direction: column;
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    margin-bottom: $spacing-2xl;
+  }
+}
+
+@mixin sidebar-button-base($padding-y: $spacing-sm, $padding-x: $spacing-md) {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: $padding-y $padding-x;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  border-radius: $border-radius-sm;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: var(--highlight-bg);
+  }
 }

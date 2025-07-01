@@ -1,0 +1,25 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.offer-button {
+  @include button-base;
+
+  color: white;
+  text-transform: uppercase;
+  background-color: var(--button-offer-bg);
+
+  &:hover {
+    background-color: var(--button-offer-hover);
+  }
+
+  &--outlined {
+    color: var(--button-offer-bg);
+    background-color: transparent;
+    border: 1px solid var(--button-offer-bg);
+
+    &:hover {
+      color: white;
+      background-color: var(--button-offer-bg);
+    }
+  }
+}

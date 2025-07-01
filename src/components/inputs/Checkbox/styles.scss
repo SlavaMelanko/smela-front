@@ -1,0 +1,15 @@
+@use '../../../styles/variables' as *;
+
+.checkbox {
+  display: flex;
+  gap: $spacing-sm;
+  align-items: center;
+
+  &__label {
+    font-size: $font-size-sm;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+}

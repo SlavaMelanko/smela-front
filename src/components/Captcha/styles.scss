@@ -1,0 +1,22 @@
+@use '../../styles/mixins' as *;
+
+.captcha-container {
+  @include flex-center;
+
+  &--error {
+    iframe {
+      border-color: var(--border-error);
+      border-width: 0;
+      border-bottom-width: 1px;
+
+      &:focus {
+        border-bottom-color: var(--border-error);
+      }
+    }
+  }
+
+  // TODO: Temporary fix for HCaptcha
+  > div {
+    max-height: 76px;
+  }
+}

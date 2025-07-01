@@ -1,0 +1,8 @@
+@use '../../styles/variables' as *;
+
+.copyright {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-light;
+  color: var(--text-disabled);
+  text-align: center;
+}

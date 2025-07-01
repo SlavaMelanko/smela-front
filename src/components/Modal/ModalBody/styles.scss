@@ -1,0 +1,53 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.modal-body {
+  flex: 1;
+  line-height: $line-height-md;
+  color: var(--text-primary);
+
+  &--dividers {
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  &--padding-none {
+    padding: 0;
+  }
+
+  &--padding-sm {
+    padding: $spacing-md $spacing-xl;
+  }
+
+  &--padding-default {
+    padding: $spacing-lg $spacing-xl;
+  }
+
+  &--padding-lg {
+    padding: $spacing-xl $spacing-2xl;
+  }
+
+  &--scrollable {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-color: var(--border-color) transparent;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--border-color);
+      border-radius: $border-radius-full;
+
+      &:hover {
+        background-color: var(--border-hover);
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+import { render } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
+
+import { LocaleProvider } from '@/contexts/LocaleContext'
+import i18n from '@/i18n'
+
+export const renderWithProviders = (ui, options = {}) => {
+  i18n.changeLanguage('en')
+
+  return render(
+    <MemoryRouter>
+      <LocaleProvider>{ui}</LocaleProvider>
+    </MemoryRouter>,
+    options
+  )
+}

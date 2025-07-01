@@ -1,0 +1,10 @@
+@use '../Icon/styles' as *;
+@include icon-variants('sun');
+
+.sun-icon--primary {
+  color: var(--orange);
+
+  &:hover {
+    color: var(--button-primary-hover);
+  }
+}

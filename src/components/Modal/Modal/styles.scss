@@ -1,0 +1,141 @@
+@use '../../../styles/variables' as *;
+
+.modal {
+  position: relative;
+  z-index: $z-index-modal;
+  transition:
+    opacity $transition-default,
+    transform $transition-default;
+
+  &--slide-in-bottom {
+    &.modal--open {
+      animation: slide-in-bottom $transition-default forwards;
+    }
+
+    &.modal--closing {
+      animation: slide-out-bottom $transition-default forwards;
+    }
+  }
+
+  &--slide-in-top {
+    &.modal--open {
+      animation: slide-in-top $transition-default;
+    }
+
+    &.modal--closing {
+      animation: slide-out-top $transition-default;
+    }
+  }
+
+  &--scale {
+    &.modal--open {
+      animation: scale-in $transition-default;
+    }
+
+    &.modal--closing {
+      animation: scale-out $transition-default;
+    }
+  }
+
+  &--fade {
+    &.modal--open {
+      animation: fade-in $transition-default;
+    }
+
+    &.modal--closing {
+      animation: fade-out $transition-default;
+    }
+  }
+}
+
+@keyframes slide-in-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slide-out-bottom {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+}
+
+@keyframes slide-in-top {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slide-out-top {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.95);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

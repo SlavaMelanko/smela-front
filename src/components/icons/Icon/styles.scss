@@ -1,0 +1,70 @@
+@use '../../../styles/variables' as *;
+
+@mixin icon-variants($name) {
+  .#{$name}-icon {
+    &--primary {
+      color: var(--text-primary);
+    }
+
+    &--secondary {
+      color: var(--text-secondary);
+    }
+
+    &--green {
+      color: var(--green);
+    }
+
+    &--orange {
+      color: var(--orange);
+    }
+
+    &--blue {
+      color: var(--blue);
+    }
+
+    &--purple {
+      color: var(--purple);
+    }
+
+    &--yellow {
+      color: var(--yellow);
+    }
+
+    &--cyan {
+      color: var(--cyan);
+    }
+
+    &--red {
+      color: var(--text-error);
+    }
+
+    &--pink {
+      color: var(--pink);
+    }
+
+    &--xs {
+      width: $icon-size-xs;
+      height: $icon-size-xs;
+    }
+
+    &--sm {
+      width: $icon-size-sm;
+      height: $icon-size-sm;
+    }
+
+    &--md {
+      width: $icon-size-md;
+      height: $icon-size-md;
+    }
+
+    &--lg {
+      width: $icon-size-lg;
+      height: $icon-size-lg;
+    }
+
+    &--2xl {
+      width: $icon-size-2xl;
+      height: $icon-size-2xl;
+    }
+  }
+}

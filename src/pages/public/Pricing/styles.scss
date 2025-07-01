@@ -1,0 +1,37 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.pricing-page {
+  &__title {
+    margin-bottom: $spacing-md;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+    text-align: center;
+    transition: color $transition-default;
+  }
+
+  &__subtitle {
+    margin-bottom: $spacing-3xl;
+    font-size: $font-size-md;
+    color: var(--text-secondary);
+    text-align: center;
+    transition: color $transition-default;
+  }
+
+  &__content {
+    @include flex-center;
+
+    padding: $spacing-md 0;
+    background: var(--bg-primary);
+    border-radius: $border-radius-lg;
+    transition: background $transition-default;
+  }
+
+  &__footer {
+    margin-top: $spacing-md;
+    color: var(--text-secondary);
+    text-align: center;
+    transition: color $transition-default;
+  }
+}

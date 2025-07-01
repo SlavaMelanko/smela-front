@@ -1,28 +1,41 @@
 :root {
   color-scheme: light;
 
+  --green: #22c55e;
+  --orange: #e66e5a;
+  --blue: #3b82f6;
+  --purple: #9333ea;
+  --yellow: #eab308;
+  --cyan: #06b6d4;
+  --pink: #ec4899;
+  --red: #dc2626;
+
   // Background colors
-  --background: #f9fafb;
-  --card-background: #fff;
+  --bg-primary: #f9fafb;
+  --bg-secondary: #fff;
 
   // Text colors
   --text-primary: #1f2937;
   --text-secondary: #6b7280;
-  --text-error: #ff8181;
+  --text-disabled: #9ca3af;
+  --text-error: var(--red);
 
   // Border colors
   --border-color: #e5e7eb;
-  --card-hover-border: #e9d5ff;
+  --border-hover: #e9d5ff;
+  --border-disabled: #d1d5db;
+  --border-error: var(--red);
 
   // Highlight/emphasis colors for user attention
   --highlight-bg: #fce7f3;
   --highlight-text: #be185d;
 
   // Button colors
-  --button-primary-bg: #f8826e;
-  --button-primary-hover: #e66e5a;
-  --button-offer-bg: #9333ea;
+  --button-primary-bg: var(--orange);
+  --button-primary-hover: #f8826e;
+  --button-offer-bg: var(--purple);
   --button-offer-hover: #7e22ce;
+  --button-disabled-bg: #f3f4f6;
 
   // Gradient colors
   --gradient-start: #fff;

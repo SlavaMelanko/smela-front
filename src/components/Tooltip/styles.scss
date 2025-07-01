@@ -1,0 +1,63 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.tooltip {
+  @include flex-center;
+
+  position: relative;
+  cursor: help;
+
+  &__icon-wrapper {
+    @include flex-center;
+
+    padding: $spacing-sm;
+    background-color: var(--bg-secondary);
+    border-radius: $border-radius-full;
+    transition: all $transition-default;
+  }
+
+  &__text {
+    position: absolute;
+    bottom: -36px;
+    left: 50%;
+    z-index: $z-index-tooltip;
+    visibility: hidden;
+    padding: $spacing-sm 0.75rem;
+    font-size: 0.75rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: $border-radius-xs;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    opacity: 0;
+    transform: translateX(-50%);
+    transition:
+      opacity $transition-default,
+      visibility $transition-default;
+
+    &::before {
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      content: '';
+      background-color: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      border-left: 1px solid var(--border-color);
+      transform: translateX(-50%) rotate(45deg);
+    }
+  }
+
+  &:hover {
+    .tooltip__icon-wrapper {
+      background-color: var(--border-color);
+    }
+
+    .tooltip__text {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}

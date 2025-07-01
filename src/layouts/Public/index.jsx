@@ -1,20 +1,30 @@
 import './styles.scss'
 
+import { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 
-import LanguageSelector from '@/components/LanguageSelector'
+import Copyright from '@/components/Copyright'
+import { LanguageSelector } from '@/components/dropdowns'
+import { Spinner } from '@/components/Spinner'
 import ThemeToggle from '@/components/ThemeToggle'
-
 const PublicLayout = () => {
   return (
     <div className='public-layout'>
-      <div className='public-layout__fixed-controls'>
-        <LanguageSelector />
+      <div className='public-layout__user-preferences'>
         <ThemeToggle />
+        <LanguageSelector />
       </div>
 
       <div className='public-layout__container'>
-        <Outlet />
+        <main className='public-layout__content'>
+          <Suspense fallback={<Spinner centered />}>
+            <Outlet />
+          </Suspense>
+        </main>
+
+        <footer className='public-layout__footer'>
+          <Copyright />
+        </footer>
       </div>
     </div>
   )

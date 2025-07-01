@@ -1,0 +1,63 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.profile-dropdown {
+  position: relative;
+
+  &__button {
+    @include action-button-base;
+
+    gap: $spacing-xs;
+  }
+
+  &__avatar {
+    @include flex-center;
+
+    pointer-events: none;
+  }
+
+  &__name {
+    max-width: 4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: $font-weight-light;
+    white-space: nowrap;
+    pointer-events: none;
+
+    @media (max-width: $breakpoint-md) {
+      display: none;
+    }
+  }
+
+  &__chevron {
+    @media (max-width: $breakpoint-md) {
+      display: none;
+    }
+  }
+
+  &__dropdown {
+    @include dropdown-base;
+  }
+
+  &__list {
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    @include dropdown-item-base;
+  }
+
+  &__icon {
+    @include flex-center;
+
+    flex-shrink: 0;
+    width: $icon-size-xs;
+    height: $icon-size-xs;
+  }
+
+  &__separator {
+    height: 1px;
+    background-color: var(--border-color);
+  }
+}
