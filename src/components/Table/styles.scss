@@ -8,14 +8,14 @@
   color: var(--text-primary);
   border-collapse: collapse;
   background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
   border-radius: $border-radius-md;
   box-shadow: $shadow-md;
 
   th,
   td {
-    padding: $spacing-md $spacing-lg;
+    padding: 0.75rem $spacing-md;
     text-align: center;
+    cursor: default;
     border: 1px solid var(--border-color);
   }
 

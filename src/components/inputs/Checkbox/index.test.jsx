@@ -1,4 +1,5 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { useForm } from 'react-hook-form'
 
 import Checkbox from './index'
@@ -24,14 +25,14 @@ describe('Checkbox', () => {
     expect(screen.getByRole('checkbox')).toBeInTheDocument()
   })
 
-  it('calls onChange when clicked', () => {
+  it('calls onChange when clicked', async () => {
     const handleChange = jest.fn()
 
     render(<Checkbox onChange={handleChange}>Label</Checkbox>)
 
     const input = screen.getByRole('checkbox')
 
-    fireEvent.click(input)
+    await userEvent.click(input)
 
     expect(handleChange).toHaveBeenCalledTimes(1)
   })
@@ -80,9 +81,10 @@ describe('Checkbox', () => {
 
     expect(checkbox).not.toBeChecked()
 
-    fireEvent.click(checkbox)
+    await userEvent.click(checkbox)
     expect(checkbox).toBeChecked()
-    fireEvent.click(submit)
+
+    await userEvent.click(submit)
     await waitFor(() => {
       expect(handleSubmit).toHaveBeenCalledWith(
         { acceptTerms: true },
@@ -90,9 +92,10 @@ describe('Checkbox', () => {
       )
     })
 
-    fireEvent.click(checkbox)
+    await userEvent.click(checkbox)
     expect(checkbox).not.toBeChecked()
-    fireEvent.click(submit)
+
+    userEvent.click(submit)
     await waitFor(() => {
       expect(handleSubmit).toHaveBeenCalledWith(
         { acceptTerms: false },

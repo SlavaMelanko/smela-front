@@ -18,26 +18,22 @@ const Checkbox = ({
 
   const classes = clsx(
     'checkbox',
-    {
-      [`checkbox--${size}`]: size,
-      [`checkbox--${variant}`]: variant
-    },
+    size && `checkbox--${size}`,
+    variant && `checkbox--${variant}`,
     className
   )
 
-  const inputProps = {
-    id: inputId,
-    type: 'checkbox',
-    name,
-    className: 'checkbox__input',
-    onChange: onChange || (() => {}),
-    checked,
-    ...rest
-  }
-
   return (
     <div className={classes}>
-      <input {...inputProps} />
+      <input
+        id={inputId}
+        type='checkbox'
+        name={name}
+        className='checkbox__input'
+        checked={checked}
+        onChange={onChange || (() => {})}
+        {...rest}
+      />
       <label className='checkbox__label' htmlFor={inputId}>
         {children ?? ''}
       </label>

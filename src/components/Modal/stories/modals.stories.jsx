@@ -8,7 +8,7 @@ import useModal from '@/hooks/useModal'
 import { ModalBody, ModalHeader } from '..'
 
 export default {
-  title: 'Components/Modals',
+  title: 'overlays/Modal',
   parameters: {
     layout: 'centered'
   }

@@ -13,7 +13,7 @@ import { LocaleProvider } from '@/contexts/LocaleContext'
 import { CustomPricingCard, PricingSlider, StandardPricingCard } from './index'
 
 const meta = {
-  title: 'Components/Pricing',
+  title: 'components/Pricing',
   component: StandardPricingCard,
   decorators: [
     Story => (

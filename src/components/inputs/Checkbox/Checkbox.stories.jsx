@@ -1,7 +1,7 @@
 import Checkbox from './index'
 
 export default {
-  title: 'Components/Checkbox',
+  title: 'Inputs/Checkbox',
   component: Checkbox,
   parameters: {
     layout: 'centered'

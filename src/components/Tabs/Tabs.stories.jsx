@@ -3,7 +3,7 @@ import './styles.scss'
 import CustomTabs from './index'
 
 export default {
-  title: 'Components/Tabs',
+  title: 'navigation/Tabs',
   component: CustomTabs,
   parameters: {
     layout: 'centered'

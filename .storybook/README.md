@@ -1,4 +1,4 @@
-# Storybook Documentation
+# Storybook
 
 ## ⚠️ Prerequisites
 
@@ -25,32 +25,10 @@ To start Storybook in development mode, run:
 npm run storybook
 ```
 
-This will launch Storybook on `http://localhost:6006`.
+## 📘 Storybook Guidelines
 
-## 📖 Building Storybook
+> Keep stories focused on demonstrating the component’s states, not on reproducing entire app flows.
 
-To build a static version of Storybook for deployment, use:
-
-```bash
-npm run build-storybook
-```
-
-The static files will be generated in the `storybook-static` directory.
-
-## 🛠️ Customization
-
-- **Adding Stories**: Add your stories in the `src` components directory, following the pattern `*.stories.@(js|jsx|ts|tsx)`.
-- **Theming**: Modify the `massiveTheme.js` file in the `.storybook` directory to customize the Storybook UI theme.
-- **Addons**: Add or configure addons in the `main.js` file under the `addons` array.
-
-## 🔍 Troubleshooting
-
-If you encounter issues, ensure that:
-
-1. All dependencies are installed.
-2. The `storybook` and `build-storybook` scripts are correctly defined in `package.json`.
-3. The `.storybook` directory is not ignored in `.gitignore`.
-4. The styles related to component are imported correctly in your stories.
-5. The Storybook server is running without errors in the console.
-
-For further assistance, refer to the [Storybook documentation](https://storybook.js.org/docs).
+1. Name your story files using the pattern: `<Component>.stories.js` where `<Component>` matches the PascalCase singular component name (e.g., `Button.stories.js`, `UserCard.stories.js`)
+1. If you need additional code for complex examples (e.g., mock data, wrappers), use a `stories/` subfolder next to your component
+1. Avoid importing `styles.scss` directly into stories. Components must include their own styles internally.

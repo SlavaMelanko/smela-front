@@ -5,7 +5,7 @@ import './OAuth/styles.scss'
 import { GoogleOAuthButton, OfferButton, PrimaryButton } from './index'
 
 export default {
-  title: 'Components/Buttons',
+  title: 'components/Button',
   component: PrimaryButton,
   parameters: {
     layout: 'centered'
