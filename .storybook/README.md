@@ -10,12 +10,11 @@ npm install
 
 ## 📦 Setup
 
-Storybook is already configured in this project. You can find the configuration files in the `.storybook` directory. These include:
+Storybook is already configured in this project. The `.storybook` folder contains:
 
-- `main.js`: Defines the Storybook configuration, including stories and addons.
-- `preview.js`: Sets global parameters and imports styles.
-- `manager.js`: Customizes the Storybook UI theme.
-- `massiveTheme.js`: Defines our custom theme for Storybook.
+- `main.js`: Storybook settings, stories, and addons.
+- `preview.jsx`: Global parameters and shared styles.
+- `manager.js`: Custom Storybook UI theme.
 
 ## 🚀 Running Storybook
 
