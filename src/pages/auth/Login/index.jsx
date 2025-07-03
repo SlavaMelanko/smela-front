@@ -52,6 +52,7 @@ const Login = () => {
         <Separator text={t('or')} />
       </div>
       <GoogleOAuthButton
+        className='login-page__oauth-button'
         text={t('continueWithGoogle')}
         onClick={handleLoginWithGoogle}
       />

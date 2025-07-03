@@ -14,4 +14,16 @@ const SecondaryButton = ({ type = 'button', className, children, ...rest }) => {
   )
 }
 
-export default SecondaryButton
+const SecondaryButtonWithIcon = ({ icon, text, className, ...rest }) => {
+  return (
+    <SecondaryButton
+      className={clsx('secondary-button-with-icon', className)}
+      {...rest}
+    >
+      {icon}
+      <span className='secondary-button-with-icon__text'>{text}</span>
+    </SecondaryButton>
+  )
+}
+
+export { SecondaryButton as default, SecondaryButtonWithIcon }

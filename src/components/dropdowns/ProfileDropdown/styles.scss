@@ -6,8 +6,6 @@
 
   &__button {
     @include action-button-base;
-
-    gap: $spacing-xs;
   }
 
   &__avatar {

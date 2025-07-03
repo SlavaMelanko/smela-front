@@ -1,3 +1,5 @@
+import { LocaleProvider } from '@/contexts/LocaleContext'
+
 import UsersTable from './UsersTable'
 
 const users = [
@@ -60,5 +62,9 @@ export default {
 }
 
 export const Default = {
-  render: () => <UsersTable data={users} />
+  render: () => (
+    <LocaleProvider>
+      <UsersTable data={users} />
+    </LocaleProvider>
+  )
 }

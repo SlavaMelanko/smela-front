@@ -27,7 +27,7 @@
 }
 
 @mixin button-base {
-  width: 100%;
+  width: auto;
   padding: 0.75rem $spacing-md;
   font-weight: $font-weight-medium;
   cursor: pointer;
@@ -40,6 +40,7 @@
 @mixin action-button-base {
   @include flex-center;
 
+  gap: $spacing-xs;
   padding: $spacing-xs;
   color: var(--text-primary);
   cursor: pointer;

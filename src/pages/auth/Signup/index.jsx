@@ -47,6 +47,7 @@ const Signup = () => {
         <Separator text={t('or')} />
       </div>
       <GoogleOAuthButton
+        className='signup-page__oauth-button'
         text={t('continueWithGoogle')}
         onClick={handleSignupWithGoogle}
       />

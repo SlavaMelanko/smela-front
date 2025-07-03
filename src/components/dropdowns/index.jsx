@@ -1,4 +1,5 @@
+import ColumnsDropdown from './ColumnsDropdown'
 import LanguageSelector from './LanguageSelector'
 import ProfileDropdown from './ProfileDropdown'
 
-export { LanguageSelector, ProfileDropdown }
+export { ColumnsDropdown, LanguageSelector, ProfileDropdown }

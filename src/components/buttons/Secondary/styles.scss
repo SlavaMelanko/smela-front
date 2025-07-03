@@ -13,3 +13,21 @@
     border-color: var(--border-hover);
   }
 }
+
+.secondary-button-with-icon {
+  @include flex-center;
+
+  gap: $spacing-xs;
+
+  &__text {
+    max-width: 4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: $font-weight-light;
+    white-space: nowrap;
+
+    @media (max-width: $breakpoint-md) {
+      display: none;
+    }
+  }
+}

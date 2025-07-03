@@ -1,0 +1,8 @@
+@use '../../styles/variables' as *;
+
+.table-toolbar {
+  display: flex;
+  gap: $spacing-md;
+  align-items: center;
+  justify-content: flex-end;
+}

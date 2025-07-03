@@ -1,6 +1,6 @@
 import { getFullName } from '@/lib/format/user'
 
-const COLUMNS = [
+const defaultColumns = [
   {
     accessorKey: 'id',
     header: 'ID',
@@ -9,6 +9,9 @@ const COLUMNS = [
   {
     accessorKey: 'name',
     header: 'Name',
+    accessorFn: row => getFullName(row),
+    cell: info => getFullName(info.row.original),
+    sortingFn: 'alphanumeric',
     size: 180
   },
   {
@@ -28,18 +31,4 @@ const COLUMNS = [
   }
 ]
 
-const getColumns = (baseColumns = []) =>
-  baseColumns.map(column => {
-    if (column.accessorKey === 'name') {
-      return {
-        ...column,
-        accessorFn: row => getFullName(row),
-        cell: info => getFullName(info.row.original),
-        sortingFn: 'alphanumeric'
-      }
-    }
-
-    return column
-  })
-
-export { COLUMNS, getColumns }
+export { defaultColumns }

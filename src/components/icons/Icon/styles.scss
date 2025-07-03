@@ -42,6 +42,10 @@
       color: var(--pink);
     }
 
+    &--none {
+      color: transparent;
+    }
+
     &--xs {
       width: $icon-size-xs;
       height: $icon-size-xs;
