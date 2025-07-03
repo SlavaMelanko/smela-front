@@ -5,7 +5,7 @@ import TableHeader from './Header'
 
 const Table = ({ config }) => {
   return (
-    <table className='table' style={{ width: '100%' }}>
+    <table className='table'>
       <TableHeader config={config} />
       <TableBody config={config} />
     </table>

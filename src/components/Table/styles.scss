@@ -19,6 +19,7 @@
   }
 
   th {
+    position: relative;
     font-weight: $font-weight-semibold;
     color: var(--text-primary);
     user-select: none;
@@ -27,6 +28,31 @@
 
     &:hover {
       background: var(--bg-secondary);
+    }
+  }
+
+  &__header-resizer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    touch-action: none;
+    cursor: col-resize;
+    user-select: none;
+    background: transparent;
+    border-radius: $border-radius-full;
+    opacity: 0;
+    transition: opacity $transition-default;
+
+    &--active {
+      background: var(--blue);
+      opacity: 1;
+    }
+
+    &:hover {
+      background: var(--border-color);
+      opacity: 1;
     }
   }
 }

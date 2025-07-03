@@ -27,6 +27,8 @@ const UsersTable = ({ data }) => {
       sorting,
       columnVisibility
     },
+    columnResizeMode: 'onChange',
+    columnResizeDirection: 'ltl',
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),

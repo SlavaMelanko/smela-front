@@ -58,6 +58,7 @@
   position: absolute;
   top: $spacing-xl;
   right: 0;
+  z-index: $z-index-dropdown;
   width: 12rem;
   margin-top: $spacing-xs;
   pointer-events: none;

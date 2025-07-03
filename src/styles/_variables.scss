@@ -51,8 +51,9 @@ $z-index-toggle: 4;
 $z-index-header: 8;
 $z-index-notification: 16;
 $z-index-modal: 32;
-$z-index-modal-overlay: 64;
-$z-index-loader: 128;
+$z-index-dropdown: 64;
+$z-index-modal-overlay: 128;
+$z-index-loader: 256;
 
 // Shadows
 $shadow-sm: 0 2px 5px var(--shadow-color);
