@@ -5,8 +5,8 @@ import { useEffect } from 'react'
 
 import useModal from '@/hooks/useModal'
 
-import ModalContent from '../ModalContent'
-import ModalOverlay from '../ModalOverlay'
+import ModalContent from './Content'
+import ModalOverlay from './Overlay'
 
 const Modal = ({
   id,

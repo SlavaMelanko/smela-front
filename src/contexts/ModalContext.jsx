@@ -1,6 +1,6 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 
-import { ModalContainer } from '@/components/Modal'
+import Modal from '@/components/Modal'
 
 const ModalContext = createContext()
 
@@ -87,7 +87,10 @@ export const ModalProvider = ({ children }) => {
   return (
     <ModalContext.Provider value={value}>
       {children}
-      <ModalContainer />
+
+      {modals.map(modal => (
+        <Modal key={modal.id} {...modal} />
+      ))}
     </ModalContext.Provider>
   )
 }

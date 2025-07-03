@@ -1,5 +1,5 @@
-@use '../../../styles/variables' as *;
-@use '../../../styles/mixins' as *;
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
 
 .modal-overlay {
   @include flex-center;
@@ -7,7 +7,7 @@
   position: fixed;
   inset: 0;
   z-index: $z-index-modal-overlay;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(1px);
   animation: modal-fade-in $transition-default;
 
   &--closing {

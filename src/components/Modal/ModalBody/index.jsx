@@ -6,7 +6,6 @@ const ModalBody = ({
   children,
   className,
   scrollable = true,
-  spacing = 'default',
   dividers = false,
   ...rest
 }) => {
@@ -18,7 +17,6 @@ const ModalBody = ({
           'modal-body--scrollable': scrollable,
           'modal-body--dividers': dividers
         },
-        `modal-body--padding-${spacing}`,
         className
       )}
       {...rest}

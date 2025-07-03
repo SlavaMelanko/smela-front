@@ -1,0 +1,15 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.secondary-button {
+  @include button-base;
+
+  color: var(--text-secondary);
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+
+  &:hover {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-hover);
+  }
+}

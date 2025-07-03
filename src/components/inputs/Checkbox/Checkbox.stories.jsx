@@ -1,7 +1,7 @@
 import Checkbox from './index'
 
 export default {
-  title: 'Inputs/Checkbox',
+  title: 'Checkbox',
   component: Checkbox,
   parameters: {
     layout: 'centered'
@@ -14,7 +14,7 @@ export default {
     },
     variant: {
       control: { type: 'select' },
-      options: ['default', 'primary', 'error'],
+      options: ['default', 'error'],
       description: 'Color variant of the checkbox'
     },
     disabled: {

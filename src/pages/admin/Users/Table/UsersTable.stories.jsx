@@ -52,7 +52,7 @@ const users = [
 ]
 
 export default {
-  title: 'tables/Users',
+  title: 'UsersTable',
   component: UsersTable,
   parameters: {
     layout: 'centered'

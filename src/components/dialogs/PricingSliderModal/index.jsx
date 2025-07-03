@@ -10,17 +10,15 @@ export const PricingSliderModal = ({ onComplete, onClose }) => {
 
   return (
     <div className='pricing-slider-modal'>
-      <ModalHeader borderBottom={false} onClose={onClose}>
-        {t('offer.custom.title')}
-      </ModalHeader>
-      <ModalBody scrollable={false} padding='sm'>
+      <ModalHeader onClose={onClose}>{t('offer.custom.title')}</ModalHeader>
+      <ModalBody scrollable={false}>
         <PricingSlider
           onComplete={() => {
             onComplete()
           }}
         />
       </ModalBody>
-      <ModalFooter justify='center' spacing='sm' borderTop={false}>
+      <ModalFooter>
         <Copyright />
       </ModalFooter>
     </div>

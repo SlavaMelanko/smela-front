@@ -2,10 +2,15 @@ import './Primary/styles.scss'
 import './Offer/styles.scss'
 import './OAuth/styles.scss'
 
-import { GoogleOAuthButton, OfferButton, PrimaryButton } from './index'
+import {
+  GoogleOAuthButton,
+  OfferButton,
+  PrimaryButton,
+  SecondaryButton
+} from './index'
 
 export default {
-  title: 'components/Button',
+  title: 'Button',
   component: PrimaryButton,
   parameters: {
     layout: 'centered'
@@ -28,6 +33,14 @@ export const Primary = {
     disabled: false
   },
   render: args => <PrimaryButton {...args} />
+}
+
+export const Secondary = {
+  args: {
+    children: 'Secondary Button',
+    disabled: false
+  },
+  render: args => <SecondaryButton {...args} />
 }
 
 export const Offer = {
