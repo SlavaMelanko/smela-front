@@ -1,7 +1,7 @@
 import './styles.scss'
 
 const TableRow = ({ children, className = '', ...props }) => (
-  <tr className={`table__row ${className}`} {...props}>
+  <tr className={className} {...props}>
     {children}
   </tr>
 )

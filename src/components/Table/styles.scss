@@ -4,12 +4,11 @@
 .table {
   width: 100%;
   overflow: hidden;
-  font-size: $font-size-sm;
   color: var(--text-primary);
   border-collapse: collapse;
   background: var(--bg-secondary);
   border-radius: $border-radius-md;
-  box-shadow: $shadow-md;
+  box-shadow: $shadow-sm;
 
   th,
   td {

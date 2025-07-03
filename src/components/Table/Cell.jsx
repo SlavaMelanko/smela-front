@@ -2,16 +2,16 @@ import './styles.scss'
 
 import React from 'react'
 
-const TableBodyCell = ({ children, className, ...props }) => (
+const BodyCell = ({ children, className, ...props }) => (
   <td className={className} {...props}>
     {children}
   </td>
 )
 
-const TableHeaderCell = ({ children, className, ...props }) => (
+const HeaderCell = ({ children, className, ...props }) => (
   <th className={className} {...props}>
     {children}
   </th>
 )
 
-export { TableBodyCell, TableHeaderCell }
+export { BodyCell, HeaderCell }

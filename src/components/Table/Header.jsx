@@ -2,15 +2,15 @@ import './styles.scss'
 
 import { flexRender } from '@tanstack/react-table'
 
-import { TableHeaderCell } from './Cell'
-import TableRow from './Row'
+import { HeaderCell as Cell } from './Cell'
+import Row from './Row'
 
 const TableHeader = ({ config }) => (
   <thead>
     {config.getHeaderGroups().map(headerGroup => (
-      <TableRow key={headerGroup.id}>
+      <Row key={headerGroup.id}>
         {headerGroup.headers.map(header => (
-          <TableHeaderCell
+          <Cell
             key={header.id}
             style={{ width: header.getSize?.() }}
             onClick={header.column.getToggleSortingHandler?.()}
@@ -21,9 +21,9 @@ const TableHeader = ({ config }) => (
                 ? ' ↑'
                 : ' ↓'
               : ''}
-          </TableHeaderCell>
+          </Cell>
         ))}
-      </TableRow>
+      </Row>
     ))}
   </thead>
 )
