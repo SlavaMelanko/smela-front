@@ -23,7 +23,7 @@ const ColumnsDropdown = ({ className = '', text, menu }) => {
     <div className={clsx('columns-dropdown', className)} ref={ref}>
       <SecondaryButtonWithIcon
         className='columns-dropdown__button'
-        icon={<SettingsIcon color='secondary' size='xs' />}
+        iconLeft={<SettingsIcon color='secondary' size='xs' />}
         text={text}
         onClick={toggle}
       />

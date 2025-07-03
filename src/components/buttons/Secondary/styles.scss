@@ -17,7 +17,13 @@
 .secondary-button-with-icon {
   @include flex-center;
 
-  gap: $spacing-xs;
+  gap: $spacing-sm;
+
+  &__icon {
+    @include flex-center;
+
+    flex-shrink: 0;
+  }
 
   &__text {
     max-width: 4rem;

@@ -1,5 +1,7 @@
 import { getFullName } from '@/lib/format/user'
 
+import StatusBadge from './StatusBadge'
+
 const defaultColumns = [
   {
     accessorKey: 'id',
@@ -22,7 +24,8 @@ const defaultColumns = [
   {
     accessorKey: 'status',
     header: 'Status',
-    size: 100
+    size: 100,
+    cell: info => <StatusBadge status={info.row.original.status} />
   },
   {
     accessorKey: 'createdAt',

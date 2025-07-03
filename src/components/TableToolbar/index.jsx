@@ -9,7 +9,7 @@ const TableToolbar = ({ columnsMenu }) => {
     <div className='table-toolbar'>
       <SecondaryButtonWithIcon
         className='columns-dropdown__button'
-        icon={<FilterIcon color='secondary' size='xs' />}
+        iconLeft={<FilterIcon color='secondary' size='xs' />}
         text='Filters'
         onClick={() => {}}
       />

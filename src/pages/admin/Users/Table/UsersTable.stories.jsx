@@ -1,4 +1,5 @@
 import { LocaleProvider } from '@/contexts/LocaleContext'
+import { UserStatus } from '@/lib/types'
 
 import UsersTable from './UsersTable'
 
@@ -8,23 +9,23 @@ const users = [
     firstName: 'Rachel',
     lastName: 'Green',
     email: 'rachel@mail.com',
-    status: 'active',
+    status: UserStatus.NEW,
     createdAt: '2024-06-01'
   },
   {
     id: 2,
     firstName: 'Ross',
     lastName: 'Geller',
-    email: 'ross@mail.com',
-    status: 'pending',
+    email: 'ross@thegellers.com',
+    status: UserStatus.VERIFIED,
     createdAt: '2024-06-05'
   },
   {
     id: 3,
     firstName: 'Monica',
     lastName: 'Geller',
-    email: 'monica@mail.com',
-    status: 'active',
+    email: 'monica@thegellers.com',
+    status: UserStatus.TRIAL,
     createdAt: '2024-06-08'
   },
   {
@@ -32,7 +33,7 @@ const users = [
     firstName: 'Chandler',
     lastName: 'Bing',
     email: 'chandler@mail.com',
-    status: 'blocked',
+    status: UserStatus.ACTIVE,
     createdAt: '2024-06-10'
   },
   {
@@ -40,7 +41,7 @@ const users = [
     firstName: 'Joey',
     lastName: 'Tribbiani',
     email: 'joey@mail.com',
-    status: 'active',
+    status: UserStatus.SUSPENDED,
     createdAt: '2024-06-12'
   },
   {
@@ -48,7 +49,7 @@ const users = [
     firstName: 'Phoebe',
     lastName: 'Buffay',
     email: 'phoebe@mail.com',
-    status: 'pending',
+    status: UserStatus.ARCHIVED,
     createdAt: '2024-06-15'
   }
 ]
