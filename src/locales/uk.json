@@ -138,6 +138,19 @@
   },
   "signUp": "Зареєструватися",
   "support": "Підтримка",
+  "table": {
+    "column": "Колонка",
+    "column_plural": "Колонки",
+    "filter": "Фільтр",
+    "filter_plural": "Фільтри",
+    "users": {
+      "createdAt": "Створено",
+      "email": "Email",
+      "id": "#",
+      "name": "Ім'я",
+      "status": "Статус"
+    }
+  },
   "termsAndPrivacy": {
     "error": {
       "required": "Погодьтесь з умовами та політикою конфіденційності."

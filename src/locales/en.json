@@ -138,6 +138,19 @@
   },
   "signUp": "Sign up",
   "support": "Support",
+  "table": {
+    "column": "Column",
+    "column_plural": "Columns",
+    "filter": "Filter",
+    "filter_plural": "Filters",
+    "users": {
+      "createdAt": "Created At",
+      "email": "Email",
+      "id": "ID",
+      "name": "Name",
+      "status": "Status"
+    }
+  },
   "termsAndPrivacy": {
     "error": {
       "required": "You must accept the terms to continue."

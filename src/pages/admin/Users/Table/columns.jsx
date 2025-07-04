@@ -2,15 +2,15 @@ import { getFullName } from '@/lib/format/user'
 
 import StatusBadge from './StatusBadge'
 
-const defaultColumns = [
+const getDefaultColumns = (t, formatDate) => [
   {
     accessorKey: 'id',
-    header: 'ID',
+    header: t('table.users.id'),
     size: 60
   },
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: t('table.users.name'),
     accessorFn: row => getFullName(row),
     cell: info => getFullName(info.row.original),
     sortingFn: 'alphanumeric',
@@ -18,20 +18,21 @@ const defaultColumns = [
   },
   {
     accessorKey: 'email',
-    header: 'Email',
+    header: t('table.users.email'),
     size: 220
   },
   {
     accessorKey: 'status',
-    header: 'Status',
+    header: t('table.users.status'),
     size: 100,
     cell: info => <StatusBadge status={info.row.original.status} />
   },
   {
     accessorKey: 'createdAt',
-    header: 'Created At',
-    size: 140
+    header: t('table.users.createdAt'),
+    size: 140,
+    cell: info => formatDate(info.getValue())
   }
 ]
 
-export { defaultColumns }
+export { getDefaultColumns }

@@ -12,11 +12,14 @@ import { useState } from 'react'
 import { CheckIcon } from '@/components/icons'
 import Table from '@/components/Table'
 import TableToolbar from '@/components/TableToolbar'
+import useLocale from '@/hooks/useLocale'
 
-import { defaultColumns } from './columns'
+import { getDefaultColumns } from './columns'
 
 const UsersTable = ({ data }) => {
-  const [columns] = useState(() => [...defaultColumns])
+  const { t, formatDate } = useLocale()
+
+  const [columns] = useState(() => [...getDefaultColumns(t, formatDate)])
   const [columnVisibility, setColumnVisibility] = useState({})
   const [sorting, setSorting] = useState([])
 
@@ -38,7 +41,7 @@ const UsersTable = ({ data }) => {
   })
 
   const columnsMenu = config.getAllLeafColumns().map(column => ({
-    label: column.id,
+    label: t(`table.users.${column.id}`),
     icon: (
       <CheckIcon color={column.getIsVisible() ? 'green' : 'none'} size='xs' />
     ),

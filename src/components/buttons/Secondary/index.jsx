@@ -14,7 +14,13 @@ const SecondaryButton = ({ type = 'button', className, children, ...rest }) => {
   )
 }
 
-const SecondaryButtonWithIcon = ({ iconLeft, text, className, ...rest }) => {
+const SecondaryButtonWithIcon = ({
+  iconLeft,
+  text,
+  iconRight,
+  className,
+  ...rest
+}) => {
   return (
     <SecondaryButton
       className={clsx('secondary-button-with-icon', className)}
@@ -24,6 +30,9 @@ const SecondaryButtonWithIcon = ({ iconLeft, text, className, ...rest }) => {
         <span className='secondary-button-with-icon__icon'>{iconLeft}</span>
       )}
       <span className='secondary-button-with-icon__text'>{text}</span>
+      {iconRight && (
+        <span className='secondary-button-with-icon__icon'>{iconRight}</span>
+      )}
     </SecondaryButton>
   )
 }
