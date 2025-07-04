@@ -30,7 +30,13 @@ const ProfileDropdown = ({ className = '', name, menu }) => {
       >
         <Avatar className='profile-dropdown__avatar' />
         <span className='profile-dropdown__name'>{name}</span>
-        <ChevronDownIcon className='profile-dropdown__chevron' size='xs' />
+        <ChevronDownIcon
+          className={clsx(
+            'profile-dropdown__chevron',
+            isActive && 'profile-dropdown__chevron--open'
+          )}
+          size='xs'
+        />
       </button>
       <Dropdown
         className={clsx(isActive && 'profile-dropdown__dropdown--open')}
