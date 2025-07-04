@@ -8,6 +8,10 @@
     height: 40px;
   }
 
+  &__icon {
+    @include flex-center;
+  }
+
   &__dropdown {
     @include dropdown-base;
   }

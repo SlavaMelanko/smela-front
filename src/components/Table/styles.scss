@@ -31,6 +31,14 @@
     }
   }
 
+  tr {
+    transition: background $transition-default;
+
+    &:hover {
+      background: var(--bg-primary);
+    }
+  }
+
   &__header-resizer {
     position: absolute;
     top: 0;

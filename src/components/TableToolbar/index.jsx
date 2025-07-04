@@ -5,7 +5,7 @@ import { ColumnsDropdown } from '@/components/dropdowns'
 import { ChevronDownIcon, FilterIcon } from '@/components/icons'
 import useLocale from '@/hooks/useLocale'
 
-const TableToolbar = ({ columnsMenu }) => {
+const TableToolbar = ({ columns }) => {
   const { t } = useLocale()
 
   return (
@@ -17,7 +17,7 @@ const TableToolbar = ({ columnsMenu }) => {
         text={t('table.filter_plural')}
         onClick={() => {}}
       />
-      <ColumnsDropdown text={t('table.column_plural')} menu={columnsMenu} />
+      <ColumnsDropdown text={t('table.column_plural')} menu={columns} />
     </div>
   )
 }

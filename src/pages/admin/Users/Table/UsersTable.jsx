@@ -40,7 +40,7 @@ const UsersTable = ({ data }) => {
     getSortedRowModel: getSortedRowModel()
   })
 
-  const columnsMenu = config.getAllLeafColumns().map(column => ({
+  const availableColumns = config.getAllLeafColumns().map(column => ({
     label: t(`table.users.${column.id}`),
     icon: (
       <CheckIcon color={column.getIsVisible() ? 'green' : 'none'} size='xs' />
@@ -52,7 +52,7 @@ const UsersTable = ({ data }) => {
 
   return (
     <div className='table-container'>
-      <TableToolbar columnsMenu={columnsMenu} />
+      <TableToolbar columns={availableColumns} />
       <Table config={config} />
     </div>
   )
