@@ -1,7 +1,7 @@
 import { LocaleProvider } from '@/contexts/LocaleContext'
 import { UserStatus } from '@/lib/types'
 
-import UsersTable from './UsersTable'
+import UsersTable from './index'
 
 const users = [
   {
@@ -58,8 +58,15 @@ export default {
   title: 'UsersTable',
   component: UsersTable,
   parameters: {
-    layout: 'centered'
-  }
+    layout: 'top'
+  },
+  decorators: [
+    Story => (
+      <div style={{ padding: '2rem' }}>
+        <Story />
+      </div>
+    )
+  ]
 }
 
 export const Default = {

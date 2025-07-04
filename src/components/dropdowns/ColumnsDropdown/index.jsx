@@ -8,7 +8,7 @@ import useOutsideClick from '@/hooks/useOutsideClick'
 
 import Dropdown from './Dropdown'
 
-const ColumnsDropdown = ({ className = '', text, menu }) => {
+const ColumnsDropdown = ({ className = '', label, menu }) => {
   const { ref, isActive, setIsActive } = useOutsideClick()
 
   const toggle = () => setIsActive(prev => !prev)
@@ -24,7 +24,7 @@ const ColumnsDropdown = ({ className = '', text, menu }) => {
       <SecondaryButtonWithIcon
         className='columns-dropdown__button'
         iconLeft={<SettingsIcon color='secondary' size='xs' />}
-        text={text}
+        text={label}
         onClick={toggle}
       />
       <Dropdown
