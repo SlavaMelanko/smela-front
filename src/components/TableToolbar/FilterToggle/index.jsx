@@ -1,15 +1,16 @@
 import './styles.scss'
 
 import { SecondaryButtonWithIcon } from '@/components/buttons'
-import { ChevronDownIcon, FilterIcon } from '@/components/icons'
+import { FilterIcon } from '@/components/icons'
+import { ChevronToggle } from '@/components/icons/animated'
 
-const FilterToggle = ({ label, onToggle }) => {
+const FilterToggle = ({ label, isActive, onToggle }) => {
   return (
     <SecondaryButtonWithIcon
       className='filter-toggle'
       iconLeft={<FilterIcon color='secondary' size='xs' />}
       text={label}
-      iconRight={<ChevronDownIcon color='secondary' size='xs' />}
+      iconRight={<ChevronToggle isOpen={isActive} />}
       onClick={onToggle}
     />
   )

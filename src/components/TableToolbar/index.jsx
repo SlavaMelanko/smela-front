@@ -5,13 +5,14 @@ import useLocale from '@/hooks/useLocale'
 
 import FilterToggle from './FilterToggle'
 
-const TableToolbar = ({ columns, onToggleFilters }) => {
+const TableToolbar = ({ columns, showFilters, onToggleFilters }) => {
   const { t } = useLocale()
 
   return (
     <div className='table-toolbar'>
       <FilterToggle
         label={t('table.filter_plural')}
+        isActive={showFilters}
         onToggle={onToggleFilters}
       />
       <ColumnsDropdown label={t('table.column_plural')} menu={columns} />

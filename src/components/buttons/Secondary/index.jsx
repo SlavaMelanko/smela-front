@@ -27,11 +27,15 @@ const SecondaryButtonWithIcon = ({
       {...rest}
     >
       {iconLeft && (
-        <span className='secondary-button-with-icon__icon'>{iconLeft}</span>
+        <span className='secondary-button-with-icon__icon-left'>
+          {iconLeft}
+        </span>
       )}
       <span className='secondary-button-with-icon__text'>{text}</span>
       {iconRight && (
-        <span className='secondary-button-with-icon__icon'>{iconRight}</span>
+        <span className='secondary-button-with-icon__icon-right'>
+          {iconRight}
+        </span>
       )}
     </SecondaryButton>
   )

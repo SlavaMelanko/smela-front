@@ -19,10 +19,17 @@
 
   gap: $spacing-sm;
 
-  &__icon {
+  &__icon-left,
+  &__icon-right {
     @include flex-center;
 
     flex-shrink: 0;
+  }
+
+  &__icon-right {
+    @media (max-width: $breakpoint-md) {
+      display: none;
+    }
   }
 
   &__text {

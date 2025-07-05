@@ -2,7 +2,7 @@ import './styles.scss'
 
 import clsx from 'clsx'
 
-import { ChevronDownIcon } from '@/components/icons'
+import { ChevronToggle } from '@/components/icons/animated'
 import useOutsideClick from '@/hooks/useOutsideClick'
 
 import Avatar from './Avatar'
@@ -30,13 +30,7 @@ const ProfileDropdown = ({ className = '', name, menu }) => {
       >
         <Avatar className='profile-dropdown__avatar' />
         <span className='profile-dropdown__name'>{name}</span>
-        <ChevronDownIcon
-          className={clsx(
-            'profile-dropdown__chevron',
-            isActive && 'profile-dropdown__chevron--open'
-          )}
-          size='xs'
-        />
+        <ChevronToggle isOpen={isActive} />
       </button>
       <Dropdown
         className={clsx(isActive && 'profile-dropdown__dropdown--open')}

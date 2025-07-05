@@ -1,61 +1,29 @@
-import BellIcon from './Bell'
-import CalendarIcon from './Calendar'
-import CalendarXIcon from './CalendarX'
-import CheckIcon from './Check'
-import ChevronDownIcon from './ChevronDown'
-import CloseIcon from './Close'
-import CreditCardIcon from './CreditCard'
-import ExternalIcon from './External'
-import EyeIcon from './Eye'
-import EyeOffIcon from './EyeOff'
-import FilterIcon from './Filter'
-import GlobeIcon from './Globe'
-import GoogleIcon from './Google'
-import HelpIcon from './Help'
-import HomeIcon from './Home'
-import InfoIcon from './Info'
-import { LoaderIcon } from './Loader'
-import LogoutIcon from './Logout'
-import MailIcon from './Mail'
-import MassiveLogo from './Massive'
-import MenuIcon from './Menu'
-import MoonIcon from './Moon'
-import ProxyIcon from './Proxy'
-import RefreshIcon from './Refresh'
-import SettingsIcon from './Settings'
-import SlackIcon from './Slack'
-import SunIcon from './Sun'
-import UserIcon from './User'
-import UserPlusIcon from './UserPlus'
-
-export {
-  BellIcon,
-  CalendarIcon,
-  CalendarXIcon,
-  CheckIcon,
-  ChevronDownIcon,
-  CloseIcon,
-  CreditCardIcon,
-  ExternalIcon,
-  EyeIcon,
-  EyeOffIcon,
-  FilterIcon,
-  GlobeIcon,
-  GoogleIcon,
-  HelpIcon,
-  HomeIcon,
-  InfoIcon,
-  LoaderIcon,
-  LogoutIcon,
-  MailIcon,
-  MassiveLogo,
-  MenuIcon,
-  MoonIcon,
-  ProxyIcon,
-  RefreshIcon,
-  SettingsIcon,
-  SlackIcon,
-  SunIcon,
-  UserIcon,
-  UserPlusIcon
-}
+export { default as BellIcon } from './Bell'
+export { default as CalendarIcon } from './Calendar'
+export { default as CalendarXIcon } from './CalendarX'
+export { default as CheckIcon } from './Check'
+export { default as ChevronDownIcon } from './ChevronDown'
+export { default as CloseIcon } from './Close'
+export { default as CreditCardIcon } from './CreditCard'
+export { default as ExternalIcon } from './External'
+export { default as EyeIcon } from './Eye'
+export { default as EyeOffIcon } from './EyeOff'
+export { default as FilterIcon } from './Filter'
+export { default as GlobeIcon } from './Globe'
+export { default as GoogleIcon } from './Google'
+export { default as HelpIcon } from './Help'
+export { default as HomeIcon } from './Home'
+export { default as InfoIcon } from './Info'
+export { default as LoaderIcon } from './Loader'
+export { default as LogoutIcon } from './Logout'
+export { default as MailIcon } from './Mail'
+export { default as MassiveLogo } from './Massive'
+export { default as MenuIcon } from './Menu'
+export { default as MoonIcon } from './Moon'
+export { default as ProxyIcon } from './Proxy'
+export { default as RefreshIcon } from './Refresh'
+export { default as SettingsIcon } from './Settings'
+export { default as SlackIcon } from './Slack'
+export { default as SunIcon } from './Sun'
+export { default as UserIcon } from './User'
+export { default as UserPlusIcon } from './UserPlus'

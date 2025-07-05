@@ -59,6 +59,7 @@ const UsersTable = ({ data }) => {
     <div className='table-container'>
       <TableToolbar
         columns={availableColumns}
+        showFilters={showFilters}
         onToggleFilters={toggleFilters}
       />
       <Filters isShow={showFilters} />
