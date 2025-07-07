@@ -2,7 +2,12 @@ export { default as BellIcon } from './Bell'
 export { default as CalendarIcon } from './Calendar'
 export { default as CalendarXIcon } from './CalendarX'
 export { default as CheckIcon } from './Check'
-export { default as ChevronDownIcon } from './ChevronDown'
+export {
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronUpIcon
+} from './Chevron'
 export { default as CloseIcon } from './Close'
 export { default as CreditCardIcon } from './CreditCard'
 export { default as EnterpriseIcon } from './Enterprise'

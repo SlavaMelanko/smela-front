@@ -1,0 +1,27 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.pagination-container {
+  @include flex-center;
+
+  gap: $spacing-2xl;
+  justify-content: flex-end;
+  max-height: 42px;
+  color: var(--text-secondary);
+
+  &__rows-per-page {
+    @include flex-center;
+
+    gap: $spacing-md;
+  }
+
+  &__label {
+    color: var(--text-secondary);
+  }
+
+  &__buttons {
+    @include flex-center;
+
+    gap: $spacing-md;
+  }
+}

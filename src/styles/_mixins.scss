@@ -54,12 +54,12 @@
   }
 }
 
-@mixin dropdown-base {
+@mixin dropdown-base($width: 12rem) {
   position: absolute;
   top: $spacing-xl;
   right: 0;
   z-index: $z-index-dropdown;
-  width: 12rem;
+  min-width: $width;
   margin-top: $spacing-xs;
   pointer-events: none;
   background-color: var(--bg-secondary);

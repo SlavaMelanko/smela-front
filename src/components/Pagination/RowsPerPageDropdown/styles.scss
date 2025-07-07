@@ -1,7 +1,7 @@
 @use '../../../styles/variables' as *;
 @use '../../../styles/mixins' as *;
 
-.columns-dropdown {
+.rows-per-page-dropdown {
   position: relative;
 
   &__button {
@@ -13,7 +13,7 @@
   }
 
   &__dropdown {
-    @include dropdown-base(10rem);
+    @include dropdown-base(auto);
   }
 
   &__list {

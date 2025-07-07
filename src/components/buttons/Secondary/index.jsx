@@ -31,7 +31,7 @@ const SecondaryButtonWithIcon = ({
           {iconLeft}
         </span>
       )}
-      <span className='secondary-button-with-icon__text'>{text}</span>
+      {text && <span className='secondary-button-with-icon__text'>{text}</span>}
       {iconRight && (
         <span className='secondary-button-with-icon__icon-right'>
           {iconRight}

@@ -10,6 +10,7 @@ import {
 import { useState } from 'react'
 
 import { CheckIcon } from '@/components/icons'
+import Pagination from '@/components/Pagination'
 import Table from '@/components/Table'
 import TableToolbar from '@/components/TableToolbar'
 import useLocale from '@/hooks/useLocale'
@@ -64,7 +65,9 @@ const UsersTable = ({ data = [] }) => {
       />
       <Filters isShow={showFilters} />
       <Table config={config} />
-      {/* TODO: Add pagination */}
+      <div className='table-container__pagination'>
+        <Pagination />
+      </div>
     </div>
   )
 }
