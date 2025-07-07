@@ -23,8 +23,12 @@
       color: var(--text-secondary);
     }
 
-    &--with-icon {
-      padding-right: 2.5rem;
+    &--with-left-icon {
+      padding-left: 2.25rem;
+    }
+
+    &--with-right-icon {
+      padding-right: 2.25rem;
     }
 
     &--error {
@@ -41,11 +45,18 @@
   &__icon {
     position: absolute;
     top: 50%;
-    right: 0.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
     transform: translateY(-50%);
+
+    &--left {
+      left: 0.75rem;
+    }
+
+    &--right {
+      right: 0.75rem;
+    }
   }
 
   &__toggle-btn {
