@@ -136,6 +136,7 @@
     "setCta": "Set new password",
     "success": "Password reset instructions sent"
   },
+  "searchBy": "Search by name, email, etc.",
   "signUp": "Sign up",
   "support": "Support",
   "table": {

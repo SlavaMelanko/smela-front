@@ -19,6 +19,7 @@ import PublicRoute from './PublicRoute'
 
 const HomePage = lazy(() => import('@/pages/user/Home'))
 const AdminDashboardPage = lazy(() => import('@/pages/admin/Dashboard'))
+const AdminUsersPage = lazy(() => import('@/pages/admin/Users'))
 
 const router = createBrowserRouter([
   {
@@ -104,6 +105,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute requireStatuses={[UserStatus.ACTIVE]}>
             <AdminDashboardPage />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: 'users',
+        element: (
+          <ProtectedRoute requireStatuses={[UserStatus.ACTIVE]}>
+            <AdminUsersPage />
           </ProtectedRoute>
         )
       }

@@ -20,6 +20,7 @@
 
     &::placeholder {
       font-weight: $font-weight-light;
+      color: var(--text-secondary);
     }
 
     &--with-icon {

@@ -8,7 +8,7 @@ import useOutsideClick from '@/hooks/useOutsideClick'
 
 import Dropdown from './Dropdown'
 
-const ColumnsDropdown = ({ className = '', label, menu }) => {
+const ColumnVisibilityDropdown = ({ className = '', label, menu }) => {
   const { ref, isActive, setIsActive } = useOutsideClick()
 
   const toggle = () => setIsActive(prev => !prev)
@@ -36,4 +36,4 @@ const ColumnsDropdown = ({ className = '', label, menu }) => {
   )
 }
 
-export default ColumnsDropdown
+export default ColumnVisibilityDropdown

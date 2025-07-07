@@ -4,5 +4,8 @@
   display: flex;
   gap: $spacing-md;
   align-items: center;
-  justify-content: flex-end;
+
+  &__search {
+    flex: 1;
+  }
 }

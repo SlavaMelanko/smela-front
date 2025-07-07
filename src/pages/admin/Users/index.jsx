@@ -17,7 +17,7 @@ import useLocale from '@/hooks/useLocale'
 import { getDefaultColumns } from './columns'
 import Filters from './Filters'
 
-const UsersTable = ({ data }) => {
+const UsersTable = ({ data = [] }) => {
   const { t, formatDate } = useLocale()
 
   const [columns] = useState(() => [...getDefaultColumns(t, formatDate)])
@@ -64,6 +64,7 @@ const UsersTable = ({ data }) => {
       />
       <Filters isShow={showFilters} />
       <Table config={config} />
+      {/* TODO: Add pagination */}
     </div>
   )
 }
