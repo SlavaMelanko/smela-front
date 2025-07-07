@@ -1,5 +1,6 @@
 import { getFullName } from '@/lib/format/user'
 
+import RoleBadge from './RoleBadge'
 import StatusBadge from './StatusBadge'
 
 const getDefaultColumns = (t, formatDate) => [
@@ -7,6 +8,12 @@ const getDefaultColumns = (t, formatDate) => [
     accessorKey: 'id',
     header: t('table.users.id'),
     size: 60
+  },
+  {
+    accessorKey: 'role',
+    header: t('table.users.role'),
+    size: 60,
+    cell: info => <RoleBadge role={info.getValue()} />
   },
   {
     accessorKey: 'name',
@@ -25,7 +32,7 @@ const getDefaultColumns = (t, formatDate) => [
     accessorKey: 'status',
     header: t('table.users.status'),
     size: 100,
-    cell: info => <StatusBadge status={info.row.original.status} />
+    cell: info => <StatusBadge status={info.getValue()} />
   },
   {
     accessorKey: 'createdAt',

@@ -149,6 +149,7 @@
       "email": "Email",
       "id": "ID",
       "name": "Name",
+      "role": "Role",
       "status": "Status"
     }
   },
