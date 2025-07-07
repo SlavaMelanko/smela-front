@@ -2,11 +2,11 @@
 @use '../../styles/mixins' as *;
 
 .pagination-container {
-  @include flex-center;
-
+  display: flex;
   gap: $spacing-2xl;
+  align-items: center;
   justify-content: flex-end;
-  max-height: 42px;
+  height: 42px;
   color: var(--text-secondary);
 
   &__rows-per-page {
@@ -15,13 +15,14 @@
     gap: $spacing-md;
   }
 
-  &__label {
-    color: var(--text-secondary);
-  }
-
-  &__buttons {
+  &__page-buttons {
     @include flex-center;
 
     gap: $spacing-md;
+  }
+
+  // Make pagination buttons subtle without visual emphasis.
+  .secondary-button {
+    border: 1px solid transparent;
   }
 }

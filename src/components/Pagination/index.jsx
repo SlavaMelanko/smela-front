@@ -9,6 +9,7 @@ import {
   ChevronRightIcon
 } from '@/components/icons'
 
+import RowsPerPage from './limit'
 import RowsPerPageDropdown from './RowsPerPageDropdown'
 
 const Pagination = () => {
@@ -18,48 +19,47 @@ const Pagination = () => {
     setSelected(value)
   }
 
+  const menu = [
+    {
+      label: RowsPerPage.SM,
+      icon: (
+        <CheckIcon
+          size='xs'
+          color={selected === RowsPerPage.SM ? 'green' : 'none'}
+        />
+      ),
+      onClick: () => handleSelect(RowsPerPage.SM)
+    },
+    {
+      label: RowsPerPage.MD,
+      icon: (
+        <CheckIcon
+          size='xs'
+          color={selected === RowsPerPage.MD ? 'green' : 'none'}
+        />
+      ),
+      onClick: () => handleSelect(RowsPerPage.MD)
+    },
+    {
+      label: RowsPerPage.LG,
+      icon: (
+        <CheckIcon
+          size='xs'
+          color={selected === RowsPerPage.LG ? 'green' : 'none'}
+        />
+      ),
+      onClick: () => handleSelect(RowsPerPage.LG)
+    }
+  ]
+
   return (
     <div className='pagination-container'>
       <div className='pagination-container__rows-per-page'>
         <span>Rows per page:</span>
-        <RowsPerPageDropdown
-          label={selected}
-          menu={[
-            {
-              label: '25',
-              icon: (
-                <CheckIcon
-                  size='xs'
-                  color={selected === 25 ? 'green' : 'none'}
-                />
-              ),
-              onClick: () => handleSelect(25)
-            },
-            {
-              label: '50',
-              icon: (
-                <CheckIcon
-                  size='xs'
-                  color={selected === 50 ? 'green' : 'none'}
-                />
-              ),
-              onClick: () => handleSelect(50)
-            },
-            {
-              label: '100',
-              icon: (
-                <CheckIcon
-                  size='xs'
-                  color={selected === 100 ? 'green' : 'none'}
-                />
-              ),
-              onClick: () => handleSelect(100)
-            }
-          ]}
-        />
+        <RowsPerPageDropdown label={selected} menu={menu} />
       </div>
       <p>1 - 10 of 100</p>
-      <div className='pagination-container__buttons'>
+      <div className='pagination-container__page-buttons'>
         <SecondaryButtonWithIcon
           iconLeft={<ChevronLeftIcon size='xs' color='secondary' />}
         />
