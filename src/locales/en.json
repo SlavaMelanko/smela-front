@@ -111,6 +111,10 @@
     }
   },
   "or": "or",
+  "pagination": {
+    "of": "of",
+    "rowsPerPage": "Rows per page:"
+  },
   "password": {
     "error": {
       "latin": "Only Latin letters allowed.",
@@ -136,7 +140,7 @@
     "setCta": "Set new password",
     "success": "Password reset instructions sent"
   },
-  "searchBy": "Search by name, email, etc.",
+  "searchBy": "Search by name, email, etc...",
   "signUp": "Sign up",
   "support": "Support",
   "table": {

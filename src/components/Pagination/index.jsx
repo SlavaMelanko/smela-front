@@ -8,11 +8,14 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon
 } from '@/components/icons'
+import useLocale from '@/hooks/useLocale'
 
 import RowsPerPage from './limit'
 import RowsPerPageDropdown from './RowsPerPageDropdown'
 
 const Pagination = () => {
+  const { t } = useLocale()
+
   const [selected, setSelected] = useState(25)
 
   const handleSelect = value => {
@@ -55,10 +58,10 @@ const Pagination = () => {
   return (
     <div className='pagination-container'>
       <div className='pagination-container__rows-per-page'>
-        <span>Rows per page:</span>
+        <span>{t('pagination.rowsPerPage')}</span>
         <RowsPerPageDropdown label={selected} menu={menu} />
       </div>
-      <p>1 - 10 of 100</p>
+      <p>1 - 10 {t('pagination.of')} 100</p>
       <div className='pagination-container__page-buttons'>
         <SecondaryButtonWithIcon
           iconLeft={<ChevronLeftIcon size='xs' color='secondary' />}
