@@ -22,38 +22,11 @@ const Pagination = () => {
     setSelected(value)
   }
 
-  const menu = [
-    {
-      label: RowsPerPage.SM,
-      icon: (
-        <CheckIcon
-          size='xs'
-          color={selected === RowsPerPage.SM ? 'green' : 'none'}
-        />
-      ),
-      onClick: () => handleSelect(RowsPerPage.SM)
-    },
-    {
-      label: RowsPerPage.MD,
-      icon: (
-        <CheckIcon
-          size='xs'
-          color={selected === RowsPerPage.MD ? 'green' : 'none'}
-        />
-      ),
-      onClick: () => handleSelect(RowsPerPage.MD)
-    },
-    {
-      label: RowsPerPage.LG,
-      icon: (
-        <CheckIcon
-          size='xs'
-          color={selected === RowsPerPage.LG ? 'green' : 'none'}
-        />
-      ),
-      onClick: () => handleSelect(RowsPerPage.LG)
-    }
-  ]
+  const menu = Object.values(RowsPerPage).map(size => ({
+    label: size,
+    icon: <CheckIcon size='xs' color={selected === size ? 'green' : 'none'} />,
+    onClick: () => handleSelect(size)
+  }))
 
   return (
     <div className='pagination-container'>
