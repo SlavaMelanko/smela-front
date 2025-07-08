@@ -1,7 +1,7 @@
+import { StatusBadge } from '@/components/badges'
 import { getFullName } from '@/lib/format/user'
 
 import RoleBadge from './RoleBadge'
-import StatusBadge from './StatusBadge'
 
 const getDefaultColumns = (t, formatDate) => [
   {

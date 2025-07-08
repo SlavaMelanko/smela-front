@@ -2,8 +2,8 @@ import './styles.scss'
 
 import { useNavigate } from 'react-router-dom'
 
+import { DiscountBadge } from '@/components/badges'
 import { OfferButton } from '@/components/buttons'
-import DiscountBadge from '@/components/DiscountBadge'
 import Tooltip from '@/components/Tooltip'
 import useLocale from '@/hooks/useLocale'
 

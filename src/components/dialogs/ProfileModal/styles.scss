@@ -5,7 +5,6 @@
   &__content {
     display: flex;
     flex-direction: column;
-    gap: $spacing-lg;
   }
 
   &__info {
@@ -15,22 +14,11 @@
   }
 
   &__field {
-    line-height: $line-height-md;
     color: var(--text-primary);
 
     strong {
       font-weight: $font-weight-medium;
       color: var(--text-secondary);
-    }
-  }
-
-  &__status {
-    &--verified {
-      color: var(--green);
-    }
-
-    &--unverified {
-      color: var(--yellow);
     }
   }
 }

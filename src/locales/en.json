@@ -3,7 +3,7 @@
   "captcha": {
     "error": "Please complete the CAPTCHA verification."
   },
-  "companyName": "Massive Computing, Inc.",
+  "companyName": "Company, Inc.",
   "confirmationEmail": {
     "cta": "Send again",
     "msg": "We've sent a confirmation link to {{email}}. Just click it to finish signing up.",

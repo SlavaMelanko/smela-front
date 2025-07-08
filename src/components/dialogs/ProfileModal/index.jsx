@@ -1,6 +1,8 @@
 import './styles.scss'
 
+import { StatusBadge } from '@/components/badges'
 import { ModalBody, ModalHeader } from '@/components/Modal'
+import { getFullName } from '@/lib/format/user'
 
 export const ProfileModal = ({ profile, onClose }) => {
   return (
@@ -10,25 +12,16 @@ export const ProfileModal = ({ profile, onClose }) => {
         <div className='profile-modal__content'>
           <div className='profile-modal__info'>
             <div className='profile-modal__field'>
-              <strong>Name:</strong> {profile.firstName} {profile.lastName}
+              <strong>ID:</strong> {profile.uid}
+            </div>
+            <div className='profile-modal__field'>
+              <strong>Name:</strong> {getFullName(profile)}
             </div>
             <div className='profile-modal__field'>
               <strong>Email:</strong> {profile.email}
             </div>
             <div className='profile-modal__field'>
-              <strong>Status:</strong>{' '}
-              <span
-                className={`profile-modal__status ${
-                  profile.status === 'verified'
-                    ? 'profile-modal__status--verified'
-                    : 'profile-modal__status--unverified'
-                }`}
-              >
-                {profile?.status}
-              </span>
-            </div>
-            <div className='profile-modal__field'>
-              <strong>User ID:</strong> {profile.uid}
+              <strong>Status:</strong> <StatusBadge status={profile.status} />
             </div>
           </div>
         </div>

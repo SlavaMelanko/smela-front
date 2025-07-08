@@ -2,8 +2,8 @@ import './styles.scss'
 
 import { useState } from 'react'
 
+import { DiscountBadge } from '@/components/badges'
 import { OfferButton } from '@/components/buttons'
-import DiscountBadge from '@/components/DiscountBadge'
 import { Slider } from '@/components/inputs'
 import useLocale from '@/hooks/useLocale'
 

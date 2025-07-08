@@ -3,7 +3,7 @@
   "captcha": {
     "error": "Пройдіть перевірку CAPTCHA."
   },
-  "companyName": "Massive Computing, Inc.",
+  "companyName": "Company, Inc.",
   "confirmationEmail": {
     "cta": "Надіслати ще раз",
     "msg": "Ми надіслали посилання для підтвердження на {{email}}. Перейдіть за ним, щоб завершити реєстрацію.",

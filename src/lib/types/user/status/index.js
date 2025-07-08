@@ -1,5 +1,5 @@
 // Cross-references:
-//   - src/pages/admin/Users/Table/StatusBadge/styles.scss
+//   - src/components/StatusBadge/styles.scss
 //   - src/locales/*.json
 const UserStatus = {
   NEW: 'new',
