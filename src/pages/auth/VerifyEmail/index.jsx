@@ -18,12 +18,12 @@ const VerifyEmail = () => {
     if (status === 'success') {
       refreshUser()
       navigate('/')
-      showSuccessToast(t('verifyEmail.success'))
+      showSuccessToast(t('email.verification.success'))
     }
 
     if (error) {
       navigate('/signup')
-      showErrorToast(t('verifyEmail.error.generic'))
+      showErrorToast(t('email.verification.error'))
     }
   }, [
     navigate,
@@ -40,10 +40,10 @@ const VerifyEmail = () => {
   }
 
   if (error) {
-    return <div>{t('verifyEmail.error.generic')}</div>
+    return <div>{t('email.verification.error')}</div>
   }
 
-  return <div>{t('verifyEmail.loading')}</div>
+  return <div>{t('email.verification.loading')}</div>
 }
 
 export default VerifyEmail

@@ -13,7 +13,7 @@ const renderForm = (onSubmit = jest.fn()) => {
   const emailInput = screen.getByPlaceholderText(en.email.example)
   const captchaButton = screen.getByTestId(auth.captcha.id)
   const submitButton = screen.getByRole('button', {
-    name: en.resetPassword.cta
+    name: en.password.reset.request.cta
   })
 
   return {

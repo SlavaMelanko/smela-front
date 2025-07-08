@@ -22,7 +22,7 @@ const ResetPassword = () => {
   const handleSendResetLink = async ({ email, reset }) => {
     try {
       await sendPasswordResetLink(email)
-      showSuccessToast(t('resetPassword.success'))
+      showSuccessToast(t('password.reset.request.success'))
 
       if (reset) {
         reset()
@@ -37,9 +37,9 @@ const ResetPassword = () => {
       await confirmNewPassword(oobCode, newPassword)
       navigate('/login')
 
-      showSuccessToast(t('resetPassword.resetSuccess'))
+      showSuccessToast(t('password.reset.set.success'))
     } catch {
-      showErrorToast(t('resetPassword.error'))
+      showErrorToast(t('password.reset.set.error'))
     }
   }
 
@@ -47,8 +47,8 @@ const ResetPassword = () => {
     <div className='reset-password-page'>
       <p className='reset-password-page__description'>
         {isStarting
-          ? t('resetPassword.description')
-          : t('resetPassword.newPassword')}
+          ? t('password.reset.request.description')
+          : t('password.reset.set.description')}
       </p>
 
       {isStarting ? (
@@ -58,7 +58,7 @@ const ResetPassword = () => {
       )}
 
       <div className='reset-password-page__prompts'>
-        <LoginPrompt question={t('resetPassword.loginPrompt')} />
+        <LoginPrompt question={t('password.reset.loginPrompt')} />
       </div>
     </div>
   )

@@ -58,7 +58,7 @@ const EmailConfirmationForm = ({ onSubmit }) => {
       </div>
 
       <PrimaryButton type='submit' disabled={isSubmitting}>
-        {isSubmitting ? t('processing') : t('confirmationEmail.cta')}
+        {isSubmitting ? t('processing') : t('email.confirmation.cta')}
       </PrimaryButton>
     </form>
   )

@@ -69,14 +69,14 @@ test.describe('Signup', () => {
 
     await page.waitForURL(/email-confirmation/)
     await expect(
-      page.getByRole('heading', { name: en.confirmationEmail.title })
+      page.getByRole('heading', { name: en.email.confirmation.title })
     ).toBeVisible()
 
     // Even if we navigate to the root,
     await goTo(page, '/')
     // the email confirmation page should be shown again
     await expect(
-      page.getByRole('heading', { name: en.confirmationEmail.title })
+      page.getByRole('heading', { name: en.email.confirmation.title })
     ).toBeVisible()
   })
 
@@ -138,7 +138,7 @@ test.describe('Signup', () => {
 
     await page.goto(link)
 
-    await expect(page.getByText(en.verifyEmail.success)).toBeVisible()
+    await expect(page.getByText(en.email.verification.success)).toBeVisible()
 
     await page.waitForURL('/home')
 
@@ -196,14 +196,17 @@ test.describe('Password Reset', () => {
     await logout(page, en)
 
     await goTo(page, '/reset-password')
-    await expect(page.getByText(en.resetPassword.description)).toBeVisible()
+    await expect(
+      page.getByText(en.password.reset.request.description)
+    ).toBeVisible()
+
     await expect(page.getByPlaceholder(en.email.example)).toBeVisible()
     await page.getByPlaceholder(en.email.example).fill(testEmail)
 
     await passCaptcha(page)
 
     const submitButton = page.getByRole('button', {
-      name: en.resetPassword.cta
+      name: en.password.reset.request.cta
     })
 
     await expect(submitButton).toBeEnabled()
@@ -229,11 +232,11 @@ test.describe('Password Reset', () => {
       .getByPlaceholder(en.password.placeholder.new, { exact: true })
       .fill(newPassword)
 
-    await page.getByRole('button', { name: en.resetPassword.setCta }).click()
+    await page.getByRole('button', { name: en.password.reset.set.cta }).click()
 
     await page.waitForURL('/login')
 
-    await expect(page.getByText(en.resetPassword.resetSuccess)).toBeVisible()
+    await expect(page.getByText(en.password.reset.set.success)).toBeVisible()
 
     await page.getByPlaceholder(en.email.placeholder).fill(testEmail)
     await page

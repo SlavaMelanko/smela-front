@@ -17,7 +17,7 @@ const EmailConfirmation = () => {
     try {
       await sendVerificationEmail()
 
-      showSuccessToast(t('confirmationEmail.success'))
+      showSuccessToast(t('email.confirmation.success'))
 
       if (reset) {
         reset()
@@ -32,12 +32,12 @@ const EmailConfirmation = () => {
     <div className='email-confirmation-page'>
       <div className='email-confirmation-page__content'>
         <h1 className='email-confirmation-page__title'>
-          {t('confirmationEmail.title')}
+          {t('email.confirmation.title')}
         </h1>
 
         <p className='email-confirmation-page__message'>
-          {t('confirmationEmail.msg', {
-            email: profile?.email || t('confirmationEmail.yourEmail')
+          {t('email.confirmation.description', {
+            email: profile?.email || t('email.confirmation.yourEmail')
           })}
         </p>
       </div>

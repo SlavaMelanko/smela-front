@@ -4,24 +4,29 @@
     "error": "Please complete the CAPTCHA verification."
   },
   "companyName": "Company, Inc.",
-  "confirmationEmail": {
-    "cta": "Send again",
-    "msg": "We've sent a confirmation link to {{email}}. Just click it to finish signing up.",
-    "success": "Confirmation email sent again",
-    "title": "Confirmation email sent",
-    "yourEmail": "your email"
-  },
   "continueWithGoogle": "Continue with Google",
   "copyright": "© {{year}} {{companyName}}",
   "doNotHaveAccount": "Don't have an account?",
   "email": {
+    "confirmation": {
+      "cta": "Send again",
+      "description": "We've sent a confirmation link to {{email}}. Just click it to finish signing up.",
+      "success": "Confirmation email sent again.",
+      "title": "Confirmation email sent",
+      "yourEmail": "your email"
+    },
     "error": {
       "format": "Enter a valid email address.",
       "required": "Email is required."
     },
     "example": "your@email.com",
     "label": "Email",
-    "placeholder": "Email address"
+    "placeholder": "Email address",
+    "verification": {
+      "error": "Email verification failed.",
+      "loading": "Verifying email...",
+      "success": "Email verified successfully."
+    }
   },
   "error": {
     "unknown": "Something went wrong. Please try again later."
@@ -126,20 +131,24 @@
       "default": "Your password",
       "masked": "••••••••",
       "new": "New password"
+    },
+    "reset": {
+      "loginPrompt": "Remember your password?",
+      "request": {
+        "cta": "Send instructions",
+        "description": "Enter your email address and we will send you instructions to reset your password.",
+        "success": "Password reset instructions sent."
+      },
+      "set": {
+        "cta": "Set new password",
+        "description": "Only one step left — create a new password.",
+        "error": "Failed to reset password. Please try again.",
+        "success": "Your password has been reset successfully."
+      }
     }
   },
   "processing": "Processing...",
   "profile": "Profile",
-  "resetPassword": {
-    "cta": "Send instructions",
-    "description": "Enter your email address and we will send you instructions to reset your password.",
-    "error": "Failed to reset password. Please try again.",
-    "loginPrompt": "Remember your password?",
-    "newPassword": "Only one step left — create a new password.",
-    "resetSuccess": "Your password has been reset successfully.",
-    "setCta": "Set new password",
-    "success": "Password reset instructions sent"
-  },
   "searchBy": "Search by name, email, etc...",
   "signUp": "Sign up",
   "support": "Support",
@@ -173,12 +182,5 @@
       "mb": "MB",
       "tb": "TB"
     }
-  },
-  "verifyEmail": {
-    "error": {
-      "generic": "Email verification failed"
-    },
-    "loading": "Verifying email...",
-    "success": "Email verified successfully"
   }
 }

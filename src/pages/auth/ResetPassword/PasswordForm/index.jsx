@@ -41,7 +41,7 @@ const SetNewPasswordForm = ({ onSubmit }) => {
       </div>
 
       <PrimaryButton type='submit' disabled={isSubmitting}>
-        {isSubmitting ? t('processing') : t('resetPassword.setCta')}
+        {isSubmitting ? t('processing') : t('password.reset.set.cta')}
       </PrimaryButton>
     </form>
   )
