@@ -68,6 +68,10 @@
     @include flex-center;
   }
 
+  &__label {
+    white-space: nowrap;
+  }
+
   &__separator {
     height: 1px;
     background-color: var(--border-color);
