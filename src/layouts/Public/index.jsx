@@ -7,6 +7,7 @@ import Copyright from '@/components/Copyright'
 import { LanguageSelector } from '@/components/dropdowns'
 import { Spinner } from '@/components/Spinner'
 import ThemeToggle from '@/components/ThemeToggle'
+
 const PublicLayout = () => {
   return (
     <div className='public-layout'>
