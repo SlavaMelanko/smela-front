@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom'
 
-import { Spinner } from '@/components/Spinner'
+import Spinner from '@/components/Spinner'
 import useAuth from '@/hooks/useAuth'
 import { UserStatus } from '@/lib/types'
 

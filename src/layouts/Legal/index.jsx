@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom'
 import Copyright from '@/components/Copyright'
 import { LanguageSelector } from '@/components/dropdowns'
 import { MassiveLogo } from '@/components/icons'
-import { Spinner } from '@/components/Spinner'
+import Spinner from '@/components/Spinner'
 import ThemeToggle from '@/components/ThemeToggle'
 
 const LegalLayout = () => (

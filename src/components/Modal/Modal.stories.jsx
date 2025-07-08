@@ -26,7 +26,7 @@ const SimpleModalExample = () => {
             <p>Congratulations! You’ve just opened a simple modal.</p>
           </ModalBody>
           <ModalFooter>
-            <PrimaryButton onClick={() => close()}>Close</PrimaryButton>
+            <PrimaryButton onClick={() => close()}>OK</PrimaryButton>
           </ModalFooter>
         </>
       )

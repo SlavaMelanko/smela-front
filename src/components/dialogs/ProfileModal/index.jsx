@@ -1,7 +1,6 @@
 import './styles.scss'
 
-import { SecondaryButton } from '@/components/buttons'
-import { ModalBody, ModalFooter, ModalHeader } from '@/components/Modal'
+import { ModalBody, ModalHeader } from '@/components/Modal'
 
 export const ProfileModal = ({ profile, onClose }) => {
   return (
@@ -34,9 +33,6 @@ export const ProfileModal = ({ profile, onClose }) => {
           </div>
         </div>
       </ModalBody>
-      <ModalFooter>
-        <SecondaryButton onClick={onClose}>Close</SecondaryButton>
-      </ModalFooter>
     </>
   )
 }
