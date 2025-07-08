@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 import useLocale from '@/hooks/useLocale'
 
-const DropdownList = ({ className, menu, onSelect, isOpen }) => {
+const DropdownList = ({ className, menu, isOpen }) => {
   const { t } = useLocale()
 
   return (
@@ -27,7 +27,7 @@ const DropdownList = ({ className, menu, onSelect, isOpen }) => {
                     'dropdown__item--last': isLast,
                     'dropdown__item--danger': danger
                   })}
-                  onClick={() => onSelect({ label, icon, onClick })}
+                  onClick={onClick}
                 >
                   <span className='dropdown__icon'>{icon}</span>
                   <span className='dropdown__label'>{t(label)}</span>

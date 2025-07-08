@@ -12,11 +12,10 @@ const ColumnVisibilityDropdown = ({ className = '', label, menu }) => {
 
   const toggle = () => setIsActive(prev => !prev)
 
-  const handleSelect = ({ onClick }) => {
-    if (onClick) {
-      onClick()
-    }
-  }
+  const normalizedMenu = menu.map(item => ({
+    ...item,
+    onClick: () => item.onClick?.()
+  }))
 
   return (
     <div className={clsx('column-visibility-dropdown', className)} ref={ref}>
@@ -26,7 +25,7 @@ const ColumnVisibilityDropdown = ({ className = '', label, menu }) => {
         text={label}
         onClick={toggle}
       />
-      <DropdownList menu={menu} isOpen={isActive} onSelect={handleSelect} />
+      <DropdownList menu={normalizedMenu} isOpen={isActive} />
     </div>
   )
 }

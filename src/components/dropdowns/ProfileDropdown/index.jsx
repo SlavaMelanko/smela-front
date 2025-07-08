@@ -13,13 +13,13 @@ const ProfileDropdown = ({ className = '', name, menu }) => {
 
   const toggle = () => setIsActive(prev => !prev)
 
-  const handleSelect = ({ onClick }) => {
-    if (onClick) {
-      onClick()
+  const normalizedMenu = menu.map(item => ({
+    ...item,
+    onClick: () => {
+      item.onClick?.()
+      setIsActive(false)
     }
-
-    setIsActive(false)
-  }
+  }))
 
   return (
     <div className={clsx('profile-dropdown', className)} ref={ref}>
@@ -32,7 +32,7 @@ const ProfileDropdown = ({ className = '', name, menu }) => {
         <span className='profile-dropdown__name'>{name}</span>
         <ChevronToggle isOpen={isActive} />
       </button>
-      <DropdownList menu={menu} isOpen={isActive} onSelect={handleSelect} />
+      <DropdownList menu={normalizedMenu} isOpen={isActive} />
     </div>
   )
 }

@@ -54,62 +54,6 @@
   }
 }
 
-@mixin dropdown-base($width: 12rem) {
-  position: absolute;
-  top: $spacing-xl;
-  right: 0;
-  z-index: $z-index-dropdown;
-  min-width: $width;
-  margin-top: $spacing-xs;
-  pointer-events: none;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: $border-radius-sm;
-  box-shadow: $shadow-sm;
-  opacity: 0;
-  transition: 0.3s all;
-
-  &--open {
-    top: 2.5rem;
-    pointer-events: all;
-    opacity: 1;
-  }
-}
-
-@mixin dropdown-item-base {
-  display: flex;
-  gap: $spacing-sm;
-  align-items: center;
-  width: 100%;
-  padding: $spacing-sm $spacing-md;
-  text-align: left;
-  cursor: pointer;
-  background: none;
-  border: none;
-
-  &:hover {
-    background-color: var(--highlight-bg);
-  }
-
-  &--active {
-    background-color: var(--highlight-bg);
-  }
-
-  &--first {
-    border-top-left-radius: $border-radius-sm;
-    border-top-right-radius: $border-radius-sm;
-  }
-
-  &--last {
-    border-bottom-right-radius: $border-radius-sm;
-    border-bottom-left-radius: $border-radius-sm;
-  }
-
-  &--danger {
-    color: var(--text-error);
-  }
-}
-
 @mixin form-layout {
   display: flex;
   flex-direction: column;
