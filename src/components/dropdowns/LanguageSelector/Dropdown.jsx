@@ -2,8 +2,20 @@ import clsx from 'clsx'
 
 import Flag from './Flag'
 
-const Dropdown = ({ languages, currentLanguage, onSelect, className }) => (
-  <div className={clsx('language-selector__dropdown', className)}>
+const Dropdown = ({
+  languages,
+  currentLanguage,
+  onSelect,
+  className,
+  isOpen
+}) => (
+  <div
+    className={clsx(
+      'language-selector__dropdown',
+      { 'language-selector__dropdown--open': isOpen },
+      className
+    )}
+  >
     <div className='language-selector__list'>
       {languages.map(({ id, code, name, flag }) => (
         <button

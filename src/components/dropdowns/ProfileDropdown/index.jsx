@@ -2,11 +2,11 @@ import './styles.scss'
 
 import clsx from 'clsx'
 
+import { DropdownList } from '@/components/dropdowns'
 import { ChevronToggle } from '@/components/icons/animated'
 import useOutsideClick from '@/hooks/useOutsideClick'
 
 import Avatar from './Avatar'
-import Dropdown from './Dropdown'
 
 const ProfileDropdown = ({ className = '', name, menu }) => {
   const { ref, isActive, setIsActive } = useOutsideClick()
@@ -32,11 +32,7 @@ const ProfileDropdown = ({ className = '', name, menu }) => {
         <span className='profile-dropdown__name'>{name}</span>
         <ChevronToggle isOpen={isActive} />
       </button>
-      <Dropdown
-        className={clsx(isActive && 'profile-dropdown__dropdown--open')}
-        menu={menu}
-        onSelect={handleSelect}
-      />
+      <DropdownList menu={menu} isOpen={isActive} onSelect={handleSelect} />
     </div>
   )
 }

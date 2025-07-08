@@ -40,9 +40,9 @@ const LanguageSelector = ({ className = '' }) => {
         <Flag className='language-selector__flag' code={currentLanguage.code} />
       </button>
       <Dropdown
-        className={clsx(isActive && 'language-selector__dropdown--open')}
         languages={languages}
         currentLanguage={currentLanguage}
+        isOpen={isActive}
         onSelect={handleSelect}
       />
     </div>
