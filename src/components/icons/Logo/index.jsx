@@ -1,4 +1,4 @@
-const Massive = ({ width, height, className = '' }) => (
+const Logo = ({ width, height, className = '' }) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 140 16'
@@ -29,4 +29,4 @@ const Massive = ({ width, height, className = '' }) => (
   </svg>
 )
 
-export default Massive
+export default Logo

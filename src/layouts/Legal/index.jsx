@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom'
 
 import Copyright from '@/components/Copyright'
 import { LanguageSelector } from '@/components/dropdowns'
-import { MassiveLogo } from '@/components/icons'
+import { Logo } from '@/components/icons'
 import Spinner from '@/components/Spinner'
 import ThemeToggle from '@/components/ThemeToggle'
 
@@ -18,7 +18,7 @@ const LegalLayout = () => (
 
     <div className='legal-layout__container'>
       <header className='legal-layout__header'>
-        <MassiveLogo width={240} height={45} />
+        <Logo width={240} height={45} />
       </header>
 
       <main className='legal-layout__content'>

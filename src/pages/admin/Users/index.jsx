@@ -15,13 +15,13 @@ import Table from '@/components/Table'
 import TableToolbar from '@/components/TableToolbar'
 import useLocale from '@/hooks/useLocale'
 
-import { getDefaultColumns } from './columns'
+import { getAccessibleColumns } from './columns'
 import Filters from './Filters'
 
 const UsersTable = ({ data = [] }) => {
   const { t, formatDate } = useLocale()
 
-  const [columns] = useState(() => [...getDefaultColumns(t, formatDate)])
+  const [columns] = useState(() => [...getAccessibleColumns(t, formatDate)])
   const [columnVisibility, setColumnVisibility] = useState({})
   const [sorting, setSorting] = useState([])
 

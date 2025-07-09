@@ -80,14 +80,14 @@ test.describe('Signup', () => {
     ).toBeVisible()
   })
 
-  // This test assumes that `admin@joinmassive.com` is already registered.
+  // This test assumes that `admin@example.com` is already registered.
   test('prevents signup if email is already registered', async ({ page }) => {
     await fillForm(
       page,
       {
         firstName: 'John',
         lastName: 'Doe',
-        email: 'admin@joinmassive.com',
+        email: 'admin@example.com',
         password: 'Password123!'
       },
       en

@@ -1,7 +1,7 @@
-# Portal for proxy customers &amp; SDK partners
+# 🚀 Portal for proxy customers &amp; SDK partners
 
-Second version of our live [portal](https://partners.joinmassive.com), rebuilt from the ground up to
+This app focuses on:
 
-1. Fix architectural issues
-1. Improve maintainability
-1. Enhance the user experience
+1. Clear architecture
+2. Easy, future-proof maintenance
+3. A simple, intuitive user experience

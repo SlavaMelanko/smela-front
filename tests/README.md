@@ -2,7 +2,7 @@
 
 ## ⚠️ Prerequisites
 
-Before running the tests, make sure the `admin@joinmassive.com` account is registered.
+Before running the tests, make sure the `admin@example.com` account is registered.
 
 This account is used in tests that validate "email already in use" error on signup.
 

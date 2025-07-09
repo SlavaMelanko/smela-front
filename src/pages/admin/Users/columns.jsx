@@ -3,7 +3,7 @@ import { getFullName } from '@/lib/format/user'
 
 import RoleBadge from './RoleBadge'
 
-const getDefaultColumns = (t, formatDate) => [
+const getAccessibleColumns = (t, formatDate) => [
   {
     accessorKey: 'id',
     header: t('table.users.id'),
@@ -42,4 +42,4 @@ const getDefaultColumns = (t, formatDate) => [
   }
 ]
 
-export { getDefaultColumns }
+export { getAccessibleColumns }

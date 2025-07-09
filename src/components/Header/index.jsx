@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { ProfileModal } from '@/components/dialogs'
 import { LanguageSelector, ProfileDropdown } from '@/components/dropdowns'
-import { HelpIcon, LogoutIcon, MassiveLogo, UserIcon } from '@/components/icons'
+import { HelpIcon, Logo, LogoutIcon, UserIcon } from '@/components/icons'
 import MobileMenuToggle from '@/components/MobileMenuToggle'
 import {
   NotificationPanel,
@@ -72,7 +72,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
     <>
       <header className='header'>
         <div className='header__logo'>
-          <MassiveLogo width={160} />
+          <Logo width={160} />
         </div>
 
         <nav className='header__nav'>

@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom'
 
 import Copyright from '@/components/Copyright'
 import { LanguageSelector } from '@/components/dropdowns'
-import { MassiveLogo } from '@/components/icons'
+import { Logo } from '@/components/icons'
 import Spinner from '@/components/Spinner'
 import ThemeToggle from '@/components/ThemeToggle'
 
@@ -19,7 +19,7 @@ const AuthLayout = () => {
 
       <div className='auth-layout__container'>
         <header className='auth-layout__header'>
-          <MassiveLogo width={240} height={45} />
+          <Logo width={240} height={45} />
         </header>
 
         <main className='auth-layout__content'>

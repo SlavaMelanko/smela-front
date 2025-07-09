@@ -16,7 +16,6 @@ const preview = {
   globalTypes: {
     theme: {
       name: 'Theme',
-      description: 'Light or Dark mode for Massive branding',
       defaultValue: 'light',
       toolbar: {
         icon: 'contrast',
