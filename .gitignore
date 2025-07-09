@@ -31,5 +31,9 @@ dist-ssr
 /blob-report/
 /playwright/.cache/
 
+# Jest Coverage
+/coverage/
+*.lcov
+
 *storybook.log
 storybook-static
