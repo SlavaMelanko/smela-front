@@ -7,6 +7,7 @@
   "rules": {
     "at-rule-no-unknown": null,
     "scss/at-rule-no-unknown": true,
+    "scss/dollar-variable-pattern": "^[a-z]+([a-z0-9-]+[a-z0-9]+)?$",
     "selector-class-pattern": null,
     "plugin/selector-bem-pattern": {
       "componentName": "[A-Z]+",
@@ -14,6 +15,20 @@
         "initial": "^\\.{componentName}(?:__[a-z0-9-]+)?(?:--[a-z0-9-]+)?$"
       },
       "utilitySelectors": "^\\.util-[a-z]+$"
-    }
+    },
+    "color-no-invalid-hex": true,
+    "font-family-no-duplicate-names": true,
+    "font-family-no-missing-generic-family-keyword": true,
+    "length-zero-no-unit": true,
+    "no-duplicate-selectors": true,
+    "no-empty-source": true,
+    "no-duplicate-at-import-rules": true,
+    "selector-disallowed-list": ["/^#/"],
+    "selector-no-qualifying-type": [
+      true,
+      {
+        "ignore": ["attribute", "class"]
+      }
+    ]
   }
 }
