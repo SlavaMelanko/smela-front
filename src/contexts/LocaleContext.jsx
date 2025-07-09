@@ -22,6 +22,8 @@ export const LocaleProvider = ({ children }) => {
       locale,
       changeLocale,
       formatNumber: (value, options) => formatNumber(value, locale, options),
+      formatNumberWithUnit: (value, unit, options) =>
+        `${formatNumber(value, locale, options)} ${unit}`,
       formatPrice: (value, currency, options) =>
         formatPrice(value, locale, currency, options),
       formatDate: (date, options) => formatDate(date, locale, options)
