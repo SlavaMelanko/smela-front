@@ -46,20 +46,20 @@ const preview = {
 
   decorators: [
     (Story, context) => {
-      const isDark = context.globals.theme === 'dark'
+      const { theme, locale } = context.globals
+
+      const isDark = theme === 'dark'
 
       // toggle `dark` class on <html>
       document.documentElement.classList.toggle('dark', isDark)
 
       // set i18n language
-      const locale = context.globals.locale
-
       if (locale) {
         i18n.changeLanguage(locale)
       }
 
-      // use key to force re-render when locale changes
-      return <Story key={locale} />
+      // use key to force re-render when locale & theme changes
+      return <Story key={`${locale}-${theme}`} />
     }
   ]
 }
