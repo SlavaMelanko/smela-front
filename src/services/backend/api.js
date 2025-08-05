@@ -16,7 +16,7 @@ class ApiClient {
     )
 
     error.name = errorData.name || 'AppError'
-    error.code = errorData.code || 'unknown'
+    error.code = errorData.code || 'system:internal-error'
 
     return error
   }
