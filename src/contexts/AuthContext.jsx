@@ -48,47 +48,39 @@ function clearAuthIfNoUser(user, dispatch) {
   return false
 }
 
+async function loadUserProfile(user, dispatch) {
+  if (clearAuthIfNoUser(user, dispatch)) return
+
+  dispatch({ type: 'START_LOADING' })
+
+  try {
+    const profile = await getUserFromStorage(user.uid)
+
+    dispatch({
+      type: 'SET_PROFILE',
+      payload: {
+        ...profile,
+        uid: user.uid,
+        email: user.email
+      }
+    })
+  } catch (err) {
+    dispatch({ type: 'SET_ERROR', payload: err })
+  }
+}
+
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const refreshUser = useCallback(async () => {
     const user = getAuth().currentUser
 
-    if (clearAuthIfNoUser(user, dispatch)) return
-
-    dispatch({ type: 'START_LOADING' })
-
-    try {
-      const profile = await getUserFromStorage(user.uid)
-
-      dispatch({
-        type: 'SET_PROFILE',
-        payload: { ...profile, uid: user.uid, email: user.email }
-      })
-    } catch (err) {
-      dispatch({ type: 'SET_ERROR', payload: err })
-    }
+    await loadUserProfile(user, dispatch)
   }, [])
 
   useEffect(() => {
     const unsubscribe = onAuthChange(async user => {
-      if (clearAuthIfNoUser(user, dispatch)) return
-
-      dispatch({ type: 'START_LOADING' })
-
-      try {
-        const profile = await getUserFromStorage(user.uid)
-
-        dispatch({
-          type: 'SET_PROFILE',
-          payload: {
-            ...profile,
-            uid: user.uid
-          }
-        })
-      } catch (err) {
-        dispatch({ type: 'SET_ERROR', payload: err })
-      }
+      await loadUserProfile(user, dispatch)
     })
 
     return unsubscribe
