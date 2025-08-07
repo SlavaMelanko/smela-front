@@ -4,18 +4,17 @@ import useAuth from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
 import { toTranslationKey } from '@/services/catch'
-import { sendVerificationEmail } from '@/services/firebase'
 
 import EmailConfirmationForm from './Form'
 
 const EmailConfirmation = () => {
   const { t } = useLocale()
-  const { user } = useAuth()
+  const { user, resendVerificationEmail } = useAuth()
   const { showSuccessToast, showErrorToast } = useNotifications()
 
   const handleSubmit = async ({ reset }) => {
     try {
-      await sendVerificationEmail()
+      await resendVerificationEmail()
 
       showSuccessToast(t('email.confirmation.success'))
 

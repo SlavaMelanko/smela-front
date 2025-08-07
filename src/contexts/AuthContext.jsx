@@ -72,12 +72,9 @@ export const AuthProvider = ({ children }) => {
     [verifyEmailMutation]
   )
 
-  const resendVerificationEmail = useCallback(
-    async email => {
-      await resendVerificationEmailMutation.mutateAsync(email)
-    },
-    [resendVerificationEmailMutation]
-  )
+  const resendVerificationEmail = useCallback(async () => {
+    await resendVerificationEmailMutation.mutateAsync(user?.email)
+  }, [resendVerificationEmailMutation, user])
 
   const requestPasswordReset = useCallback(
     async email => {
