@@ -3,25 +3,26 @@ import './styles.scss'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { LoginPrompt } from '@/components/prompts'
+import useAuth from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
-import { confirmNewPassword, sendPasswordResetLink } from '@/services/firebase'
 
 import EmailForm from './EmailForm'
 import PasswordForm from './PasswordForm'
 
 const ResetPassword = () => {
   const { t } = useLocale()
+  const { requestPasswordReset, resetPassword } = useAuth()
   const { showSuccessToast, showErrorToast } = useNotifications()
   const navigate = useNavigate()
   const [params] = useSearchParams()
-  const oobCode = params.get('oobCode')
+  const token = params.get('token')
 
-  const isStarting = !oobCode
+  const isRequest = !token
 
   const handleSendResetLink = async ({ email, reset }) => {
     try {
-      await sendPasswordResetLink(email)
+      await requestPasswordReset(email)
       showSuccessToast(t('password.reset.request.success'))
 
       if (reset) {
@@ -34,7 +35,7 @@ const ResetPassword = () => {
 
   const handleCompleteReset = async ({ newPassword }) => {
     try {
-      await confirmNewPassword(oobCode, newPassword)
+      await resetPassword(token, newPassword)
       navigate('/login')
 
       showSuccessToast(t('password.reset.set.success'))
@@ -46,12 +47,12 @@ const ResetPassword = () => {
   return (
     <div className='reset-password-page'>
       <p className='reset-password-page__description'>
-        {isStarting
+        {isRequest
           ? t('password.reset.request.description')
           : t('password.reset.set.description')}
       </p>
 
-      {isStarting ? (
+      {isRequest ? (
         <EmailForm onSubmit={handleSendResetLink} />
       ) : (
         <PasswordForm onSubmit={handleCompleteReset} />
