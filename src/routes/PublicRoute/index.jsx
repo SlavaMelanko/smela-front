@@ -2,9 +2,9 @@ import RootRedirect from '@/components/RootRedirect'
 import useAuth from '@/hooks/useAuth'
 
 const PublicRoute = ({ children }) => {
-  const { isAuthenticated, loading } = useAuth()
+  const { isLoading, isAuthenticated } = useAuth()
 
-  if (loading) {
+  if (isLoading) {
     return null
   }
 

@@ -5,9 +5,9 @@ import useAuth from '@/hooks/useAuth'
 import { UserStatus } from '@/lib/types'
 
 const RootRedirect = () => {
-  const { loading, isAuthenticated, profile } = useAuth()
+  const { isLoading, isAuthenticated, profile } = useAuth()
 
-  if (loading) {
+  if (isLoading) {
     return <Spinner centered />
   }
 

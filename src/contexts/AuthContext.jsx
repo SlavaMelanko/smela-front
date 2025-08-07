@@ -1,152 +1,129 @@
-import { getAuth } from 'firebase/auth'
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useReducer
-} from 'react'
+import { createContext, useCallback, useMemo } from 'react'
 
-import { UserStatus } from '@/lib/types'
 import {
-  getUserFromStorage,
-  onAuthChange,
-  sendVerificationEmail,
-  signInWithEmail,
-  signInWithGoogle,
-  signOutUser,
-  signUpWithEmail,
-  signUpWithGoogle as doSignUpWithGoogle
-} from '@/services/firebase'
+  useCurrentUser,
+  useLogin,
+  useLogout,
+  useRequestPasswordReset,
+  useResendVerificationEmail,
+  useResetPassword,
+  useSignup,
+  useVerifyEmail
+} from '@/hooks/useAuth'
 
 const AuthContext = createContext()
 
-const initialState = { profile: null, loading: true, error: null }
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'START_LOADING':
-      return { ...state, loading: true, error: null }
-    case 'SET_PROFILE':
-      return { ...state, profile: action.payload, loading: false, error: null }
-    case 'SET_ERROR':
-      return { ...state, error: action.payload, loading: false }
-    case 'CLEAR':
-      return { ...state, profile: null, loading: false, error: null }
-    default:
-      return state
-  }
-}
-
-function clearAuthIfNoUser(user, dispatch) {
-  if (!user) {
-    dispatch({ type: 'CLEAR' })
-
-    return true
-  }
-
-  return false
-}
-
-async function loadUserProfile(user, dispatch) {
-  if (clearAuthIfNoUser(user, dispatch)) return
-
-  dispatch({ type: 'START_LOADING' })
-
-  try {
-    const profile = await getUserFromStorage(user.uid)
-
-    dispatch({
-      type: 'SET_PROFILE',
-      payload: {
-        ...profile,
-        uid: user.uid,
-        email: user.email
-      }
-    })
-  } catch (err) {
-    dispatch({ type: 'SET_ERROR', payload: err })
-  }
-}
-
 export const AuthProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const {
+    data: user,
+    isLoading: isUserLoading,
+    error,
+    refetch: refreshUser
+  } = useCurrentUser()
+  const loginMutation = useLogin()
+  const signupMutation = useSignup()
+  const logoutMutation = useLogout()
+  const verifyEmailMutation = useVerifyEmail()
+  const resendVerificationEmailMutation = useResendVerificationEmail()
+  const requestPasswordResetMutation = useRequestPasswordReset()
+  const resetPasswordMutation = useResetPassword()
 
-  const refreshUser = useCallback(async () => {
-    const user = getAuth().currentUser
+  // General loading indicator for all auth operations.
+  const isLoading =
+    isUserLoading ||
+    loginMutation.isPending ||
+    signupMutation.isPending ||
+    logoutMutation.isPending ||
+    verifyEmailMutation.isPending ||
+    resendVerificationEmailMutation.isPending ||
+    requestPasswordResetMutation.isPending ||
+    resetPasswordMutation.isPending
 
-    await loadUserProfile(user, dispatch)
-  }, [])
+  const logIn = useCallback(
+    async (email, password) => {
+      await loginMutation.mutateAsync({ email, password })
+    },
+    [loginMutation]
+  )
 
-  useEffect(() => {
-    const unsubscribe = onAuthChange(async user => {
-      await loadUserProfile(user, dispatch)
-    })
-
-    return unsubscribe
-  }, [])
-
-  const handleAuthOperation = useCallback(async operation => {
-    dispatch({ type: 'START_LOADING' })
-
-    try {
-      return await operation()
-    } catch (err) {
-      dispatch({ type: 'SET_ERROR', payload: err })
-      throw err
-    }
+  const logInWithGoogle = useCallback(async () => {
+    throw new Error('Google login not implemented for backend API yet')
   }, [])
 
   const signUp = useCallback(
-    async data =>
-      handleAuthOperation(async () => {
-        const { user } = await signUpWithEmail({
-          ...data,
-          status: UserStatus.NEW
-        })
-
-        sendVerificationEmail(user)
-      }),
-    [handleAuthOperation]
+    async userData => {
+      await signupMutation.mutateAsync(userData)
+    },
+    [signupMutation]
   )
 
-  const signUpWithGoogle = useCallback(
-    async data => handleAuthOperation(() => doSignUpWithGoogle(data)),
-    [handleAuthOperation]
+  const signUpWithGoogle = useCallback(async () => {
+    throw new Error('Google signup not implemented for backend API yet')
+  }, [])
+
+  const logOut = useCallback(async () => {
+    await logoutMutation.mutateAsync()
+  }, [logoutMutation])
+
+  const verifyEmail = useCallback(
+    async token => {
+      await verifyEmailMutation.mutateAsync(token)
+    },
+    [verifyEmailMutation]
   )
-  const logIn = useCallback(
-    async (email, password) =>
-      handleAuthOperation(() => signInWithEmail(email, password)),
-    [handleAuthOperation]
+
+  const resendVerificationEmail = useCallback(
+    async email => {
+      await resendVerificationEmailMutation.mutateAsync(email)
+    },
+    [resendVerificationEmailMutation]
   )
-  const logInWithGoogle = useCallback(
-    () => handleAuthOperation(() => signInWithGoogle()),
-    [handleAuthOperation]
+
+  const requestPasswordReset = useCallback(
+    async email => {
+      await requestPasswordResetMutation.mutateAsync(email)
+    },
+    [requestPasswordResetMutation]
   )
-  const logOut = useCallback(
-    () => handleAuthOperation(() => signOutUser()),
-    [handleAuthOperation]
+
+  const resetPassword = useCallback(
+    async (token, password) => {
+      await resetPasswordMutation.mutateAsync({ token, password })
+    },
+    [resetPasswordMutation]
   )
 
   const value = useMemo(
     () => ({
-      ...state,
-      isAuthenticated: !!state.profile,
-      signUp,
-      signUpWithGoogle,
+      user,
+      isLoading,
+      error,
+      isAuthenticated: !!user,
       logIn,
       logInWithGoogle,
+      signUp,
+      signUpWithGoogle,
       logOut,
-      refreshUser
+      refreshUser,
+      verifyEmail,
+      resendVerificationEmail,
+      requestPasswordReset,
+      resetPassword
     }),
     [
-      state,
-      signUp,
-      signUpWithGoogle,
+      user,
+      isLoading,
+      error,
       logIn,
       logInWithGoogle,
+      signUp,
+      signUpWithGoogle,
       logOut,
-      refreshUser
+      refreshUser,
+      verifyEmail,
+      resendVerificationEmail,
+      requestPasswordReset,
+      resetPassword
     ]
   )
 

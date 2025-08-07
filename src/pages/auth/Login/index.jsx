@@ -16,7 +16,7 @@ import LoginForm from './Form'
 const Login = () => {
   const { t } = useLocale()
   const navigate = useNavigate()
-  const { loading, logIn, logInWithGoogle } = useAuth()
+  const { isLoading, logIn, logInWithGoogle } = useAuth()
   const { showErrorToast } = useNotifications()
 
   const handleLogin = async ({ email, password }) => {
@@ -41,7 +41,7 @@ const Login = () => {
     }
   }
 
-  if (loading) {
+  if (isLoading) {
     return <Spinner centered />
   }
 
