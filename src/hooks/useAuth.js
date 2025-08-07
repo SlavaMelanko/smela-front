@@ -37,13 +37,6 @@ export const useCurrentUser = () => {
 
         throw error
       }
-    },
-    retry: (failureCount, error) => {
-      if (error?.status === 401) {
-        return false
-      }
-
-      return failureCount < 3
     }
   })
 }
