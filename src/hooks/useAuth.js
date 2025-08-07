@@ -46,7 +46,13 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: ({ email, password }) => authService.login(email, password),
-    onSuccess: () => {
+    onSuccess: data => {
+      // If login returns user data, set it immediately
+      if (data?.user) {
+        queryClient.setQueryData(authKeys.user(), data.user)
+      }
+
+      // Still invalidate to ensure fresh data
       queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
   })
@@ -57,7 +63,13 @@ export const useSignup = () => {
 
   return useMutation({
     mutationFn: userData => authService.signup(userData),
-    onSuccess: () => {
+    onSuccess: data => {
+      // If signup returns user data, set it immediately
+      if (data?.user) {
+        queryClient.setQueryData(authKeys.user(), data.user)
+      }
+
+      // Still invalidate to ensure fresh data
       queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
   })
