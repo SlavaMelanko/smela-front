@@ -10,7 +10,7 @@ import EmailConfirmationForm from './Form'
 
 const EmailConfirmation = () => {
   const { t } = useLocale()
-  const { profile } = useAuth()
+  const { user } = useAuth()
   const { showSuccessToast, showErrorToast } = useNotifications()
 
   const handleSubmit = async ({ reset }) => {
@@ -37,7 +37,7 @@ const EmailConfirmation = () => {
 
         <p className='email-confirmation-page__message'>
           {t('email.confirmation.description', {
-            email: profile?.email || t('email.confirmation.yourEmail')
+            email: user?.email || t('email.confirmation.yourEmail')
           })}
         </p>
       </div>

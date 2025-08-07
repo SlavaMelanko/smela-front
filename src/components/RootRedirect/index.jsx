@@ -5,7 +5,7 @@ import useAuth from '@/hooks/useAuth'
 import { UserStatus } from '@/lib/types'
 
 const RootRedirect = () => {
-  const { isLoading, isAuthenticated, profile } = useAuth()
+  const { isLoading, isAuthenticated, user } = useAuth()
 
   if (isLoading) {
     return <Spinner centered />
@@ -15,7 +15,7 @@ const RootRedirect = () => {
     return <Navigate to='/login' replace />
   }
 
-  const status = profile?.status
+  const status = user?.status
 
   if (isAuthenticated && status === UserStatus.NEW) {
     return <Navigate to='/email-confirmation' replace />
