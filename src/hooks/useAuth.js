@@ -27,7 +27,7 @@ export const useCurrentUser = () => {
     queryKey: authKeys.user(),
     queryFn: async () => {
       try {
-        const user = await userService.getCurrentUser()
+        const { user } = await userService.getCurrentUser()
 
         return user
       } catch (error) {
@@ -46,10 +46,10 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: ({ email, password }) => authService.login(email, password),
-    onSuccess: data => {
+    onSuccess: ({ user }) => {
       // If login returns user data, set it immediately
-      if (data?.user) {
-        queryClient.setQueryData(authKeys.user(), data.user)
+      if (user) {
+        queryClient.setQueryData(authKeys.user(), user)
       }
 
       // Still invalidate to ensure fresh data
@@ -63,10 +63,10 @@ export const useSignup = () => {
 
   return useMutation({
     mutationFn: userData => authService.signup(userData),
-    onSuccess: data => {
+    onSuccess: ({ user }) => {
       // If signup returns user data, set it immediately
-      if (data?.user) {
-        queryClient.setQueryData(authKeys.user(), data.user)
+      if (user) {
+        queryClient.setQueryData(authKeys.user(), user)
       }
 
       // Still invalidate to ensure fresh data
