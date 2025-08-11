@@ -1,4 +1,5 @@
 import { QueryClient } from '@tanstack/react-query'
+import { StatusCodes } from 'http-status-codes'
 
 const getRetryDelay = attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000) // max 30 seconds
 
@@ -21,8 +22,11 @@ const queryClient = new QueryClient({
       gcTime: 10 * 60 * 1000, // 10 minutes
       // Retry failed requests
       retry: (failureCount, error) => {
-        // Don't retry on 4xx errors (client errors)
-        if (error?.status >= 400 && error?.status < 500) {
+        // Don't retry on 4xx errors (client errors).
+        if (
+          error?.status >= StatusCodes.BAD_REQUEST &&
+          error?.status < StatusCodes.INTERNAL_SERVER_ERROR
+        ) {
           return false
         }
 

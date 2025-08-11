@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { StatusCodes } from 'http-status-codes'
 import { useContext } from 'react'
 
 import AuthContext from '@/contexts/AuthContext'
@@ -31,7 +32,7 @@ export const useCurrentUser = () => {
 
         return user
       } catch (error) {
-        if (error?.status === 401) {
+        if (error?.status === StatusCodes.UNAUTHORIZED) {
           return null
         }
 

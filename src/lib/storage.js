@@ -13,7 +13,7 @@ const storage = {
     try {
       localStorage.setItem(key, value)
     } catch {
-      // Fail silently (e.g., quota exceeded, private mode)
+      // Fail silently (e.g., quota exceeded, private mode).
     }
   },
 
@@ -21,7 +21,7 @@ const storage = {
     try {
       localStorage.removeItem(key)
     } catch {
-      // Fail silently (e.g., quota exceeded, private mode)
+      // Fail silently (e.g., quota exceeded, private mode).
     }
   }
 }
