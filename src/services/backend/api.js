@@ -1,3 +1,5 @@
+import { StatusCodes } from 'http-status-codes'
+
 const API_BASE_URL = import.meta.env.VITE_APP_BACKEND_URL
 
 class ApiClient {
@@ -17,6 +19,7 @@ class ApiClient {
 
     error.name = errorData.name || 'AppError'
     error.code = errorData.code || 'system:internal-error'
+    error.status = response.status || StatusCodes.INTERNAL_SERVER_ERROR
 
     return error
   }
