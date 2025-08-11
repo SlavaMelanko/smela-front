@@ -89,6 +89,9 @@ const { register, handleSubmit } = useForm({ resolver })
 4. **i18n keys**: Keep translations "short, clear, and easy to understand"
 5. **ESLint compliance**: No console.log (use console.warn/error), prefer const
 6. **Git hooks**: Pre-commit runs ESLint and Prettier on staged files
+7. **Comment style**: 
+   - Trailing comments: no capital letter, no period (e.g., `const i = 0 // initial value`)
+   - Full-line comments: capital letter and period (e.g., `// This initializes the counter.`)
 
 ## Important Considerations
 

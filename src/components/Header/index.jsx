@@ -34,7 +34,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
     navigate('/login')
   }
 
-  // TODO: extract
+  // TODO: extract.
   const openProfileModal = () => {
     const close = openModal({
       children: <ProfileModal profile={user} onClose={() => close()} />,

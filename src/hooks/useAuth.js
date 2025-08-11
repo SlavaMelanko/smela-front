@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import AuthContext from '@/contexts/AuthContext'
 import { authService, userService } from '@/services/backend'
 
-// Context hook
+// Context hook.
 const useAuth = () => {
   const context = useContext(AuthContext)
 
@@ -15,13 +15,13 @@ const useAuth = () => {
   return context
 }
 
-// Query keys
+// Query keys.
 export const authKeys = {
   all: ['auth'],
   user: () => [...authKeys.all, 'user']
 }
 
-// React Query hooks
+// React Query hooks.
 export const useCurrentUser = () => {
   return useQuery({
     queryKey: authKeys.user(),
@@ -47,12 +47,12 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: ({ email, password }) => authService.login(email, password),
     onSuccess: ({ user }) => {
-      // If login returns user data, set it immediately
+      // If login returns user data, set it immediately.
       if (user) {
         queryClient.setQueryData(authKeys.user(), user)
       }
 
-      // Still invalidate to ensure fresh data
+      // Still invalidate to ensure fresh data.
       queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
   })
@@ -64,12 +64,12 @@ export const useSignup = () => {
   return useMutation({
     mutationFn: userData => authService.signup(userData),
     onSuccess: ({ user }) => {
-      // If signup returns user data, set it immediately
+      // If signup returns user data, set it immediately.
       if (user) {
         queryClient.setQueryData(authKeys.user(), user)
       }
 
-      // Still invalidate to ensure fresh data
+      // Still invalidate to ensure fresh data.
       queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
   })

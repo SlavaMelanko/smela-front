@@ -1,6 +1,6 @@
 import { QueryClient } from '@tanstack/react-query'
 
-const getRetryDelay = attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000) // Max 30 seconds
+const getRetryDelay = attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000) // max 30 seconds
 
 const handleError = (error, context) => {
   console.error(`${context} error:`, error)
@@ -51,7 +51,7 @@ if (import.meta.env.DEV) {
   // More aggressive refetching in development
   queryClient.setDefaultOptions({
     queries: {
-      staleTime: 0, // Always consider data stale in dev
+      staleTime: 0, // always consider data stale in dev
       refetchOnWindowFocus: true
     }
   })
