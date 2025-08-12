@@ -60,18 +60,12 @@ export const useLogin = () => {
 }
 
 export const useSignup = () => {
-  const queryClient = useQueryClient()
-
   return useMutation({
     mutationFn: userData => authService.signup(userData),
-    onSuccess: ({ user }) => {
-      // If signup returns user data, set it immediately.
-      if (user) {
-        queryClient.setQueryData(authKeys.user(), user)
-      }
-
-      // Still invalidate to ensure fresh data.
-      queryClient.invalidateQueries({ queryKey: authKeys.user() })
+    onSuccess: () => {
+      // Do not set user data immediately - user must verify email first.
+      // The backend /api/v1/me endpoint requires verified status.
+      // No invalidation needed - user must verify email before accessing /me endpoint.
     }
   })
 }
