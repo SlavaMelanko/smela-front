@@ -1,22 +1,43 @@
-import { useEffect, useRef, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useEffect, useReducer, useRef } from 'react'
 
-import { verifyEmail } from '@/services/firebase'
+const ActionType = {
+  START: 'START',
+  SUCCESS: 'SUCCESS',
+  ERROR: 'ERROR'
+}
 
-/**
- * Custom hook to handle email verification process
- * Uses Firebase's email verification system with an oobCode (out-of-band code)
- *
- * @returns {Object} Object containing:
- *   - loading: boolean indicating if verification is in progress
- *   - error: boolean indicating if verification failed
- *   - status: string ('pending' | 'success' | 'error') indicating current verification state
- */
-export const useVerifyEmail = () => {
-  const [searchParams] = useSearchParams()
-  const oobCode = searchParams.get('oobCode')
+const initialState = {
+  isLoading: true,
+  isError: false,
+  error: null,
+  isSuccess: false
+}
 
-  const [status, setStatus] = useState('pending')
+const verificationReducer = (state, action) => {
+  switch (action.type) {
+    case ActionType.START:
+      return initialState
+    case ActionType.SUCCESS:
+      return {
+        isLoading: false,
+        isError: false,
+        error: null,
+        isSuccess: true
+      }
+    case ActionType.ERROR:
+      return {
+        isLoading: false,
+        isError: true,
+        error: action.payload,
+        isSuccess: false
+      }
+    default:
+      return state
+  }
+}
+
+export const useVerifyEmail = verifyEmail => {
+  const [state, dispatch] = useReducer(verificationReducer, initialState)
 
   // useRef is used here for two purposes:
   // 1. hasRun: prevents multiple verification attempts by persisting across re-renders
@@ -36,42 +57,46 @@ export const useVerifyEmail = () => {
   }, [])
 
   useEffect(() => {
-    if (hasRun.current) return
+    if (hasRun.current) {
+      return
+    }
+
     hasRun.current = true
 
-    const runValidation = async () => {
-      if (!oobCode) {
+    const doVerification = async () => {
+      if (!verifyEmail) {
         if (isMounted.current) {
-          setStatus('error')
+          dispatch({
+            type: ActionType.ERROR,
+            payload: new Error('No verification function provided')
+          })
         }
 
         return
       }
 
       try {
-        const response = await verifyEmail(oobCode)
-
-        if (response.success && isMounted.current) {
-          setStatus('success')
-        } else if (isMounted.current) {
-          setStatus('error')
-        }
-      } catch (error) {
-        console.error('[verifyEmail] Error during verification:', error)
+        await verifyEmail()
 
         if (isMounted.current) {
-          setStatus('error')
+          dispatch({ type: ActionType.SUCCESS })
+        }
+      } catch (err) {
+        console.error(err)
+
+        if (isMounted.current) {
+          dispatch({
+            type: ActionType.ERROR,
+            payload: err
+          })
         }
       }
     }
 
-    runValidation()
-  }, [oobCode])
+    doVerification()
+  }, [verifyEmail])
 
-  const loading = status === 'pending'
-  const error = status === 'error'
-
-  return { loading, error, status }
+  return state
 }
 
 export default useVerifyEmail
