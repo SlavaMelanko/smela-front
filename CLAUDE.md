@@ -1,10 +1,13 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with
+code in this repository.
 
 ## Project Overview
 
-This is a Portal V2 application for proxy customers and SDK partners, built with React 19, Vite, and Firebase. The project emphasizes clear architecture, easy maintenance, and simple UX.
+This is a Portal V2 application for proxy customers and SDK partners, built with
+React 19, Vite, and TanStack Query. The project uses a custom backend API and
+emphasizes clear architecture, easy maintenance, and simple UX.
 
 ## Essential Commands
 
@@ -43,7 +46,6 @@ Components are organized in `/src/components/` with each component having:
 
 The app uses React Context API for global state:
 
-- **AuthContext** - Authentication state and user data
 - **ThemeContext** - Dark/light theme switching
 - **LocaleContext** - i18n language switching (EN/UK)
 - **ModalContext** - Global modal management
@@ -57,13 +59,15 @@ Routes are defined in `/src/routes/` with three protection levels:
 - **Public routes** - Accessible without auth (login, pricing)
 - **Legal routes** - Privacy policy and terms
 
-### Firebase Integration
+### API Integration
 
-All Firebase services are centralized in `/src/services/firebase/`:
+The app uses TanStack Query for data fetching and state management with our
+custom backend API:
 
-- **auth.js** - Authentication with Google OAuth and email/password
-- **firestore.js** - Database operations for users and data
-- **realtime.js** - Real-time data subscriptions
+- **API client** - Centralized API configuration and request handling
+- **Query hooks** - Custom hooks for data fetching with caching and
+  synchronization
+- **Mutations** - Optimistic updates and error handling for data modifications
 
 ### Form Handling
 
@@ -85,13 +89,16 @@ const { register, handleSubmit } = useForm({ resolver })
 
 1. **Path aliases**: Use `@/` for `src/` and `@components` for `src/components`
 2. **Component imports**: Always import from component folders, not files
-3. **SCSS organization**: Global styles in `/src/styles/`, component styles co-located
+3. **SCSS organization**: Global styles in `/src/styles/`, component styles
+   co-located
 4. **i18n keys**: Keep translations "short, clear, and easy to understand"
 5. **ESLint compliance**: No console.log (use console.warn/error), prefer const
 6. **Git hooks**: Pre-commit runs ESLint and Prettier on staged files
-7. **Comment style**: 
-   - Trailing comments: no capital letter, no period (e.g., `const i = 0 // initial value`)
-   - Full-line comments: capital letter and period (e.g., `// This initializes the counter.`)
+7. **Comment style**:
+   - Trailing comments: no capital letter, no period (e.g.,
+     `const i = 0 // initial value`)
+   - Full-line comments: capital letter and period (e.g.,
+     `// This initializes the counter.`)
 
 ## Important Considerations
 
@@ -99,4 +106,6 @@ const { register, handleSubmit } = useForm({ resolver })
 - Theme switching between dark and light modes is implemented
 - Role-based access control differentiates admin and regular users
 - All forms include proper validation and error handling
-- Firebase rules and security are configured for production use
+- API authentication uses JWT tokens for secure access
+- TanStack Query provides automatic caching, background refetching, and
+  optimistic updates
