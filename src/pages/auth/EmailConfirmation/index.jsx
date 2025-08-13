@@ -1,6 +1,6 @@
 import './styles.scss'
 
-import useAuth from '@/hooks/useAuth'
+import { useCurrentUser, useResendVerificationEmail } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
 import { toTranslationKey } from '@/services/catch'
@@ -9,22 +9,24 @@ import EmailConfirmationForm from './Form'
 
 const EmailConfirmation = () => {
   const { t } = useLocale()
-  const { user, resendVerificationEmail } = useAuth()
+  const { user } = useCurrentUser()
+  const { mutate: resendVerificationEmail } = useResendVerificationEmail()
   const { showSuccessToast, showErrorToast } = useNotifications()
 
-  const handleSubmit = async ({ reset }) => {
-    try {
-      await resendVerificationEmail()
+  const handleSubmit = ({ reset }) => {
+    resendVerificationEmail(user?.email, {
+      onSuccess: () => {
+        showSuccessToast(t('email.confirmation.success'))
 
-      showSuccessToast(t('email.confirmation.success'))
-
-      if (reset) {
-        reset()
+        if (reset) {
+          reset()
+        }
+      },
+      onError: err => {
+        console.error(err)
+        showErrorToast(t(toTranslationKey(err)))
       }
-    } catch (err) {
-      console.error(err)
-      showErrorToast(t(toTranslationKey(err)))
-    }
+    })
   }
 
   return (

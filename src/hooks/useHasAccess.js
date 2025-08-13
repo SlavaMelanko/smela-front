@@ -1,7 +1,7 @@
-import useAuth from '@/hooks/useAuth'
+import { useCurrentUser } from '@/hooks/useAuth'
 
 const useHasAccess = ({ requireStatuses = [], requireRoles = [] } = {}) => {
-  const { isLoading, isAuthenticated, user } = useAuth()
+  const { isPending, isAuthenticated, user } = useCurrentUser()
 
   const hasRequiredStatus =
     requireStatuses.length === 0 || requireStatuses.includes(user?.status)
@@ -12,7 +12,7 @@ const useHasAccess = ({ requireStatuses = [], requireRoles = [] } = {}) => {
   const hasAccess = isAuthenticated && hasRequiredStatus && hasRequiredRole
 
   return {
-    isLoading,
+    isPending,
     isAuthenticated,
     hasAccess,
     status: user?.status || null,

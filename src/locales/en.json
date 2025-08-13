@@ -1,20 +1,20 @@
 {
   "alreadyHaveAccount": "Already have an account?",
   "backend": {
-    "auth:already-verified": "Invalid request. Please try logging in.",
-    "auth:bad-credentials": "Invalid email or password.",
-    "auth:email-already-in-use": "If this email is available, you'll receive a confirmation email shortly.",
-    "auth:invalid-credentials": "Invalid email or password.",
-    "auth:unauthorized": "Access denied. Please try logging in again.",
-    "auth:unverified-account": "Invalid email or password.",
-    "resource:not-found": "Access denied.",
-    "system:internal-error": "Something went wrong. Please try again later.",
-    "token:already-used": "Invalid or expired link.",
-    "token:deprecated": "Invalid or expired link.",
-    "token:expired": "Invalid or expired link.",
-    "token:not-found": "Invalid or expired link.",
-    "token:type-mismatch": "Invalid or expired link.",
-    "validation:error": "Please check your input and try again."
+    "auth/already-verified": "Invalid request. Please try logging in.",
+    "auth/bad-credentials": "Invalid email or password.",
+    "auth/email-already-in-use": "If this email is available, you'll receive a confirmation email shortly.",
+    "auth/invalid-credentials": "Invalid email or password.",
+    "auth/unauthorized": "Access denied. Please try logging in again.",
+    "auth/unverified-account": "Invalid email or password.",
+    "resource/not-found": "Access denied.",
+    "system/internal-error": "Something went wrong. Please try again later.",
+    "token/already-used": "Invalid or expired link.",
+    "token/deprecated": "Invalid or expired link.",
+    "token/expired": "Invalid or expired link.",
+    "token/not-found": "Invalid or expired link.",
+    "token/type-mismatch": "Invalid or expired link.",
+    "validation/error": "Please check your input and try again."
   },
   "captcha": {
     "error": "Please complete the CAPTCHA verification."

@@ -12,12 +12,13 @@ import {
   NotificationToggle
 } from '@/components/notifications'
 import ThemeToggle from '@/components/ThemeToggle'
-import useAuth from '@/hooks/useAuth'
+import { useCurrentUser, useLogout } from '@/hooks/useAuth'
 import useModal from '@/hooks/useModal'
 import useNotifications from '@/hooks/useNotifications'
 
 const Header = ({ isSidebarOpen, toggleSidebar }) => {
-  const { user, logOut } = useAuth()
+  const { user } = useCurrentUser()
+  const { mutate: logOut } = useLogout()
   const { inboxNotifications } = useNotifications()
   const { openModal } = useModal()
   const navigate = useNavigate()
@@ -29,9 +30,12 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
     setIsPanelOpen(prev => !prev)
   }
 
-  const handleLogOut = async () => {
-    await logOut()
-    navigate('/login')
+  const handleLogOut = () => {
+    logOut(undefined, {
+      onSuccess: () => {
+        navigate('/login')
+      }
+    })
   }
 
   // TODO: extract.

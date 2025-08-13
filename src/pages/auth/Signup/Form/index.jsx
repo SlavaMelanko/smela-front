@@ -11,7 +11,7 @@ import useLocale from '@/hooks/useLocale'
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-const SignupForm = ({ onSubmit }) => {
+const SignupForm = ({ onSubmit, isLoading = false }) => {
   const { t } = useLocale()
 
   const {
@@ -82,8 +82,8 @@ const SignupForm = ({ onSubmit }) => {
         </p>
       </div>
 
-      <PrimaryButton type='submit' disabled={isSubmitting}>
-        {isSubmitting ? t('processing') : t('signUp')}
+      <PrimaryButton type='submit' disabled={isSubmitting || isLoading}>
+        {isSubmitting || isLoading ? t('processing') : t('signUp')}
       </PrimaryButton>
     </form>
   )

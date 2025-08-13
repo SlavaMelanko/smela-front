@@ -63,9 +63,9 @@ const router = createBrowserRouter([
       {
         path: 'verify-email',
         element: (
-          <ProtectedRoute requireStatuses={[UserStatus.NEW]}>
+          <PublicRoute>
             <VerifyEmailPage />
-          </ProtectedRoute>
+          </PublicRoute>
         )
       },
       {

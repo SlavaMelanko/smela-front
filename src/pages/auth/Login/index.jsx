@@ -6,7 +6,7 @@ import { GoogleOAuthButton } from '@/components/buttons'
 import { ForgotYourPasswordPrompt, SignupPrompt } from '@/components/prompts'
 import Separator from '@/components/Separator'
 import Spinner from '@/components/Spinner'
-import useAuth from '@/hooks/useAuth'
+import { useLogin, useLoginWithGoogle } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
 import { toTranslationKey } from '@/services/catch'
@@ -16,38 +16,43 @@ import LoginForm from './Form'
 const Login = () => {
   const { t } = useLocale()
   const navigate = useNavigate()
-  const { isLoading, logIn, logInWithGoogle } = useAuth()
+  const { mutate: logInWithEmail, isPending: isEmailPending } = useLogin()
+  const { mutate: logInWithGoogle, isPending: isGooglePending } =
+    useLoginWithGoogle()
   const { showErrorToast } = useNotifications()
 
-  const handleLogin = async ({ email, password }) => {
-    try {
-      await logIn(email, password)
-
-      navigate('/')
-    } catch (err) {
-      console.error(err)
-      showErrorToast(t(toTranslationKey(err)))
-    }
+  const handleLogin = ({ email, password }) => {
+    logInWithEmail(
+      { email, password },
+      {
+        onSuccess: () => {
+          navigate('/')
+        },
+        onError: err => {
+          showErrorToast(t(toTranslationKey(err)))
+        }
+      }
+    )
   }
 
-  const handleLoginWithGoogle = async () => {
-    try {
-      await logInWithGoogle()
-
-      navigate('/')
-    } catch (err) {
-      console.error(err)
-      showErrorToast(t(toTranslationKey(err)))
-    }
+  const handleLoginWithGoogle = () => {
+    logInWithGoogle(undefined, {
+      onSuccess: () => {
+        navigate('/')
+      },
+      onError: err => {
+        showErrorToast(t(toTranslationKey(err)))
+      }
+    })
   }
 
-  if (isLoading) {
+  if (isEmailPending || isGooglePending) {
     return <Spinner centered />
   }
 
   return (
     <div className='login-page'>
-      <LoginForm onSubmit={handleLogin} />
+      <LoginForm onSubmit={handleLogin} isLoading={isEmailPending} />
       <div className='login-page__separator'>
         <Separator text={t('or')} />
       </div>
@@ -55,6 +60,7 @@ const Login = () => {
         className='login-page__oauth-button'
         text={t('continueWithGoogle')}
         onClick={handleLoginWithGoogle}
+        disabled={isGooglePending}
       />
       <div className='login-page__prompts'>
         <SignupPrompt />

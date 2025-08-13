@@ -12,7 +12,7 @@ import useLocale from '@/hooks/useLocale'
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-const ResetPasswordForm = ({ onSubmit }) => {
+const ResetPasswordForm = ({ onSubmit, isLoading = false }) => {
   const { t } = useLocale()
   const [captchaResetKey, setCaptchaResetKey] = useState(0)
 
@@ -70,8 +70,10 @@ const ResetPasswordForm = ({ onSubmit }) => {
         </FormField>
       </div>
 
-      <PrimaryButton type='submit' disabled={isSubmitting}>
-        {isSubmitting ? t('processing') : t('password.reset.request.cta')}
+      <PrimaryButton type='submit' disabled={isSubmitting || isLoading}>
+        {isSubmitting || isLoading
+          ? t('processing')
+          : t('password.reset.request.cta')}
       </PrimaryButton>
     </form>
   )

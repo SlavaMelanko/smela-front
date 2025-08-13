@@ -1,47 +1,50 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import Spinner from '@/components/Spinner'
-import useAuth from '@/hooks/useAuth'
+import { useVerifyEmail } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
-import useVerifyEmail from '@/hooks/useVerifyEmail'
-import { verifyEmail } from '@/services/firebase'
 
 const VerifyEmail = () => {
   const { t } = useLocale()
   const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
+  const [params] = useSearchParams()
   const { showSuccessToast, showErrorToast } = useNotifications()
-  const { refreshUser } = useAuth()
+  const {
+    isPending,
+    isError,
+    isSuccess,
+    mutate: verifyEmail
+  } = useVerifyEmail()
+  const hasVerified = useRef(false)
 
-  const oobCode = searchParams.get('oobCode')
-  const { isLoading, isError, isSuccess } = useVerifyEmail(() =>
-    verifyEmail(oobCode)
-  )
+  const token = params.get('token')
+
+  useEffect(() => {
+    // Prevent double execution in StrictMode and when effect re-runs.
+    if (!token || hasVerified.current || isPending) {
+      return
+    }
+
+    hasVerified.current = true
+
+    verifyEmail(token)
+  }, [token, verifyEmail, isPending])
 
   useEffect(() => {
     if (isSuccess) {
-      refreshUser()
-      navigate('/')
       showSuccessToast(t('email.verification.success'))
+      navigate('/')
     }
 
     if (isError) {
-      navigate('/signup')
       showErrorToast(t('email.verification.error'))
+      navigate('/signup')
     }
-  }, [
-    navigate,
-    refreshUser,
-    showErrorToast,
-    showSuccessToast,
-    isSuccess,
-    isError,
-    t
-  ])
+  }, [navigate, showErrorToast, showSuccessToast, isSuccess, isError, t])
 
-  if (isLoading) {
+  if (isPending) {
     return <Spinner centered />
   }
 

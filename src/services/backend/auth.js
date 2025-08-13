@@ -1,11 +1,11 @@
 import api from './api'
 
 const authService = {
-  async signup(userData) {
+  async signUp(userData) {
     return api.post('/auth/signup', { ...userData })
   },
 
-  async login(email, password) {
+  async logIn(email, password) {
     return api.post('/auth/login', { email, password })
   },
 
@@ -25,7 +25,7 @@ const authService = {
     return api.post('/auth/reset-password', { token, password })
   },
 
-  async logout() {
+  async logOut() {
     return api.post('/auth/logout')
   }
 }

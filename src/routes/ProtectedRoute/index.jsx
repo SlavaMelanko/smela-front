@@ -6,12 +6,12 @@ const ProtectedRoute = ({
   requireStatuses = [],
   requireRoles = []
 }) => {
-  const { hasAccess, isLoading } = useHasAccess({
+  const { hasAccess, isPending } = useHasAccess({
     requireStatuses,
     requireRoles
   })
 
-  if (isLoading) {
+  if (isPending) {
     return null // or a loader/spinner
   }
 

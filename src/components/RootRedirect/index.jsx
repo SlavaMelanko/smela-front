@@ -1,13 +1,13 @@
 import { Navigate } from 'react-router-dom'
 
 import Spinner from '@/components/Spinner'
-import useAuth from '@/hooks/useAuth'
+import { useCurrentUser } from '@/hooks/useAuth'
 import { UserStatus } from '@/lib/types'
 
 const RootRedirect = () => {
-  const { isLoading, isAuthenticated, user } = useAuth()
+  const { isPending, isAuthenticated, user } = useCurrentUser()
 
-  if (isLoading) {
+  if (isPending) {
     return <Spinner centered />
   }
 

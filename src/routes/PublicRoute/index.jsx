@@ -1,10 +1,10 @@
 import RootRedirect from '@/components/RootRedirect'
-import useAuth from '@/hooks/useAuth'
+import { useCurrentUser } from '@/hooks/useAuth'
 
 const PublicRoute = ({ children }) => {
-  const { isLoading, isAuthenticated } = useAuth()
+  const { isPending, isAuthenticated } = useCurrentUser()
 
-  if (isLoading) {
+  if (isPending) {
     return null
   }
 

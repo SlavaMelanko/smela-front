@@ -1,30 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { StatusCodes } from 'http-status-codes'
-import { useContext } from 'react'
 
-import AuthContext from '@/contexts/AuthContext'
 import { authService, userService } from '@/services/backend'
 
-// Context hook.
-const useAuth = () => {
-  const context = useContext(AuthContext)
-
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
-  }
-
-  return context
-}
-
-// Query keys.
 export const authKeys = {
   all: ['auth'],
   user: () => [...authKeys.all, 'user']
 }
 
-// React Query hooks.
 export const useCurrentUser = () => {
-  return useQuery({
+  const query = useQuery({
     queryKey: authKeys.user(),
     queryFn: async () => {
       try {
@@ -40,20 +25,43 @@ export const useCurrentUser = () => {
       }
     }
   })
+
+  return {
+    ...query,
+    user: query.data,
+    isAuthenticated: !!query.data
+  }
 }
 
 export const useLogin = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ email, password }) => authService.login(email, password),
+    mutationFn: ({ email, password }) => authService.logIn(email, password),
     onSuccess: ({ user }) => {
-      // If login returns user data, set it immediately.
       if (user) {
         queryClient.setQueryData(authKeys.user(), user)
       }
 
-      // Still invalidate to ensure fresh data.
+      queryClient.invalidateQueries({ queryKey: authKeys.user() })
+    }
+  })
+}
+
+export const useLoginWithGoogle = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async () => {
+      // Temporary implementation until Google OAuth is implemented
+      throw new Error('Google login not implemented for backend API yet')
+    },
+    onSuccess: ({ user }) => {
+      // When implemented, this will set the user data and invalidate queries
+      if (user) {
+        queryClient.setQueryData(authKeys.user(), user)
+      }
+
       queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
   })
@@ -61,7 +69,7 @@ export const useLogin = () => {
 
 export const useSignup = () => {
   return useMutation({
-    mutationFn: userData => authService.signup(userData),
+    mutationFn: userData => authService.signUp(userData),
     onSuccess: () => {
       // Do not set user data immediately - user must verify email first.
       // The backend /api/v1/me endpoint requires verified status.
@@ -70,11 +78,30 @@ export const useSignup = () => {
   })
 }
 
+export const useSignupWithGoogle = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async () => {
+      // Temporary implementation until Google OAuth is implemented
+      throw new Error('Google signup not implemented for backend API yet')
+    },
+    onSuccess: ({ user }) => {
+      // When implemented, this will set the user data and invalidate queries
+      if (user) {
+        queryClient.setQueryData(authKeys.user(), user)
+      }
+
+      queryClient.invalidateQueries({ queryKey: authKeys.user() })
+    }
+  })
+}
+
 export const useLogout = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: authService.logout,
+    mutationFn: authService.logOut,
     onSuccess: () => {
       queryClient.setQueryData(authKeys.user(), null)
       queryClient.invalidateQueries({ queryKey: authKeys.all })
@@ -111,5 +138,3 @@ export const useResetPassword = () => {
       authService.resetPassword(token, password)
   })
 }
-
-export default useAuth
