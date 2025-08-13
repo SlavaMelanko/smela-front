@@ -95,9 +95,7 @@ test.describe('Signup', () => {
 
     await page.getByRole('button', { name: en.signUp }).click()
 
-    const errorMessage = page.getByText(
-      en.firebase['auth/email-already-in-use']
-    )
+    const errorMessage = page.getByText(en.backend['auth/email-already-in-use'])
 
     await expect(errorMessage).toBeVisible()
   })

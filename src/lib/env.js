@@ -17,7 +17,6 @@ const getRequiredEnv = key => {
 }
 
 const env = {
-  FIREBASE_CONFIG: getEnv('FIREBASE_CONFIG'),
   HCAPTCHA_SITEKEY: getRequiredEnv('HCAPTCHA_SITEKEY')
 }
 

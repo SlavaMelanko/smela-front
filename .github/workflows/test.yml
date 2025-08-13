@@ -7,8 +7,8 @@ on:
     branches: [dev, main]
 
 env:
-  VITE_APP_FIREBASE_CONFIG: ${{ secrets.VITE_APP_FIREBASE_CONFIG }}
   VITE_APP_HCAPTCHA_SITEKEY: ${{ secrets.VITE_APP_HCAPTCHA_SITEKEY }}
+  VITE_APP_BACKEND_URL: ${{ secrets.VITE_APP_BACKEND_URL }}
 
 jobs:
   unit:

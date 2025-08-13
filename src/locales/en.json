@@ -47,14 +47,6 @@
   "error": {
     "unknown": "Something went wrong. Please try again later."
   },
-  "firebase": {
-    "auth/email-already-in-use": "This email is already in use.",
-    "auth/invalid-credential": "Invalid credentials. Please try again.",
-    "auth/network-request-failed": "Network error. Please try again later.",
-    "auth/too-many-requests": "Suspicious activity detected. Please try again later.",
-    "auth/unauthenticated": "Please log in or sign up to continue.",
-    "auth/user-not-found": "User not found."
-  },
   "firstName": {
     "error": {
       "max": "First name can’t be longer than 50 characters.",
