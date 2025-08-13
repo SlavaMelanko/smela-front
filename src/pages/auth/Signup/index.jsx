@@ -26,7 +26,6 @@ const Signup = () => {
         navigate('/email-confirmation')
       },
       onError: err => {
-        console.error(err)
         showErrorToast(t(toTranslationKey(err)))
       }
     })
@@ -38,7 +37,6 @@ const Signup = () => {
         navigate('/')
       },
       onError: err => {
-        console.error(err)
         showErrorToast(t(toTranslationKey(err)))
       }
     })

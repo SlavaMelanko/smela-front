@@ -23,7 +23,6 @@ const EmailConfirmation = () => {
         }
       },
       onError: err => {
-        console.error(err)
         showErrorToast(t(toTranslationKey(err)))
       }
     })
