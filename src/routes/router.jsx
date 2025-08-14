@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import RootRedirect from '@/components/RootRedirect'
 import { AuthLayout, LegalLayout, PublicLayout, UserLayout } from '@/layouts'
-import { UserStatus } from '@/lib/types'
+import { adminActiveStatuses, userActiveStatuses } from '@/lib/types'
 import EmailConfirmationPage from '@/pages/auth/EmailConfirmation'
 import LoginPage from '@/pages/auth/Login'
 import ResetPasswordPage from '@/pages/auth/ResetPassword'
@@ -86,13 +86,7 @@ const router = createBrowserRouter([
       {
         path: 'home',
         element: (
-          <ProtectedRoute
-            requireStatuses={[
-              UserStatus.VERIFIED,
-              UserStatus.TRIAL,
-              UserStatus.ACTIVE
-            ]}
-          >
+          <ProtectedRoute requireStatuses={userActiveStatuses}>
             <HomePage />
           </ProtectedRoute>
         )
@@ -106,7 +100,7 @@ const router = createBrowserRouter([
       {
         path: 'dashboard',
         element: (
-          <ProtectedRoute requireStatuses={[UserStatus.ACTIVE]}>
+          <ProtectedRoute requireStatuses={adminActiveStatuses}>
             <AdminDashboardPage />
           </ProtectedRoute>
         )
@@ -114,7 +108,7 @@ const router = createBrowserRouter([
       {
         path: 'users',
         element: (
-          <ProtectedRoute requireStatuses={[UserStatus.ACTIVE]}>
+          <ProtectedRoute requireStatuses={adminActiveStatuses}>
             <AdminUsersPage />
           </ProtectedRoute>
         )
