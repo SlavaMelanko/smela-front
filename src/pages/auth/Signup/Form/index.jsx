@@ -38,7 +38,11 @@ const SignupForm = ({ onSubmit, isLoading = false }) => {
           />
         </FormField>
 
-        <FormField label={t('lastName.label')} name={FieldName.LAST_NAME}>
+        <FormField
+          label={t('lastName.label')}
+          name={FieldName.LAST_NAME}
+          error={errors[FieldName.LAST_NAME]}
+        >
           <TextInput
             placeholder={t('lastName.example')}
             {...register(FieldName.LAST_NAME)}
