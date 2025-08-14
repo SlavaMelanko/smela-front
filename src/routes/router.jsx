@@ -4,7 +4,6 @@ import { createBrowserRouter } from 'react-router-dom'
 import RootRedirect from '@/components/RootRedirect'
 import { AuthLayout, LegalLayout, PublicLayout, UserLayout } from '@/layouts'
 import { UserStatus } from '@/lib/types'
-import { ActionHandler } from '@/pages/auth/ActionHandler'
 import EmailConfirmationPage from '@/pages/auth/EmailConfirmation'
 import LoginPage from '@/pages/auth/Login'
 import ResetPasswordPage from '@/pages/auth/ResetPassword'
@@ -58,7 +57,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'email-confirmation',
-        element: <EmailConfirmationPage />
+        element: (
+          <PublicRoute>
+            <EmailConfirmationPage />
+          </PublicRoute>
+        )
       },
       {
         path: 'verify-email',
@@ -67,10 +70,6 @@ const router = createBrowserRouter([
             <VerifyEmailPage />
           </PublicRoute>
         )
-      },
-      {
-        path: 'auth/action',
-        element: <ActionHandler />
       }
     ]
   },
@@ -88,7 +87,11 @@ const router = createBrowserRouter([
         path: 'home',
         element: (
           <ProtectedRoute
-            requireStatuses={[UserStatus.VERIFIED, UserStatus.ACTIVE]}
+            requireStatuses={[
+              UserStatus.VERIFIED,
+              UserStatus.TRIAL,
+              UserStatus.ACTIVE
+            ]}
           >
             <HomePage />
           </ProtectedRoute>
