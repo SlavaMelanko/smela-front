@@ -23,7 +23,7 @@ const Signup = () => {
   const handleSignupWithEmail = data => {
     signUpWithEmail(data, {
       onSuccess: () => {
-        navigate('/email-confirmation')
+        navigate('/email-confirmation', { state: { email: data.email } })
       },
       onError: err => {
         showErrorToast(t(toTranslationKey(err)))

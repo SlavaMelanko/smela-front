@@ -1,5 +1,7 @@
 import './styles.scss'
 
+import { useLocation } from 'react-router-dom'
+
 import { useCurrentUser, useResendVerificationEmail } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
@@ -9,12 +11,17 @@ import EmailConfirmationForm from './Form'
 
 const EmailConfirmation = () => {
   const { t } = useLocale()
+  const location = useLocation()
   const { user } = useCurrentUser()
-  const { mutate: resendVerificationEmail } = useResendVerificationEmail()
+  const { mutate: resendVerificationEmail, isPending } =
+    useResendVerificationEmail()
   const { showSuccessToast, showErrorToast } = useNotifications()
 
+  // Get email from navigation state (from signup) or from user if already authenticated.
+  const userEmail = location.state?.email || user?.email
+
   const handleSubmit = ({ reset }) => {
-    resendVerificationEmail(user?.email, {
+    resendVerificationEmail(userEmail, {
       onSuccess: () => {
         showSuccessToast(t('email.confirmation.success'))
 
@@ -37,12 +44,14 @@ const EmailConfirmation = () => {
 
         <p className='email-confirmation-page__message'>
           {t('email.confirmation.description', {
-            email: user?.email || t('email.confirmation.yourEmail')
+            email: userEmail || t('email.confirmation.yourEmail')
           })}
         </p>
       </div>
 
-      <EmailConfirmationForm onSubmit={handleSubmit} />
+      {userEmail && (
+        <EmailConfirmationForm onSubmit={handleSubmit} isLoading={isPending} />
+      )}
     </div>
   )
 }
