@@ -27,7 +27,13 @@ export const useCurrentUser = () => {
   })
 
   return {
-    ...query,
+    data: query.data,
+    error: query.error,
+    isError: query.isError,
+    isLoading: query.isLoading,
+    isPending: query.isPending,
+    isSuccess: query.isSuccess,
+    status: query.status,
     user: query.data,
     isAuthenticated: !!query.data
   }
