@@ -1,6 +1,7 @@
 import { QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider } from 'react-router-dom'
 
+import TanStackDevTools from '@/components/devtools/TanStack'
 import { LocaleProvider } from '@/contexts/LocaleContext'
 import { ModalProvider } from '@/contexts/ModalContext'
 import { NotificationProvider } from '@/contexts/NotificationContext.jsx'
@@ -20,6 +21,7 @@ function App() {
           </NotificationProvider>
         </LocaleProvider>
       </ThemeProvider>
+      <TanStackDevTools />
     </QueryClientProvider>
   )
 }
