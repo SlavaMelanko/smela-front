@@ -51,11 +51,7 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: ({ email, password }) => authService.logIn(email, password),
-    onSuccess: ({ user }) => {
-      if (user) {
-        queryClient.setQueryData(authKeys.user(), user)
-      }
-
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
   })
@@ -69,19 +65,15 @@ export const useLoginWithGoogle = () => {
       // Temporary implementation until Google OAuth is implemented
       throw new Error('Google login not implemented for backend API yet')
     },
-    onSuccess: ({ user }) => {
-      // When implemented, this will set the user data and invalidate queries
-      if (user) {
-        queryClient.setQueryData(authKeys.user(), user)
-      }
-
+    onSuccess: () => {
+      // When implemented, this will invalidate queries to refetch user data
       queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
   })
 }
 
-export const useSignup = () => {
-  return useMutation({
+export const useSignup = () =>
+  useMutation({
     mutationFn: userData => authService.signUp(userData),
     onSuccess: () => {
       // Do not set user data immediately - user must verify email first.
@@ -89,7 +81,6 @@ export const useSignup = () => {
       // No invalidation needed - user must verify email before accessing /me endpoint.
     }
   })
-}
 
 export const useSignupWithGoogle = () => {
   const queryClient = useQueryClient()
@@ -99,12 +90,8 @@ export const useSignupWithGoogle = () => {
       // Temporary implementation until Google OAuth is implemented
       throw new Error('Google signup not implemented for backend API yet')
     },
-    onSuccess: ({ user }) => {
-      // When implemented, this will set the user data and invalidate queries
-      if (user) {
-        queryClient.setQueryData(authKeys.user(), user)
-      }
-
+    onSuccess: () => {
+      // When implemented, this will invalidate queries to refetch user data
       queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
   })
@@ -133,21 +120,18 @@ export const useVerifyEmail = () => {
   })
 }
 
-export const useResendVerificationEmail = () => {
-  return useMutation({
+export const useResendVerificationEmail = () =>
+  useMutation({
     mutationFn: email => authService.resendVerificationEmail(email)
   })
-}
 
-export const useRequestPasswordReset = () => {
-  return useMutation({
+export const useRequestPasswordReset = () =>
+  useMutation({
     mutationFn: email => authService.requestPasswordReset(email)
   })
-}
 
-export const useResetPassword = () => {
-  return useMutation({
+export const useResetPassword = () =>
+  useMutation({
     mutationFn: ({ token, password }) =>
       authService.resetPassword(token, password)
   })
-}
