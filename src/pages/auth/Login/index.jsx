@@ -46,10 +46,6 @@ const Login = () => {
     })
   }
 
-  if (isEmailPending || isGooglePending) {
-    return <Spinner centered />
-  }
-
   return (
     <div className='login-page'>
       <LoginForm onSubmit={handleLogin} isLoading={isEmailPending} />
