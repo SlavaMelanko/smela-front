@@ -46,79 +46,65 @@ export const useCurrentUser = () => {
   }
 }
 
-export const useLogin = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
+export const useLogin = () =>
+  useMutation({
     mutationFn: ({ email, password }) => authService.logIn(email, password),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: authKeys.user() })
+    meta: {
+      invalidatesQueries: [authKeys.user()]
     }
   })
-}
 
-export const useLoginWithGoogle = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
+export const useLoginWithGoogle = () =>
+  useMutation({
     mutationFn: async () => {
       // Temporary implementation until Google OAuth is implemented
       throw new Error('Google login not implemented for backend API yet')
     },
-    onSuccess: () => {
+    meta: {
       // When implemented, this will invalidate queries to refetch user data
-      queryClient.invalidateQueries({ queryKey: authKeys.user() })
+      invalidatesQueries: [authKeys.user()]
     }
   })
-}
 
 export const useSignup = () =>
   useMutation({
-    mutationFn: userData => authService.signUp(userData),
-    onSuccess: () => {
-      // Do not set user data immediately - user must verify email first.
-      // The backend /api/v1/me endpoint requires verified status.
-      // No invalidation needed - user must verify email before accessing /me endpoint.
-    }
+    mutationFn: userData => authService.signUp(userData)
   })
 
-export const useSignupWithGoogle = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
+export const useSignupWithGoogle = () =>
+  useMutation({
     mutationFn: async () => {
       // Temporary implementation until Google OAuth is implemented
       throw new Error('Google signup not implemented for backend API yet')
     },
-    onSuccess: () => {
+    meta: {
       // When implemented, this will invalidate queries to refetch user data
-      queryClient.invalidateQueries({ queryKey: authKeys.user() })
+      invalidatesQueries: [authKeys.user()]
     }
   })
-}
 
 export const useLogout = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: authService.logOut,
+    meta: {
+      invalidatesQueries: [authKeys.all()]
+    },
     onSuccess: () => {
+      // Set user data to null for immediate UI update.
       queryClient.setQueryData(authKeys.user(), null)
-      queryClient.invalidateQueries({ queryKey: authKeys.all() })
     }
   })
 }
 
-export const useVerifyEmail = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
+export const useVerifyEmail = () =>
+  useMutation({
     mutationFn: token => authService.verifyEmail(token),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: authKeys.user() })
+    meta: {
+      invalidatesQueries: [authKeys.user()]
     }
   })
-}
 
 export const useResendVerificationEmail = () =>
   useMutation({

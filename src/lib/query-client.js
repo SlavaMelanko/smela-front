@@ -1,4 +1,4 @@
-import { QueryClient } from '@tanstack/react-query'
+import { MutationCache, QueryClient } from '@tanstack/react-query'
 import { StatusCodes } from 'http-status-codes'
 
 const getRetryDelay = attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000) // max 30 seconds
@@ -13,7 +13,19 @@ const handleError = (error, context) => {
   // toast.error('Something went wrong. Please try again.')
 }
 
+// Create mutation cache with global onSettled handler for query invalidation.
+const mutationCache = new MutationCache({
+  onSettled: (_data, _error, _variables, _context, mutation) => {
+    const invalidatesQueries = mutation.meta?.invalidatesQueries
+
+    if (invalidatesQueries) {
+      queryClient.invalidateQueries({ queryKey: invalidatesQueries })
+    }
+  }
+})
+
 const queryClient = new QueryClient({
+  mutationCache,
   defaultOptions: {
     queries: {
       // Stale time: how long until data is considered stale
