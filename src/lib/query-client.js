@@ -63,14 +63,4 @@ const queryClient = new QueryClient({
   }
 })
 
-if (import.meta.env.DEV) {
-  // More aggressive refetching in development
-  queryClient.setDefaultOptions({
-    queries: {
-      staleTime: 0, // always consider data stale in dev
-      refetchOnWindowFocus: true
-    }
-  })
-}
-
 export { queryClient }

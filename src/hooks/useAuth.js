@@ -4,7 +4,6 @@ import {
   useQuery,
   useQueryClient
 } from '@tanstack/react-query'
-import { StatusCodes } from 'http-status-codes'
 
 import { authService, userService } from '@/services/backend'
 
@@ -16,17 +15,7 @@ export const authKeys = {
 export const getCurrentUserQueryOptions = () =>
   queryOptions({
     queryKey: authKeys.user(),
-    queryFn: async () => {
-      try {
-        return userService.getCurrentUser()
-      } catch (error) {
-        if (error?.status === StatusCodes.UNAUTHORIZED) {
-          return null
-        }
-
-        throw error
-      }
-    }
+    queryFn: async () => userService.getCurrentUser()
   })
 
 export const useCurrentUser = () => {
