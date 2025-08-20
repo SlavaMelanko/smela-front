@@ -1,15 +1,20 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  queryOptions,
+  useMutation,
+  useQuery,
+  useQueryClient
+} from '@tanstack/react-query'
 import { StatusCodes } from 'http-status-codes'
 
 import { authService, userService } from '@/services/backend'
 
 export const authKeys = {
-  all: ['auth'],
-  user: () => [...authKeys.all, 'user']
+  all: () => ['auth'],
+  user: () => [...authKeys.all(), 'user']
 }
 
-export const useCurrentUser = () => {
-  const query = useQuery({
+export const getCurrentUserQueryOptions = () =>
+  queryOptions({
     queryKey: authKeys.user(),
     queryFn: async () => {
       try {
@@ -21,7 +26,12 @@ export const useCurrentUser = () => {
 
         throw error
       }
-    },
+    }
+  })
+
+export const useCurrentUser = () => {
+  const query = useQuery({
+    ...getCurrentUserQueryOptions(),
     select: data => data?.user || data || null
   })
 
@@ -107,7 +117,7 @@ export const useLogout = () => {
     mutationFn: authService.logOut,
     onSuccess: () => {
       queryClient.setQueryData(authKeys.user(), null)
-      queryClient.invalidateQueries({ queryKey: authKeys.all })
+      queryClient.invalidateQueries({ queryKey: authKeys.all() })
     }
   })
 }
