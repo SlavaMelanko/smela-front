@@ -57,11 +57,11 @@ export const useLogin = () =>
 export const useLoginWithGoogle = () =>
   useMutation({
     mutationFn: async () => {
-      // Temporary implementation until Google OAuth is implemented
+      // Temporary implementation until Google OAuth is implemented.
       throw new Error('Google login not implemented for backend API yet')
     },
     meta: {
-      // When implemented, this will invalidate queries to refetch user data
+      // When implemented, this will invalidate queries to refetch user data.
       invalidatesQueries: [authKeys.user()]
     }
   })
@@ -74,11 +74,11 @@ export const useSignup = () =>
 export const useSignupWithGoogle = () =>
   useMutation({
     mutationFn: async () => {
-      // Temporary implementation until Google OAuth is implemented
+      // Temporary implementation until Google OAuth is implemented.
       throw new Error('Google signup not implemented for backend API yet')
     },
     meta: {
-      // When implemented, this will invalidate queries to refetch user data
+      // When implemented, this will invalidate queries to refetch user data.
       invalidatesQueries: [authKeys.user()]
     }
   })
@@ -121,3 +121,47 @@ export const useResetPassword = () =>
     mutationFn: ({ token, password }) =>
       authService.resetPassword(token, password)
   })
+
+export const useUpdateUser = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: userData => userService.updateUser(userData),
+    onMutate: async newUserData => {
+      // Cancel any in-flight queries for the user.
+      await queryClient.cancelQueries({ queryKey: authKeys.user() })
+
+      // Snapshot the previous user data.
+      const previousUser = queryClient.getQueryData(authKeys.user())
+
+      // Optimistically update the user data.
+      queryClient.setQueryData(authKeys.user(), data => {
+        if (!data) {
+          return data
+        }
+
+        // Handle both direct user object and wrapped response.
+        const currentUser = data.user || data
+        const updatedUser = {
+          ...currentUser,
+          ...newUserData
+        }
+
+        // Maintain the same structure as the original data.
+        return data.user ? { ...data, user: updatedUser } : updatedUser
+      })
+
+      // Return context with snapshot for potential rollback.
+      return { previousUser }
+    },
+    onError: (_error, _newUserData, context) => {
+      // Rollback to the previous user data on error.
+      if (context?.previousUser) {
+        queryClient.setQueryData(authKeys.user(), context.previousUser)
+      }
+    },
+    meta: {
+      invalidatesQueries: [authKeys.user()]
+    }
+  })
+}
