@@ -13,9 +13,7 @@ export const useCurrentUser = () => {
     queryKey: authKeys.user(),
     queryFn: async () => {
       try {
-        const { user } = await userService.getCurrentUser()
-
-        return user
+        return userService.getCurrentUser()
       } catch (error) {
         if (error?.status === StatusCodes.UNAUTHORIZED) {
           return null
@@ -23,17 +21,16 @@ export const useCurrentUser = () => {
 
         throw error
       }
-    }
+    },
+    select: data => data?.user || data || null
   })
 
   return {
-    data: query.data,
-    error: query.error,
-    isError: query.isError,
-    isLoading: query.isLoading,
     isPending: query.isPending,
+    isFetching: query.isFetching,
+    isError: query.isError,
+    error: query.error,
     isSuccess: query.isSuccess,
-    status: query.status,
     user: query.data,
     isAuthenticated: !!query.data
   }
