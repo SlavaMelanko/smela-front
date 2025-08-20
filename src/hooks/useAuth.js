@@ -15,7 +15,7 @@ export const authKeys = {
 export const getCurrentUserQueryOptions = () =>
   queryOptions({
     queryKey: authKeys.user(),
-    queryFn: async () => userService.getCurrentUser()
+    queryFn: userService.getCurrentUser
   })
 
 export const useCurrentUser = () => {
@@ -39,7 +39,7 @@ export const useLogin = () =>
   useMutation({
     mutationFn: ({ email, password }) => authService.logIn(email, password),
     meta: {
-      invalidatesQueries: [authKeys.user()]
+      invalidatesQueries: authKeys.user()
     }
   })
 
@@ -51,7 +51,7 @@ export const useLoginWithGoogle = () =>
     },
     meta: {
       // When implemented, this will invalidate queries to refetch user data.
-      invalidatesQueries: [authKeys.user()]
+      invalidatesQueries: authKeys.user()
     }
   })
 
@@ -68,7 +68,7 @@ export const useSignupWithGoogle = () =>
     },
     meta: {
       // When implemented, this will invalidate queries to refetch user data.
-      invalidatesQueries: [authKeys.user()]
+      invalidatesQueries: authKeys.user()
     }
   })
 
@@ -78,7 +78,7 @@ export const useLogout = () => {
   return useMutation({
     mutationFn: authService.logOut,
     meta: {
-      invalidatesQueries: [authKeys.all()]
+      invalidatesQueries: authKeys.all()
     },
     onSuccess: () => {
       // Set user data to null for immediate UI update.
@@ -91,7 +91,7 @@ export const useVerifyEmail = () =>
   useMutation({
     mutationFn: token => authService.verifyEmail(token),
     meta: {
-      invalidatesQueries: [authKeys.user()]
+      invalidatesQueries: authKeys.user()
     }
   })
 
@@ -150,7 +150,7 @@ export const useUpdateUser = () => {
       }
     },
     meta: {
-      invalidatesQueries: [authKeys.user()]
+      invalidatesQueries: authKeys.user()
     }
   })
 }
