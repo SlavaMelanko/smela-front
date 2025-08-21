@@ -2,7 +2,6 @@
 import { defineConfig, devices } from '@playwright/test'
 import { loadEnv } from 'vite'
 
-/* eslint-disable-next-line no-undef */
 Object.assign(process.env, loadEnv('', './', 'VITE_'))
 
 /**
@@ -30,7 +29,7 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    baseURL: 'http://localhost:5173',
+    baseURL: process.env.VITE_APP_BASE_URL || 'http://localhost:5173',
 
     navigationTimeout: 30 * 1000,
 
@@ -46,8 +45,21 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] }
+      use: {
+        ...devices['Desktop Chrome'],
+        // Default locale for this project - can be overridden by TEST_LOCALE env var
+        locale: 'en-US'
+      }
     }
+
+    // Example: Ukrainian language tests
+    // {
+    //   name: 'chromium-uk',
+    //   use: {
+    //     ...devices['Desktop Chrome'],
+    //     locale: 'uk-UA'
+    //   }
+    // }
 
     // {
     //   name: 'firefox',
@@ -82,7 +94,8 @@ export default defineConfig({
 
   webServer: {
     command: 'npm run dev',
-    url: 'http://localhost:5173',
+
+    url: process.env.VITE_APP_BASE_URL || 'http://localhost:5173',
     reuseExistingServer: true,
     timeout: 100000
   }

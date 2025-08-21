@@ -106,7 +106,7 @@ export default [
   },
   {
     // Playwright test files in tests directory
-    files: ['tests/**/*.{js,jsx}'],
+    files: ['tests/**/*.{js,jsx}', 'playwright.config.js'],
     languageOptions: {
       globals: {
         ...globals.node,
