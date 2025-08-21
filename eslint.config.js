@@ -105,6 +105,16 @@ export default [
     }
   },
   {
+    // Playwright test files in tests directory
+    files: ['tests/**/*.{js,jsx}'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.browser
+      }
+    }
+  },
+  {
     files: ['src/tests/jest.setup.js'],
     languageOptions: {
       ecmaVersion: 'latest',
