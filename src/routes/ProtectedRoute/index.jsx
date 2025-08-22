@@ -1,6 +1,5 @@
 import { Navigate } from 'react-router-dom'
 
-import Spinner from '@/components/Spinner'
 import useHasAccess from '@/hooks/useHasAccess'
 
 const ProtectedRoute = ({
@@ -14,7 +13,7 @@ const ProtectedRoute = ({
   })
 
   if (isPending) {
-    return <Spinner centered />
+    return null
   }
 
   if (!isAuthenticated || !hasAccess) {

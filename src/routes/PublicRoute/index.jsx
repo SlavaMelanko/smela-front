@@ -1,18 +1,13 @@
 import { Navigate } from 'react-router-dom'
 
-import Spinner from '@/components/Spinner'
 import { useCurrentUser } from '@/hooks/useAuth'
 import { userActiveStatuses } from '@/lib/types'
 
 const PublicRoute = ({ children }) => {
-  const { isPending, isError, isSuccess, isAuthenticated, user } =
-    useCurrentUser()
+  const { isPending, isAuthenticated, user } = useCurrentUser()
 
-  // Show spinner while determining auth status
-  const isLoading = isPending || (!isSuccess && !isError)
-
-  if (isLoading) {
-    return <Spinner centered />
+  if (isPending) {
+    return null
   }
 
   if (isAuthenticated && userActiveStatuses.includes(user?.status)) {

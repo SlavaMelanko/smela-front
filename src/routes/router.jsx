@@ -29,47 +29,31 @@ const router = createBrowserRouter([
     ]
   },
   {
-    element: <AuthLayout />,
+    element: (
+      <PublicRoute>
+        <AuthLayout />
+      </PublicRoute>
+    ),
     children: [
       {
         path: 'login',
-        element: (
-          <PublicRoute>
-            <LoginPage />
-          </PublicRoute>
-        )
+        element: <LoginPage />
       },
       {
         path: 'signup',
-        element: (
-          <PublicRoute>
-            <SignupPage />
-          </PublicRoute>
-        )
+        element: <SignupPage />
       },
       {
         path: 'reset-password',
-        element: (
-          <PublicRoute>
-            <ResetPasswordPage />
-          </PublicRoute>
-        )
+        element: <ResetPasswordPage />
       },
       {
         path: 'email-confirmation',
-        element: (
-          <PublicRoute>
-            <EmailConfirmationPage />
-          </PublicRoute>
-        )
+        element: <EmailConfirmationPage />
       },
       {
         path: 'verify-email',
-        element: (
-          <PublicRoute>
-            <VerifyEmailPage />
-          </PublicRoute>
-        )
+        element: <VerifyEmailPage />
       }
     ]
   },
@@ -81,37 +65,33 @@ const router = createBrowserRouter([
     ]
   },
   {
-    element: <UserLayout />,
+    element: (
+      <ProtectedRoute requireStatuses={userActiveStatuses}>
+        <UserLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: 'home',
-        element: (
-          <ProtectedRoute requireStatuses={userActiveStatuses}>
-            <HomePage />
-          </ProtectedRoute>
-        )
+        element: <HomePage />
       }
     ]
   },
   {
     path: '/admin',
-    element: <UserLayout />,
+    element: (
+      <ProtectedRoute requireStatuses={adminActiveStatuses}>
+        <UserLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: 'dashboard',
-        element: (
-          <ProtectedRoute requireStatuses={adminActiveStatuses}>
-            <AdminDashboardPage />
-          </ProtectedRoute>
-        )
+        element: <AdminDashboardPage />
       },
       {
         path: 'users',
-        element: (
-          <ProtectedRoute requireStatuses={adminActiveStatuses}>
-            <AdminUsersPage />
-          </ProtectedRoute>
-        )
+        element: <AdminUsersPage />
       }
     ]
   },
