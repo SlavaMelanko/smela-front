@@ -12,7 +12,7 @@
     "ut": "jest",
     "utw": "jest --watch",
     "cov": "jest --coverage",
-    "test": "npm run test:unit && npm run test:e2e",
+    "test": "npm run ut && npm run e2e",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,md,yml,yaml,scss}'",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
