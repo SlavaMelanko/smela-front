@@ -1,7 +1,8 @@
 import { useCurrentUser } from '@/hooks/useAuth'
 
 const useHasAccess = ({ requireStatuses = [], requireRoles = [] } = {}) => {
-  const { isPending, isAuthenticated, user } = useCurrentUser()
+  const { isPending, isError, isSuccess, isAuthenticated, user } =
+    useCurrentUser()
 
   const hasRequiredStatus =
     requireStatuses.length === 0 || requireStatuses.includes(user?.status)
@@ -11,8 +12,13 @@ const useHasAccess = ({ requireStatuses = [], requireRoles = [] } = {}) => {
 
   const hasAccess = isAuthenticated && hasRequiredStatus && hasRequiredRole
 
+  // We're still loading if:
+  // 1. Query is in pending state (initial load)
+  // 2. Query hasn't completed yet (no success or error state)
+  const isLoading = isPending || (!isSuccess && !isError)
+
   return {
-    isPending,
+    isPending: isLoading,
     isAuthenticated,
     hasAccess,
     status: user?.status || null,
