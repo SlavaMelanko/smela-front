@@ -47,9 +47,7 @@ const EmailConfirmation = () => {
         </p>
       </div>
 
-      {userEmail && (
-        <EmailConfirmationForm onSubmit={handleSubmit} isLoading={isPending} />
-      )}
+      <EmailConfirmationForm onSubmit={handleSubmit} isLoading={isPending} />
     </div>
   )
 }
