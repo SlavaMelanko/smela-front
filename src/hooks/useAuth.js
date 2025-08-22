@@ -83,6 +83,8 @@ export const useLogout = () => {
     onSuccess: () => {
       // Set user data to null for immediate UI update.
       queryClient.setQueryData(authKeys.user(), null)
+      // Also remove the query entirely to prevent cached 401 errors.
+      queryClient.removeQueries({ queryKey: authKeys.user() })
     }
   })
 }
