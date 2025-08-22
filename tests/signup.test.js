@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { expect, test } from '@playwright/test'
 import fs from 'fs'
 
