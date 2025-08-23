@@ -31,23 +31,30 @@ export const waitForVerificationEmail = async (
 }
 
 /**
- * Extracts a link from email text that matches the 'auth action' URL pattern
+ * Extracts a verification link from email text
  * @param {string} text - The email text content to search in
  * @returns {string|null} The matched URL or null if no match found
  */
-const extractLink = text => {
-  const regex = /https?:\/\/[^ \n]+\/auth\/action\?[^ \n]+/i
+export const extractVerificationLink = text => {
+  // Match URLs like http://localhost:5173/verify-email?token=xxx
+  const regex = /https?:\/\/[^ \n]+\/verify-email\?token=[^ \n]+/i
   const match = text.match(regex)
 
   return match ? match[0] : null
 }
 
 /**
- * Calls the general function, was unified but can be extended with "pattern" property if
- * email templates will, for example, contain different links.
+ * Extracts a password reset link from email text
+ * @param {string} text - The email text content to search in
+ * @returns {string|null} The matched URL or null if no match found
  */
-export const extractVerificationLink = extractLink
-export const extractResetPasswordLink = extractLink
+export const extractResetPasswordLink = text => {
+  // Match URLs like http://localhost:5173/reset-password?token=xxx
+  const regex = /https?:\/\/[^ \n]+\/reset-password\?token=[^ \n]+/i
+  const match = text.match(regex)
+
+  return match ? match[0] : null
+}
 
 export const goTo = async (page, path) => {
   await page.goto(path)
