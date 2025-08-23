@@ -27,5 +27,5 @@ npx playwright test --ui
 Or run all tests headlessly:
 
 ```bash
-npm run test:e2e
+npm run e2e
 ```
