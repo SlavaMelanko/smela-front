@@ -114,6 +114,87 @@ test.describe.serial('Authentication', () => {
     await expect(errorMessage).toBeVisible()
   })
 
+  test('signup: resend verification email', async ({ page }) => {
+    await page.goto('/signup')
+
+    const testEmail = auth.email.generate({
+      prefix: 'resend-test',
+      domain: emailConfig.domain
+    })
+
+    await fillSignupFormAndSubmit(
+      page,
+      {
+        firstName: auth.firstName.ok,
+        lastName: auth.lastName.ok,
+        email: testEmail,
+        password: auth.password.strong
+      },
+      t
+    )
+
+    await page.waitForResponse(
+      response =>
+        response.url().includes(path.SIGNUP) &&
+        response.status() === StatusCodes.CREATED
+    )
+
+    await page.waitForURL(/email-confirmation/)
+
+    await expect(
+      page.getByRole('heading', { name: t.email.confirmation.title })
+    ).toBeVisible()
+
+    await expect(
+      page.getByText(
+        t.email.confirmation.description.replace('{{email}}', testEmail)
+      )
+    ).toBeVisible()
+
+    await expect(
+      page.getByRole('button', { name: t.email.confirmation.cta })
+    ).toBeVisible()
+
+    const { link: firstLink } =
+      await emailService.waitForVerificationEmail(testEmail)
+
+    expect(firstLink).toBeTruthy()
+
+    const firstToken = new URL(firstLink).searchParams.get('token')
+
+    await passCaptcha(page)
+
+    await page.getByRole('button', { name: t.email.confirmation.cta }).click()
+
+    await page.waitForResponse(
+      response =>
+        response.url().includes(path.RESEND_VERIFICATION_EMAIL) &&
+        response.status() === StatusCodes.ACCEPTED
+    )
+
+    await expect(page.getByText(t.email.confirmation.success)).toBeVisible()
+
+    // Wait for the second verification email.
+    // Add a small delay to ensure new email arrives.
+    await page.waitForTimeout(5000)
+    const { link: secondLink } =
+      await emailService.waitForVerificationEmail(testEmail)
+
+    expect(secondLink).toBeTruthy()
+
+    const secondToken = new URL(secondLink).searchParams.get('token')
+
+    expect(firstToken).not.toBe(secondToken)
+
+    // Even if we navigate to the root.
+    await page.goto('/')
+    // The email confirmation page should be shown again.
+    await expect(page).toHaveURL(/email-confirmation/)
+    await expect(
+      page.getByRole('heading', { name: t.email.confirmation.title })
+    ).toBeVisible()
+  })
+
   /**
    * Docs used:
    * - https://mailisk.com/blog/email-verification-playwright
@@ -139,31 +220,6 @@ test.describe.serial('Authentication', () => {
     )
 
     await page.waitForURL(/email-confirmation/)
-
-    await expect(
-      page.getByRole('heading', { name: t.email.confirmation.title })
-    ).toBeVisible()
-
-    await expect(
-      page.getByText(
-        t.email.confirmation.description.replace(
-          '{{email}}',
-          userCredentials.email
-        )
-      )
-    ).toBeVisible()
-
-    await expect(
-      page.getByRole('button', { name: t.email.confirmation.cta })
-    ).toBeVisible()
-
-    // Even if we navigate to the root.
-    await page.goto('/')
-    // The email confirmation page should be shown again.
-    await expect(page).toHaveURL(/email-confirmation/)
-    await expect(
-      page.getByRole('heading', { name: t.email.confirmation.title })
-    ).toBeVisible()
 
     const { link } = await emailService.waitForVerificationEmail(
       userCredentials.email
