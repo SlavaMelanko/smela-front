@@ -193,7 +193,27 @@ test.describe.serial('Authentication', () => {
   test('login: validates email format', async ({ page }) => {
     await page.goto('/login')
 
+    // Test with empty email.
+    await fillLoginForm(
+      page,
+      {
+        email: auth.email.empty,
+        password: auth.password.strong
+      },
+      en
+    )
+
+    await page.getByRole('button', { name: en.login.verb }).click()
+
+    // Check for email required error.
+    await expect(page.getByText(en.email.error.required)).toBeVisible()
+    await expect(page.getByPlaceholder(en.email.placeholder)).toHaveClass(
+      /input__field--error/
+    )
+
     // Test with invalid email format.
+    await page.reload()
+
     await fillLoginForm(
       page,
       {
@@ -205,11 +225,7 @@ test.describe.serial('Authentication', () => {
 
     await page.getByRole('button', { name: en.login.verb }).click()
 
-    // Check for email validation error.
     await expect(page.getByText(en.email.error.format)).toBeVisible()
-    await expect(page.getByPlaceholder(en.email.placeholder)).toHaveClass(
-      /input__field--error/
-    )
 
     // Test with email missing @.
     await page.reload()
@@ -247,27 +263,7 @@ test.describe.serial('Authentication', () => {
   test('login: validates password requirements', async ({ page }) => {
     await page.goto('/login')
 
-    // Test with password too short.
-    await fillLoginForm(
-      page,
-      {
-        email: auth.email.ok,
-        password: auth.password.short
-      },
-      en
-    )
-
-    await page.getByRole('button', { name: en.login.verb }).click()
-
-    // Check for password validation error.
-    await expect(page.getByText(en.password.error.min)).toBeVisible()
-    await expect(
-      page.getByPlaceholder(en.password.placeholder.default, { exact: true })
-    ).toHaveClass(/input__field--error/)
-
     // Test with empty password.
-    await page.reload()
-
     await fillLoginForm(
       page,
       {
@@ -279,7 +275,27 @@ test.describe.serial('Authentication', () => {
 
     await page.getByRole('button', { name: en.login.verb }).click()
 
+    // Check for password required error.
     await expect(page.getByText(en.password.error.required)).toBeVisible()
+    await expect(
+      page.getByPlaceholder(en.password.placeholder.default, { exact: true })
+    ).toHaveClass(/input__field--error/)
+
+    // Test with password too short.
+    await page.reload()
+
+    await fillLoginForm(
+      page,
+      {
+        email: auth.email.ok,
+        password: auth.password.short
+      },
+      en
+    )
+
+    await page.getByRole('button', { name: en.login.verb }).click()
+
+    await expect(page.getByText(en.password.error.min)).toBeVisible()
 
     // Test with only numbers.
     await page.reload()
@@ -371,6 +387,16 @@ test.describe.serial('Authentication', () => {
     await page.waitForURL('/home')
 
     await expect(page.getByText(auth.firstName.ok)).toBeVisible()
+
+    // Check that authenticated users are redirected from /login.
+    await page.goto('/login')
+    await page.waitForURL('/home')
+    await expect(page).toHaveURL(/\/home/)
+
+    // Check that authenticated users are redirected from /signup.
+    await page.goto('/signup')
+    await page.waitForURL('/home')
+    await expect(page).toHaveURL(/\/home/)
 
     // Logout to ensure clean state for next test.
     await logOut(page, en)

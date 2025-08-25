@@ -1,6 +1,10 @@
 import * as yup from 'yup'
 
-import { NameConstraint, PasswordConstraint } from './constants'
+import {
+  EmailConstraint,
+  NameConstraint,
+  PasswordConstraint
+} from './constants'
 
 const requiredStr = errorMessage => yup.string().trim().required(errorMessage)
 
@@ -23,7 +27,10 @@ const lastName = {
 }
 
 const email = {
-  new: requiredStr('email.error.required').email('email.error.format')
+  new: requiredStr('email.error.required').matches(
+    EmailConstraint.STANDARD,
+    'email.error.format'
+  )
 }
 
 const captcha = requiredStr('captcha.error')
