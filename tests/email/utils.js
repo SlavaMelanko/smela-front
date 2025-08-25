@@ -56,21 +56,6 @@ export const extractResetPasswordLink = text => {
   return match ? match[0] : null
 }
 
-export const goTo = async (page, path) => {
-  await page.goto(path)
-}
-
-export const fillForm = async (
-  page,
-  { firstName, lastName, email, password },
-  en
-) => {
-  await page.getByLabel(en.firstName.label).fill(firstName)
-  await page.getByLabel(en.lastName.label).fill(lastName)
-  await page.getByLabel(en.email.label).fill(email)
-  await page.getByLabel(en.password.label, { exact: true }).fill(password)
-}
-
 export const passCaptcha = async page => {
   const frame = page.frameLocator(SELECTOR_HCAPTCHA_IFRAME)
   const checkbox = frame.locator(SELECTOR_HCAPTCHA_CHECKBOX)
