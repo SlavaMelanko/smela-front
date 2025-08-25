@@ -18,14 +18,14 @@ npx playwright install
 
 ## 🚀 Running Tests
 
-Run all tests in interactive UI mode:
-
-```bash
-npx playwright test --ui
-```
-
-Or run all tests headlessly:
+Run all tests headlessly:
 
 ```bash
 npm run e2e
+```
+
+Or run tests in interactive UI mode:
+
+```bash
+npm run e2e:ui
 ```
