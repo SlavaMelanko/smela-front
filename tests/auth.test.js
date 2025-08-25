@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes'
 
 import { path } from '../src/services/backend/paths'
 import { auth } from '../src/tests/data'
-import { emailConfig, EmailService, SELECTOR_PROFILE_DROPDOWN } from './helpers'
+import { emailConfig, EmailService } from './helpers'
 
 const en = JSON.parse(fs.readFileSync('./src/locales/en.json', 'utf-8'))
 
@@ -27,7 +27,9 @@ const fillLoginForm = async (page, { email, password }, en) => {
 }
 
 const logOut = async (page, en) => {
-  await page.getByRole('button', { name: SELECTOR_PROFILE_DROPDOWN }).click()
+  const selector = 'Profile dropdown'
+
+  await page.getByRole('button', { name: selector }).click()
   await page.getByRole('button', { name: en.logout.noun }).click()
   await page.waitForURL('/login')
 }
