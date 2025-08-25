@@ -19,11 +19,10 @@ emphasizes clear architecture, easy maintenance, and simple UX.
 
 ### Testing
 
-- `npm run test` - Run all tests (unit + e2e)
-- `npm run test:unit` - Run Jest unit tests
-- `npm run test:e2e` - Run Playwright e2e tests
-- To run a single test: `npm run test:unit -- path/to/test.spec.js`
-- For interactive Playwright UI: `npx playwright test --ui`
+- `npm run ut` - Run Jest unit tests
+- `npm run e2e` - Run Playwright e2e tests
+- `npm run e2e:ui` - Run Playwright tests in UI mode
+- To run a single test: `npm run ut -- path/to/test.spec.js`
 
 ### Code Quality
 
