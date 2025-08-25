@@ -4,11 +4,11 @@ import { StatusCodes } from 'http-status-codes'
 
 import { path } from '../src/services/backend/paths'
 import { auth } from '../src/tests/data'
-import { SELECTOR_PROFILE_DROPDOWN } from './constants'
 import {
   createEmailProvider,
   emailConfig,
   extractVerificationLink,
+  SELECTOR_PROFILE_DROPDOWN,
   waitForEmail
 } from './helpers'
 
