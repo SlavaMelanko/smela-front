@@ -236,97 +236,82 @@ test.describe.serial('Authentication', () => {
   test('login: validates password requirements', async ({ page }) => {
     await page.goto('/login')
 
-    await fillLoginForm(
-      page,
+    const testCases = [
       {
-        email: auth.email.ok,
-        password: auth.password.empty // empty password
+        password: auth.password.empty,
+        expectedError: en.password.error.required
       },
-      en
-    )
-
-    await page.getByRole('button', { name: en.login.verb }).click()
-
-    await expect(page.getByText(en.password.error.required)).toBeVisible()
-    await expect(
-      page.getByPlaceholder(en.password.placeholder.default, { exact: true })
-    ).toHaveClass(/input__field--error/)
-
-    await page.reload()
-
-    await fillLoginForm(
-      page,
       {
-        email: auth.email.ok,
-        password: auth.password.short // too short
+        password: auth.password.short,
+        expectedError: en.password.error.min
       },
-      en
-    )
-
-    await page.getByRole('button', { name: en.login.verb }).click()
-
-    await expect(page.getByText(en.password.error.min)).toBeVisible()
-
-    await page.reload()
-
-    await fillLoginForm(
-      page,
       {
-        email: auth.email.ok,
-        password: auth.password.noLetter // weak password
-      },
-      en
-    )
+        password: auth.password.noLetter,
+        expectedError: en.password.error.strong
+      }
+    ]
 
-    await page.getByRole('button', { name: en.login.verb }).click()
+    for (const testCase of testCases) {
+      await page.reload()
 
-    await expect(page.getByText(en.password.error.strong)).toBeVisible()
+      await fillLoginForm(
+        page,
+        {
+          email: auth.email.ok,
+          password: testCase.password
+        },
+        en
+      )
+
+      await page.getByRole('button', { name: en.login.verb }).click()
+
+      await expect(page.getByText(testCase.expectedError)).toBeVisible()
+      await expect(
+        page.getByPlaceholder(en.password.placeholder.default)
+      ).toHaveClass(/input__field--error/)
+    }
   })
 
   test('login: shows error with invalid credentials', async ({ page }) => {
     await page.goto('/login')
 
-    await fillLoginForm(
-      page,
+    const testCases = [
       {
         email: userCredentials.email,
-        password: auth.password.mismatch // wrong password
+        password: auth.password.mismatch
       },
-      en
-    )
-
-    await page.getByRole('button', { name: en.login.verb }).click()
-
-    await page.waitForResponse(
-      response =>
-        response.url().includes('/api/v1/auth/login') &&
-        response.status() === StatusCodes.UNAUTHORIZED
-    )
-
-    const errorMessage = page.getByText(en.backend['auth/invalid-credentials'])
-
-    await expect(errorMessage).toBeVisible()
-
-    await page.reload()
-
-    await fillLoginForm(
-      page,
       {
-        email: 'nonexistent@example.com', // invalid email
+        email: 'nonexistent@example.com',
         password: auth.password.strong
-      },
-      en
-    )
+      }
+    ]
 
-    await page.getByRole('button', { name: en.login.verb }).click()
+    for (const testCase of testCases) {
+      await page.reload()
 
-    await page.waitForResponse(
-      response =>
-        response.url().includes('/api/v1/auth/login') &&
-        response.status() === StatusCodes.UNAUTHORIZED
-    )
+      await fillLoginForm(
+        page,
+        {
+          email: testCase.email,
+          password: testCase.password
+        },
+        en
+      )
 
-    await expect(errorMessage).toBeVisible()
+      await page.getByRole('button', { name: en.login.verb }).click()
+
+      await page.waitForResponse(
+        response =>
+          response.url().includes('/api/v1/auth/login') &&
+          response.status() === StatusCodes.UNAUTHORIZED
+      )
+
+      const errorMessage = page.getByText(
+        en.backend['auth/invalid-credentials']
+      )
+
+      await expect(errorMessage).toBeVisible()
+    }
   })
 
   test('login: authenticates with valid credentials', async ({ page }) => {
