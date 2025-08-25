@@ -1,6 +1,6 @@
 import { MailiskClient } from 'mailisk'
 
-const BASE_TIMEOUT = 50000
+const BASE_TIMEOUT = 30000
 const POLL_INTERVAL = 2000
 
 export const emailConfig = {
@@ -45,7 +45,10 @@ export class EmailService {
         subject_includes: subject
       })
 
-      if (emails.length > 0) return emails[0]
+      if (emails.length > 0) {
+        return emails[0]
+      }
+
       await new Promise(res => setTimeout(res, POLL_INTERVAL))
     }
 
@@ -73,7 +76,7 @@ export class EmailService {
 
   async waitForResetPasswordEmail(
     emailAddress,
-    subject = 'Reset your password'
+    subject = 'Reset Your Password'
   ) {
     const email = await this.#waitForEmail(emailAddress, subject)
     const link = extractResetPasswordLink(email.text)

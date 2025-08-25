@@ -4,33 +4,33 @@ import { StatusCodes } from 'http-status-codes'
 
 import { path } from '../src/services/backend/paths'
 import { auth } from '../src/tests/data'
-import { emailConfig, EmailService } from './helpers'
+import { emailConfig, EmailService, passCaptcha } from './helpers'
 
-const en = JSON.parse(fs.readFileSync('./src/locales/en.json', 'utf-8'))
+const t = JSON.parse(fs.readFileSync('./src/locales/en.json', 'utf-8'))
 
 const emailService = new EmailService()
 
 const fillSignupForm = async (
   page,
   { firstName, lastName, email, password },
-  en
+  t
 ) => {
-  await page.getByLabel(en.firstName.label).fill(firstName)
-  await page.getByLabel(en.lastName.label).fill(lastName)
-  await page.getByLabel(en.email.label).fill(email)
-  await page.getByLabel(en.password.label).fill(password)
+  await page.getByLabel(t.firstName.label).fill(firstName)
+  await page.getByLabel(t.lastName.label).fill(lastName)
+  await page.getByLabel(t.email.label).fill(email)
+  await page.getByLabel(t.password.label).fill(password)
 }
 
-const fillLoginForm = async (page, { email, password }, en) => {
-  await page.getByPlaceholder(en.email.placeholder).fill(email)
-  await page.getByPlaceholder(en.password.placeholder.default).fill(password)
+const fillLoginForm = async (page, { email, password }, t) => {
+  await page.getByPlaceholder(t.email.placeholder).fill(email)
+  await page.getByPlaceholder(t.password.placeholder.default).fill(password)
 }
 
-const logOut = async (page, en) => {
+const logOut = async (page, t) => {
   const selector = 'Profile dropdown'
 
   await page.getByRole('button', { name: selector }).click()
-  await page.getByRole('button', { name: en.logout.noun }).click()
+  await page.getByRole('button', { name: t.logout.noun }).click()
   await page.waitForURL('/login')
 }
 
@@ -47,26 +47,26 @@ test.describe.serial('Authentication', () => {
   test('signup: validates required fields', async ({ page }) => {
     await page.goto('/signup')
 
-    await page.getByRole('button', { name: en.signUp }).click()
+    await page.getByRole('button', { name: t.signUp }).click()
 
-    await expect(page.getByText(en.firstName.error.required)).toBeVisible()
-    await expect(page.getByLabel(en.firstName.label)).toHaveClass(
+    await expect(page.getByText(t.firstName.error.required)).toBeVisible()
+    await expect(page.getByLabel(t.firstName.label)).toHaveClass(
       /input__field--error/
     )
 
     // Last name is optional.
-    await expect(page.getByText(en.lastName.error.required)).toHaveCount(0)
-    await expect(page.getByLabel(en.lastName.label)).not.toHaveClass(
+    await expect(page.getByText(t.lastName.error.required)).toHaveCount(0)
+    await expect(page.getByLabel(t.lastName.label)).not.toHaveClass(
       /input__field--error/
     )
 
-    await expect(page.getByText(en.email.error.required)).toBeVisible()
-    await expect(page.getByLabel(en.email.label)).toHaveClass(
+    await expect(page.getByText(t.email.error.required)).toBeVisible()
+    await expect(page.getByLabel(t.email.label)).toHaveClass(
       /input__field--error/
     )
 
-    await expect(page.getByText(en.password.error.required)).toBeVisible()
-    await expect(page.getByLabel(en.password.label)).toHaveClass(
+    await expect(page.getByText(t.password.error.required)).toBeVisible()
+    await expect(page.getByLabel(t.password.label)).toHaveClass(
       /input__field--error/
     )
   })
@@ -83,10 +83,10 @@ test.describe.serial('Authentication', () => {
         email: auth.email.admin,
         password: auth.password.strong
       },
-      en
+      t
     )
 
-    await page.getByRole('button', { name: en.signUp }).click()
+    await page.getByRole('button', { name: t.signUp }).click()
 
     await page.waitForResponse(
       response =>
@@ -94,7 +94,7 @@ test.describe.serial('Authentication', () => {
         response.status() === StatusCodes.CONFLICT
     )
 
-    const errorMessage = page.getByText(en.backend['auth/email-already-in-use'])
+    const errorMessage = page.getByText(t.backend['auth/email-already-in-use'])
 
     await expect(errorMessage).toBeVisible()
   })
@@ -114,10 +114,10 @@ test.describe.serial('Authentication', () => {
         email: userCredentials.email,
         password: userCredentials.initialPassword
       },
-      en
+      t
     )
 
-    await page.getByRole('button', { name: en.signUp }).click()
+    await page.getByRole('button', { name: t.signUp }).click()
 
     await page.waitForResponse(
       response =>
@@ -128,12 +128,12 @@ test.describe.serial('Authentication', () => {
     await page.waitForURL(/email-confirmation/)
 
     await expect(
-      page.getByRole('heading', { name: en.email.confirmation.title })
+      page.getByRole('heading', { name: t.email.confirmation.title })
     ).toBeVisible()
 
     await expect(
       page.getByText(
-        en.email.confirmation.description.replace(
+        t.email.confirmation.description.replace(
           '{{email}}',
           userCredentials.email
         )
@@ -141,7 +141,7 @@ test.describe.serial('Authentication', () => {
     ).toBeVisible()
 
     await expect(
-      page.getByRole('button', { name: en.email.confirmation.cta })
+      page.getByRole('button', { name: t.email.confirmation.cta })
     ).toBeVisible()
 
     // Even if we navigate to the root.
@@ -149,7 +149,7 @@ test.describe.serial('Authentication', () => {
     // The email confirmation page should be shown again.
     await expect(page).toHaveURL(/email-confirmation/)
     await expect(
-      page.getByRole('heading', { name: en.email.confirmation.title })
+      page.getByRole('heading', { name: t.email.confirmation.title })
     ).toBeVisible()
 
     const { link } = await emailService.waitForVerificationEmail(
@@ -173,7 +173,7 @@ test.describe.serial('Authentication', () => {
     await expect(page.getByText(auth.firstName.ok)).toBeVisible()
 
     // Logout to ensure clean state for next test.
-    await logOut(page, en)
+    await logOut(page, t)
   })
 
   test('login: validates email format', async ({ page }) => {
@@ -182,19 +182,19 @@ test.describe.serial('Authentication', () => {
     const testCases = [
       {
         email: auth.email.empty,
-        expectedError: en.email.error.required
+        expectedError: t.email.error.required
       },
       {
         email: auth.email.invalid,
-        expectedError: en.email.error.format
+        expectedError: t.email.error.format
       },
       {
         email: auth.email.noAt,
-        expectedError: en.email.error.format
+        expectedError: t.email.error.format
       },
       {
         email: auth.email.noTld,
-        expectedError: en.email.error.format
+        expectedError: t.email.error.format
       }
     ]
 
@@ -207,13 +207,13 @@ test.describe.serial('Authentication', () => {
           email: testCase.email,
           password: auth.password.strong
         },
-        en
+        t
       )
 
-      await page.getByRole('button', { name: en.login.verb }).click()
+      await page.getByRole('button', { name: t.login.verb }).click()
 
       await expect(page.getByText(testCase.expectedError)).toBeVisible()
-      await expect(page.getByPlaceholder(en.email.placeholder)).toHaveClass(
+      await expect(page.getByPlaceholder(t.email.placeholder)).toHaveClass(
         /input__field--error/
       )
     }
@@ -225,15 +225,15 @@ test.describe.serial('Authentication', () => {
     const testCases = [
       {
         password: auth.password.empty,
-        expectedError: en.password.error.required
+        expectedError: t.password.error.required
       },
       {
         password: auth.password.short,
-        expectedError: en.password.error.min
+        expectedError: t.password.error.min
       },
       {
         password: auth.password.noLetter,
-        expectedError: en.password.error.strong
+        expectedError: t.password.error.strong
       }
     ]
 
@@ -246,14 +246,14 @@ test.describe.serial('Authentication', () => {
           email: auth.email.ok,
           password: testCase.password
         },
-        en
+        t
       )
 
-      await page.getByRole('button', { name: en.login.verb }).click()
+      await page.getByRole('button', { name: t.login.verb }).click()
 
       await expect(page.getByText(testCase.expectedError)).toBeVisible()
       await expect(
-        page.getByPlaceholder(en.password.placeholder.default)
+        page.getByPlaceholder(t.password.placeholder.default)
       ).toHaveClass(/input__field--error/)
     }
   })
@@ -281,10 +281,10 @@ test.describe.serial('Authentication', () => {
           email: testCase.email,
           password: testCase.password
         },
-        en
+        t
       )
 
-      await page.getByRole('button', { name: en.login.verb }).click()
+      await page.getByRole('button', { name: t.login.verb }).click()
 
       await page.waitForResponse(
         response =>
@@ -292,9 +292,7 @@ test.describe.serial('Authentication', () => {
           response.status() === StatusCodes.UNAUTHORIZED
       )
 
-      const errorMessage = page.getByText(
-        en.backend['auth/invalid-credentials']
-      )
+      const errorMessage = page.getByText(t.backend['auth/invalid-credentials'])
 
       await expect(errorMessage).toBeVisible()
     }
@@ -309,10 +307,10 @@ test.describe.serial('Authentication', () => {
         email: userCredentials.email,
         password: userCredentials.initialPassword
       },
-      en
+      t
     )
 
-    await page.getByRole('button', { name: en.login.verb }).click()
+    await page.getByRole('button', { name: t.login.verb }).click()
 
     await page.waitForResponse(
       response =>
@@ -335,6 +333,80 @@ test.describe.serial('Authentication', () => {
     await expect(page).toHaveURL(/\/home/)
 
     // Logout to ensure clean state for next test.
-    await logOut(page, en)
+    await logOut(page, t)
+  })
+
+  test('password reset: resets password and allows login', async ({ page }) => {
+    await page.goto('/reset-password')
+
+    await expect(
+      page.getByText(t.password.reset.request.description)
+    ).toBeVisible()
+
+    await page.getByPlaceholder(t.email.example).fill(userCredentials.email)
+
+    await passCaptcha(page)
+
+    await page
+      .getByRole('button', { name: t.password.reset.request.cta })
+      .click()
+
+    await page.waitForResponse(
+      response =>
+        response.url().includes(path.REQUEST_PASSWORD_RESET) &&
+        response.status() === StatusCodes.ACCEPTED
+    )
+
+    await expect(page.getByText(t.password.reset.request.success)).toBeVisible()
+
+    const { link } = await emailService.waitForResetPasswordEmail(
+      userCredentials.email
+    )
+
+    expect(link).toBeTruthy()
+
+    await page.goto(link)
+
+    await expect(page.getByText(t.password.reset.set.description)).toBeVisible()
+
+    await page
+      .getByPlaceholder(t.password.placeholder.new)
+      .fill(userCredentials.newPassword)
+
+    await page.getByRole('button', { name: t.password.reset.set.cta }).click()
+
+    await page.waitForResponse(
+      response =>
+        response.url().includes(path.RESET_PASSWORD) &&
+        response.status() === StatusCodes.OK
+    )
+
+    await expect(page.getByText(t.password.reset.set.success)).toBeVisible()
+
+    await page.waitForURL('/login')
+
+    await fillLoginForm(
+      page,
+      {
+        email: userCredentials.email,
+        password: userCredentials.newPassword
+      },
+      t
+    )
+
+    await page.getByRole('button', { name: t.login.verb }).click()
+
+    await page.waitForResponse(
+      response =>
+        response.url().includes(path.LOGIN) &&
+        response.status() === StatusCodes.OK
+    )
+
+    await page.waitForURL('/home')
+
+    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
+
+    // Logout to ensure clean state.
+    await logOut(page, t)
   })
 })
