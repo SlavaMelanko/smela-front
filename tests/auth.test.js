@@ -7,17 +7,12 @@ import { auth } from '../src/tests/data'
 import { SELECTOR_PROFILE_DROPDOWN } from './constants'
 import {
   createEmailProvider,
+  emailConfig,
   extractVerificationLink,
   waitForEmail
 } from './helpers'
 
 const en = JSON.parse(fs.readFileSync('./src/locales/en.json', 'utf-8'))
-
-const emailConfig = {
-  apiKey: process.env.VITE_APP_MAILISK_API_KEY,
-  namespace: process.env.VITE_APP_MAILISK_NAMESPACE,
-  domain: `${process.env.VITE_APP_MAILISK_NAMESPACE}.mailisk.net`
-}
 
 const emailProvider = createEmailProvider({ apiKey: emailConfig.apiKey })
 

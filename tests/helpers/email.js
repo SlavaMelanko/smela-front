@@ -2,6 +2,12 @@ import { MailiskClient } from 'mailisk'
 
 const BASE_TIMEOUT = 50000
 
+export const emailConfig = {
+  apiKey: process.env.VITE_APP_MAILISK_API_KEY,
+  namespace: process.env.VITE_APP_MAILISK_NAMESPACE,
+  domain: `${process.env.VITE_APP_MAILISK_NAMESPACE}.mailisk.net`
+}
+
 export const createEmailProvider = ({ apiKey }) => {
   const client = new MailiskClient({ apiKey })
 
