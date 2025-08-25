@@ -3,6 +3,7 @@ import fs from 'fs'
 import { StatusCodes } from 'http-status-codes'
 
 import { auth } from '../src/tests/data'
+import { SELECTOR_PROFILE_DROPDOWN } from './constants'
 import { createEmailProvider } from './email/provider'
 import { extractVerificationLink, waitForEmail } from './email/utils'
 
@@ -23,7 +24,13 @@ const fillForm = async (page, { firstName, lastName, email, password }, en) => {
   await page.getByLabel(en.password.label).fill(password)
 }
 
-test.describe.serial('Signup', () => {
+const logOut = async (page, en) => {
+  await page.getByRole('button', { name: SELECTOR_PROFILE_DROPDOWN }).click()
+  await page.getByRole('button', { name: en.logout.noun }).click()
+  await page.waitForURL('/login')
+}
+
+test.describe.serial('Authentication', () => {
   const userCredentials = {
     email: auth.email.generate({
       prefix: 'test',
@@ -33,9 +40,7 @@ test.describe.serial('Signup', () => {
     newPassword: auth.password.withSpecialChars
   }
 
-  test('shows validation errors when form is submitted empty', async ({
-    page
-  }) => {
+  test('signup: validates required fields', async ({ page }) => {
     await page.goto('/signup')
 
     await page.getByRole('button', { name: en.signUp }).click()
@@ -63,7 +68,7 @@ test.describe.serial('Signup', () => {
   })
 
   // This test requires seed data with admin@example.com.
-  test('prevents signup if email is already registered', async ({ page }) => {
+  test('signup: prevents duplicate email registration', async ({ page }) => {
     await page.goto('/signup')
 
     await fillForm(
@@ -94,7 +99,7 @@ test.describe.serial('Signup', () => {
    * Docs used:
    * - https://mailisk.com/blog/email-verification-playwright
    */
-  test('completes signup and verifies email', async ({ page }) => {
+  test('signup: creates account and verifies email', async ({ page }) => {
     await page.goto('/signup')
 
     await fillForm(
@@ -169,5 +174,35 @@ test.describe.serial('Signup', () => {
     // TODO: Check toast.
 
     await expect(page.getByText(auth.firstName.ok)).toBeVisible()
+
+    // Logout to ensure clean state for next test.
+    await logOut(page, en)
+  })
+
+  test('login: authenticates with valid credentials', async ({ page }) => {
+    await page.goto('/login')
+
+    await page
+      .getByPlaceholder(en.email.placeholder)
+      .fill(userCredentials.email)
+
+    await page
+      .getByPlaceholder(en.password.placeholder.default, { exact: true })
+      .fill(userCredentials.initialPassword)
+
+    await page.getByRole('button', { name: en.login.verb }).click()
+
+    await page.waitForResponse(
+      response =>
+        response.url().includes('/api/v1/auth/login') &&
+        response.status() === StatusCodes.OK
+    )
+
+    await page.waitForURL('/home')
+
+    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
+
+    // Logout to ensure clean state for next test.
+    await logOut(page, en)
   })
 })

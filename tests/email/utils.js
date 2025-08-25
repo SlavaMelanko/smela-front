@@ -64,9 +64,3 @@ export const passCaptcha = async page => {
   await expect(checkbox).toHaveAttribute('aria-checked', 'true')
   await expect(page.locator(SELECTOR_HCAPTCHA_RESPONSE)).not.toBeEmpty()
 }
-
-export const logout = async (page, en) => {
-  await page.getByRole('button', { name: SELECTOR_PROFILE_DROPDOWN }).click()
-  await page.getByRole('button', { name: en.logout.noun }).click()
-  await page.waitForURL('/login')
-}
