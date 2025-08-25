@@ -10,7 +10,7 @@ const t = JSON.parse(fs.readFileSync('./src/locales/en.json', 'utf-8'))
 
 const emailService = new EmailService()
 
-const fillSignupForm = async (
+const fillSignupFormAndSubmit = async (
   page,
   { firstName, lastName, email, password },
   t
@@ -19,11 +19,28 @@ const fillSignupForm = async (
   await page.getByLabel(t.lastName.label).fill(lastName)
   await page.getByLabel(t.email.label).fill(email)
   await page.getByLabel(t.password.label).fill(password)
+
+  await page.getByRole('button', { name: t.signUp }).click()
 }
 
-const fillLoginForm = async (page, { email, password }, t) => {
+const fillLoginFormAndSubmit = async (page, { email, password }, t) => {
   await page.getByPlaceholder(t.email.placeholder).fill(email)
   await page.getByPlaceholder(t.password.placeholder.default).fill(password)
+
+  await page.getByRole('button', { name: t.login.verb }).click()
+}
+
+const fillRequestPasswordResetFormAndSubmit = async (page, email, t) => {
+  await page.getByPlaceholder(t.email.example).fill(email)
+
+  await passCaptcha(page)
+
+  await page.getByRole('button', { name: t.password.reset.request.cta }).click()
+}
+
+const fillNewPasswordFormAndSubmit = async (page, newPassword, t) => {
+  await page.getByPlaceholder(t.password.placeholder.new).fill(newPassword)
+  await page.getByRole('button', { name: t.password.reset.set.cta }).click()
 }
 
 const logOut = async (page, t) => {
@@ -75,7 +92,7 @@ test.describe.serial('Authentication', () => {
   test('signup: prevents duplicate email registration', async ({ page }) => {
     await page.goto('/signup')
 
-    await fillSignupForm(
+    await fillSignupFormAndSubmit(
       page,
       {
         firstName: auth.firstName.ok,
@@ -85,8 +102,6 @@ test.describe.serial('Authentication', () => {
       },
       t
     )
-
-    await page.getByRole('button', { name: t.signUp }).click()
 
     await page.waitForResponse(
       response =>
@@ -106,7 +121,7 @@ test.describe.serial('Authentication', () => {
   test('signup: creates account and verifies email', async ({ page }) => {
     await page.goto('/signup')
 
-    await fillSignupForm(
+    await fillSignupFormAndSubmit(
       page,
       {
         firstName: auth.firstName.ok,
@@ -116,8 +131,6 @@ test.describe.serial('Authentication', () => {
       },
       t
     )
-
-    await page.getByRole('button', { name: t.signUp }).click()
 
     await page.waitForResponse(
       response =>
@@ -201,7 +214,7 @@ test.describe.serial('Authentication', () => {
     for (const testCase of testCases) {
       await page.reload()
 
-      await fillLoginForm(
+      await fillLoginFormAndSubmit(
         page,
         {
           email: testCase.email,
@@ -209,8 +222,6 @@ test.describe.serial('Authentication', () => {
         },
         t
       )
-
-      await page.getByRole('button', { name: t.login.verb }).click()
 
       await expect(page.getByText(testCase.expectedError)).toBeVisible()
       await expect(page.getByPlaceholder(t.email.placeholder)).toHaveClass(
@@ -240,7 +251,7 @@ test.describe.serial('Authentication', () => {
     for (const testCase of testCases) {
       await page.reload()
 
-      await fillLoginForm(
+      await fillLoginFormAndSubmit(
         page,
         {
           email: auth.email.ok,
@@ -248,8 +259,6 @@ test.describe.serial('Authentication', () => {
         },
         t
       )
-
-      await page.getByRole('button', { name: t.login.verb }).click()
 
       await expect(page.getByText(testCase.expectedError)).toBeVisible()
       await expect(
@@ -275,7 +284,7 @@ test.describe.serial('Authentication', () => {
     for (const testCase of testCases) {
       await page.reload()
 
-      await fillLoginForm(
+      await fillLoginFormAndSubmit(
         page,
         {
           email: testCase.email,
@@ -283,8 +292,6 @@ test.describe.serial('Authentication', () => {
         },
         t
       )
-
-      await page.getByRole('button', { name: t.login.verb }).click()
 
       await page.waitForResponse(
         response =>
@@ -301,7 +308,7 @@ test.describe.serial('Authentication', () => {
   test('login: authenticates with valid credentials', async ({ page }) => {
     await page.goto('/login')
 
-    await fillLoginForm(
+    await fillLoginFormAndSubmit(
       page,
       {
         email: userCredentials.email,
@@ -309,8 +316,6 @@ test.describe.serial('Authentication', () => {
       },
       t
     )
-
-    await page.getByRole('button', { name: t.login.verb }).click()
 
     await page.waitForResponse(
       response =>
@@ -343,13 +348,7 @@ test.describe.serial('Authentication', () => {
       page.getByText(t.password.reset.request.description)
     ).toBeVisible()
 
-    await page.getByPlaceholder(t.email.example).fill(userCredentials.email)
-
-    await passCaptcha(page)
-
-    await page
-      .getByRole('button', { name: t.password.reset.request.cta })
-      .click()
+    await fillRequestPasswordResetFormAndSubmit(page, userCredentials.email, t)
 
     await page.waitForResponse(
       response =>
@@ -369,11 +368,7 @@ test.describe.serial('Authentication', () => {
 
     await expect(page.getByText(t.password.reset.set.description)).toBeVisible()
 
-    await page
-      .getByPlaceholder(t.password.placeholder.new)
-      .fill(userCredentials.newPassword)
-
-    await page.getByRole('button', { name: t.password.reset.set.cta }).click()
+    await fillNewPasswordFormAndSubmit(page, userCredentials.newPassword, t)
 
     await page.waitForResponse(
       response =>
@@ -385,7 +380,7 @@ test.describe.serial('Authentication', () => {
 
     await page.waitForURL('/login')
 
-    await fillLoginForm(
+    await fillLoginFormAndSubmit(
       page,
       {
         email: userCredentials.email,
@@ -393,8 +388,6 @@ test.describe.serial('Authentication', () => {
       },
       t
     )
-
-    await page.getByRole('button', { name: t.login.verb }).click()
 
     await page.waitForResponse(
       response =>
