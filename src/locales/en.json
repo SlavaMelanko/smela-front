@@ -130,9 +130,9 @@
   },
   "password": {
     "error": {
-      "latin": "Only Latin letters allowed.",
-      "min": "Password must be at least 6 characters.",
-      "required": "Password is required."
+      "min": "Password must be at least 8 characters.",
+      "required": "Password is required.",
+      "strong": "Use at least: 1 uppercase letter, 1 number, 1 symbol."
     },
     "label": "Password",
     "placeholder": {

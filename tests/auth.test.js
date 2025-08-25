@@ -193,102 +193,72 @@ test.describe.serial('Authentication', () => {
   test('login: validates email format', async ({ page }) => {
     await page.goto('/login')
 
-    // Test with empty email.
-    await fillLoginForm(
-      page,
+    const testCases = [
       {
         email: auth.email.empty,
-        password: auth.password.strong
+        expectedError: en.email.error.required
       },
-      en
-    )
-
-    await page.getByRole('button', { name: en.login.verb }).click()
-
-    // Check for email required error.
-    await expect(page.getByText(en.email.error.required)).toBeVisible()
-    await expect(page.getByPlaceholder(en.email.placeholder)).toHaveClass(
-      /input__field--error/
-    )
-
-    // Test with invalid email format.
-    await page.reload()
-
-    await fillLoginForm(
-      page,
       {
         email: auth.email.invalid,
-        password: auth.password.strong
+        expectedError: en.email.error.format
       },
-      en
-    )
-
-    await page.getByRole('button', { name: en.login.verb }).click()
-
-    await expect(page.getByText(en.email.error.format)).toBeVisible()
-
-    // Test with email missing @.
-    await page.reload()
-
-    await fillLoginForm(
-      page,
       {
         email: auth.email.noAt,
-        password: auth.password.strong
+        expectedError: en.email.error.format
       },
-      en
-    )
-
-    await page.getByRole('button', { name: en.login.verb }).click()
-
-    await expect(page.getByText(en.email.error.format)).toBeVisible()
-
-    // Test with email missing TLD.
-    await page.reload()
-
-    await fillLoginForm(
-      page,
       {
         email: auth.email.noTld,
-        password: auth.password.strong
-      },
-      en
-    )
+        expectedError: en.email.error.format
+      }
+    ]
 
-    await page.getByRole('button', { name: en.login.verb }).click()
+    for (const testCase of testCases) {
+      await page.reload()
 
-    await expect(page.getByText(en.email.error.format)).toBeVisible()
+      await fillLoginForm(
+        page,
+        {
+          email: testCase.email,
+          password: auth.password.strong
+        },
+        en
+      )
+
+      await page.getByRole('button', { name: en.login.verb }).click()
+
+      await expect(page.getByText(testCase.expectedError)).toBeVisible()
+      await expect(page.getByPlaceholder(en.email.placeholder)).toHaveClass(
+        /input__field--error/
+      )
+    }
   })
 
   test('login: validates password requirements', async ({ page }) => {
     await page.goto('/login')
 
-    // Test with empty password.
     await fillLoginForm(
       page,
       {
         email: auth.email.ok,
-        password: auth.password.empty
+        password: auth.password.empty // empty password
       },
       en
     )
 
     await page.getByRole('button', { name: en.login.verb }).click()
 
-    // Check for password required error.
     await expect(page.getByText(en.password.error.required)).toBeVisible()
     await expect(
       page.getByPlaceholder(en.password.placeholder.default, { exact: true })
     ).toHaveClass(/input__field--error/)
 
-    // Test with password too short.
     await page.reload()
 
     await fillLoginForm(
       page,
       {
         email: auth.email.ok,
-        password: auth.password.short
+        password: auth.password.short // too short
       },
       en
     )
@@ -297,22 +267,20 @@ test.describe.serial('Authentication', () => {
 
     await expect(page.getByText(en.password.error.min)).toBeVisible()
 
-    // Test with only numbers.
     await page.reload()
 
     await fillLoginForm(
       page,
       {
         email: auth.email.ok,
-        password: auth.password.onlyNumbers
+        password: auth.password.noLetter // weak password
       },
       en
     )
 
     await page.getByRole('button', { name: en.login.verb }).click()
 
-    // Should show minimum length error since it's only 5 chars.
-    await expect(page.getByText(en.password.error.min)).toBeVisible()
+    await expect(page.getByText(en.password.error.strong)).toBeVisible()
   })
 
   test('login: shows error with invalid credentials', async ({ page }) => {
@@ -322,7 +290,7 @@ test.describe.serial('Authentication', () => {
       page,
       {
         email: userCredentials.email,
-        password: auth.password.mismatch
+        password: auth.password.mismatch // wrong password
       },
       en
     )
@@ -335,18 +303,16 @@ test.describe.serial('Authentication', () => {
         response.status() === StatusCodes.UNAUTHORIZED
     )
 
-    // Check for error message.
     const errorMessage = page.getByText(en.backend['auth/invalid-credentials'])
 
     await expect(errorMessage).toBeVisible()
 
-    // Clear form and test with non-existent email.
     await page.reload()
 
     await fillLoginForm(
       page,
       {
-        email: 'nonexistent@example.com',
+        email: 'nonexistent@example.com', // invalid email
         password: auth.password.strong
       },
       en
@@ -360,7 +326,6 @@ test.describe.serial('Authentication', () => {
         response.status() === StatusCodes.UNAUTHORIZED
     )
 
-    // Should show the same error message for security reasons.
     await expect(errorMessage).toBeVisible()
   })
 

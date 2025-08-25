@@ -157,7 +157,7 @@ describe('Signup Form', () => {
       await user.click(submitButton)
 
       await waitFor(() => {
-        expect(screen.getByText(en.password.error.latin)).toBeInTheDocument()
+        expect(screen.getByText(en.password.error.strong)).toBeInTheDocument()
       })
     })
 

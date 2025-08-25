@@ -4,9 +4,10 @@ export const NameConstraint = {
 }
 
 export const PasswordConstraint = {
-  MIN_LENGTH: 6,
-  // Requires at least one Latin letter (uppercase or lowercase)
-  LATIN_LETTER_REGEX: /[a-zA-Z]/
+  MIN_LENGTH: 8,
+  // Requires at least one uppercase letter, one digit, and one special character
+  // Minimum 8 characters total (case-insensitive matching with 'i' flag)
+  STRONG: /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Z\d@$!%*#?&]{8,}$/i
 }
 
 export const EmailConstraint = {

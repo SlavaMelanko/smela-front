@@ -38,8 +38,8 @@ const captcha = requiredStr('captcha.error')
 const password = {
   new: requiredStr('password.error.required')
     .min(PasswordConstraint.MIN_LENGTH, 'password.error.min')
-    .matches(PasswordConstraint.LATIN_LETTER_REGEX, {
-      message: 'password.error.latin',
+    .matches(PasswordConstraint.STRONG, {
+      message: 'password.error.strong',
       excludeEmptyString: true
     })
 }

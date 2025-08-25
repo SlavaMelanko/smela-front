@@ -48,7 +48,7 @@ export const auth = {
     strong: 'Password123!',
     mismatch: 'password123!',
     onlyNumbers: '12345',
-    noLetter: '123456!',
+    noLetter: '1234567!',
     short: 'Pass1', // less than 6 chars
     sixChars: 'Pass12', // exactly 6 chars
     withSpaces: 'Pass word123',
