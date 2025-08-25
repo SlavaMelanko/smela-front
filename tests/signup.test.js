@@ -23,14 +23,21 @@ const fillForm = async (page, { firstName, lastName, email, password }, en) => {
   await page.getByLabel(en.password.label).fill(password)
 }
 
-test.describe('Signup', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/signup')
-  })
+test.describe.serial('Signup', () => {
+  const userCredentials = {
+    email: auth.email.generate({
+      prefix: 'test',
+      domain: emailConfig.domain
+    }),
+    initialPassword: auth.password.strong,
+    newPassword: auth.password.withSpecialChars
+  }
 
   test('shows validation errors when form is submitted empty', async ({
     page
   }) => {
+    await page.goto('/signup')
+
     await page.getByRole('button', { name: en.signUp }).click()
 
     await expect(page.getByText(en.firstName.error.required)).toBeVisible()
@@ -57,6 +64,8 @@ test.describe('Signup', () => {
 
   // This test requires seed data with admin@example.com.
   test('prevents signup if email is already registered', async ({ page }) => {
+    await page.goto('/signup')
+
     await fillForm(
       page,
       {
@@ -86,18 +95,15 @@ test.describe('Signup', () => {
    * - https://mailisk.com/blog/email-verification-playwright
    */
   test('completes signup and verifies email', async ({ page }) => {
-    const testEmail = auth.email.generate({
-      prefix: 'test',
-      domain: emailConfig.domain
-    })
+    await page.goto('/signup')
 
     await fillForm(
       page,
       {
         firstName: auth.firstName.ok,
         lastName: auth.lastName.ok,
-        email: testEmail,
-        password: auth.password.strong
+        email: userCredentials.email,
+        password: userCredentials.initialPassword
       },
       en
     )
@@ -118,7 +124,10 @@ test.describe('Signup', () => {
 
     await expect(
       page.getByText(
-        en.email.confirmation.description.replace('{{email}}', testEmail)
+        en.email.confirmation.description.replace(
+          '{{email}}',
+          userCredentials.email
+        )
       )
     ).toBeVisible()
 
@@ -138,7 +147,7 @@ test.describe('Signup', () => {
     const email = await waitForEmail(
       emailProvider,
       emailConfig.namespace,
-      testEmail,
+      userCredentials.email,
       subject
     )
 
@@ -157,6 +166,8 @@ test.describe('Signup', () => {
     // After verification, user is redirected to home.
     await page.waitForURL('/home')
 
-    // TODO: Check some components.
+    // TODO: Check toast.
+
+    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
   })
 })
