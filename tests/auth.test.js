@@ -4,17 +4,11 @@ import { StatusCodes } from 'http-status-codes'
 
 import { path } from '../src/services/backend/paths'
 import { auth } from '../src/tests/data'
-import {
-  createEmailProvider,
-  emailConfig,
-  extractVerificationLink,
-  SELECTOR_PROFILE_DROPDOWN,
-  waitForEmail
-} from './helpers'
+import { emailConfig, EmailService, SELECTOR_PROFILE_DROPDOWN } from './helpers'
 
 const en = JSON.parse(fs.readFileSync('./src/locales/en.json', 'utf-8'))
 
-const emailProvider = createEmailProvider({ apiKey: emailConfig.apiKey })
+const emailService = new EmailService()
 
 const fillSignupForm = async (
   page,
@@ -156,15 +150,9 @@ test.describe.serial('Authentication', () => {
       page.getByRole('heading', { name: en.email.confirmation.title })
     ).toBeVisible()
 
-    const subject = 'Welcome to The Company'
-    const email = await waitForEmail(
-      emailProvider,
-      emailConfig.namespace,
-      userCredentials.email,
-      subject
+    const { link } = await emailService.waitForVerificationEmail(
+      userCredentials.email
     )
-
-    const link = extractVerificationLink(email.text)
 
     expect(link).toBeTruthy()
 
