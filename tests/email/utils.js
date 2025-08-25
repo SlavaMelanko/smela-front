@@ -9,7 +9,7 @@ import {
 
 const BASE_TIMEOUT = 50000
 
-export const waitForVerificationEmail = async (
+export const waitForEmail = async (
   emailProvider,
   namespace,
   email,
@@ -27,7 +27,7 @@ export const waitForVerificationEmail = async (
     await new Promise(res => setTimeout(res, 2000))
   }
 
-  throw new Error('Verification email not received')
+  throw new Error(`The email "${subject}" hasn't been received.`)
 }
 
 /**

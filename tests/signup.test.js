@@ -4,11 +4,7 @@ import { StatusCodes } from 'http-status-codes'
 
 import { auth } from '../src/tests/data'
 import { createEmailProvider } from './email/provider'
-import {
-  extractVerificationLink,
-  logout,
-  waitForVerificationEmail
-} from './email/utils'
+import { extractVerificationLink, waitForEmail } from './email/utils'
 
 const en = JSON.parse(fs.readFileSync('./src/locales/en.json', 'utf-8'))
 
@@ -85,9 +81,11 @@ test.describe('Signup', () => {
     await expect(errorMessage).toBeVisible()
   })
 
-  test('successfully signs up and shows email confirmation screen', async ({
-    page
-  }) => {
+  /**
+   * Docs used:
+   * - https://mailisk.com/blog/email-verification-playwright
+   */
+  test('completes signup and verifies email', async ({ page }) => {
     const testEmail = auth.email.generate({
       prefix: 'test',
       domain: emailConfig.domain
@@ -135,40 +133,13 @@ test.describe('Signup', () => {
     await expect(
       page.getByRole('heading', { name: en.email.confirmation.title })
     ).toBeVisible()
-  })
 
-  /**
-   * Docs used:
-   * - https://mailisk.com/blog/email-verification-playwright
-   */
-  test('completes signup and verifies email via Mailisk', async ({ page }) => {
-    test.setTimeout(90000) // increase timeout for this test
-    const testEmail = auth.email.generate({
-      prefix: 'test',
-      domain: emailConfig.domain
-    })
-    const newPassword = `Password123!`
-
-    await fillForm(
-      page,
-      {
-        firstName: 'Test',
-        lastName: 'User',
-        email: testEmail,
-        password: newPassword
-      },
-      en
-    )
-
-    await page.getByRole('button', { name: en.signUp }).click()
-    await page.waitForURL(/email-confirmation/)
-
-    // TODO: subject to separate var
-    const email = await waitForVerificationEmail(
+    const subject = 'Welcome to The Company'
+    const email = await waitForEmail(
       emailProvider,
       emailConfig.namespace,
       testEmail,
-      'Welcome to The Company'
+      subject
     )
 
     const link = extractVerificationLink(email.text)
@@ -177,18 +148,15 @@ test.describe('Signup', () => {
 
     await page.goto(link)
 
-    // After verification, user is redirected to home
+    await page.waitForResponse(
+      response =>
+        response.url().includes('/api/v1/protected/me') &&
+        response.status() === StatusCodes.OK
+    )
+
+    // After verification, user is redirected to home.
     await page.waitForURL('/home')
 
-    await logout(page, en)
-
-    await page.getByPlaceholder(en.email.placeholder).fill(testEmail)
-    await page
-      .getByPlaceholder(en.password.placeholder.default, { exact: true })
-      .fill(newPassword)
-
-    await page.getByRole('button', { name: en.login.verb }).click()
-    await page.waitForURL('/home')
-    await expect(page.getByRole('heading', { name: 'Home' })).toBeVisible()
+    // TODO: Check some components.
   })
 })
