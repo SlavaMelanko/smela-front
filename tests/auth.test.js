@@ -17,11 +17,22 @@ const emailConfig = {
 
 const emailProvider = createEmailProvider({ apiKey: emailConfig.apiKey })
 
-const fillForm = async (page, { firstName, lastName, email, password }, en) => {
+const fillSignupForm = async (
+  page,
+  { firstName, lastName, email, password },
+  en
+) => {
   await page.getByLabel(en.firstName.label).fill(firstName)
   await page.getByLabel(en.lastName.label).fill(lastName)
   await page.getByLabel(en.email.label).fill(email)
   await page.getByLabel(en.password.label).fill(password)
+}
+
+const fillLoginForm = async (page, { email, password }, en) => {
+  await page.getByPlaceholder(en.email.placeholder).fill(email)
+  await page
+    .getByPlaceholder(en.password.placeholder.default, { exact: true })
+    .fill(password)
 }
 
 const logOut = async (page, en) => {
@@ -71,7 +82,7 @@ test.describe.serial('Authentication', () => {
   test('signup: prevents duplicate email registration', async ({ page }) => {
     await page.goto('/signup')
 
-    await fillForm(
+    await fillSignupForm(
       page,
       {
         firstName: auth.firstName.ok,
@@ -102,7 +113,7 @@ test.describe.serial('Authentication', () => {
   test('signup: creates account and verifies email', async ({ page }) => {
     await page.goto('/signup')
 
-    await fillForm(
+    await fillSignupForm(
       page,
       {
         firstName: auth.firstName.ok,
@@ -182,13 +193,14 @@ test.describe.serial('Authentication', () => {
   test('login: authenticates with valid credentials', async ({ page }) => {
     await page.goto('/login')
 
-    await page
-      .getByPlaceholder(en.email.placeholder)
-      .fill(userCredentials.email)
-
-    await page
-      .getByPlaceholder(en.password.placeholder.default, { exact: true })
-      .fill(userCredentials.initialPassword)
+    await fillLoginForm(
+      page,
+      {
+        email: userCredentials.email,
+        password: userCredentials.initialPassword
+      },
+      en
+    )
 
     await page.getByRole('button', { name: en.login.verb }).click()
 
