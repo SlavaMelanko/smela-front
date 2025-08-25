@@ -1,32 +1,33 @@
 import api from './api'
+import { path } from './paths'
 
 const authService = {
   async signUp(userData) {
-    return api.post('/api/v1/auth/signup', { ...userData })
+    return api.post(path.SIGNUP, { ...userData })
   },
 
   async logIn(email, password) {
-    return api.post('/api/v1/auth/login', { email, password })
+    return api.post(path.LOGIN, { email, password })
   },
 
   async verifyEmail(token) {
-    return api.post('/api/v1/auth/verify-email', { token })
+    return api.post(path.VERIFY_EMAIL, { token })
   },
 
   async resendVerificationEmail(email) {
-    return api.post('/api/v1/auth/resend-verification-email', { email })
+    return api.post(path.RESEND_VERIFICATION_EMAIL, { email })
   },
 
   async requestPasswordReset(email) {
-    return api.post('/api/v1/auth/request-password-reset', { email })
+    return api.post(path.REQUEST_PASSWORD_RESET, { email })
   },
 
   async resetPassword(token, password) {
-    return api.post('/api/v1/auth/reset-password', { token, password })
+    return api.post(path.RESET_PASSWORD, { token, password })
   },
 
   async logOut() {
-    return api.post('/api/v1/auth/logout')
+    return api.post(path.LOGOUT)
   }
 }
 

@@ -1,12 +1,13 @@
 import api from './api'
+import { path } from './paths'
 
 const userService = {
   async getCurrentUser() {
-    return api.get('/api/v1/protected/me')
+    return api.get(path.ME)
   },
 
   async updateUser(userData) {
-    return api.post('/api/v1/protected/me', userData)
+    return api.post(path.ME, userData)
   }
 }
 

@@ -2,10 +2,14 @@ import { expect, test } from '@playwright/test'
 import fs from 'fs'
 import { StatusCodes } from 'http-status-codes'
 
+import { path } from '../src/services/backend/paths'
 import { auth } from '../src/tests/data'
 import { SELECTOR_PROFILE_DROPDOWN } from './constants'
-import { createEmailProvider } from './email/provider'
-import { extractVerificationLink, waitForEmail } from './email/utils'
+import {
+  createEmailProvider,
+  extractVerificationLink,
+  waitForEmail
+} from './helpers'
 
 const en = JSON.parse(fs.readFileSync('./src/locales/en.json', 'utf-8'))
 
@@ -30,9 +34,7 @@ const fillSignupForm = async (
 
 const fillLoginForm = async (page, { email, password }, en) => {
   await page.getByPlaceholder(en.email.placeholder).fill(email)
-  await page
-    .getByPlaceholder(en.password.placeholder.default, { exact: true })
-    .fill(password)
+  await page.getByPlaceholder(en.password.placeholder.default).fill(password)
 }
 
 const logOut = async (page, en) => {
@@ -97,7 +99,7 @@ test.describe.serial('Authentication', () => {
 
     await page.waitForResponse(
       response =>
-        response.url().includes('/api/v1/auth/signup') &&
+        response.url().includes(path.SIGNUP) &&
         response.status() === StatusCodes.CONFLICT
     )
 
@@ -128,7 +130,7 @@ test.describe.serial('Authentication', () => {
 
     await page.waitForResponse(
       response =>
-        response.url().includes('/api/v1/auth/signup') &&
+        response.url().includes(path.SIGNUP) &&
         response.status() === StatusCodes.CREATED
     )
 
@@ -175,8 +177,7 @@ test.describe.serial('Authentication', () => {
 
     await page.waitForResponse(
       response =>
-        response.url().includes('/api/v1/protected/me') &&
-        response.status() === StatusCodes.OK
+        response.url().includes(path.ME) && response.status() === StatusCodes.OK
     )
 
     // After verification, user is redirected to home.
@@ -302,7 +303,7 @@ test.describe.serial('Authentication', () => {
 
       await page.waitForResponse(
         response =>
-          response.url().includes('/api/v1/auth/login') &&
+          response.url().includes(path.LOGIN) &&
           response.status() === StatusCodes.UNAUTHORIZED
       )
 
@@ -330,7 +331,7 @@ test.describe.serial('Authentication', () => {
 
     await page.waitForResponse(
       response =>
-        response.url().includes('/api/v1/auth/login') &&
+        response.url().includes(path.LOGIN) &&
         response.status() === StatusCodes.OK
     )
 
