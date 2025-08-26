@@ -174,9 +174,6 @@ test.describe.serial('Authentication', () => {
 
     await expect(page.getByText(t.email.confirmation.success)).toBeVisible()
 
-    // Wait for the second verification email.
-    // Add a small delay to ensure new email arrives.
-    await page.waitForTimeout(5000)
     const { link: secondLink } =
       await emailService.waitForVerificationEmail(testEmail)
 

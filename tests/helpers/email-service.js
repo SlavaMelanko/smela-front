@@ -1,7 +1,7 @@
 import { MailiskClient } from 'mailisk'
 
 const BASE_TIMEOUT = 30000
-const POLL_INTERVAL = 2000
+const POLL_INTERVAL = 1500
 
 export const emailConfig = {
   apiKey: process.env.VITE_APP_MAILISK_API_KEY,
@@ -18,17 +18,48 @@ export const extractVerificationLink = text => {
 }
 
 export const extractResetPasswordLink = text => {
-  // Match URLs like http://localhost:5173/reset-password?token=xxx
+  // Match URLs like http://localhost:5173/reset-password?token=xxx.
   const regex = /https?:\/\/[^ \n]+\/reset-password\?token=[^ \n]+/i
   const match = text.match(regex)
 
   return match ? match[0] : null
 }
 
+export const hashEmail = email => {
+  // Use HTML content as the unique identifier.
+  // HTML is more likely to contain unique timestamps or IDs.
+  return email.html || email.text // fallback to text if no html
+}
+
+class EmailProfile {
+  #seenHashes = new Map() // track seen hashes per subject
+
+  isNewEmail(email, subject) {
+    const hash = hashEmail(email)
+
+    if (!this.#seenHashes.has(subject)) {
+      this.#seenHashes.set(subject, new Set())
+    }
+
+    return !this.#seenHashes.get(subject).has(hash)
+  }
+
+  markAsSeen(email, subject) {
+    const hash = hashEmail(email)
+
+    if (!this.#seenHashes.has(subject)) {
+      this.#seenHashes.set(subject, new Set())
+    }
+
+    this.#seenHashes.get(subject).add(hash)
+  }
+}
+
 export class EmailService {
   #client
   #namespace
   #timeout
+  #emailProfiles = new Map() // track email profiles per address
 
   constructor({ apiKey, namespace, timeout = BASE_TIMEOUT } = {}) {
     this.#client = new MailiskClient({ apiKey: apiKey || emailConfig.apiKey })
@@ -36,8 +67,17 @@ export class EmailService {
     this.#timeout = timeout
   }
 
+  #getProfile(emailAddress) {
+    if (!this.#emailProfiles.has(emailAddress)) {
+      this.#emailProfiles.set(emailAddress, new EmailProfile())
+    }
+
+    return this.#emailProfiles.get(emailAddress)
+  }
+
   async #waitForEmail(emailAddress, subject) {
     const start = Date.now()
+    const profile = this.#getProfile(emailAddress)
 
     while (Date.now() - start < this.#timeout) {
       const { data: emails } = await this.#client.searchInbox(this.#namespace, {
@@ -45,8 +85,13 @@ export class EmailService {
         subject_includes: subject
       })
 
-      if (emails.length > 0) {
-        return emails[0]
+      // Find first email that we haven't seen before.
+      const newEmail = emails.find(email => profile.isNewEmail(email, subject))
+
+      if (newEmail) {
+        profile.markAsSeen(newEmail, subject)
+
+        return newEmail
       }
 
       await new Promise(res => setTimeout(res, POLL_INTERVAL))
