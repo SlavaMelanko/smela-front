@@ -2,9 +2,15 @@ import { expect, test } from '@playwright/test'
 import fs from 'fs'
 import { StatusCodes } from 'http-status-codes'
 
+import { Role, UserStatus } from '../src/lib/types'
 import { path } from '../src/services/backend/paths'
 import { auth } from '../src/tests/data'
-import { emailConfig, EmailService, passCaptcha } from './helpers'
+import {
+  emailConfig,
+  EmailService,
+  passCaptcha,
+  waitForApiResponse
+} from './helpers'
 
 const t = JSON.parse(fs.readFileSync('./src/locales/en.json', 'utf-8'))
 
@@ -103,11 +109,10 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await page.waitForResponse(
-      response =>
-        response.url().includes(path.SIGNUP) &&
-        response.status() === StatusCodes.CONFLICT
-    )
+    await waitForApiResponse(page, {
+      path: path.SIGNUP,
+      status: StatusCodes.CONFLICT
+    })
 
     const errorMessage = page.getByText(t.backend['auth/email-already-in-use'])
 
@@ -133,11 +138,26 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await page.waitForResponse(
-      response =>
-        response.url().includes(path.SIGNUP) &&
-        response.status() === StatusCodes.CREATED
-    )
+    await waitForApiResponse(page, {
+      path: path.SIGNUP,
+      status: StatusCodes.CREATED,
+      validateBody: b => {
+        if (!b.user || !b.token) {
+          return false
+        }
+
+        const { id, firstName, lastName, email, status, role } = b.user
+
+        return (
+          id > 0 &&
+          firstName === auth.firstName.ok &&
+          lastName === auth.lastName.ok &&
+          email === testEmail &&
+          status === UserStatus.NEW &&
+          role === Role.USER
+        )
+      }
+    })
 
     await page.waitForURL(/email-confirmation/)
 
@@ -166,11 +186,11 @@ test.describe.serial('Authentication', () => {
 
     await page.getByRole('button', { name: t.email.confirmation.cta }).click()
 
-    await page.waitForResponse(
-      response =>
-        response.url().includes(path.RESEND_VERIFICATION_EMAIL) &&
-        response.status() === StatusCodes.ACCEPTED
-    )
+    await waitForApiResponse(page, {
+      path: path.RESEND_VERIFICATION_EMAIL,
+      status: StatusCodes.ACCEPTED,
+      validateBody: b => b?.success === true
+    })
 
     await expect(page.getByText(t.email.confirmation.success)).toBeVisible()
 
@@ -210,11 +230,10 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await page.waitForResponse(
-      response =>
-        response.url().includes(path.SIGNUP) &&
-        response.status() === StatusCodes.CREATED
-    )
+    await waitForApiResponse(page, {
+      path: path.SIGNUP,
+      status: StatusCodes.CREATED
+    })
 
     await page.waitForURL(/email-confirmation/)
 
@@ -226,10 +245,47 @@ test.describe.serial('Authentication', () => {
 
     await page.goto(link)
 
-    await page.waitForResponse(
-      response =>
-        response.url().includes(path.ME) && response.status() === StatusCodes.OK
-    )
+    await waitForApiResponse(page, {
+      path: path.VERIFY_EMAIL,
+      status: StatusCodes.OK,
+      validateBody: b => {
+        if (!b.user || !b.token) {
+          return false
+        }
+
+        const { id, firstName, lastName, email, status, role } = b.user
+
+        return (
+          id > 0 &&
+          firstName === auth.firstName.ok &&
+          lastName === auth.lastName.ok &&
+          email === userCredentials.email &&
+          status === UserStatus.VERIFIED &&
+          role === Role.USER
+        )
+      }
+    })
+
+    await waitForApiResponse(page, {
+      path: path.ME,
+      status: StatusCodes.OK,
+      validateBody: b => {
+        if (!b.user) {
+          return false
+        }
+
+        const { id, firstName, lastName, email, status, role } = b.user
+
+        return (
+          id > 0 &&
+          firstName === auth.firstName.ok &&
+          lastName === auth.lastName.ok &&
+          email === userCredentials.email &&
+          status === UserStatus.VERIFIED &&
+          role === Role.USER
+        )
+      }
+    })
 
     // After verification, user is redirected to home.
     await page.waitForURL('/home')
@@ -346,11 +402,10 @@ test.describe.serial('Authentication', () => {
         t
       )
 
-      await page.waitForResponse(
-        response =>
-          response.url().includes(path.LOGIN) &&
-          response.status() === StatusCodes.UNAUTHORIZED
-      )
+      await waitForApiResponse(page, {
+        path: path.LOGIN,
+        status: StatusCodes.UNAUTHORIZED
+      })
 
       const errorMessage = page.getByText(t.backend['auth/invalid-credentials'])
 
@@ -370,11 +425,10 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await page.waitForResponse(
-      response =>
-        response.url().includes(path.LOGIN) &&
-        response.status() === StatusCodes.OK
-    )
+    await waitForApiResponse(page, {
+      path: path.LOGIN,
+      status: StatusCodes.OK
+    })
 
     await page.waitForURL('/home')
 
@@ -403,11 +457,10 @@ test.describe.serial('Authentication', () => {
 
     await fillRequestPasswordResetFormAndSubmit(page, userCredentials.email, t)
 
-    await page.waitForResponse(
-      response =>
-        response.url().includes(path.REQUEST_PASSWORD_RESET) &&
-        response.status() === StatusCodes.ACCEPTED
-    )
+    await waitForApiResponse(page, {
+      path: path.REQUEST_PASSWORD_RESET,
+      status: StatusCodes.ACCEPTED
+    })
 
     await expect(page.getByText(t.password.reset.request.success)).toBeVisible()
 
@@ -423,11 +476,10 @@ test.describe.serial('Authentication', () => {
 
     await fillNewPasswordFormAndSubmit(page, userCredentials.newPassword, t)
 
-    await page.waitForResponse(
-      response =>
-        response.url().includes(path.RESET_PASSWORD) &&
-        response.status() === StatusCodes.OK
-    )
+    await waitForApiResponse(page, {
+      path: path.RESET_PASSWORD,
+      status: StatusCodes.OK
+    })
 
     await expect(page.getByText(t.password.reset.set.success)).toBeVisible()
 
@@ -442,11 +494,10 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await page.waitForResponse(
-      response =>
-        response.url().includes(path.LOGIN) &&
-        response.status() === StatusCodes.OK
-    )
+    await waitForApiResponse(page, {
+      path: path.LOGIN,
+      status: StatusCodes.OK
+    })
 
     await page.waitForURL('/home')
 
