@@ -2,7 +2,7 @@ import './styles.scss'
 
 import { useLocation } from 'react-router-dom'
 
-import { useResendVerificationEmail } from '@/hooks/useAuth'
+import { useCurrentUser, useResendVerificationEmail } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
 import { toTranslationKey } from '@/services/catch'
@@ -15,8 +15,9 @@ const EmailConfirmation = () => {
   const { mutate: resendVerificationEmail, isPending } =
     useResendVerificationEmail()
   const { showSuccessToast, showErrorToast } = useNotifications()
+  const { user } = useCurrentUser()
 
-  const userEmail = location.state?.email
+  const userEmail = location.state?.email || user?.email
 
   const handleSubmit = ({ reset }) => {
     resendVerificationEmail(userEmail, {
