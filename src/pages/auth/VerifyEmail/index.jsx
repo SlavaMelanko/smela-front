@@ -5,54 +5,38 @@ import Spinner from '@/components/Spinner'
 import { useVerifyEmail } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
+import { toTranslationKey } from '@/services/catch'
 
 const VerifyEmail = () => {
   const { t } = useLocale()
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const { showSuccessToast, showErrorToast } = useNotifications()
-  const {
-    isPending,
-    isError,
-    isSuccess,
-    mutate: verifyEmail
-  } = useVerifyEmail()
+  const { mutate: verifyEmail } = useVerifyEmail()
   const hasVerified = useRef(false)
 
-  const token = params.get('token')
-
   useEffect(() => {
-    // Prevent double execution in StrictMode and when effect re-runs.
-    if (!token || hasVerified.current || isPending) {
+    if (hasVerified.current) {
       return
     }
 
     hasVerified.current = true
 
-    verifyEmail(token)
-  }, [token, verifyEmail, isPending])
+    const token = params.get('token')
 
-  useEffect(() => {
-    if (isSuccess) {
-      showSuccessToast(t('email.verification.success'))
-      navigate('/')
-    }
+    verifyEmail(token, {
+      onSuccess: () => {
+        showSuccessToast(t('email.verification.success'))
+        navigate('/')
+      },
+      onError: err => {
+        showErrorToast(t(toTranslationKey(err)))
+        navigate('/signup')
+      }
+    })
+  }, [params, verifyEmail, showSuccessToast, showErrorToast, t, navigate])
 
-    if (isError) {
-      showErrorToast(t('email.verification.error'))
-      navigate('/signup')
-    }
-  }, [navigate, showErrorToast, showSuccessToast, isSuccess, isError, t])
-
-  if (isPending) {
-    return <Spinner centered />
-  }
-
-  if (isError) {
-    return <div>{t('email.verification.error')}</div>
-  }
-
-  return <div>{t('email.verification.loading')}</div>
+  return <Spinner centered />
 }
 
 export default VerifyEmail
