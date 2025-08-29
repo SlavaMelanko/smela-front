@@ -93,7 +93,8 @@ export const useVerifyEmail = () =>
   useMutation({
     mutationFn: token => authService.verifyEmail(token),
     meta: {
-      invalidatesQueries: authKeys.user()
+      invalidatesQueries: authKeys.user(),
+      refetchType: 'none'
     }
   })
 

@@ -17,8 +17,10 @@ const handleError = (error, context) => {
 const mutationCache = new MutationCache({
   onSettled: (_data, _error, _variables, _context, mutation) => {
     const invalidatesQueries = mutation.meta?.invalidatesQueries
+    const refetchType = mutation.meta?.refetchType
 
-    if (invalidatesQueries) {
+    // Only invalidate queries if refetchType is not 'none'
+    if (invalidatesQueries && refetchType !== 'none') {
       queryClient.invalidateQueries({ queryKey: invalidatesQueries })
     }
   }
