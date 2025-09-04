@@ -39,7 +39,10 @@
     "label": "Email",
     "placeholder": "Email address",
     "verification": {
-      "error": "Email verification failed.",
+      "error": {
+        "general": "Email verification failed.",
+        "invalidToken": "Invalid token."
+      },
       "loading": "Verifying email...",
       "success": "Email verified successfully."
     }

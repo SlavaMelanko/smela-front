@@ -1,40 +1,36 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import Spinner from '@/components/Spinner'
-import { useVerifyEmail } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
-import { toTranslationKey } from '@/services/catch'
+import useVerifyEmailOnce from '@/hooks/useVerifyEmailOnce'
 
 const VerifyEmail = () => {
   const { t } = useLocale()
-  const navigate = useNavigate()
   const [params] = useSearchParams()
-  const { showSuccessToast, showErrorToast } = useNotifications()
-  const { mutate: verifyEmail } = useVerifyEmail()
-  const hasVerified = useRef(false)
+  const navigate = useNavigate()
+  const { showErrorToast } = useNotifications()
+
+  const token = params.get('token')
+
+  const { isPending } = useVerifyEmailOnce(token)
 
   useEffect(() => {
-    if (hasVerified.current) {
-      return
-    }
+    if (!token) {
+      showErrorToast(t('email.verification.error.invalidToken'))
 
-    hasVerified.current = true
-
-    const token = params.get('token')
-
-    verifyEmail(token, {
-      onSuccess: () => {
-        showSuccessToast(t('email.verification.success'))
+      const timeoutId = setTimeout(() => {
         navigate('/')
-      },
-      onError: err => {
-        showErrorToast(t(toTranslationKey(err)))
-        navigate('/signup')
-      }
-    })
-  }, [params, verifyEmail, showSuccessToast, showErrorToast, t, navigate])
+      }, 1500)
+
+      return () => clearTimeout(timeoutId)
+    }
+  }, [token, showErrorToast, t, navigate])
+
+  if (isPending) {
+    return <Spinner centered />
+  }
 
   return <Spinner centered />
 }
