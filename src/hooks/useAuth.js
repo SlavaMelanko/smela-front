@@ -4,13 +4,8 @@ import {
   useQuery,
   useQueryClient
 } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
 
 import { authService, userService } from '@/services/backend'
-import { toTranslationKey } from '@/services/catch'
-
-import useLocale from './useLocale'
-import useNotifications from './useNotifications'
 
 export const authKeys = {
   all: () => ['auth'],
@@ -94,29 +89,16 @@ export const useLogout = () => {
   })
 }
 
-export const useVerifyEmail = () => {
-  const queryClient = useQueryClient()
-  const { showSuccessToast, showErrorToast } = useNotifications()
-  const { t } = useLocale()
-  const navigate = useNavigate()
-
-  return useMutation({
+export const useVerifyEmail = ({ onSuccess, onError, onSettled }) =>
+  useMutation({
     mutationFn: token => authService.verifyEmail(token),
-    onSuccess: () => {
-      showSuccessToast(t('email.verification.success'))
-
-      queryClient.invalidateQueries({ queryKey: authKeys.user() })
-    },
-    onError: error => {
-      showErrorToast(t(toTranslationKey(error)))
-    },
-    onSettled: () => {
-      setTimeout(() => {
-        navigate('/')
-      }, 1500)
+    onSuccess,
+    onError,
+    onSettled,
+    meta: {
+      invalidatesQueries: authKeys.user()
     }
   })
-}
 
 export const useResendVerificationEmail = () =>
   useMutation({

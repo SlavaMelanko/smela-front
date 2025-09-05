@@ -4,8 +4,14 @@ import { useVerifyEmail } from './useAuth'
 
 const useVerifyEmailOnce = (token, options) => {
   const hasVerified = useRef(false)
-  const verifyEmailMutation = useVerifyEmail()
-  const { mutate: verifyEmail } = verifyEmailMutation
+  const {
+    isPending,
+    isError,
+    error,
+    isSuccess,
+    data,
+    mutate: verifyEmail
+  } = useVerifyEmail(options)
 
   useEffect(() => {
     if (hasVerified.current || !token) {
@@ -14,15 +20,15 @@ const useVerifyEmailOnce = (token, options) => {
 
     hasVerified.current = true
 
-    verifyEmail(token, options)
-  }, [token, verifyEmail, options])
+    verifyEmail(token)
+  }, [token, verifyEmail])
 
   return {
-    isPending: verifyEmailMutation.isPending,
-    isError: verifyEmailMutation.isError,
-    isSuccess: verifyEmailMutation.isSuccess,
-    error: verifyEmailMutation.error,
-    data: verifyEmailMutation.data
+    isPending,
+    isError,
+    error,
+    isSuccess,
+    data
   }
 }
 
