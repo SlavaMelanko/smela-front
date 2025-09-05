@@ -1,11 +1,12 @@
 import './styles.scss'
 
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { LoginPrompt } from '@/components/prompts'
 import { useRequestPasswordReset, useResetPassword } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
+import useUrlParams from '@/hooks/useUrlParams'
 
 import EmailForm from './EmailForm'
 import PasswordForm from './PasswordForm'
@@ -14,13 +15,12 @@ const ResetPassword = () => {
   const { t } = useLocale()
   const { showSuccessToast, showErrorToast } = useNotifications()
   const navigate = useNavigate()
-  const [params] = useSearchParams()
+  const { token } = useUrlParams(['token'])
   const { mutate: requestPasswordReset, isPending: isRequestPending } =
     useRequestPasswordReset()
   const { mutate: resetPassword, isPending: isResetPending } =
     useResetPassword()
 
-  const token = params.get('token')
   const isRequest = !token
 
   const handleRequestPasswordReset = ({ email, reset }) => {
