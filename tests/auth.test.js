@@ -212,6 +212,87 @@ test.describe.serial('Authentication', () => {
     ).toBeVisible()
   })
 
+  test('signup: handles invalid verification link', async ({ page }) => {
+    await page.goto('/signup')
+
+    const testEmail = auth.email.generate({
+      prefix: 'invalid-link-test',
+      domain: emailConfig.domain
+    })
+
+    await fillSignupFormAndSubmit(
+      page,
+      {
+        firstName: auth.firstName.ok,
+        lastName: auth.lastName.ok,
+        email: testEmail,
+        password: auth.password.strong
+      },
+      t
+    )
+
+    await waitForApiResponse(page, {
+      path: path.SIGNUP,
+      status: StatusCodes.CREATED
+    })
+
+    await page.waitForURL(/email-confirmation/)
+
+    const { link } = await emailService.waitForVerificationEmail(testEmail)
+
+    expect(link).toBeTruthy()
+
+    const url = new URL(link)
+    const originalToken = url.searchParams.get('token')
+
+    // 1: Empty token.
+    await page.goto(`${url.origin}${url.pathname}?token=`)
+    // No API call is made for empty token - frontend handles it.
+
+    await expect(
+      page.getByText(t.email.verification.error.invalidToken)
+    ).toBeVisible()
+
+    // 2: Malformed token (replace last char with underscore).
+    const malformedToken = originalToken.slice(0, -1) + '_'
+
+    await page.goto(`${url.origin}${url.pathname}?token=${malformedToken}`)
+
+    await waitForApiResponse(page, {
+      path: path.ME,
+      method: 'GET',
+      status: StatusCodes.OK
+    })
+
+    await waitForApiResponse(page, {
+      path: path.VERIFY_EMAIL,
+      status: StatusCodes.BAD_REQUEST
+    })
+
+    await expect(page.getByText(t.backend['token/not-found'])).toBeVisible()
+
+    // 3: Invalid token (completely wrong token).
+    await page.goto(`${url.origin}${url.pathname}?token=invalid_token_12345`)
+
+    await waitForApiResponse(page, {
+      path: path.ME,
+      status: StatusCodes.OK
+    })
+
+    await waitForApiResponse(page, {
+      path: path.VERIFY_EMAIL,
+      status: StatusCodes.BAD_REQUEST
+    })
+
+    await expect(page.getByText(t.backend['validation/error'])).toBeVisible()
+
+    // User should remain on email confirmation page after invalid attempts.
+    await expect(page).toHaveURL(/email-confirmation/)
+    await expect(
+      page.getByRole('heading', { name: t.email.confirmation.title })
+    ).toBeVisible()
+  })
+
   /**
    * Docs used:
    * - https://mailisk.com/blog/email-verification-playwright
@@ -244,6 +325,11 @@ test.describe.serial('Authentication', () => {
     expect(link).toBeTruthy()
 
     await page.goto(link)
+
+    await waitForApiResponse(page, {
+      path: path.ME,
+      status: StatusCodes.OK
+    })
 
     await waitForApiResponse(page, {
       path: path.VERIFY_EMAIL,
@@ -290,7 +376,7 @@ test.describe.serial('Authentication', () => {
     // After verification, user is redirected to home.
     await page.waitForURL('/home')
 
-    // TODO: Check toast.
+    await expect(page.getByText(t.email.verification.success)).toBeVisible()
 
     await expect(page.getByText(auth.firstName.ok)).toBeVisible()
 
