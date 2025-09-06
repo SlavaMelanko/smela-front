@@ -38,3 +38,19 @@ export const waitForApiResponse = async (page, options, timeout = 30000) => {
     return { response, body: null }
   }
 }
+
+export const waitForApiResponses = async (
+  page,
+  optionsArray,
+  timeout = 30000
+) => {
+  const results = []
+
+  for (const options of optionsArray) {
+    const result = await waitForApiResponse(page, options, timeout)
+
+    results.push(result)
+  }
+
+  return results
+}

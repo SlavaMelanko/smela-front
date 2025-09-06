@@ -9,7 +9,8 @@ import {
   emailConfig,
   EmailService,
   passCaptcha,
-  waitForApiResponse
+  waitForApiResponse,
+  waitForApiResponses
 } from './helpers'
 
 const t = JSON.parse(fs.readFileSync('./src/locales/en.json', 'utf-8'))
@@ -258,31 +259,33 @@ test.describe.serial('Authentication', () => {
 
     await page.goto(`${url.origin}${url.pathname}?token=${malformedToken}`)
 
-    await waitForApiResponse(page, {
-      path: path.ME,
-      method: 'GET',
-      status: StatusCodes.OK
-    })
-
-    await waitForApiResponse(page, {
-      path: path.VERIFY_EMAIL,
-      status: StatusCodes.BAD_REQUEST
-    })
+    await waitForApiResponses(page, [
+      {
+        path: path.ME,
+        method: 'GET',
+        status: StatusCodes.OK
+      },
+      {
+        path: path.VERIFY_EMAIL,
+        status: StatusCodes.BAD_REQUEST
+      }
+    ])
 
     await expect(page.getByText(t.backend['token/not-found'])).toBeVisible()
 
     // 3: Invalid token (completely wrong token).
     await page.goto(`${url.origin}${url.pathname}?token=invalid_token_12345`)
 
-    await waitForApiResponse(page, {
-      path: path.ME,
-      status: StatusCodes.OK
-    })
-
-    await waitForApiResponse(page, {
-      path: path.VERIFY_EMAIL,
-      status: StatusCodes.BAD_REQUEST
-    })
+    await waitForApiResponses(page, [
+      {
+        path: path.ME,
+        status: StatusCodes.OK
+      },
+      {
+        path: path.VERIFY_EMAIL,
+        status: StatusCodes.BAD_REQUEST
+      }
+    ])
 
     await expect(page.getByText(t.backend['validation/error'])).toBeVisible()
 
@@ -326,52 +329,68 @@ test.describe.serial('Authentication', () => {
 
     await page.goto(link)
 
-    await waitForApiResponse(page, {
-      path: path.ME,
-      status: StatusCodes.OK
-    })
+    await waitForApiResponses(page, [
+      {
+        path: path.ME,
+        status: StatusCodes.OK,
+        validateBody: b => {
+          if (!b.user) {
+            return false
+          }
 
-    await waitForApiResponse(page, {
-      path: path.VERIFY_EMAIL,
-      status: StatusCodes.OK,
-      validateBody: b => {
-        if (!b.user || !b.token) {
-          return false
+          const { id, firstName, lastName, email, status, role } = b.user
+
+          return (
+            id > 0 &&
+            firstName === auth.firstName.ok &&
+            lastName === auth.lastName.ok &&
+            email === userCredentials.email &&
+            status === UserStatus.NEW &&
+            role === Role.USER
+          )
         }
+      },
+      {
+        path: path.VERIFY_EMAIL,
+        status: StatusCodes.OK,
+        validateBody: b => {
+          if (!b.user || !b.token) {
+            return false
+          }
 
-        const { id, firstName, lastName, email, status, role } = b.user
+          const { id, firstName, lastName, email, status, role } = b.user
 
-        return (
-          id > 0 &&
-          firstName === auth.firstName.ok &&
-          lastName === auth.lastName.ok &&
-          email === userCredentials.email &&
-          status === UserStatus.VERIFIED &&
-          role === Role.USER
-        )
-      }
-    })
-
-    await waitForApiResponse(page, {
-      path: path.ME,
-      status: StatusCodes.OK,
-      validateBody: b => {
-        if (!b.user) {
-          return false
+          return (
+            id > 0 &&
+            firstName === auth.firstName.ok &&
+            lastName === auth.lastName.ok &&
+            email === userCredentials.email &&
+            status === UserStatus.VERIFIED &&
+            role === Role.USER
+          )
         }
+      },
+      {
+        path: path.ME,
+        status: StatusCodes.OK,
+        validateBody: b => {
+          if (!b.user) {
+            return false
+          }
 
-        const { id, firstName, lastName, email, status, role } = b.user
+          const { id, firstName, lastName, email, status, role } = b.user
 
-        return (
-          id > 0 &&
-          firstName === auth.firstName.ok &&
-          lastName === auth.lastName.ok &&
-          email === userCredentials.email &&
-          status === UserStatus.VERIFIED &&
-          role === Role.USER
-        )
+          return (
+            id > 0 &&
+            firstName === auth.firstName.ok &&
+            lastName === auth.lastName.ok &&
+            email === userCredentials.email &&
+            status === UserStatus.VERIFIED &&
+            role === Role.USER
+          )
+        }
       }
-    })
+    ])
 
     // After verification, user is redirected to home.
     await page.waitForURL('/home')
