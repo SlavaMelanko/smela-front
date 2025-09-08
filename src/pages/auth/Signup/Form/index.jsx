@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form'
 import { PrimaryButton } from '@/components/buttons'
 import FormField from '@/components/form/Field'
 import { PasswordInput, TextInput } from '@/components/inputs'
-import InternalLink from '@/components/links/InternalLink'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
@@ -72,18 +71,6 @@ const SignupForm = ({ onSubmit, isLoading = false }) => {
             {...register(FieldName.PASSWORD)}
           />
         </FormField>
-
-        <p className='signup-form__terms-and-conditions'>
-          {t('termsAndPrivacy.prefix')}{' '}
-          <InternalLink to='/terms' size='sm' newTab>
-            {t('termsAndPrivacy.termsLink')}
-          </InternalLink>{' '}
-          {t('termsAndPrivacy.middle')}{' '}
-          <InternalLink to='/privacy' size='sm' newTab>
-            {t('termsAndPrivacy.privacyLink')}
-          </InternalLink>
-          {'.'}
-        </p>
       </div>
 
       <PrimaryButton type='submit' disabled={isSubmitting || isLoading}>

@@ -49,25 +49,6 @@ describe('Signup Form', () => {
       expect(submitButton).toBeInTheDocument()
     })
 
-    it('renders terms and privacy links', () => {
-      renderForm()
-
-      const termsLink = screen.getByRole('link', {
-        name: en.termsAndPrivacy.termsLink
-      })
-      const privacyLink = screen.getByRole('link', {
-        name: en.termsAndPrivacy.privacyLink
-      })
-
-      expect(termsLink).toBeInTheDocument()
-      expect(termsLink).toHaveAttribute('href', '/terms')
-      expect(termsLink).toHaveAttribute('target', '_blank')
-
-      expect(privacyLink).toBeInTheDocument()
-      expect(privacyLink).toHaveAttribute('href', '/privacy')
-      expect(privacyLink).toHaveAttribute('target', '_blank')
-    })
-
     it('renders required field indicators', () => {
       renderForm()
 
