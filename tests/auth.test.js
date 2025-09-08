@@ -25,7 +25,8 @@ const fillSignupFormAndSubmit = async (
   await page.getByLabel(t.firstName.label).fill(firstName)
   await page.getByLabel(t.lastName.label).fill(lastName)
   await page.getByLabel(t.email.label).fill(email)
-  await page.getByLabel(t.password.label).fill(password)
+  // Use specific locator to avoid matching the toggle visibility button.
+  await page.locator('input[type="password"]').fill(password)
 
   await page.getByRole('button', { name: t.signUp }).click()
 }
@@ -90,9 +91,10 @@ test.describe.serial('Authentication', () => {
     )
 
     await expect(page.getByText(t.password.error.required)).toBeVisible()
-    await expect(page.getByLabel(t.password.label)).toHaveClass(
-      /input__field--error/
-    )
+    // Use specific locator to avoid Playwright strict mode violation with toggle button.
+    await expect(
+      page.locator('input[type="password"], input[name="password"]').first()
+    ).toHaveClass(/input__field--error/)
   })
 
   // This test requires seed data with admin@example.com.

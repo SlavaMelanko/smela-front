@@ -4,7 +4,7 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import { fileURLToPath } from 'url'
 import { defineConfig } from 'vite'
 
-// Simulate __dirname in ESM
+// Simulate __dirname in ESM.
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
