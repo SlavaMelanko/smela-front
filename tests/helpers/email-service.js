@@ -100,10 +100,7 @@ export class EmailService {
     throw new Error(`The email "${subject}" hasn't been received.`)
   }
 
-  async waitForVerificationEmail(
-    emailAddress,
-    subject = 'Welcome to The Company'
-  ) {
+  async waitForVerificationEmail(emailAddress, subject = 'Welcome to SMELA') {
     const email = await this.#waitForEmail(emailAddress, subject)
     const link = extractVerificationLink(email.text)
 
