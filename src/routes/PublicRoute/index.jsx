@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom'
 
+import Spinner from '@/components/Spinner'
 import { useCurrentUser } from '@/hooks/useAuth'
 import { userActiveStatuses } from '@/lib/types'
 
@@ -7,7 +8,7 @@ const PublicRoute = ({ children }) => {
   const { isPending, isAuthenticated, user } = useCurrentUser()
 
   if (isPending) {
-    return null
+    return <Spinner centered />
   }
 
   if (isAuthenticated && userActiveStatuses.includes(user?.status)) {
