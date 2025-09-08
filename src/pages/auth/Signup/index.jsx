@@ -3,7 +3,7 @@ import './styles.scss'
 import { useNavigate } from 'react-router-dom'
 
 import { GoogleOAuthButton } from '@/components/buttons'
-import { LoginPrompt } from '@/components/prompts'
+import { LoginPrompt, TermsAndPrivacyPrompt } from '@/components/prompts'
 import Separator from '@/components/Separator'
 import { useSignup, useSignupWithGoogle } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
@@ -55,6 +55,7 @@ const Signup = () => {
         disabled={isGooglePending}
       />
       <div className='signup-page__prompts'>
+        <TermsAndPrivacyPrompt />
         <LoginPrompt />
       </div>
     </div>

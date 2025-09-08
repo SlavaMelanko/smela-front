@@ -10,10 +10,14 @@
     margin: $spacing-sm 0;
   }
 
+  &__terms {
+    margin-top: $spacing-sm;
+  }
+
   &__prompts {
     @include flex-center-column;
 
     gap: $spacing-xl;
-    margin-top: $spacing-2xl;
+    margin-top: $spacing-md;
   }
 }
