@@ -12,12 +12,13 @@ import {
   NotificationToggle
 } from '@/components/notifications'
 import ThemeToggle from '@/components/ThemeToggle'
-import useAuth from '@/hooks/useAuth'
+import { useCurrentUser, useLogout } from '@/hooks/useAuth'
 import useModal from '@/hooks/useModal'
 import useNotifications from '@/hooks/useNotifications'
 
 const Header = ({ isSidebarOpen, toggleSidebar }) => {
-  const { profile, logOut } = useAuth()
+  const { user } = useCurrentUser()
+  const { mutate: logOut } = useLogout()
   const { inboxNotifications } = useNotifications()
   const { openModal } = useModal()
   const navigate = useNavigate()
@@ -29,15 +30,18 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
     setIsPanelOpen(prev => !prev)
   }
 
-  const handleLogOut = async () => {
-    await logOut()
-    navigate('/login')
+  const handleLogOut = () => {
+    logOut(undefined, {
+      onSuccess: () => {
+        navigate('/login')
+      }
+    })
   }
 
-  // TODO: extract
+  // TODO: extract.
   const openProfileModal = () => {
     const close = openModal({
-      children: <ProfileModal profile={profile} onClose={() => close()} />,
+      children: <ProfileModal profile={user} onClose={() => close()} />,
       size: 'md',
       centered: true,
       closeOnOverlayClick: true,
@@ -91,7 +95,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
           </div>
 
           <div className='header__profile'>
-            <ProfileDropdown name={profile?.firstName} menu={menu} />
+            <ProfileDropdown name={user?.firstName} menu={menu} />
           </div>
 
           <div className='header__mobile-menu-toggle'>

@@ -1,55 +1,46 @@
 import { useEffect } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import Spinner from '@/components/Spinner'
-import useAuth from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
-import useVerifyEmail from '@/hooks/useVerifyEmail'
-import { verifyEmail } from '@/services/firebase'
+import useUrlParams from '@/hooks/useUrlParams'
+import useVerifyEmailOnce from '@/hooks/useVerifyEmailOnce'
+import { toTranslationKey } from '@/services/catch'
 
 const VerifyEmail = () => {
   const { t } = useLocale()
+  const { showErrorToast, showSuccessToast } = useNotifications()
   const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
-  const { showSuccessToast, showErrorToast } = useNotifications()
-  const { refreshUser } = useAuth()
+  const { token } = useUrlParams(['token'])
 
-  const oobCode = searchParams.get('oobCode')
-  const { isLoading, isError, isSuccess } = useVerifyEmail(() =>
-    verifyEmail(oobCode)
-  )
+  useVerifyEmailOnce(token, {
+    onSuccess: () => {
+      showSuccessToast(t('email.verification.success'))
+    },
+    onError: error => {
+      showErrorToast(t(toTranslationKey(error)))
+    },
+    onSettled: () => {
+      setTimeout(() => {
+        navigate('/')
+      }, 1500)
+    }
+  })
 
   useEffect(() => {
-    if (isSuccess) {
-      refreshUser()
-      navigate('/')
-      showSuccessToast(t('email.verification.success'))
+    if (!token) {
+      showErrorToast(t('email.verification.error.invalidToken'))
+
+      const timeoutId = setTimeout(() => {
+        navigate('/')
+      }, 1500)
+
+      return () => clearTimeout(timeoutId)
     }
+  }, [token, showErrorToast, t, navigate])
 
-    if (isError) {
-      navigate('/signup')
-      showErrorToast(t('email.verification.error'))
-    }
-  }, [
-    navigate,
-    refreshUser,
-    showErrorToast,
-    showSuccessToast,
-    isSuccess,
-    isError,
-    t
-  ])
-
-  if (isLoading) {
-    return <Spinner centered />
-  }
-
-  if (isError) {
-    return <div>{t('email.verification.error')}</div>
-  }
-
-  return <div>{t('email.verification.loading')}</div>
+  return <Spinner centered />
 }
 
 export default VerifyEmail

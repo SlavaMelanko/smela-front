@@ -1,4 +1,5 @@
 import js from '@eslint/js'
+import tanstackQuery from '@tanstack/eslint-plugin-query'
 import reactPlugin from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
@@ -23,12 +24,14 @@ export default [
       react: reactPlugin,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      'simple-import-sort': simpleImportSort
+      'simple-import-sort': simpleImportSort,
+      '@tanstack/query': tanstackQuery
     },
     rules: {
       ...js.configs.recommended.rules,
       ...reactPlugin.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
+      ...tanstackQuery.configs.recommended.rules,
 
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
@@ -94,21 +97,33 @@ export default [
     }
   },
   {
-    files: ['**/*.test.{js,jsx}'],
-    languageOptions: {
-      globals: {
-        ...globals.jest
-      }
-    }
-  },
-  {
-    files: ['src/tests/jest.setup.js'],
+    // Jest
+    files: ['**/*.test.{js,jsx}', 'src/tests/jest.setup.js'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
       globals: {
         ...globals.jest,
         global: true
+      }
+    }
+  },
+  {
+    // Playwright
+    files: ['tests/**/*.{js,jsx}', 'playwright.config.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.browser
+      }
+    }
+  },
+  {
+    // Build and config files
+    files: ['vite.config.js', '*.config.js', '*.config.mjs'],
+    languageOptions: {
+      globals: {
+        ...globals.node
       }
     }
   },

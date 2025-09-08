@@ -1,9 +1,25 @@
 {
   "alreadyHaveAccount": "Вже свій?",
+  "backend": {
+    "auth/already-verified": "Невірний запит. Спробуйте увійти в обліковий запис.",
+    "auth/bad-credentials": "Невірна електронна адреса або пароль.",
+    "auth/email-already-in-use": "Електронна адреса вже зайнята.",
+    "auth/invalid-credentials": "Невірна електронна адреса або пароль.",
+    "auth/unauthorized": "Доступ заборонено. Увійдіть щоб продовжити.",
+    "auth/unverified-account": "Невірна електронна адреса або пароль.",
+    "resource/not-found": "Доступ заборонено.",
+    "system/internal-error": "Щось пішло не так. Спробуйте пізніше.",
+    "token/already-used": "Недійсне або прострочене посилання.",
+    "token/deprecated": "Недійсне або прострочене посилання.",
+    "token/expired": "Недійсне або прострочене посилання.",
+    "token/not-found": "Недійсне або прострочене посилання.",
+    "token/type-mismatch": "Недійсне або прострочене посилання.",
+    "validation/error": "Будь ласка, перевірте введені дані та спробуйте ще раз."
+  },
   "captcha": {
     "error": "Пройдіть перевірку CAPTCHA."
   },
-  "companyName": "Company, Inc.",
+  "companyName": "SMELA",
   "continueWithGoogle": "Продовжити з Google",
   "copyright": "© {{year}} {{companyName}}",
   "doNotHaveAccount": "Новенький тут?",
@@ -23,21 +39,16 @@
     "label": "Email адреса",
     "placeholder": "Email адреса",
     "verification": {
-      "error": "Помилка підтвердження електронної пошти.",
+      "error": {
+        "general": "Помилка підтвердження електронної пошти.",
+        "invalidToken": "Недійсний токен."
+      },
       "loading": "Підтверджуємо електронну пошту...",
       "success": "Електронна пошта підтверджена успішно."
     }
   },
   "error": {
     "unknown": "Щось пішло не так. Спробуйте ще раз пізніше."
-  },
-  "firebase": {
-    "auth/email-already-in-use": "Ця електронна адреса вже використовується.",
-    "auth/invalid-credential": "Неправильні облікові дані. Спробуйте ще раз.",
-    "auth/network-request-failed": "Помилка мережі. Спробуйте ще раз пізніше.",
-    "auth/too-many-requests": "Виявлено підозрілу активність. Спробуйте ще раз пізніше.",
-    "auth/unauthenticated": "Будь ласка, увійдіть або зареєструйтеся, щоб продовжити.",
-    "auth/user-not-found": "Користувач не знайдений."
   },
   "firstName": {
     "error": {
@@ -122,9 +133,9 @@
   },
   "password": {
     "error": {
-      "latin": "Тільки латинські літери.",
-      "min": "Пароль має містити щонайменше 6 символів.",
-      "required": "Пароль обовʼязковий."
+      "min": "Пароль має містити щонайменше 8 символів.",
+      "required": "Пароль обовʼязковий.",
+      "strong": "Використайте щонайменше: 1 велику літеру, 1 цифру, 1 символ."
     },
     "label": "Пароль",
     "placeholder": {

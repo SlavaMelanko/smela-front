@@ -1,31 +1,37 @@
 import './styles.scss'
 
-import useAuth from '@/hooks/useAuth'
+import { useLocation } from 'react-router-dom'
+
+import { useCurrentUser, useResendVerificationEmail } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
 import { toTranslationKey } from '@/services/catch'
-import { sendVerificationEmail } from '@/services/firebase'
 
 import EmailConfirmationForm from './Form'
 
 const EmailConfirmation = () => {
   const { t } = useLocale()
-  const { profile } = useAuth()
+  const location = useLocation()
+  const { mutate: resendVerificationEmail, isPending } =
+    useResendVerificationEmail()
   const { showSuccessToast, showErrorToast } = useNotifications()
+  const { user } = useCurrentUser()
 
-  const handleSubmit = async ({ reset }) => {
-    try {
-      await sendVerificationEmail()
+  const userEmail = location.state?.email || user?.email
 
-      showSuccessToast(t('email.confirmation.success'))
+  const handleSubmit = ({ reset }) => {
+    resendVerificationEmail(userEmail, {
+      onSuccess: () => {
+        showSuccessToast(t('email.confirmation.success'))
 
-      if (reset) {
-        reset()
+        if (reset) {
+          reset()
+        }
+      },
+      onError: err => {
+        showErrorToast(t(toTranslationKey(err)))
       }
-    } catch (err) {
-      console.error(err)
-      showErrorToast(t(toTranslationKey(err)))
-    }
+    })
   }
 
   return (
@@ -37,12 +43,12 @@ const EmailConfirmation = () => {
 
         <p className='email-confirmation-page__message'>
           {t('email.confirmation.description', {
-            email: profile?.email || t('email.confirmation.yourEmail')
+            email: userEmail || t('email.confirmation.yourEmail')
           })}
         </p>
       </div>
 
-      <EmailConfirmationForm onSubmit={handleSubmit} />
+      <EmailConfirmationForm onSubmit={handleSubmit} isLoading={isPending} />
     </div>
   )
 }

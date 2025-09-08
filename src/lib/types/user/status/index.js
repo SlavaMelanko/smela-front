@@ -11,4 +11,12 @@ const UserStatus = {
   PENDING: 'pending'
 }
 
+export const userActiveStatuses = [
+  UserStatus.VERIFIED,
+  UserStatus.TRIAL,
+  UserStatus.ACTIVE
+]
+
+export const adminActiveStatuses = [UserStatus.ACTIVE]
+
 export default UserStatus

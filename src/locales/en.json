@@ -1,9 +1,25 @@
 {
   "alreadyHaveAccount": "Already have an account?",
+  "backend": {
+    "auth/already-verified": "Invalid request. Please try logging in.",
+    "auth/bad-credentials": "Invalid email or password.",
+    "auth/email-already-in-use": "Email is already taken.",
+    "auth/invalid-credentials": "Invalid email or password.",
+    "auth/unauthorized": "Access denied. Please try logging in again.",
+    "auth/unverified-account": "Invalid email or password.",
+    "resource/not-found": "Access denied.",
+    "system/internal-error": "Something went wrong. Please try again later.",
+    "token/already-used": "Invalid or expired link.",
+    "token/deprecated": "Invalid or expired link.",
+    "token/expired": "Invalid or expired link.",
+    "token/not-found": "Invalid or expired link.",
+    "token/type-mismatch": "Invalid or expired link.",
+    "validation/error": "Please check your input and try again."
+  },
   "captcha": {
     "error": "Please complete the CAPTCHA verification."
   },
-  "companyName": "Company, Inc.",
+  "companyName": "SMELA",
   "continueWithGoogle": "Continue with Google",
   "copyright": "© {{year}} {{companyName}}",
   "doNotHaveAccount": "Don't have an account?",
@@ -23,21 +39,16 @@
     "label": "Email",
     "placeholder": "Email address",
     "verification": {
-      "error": "Email verification failed.",
+      "error": {
+        "general": "Email verification failed.",
+        "invalidToken": "Invalid token."
+      },
       "loading": "Verifying email...",
       "success": "Email verified successfully."
     }
   },
   "error": {
     "unknown": "Something went wrong. Please try again later."
-  },
-  "firebase": {
-    "auth/email-already-in-use": "This email is already in use.",
-    "auth/invalid-credential": "Invalid credentials. Please try again.",
-    "auth/network-request-failed": "Network error. Please try again later.",
-    "auth/too-many-requests": "Suspicious activity detected. Please try again later.",
-    "auth/unauthenticated": "Please log in or sign up to continue.",
-    "auth/user-not-found": "User not found."
   },
   "firstName": {
     "error": {
@@ -122,9 +133,9 @@
   },
   "password": {
     "error": {
-      "latin": "Only Latin letters allowed.",
-      "min": "Password must be at least 6 characters.",
-      "required": "Password is required."
+      "min": "Password must be at least 8 characters.",
+      "required": "Password is required.",
+      "strong": "Use at least: 1 uppercase letter, 1 number, 1 symbol."
     },
     "label": "Password",
     "placeholder": {

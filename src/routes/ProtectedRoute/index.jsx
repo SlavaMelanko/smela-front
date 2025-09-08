@@ -1,4 +1,6 @@
-import RootRedirect from '@/components/RootRedirect'
+import { Navigate } from 'react-router-dom'
+
+import Spinner from '@/components/Spinner'
 import useHasAccess from '@/hooks/useHasAccess'
 
 const ProtectedRoute = ({
@@ -6,17 +8,17 @@ const ProtectedRoute = ({
   requireStatuses = [],
   requireRoles = []
 }) => {
-  const { hasAccess, loading } = useHasAccess({
+  const { isPending, isAuthenticated, hasAccess } = useHasAccess({
     requireStatuses,
     requireRoles
   })
 
-  if (loading) {
-    return null // or a loader/spinner
+  if (isPending) {
+    return <Spinner centered />
   }
 
-  if (!hasAccess) {
-    return <RootRedirect />
+  if (!isAuthenticated || !hasAccess) {
+    return <Navigate to='/' replace />
   }
 
   return children

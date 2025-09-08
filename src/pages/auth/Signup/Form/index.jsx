@@ -5,13 +5,12 @@ import { useForm } from 'react-hook-form'
 import { PrimaryButton } from '@/components/buttons'
 import FormField from '@/components/form/Field'
 import { PasswordInput, TextInput } from '@/components/inputs'
-import InternalLink from '@/components/links/InternalLink'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-const SignupForm = ({ onSubmit }) => {
+const SignupForm = ({ onSubmit, isLoading = false }) => {
   const { t } = useLocale()
 
   const {
@@ -38,7 +37,11 @@ const SignupForm = ({ onSubmit }) => {
           />
         </FormField>
 
-        <FormField label={t('lastName.label')} name={FieldName.LAST_NAME}>
+        <FormField
+          label={t('lastName.label')}
+          name={FieldName.LAST_NAME}
+          error={errors[FieldName.LAST_NAME]}
+        >
           <TextInput
             placeholder={t('lastName.example')}
             {...register(FieldName.LAST_NAME)}
@@ -68,22 +71,10 @@ const SignupForm = ({ onSubmit }) => {
             {...register(FieldName.PASSWORD)}
           />
         </FormField>
-
-        <p className='signup-form__terms-and-conditions'>
-          {t('termsAndPrivacy.prefix')}{' '}
-          <InternalLink to='/terms' size='sm' newTab>
-            {t('termsAndPrivacy.termsLink')}
-          </InternalLink>{' '}
-          {t('termsAndPrivacy.middle')}{' '}
-          <InternalLink to='/privacy' size='sm' newTab>
-            {t('termsAndPrivacy.privacyLink')}
-          </InternalLink>
-          {'.'}
-        </p>
       </div>
 
-      <PrimaryButton type='submit' disabled={isSubmitting}>
-        {isSubmitting ? t('processing') : t('signUp')}
+      <PrimaryButton type='submit' disabled={isSubmitting || isLoading}>
+        {isSubmitting || isLoading ? t('processing') : t('signUp')}
       </PrimaryButton>
     </form>
   )

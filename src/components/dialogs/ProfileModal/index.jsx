@@ -12,7 +12,7 @@ export const ProfileModal = ({ profile, onClose }) => {
         <div className='profile-modal__content'>
           <div className='profile-modal__info'>
             <div className='profile-modal__field'>
-              <strong>ID:</strong> {profile.uid}
+              <strong>ID:</strong> {profile.id}
             </div>
             <div className='profile-modal__field'>
               <strong>Name:</strong> {getFullName(profile)}

@@ -1,9 +1,10 @@
 import i18n from '@/i18n'
 
-import { toFirebaseKey } from './firebase/error'
+import { toBackendError } from './backend/error'
 
 const toTranslationKey = (error, fallbackKey = 'error.unknown') => {
-  const key = toFirebaseKey(error)
+  const key = toBackendError(error)
+
   const keyExistsInTheTranslationFile = i18n.exists(key)
 
   return keyExistsInTheTranslationFile ? key : fallbackKey

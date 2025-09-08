@@ -7,8 +7,8 @@ on:
     branches: [dev, main]
 
 env:
-  VITE_APP_FIREBASE_CONFIG: ${{ secrets.VITE_APP_FIREBASE_CONFIG }}
   VITE_APP_HCAPTCHA_SITEKEY: ${{ secrets.VITE_APP_HCAPTCHA_SITEKEY }}
+  VITE_APP_BACKEND_URL: ${{ secrets.VITE_APP_BACKEND_URL }}
 
 jobs:
   unit:
@@ -27,7 +27,7 @@ jobs:
         run: npm ci
 
       - name: Run Jest tests
-        run: npm run test:unit
+        run: npm run ut
 
   e2e:
     name: E2E Tests (Playwright)
@@ -69,7 +69,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: npm run test:e2e
+        run: npm run e2e
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4

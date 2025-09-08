@@ -4,8 +4,8 @@ import { create } from 'storybook/theming'
 addons.setConfig({
   theme: create({
     base: 'light',
-    brandTitle: 'The Proxies',
-    brandImage: '/logo.svg',
+    brandTitle: 'SMELA',
+    brandImage: '/logo-with-text-light.png',
     brandTarget: '_self'
   })
 })

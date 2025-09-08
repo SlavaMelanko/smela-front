@@ -3,8 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import RootRedirect from '@/components/RootRedirect'
 import { AuthLayout, LegalLayout, PublicLayout, UserLayout } from '@/layouts'
-import { UserStatus } from '@/lib/types'
-import { ActionHandler } from '@/pages/auth/ActionHandler'
+import { adminActiveStatuses, userActiveStatuses } from '@/lib/types'
 import EmailConfirmationPage from '@/pages/auth/EmailConfirmation'
 import LoginPage from '@/pages/auth/Login'
 import ResetPasswordPage from '@/pages/auth/ResetPassword'
@@ -30,31 +29,23 @@ const router = createBrowserRouter([
     ]
   },
   {
-    element: <AuthLayout />,
+    element: (
+      <PublicRoute>
+        <AuthLayout />
+      </PublicRoute>
+    ),
     children: [
       {
         path: 'login',
-        element: (
-          <PublicRoute>
-            <LoginPage />
-          </PublicRoute>
-        )
+        element: <LoginPage />
       },
       {
         path: 'signup',
-        element: (
-          <PublicRoute>
-            <SignupPage />
-          </PublicRoute>
-        )
+        element: <SignupPage />
       },
       {
         path: 'reset-password',
-        element: (
-          <PublicRoute>
-            <ResetPasswordPage />
-          </PublicRoute>
-        )
+        element: <ResetPasswordPage />
       },
       {
         path: 'email-confirmation',
@@ -62,15 +53,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'verify-email',
-        element: (
-          <ProtectedRoute requireStatuses={[UserStatus.NEW]}>
-            <VerifyEmailPage />
-          </ProtectedRoute>
-        )
-      },
-      {
-        path: 'auth/action',
-        element: <ActionHandler />
+        element: <VerifyEmailPage />
       }
     ]
   },
@@ -82,39 +65,33 @@ const router = createBrowserRouter([
     ]
   },
   {
-    element: <UserLayout />,
+    element: (
+      <ProtectedRoute requireStatuses={userActiveStatuses}>
+        <UserLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: 'home',
-        element: (
-          <ProtectedRoute
-            requireStatuses={[UserStatus.VERIFIED, UserStatus.ACTIVE]}
-          >
-            <HomePage />
-          </ProtectedRoute>
-        )
+        element: <HomePage />
       }
     ]
   },
   {
     path: '/admin',
-    element: <UserLayout />,
+    element: (
+      <ProtectedRoute requireStatuses={adminActiveStatuses}>
+        <UserLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: 'dashboard',
-        element: (
-          <ProtectedRoute requireStatuses={[UserStatus.ACTIVE]}>
-            <AdminDashboardPage />
-          </ProtectedRoute>
-        )
+        element: <AdminDashboardPage />
       },
       {
         path: 'users',
-        element: (
-          <ProtectedRoute requireStatuses={[UserStatus.ACTIVE]}>
-            <AdminUsersPage />
-          </ProtectedRoute>
-        )
+        element: <AdminUsersPage />
       }
     ]
   },

@@ -8,6 +8,18 @@
     height: 100%;
   }
 
+  &__content {
+    @include flex-center-column;
+
+    gap: $spacing-sm;
+  }
+
+  &__text {
+    font-size: $font-size-sm;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
   .loader-icon {
     animation: spin 1s linear infinite;
   }

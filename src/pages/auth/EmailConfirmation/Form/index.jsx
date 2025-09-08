@@ -11,7 +11,7 @@ import useLocale from '@/hooks/useLocale'
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-const EmailConfirmationForm = ({ onSubmit }) => {
+const EmailConfirmationForm = ({ onSubmit, isLoading }) => {
   const { t } = useLocale()
   const [captchaResetKey, setCaptchaResetKey] = useState(0)
 
@@ -58,7 +58,9 @@ const EmailConfirmationForm = ({ onSubmit }) => {
       </div>
 
       <PrimaryButton type='submit' disabled={isSubmitting}>
-        {isSubmitting ? t('processing') : t('email.confirmation.cta')}
+        {isSubmitting || isLoading
+          ? t('processing')
+          : t('email.confirmation.cta')}
       </PrimaryButton>
     </form>
   )

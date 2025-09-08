@@ -1,13 +1,13 @@
 import { Navigate } from 'react-router-dom'
 
 import Spinner from '@/components/Spinner'
-import useAuth from '@/hooks/useAuth'
+import { useCurrentUser } from '@/hooks/useAuth'
 import { UserStatus } from '@/lib/types'
 
 const RootRedirect = () => {
-  const { loading, isAuthenticated, profile } = useAuth()
+  const { isPending, isAuthenticated, user } = useCurrentUser()
 
-  if (loading) {
+  if (isPending) {
     return <Spinner centered />
   }
 
@@ -15,7 +15,7 @@ const RootRedirect = () => {
     return <Navigate to='/login' replace />
   }
 
-  const status = profile?.status
+  const status = user?.status
 
   if (isAuthenticated && status === UserStatus.NEW) {
     return <Navigate to='/email-confirmation' replace />
