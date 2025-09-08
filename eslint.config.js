@@ -118,5 +118,14 @@ export default [
       }
     }
   },
+  {
+    // Build and config files
+    files: ['vite.config.js', '*.config.js', '*.config.mjs'],
+    languageOptions: {
+      globals: {
+        ...globals.node
+      }
+    }
+  },
   ...storybook.configs['flat/recommended']
 ]
