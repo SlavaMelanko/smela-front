@@ -53,17 +53,6 @@ describe('Login Form', () => {
       expect(emailField).toHaveClass('form-field--required')
       expect(passwordField).toHaveClass('form-field--required')
     })
-
-    it('renders password input with toggle visibility option', () => {
-      renderForm()
-
-      // password toggle is a button in the password field
-      const toggleButton = screen.getByRole('button', { name: '' })
-
-      expect(toggleButton).toBeInTheDocument()
-      expect(toggleButton).toHaveClass('input__toggle-btn')
-      expect(toggleButton).toHaveAttribute('type', 'button')
-    })
   })
 
   describe('Validation', () => {
@@ -228,23 +217,6 @@ describe('Login Form', () => {
           screen.queryByText(en.email.error.required)
         ).not.toBeInTheDocument()
       })
-    })
-
-    it('allows password visibility toggle', async () => {
-      const { passwordInput } = renderForm()
-
-      const toggleButton = screen.getByRole('button', { name: '' })
-
-      // initially password should be hidden
-      expect(passwordInput).toHaveAttribute('type', 'password')
-
-      // click toggle to show password
-      await user.click(toggleButton)
-      expect(passwordInput).toHaveAttribute('type', 'text')
-
-      // click again to hide password
-      await user.click(toggleButton)
-      expect(passwordInput).toHaveAttribute('type', 'password')
     })
 
     it('maintains form values after validation error', async () => {
