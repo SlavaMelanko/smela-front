@@ -1,0 +1,27 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.offline-error-page {
+  @include flex-column;
+
+  gap: $spacing-2xl;
+
+  &__content {
+    @include flex-center-column;
+
+    gap: $spacing-2xl;
+  }
+
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+  }
+
+  &__description {
+    font-size: $font-size-sm;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+}
