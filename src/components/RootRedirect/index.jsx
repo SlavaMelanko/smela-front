@@ -5,10 +5,14 @@ import { useCurrentUser } from '@/hooks/useAuth'
 import { UserStatus } from '@/lib/types'
 
 const RootRedirect = () => {
-  const { isPending, isAuthenticated, user } = useCurrentUser()
+  const { isPending, isAuthenticated, user, isError } = useCurrentUser()
+
+  if (isError) {
+    return <Navigate to='/login' replace />
+  }
 
   if (isPending) {
-    return <Spinner centered />
+    return <Spinner />
   }
 
   if (!isAuthenticated) {
