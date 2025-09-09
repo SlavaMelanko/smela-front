@@ -5,9 +5,9 @@ code in this repository.
 
 ## Project Overview
 
-This is a Portal V2 application for proxy customers and SDK partners, built with
-React 19, Vite, and TanStack Query. The project uses a custom backend API and
-emphasizes clear architecture, easy maintenance, and simple UX.
+This is a frontend application built with React 19, Vite, and TanStack Query.
+The project uses a custom backend API and emphasizes clear architecture, easy
+maintenance, and simple UX.
 
 ## Essential Commands
 
@@ -92,12 +92,14 @@ const { register, handleSubmit } = useForm({ resolver })
    co-located
 4. **i18n keys**: Keep translations "short, clear, and easy to understand"
 5. **ESLint compliance**: No console.log (use console.warn/error), prefer const
-6. **Git hooks**: Pre-commit runs ESLint and Prettier on staged files
-7. **Comment style**:
-   - Trailing comments: no capital letter, no period (e.g.,
-     `const i = 0 // initial value`)
-   - Full-line comments: capital letter and period (e.g.,
+6. **Control flow formatting**: Always use curly braces with `if` statements on
+   new lines (no single-line `if (ok) return`)
+7. **Git hooks**: Pre-commit runs ESLint and Prettier on staged files
+8. **Comment style**:
+   - Full-line comments: Start with capital letter and end with period (e.g.,
      `// This initializes the counter.`)
+   - Trailing comments: No capital letter at the beginning, no period at the end
+     (e.g., `const i = 0 // initial value`)
 
 ## Important Considerations
 

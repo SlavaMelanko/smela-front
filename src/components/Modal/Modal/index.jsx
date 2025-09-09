@@ -34,7 +34,9 @@ const Modal = ({
   }
 
   useEffect(() => {
-    if (!isOpen || !preserveScrollBarGap) return
+    if (!isOpen || !preserveScrollBarGap) {
+      return
+    }
 
     const scrollBarWidth =
       window.innerWidth - document.documentElement.clientWidth

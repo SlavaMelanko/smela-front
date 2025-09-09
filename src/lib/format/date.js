@@ -18,7 +18,9 @@ const DATE_FORMAT = {
 }
 
 const formatDate = (date, locale = 'en', options = DATE_FORMAT.numeric) => {
-  if (!date) return ''
+  if (!date) {
+    return ''
+  }
 
   const parsed =
     typeof date === 'string' || typeof date === 'number' ? new Date(date) : date

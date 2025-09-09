@@ -79,7 +79,8 @@ export default [
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'prefer-const': 'error',
       'no-unsafe-optional-chaining': 'error',
-      'react/jsx-no-useless-fragment': 'error'
+      'react/jsx-no-useless-fragment': 'error',
+      curly: ['error', 'all']
     },
     settings: {
       react: {
