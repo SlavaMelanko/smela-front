@@ -48,6 +48,11 @@
     }
   },
   "error": {
+    "offline": {
+      "cta": "Try again",
+      "description": "Don't worry, this happens sometimes. Check your connection or try again later.",
+      "title": "Oops! It seems you're offline"
+    },
     "unknown": "Something went wrong. Please try again later."
   },
   "firstName": {
