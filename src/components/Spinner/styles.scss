@@ -5,7 +5,11 @@
   &--centered {
     @include flex-center;
 
-    height: 100%;
+    position: fixed;
+    inset: 0;
+    z-index: $z-index-loader;
+    width: 100%;
+    height: 100vh;
   }
 
   &__content {
