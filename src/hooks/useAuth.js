@@ -35,13 +35,16 @@ export const useCurrentUser = () => {
   }
 }
 
-export const useLogin = () =>
-  useMutation({
+export const useLogin = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
     mutationFn: ({ email, password }) => authService.logIn(email, password),
-    meta: {
-      invalidatesQueries: authKeys.user()
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
   })
+}
 
 export const useLoginWithGoogle = () =>
   useMutation({

@@ -22,20 +22,38 @@ const fillSignupFormAndSubmit = async (
   { firstName, lastName, email, password },
   t
 ) => {
-  await page.getByLabel(t.firstName.label).fill(firstName)
-  await page.getByLabel(t.lastName.label).fill(lastName)
-  await page.getByLabel(t.email.label).fill(email)
+  const firstNameInput = page.getByLabel(t.firstName.label)
+  const lastNameInput = page.getByLabel(t.lastName.label)
+  const emailInput = page.getByLabel(t.email.label)
   // Use specific locator to avoid matching the toggle visibility button.
-  await page.locator('input[type="password"]').fill(password)
+  const passwordInput = page.locator('input[type="password"]')
+  const signupButton = page.getByRole('button', { name: t.signUp })
 
-  await page.getByRole('button', { name: t.signUp }).click()
+  await firstNameInput.fill(firstName)
+  await lastNameInput.fill(lastName)
+  await emailInput.fill(email)
+  await passwordInput.fill(password)
+  await signupButton.click()
+
+  return {
+    firstNameInput,
+    lastNameInput,
+    emailInput,
+    passwordInput,
+    signupButton
+  }
 }
 
 const fillLoginFormAndSubmit = async (page, { email, password }, t) => {
-  await page.getByPlaceholder(t.email.placeholder).fill(email)
-  await page.getByPlaceholder(t.password.placeholder.default).fill(password)
+  const emailInput = page.getByPlaceholder(t.email.placeholder)
+  const passwordInput = page.getByPlaceholder(t.password.placeholder.default)
+  const loginButton = page.getByRole('button', { name: t.login.verb })
 
-  await page.getByRole('button', { name: t.login.verb }).click()
+  await emailInput.fill(email)
+  await passwordInput.fill(password)
+  await loginButton.click()
+
+  return { emailInput, passwordInput, submitButton: loginButton }
 }
 
 const fillRequestPasswordResetFormAndSubmit = async (page, email, t) => {
@@ -72,29 +90,30 @@ test.describe.serial('Authentication', () => {
   test('signup: validates required fields', async ({ page }) => {
     await page.goto('/signup')
 
-    await page.getByRole('button', { name: t.signUp }).click()
+    const { firstNameInput, lastNameInput, emailInput, passwordInput } =
+      await fillSignupFormAndSubmit(
+        page,
+        {
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: ''
+        },
+        t
+      )
 
     await expect(page.getByText(t.firstName.error.required)).toBeVisible()
-    await expect(page.getByLabel(t.firstName.label)).toHaveClass(
-      /input__field--error/
-    )
+    await expect(firstNameInput).toHaveClass(/input__field--error/)
 
     // Last name is optional.
     await expect(page.getByText(t.lastName.error.required)).toHaveCount(0)
-    await expect(page.getByLabel(t.lastName.label)).not.toHaveClass(
-      /input__field--error/
-    )
+    await expect(lastNameInput).not.toHaveClass(/input__field--error/)
 
     await expect(page.getByText(t.email.error.required)).toBeVisible()
-    await expect(page.getByLabel(t.email.label)).toHaveClass(
-      /input__field--error/
-    )
+    await expect(emailInput).toHaveClass(/input__field--error/)
 
     await expect(page.getByText(t.password.error.required)).toBeVisible()
-    // Use specific locator to avoid Playwright strict mode violation with toggle button.
-    await expect(
-      page.locator('input[type="password"], input[name="password"]').first()
-    ).toHaveClass(/input__field--error/)
+    await expect(passwordInput).toHaveClass(/input__field--error/)
   })
 
   // This test requires seed data with admin@example.com.
@@ -430,7 +449,7 @@ test.describe.serial('Authentication', () => {
     for (const testCase of testCases) {
       await page.reload()
 
-      await fillLoginFormAndSubmit(
+      const { emailInput } = await fillLoginFormAndSubmit(
         page,
         {
           email: testCase.email,
@@ -440,9 +459,7 @@ test.describe.serial('Authentication', () => {
       )
 
       await expect(page.getByText(testCase.expectedError)).toBeVisible()
-      await expect(page.getByPlaceholder(t.email.placeholder)).toHaveClass(
-        /input__field--error/
-      )
+      await expect(emailInput).toHaveClass(/input__field--error/)
     }
   })
 
@@ -467,7 +484,7 @@ test.describe.serial('Authentication', () => {
     for (const testCase of testCases) {
       await page.reload()
 
-      await fillLoginFormAndSubmit(
+      const { passwordInput } = await fillLoginFormAndSubmit(
         page,
         {
           email: auth.email.ok,
@@ -477,13 +494,13 @@ test.describe.serial('Authentication', () => {
       )
 
       await expect(page.getByText(testCase.expectedError)).toBeVisible()
-      await expect(
-        page.getByPlaceholder(t.password.placeholder.default)
-      ).toHaveClass(/input__field--error/)
+      await expect(passwordInput).toHaveClass(/input__field--error/)
     }
   })
 
-  test('login: shows error with invalid credentials', async ({ page }) => {
+  test('login: shows error with invalid credentials and preserves form data', async ({
+    page
+  }) => {
     await page.goto('/login')
 
     const testCases = [
@@ -500,7 +517,7 @@ test.describe.serial('Authentication', () => {
     for (const testCase of testCases) {
       await page.reload()
 
-      await fillLoginFormAndSubmit(
+      const { emailInput, passwordInput } = await fillLoginFormAndSubmit(
         page,
         {
           email: testCase.email,
@@ -517,6 +534,10 @@ test.describe.serial('Authentication', () => {
       const errorMessage = page.getByText(t.backend['auth/invalid-credentials'])
 
       await expect(errorMessage).toBeVisible()
+
+      // Verify that form fields retain their values after error.
+      await expect(emailInput).toHaveValue(testCase.email)
+      await expect(passwordInput).toHaveValue(testCase.password)
     }
   })
 
