@@ -3,12 +3,14 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import RootRedirect from '@/components/RootRedirect'
 import { AuthLayout, LegalLayout, PublicLayout, UserLayout } from '@/layouts'
+import ErrorLayout from '@/layouts/Error'
 import { adminActiveStatuses, userActiveStatuses } from '@/lib/types'
 import EmailConfirmationPage from '@/pages/auth/EmailConfirmation'
 import LoginPage from '@/pages/auth/Login'
 import ResetPasswordPage from '@/pages/auth/ResetPassword'
 import SignupPage from '@/pages/auth/Signup'
 import VerifyEmailPage from '@/pages/auth/VerifyEmail'
+import OfflinePage from '@/pages/errors/Offline'
 import PrivacyPolicyPage from '@/pages/legal/Privacy'
 import TermsPage from '@/pages/legal/Terms'
 import PricingPage from '@/pages/public/Pricing'
@@ -63,6 +65,11 @@ const router = createBrowserRouter([
       { path: 'terms', element: <TermsPage /> },
       { path: 'privacy', element: <PrivacyPolicyPage /> }
     ]
+  },
+  {
+    path: 'errors',
+    element: <ErrorLayout />,
+    children: [{ path: 'offline', element: <OfflinePage /> }]
   },
   {
     element: (

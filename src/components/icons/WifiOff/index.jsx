@@ -6,10 +6,10 @@ import BaseIcon from '../Icon'
 
 const WifiOffIcon = props => (
   <BaseIcon
-    {...props}
-    icon={WifiOff}
     color='secondary'
     size='sm'
+    {...props}
+    icon={WifiOff}
     name='wifi-off'
   />
 )
