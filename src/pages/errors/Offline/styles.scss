@@ -12,6 +12,10 @@
     gap: $spacing-md;
   }
 
+  &__icon {
+    margin-bottom: $spacing-md;
+  }
+
   &__title {
     @include title-base;
   }

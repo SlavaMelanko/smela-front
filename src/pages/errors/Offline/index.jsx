@@ -17,7 +17,11 @@ const Offline = () => {
   return (
     <div className='offline-error-page'>
       <div className='offline-error-page__content'>
-        <WifiOffIcon size='lg' color='orange' />
+        <WifiOffIcon
+          className='offline-error-page__icon'
+          size='lg'
+          color='orange'
+        />
 
         <h1 className='offline-error-page__title'>
           {t('error.offline.title')}
