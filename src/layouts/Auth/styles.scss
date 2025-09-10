@@ -16,7 +16,7 @@
 
     gap: $spacing-2xl;
     width: 100%;
-    max-width: 28rem; // 448px ~ md
+    max-width: $container-width-sm;
   }
 
   &__header {

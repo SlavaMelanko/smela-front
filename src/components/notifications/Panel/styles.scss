@@ -6,7 +6,7 @@
   top: calc($header-height + 1rem); // space between header and panel
   right: $font-size-sm; // space from right edge
   width: 100%;
-  max-width: 28rem;
+  max-width: $container-width-sm;
   height: calc(100vh - $header-height - 2rem); // top + bottom spacing
   padding: $spacing-xl;
   overflow-y: auto;
