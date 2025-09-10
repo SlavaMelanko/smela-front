@@ -3,7 +3,7 @@ import './styles.scss'
 import { useNavigate } from 'react-router-dom'
 
 import { SecondaryButton } from '@/components/buttons'
-import { WarningIcon } from '@/components/icons'
+import { CloudAlertIcon } from '@/components/icons'
 import useLocale from '@/hooks/useLocale'
 import useUrlParams from '@/hooks/useUrlParams'
 import { NetworkErrorType } from '@/lib/network-monitor'
@@ -20,7 +20,7 @@ const Network = () => {
   return (
     <div className='network-error-page'>
       <div className='network-error-page__content'>
-        <WarningIcon
+        <CloudAlertIcon
           className='network-error-page__icon'
           size='lg'
           color='orange'

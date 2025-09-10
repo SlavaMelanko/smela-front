@@ -62,6 +62,11 @@
       },
       "title": "Network connection issue"
     },
+    "notFound": {
+      "cta": "Go home",
+      "message": "The page you're looking for doesn't exist or has been moved.",
+      "title": "Page not found"
+    },
     "unknown": "Something went wrong. Please try again later."
   },
   "firstName": {

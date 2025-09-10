@@ -1,9 +1,13 @@
 import './styles.scss'
 
-import { User } from 'lucide-react'
+import { User, UserRoundPlus } from 'lucide-react'
 
 import BaseIcon from '../Icon'
 
 const UserIcon = props => <BaseIcon {...props} icon={User} name='user' />
 
-export default UserIcon
+const UserPlusIcon = props => (
+  <BaseIcon {...props} icon={UserRoundPlus} name='user-plus' />
+)
+
+export { UserIcon, UserPlusIcon }

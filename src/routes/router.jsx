@@ -10,7 +10,7 @@ import LoginPage from '@/pages/auth/Login'
 import ResetPasswordPage from '@/pages/auth/ResetPassword'
 import SignupPage from '@/pages/auth/Signup'
 import VerifyEmailPage from '@/pages/auth/VerifyEmail'
-import { NetworkErrorPage } from '@/pages/errors'
+import { NetworkErrorPage, NotFoundErrorPage } from '@/pages/errors'
 import PrivacyPolicyPage from '@/pages/legal/Privacy'
 import TermsPage from '@/pages/legal/Terms'
 import PricingPage from '@/pages/public/Pricing'
@@ -104,7 +104,8 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <RootRedirect />
+    element: <ErrorLayout />,
+    children: [{ index: true, element: <NotFoundErrorPage /> }]
   }
 ])
 
