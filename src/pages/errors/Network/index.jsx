@@ -6,40 +6,40 @@ import { SecondaryButton } from '@/components/buttons'
 import { WifiOffIcon } from '@/components/icons'
 import useLocale from '@/hooks/useLocale'
 
-const Offline = () => {
+const Network = () => {
   const { t } = useLocale()
   const navigate = useNavigate()
 
   const handleRetry = () => {
-    navigate('/')
+    navigate(-1)
   }
 
   return (
-    <div className='offline-error-page'>
-      <div className='offline-error-page__content'>
+    <div className='network-error-page'>
+      <div className='network-error-page__content'>
         <WifiOffIcon
-          className='offline-error-page__icon'
+          className='network-error-page__icon'
           size='lg'
           color='orange'
         />
 
-        <h1 className='offline-error-page__title'>
-          {t('error.offline.title')}
+        <h1 className='network-error-page__title'>
+          {t('error.network.title')}
         </h1>
 
-        <p className='offline-error-page__description'>
-          {t('error.offline.description')}
+        <p className='network-error-page__description'>
+          {t('error.network.description')}
         </p>
 
         <SecondaryButton
-          className='offline-error-page__cta'
+          className='network-error-page__cta'
           onClick={handleRetry}
         >
-          {t('error.offline.cta')}
+          {t('error.network.cta')}
         </SecondaryButton>
       </div>
     </div>
   )
 }
 
-export default Offline
+export default Network

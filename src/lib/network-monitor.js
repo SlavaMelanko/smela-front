@@ -75,7 +75,7 @@ const NETWORK_ERROR_STATUS_CODES = [
   524, // a timeout occurred
   525, // ssl handshake failed
   526, // invalid ssl certificate
-  527 // cloudflare railgun error
+  527 // cloudflare error
 ]
 
 // Determines if an error is a network connection issue.

@@ -48,10 +48,10 @@
     }
   },
   "error": {
-    "offline": {
+    "network": {
       "cta": "Try again",
       "description": "Don't worry, this happens sometimes. Check your connection or try again later.",
-      "title": "Oops! It seems you're offline"
+      "title": "Network connection issue"
     },
     "unknown": "Something went wrong. Please try again later."
   },
