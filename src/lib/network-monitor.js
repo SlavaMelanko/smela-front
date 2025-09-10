@@ -1,5 +1,3 @@
-// Network monitoring utilities for detecting and handling connection issues.
-
 // List of known network error messages that indicate connection problems.
 const NETWORK_ERROR_PATTERNS = [
   // chrome/chromium errors
