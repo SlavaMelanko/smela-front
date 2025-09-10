@@ -215,6 +215,15 @@ export function getNetworkErrorType(error) {
     return NetworkErrorType.SERVER_UNAVAILABLE
   }
 
+  if (
+    errMsg.includes('Failed to fetch') ||
+    errMsg.includes('NetworkError') ||
+    errMsg.includes('Network request failed') ||
+    errMsg.includes('Load failed')
+  ) {
+    return NetworkErrorType.SERVER_UNAVAILABLE
+  }
+
   return NetworkErrorType.UNKNOWN
 }
 
