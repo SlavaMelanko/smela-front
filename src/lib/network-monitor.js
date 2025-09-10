@@ -155,14 +155,25 @@ export function isNetworkError(error) {
   return false
 }
 
-// Gets a user-friendly message for network errors.
-export function getNetworkErrorMessage(error) {
+export const NetworkErrorType = {
+  OFFLINE: 'offline',
+  CONNECTION_REFUSED: 'connectionRefused',
+  TIMEOUT: 'timeout',
+  CONNECTION_INTERRUPTED: 'connectionInterrupted',
+  NAME_NOT_RESOLVED: 'nameNotResolved',
+  SSL_ERROR: 'sslError',
+  SERVER_UNAVAILABLE: 'serverUnavailable',
+  UNKNOWN: 'unknown'
+}
+
+// Gets the network error type from an error object.
+export function getNetworkErrorType(error) {
   if (!navigator.onLine) {
-    return 'You are currently offline. Please check your internet connection.'
+    return NetworkErrorType.OFFLINE
   }
 
   if (!error) {
-    return 'An unknown network error occurred.'
+    return NetworkErrorType.UNKNOWN
   }
 
   const errMsg = error.message || error.code || ''
@@ -171,7 +182,7 @@ export function getNetworkErrorMessage(error) {
     errMsg.includes('ERR_CONNECTION_REFUSED') ||
     errMsg.includes('ECONNREFUSED')
   ) {
-    return 'Unable to connect to the server. The server may be down or unreachable.'
+    return NetworkErrorType.CONNECTION_REFUSED
   }
 
   if (
@@ -179,32 +190,65 @@ export function getNetworkErrorMessage(error) {
     errMsg.includes('ETIMEDOUT') ||
     errMsg.includes('timeout')
   ) {
-    return 'The connection timed out. Please check your internet connection and try again.'
+    return NetworkErrorType.TIMEOUT
   }
 
   if (
     errMsg.includes('ERR_INTERNET_DISCONNECTED') ||
     errMsg.includes('ERR_NETWORK_CHANGED')
   ) {
-    return 'Your internet connection was interrupted. Please check your connection and try again.'
+    return NetworkErrorType.CONNECTION_INTERRUPTED
   }
 
   if (
     errMsg.includes('ERR_NAME_NOT_RESOLVED') ||
     errMsg.includes('ENOTFOUND')
   ) {
-    return 'Unable to reach the server. Please check your internet connection.'
+    return NetworkErrorType.NAME_NOT_RESOLVED
   }
 
   if (errMsg.includes('ERR_SSL') || errMsg.includes('ERR_CERT')) {
-    return 'There was a security issue connecting to the server.'
+    return NetworkErrorType.SSL_ERROR
   }
 
   if (error.status === 502 || error.status === 503 || error.status === 504) {
-    return 'The server is temporarily unavailable. Please try again later.'
+    return NetworkErrorType.SERVER_UNAVAILABLE
   }
 
-  return 'A network error occurred. Please check your connection and try again.'
+  return NetworkErrorType.UNKNOWN
+}
+
+// Gets a user-friendly message for network errors.
+// Pass the translation function (t) to get localized messages.
+export function getNetworkErrorMessage(error, t) {
+  const errorType = getNetworkErrorType(error)
+
+  // If translation function is provided, use localized messages.
+  if (t) {
+    return t(`error.network.message.${errorType}`)
+  }
+
+  // Fallback to English messages if no translation function provided.
+  const messages = {
+    [NetworkErrorType.OFFLINE]:
+      'You are currently offline. Please check your internet connection.',
+    [NetworkErrorType.CONNECTION_REFUSED]:
+      'Unable to connect to the server. The server may be down or unreachable.',
+    [NetworkErrorType.TIMEOUT]:
+      'The connection timed out. Please check your internet connection and try again.',
+    [NetworkErrorType.CONNECTION_INTERRUPTED]:
+      'Your internet connection was interrupted. Please check your connection and try again.',
+    [NetworkErrorType.NAME_NOT_RESOLVED]:
+      'Unable to reach the server. Please check your internet connection.',
+    [NetworkErrorType.SSL_ERROR]:
+      'There was a security issue connecting to the server.',
+    [NetworkErrorType.SERVER_UNAVAILABLE]:
+      'The server is temporarily unavailable. Please try again later.',
+    [NetworkErrorType.UNKNOWN]:
+      'A network error occurred. Please check your connection and try again.'
+  }
+
+  return messages[errorType] || messages[NetworkErrorType.UNKNOWN]
 }
 
 // Retry configuration for network requests.

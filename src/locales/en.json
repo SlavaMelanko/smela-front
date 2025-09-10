@@ -50,7 +50,16 @@
   "error": {
     "network": {
       "cta": "Try again",
-      "description": "Don't worry, this happens sometimes. Check your connection or try again later.",
+      "message": {
+        "connectionInterrupted": "Your internet connection was interrupted. Please check your connection and try again.",
+        "connectionRefused": "Unable to connect to the server. The server may be down or unreachable.",
+        "nameNotResolved": "Unable to reach the server. Please check your internet connection.",
+        "offline": "You are currently offline. Please check your internet connection.",
+        "serverUnavailable": "The server is temporarily unavailable. Please try again later.",
+        "sslError": "There was a security issue connecting to the server.",
+        "timeout": "The connection timed out. Please check your internet connection and try again.",
+        "unknown": "A network error occurred. Please check your connection and try again later."
+      },
       "title": "Network connection issue"
     },
     "unknown": "Something went wrong. Please try again later."

@@ -1,14 +1,18 @@
 import './styles.scss'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { SecondaryButton } from '@/components/buttons'
 import { WifiOffIcon } from '@/components/icons'
 import useLocale from '@/hooks/useLocale'
+import { NetworkErrorType } from '@/lib/network-monitor'
 
 const Network = () => {
   const { t } = useLocale()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+
+  const errorType = searchParams.get('type') || NetworkErrorType.UNKNOWN
 
   const handleRetry = () => {
     navigate(-1)
@@ -28,7 +32,7 @@ const Network = () => {
         </h1>
 
         <p className='network-error-page__description'>
-          {t('error.network.description')}
+          {t(`error.network.message.${errorType}`)}
         </p>
 
         <SecondaryButton
