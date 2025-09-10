@@ -5,7 +5,7 @@ import { Eye } from 'lucide-react'
 import BaseIcon from '../Icon'
 
 const EyeIcon = props => (
-  <BaseIcon {...props} icon={Eye} color='secondary' size='sm' name='eye' />
+  <BaseIcon color='secondary' size='sm' {...props} icon={Eye} name='eye' />
 )
 
 export default EyeIcon

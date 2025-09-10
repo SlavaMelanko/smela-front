@@ -6,10 +6,10 @@ import BaseIcon from '../Icon'
 
 const EyeOffIcon = props => (
   <BaseIcon
-    {...props}
-    icon={EyeOff}
     color='secondary'
     size='sm'
+    {...props}
+    icon={EyeOff}
     name='eye-off'
   />
 )
