@@ -9,7 +9,7 @@
   &__content {
     @include flex-center-column;
 
-    gap: $spacing-2xl;
+    gap: $spacing-md;
   }
 
   &__title {
@@ -18,5 +18,9 @@
 
   &__description {
     @include description-base;
+  }
+
+  &__cta {
+    margin-top: $spacing-md;
   }
 }

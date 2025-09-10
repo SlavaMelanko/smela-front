@@ -8,7 +8,7 @@ export default {
   title: 'Errors/Offline',
   component: Offline,
   parameters: {
-    layout: 'fullscreen'
+    layout: 'centered'
   },
   decorators: [
     Story => (

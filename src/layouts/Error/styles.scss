@@ -1,0 +1,34 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.error-layout {
+  @include flex-center-column;
+
+  min-height: 100vh;
+  padding: $spacing-md;
+
+  &__user-preferences {
+    @include controls-top-right;
+  }
+
+  &__container {
+    @include flex-column;
+
+    gap: $spacing-2xl;
+    width: 100%;
+    max-width: 28rem; // 448px ~ md
+  }
+
+  &__header {
+    @include flex-center;
+
+    color: var(--text-primary);
+  }
+
+  &__content {
+    padding: 0 $spacing-2xl;
+    background-color: var(--bg-primary);
+    border-radius: $border-radius-md;
+    transition: all $transition-default;
+  }
+}
