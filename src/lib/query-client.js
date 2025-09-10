@@ -2,16 +2,23 @@ import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query'
 import { StatusCodes } from 'http-status-codes'
 
 import { getNetworkErrorType, isNetworkError } from '@/lib/network-monitor'
+import { withQuery } from '@/lib/url'
 
 const getRetryDelay = attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000) // max 30 seconds
 
+const redirectToNetworkErrorPage = error => {
+  const path = '/errors/network'
+
+  if (!window.location.pathname.includes(path)) {
+    const errorType = getNetworkErrorType(error)
+
+    window.location.href = withQuery(path, { errorType })
+  }
+}
+
 const handleError = error => {
   if (isNetworkError(error)) {
-    if (!window.location.pathname.includes('/errors/network')) {
-      const errorType = getNetworkErrorType(error)
-
-      window.location.href = `/errors/network?type=${errorType}`
-    }
+    redirectToNetworkErrorPage(error)
 
     return
   }
