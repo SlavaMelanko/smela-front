@@ -41,7 +41,7 @@ const EmailConfirmation = () => {
           {t('email.confirmation.title')}
         </h1>
 
-        <p className='email-confirmation-page__message'>
+        <p className='email-confirmation-page__description'>
           {t('email.confirmation.description', {
             email: userEmail || t('email.confirmation.yourEmail')
           })}

@@ -13,15 +13,10 @@
   }
 
   &__title {
-    font-size: $font-size-lg;
-    font-weight: 600;
-    color: var(--text-primary);
-    text-align: center;
+    @include title-base;
   }
 
   &__description {
-    font-size: $font-size-sm;
-    color: var(--text-secondary);
-    text-align: center;
+    @include description-base;
   }
 }
