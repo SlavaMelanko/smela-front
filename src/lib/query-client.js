@@ -1,10 +1,18 @@
-import { MutationCache, QueryClient } from '@tanstack/react-query'
+import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query'
 import { StatusCodes } from 'http-status-codes'
+
+import { isNetworkError } from '@/lib/network-monitor'
 
 const getRetryDelay = attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000) // max 30 seconds
 
-const handleError = (error, context) => {
-  console.error(`${context} error:`, error)
+const handleError = error => {
+  if (isNetworkError(error)) {
+    if (!window.location.pathname.includes('/errors/network')) {
+      window.location.href = '/errors/network'
+    }
+
+    return
+  }
 
   // Here we could integrate with error tracking services like Sentry, Bugsnag, etc.
   // errorTracker.captureException(error, { context }).
@@ -13,8 +21,12 @@ const handleError = (error, context) => {
   // toast.error('Something went wrong. Please try again.').
 }
 
-// Create mutation cache with global onSettled handler for query invalidation.
+const queryCache = new QueryCache({
+  onError: handleError
+})
+
 const mutationCache = new MutationCache({
+  onError: handleError,
   onSettled: (_data, _error, _variables, _context, mutation) => {
     const invalidatesQueries = mutation.meta?.invalidatesQueries
     const refetchType = mutation.meta?.refetchType
@@ -27,6 +39,7 @@ const mutationCache = new MutationCache({
 })
 
 const queryClient = new QueryClient({
+  queryCache,
   mutationCache,
   defaultOptions: {
     queries: {
@@ -52,15 +65,11 @@ const queryClient = new QueryClient({
       // Refetch on window focus.
       refetchOnWindowFocus: false,
       // Refetch on reconnect.
-      refetchOnReconnect: 'always',
-      // Global query error handler.
-      onError: error => handleError(error, 'Query')
+      refetchOnReconnect: 'always'
     },
     mutations: {
       // Retry failed mutations.
-      retry: false,
-      // Improved error handler.
-      onError: error => handleError(error, 'Mutation')
+      retry: false
     }
   }
 })
