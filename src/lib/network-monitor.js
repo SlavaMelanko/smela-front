@@ -176,7 +176,7 @@ export function getNetworkErrorType(error) {
     return NetworkErrorType.UNKNOWN
   }
 
-  const errMsg = error.message || error.code || ''
+  const errMsg = error?.message || error?.code || ''
 
   if (
     errMsg.includes('ERR_CONNECTION_REFUSED') ||
@@ -245,28 +245,4 @@ export function createNetworkMonitor(onStatusChange) {
 // Checks if the browser is currently online.
 export function isOnline() {
   return typeof navigator !== 'undefined' ? navigator.onLine : true
-}
-
-// Tests connectivity to a specific URL.
-export async function testConnectivity(url = '/api/health', timeout = 5000) {
-  if (!isOnline()) {
-    return false
-  }
-
-  try {
-    const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), timeout)
-
-    const response = await fetch(url, {
-      method: 'HEAD',
-      signal: controller.signal,
-      cache: 'no-cache'
-    })
-
-    clearTimeout(timeoutId)
-
-    return response.ok || response.status < 500
-  } catch {
-    return false
-  }
 }
