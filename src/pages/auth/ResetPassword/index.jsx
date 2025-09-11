@@ -23,14 +23,10 @@ const ResetPassword = () => {
 
   const isRequest = !token
 
-  const handleRequestPasswordReset = ({ email, reset }) => {
-    requestPasswordReset(email, {
+  const handleRequestPasswordReset = data => {
+    requestPasswordReset(data, {
       onSuccess: () => {
         showSuccessToast(t('password.reset.request.success'))
-
-        if (reset) {
-          reset()
-        }
       },
       onError: () => {
         showErrorToast(t('error.unknown'))

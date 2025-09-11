@@ -19,19 +19,18 @@ const EmailConfirmation = () => {
 
   const userEmail = location.state?.email || user?.email
 
-  const handleSubmit = ({ reset }) => {
-    resendVerificationEmail(userEmail, {
-      onSuccess: () => {
-        showSuccessToast(t('email.confirmation.success'))
-
-        if (reset) {
-          reset()
+  const handleSubmit = ({ captchaToken }) => {
+    resendVerificationEmail(
+      { userEmail, captchaToken },
+      {
+        onSuccess: () => {
+          showSuccessToast(t('email.confirmation.success'))
+        },
+        onError: err => {
+          showErrorToast(t(toTranslationKey(err)))
         }
-      },
-      onError: err => {
-        showErrorToast(t(toTranslationKey(err)))
       }
-    })
+    )
   }
 
   return (

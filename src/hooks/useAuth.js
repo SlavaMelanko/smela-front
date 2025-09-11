@@ -105,12 +105,13 @@ export const useVerifyEmail = ({ onSuccess, onError, onSettled }) =>
 
 export const useResendVerificationEmail = () =>
   useMutation({
-    mutationFn: email => authService.resendVerificationEmail(email)
+    mutationFn: ({ email, captchaToken }) =>
+      authService.resendVerificationEmail(email, captchaToken)
   })
 
 export const useRequestPasswordReset = () =>
   useMutation({
-    mutationFn: email => authService.requestPasswordReset(email)
+    mutationFn: data => authService.requestPasswordReset(data)
   })
 
 export const useResetPassword = () =>

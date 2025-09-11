@@ -6,7 +6,7 @@ const makeSchema = () => {
   const { captcha } = rules
 
   return {
-    [FieldName.CAPTCHA]: captcha
+    [FieldName.CAPTCHA_TOKEN]: captcha
   }
 }
 

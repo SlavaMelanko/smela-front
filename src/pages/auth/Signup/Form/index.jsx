@@ -6,12 +6,14 @@ import { PrimaryButton } from '@/components/buttons'
 import FormField from '@/components/form/Field'
 import { PasswordInput, TextInput } from '@/components/inputs'
 import useLocale from '@/hooks/useLocale'
+import useReCaptcha from '@/hooks/useReCaptcha'
 
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
 const SignupForm = ({ onSubmit, isLoading = false }) => {
   const { t } = useLocale()
+  const { executeReCaptcha } = useReCaptcha()
 
   const {
     register,
@@ -22,8 +24,17 @@ const SignupForm = ({ onSubmit, isLoading = false }) => {
     defaultValues: getDefaultValues()
   })
 
+  const handleSubmitForm = async data => {
+    const captchaToken = await executeReCaptcha('signup')
+
+    onSubmit({
+      ...data,
+      [FieldName.CAPTCHA_TOKEN]: captchaToken
+    })
+  }
+
   return (
-    <form className='signup-form' onSubmit={handleSubmit(onSubmit)}>
+    <form className='signup-form' onSubmit={handleSubmit(handleSubmitForm)}>
       <div className='signup-form__fields'>
         <FormField
           label={t('firstName.label')}

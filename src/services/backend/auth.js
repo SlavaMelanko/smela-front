@@ -14,12 +14,12 @@ const authService = {
     return api.post(path.VERIFY_EMAIL, { token })
   },
 
-  async resendVerificationEmail(email) {
-    return api.post(path.RESEND_VERIFICATION_EMAIL, { email })
+  async resendVerificationEmail(email, captchaToken) {
+    return api.post(path.RESEND_VERIFICATION_EMAIL, { email, captchaToken })
   },
 
-  async requestPasswordReset(email) {
-    return api.post(path.REQUEST_PASSWORD_RESET, { email })
+  async requestPasswordReset(data) {
+    return api.post(path.REQUEST_PASSWORD_RESET, data)
   },
 
   async resetPassword(token, password) {

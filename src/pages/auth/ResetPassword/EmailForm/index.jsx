@@ -1,46 +1,35 @@
 import './styles.scss'
 
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { PrimaryButton } from '@/components/buttons'
-import Captcha from '@/components/Captcha'
 import FormField from '@/components/form/Field'
 import { TextInput } from '@/components/inputs'
 import useLocale from '@/hooks/useLocale'
+import useReCaptcha from '@/hooks/useReCaptcha'
 
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
 const ResetPasswordForm = ({ onSubmit, isLoading = false }) => {
   const { t } = useLocale()
-  const [captchaResetKey, setCaptchaResetKey] = useState(0)
+  const { executeReCaptcha } = useReCaptcha()
 
   const {
     register,
     handleSubmit,
-    setValue,
-    reset,
     formState: { errors, isSubmitting }
   } = useForm({
     resolver,
     defaultValues: getDefaultValues()
   })
 
-  const setToken = token => {
-    setValue(FieldName.CAPTCHA, token, { shouldValidate: true })
-  }
-
-  const resetFormAndCaptcha = () => {
-    setCaptchaResetKey(prev => prev + 1)
-
-    reset()
-  }
-
   const handleSubmitForm = async data => {
+    const captchaToken = await executeReCaptcha('reset_password')
+
     await onSubmit({
       ...data,
-      reset: resetFormAndCaptcha
+      [FieldName.CAPTCHA_TOKEN]: captchaToken
     })
   }
 
@@ -59,14 +48,6 @@ const ResetPasswordForm = ({ onSubmit, isLoading = false }) => {
             placeholder={t('email.example')}
             {...register(FieldName.EMAIL)}
           />
-        </FormField>
-
-        <FormField
-          name={FieldName.CAPTCHA}
-          error={errors[FieldName.CAPTCHA]}
-          required
-        >
-          <Captcha key={captchaResetKey} setToken={setToken} />
         </FormField>
       </div>
 

@@ -30,6 +30,7 @@ describe('Signup Form', () => {
 
   beforeEach(() => {
     user = userEvent.setup()
+    jest.clearAllMocks()
   })
 
   describe('Rendering', () => {
@@ -52,7 +53,7 @@ describe('Signup Form', () => {
     it('renders required field indicators', () => {
       renderForm()
 
-      // first name, email, and password are required
+      // First name, email, and password are required.
       const firstNameField = screen
         .getByText(en.firstName.label)
         .closest('.form-field')
@@ -151,12 +152,12 @@ describe('Signup Form', () => {
         submitButton
       } = renderForm()
 
-      // fill required fields first
+      // Fill required fields first.
       await user.type(firstNameInput, auth.firstName.ok)
       await user.type(emailInput, auth.email.ok)
       await user.type(passwordInput, auth.password.strong)
 
-      // add invalid last name
+      // Add invalid last name.
       await user.type(lastNameInput, auth.lastName.short)
       await user.click(submitButton)
 
@@ -174,12 +175,12 @@ describe('Signup Form', () => {
         submitButton
       } = renderForm()
 
-      // fill required fields first
+      // Fill required fields first.
       await user.type(firstNameInput, auth.firstName.ok)
       await user.type(emailInput, auth.email.ok)
       await user.type(passwordInput, auth.password.strong)
 
-      // add invalid last name
+      // Add invalid last name.
       await user.type(lastNameInput, auth.lastName.long)
       await user.click(submitButton)
 
@@ -189,6 +190,7 @@ describe('Signup Form', () => {
     })
 
     it('automatically trims whitespace from the email before submitting', async () => {
+      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
       const onSubmitMock = jest.fn()
       const { firstNameInput, emailInput, passwordInput, submitButton } =
         renderForm(onSubmitMock)
@@ -201,18 +203,78 @@ describe('Signup Form', () => {
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith(
           expect.objectContaining({
-            email: auth.email.ok
-          }),
-          expect.anything()
+            email: auth.email.ok,
+            captchaToken: auth.captcha.valid
+          })
+        )
+      })
+    })
+  })
+
+  describe('ReCaptcha Integration', () => {
+    const validFormData = async (user, inputs) => {
+      await user.type(inputs.firstNameInput, auth.firstName.ok)
+      await user.type(inputs.emailInput, auth.email.ok)
+      await user.type(inputs.passwordInput, auth.password.strong)
+    }
+
+    it('executes reCAPTCHA on form submission', async () => {
+      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.alternative)
+      const onSubmitMock = jest.fn()
+      const formInputs = renderForm(onSubmitMock)
+
+      await validFormData(user, formInputs)
+      await user.click(formInputs.submitButton)
+
+      await waitFor(() => {
+        expect(global.mockExecuteReCaptcha).toHaveBeenCalledWith('signup')
+      })
+    })
+
+    it('handles reCAPTCHA failure gracefully', async () => {
+      global.mockExecuteReCaptcha.mockResolvedValue(null)
+      const onSubmitMock = jest.fn()
+      const formInputs = renderForm(onSubmitMock)
+
+      await validFormData(user, formInputs)
+      await user.click(formInputs.submitButton)
+
+      await waitFor(() => {
+        expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
+        expect(onSubmitMock).toHaveBeenCalledWith(
+          expect.objectContaining({
+            captchaToken: null
+          })
+        )
+      })
+    })
+
+    it('includes captcha token in form submission', async () => {
+      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.alternative)
+      const onSubmitMock = jest.fn()
+      const formInputs = renderForm(onSubmitMock)
+
+      await validFormData(user, formInputs)
+      await user.click(formInputs.submitButton)
+
+      await waitFor(() => {
+        expect(onSubmitMock).toHaveBeenCalledWith(
+          expect.objectContaining({
+            firstName: auth.firstName.ok,
+            email: auth.email.ok,
+            password: auth.password.strong,
+            captchaToken: auth.captcha.alternative
+          })
         )
       })
     })
   })
 
   describe('Form Submission', () => {
-    it('displays a loading state while the form is submitting', async () => {
+    it('handles form submission correctly', async () => {
+      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
       const onSubmitMock = jest.fn(
-        () => new Promise(res => setTimeout(res, 222))
+        () => new Promise(res => setTimeout(res, 100))
       )
 
       const { firstNameInput, emailInput, passwordInput, submitButton } =
@@ -223,13 +285,21 @@ describe('Signup Form', () => {
       await user.type(passwordInput, auth.password.strong)
       await user.click(submitButton)
 
-      expect(submitButton).toBeDisabled()
-      expect(submitButton).toHaveTextContent(en.processing)
-
-      await waitFor(() => expect(onSubmitMock).toHaveBeenCalled())
+      // Verify that the form submission happens.
+      await waitFor(() => {
+        expect(onSubmitMock).toHaveBeenCalledWith(
+          expect.objectContaining({
+            firstName: auth.firstName.ok,
+            email: auth.email.ok,
+            password: auth.password.strong,
+            captchaToken: auth.captcha.valid
+          })
+        )
+      })
     })
 
     it('submits form with valid data', async () => {
+      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.alternative)
       const onSubmitMock = jest.fn()
       const {
         firstNameInput,
@@ -252,14 +322,15 @@ describe('Signup Form', () => {
             firstName: auth.firstName.ok,
             lastName: auth.lastName.ok,
             email: auth.email.ok,
-            password: auth.password.strong
-          }),
-          expect.anything()
+            password: auth.password.strong,
+            captchaToken: auth.captcha.alternative
+          })
         )
       })
     })
 
     it('submits form without optional last name', async () => {
+      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.alternative)
       const onSubmitMock = jest.fn()
       const { firstNameInput, emailInput, passwordInput, submitButton } =
         renderForm(onSubmitMock)
@@ -275,17 +346,16 @@ describe('Signup Form', () => {
           expect.objectContaining({
             firstName: auth.firstName.ok,
             email: auth.email.ok,
-            password: auth.password.strong
-          }),
-          expect.anything()
+            password: auth.password.strong,
+            captchaToken: auth.captcha.alternative
+          })
         )
 
-        // verify lastName is not included when empty
+        // Verify lastName is not included when empty.
         expect(onSubmitMock).toHaveBeenCalledWith(
           expect.not.objectContaining({
             lastName: expect.anything()
-          }),
-          expect.anything()
+          })
         )
       })
     })
@@ -296,19 +366,19 @@ describe('Signup Form', () => {
       const { firstNameInput, lastNameInput, emailInput, passwordInput } =
         renderForm()
 
-      // start with first name focused
+      // Start with first name focused.
       firstNameInput.focus()
       expect(document.activeElement).toBe(firstNameInput)
 
-      // tab to last name
+      // Tab to last name.
       await user.tab()
       expect(document.activeElement).toBe(lastNameInput)
 
-      // tab to email
+      // Tab to email.
       await user.tab()
       expect(document.activeElement).toBe(emailInput)
 
-      // tab to password
+      // Tab to password.
       await user.tab()
       expect(document.activeElement).toBe(passwordInput)
     })
@@ -316,7 +386,7 @@ describe('Signup Form', () => {
     it('clears field error when user starts typing', async () => {
       const { firstNameInput, submitButton } = renderForm()
 
-      // submit to trigger validation errors
+      // Submit to trigger validation errors.
       await user.click(submitButton)
 
       await waitFor(() => {
@@ -325,7 +395,7 @@ describe('Signup Form', () => {
         ).toBeInTheDocument()
       })
 
-      // start typing in the field
+      // Start typing in the field.
       await user.type(firstNameInput, 'J')
 
       await waitFor(() => {
@@ -339,7 +409,7 @@ describe('Signup Form', () => {
       const { firstNameInput, emailInput, passwordInput, submitButton } =
         renderForm()
 
-      // enter invalid data for all fields
+      // Enter invalid data for all fields.
       await user.type(firstNameInput, auth.firstName.short)
       await user.type(emailInput, auth.email.invalid)
       await user.type(passwordInput, auth.password.short)

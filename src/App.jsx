@@ -5,6 +5,7 @@ import TanStackDevTools from '@/components/devtools/TanStack'
 import { LocaleProvider } from '@/contexts/LocaleContext'
 import { ModalProvider } from '@/contexts/ModalContext'
 import { NotificationProvider } from '@/contexts/NotificationContext.jsx'
+import { ReCaptchaProvider } from '@/contexts/ReCaptchaContext'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { queryClient } from '@/lib/query-client'
 import { router } from '@/routes'
@@ -14,11 +15,13 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <LocaleProvider>
-          <NotificationProvider>
-            <ModalProvider>
-              <RouterProvider router={router} />
-            </ModalProvider>
-          </NotificationProvider>
+          <ReCaptchaProvider>
+            <NotificationProvider>
+              <ModalProvider>
+                <RouterProvider router={router} />
+              </ModalProvider>
+            </NotificationProvider>
+          </ReCaptchaProvider>
         </LocaleProvider>
       </ThemeProvider>
       <TanStackDevTools />
