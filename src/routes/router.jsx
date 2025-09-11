@@ -104,11 +104,8 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: (
-      <ErrorLayout>
-        <NotFoundErrorPage />
-      </ErrorLayout>
-    )
+    element: <ErrorLayout />,
+    children: [{ path: '*', element: <NotFoundErrorPage /> }]
   }
 ])
 
