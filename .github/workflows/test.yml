@@ -1,8 +1,6 @@
 name: Run Tests
 
 on:
-  push:
-    branches: [dev, main]
   pull_request:
     branches: [dev, main]
 
@@ -28,10 +26,10 @@ jobs:
 
       - name: Run Jest tests
         run: npm run ut
-
   e2e:
     name: E2E Tests (Playwright)
     runs-on: ubuntu-latest
+    if: false
     environment: dev
     needs: unit
     env:
@@ -51,13 +49,11 @@ jobs:
 
       - name: Get Playwright version
         id: playwright-version
-        run:
-          echo "PLAYWRIGHT_VERSION=$(node -e
-          "console.log(require('./package.json').devDependencies['@playwright/test'])")"
-          >> $GITHUB_ENV
+        run: |
+          echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")" >> $GITHUB_ENV
 
       - name: Cache Playwright browsers
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright

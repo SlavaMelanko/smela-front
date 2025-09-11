@@ -1,7 +1,7 @@
 @use '../../../styles/variables' as *;
 @use '../../../styles/mixins' as *;
 
-.email-confirmation-page {
+.not-found-error-page {
   @include flex-column;
 
   gap: $spacing-2xl;
@@ -12,11 +12,20 @@
     gap: $spacing-md;
   }
 
+  &__icon {
+    margin-bottom: $spacing-md;
+  }
+
   &__title {
     @include title-base;
   }
 
   &__description {
     @include description-base;
+  }
+
+  &__cta {
+    width: 100%;
+    margin-top: $spacing-md;
   }
 }

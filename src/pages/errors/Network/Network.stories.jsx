@@ -2,11 +2,11 @@ import { BrowserRouter } from 'react-router-dom'
 
 import { LocaleProvider } from '@/contexts/LocaleContext'
 
-import Offline from './index'
+import Network from './index'
 
 export default {
-  title: 'Errors/Offline',
-  component: Offline,
+  title: 'Errors/Network',
+  component: Network,
   parameters: {
     layout: 'centered'
   },
@@ -21,4 +21,4 @@ export default {
   ]
 }
 
-export const Default = () => <Offline />
+export const Default = () => <Network />
