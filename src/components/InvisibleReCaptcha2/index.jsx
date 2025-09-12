@@ -5,6 +5,7 @@ import useLocale from '@/hooks/useLocale'
 import useTheme from '@/hooks/useTheme'
 import env from '@/lib/env'
 
+// https://www.google.com/recaptcha/admin/site/734411735
 const InvisibleReCaptcha2 = forwardRef((props, ref) => {
   const { theme } = useTheme()
   const { locale } = useLocale()
@@ -20,12 +21,34 @@ const InvisibleReCaptcha2 = forwardRef((props, ref) => {
         return null
       }
 
+      // Create timeout mechanism
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+
       try {
         recaptcha.reset()
 
-        return recaptcha.executeAsync()
+        // Race between reCAPTCHA execution and timeout
+        const result = await Promise.race([
+          recaptcha.executeAsync(),
+          new Promise((_, reject) => {
+            controller.signal.addEventListener('abort', () =>
+              reject(new Error('reCAPTCHA timeout'))
+            )
+          })
+        ])
+
+        clearTimeout(timeoutId)
+
+        return result
       } catch (error) {
-        console.error('ReCaptcha execution failed:', error)
+        clearTimeout(timeoutId)
+
+        if (error.message === 'reCAPTCHA timeout') {
+          console.warn('reCAPTCHA execution timed out after 10 seconds')
+        } else {
+          console.error('ReCaptcha execution failed:', error)
+        }
 
         return null
       }
