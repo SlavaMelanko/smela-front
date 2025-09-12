@@ -5,6 +5,32 @@ import useLocale from '@/hooks/useLocale'
 import useTheme from '@/hooks/useTheme'
 import env from '@/lib/env'
 
+/**
+ * Wraps an async function with a timeout mechanism
+ * @param {Function} asyncFn - The async function to execute
+ * @param {number} timeoutMs - Timeout in milliseconds (default: 10000)
+ * @returns {Promise} - Promise that resolves with the function result or rejects on timeout
+ */
+const withTimeout = async (asyncFn, timeoutMs = 10000) => {
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+
+  try {
+    const result = await Promise.race([
+      asyncFn(),
+      new Promise((_, reject) => {
+        controller.signal.addEventListener('abort', () =>
+          reject(new Error('Timeout.'))
+        )
+      })
+    ])
+
+    return result
+  } finally {
+    clearTimeout(timeoutId)
+  }
+}
+
 // https://www.google.com/recaptcha/admin/site/734411735
 const InvisibleReCaptcha2 = forwardRef((props, ref) => {
   const { theme } = useTheme()
@@ -21,28 +47,14 @@ const InvisibleReCaptcha2 = forwardRef((props, ref) => {
         return null
       }
 
-      const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second
-
       try {
         recaptcha.reset()
 
-        const result = await Promise.race([
-          recaptcha.executeAsync(),
-          new Promise((_, reject) => {
-            controller.signal.addEventListener('abort', () =>
-              reject(new Error('Timeout.'))
-            )
-          })
-        ])
-
-        return result
+        return await withTimeout(() => recaptcha.executeAsync())
       } catch (error) {
-        console.error('reCAPTCHA failed:', error?.message || 'Unknown error.')
+        console.error('reCAPTCHA error:', error?.message || 'Unknown.')
 
         return null
-      } finally {
-        clearTimeout(timeoutId)
       }
     },
     reset: () => {
