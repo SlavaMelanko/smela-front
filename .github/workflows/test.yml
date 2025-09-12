@@ -4,14 +4,13 @@ on:
   pull_request:
     branches: [dev, main]
 
-env:
-  VITE_APP_HCAPTCHA_SITEKEY: ${{ secrets.VITE_APP_HCAPTCHA_SITEKEY }}
-  VITE_APP_BACKEND_URL: ${{ secrets.VITE_APP_BACKEND_URL }}
-
 jobs:
   unit:
     name: Unit Tests (Jest)
     runs-on: ubuntu-latest
+    environment: test
+    env:
+      VITE_APP_CAPTCHA_SITE_KEY: ${{ secrets.VITE_APP_CAPTCHA_SITE_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -30,9 +29,11 @@ jobs:
     name: E2E Tests (Playwright)
     runs-on: ubuntu-latest
     if: false
-    environment: dev
+    environment: test
     needs: unit
     env:
+      VITE_APP_BACKEND_URL: ${{ vars.VITE_APP_BACKEND_URL }}
+      VITE_APP_CAPTCHA_SITE_KEY: ${{ secrets.VITE_APP_CAPTCHA_SITE_KEY }}
       VITE_APP_MAILISK_API_KEY: ${{ secrets.VITE_APP_MAILISK_API_KEY }}
       VITE_APP_MAILISK_NAMESPACE: ${{ secrets.VITE_APP_MAILISK_NAMESPACE }}
     steps:
