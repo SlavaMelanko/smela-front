@@ -9,7 +9,11 @@ import EmailConfirmationForm from '.'
 
 const renderForm = (onSubmit = jest.fn(), isLoading = false) => {
   renderWithProviders(
-    <EmailConfirmationForm onSubmit={onSubmit} isLoading={isLoading} />
+    <EmailConfirmationForm
+      onSubmit={onSubmit}
+      isLoading={isLoading}
+      userEmail={auth.email.ok}
+    />
   )
 
   const submitButton = screen.getByRole('button', {
@@ -60,6 +64,7 @@ describe('EmailConfirmation Form', () => {
         expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
 
         expect(onSubmitMock).toHaveBeenCalledWith({
+          email: auth.email.ok,
           captchaToken: auth.captcha.alternative
         })
       })
@@ -75,6 +80,7 @@ describe('EmailConfirmation Form', () => {
       await waitFor(() => {
         expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
         expect(onSubmitMock).toHaveBeenCalledWith({
+          email: auth.email.ok,
           captchaToken: null
         })
       })
@@ -106,6 +112,7 @@ describe('EmailConfirmation Form', () => {
 
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith({
+          email: auth.email.ok,
           captchaToken: auth.captcha.alternative
         })
       })
@@ -141,6 +148,7 @@ describe('EmailConfirmation Form', () => {
 
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith({
+          email: auth.email.ok,
           captchaToken: auth.captcha.first
         })
       })
@@ -153,6 +161,7 @@ describe('EmailConfirmation Form', () => {
 
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith({
+          email: auth.email.ok,
           captchaToken: auth.captcha.second
         })
       })
@@ -165,7 +174,11 @@ describe('EmailConfirmation Form', () => {
   describe('Loading States', () => {
     it('shows loading state when isLoading prop is true', () => {
       renderWithProviders(
-        <EmailConfirmationForm onSubmit={jest.fn()} isLoading={true} />
+        <EmailConfirmationForm
+          onSubmit={jest.fn()}
+          isLoading={true}
+          userEmail={auth.email.ok}
+        />
       )
 
       const submitButton = screen.getByRole('button', { name: en.processing })

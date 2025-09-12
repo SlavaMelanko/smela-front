@@ -19,18 +19,15 @@ const EmailConfirmation = () => {
 
   const userEmail = location.state?.email || user?.email
 
-  const handleSubmit = ({ captchaToken }) => {
-    resendVerificationEmail(
-      { email: userEmail, captchaToken },
-      {
-        onSuccess: () => {
-          showSuccessToast(t('email.confirmation.success'))
-        },
-        onError: err => {
-          showErrorToast(t(toTranslationKey(err)))
-        }
+  const handleSubmit = data => {
+    resendVerificationEmail(data, {
+      onSuccess: () => {
+        showSuccessToast(t('email.confirmation.success'))
+      },
+      onError: err => {
+        showErrorToast(t(toTranslationKey(err)))
       }
-    )
+    })
   }
 
   return (
@@ -47,7 +44,11 @@ const EmailConfirmation = () => {
         </p>
       </div>
 
-      <EmailConfirmationForm onSubmit={handleSubmit} isLoading={isPending} />
+      <EmailConfirmationForm
+        isLoading={isPending}
+        userEmail={userEmail}
+        onSubmit={handleSubmit}
+      />
     </div>
   )
 }

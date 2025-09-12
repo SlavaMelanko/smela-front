@@ -9,7 +9,7 @@ import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
 
-const EmailConfirmationForm = ({ onSubmit, isLoading }) => {
+const EmailConfirmationForm = ({ isLoading, userEmail, onSubmit }) => {
   const { t } = useLocale()
   const recaptchaRef = useRef(null)
 
@@ -17,7 +17,7 @@ const EmailConfirmationForm = ({ onSubmit, isLoading }) => {
     handleSubmit,
     formState: { isSubmitting }
   } = useForm({
-    defaultValues: getDefaultValues()
+    defaultValues: getDefaultValues(userEmail)
   })
 
   const handleSubmitForm = async data => {
