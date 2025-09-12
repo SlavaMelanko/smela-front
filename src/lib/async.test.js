@@ -17,7 +17,7 @@ describe('withTimeout', () => {
 
       const resultPromise = withTimeout(mockAsyncFn, 5000)
 
-      // Fast-forward a small amount of time
+      // Fast-forward a small amount of time.
       jest.advanceTimersByTime(100)
 
       const result = await resultPromise
@@ -32,7 +32,7 @@ describe('withTimeout', () => {
 
       const resultPromise = withTimeout(mockAsyncFn)
 
-      // Fast-forward 9 seconds (should still work)
+      // Fast-forward 9 seconds (should still work).
       jest.advanceTimersByTime(9000)
 
       const result = await resultPromise
@@ -53,12 +53,12 @@ describe('withTimeout', () => {
 
   describe('timeout behavior', () => {
     it('should timeout and reject with timeout error after specified time', async () => {
-      // Create a function that never resolves
+      // Create a function that never resolves.
       const mockAsyncFn = jest.fn(() => new Promise(() => {}))
 
       const resultPromise = withTimeout(mockAsyncFn, 1000)
 
-      // Fast-forward past the timeout
+      // Fast-forward past the timeout.
       jest.advanceTimersByTime(1000)
 
       await expect(resultPromise).rejects.toThrow('Timeout.')
@@ -70,7 +70,7 @@ describe('withTimeout', () => {
 
       const resultPromise = withTimeout(mockAsyncFn)
 
-      // Fast-forward to the full timeout
+      // Fast-forward to the full timeout.
       jest.advanceTimersByTime(10000)
 
       await expect(resultPromise).rejects.toThrow('Timeout.')
@@ -127,7 +127,7 @@ describe('withTimeout', () => {
     })
 
     it('should distinguish between timeout errors and function errors', async () => {
-      // Test timeout error
+      // Test timeout error.
       const hangingFn = jest.fn(() => new Promise(() => {}))
       const timeoutPromise = withTimeout(hangingFn, 100)
 
@@ -135,7 +135,7 @@ describe('withTimeout', () => {
 
       await expect(timeoutPromise).rejects.toThrow('Timeout.')
 
-      // Test function error
+      // Test function error.
       const failingFn = jest.fn().mockRejectedValue(new Error('Custom error'))
 
       await expect(withTimeout(failingFn, 1000)).rejects.toThrow('Custom error')
@@ -163,7 +163,7 @@ describe('withTimeout', () => {
     })
 
     it('should handle functions that return non-promise values', async () => {
-      // This tests that the function properly handles sync functions
+      // This tests that the function properly handles sync functions.
       const mockResult = 'immediate result'
       const mockSyncFn = jest.fn(() => mockResult)
 
@@ -218,7 +218,7 @@ describe('withTimeout', () => {
         withTimeout(mockFn3, 500)
       ]
 
-      // Fast-forward to trigger timeout for fn3
+      // Fast-forward to trigger timeout for fn3.
       jest.advanceTimersByTime(500)
 
       const results = await Promise.allSettled(promises)
