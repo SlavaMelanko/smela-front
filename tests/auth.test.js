@@ -8,7 +8,6 @@ import { auth } from '../src/tests/data'
 import {
   emailConfig,
   EmailService,
-  passCaptcha,
   waitForApiResponse,
   waitForApiResponses
 } from './helpers'
@@ -58,8 +57,6 @@ const fillLoginFormAndSubmit = async (page, { email, password }, t) => {
 
 const fillRequestPasswordResetFormAndSubmit = async (page, email, t) => {
   await page.getByPlaceholder(t.email.example).fill(email)
-
-  await passCaptcha(page)
 
   await page.getByRole('button', { name: t.password.reset.request.cta }).click()
 }
@@ -203,8 +200,6 @@ test.describe.serial('Authentication', () => {
     expect(firstLink).toBeTruthy()
 
     const firstToken = new URL(firstLink).searchParams.get('token')
-
-    await passCaptcha(page)
 
     await page.getByRole('button', { name: t.email.confirmation.cta }).click()
 
