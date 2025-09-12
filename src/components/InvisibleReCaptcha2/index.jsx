@@ -31,22 +31,18 @@ const InvisibleReCaptcha2 = forwardRef((props, ref) => {
           recaptcha.executeAsync(),
           new Promise((_, reject) => {
             controller.signal.addEventListener('abort', () =>
-              reject(new Error('reCAPTCHA timeout'))
+              reject(new Error('Timeout.'))
             )
           })
         ])
 
-        clearTimeout(timeoutId)
-
         return result
       } catch (error) {
-        clearTimeout(timeoutId)
-        console.error(
-          'ReCaptcha execution failed:',
-          error?.message || 'Unknown error'
-        )
+        console.error('reCAPTCHA failed:', error?.message || 'Unknown error.')
 
         return null
+      } finally {
+        clearTimeout(timeoutId)
       }
     },
     reset: () => {
