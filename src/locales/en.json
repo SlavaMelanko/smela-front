@@ -17,7 +17,7 @@
     "validation/error": "Please check your input and try again."
   },
   "captcha": {
-    "error": "Please complete the CAPTCHA verification."
+    "error": "Security verification failed. Please try again."
   },
   "companyName": "SMELA",
   "continueWithGoogle": "Continue with Google",

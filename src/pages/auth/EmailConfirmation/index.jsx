@@ -20,6 +20,12 @@ const EmailConfirmation = () => {
   const userEmail = location.state?.email || user?.email
 
   const handleSubmit = data => {
+    if (!data.captchaToken) {
+      showErrorToast(t('captcha.error'))
+
+      return
+    }
+
     resendVerificationEmail(data, {
       onSuccess: () => {
         showSuccessToast(t('email.confirmation.success'))

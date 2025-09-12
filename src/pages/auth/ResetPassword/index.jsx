@@ -24,6 +24,12 @@ const ResetPassword = () => {
   const isRequest = !token
 
   const handleRequestPasswordReset = data => {
+    if (!data.captchaToken) {
+      showErrorToast(t('captcha.error'))
+
+      return
+    }
+
     requestPasswordReset(data, {
       onSuccess: () => {
         showSuccessToast(t('password.reset.request.success'))

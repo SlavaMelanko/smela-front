@@ -21,6 +21,12 @@ const Signup = () => {
     useSignupWithGoogle()
 
   const handleSignupWithEmail = data => {
+    if (!data.captchaToken) {
+      showErrorToast(t('captcha.error'))
+
+      return
+    }
+
     signUpWithEmail(data, {
       onSuccess: () => {
         navigate('/email-confirmation', { state: { email: data.email } })

@@ -17,7 +17,7 @@
     "validation/error": "Будь ласка, перевірте введені дані та спробуйте ще раз."
   },
   "captcha": {
-    "error": "Пройдіть перевірку CAPTCHA."
+    "error": "Помилка перевірки безпеки. Спробуйте ще раз."
   },
   "companyName": "SMELA",
   "continueWithGoogle": "Продовжити з Google",
