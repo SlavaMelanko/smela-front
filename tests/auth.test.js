@@ -8,8 +8,8 @@ import { auth } from '../src/tests/data'
 import {
   emailConfig,
   EmailService,
-  waitForApiResponse,
-  waitForApiResponses
+  waitForApiCall,
+  waitForApiCalls
 } from './helpers'
 
 const t = JSON.parse(fs.readFileSync('./src/locales/en.json', 'utf-8'))
@@ -128,7 +128,7 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await waitForApiResponse(page, {
+    await waitForApiCall(page, {
       path: path.SIGNUP,
       status: StatusCodes.CONFLICT
     })
@@ -146,6 +146,8 @@ test.describe.serial('Authentication', () => {
       domain: emailConfig.domain
     })
 
+    let signupCaptchaToken = null
+
     await fillSignupFormAndSubmit(
       page,
       {
@@ -157,10 +159,19 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await waitForApiResponse(page, {
+    await waitForApiCall(page, {
       path: path.SIGNUP,
       status: StatusCodes.CREATED,
-      validateBody: b => {
+      validateRequest: b => {
+        try {
+          signupCaptchaToken = b.captchaToken
+
+          return !!signupCaptchaToken
+        } catch {
+          return false
+        }
+      },
+      validateResponse: b => {
         if (!b.user || !b.token) {
           return false
         }
@@ -201,12 +212,23 @@ test.describe.serial('Authentication', () => {
 
     const firstToken = new URL(firstLink).searchParams.get('token')
 
+    let resendCaptchaToken = null
+
     await page.getByRole('button', { name: t.email.confirmation.cta }).click()
 
-    await waitForApiResponse(page, {
+    await waitForApiCall(page, {
       path: path.RESEND_VERIFICATION_EMAIL,
       status: StatusCodes.ACCEPTED,
-      validateBody: b => b?.success === true
+      validateRequest: b => {
+        try {
+          resendCaptchaToken = b.captchaToken
+
+          return !!resendCaptchaToken
+        } catch {
+          return false
+        }
+      },
+      validateResponse: b => b?.success === true
     })
 
     await expect(page.getByText(t.email.confirmation.success)).toBeVisible()
@@ -218,7 +240,11 @@ test.describe.serial('Authentication', () => {
 
     const secondToken = new URL(secondLink).searchParams.get('token')
 
+    // Verify secure tokens differ between responses.
     expect(firstToken).not.toBe(secondToken)
+
+    // Verify reCAPTCHA tokens are different between requests.
+    expect(signupCaptchaToken).not.toBe(resendCaptchaToken)
 
     // Even if we navigate to the root.
     await page.goto('/')
@@ -248,7 +274,7 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await waitForApiResponse(page, {
+    await waitForApiCall(page, {
       path: path.SIGNUP,
       status: StatusCodes.CREATED
     })
@@ -275,7 +301,7 @@ test.describe.serial('Authentication', () => {
 
     await page.goto(`${url.origin}${url.pathname}?token=${malformedToken}`)
 
-    await waitForApiResponses(page, [
+    await waitForApiCalls(page, [
       {
         path: path.ME,
         method: 'GET',
@@ -292,7 +318,7 @@ test.describe.serial('Authentication', () => {
     // 3: Invalid token (completely wrong token).
     await page.goto(`${url.origin}${url.pathname}?token=invalid_token_12345`)
 
-    await waitForApiResponses(page, [
+    await waitForApiCalls(page, [
       {
         path: path.ME,
         status: StatusCodes.OK
@@ -330,9 +356,10 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await waitForApiResponse(page, {
+    await waitForApiCall(page, {
       path: path.SIGNUP,
-      status: StatusCodes.CREATED
+      status: StatusCodes.CREATED,
+      validateRequest: b => !!b.captchaToken
     })
 
     await page.waitForURL(/email-confirmation/)
@@ -345,11 +372,11 @@ test.describe.serial('Authentication', () => {
 
     await page.goto(link)
 
-    await waitForApiResponses(page, [
+    await waitForApiCalls(page, [
       {
         path: path.ME,
         status: StatusCodes.OK,
-        validateBody: b => {
+        validateResponse: b => {
           if (!b.user) {
             return false
           }
@@ -369,7 +396,7 @@ test.describe.serial('Authentication', () => {
       {
         path: path.VERIFY_EMAIL,
         status: StatusCodes.OK,
-        validateBody: b => {
+        validateResponse: b => {
           if (!b.user || !b.token) {
             return false
           }
@@ -389,7 +416,7 @@ test.describe.serial('Authentication', () => {
       {
         path: path.ME,
         status: StatusCodes.OK,
-        validateBody: b => {
+        validateResponse: b => {
           if (!b.user) {
             return false
           }
@@ -521,7 +548,7 @@ test.describe.serial('Authentication', () => {
         t
       )
 
-      await waitForApiResponse(page, {
+      await waitForApiCall(page, {
         path: path.LOGIN,
         status: StatusCodes.UNAUTHORIZED
       })
@@ -548,7 +575,7 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await waitForApiResponse(page, {
+    await waitForApiCall(page, {
       path: path.LOGIN,
       status: StatusCodes.OK
     })
@@ -580,9 +607,10 @@ test.describe.serial('Authentication', () => {
 
     await fillRequestPasswordResetFormAndSubmit(page, userCredentials.email, t)
 
-    await waitForApiResponse(page, {
+    await waitForApiCall(page, {
       path: path.REQUEST_PASSWORD_RESET,
-      status: StatusCodes.ACCEPTED
+      status: StatusCodes.ACCEPTED,
+      validateRequest: b => !!b.captchaToken
     })
 
     await expect(page.getByText(t.password.reset.request.success)).toBeVisible()
@@ -599,7 +627,7 @@ test.describe.serial('Authentication', () => {
 
     await fillNewPasswordFormAndSubmit(page, userCredentials.newPassword, t)
 
-    await waitForApiResponse(page, {
+    await waitForApiCall(page, {
       path: path.RESET_PASSWORD,
       status: StatusCodes.OK
     })
@@ -617,7 +645,7 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await waitForApiResponse(page, {
+    await waitForApiCall(page, {
       path: path.LOGIN,
       status: StatusCodes.OK
     })
