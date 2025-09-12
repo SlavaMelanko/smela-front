@@ -1,16 +1,17 @@
 import './styles.scss'
 
+import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { PrimaryButton } from '@/components/buttons'
+import InvisibleReCaptcha2 from '@/components/InvisibleReCaptcha2'
 import useLocale from '@/hooks/useLocale'
-import useReCaptcha from '@/hooks/useReCaptcha'
 
 import { FieldName, getDefaultValues } from './fields'
 
 const EmailConfirmationForm = ({ onSubmit, isLoading }) => {
   const { t } = useLocale()
-  const { executeReCaptcha } = useReCaptcha()
+  const recaptchaRef = useRef(null)
 
   const {
     handleSubmit,
@@ -20,7 +21,7 @@ const EmailConfirmationForm = ({ onSubmit, isLoading }) => {
   })
 
   const handleSubmitForm = async data => {
-    const captchaToken = await executeReCaptcha('email_confirmation')
+    const captchaToken = await recaptchaRef.current?.executeAsync()
 
     await onSubmit({
       ...data,
@@ -38,6 +39,8 @@ const EmailConfirmationForm = ({ onSubmit, isLoading }) => {
           ? t('processing')
           : t('email.confirmation.cta')}
       </PrimaryButton>
+
+      <InvisibleReCaptcha2 ref={recaptchaRef} />
     </form>
   )
 }

@@ -77,7 +77,7 @@ describe('Reset password form', () => {
     await user.click(submitButton)
 
     await waitFor(() => {
-      expect(global.mockExecuteReCaptcha).toHaveBeenCalledWith('reset_password')
+      expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
       expect(onSubmitMock).toHaveBeenCalledWith(
         expect.objectContaining({
           email: auth.email.ok,
@@ -96,7 +96,7 @@ describe('Reset password form', () => {
     await user.click(submitButton)
 
     await waitFor(() => {
-      expect(global.mockExecuteReCaptcha).toHaveBeenCalledWith('reset_password')
+      expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
       expect(onSubmitMock).toHaveBeenCalledWith(
         expect.objectContaining({
           email: auth.email.ok,

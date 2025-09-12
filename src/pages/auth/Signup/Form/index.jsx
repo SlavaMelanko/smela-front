@@ -1,19 +1,20 @@
 import './styles.scss'
 
+import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { PrimaryButton } from '@/components/buttons'
 import FormField from '@/components/form/Field'
 import { PasswordInput, TextInput } from '@/components/inputs'
+import InvisibleReCaptcha2 from '@/components/InvisibleReCaptcha2'
 import useLocale from '@/hooks/useLocale'
-import useReCaptcha from '@/hooks/useReCaptcha'
 
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
 const SignupForm = ({ onSubmit, isLoading = false }) => {
   const { t } = useLocale()
-  const { executeReCaptcha } = useReCaptcha()
+  const recaptchaRef = useRef(null)
 
   const {
     register,
@@ -25,7 +26,7 @@ const SignupForm = ({ onSubmit, isLoading = false }) => {
   })
 
   const handleSubmitForm = async data => {
-    const captchaToken = await executeReCaptcha('signup')
+    const captchaToken = await recaptchaRef.current?.executeAsync()
 
     onSubmit({
       ...data,
@@ -87,6 +88,8 @@ const SignupForm = ({ onSubmit, isLoading = false }) => {
       <PrimaryButton type='submit' disabled={isSubmitting || isLoading}>
         {isSubmitting || isLoading ? t('processing') : t('signUp')}
       </PrimaryButton>
+
+      <InvisibleReCaptcha2 ref={recaptchaRef} />
     </form>
   )
 }

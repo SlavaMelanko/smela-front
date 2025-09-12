@@ -227,7 +227,7 @@ describe('Signup Form', () => {
       await user.click(formInputs.submitButton)
 
       await waitFor(() => {
-        expect(global.mockExecuteReCaptcha).toHaveBeenCalledWith('signup')
+        expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
       })
     })
 

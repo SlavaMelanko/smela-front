@@ -57,9 +57,8 @@ describe('EmailConfirmation Form', () => {
       await user.click(submitButton)
 
       await waitFor(() => {
-        expect(global.mockExecuteReCaptcha).toHaveBeenCalledWith(
-          'email_confirmation'
-        )
+        expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
+
         expect(onSubmitMock).toHaveBeenCalledWith({
           captchaToken: auth.captcha.alternative
         })

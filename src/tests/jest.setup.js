@@ -16,16 +16,26 @@ afterEach(() => {
   jest.restoreAllMocks()
 })
 
-// Mock reCAPTCHA hook for all tests.
+// Mock InvisibleReCaptcha2 component for all tests.
 const mockExecuteReCaptcha = jest.fn()
+const mockResetReCaptcha = jest.fn()
 
-jest.mock('@/hooks/useReCaptcha', () => ({
-  __esModule: true,
-  default: () => ({
-    executeReCaptcha: mockExecuteReCaptcha,
-    isReady: true
-  })
-}))
+jest.mock('@/components/InvisibleReCaptcha2', () => {
+  const { forwardRef, useImperativeHandle } = jest.requireActual('react')
 
-// Export mockExecuteReCaptcha for use in tests.
+  return {
+    __esModule: true,
+    default: forwardRef((_, ref) => {
+      useImperativeHandle(ref, () => ({
+        executeAsync: mockExecuteReCaptcha,
+        reset: mockResetReCaptcha
+      }))
+
+      return null // invisible component for tests.
+    })
+  }
+})
+
+// Export mock functions for use in tests.
 global.mockExecuteReCaptcha = mockExecuteReCaptcha
+global.mockResetReCaptcha = mockResetReCaptcha
