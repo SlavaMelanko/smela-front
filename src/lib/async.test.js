@@ -109,6 +109,7 @@ describe('withTimeout', () => {
       await expect(withTimeout(mockAsyncFn, 1000)).rejects.toThrow(
         'Function failed'
       )
+
       expect(mockAsyncFn).toHaveBeenCalledTimes(1)
     })
 
@@ -120,6 +121,7 @@ describe('withTimeout', () => {
       await expect(withTimeout(mockAsyncFn, 1000)).rejects.toThrow(
         'Function failed'
       )
+
       expect(clearTimeoutSpy).toHaveBeenCalled()
       clearTimeoutSpy.mockRestore()
     })
