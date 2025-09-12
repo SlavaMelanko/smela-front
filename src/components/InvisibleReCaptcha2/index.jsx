@@ -1,9 +1,13 @@
 import { forwardRef, useImperativeHandle, useRef } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 
+import useLocale from '@/hooks/useLocale'
+import useTheme from '@/hooks/useTheme'
 import env from '@/lib/env'
 
 const InvisibleReCaptcha2 = forwardRef((props, ref) => {
+  const { theme } = useTheme()
+  const { locale } = useLocale()
   const recaptchaRef = useRef(null)
 
   useImperativeHandle(ref, () => ({
@@ -40,6 +44,8 @@ const InvisibleReCaptcha2 = forwardRef((props, ref) => {
       ref={recaptchaRef}
       sitekey={env.CAPTCHA_SITE_KEY}
       size='invisible'
+      theme={theme}
+      hl={locale}
       {...props}
     />
   )
