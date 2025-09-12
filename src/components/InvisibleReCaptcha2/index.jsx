@@ -31,7 +31,7 @@ const withTimeout = async (asyncFn, timeoutMs = 10000) => {
   }
 }
 
-// https://www.google.com/recaptcha/admin/site/734411735
+// reCAPTCHA settings: https://www.google.com/recaptcha/admin/site/734411735
 const InvisibleReCaptcha2 = forwardRef((props, ref) => {
   const { theme } = useTheme()
   const { locale } = useLocale()
@@ -42,7 +42,7 @@ const InvisibleReCaptcha2 = forwardRef((props, ref) => {
       const recaptcha = recaptchaRef.current
 
       if (!recaptcha) {
-        console.warn('ReCaptcha not ready.')
+        console.warn('reCAPTCHA not ready.')
 
         return null
       }
