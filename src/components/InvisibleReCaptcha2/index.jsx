@@ -41,6 +41,7 @@ const InvisibleReCaptcha2 = forwardRef((props, ref) => {
 
   return (
     <ReCAPTCHA
+      key={`recaptcha-${theme}-${locale}`}
       ref={recaptchaRef}
       sitekey={env.CAPTCHA_SITE_KEY}
       size='invisible'
