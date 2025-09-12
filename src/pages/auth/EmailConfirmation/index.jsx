@@ -21,7 +21,7 @@ const EmailConfirmation = () => {
 
   const handleSubmit = ({ captchaToken }) => {
     resendVerificationEmail(
-      { userEmail, captchaToken },
+      { email: userEmail, captchaToken },
       {
         onSuccess: () => {
           showSuccessToast(t('email.confirmation.success'))
