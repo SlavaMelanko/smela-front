@@ -3,33 +3,8 @@ import ReCAPTCHA from 'react-google-recaptcha'
 
 import useLocale from '@/hooks/useLocale'
 import useTheme from '@/hooks/useTheme'
+import { withTimeout } from '@/lib/async'
 import env from '@/lib/env'
-
-/**
- * Wraps an async function with a timeout mechanism
- * @param {Function} asyncFn - The async function to execute
- * @param {number} timeoutMs - Timeout in milliseconds (default: 10000)
- * @returns {Promise} - Promise that resolves with the function result or rejects on timeout
- */
-const withTimeout = async (asyncFn, timeoutMs = 10000) => {
-  const controller = new AbortController()
-  const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
-
-  try {
-    const result = await Promise.race([
-      asyncFn(),
-      new Promise((_, reject) => {
-        controller.signal.addEventListener('abort', () =>
-          reject(new Error('Timeout.'))
-        )
-      })
-    ])
-
-    return result
-  } finally {
-    clearTimeout(timeoutId)
-  }
-}
 
 // reCAPTCHA settings: https://www.google.com/recaptcha/admin/site/734411735
 const InvisibleReCaptcha2 = forwardRef((props, ref) => {
