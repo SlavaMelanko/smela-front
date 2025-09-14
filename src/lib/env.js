@@ -17,7 +17,7 @@ const getRequiredEnv = key => {
 }
 
 const env = {
-  HCAPTCHA_SITEKEY: getRequiredEnv('HCAPTCHA_SITEKEY')
+  CAPTCHA_SITE_KEY: getRequiredEnv('CAPTCHA_SITE_KEY')
 }
 
 export default env

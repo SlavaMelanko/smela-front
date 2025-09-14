@@ -2,31 +2,31 @@ import api from './api'
 import { path } from './paths'
 
 const authService = {
-  async signUp(userData) {
-    return api.post(path.SIGNUP, { ...userData })
+  signUp(data) {
+    return api.post(path.SIGNUP, data)
   },
 
-  async logIn(email, password) {
-    return api.post(path.LOGIN, { email, password })
+  logIn(data) {
+    return api.post(path.LOGIN, data)
   },
 
-  async verifyEmail(token) {
+  verifyEmail(token) {
     return api.post(path.VERIFY_EMAIL, { token })
   },
 
-  async resendVerificationEmail(email) {
-    return api.post(path.RESEND_VERIFICATION_EMAIL, { email })
+  resendVerificationEmail(data) {
+    return api.post(path.RESEND_VERIFICATION_EMAIL, data)
   },
 
-  async requestPasswordReset(email) {
-    return api.post(path.REQUEST_PASSWORD_RESET, { email })
+  requestPasswordReset(data) {
+    return api.post(path.REQUEST_PASSWORD_RESET, data)
   },
 
-  async resetPassword(token, password) {
-    return api.post(path.RESET_PASSWORD, { token, password })
+  resetPassword(data) {
+    return api.post(path.RESET_PASSWORD, data)
   },
 
-  async logOut() {
+  logOut() {
     return api.post(path.LOGOUT)
   }
 }

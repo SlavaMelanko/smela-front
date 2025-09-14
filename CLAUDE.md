@@ -96,6 +96,8 @@ const { register, handleSubmit } = useForm({ resolver })
    new lines (no single-line `if (ok) return`)
 7. **Git hooks**: Pre-commit runs ESLint and Prettier on staged files
 8. **Comment style**:
+   - Best rule - better use variables or functions instead of comments but if we
+     need comment, then...
    - Full-line comments: Start with capital letter and end with period (e.g.,
      `// This initializes the counter.`)
    - Trailing comments: No capital letter at the beginning, no period at the end

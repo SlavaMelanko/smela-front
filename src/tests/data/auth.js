@@ -20,9 +20,10 @@ export const auth = {
     twoChars: 'Do'
   },
   captcha: {
-    id: 'captcha-mock',
-    value: 'valid-captcha-token',
-    label: 'Captcha'
+    valid: 'valid-captcha-token',
+    alternative: 'test-captcha-token',
+    first: 'first-captcha-token',
+    second: 'second-captcha-token'
   },
   email: {
     ok: 'example@example.com',

@@ -39,7 +39,7 @@ export const useLogin = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ email, password }) => authService.logIn(email, password),
+    mutationFn: authService.logIn,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
@@ -60,7 +60,7 @@ export const useLoginWithGoogle = () =>
 
 export const useSignup = () =>
   useMutation({
-    mutationFn: userData => authService.signUp(userData)
+    mutationFn: authService.signUp
   })
 
 export const useSignupWithGoogle = () =>
@@ -94,7 +94,7 @@ export const useLogout = () => {
 
 export const useVerifyEmail = ({ onSuccess, onError, onSettled }) =>
   useMutation({
-    mutationFn: token => authService.verifyEmail(token),
+    mutationFn: authService.verifyEmail,
     onSuccess,
     onError,
     onSettled,
@@ -105,25 +105,24 @@ export const useVerifyEmail = ({ onSuccess, onError, onSettled }) =>
 
 export const useResendVerificationEmail = () =>
   useMutation({
-    mutationFn: email => authService.resendVerificationEmail(email)
+    mutationFn: authService.resendVerificationEmail
   })
 
 export const useRequestPasswordReset = () =>
   useMutation({
-    mutationFn: email => authService.requestPasswordReset(email)
+    mutationFn: authService.requestPasswordReset
   })
 
 export const useResetPassword = () =>
   useMutation({
-    mutationFn: ({ token, password }) =>
-      authService.resetPassword(token, password)
+    mutationFn: authService.resetPassword
   })
 
 export const useUpdateUser = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: userData => userService.updateUser(userData),
+    mutationFn: userService.updateUser,
     onMutate: async newUserData => {
       // Cancel any in-flight queries for the user.
       await queryClient.cancelQueries({ queryKey: authKeys.user() })

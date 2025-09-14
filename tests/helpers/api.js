@@ -1,5 +1,5 @@
-export const waitForApiResponse = async (page, options, timeout = 30000) => {
-  const { path, status, method, validateBody } = options
+export const waitForApiCall = async (page, options, timeout = 30000) => {
+  const { path, status, method, validateResponse, validateRequest } = options
 
   const response = await page.waitForResponse(
     async response => {
@@ -13,13 +13,25 @@ export const waitForApiResponse = async (page, options, timeout = 30000) => {
         matches = matches && response.request().method() === method
       }
 
-      if (matches && validateBody) {
+      if (matches && validateRequest) {
+        try {
+          const request = response.request()
+          const body = JSON.parse(request.postData())
+
+          matches = matches && (await validateRequest(body))
+        } catch (error) {
+          console.error('Request validation failed:', error)
+          matches = false
+        }
+      }
+
+      if (matches && validateResponse) {
         try {
           const body = await response.json()
 
-          matches = matches && (await validateBody(body))
+          matches = matches && (await validateResponse(body))
         } catch (error) {
-          console.error('Body validation failed:', error)
+          console.error('Response validation failed:', error)
           matches = false
         }
       }
@@ -39,15 +51,11 @@ export const waitForApiResponse = async (page, options, timeout = 30000) => {
   }
 }
 
-export const waitForApiResponses = async (
-  page,
-  optionsArray,
-  timeout = 30000
-) => {
+export const waitForApiCalls = async (page, optionsArray, timeout = 30000) => {
   const results = []
 
   for (const options of optionsArray) {
-    const result = await waitForApiResponse(page, options, timeout)
+    const result = await waitForApiCall(page, options, timeout)
 
     results.push(result)
   }

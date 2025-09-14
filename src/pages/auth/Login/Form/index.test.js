@@ -28,6 +28,8 @@ describe('Login Form', () => {
 
   beforeEach(() => {
     user = userEvent.setup()
+
+    global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.alternative)
   })
 
   describe('Rendering', () => {
@@ -42,7 +44,7 @@ describe('Login Form', () => {
     it('renders required field indicators', () => {
       renderForm()
 
-      // login form doesn't have labels, check by placeholder
+      // Login form doesn't have labels, check by placeholder.
       const emailField = screen
         .getByPlaceholderText(en.email.placeholder)
         .closest('.form-field')
@@ -52,6 +54,21 @@ describe('Login Form', () => {
 
       expect(emailField).toHaveClass('form-field--required')
       expect(passwordField).toHaveClass('form-field--required')
+    })
+
+    it('integrates with reCAPTCHA component', async () => {
+      const onSubmitMock = jest.fn()
+      const { emailInput, passwordInput, submitButton } =
+        renderForm(onSubmitMock)
+
+      await user.type(emailInput, auth.email.ok)
+      await user.type(passwordInput, auth.password.strong)
+      await user.click(submitButton)
+
+      // Verify that the global reCAPTCHA mock was called during form submission.
+      await waitFor(() => {
+        expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
+      })
     })
   })
 
@@ -94,7 +111,7 @@ describe('Login Form', () => {
     it('shows multiple validation errors simultaneously', async () => {
       const { emailInput, passwordInput, submitButton } = renderForm()
 
-      // enter invalid data for all fields
+      // Enter invalid data for all fields.
       await user.type(emailInput, auth.email.invalid)
       await user.type(passwordInput, auth.password.short)
 
@@ -119,9 +136,9 @@ describe('Login Form', () => {
         expect(onSubmitMock).toHaveBeenCalledWith(
           expect.objectContaining({
             email: auth.email.ok,
-            password: auth.password.strong
-          }),
-          expect.anything()
+            password: auth.password.strong,
+            captchaToken: auth.captcha.alternative
+          })
         )
       })
     })
@@ -137,10 +154,13 @@ describe('Login Form', () => {
 
       await user.type(emailInput, auth.email.ok)
       await user.type(passwordInput, auth.password.strong)
-      await user.click(submitButton)
+      user.click(submitButton)
 
-      expect(submitButton).toBeDisabled()
-      expect(submitButton).toHaveTextContent(en.processing)
+      // Check that button is disabled and shows processing text immediately.
+      await waitFor(() => {
+        expect(submitButton).toBeDisabled()
+        expect(submitButton).toHaveTextContent(en.processing)
+      })
 
       await waitFor(() => expect(onSubmitMock).toHaveBeenCalled())
     })
@@ -158,9 +178,9 @@ describe('Login Form', () => {
         expect(onSubmitMock).toHaveBeenCalledWith(
           expect.objectContaining({
             email: auth.email.ok,
-            password: auth.password.strong
-          }),
-          expect.anything()
+            password: auth.password.strong,
+            captchaToken: auth.captcha.alternative
+          })
         )
       })
     })
@@ -174,15 +194,43 @@ describe('Login Form', () => {
 
       await user.type(emailInput, auth.email.ok)
       await user.type(passwordInput, auth.password.strong)
-
-      // click multiple times
-      await user.click(submitButton)
-      await user.click(submitButton)
       await user.click(submitButton)
 
+      // Try to submit again quickly - React Hook Form should prevent this.
+      user.click(submitButton) // don't await - fire and forget
+      user.click(submitButton) // don't await - fire and forget
+
+      // Wait for the first submission to complete.
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledTimes(1)
+        expect(onSubmitMock).toHaveBeenCalled()
       })
+
+      // Should only be called once due to React Hook Form's isSubmitting state.
+      expect(onSubmitMock).toHaveBeenCalledTimes(1)
+    })
+
+    it('handles form submission state correctly', async () => {
+      const onSubmitMock = jest.fn().mockResolvedValue()
+      const { emailInput, passwordInput, submitButton } =
+        renderForm(onSubmitMock)
+
+      await user.type(emailInput, auth.email.ok)
+      await user.type(passwordInput, auth.password.strong)
+      await user.click(submitButton)
+
+      // Wait for the async operation to complete.
+      await waitFor(() => {
+        expect(onSubmitMock).toHaveBeenCalledWith(
+          expect.objectContaining({
+            email: auth.email.ok,
+            password: auth.password.strong,
+            captchaToken: auth.captcha.alternative
+          })
+        )
+      })
+
+      // Form should have been submitted successfully.
+      expect(onSubmitMock).toHaveBeenCalledTimes(1)
     })
   })
 
@@ -190,11 +238,11 @@ describe('Login Form', () => {
     it('allows navigation between fields with Tab key', async () => {
       const { emailInput, passwordInput } = renderForm()
 
-      // start with email focused
+      // Start with email focused.
       emailInput.focus()
       expect(document.activeElement).toBe(emailInput)
 
-      // tab to password
+      // Tab to password.
       await user.tab()
       expect(document.activeElement).toBe(passwordInput)
     })
@@ -202,14 +250,14 @@ describe('Login Form', () => {
     it('clears field error when user starts typing', async () => {
       const { emailInput, submitButton } = renderForm()
 
-      // submit to trigger validation errors
+      // Submit to trigger validation errors.
       await user.click(submitButton)
 
       await waitFor(() => {
         expect(screen.getByText(en.email.error.required)).toBeInTheDocument()
       })
 
-      // start typing in the field
+      // Start typing in the field.
       await user.type(emailInput, 'u')
 
       await waitFor(() => {
@@ -233,7 +281,7 @@ describe('Login Form', () => {
         expect(screen.getByText(en.password.error.min)).toBeInTheDocument()
       })
 
-      // verify form values are preserved
+      // Verify form values are preserved.
       expect(emailInput).toHaveValue(testEmail)
       expect(passwordInput).toHaveValue(shortPassword)
     })
@@ -243,7 +291,7 @@ describe('Login Form', () => {
     it('has accessible form fields with proper attributes', () => {
       renderForm()
 
-      // login form uses placeholders and ids for accessibility
+      // Login form uses placeholders and ids for accessibility.
       const emailInput = screen.getByPlaceholderText(en.email.placeholder)
       const passwordInput = screen.getByPlaceholderText(
         en.password.placeholder.default
@@ -265,7 +313,7 @@ describe('Login Form', () => {
         const errorMessage = screen.getByText(en.email.error.format)
 
         expect(errorMessage).toBeInTheDocument()
-        // error message is inside a div with form-field__error class
+        // Error message is inside a div with form-field__error class.
         expect(errorMessage.closest('.form-field__error')).toBeInTheDocument()
       })
     })
