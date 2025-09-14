@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import { GoogleOAuthButton } from '@/components/buttons'
 import { ForgotYourPasswordPrompt, SignupPrompt } from '@/components/prompts'
 import Separator from '@/components/Separator'
-import Spinner from '@/components/Spinner'
 import { useLogin, useLoginWithGoogle } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
@@ -21,18 +20,15 @@ const Login = () => {
     useLoginWithGoogle()
   const { showErrorToast } = useNotifications()
 
-  const handleLogin = ({ email, password }) => {
-    logInWithEmail(
-      { email, password },
-      {
-        onSuccess: () => {
-          navigate('/')
-        },
-        onError: err => {
-          showErrorToast(t(toTranslationKey(err)))
-        }
+  const handleLogin = data => {
+    logInWithEmail(data, {
+      onSuccess: () => {
+        navigate('/')
+      },
+      onError: err => {
+        showErrorToast(t(toTranslationKey(err)))
       }
-    )
+    })
   }
 
   const handleLoginWithGoogle = () => {
