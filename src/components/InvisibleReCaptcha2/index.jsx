@@ -6,6 +6,10 @@ import useTheme from '@/hooks/useTheme'
 import { withTimeout } from '@/lib/async'
 import env from '@/lib/env'
 
+const isReCaptchaScriptReady = () => {
+  return window.grecaptcha && window.grecaptcha.ready
+}
+
 // reCAPTCHA settings: https://www.google.com/recaptcha/admin/site/734411735
 const InvisibleReCaptcha2 = forwardRef((props, ref) => {
   const { theme } = useTheme()
@@ -14,23 +18,30 @@ const InvisibleReCaptcha2 = forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => ({
     executeAsync: async () => {
+      let token = ''
+
+      if (!isReCaptchaScriptReady()) {
+        console.warn('reCAPTCHA script not loaded yet.')
+
+        return token
+      }
+
       const recaptcha = recaptchaRef.current
 
       if (!recaptcha) {
-        console.warn('reCAPTCHA not ready.')
+        console.warn('reCAPTCHA component not ready yet.')
 
-        return null
+        return token
       }
 
       try {
         recaptcha.reset()
-
-        return await withTimeout(() => recaptcha.executeAsync())
+        token = await withTimeout(() => recaptcha.executeAsync())
       } catch (error) {
         console.error('reCAPTCHA error:', error?.message || 'Unknown.')
-
-        return null
       }
+
+      return token
     },
     reset: () => {
       const recaptcha = recaptchaRef.current
