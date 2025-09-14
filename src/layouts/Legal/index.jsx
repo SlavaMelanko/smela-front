@@ -18,7 +18,7 @@ const LegalLayout = () => (
 
     <div className='legal-layout__container'>
       <header className='legal-layout__header'>
-        <Logo width={240} height={45} />
+        <Logo width={320} height={60} />
       </header>
 
       <main className='legal-layout__content'>
