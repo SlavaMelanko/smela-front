@@ -3,9 +3,9 @@ import useTheme from '@/hooks/useTheme'
 const Logo = ({ width, height, className = '' }) => {
   const { theme } = useTheme()
 
-  const circleColor = theme === 'dark' ? '#f5f5f5' : '#141414'
-  const symbolColor = theme === 'dark' ? '#141414' : '#f5f5f5'
-  const textColor = theme === 'dark' ? '#f5f5f5' : '#141414'
+  const circleColor = theme === 'dark' ? '#F7F7F7' : '#141414'
+  const symbolColor = theme === 'dark' ? '#141414' : '#F7F7F7'
+  const textColor = theme === 'dark' ? '#F7F7F7' : '#141414'
 
   return (
     <svg
