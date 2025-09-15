@@ -29,6 +29,7 @@
 @mixin button-base {
   width: auto;
   padding: 0.75rem $spacing-md;
+  font-size: $font-size-md;
   font-weight: $font-weight-medium;
   cursor: pointer;
   outline: none;
@@ -103,6 +104,10 @@
   font-weight: $weight;
   color: $color;
   text-align: $align;
+}
+
+@mixin text-primary-md {
+  @include text(var(--text-primary), $font-size-md, $font-weight-normal, left);
 }
 
 @mixin text-secondary-sm {

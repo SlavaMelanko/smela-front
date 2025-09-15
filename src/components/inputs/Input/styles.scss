@@ -1,14 +1,14 @@
 @use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
 
 .input {
   position: relative;
 
   &__field {
+    @include text-primary-md;
+
     width: 100%;
     padding: 0.75rem $spacing-md;
-    font-size: $font-size-md;
-    font-weight: $font-weight-normal;
-    color: var(--text-primary);
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: $border-radius-sm;

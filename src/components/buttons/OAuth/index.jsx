@@ -12,7 +12,7 @@ const OAuthButton = ({ icon, text, className, ...reset }) => {
       {...reset}
     >
       {icon && <span className='oauth-button__icon'>{icon}</span>}
-      <span className='oauth-button__text'>{text}</span>
+      <span>{text}</span>
     </button>
   )
 }

@@ -4,7 +4,7 @@
 .primary-button {
   @include button-base;
 
-  color: white;
+  color: var(--bg-primary);
   background-color: var(--button-primary-bg);
 
   &:hover {
@@ -17,7 +17,7 @@
     border: 1px solid var(--button-primary-bg);
 
     &:hover {
-      color: white;
+      color: var(--bg-primary);
       background-color: var(--button-primary-bg);
     }
   }
