@@ -9,8 +9,7 @@
   height: 28.75rem; // card height
 
   &__text {
-    font-size: $font-size-lg;
-    text-align: center;
+    @include text-secondary-md;
   }
 
   &__contact-us {

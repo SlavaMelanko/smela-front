@@ -51,7 +51,7 @@
   transition: all $transition-default;
 
   &:hover {
-    border-color: var(--border-hover);
+    border-color: var(--border-accent);
   }
 }
 
@@ -105,8 +105,16 @@
   );
 }
 
+@mixin text-secondary-lg {
+  @include text(var(--text-secondary), $font-size-lg, $font-weight-normal);
+}
+
 @mixin text-secondary-md {
   @include text(var(--text-secondary), $font-size-md, $font-weight-normal);
+}
+
+@mixin text-secondary-md-medium {
+  @include text(var(--text-secondary), $font-size-md, $font-weight-medium);
 }
 
 @mixin text-secondary-sm {

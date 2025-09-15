@@ -8,15 +8,12 @@
     font-weight: $font-weight-bold;
     color: var(--text-primary);
     text-align: center;
-    transition: color $transition-default;
   }
 
   &__subtitle {
+    @include text-secondary-lg;
+
     margin-bottom: $spacing-3xl;
-    font-size: $font-size-lg;
-    color: var(--text-secondary);
-    text-align: center;
-    transition: color $transition-default;
   }
 
   &__content {
@@ -29,9 +26,8 @@
   }
 
   &__footer {
+    @include text-secondary-sm;
+
     margin-top: $spacing-md;
-    color: var(--text-secondary);
-    text-align: center;
-    transition: color $transition-default;
   }
 }

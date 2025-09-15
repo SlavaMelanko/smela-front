@@ -13,9 +13,15 @@
     border: 1px solid var(--border-color);
     border-radius: $border-radius-sm;
 
+    &:hover {
+      outline: none;
+      border-color: var(--border-accent);
+      box-shadow: 0 0 0 2px var(--button-bg);
+    }
+
     &:focus {
       outline: none;
-      border-color: transparent;
+      border-color: var(--border-accent);
       box-shadow: 0 0 0 2px var(--button-bg);
     }
 
