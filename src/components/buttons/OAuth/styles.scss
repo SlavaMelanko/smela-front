@@ -15,7 +15,7 @@
   }
 
   &:disabled {
-    color: var(--text-disabled);
+    color: var(--text-tertiary);
     cursor: not-allowed;
     background-color: var(--button-disabled-bg);
     border-color: var(--border-disabled);
