@@ -105,6 +105,10 @@
   );
 }
 
+@mixin text-primary-sm {
+  @include text(var(--text-primary), $font-size-sm, $font-weight-normal);
+}
+
 @mixin text-secondary-lg {
   @include text(var(--text-secondary), $font-size-lg, $font-weight-normal);
 }

@@ -4,6 +4,7 @@
 .offer-button {
   @include button-base;
 
+  width: 100%;
   color: white;
   text-transform: uppercase;
   background-color: var(--button-offer-bg);
