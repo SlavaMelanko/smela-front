@@ -19,7 +19,7 @@ const AuthLayout = () => {
 
       <div className='auth-layout__container'>
         <header className='auth-layout__header'>
-          <Logo width={320} height={60} />
+          <Logo width={280} />
         </header>
 
         <main className='auth-layout__content'>
