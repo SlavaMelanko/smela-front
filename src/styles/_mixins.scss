@@ -85,14 +85,14 @@
 }
 
 @mixin title-base($align: center) {
-  font-size: $font-size-lg;
+  font-size: $font-size-xl;
   font-weight: $font-weight-semibold;
   color: var(--text-primary);
   text-align: $align;
 }
 
 @mixin description-base($align: center) {
-  font-size: $font-size-sm;
+  font-size: $font-size-md;
   font-weight: $font-weight-light;
   color: var(--text-secondary);
   text-align: $align;

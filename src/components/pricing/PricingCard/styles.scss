@@ -34,7 +34,7 @@
   }
 
   &__title {
-    font-size: $font-size-lg;
+    font-size: $font-size-xl;
     font-weight: $font-weight-bold;
     color: var(--text-primary);
     transition: color $transition-default;
@@ -45,7 +45,7 @@
     flex-flow: row wrap;
     gap: $spacing-xl;
     justify-content: center;
-    margin-bottom: $font-size-lg;
+    margin-bottom: $font-size-xl;
   }
 
   &__bandwidth {

@@ -11,15 +11,15 @@
   }
 
   &--sm {
-    font-size: $font-size-xs;
-  }
-
-  &--md {
     font-size: $font-size-sm;
   }
 
-  &--lg {
+  &--md {
     font-size: $font-size-md;
+  }
+
+  &--lg {
+    font-size: $font-size-lg;
   }
 
   &--underline-hover {

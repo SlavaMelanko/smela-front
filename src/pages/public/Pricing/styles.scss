@@ -4,7 +4,7 @@
 .pricing-page {
   &__title {
     margin-bottom: $spacing-md;
-    font-size: $font-size-2xl;
+    font-size: $font-size-3xl;
     font-weight: $font-weight-bold;
     color: var(--text-primary);
     text-align: center;
@@ -13,7 +13,7 @@
 
   &__subtitle {
     margin-bottom: $spacing-3xl;
-    font-size: $font-size-md;
+    font-size: $font-size-lg;
     color: var(--text-secondary);
     text-align: center;
     transition: color $transition-default;
