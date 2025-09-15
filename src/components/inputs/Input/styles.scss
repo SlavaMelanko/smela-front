@@ -5,7 +5,7 @@
   position: relative;
 
   &__field {
-    @include text-primary-md;
+    @include text-primary-md(left);
 
     width: 100%;
     padding: 0.75rem $spacing-md;

@@ -85,20 +85,6 @@
   }
 }
 
-@mixin title-base($align: center) {
-  font-size: $font-size-xl;
-  font-weight: $font-weight-semibold;
-  color: var(--text-primary);
-  text-align: $align;
-}
-
-@mixin description-base($align: center) {
-  font-size: $font-size-md;
-  font-weight: $font-weight-thin;
-  color: var(--text-secondary);
-  text-align: $align;
-}
-
 @mixin text($color, $size, $weight: $font-weight-normal, $align: center) {
   font-size: $size;
   font-weight: $weight;
@@ -106,8 +92,21 @@
   text-align: $align;
 }
 
-@mixin text-primary-md {
-  @include text(var(--text-primary), $font-size-md, $font-weight-normal, left);
+@mixin text-primary-xl-semibold {
+  @include text(var(--text-primary), $font-size-xl, $font-weight-semibold);
+}
+
+@mixin text-primary-md($align: center) {
+  @include text(
+    var(--text-primary),
+    $font-size-md,
+    $font-weight-normal,
+    $align
+  );
+}
+
+@mixin text-secondary-md {
+  @include text(var(--text-secondary), $font-size-md, $font-weight-normal);
 }
 
 @mixin text-secondary-sm {

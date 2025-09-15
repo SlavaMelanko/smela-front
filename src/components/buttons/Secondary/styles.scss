@@ -10,8 +10,7 @@
 
   &:hover {
     background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-color: var(--border-hover);
+    border: 1px solid var(--button-primary-bg);
   }
 }
 
