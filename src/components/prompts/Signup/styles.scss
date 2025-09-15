@@ -1,8 +1,5 @@
-@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
 
 .signup-prompt {
-  font-size: $font-size-sm;
-  font-weight: $font-weight-normal;
-  color: var(--text-secondary);
-  text-align: center;
+  @include text-secondary-sm;
 }

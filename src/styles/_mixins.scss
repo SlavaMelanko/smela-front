@@ -97,3 +97,18 @@
   color: var(--text-secondary);
   text-align: $align;
 }
+
+@mixin text($color, $size, $weight: $font-weight-normal, $align: center) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+  text-align: $align;
+}
+
+@mixin text-secondary-sm {
+  @include text(var(--text-secondary), $font-size-sm);
+}
+
+@mixin text-tertiary-xs-thin {
+  @include text(var(--text-tertiary), $font-size-xs, $font-weight-thin);
+}
