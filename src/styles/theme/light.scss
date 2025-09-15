@@ -28,7 +28,8 @@
   --border-error: var(--red);
 
   // Highlight/emphasis colors for user attention
-  --highlight-bg: #fce7f3;
+  --highlight-bg-primary: #fce7f3;
+  --highlight-bg-secondary: #fdf2f8;
   --highlight-text: #be185d;
 
   // Button colors
@@ -36,7 +37,7 @@
   --button-primary-hover: #f8826e;
   --button-offer-bg: var(--purple);
   --button-offer-hover: #7e22ce;
-  --button-disabled-bg: #f3f4f6;
+  --button-disabled-bg: var(--bg-primary);
 
   // Shadow color
   --shadow-color: rgb(0 0 0 / 10%);

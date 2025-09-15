@@ -42,11 +42,11 @@
     border: none;
 
     &:hover {
-      background-color: var(--highlight-bg);
+      background-color: var(--highlight-bg-secondary);
     }
 
     &--active {
-      background-color: var(--highlight-bg);
+      background-color: var(--highlight-bg-secondary);
     }
 
     &--first {

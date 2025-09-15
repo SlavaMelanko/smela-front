@@ -6,7 +6,7 @@
   font-weight: $font-weight-medium;
   color: var(--highlight-text);
   text-transform: uppercase;
-  background-color: var(--highlight-bg);
+  background-color: var(--highlight-bg-primary);
   border-radius: $border-radius-full;
   transition:
     background-color $transition-default,

@@ -5,21 +5,23 @@
   --purple: #8b5cf6;
 
   // Background colors
-  --bg-primary: #111827;
-  --bg-secondary: #1f2937;
+  --bg-primary: #141414;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #2a2a2a;
 
   // Text colors
-  --text-primary: #f9fafb;
-  --text-secondary: #d1d5db;
-  --text-tertiary: #6b7280;
+  --text-primary: #f7f7f7;
+  --text-secondary: #a1a1aa;
+  --text-tertiary: #71717a;
 
   // Border colors
-  --border-color: #374151;
+  --border-color: #2e2e2e;
   --border-accent: var(--purple);
-  --border-disabled: #4b5563;
+  --border-disabled: #333;
 
   // Highlight/emphasis colors for user attention
-  --highlight-bg: #831843;
+  --highlight-bg-primary: #831843;
+  --highlight-bg-secondary: #4c1d34;
   --highlight-text: #fbcfe8;
 
   // Button colors
@@ -27,7 +29,6 @@
   --button-primary-hover: #ff9681;
   --button-offer-bg: var(--purple);
   --button-offer-hover: #7c3aed;
-  --button-disabled-bg: #1f2937;
 
   // Shadow color
   --shadow-color: rgb(0 0 0 / 50%);
