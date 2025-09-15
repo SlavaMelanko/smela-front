@@ -9,7 +9,9 @@ const SignupPrompt = () => {
   return (
     <p className='signup-prompt'>
       {t('doNotHaveAccount')}{' '}
-      <InternalLink to='/pricing'>{t('signUp')}</InternalLink>
+      <InternalLink size='sm' to='/pricing'>
+        {t('signUp')}
+      </InternalLink>
     </p>
   )
 }

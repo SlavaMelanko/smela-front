@@ -6,7 +6,8 @@
   &__field {
     width: 100%;
     padding: 0.75rem $spacing-md;
-    font-weight: $font-weight-light;
+    font-size: $font-size-md;
+    font-weight: $font-weight-normal;
     color: var(--text-primary);
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
@@ -19,8 +20,7 @@
     }
 
     &::placeholder {
-      font-weight: $font-weight-light;
-      color: var(--text-secondary);
+      color: var(--text-tertiary);
     }
 
     &--with-left-icon {

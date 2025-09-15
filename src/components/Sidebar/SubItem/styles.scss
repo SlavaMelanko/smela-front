@@ -10,7 +10,7 @@
     @include sidebar-button-base($spacing-xs, $spacing-sm);
 
     font-size: $font-size-sm;
-    font-weight: $font-weight-light;
+    font-weight: $font-weight-thin;
   }
 
   &--active {

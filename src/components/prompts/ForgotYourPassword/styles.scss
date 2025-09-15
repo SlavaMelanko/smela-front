@@ -1,6 +1,7 @@
 @use '../../../styles/variables' as *;
 
 .forgot-your-password-prompt {
+  font-weight: $font-weight-normal;
   color: var(--text-secondary);
   text-align: center;
 }

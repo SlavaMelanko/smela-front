@@ -9,7 +9,9 @@ const LoginPrompt = ({ question }) => {
   return (
     <p className='login-prompt'>
       {question || t('alreadyHaveAccount')}{' '}
-      <InternalLink to='/login'>{t('login.verb')}</InternalLink>
+      <InternalLink size='sm' to='/login'>
+        {t('login.verb')}
+      </InternalLink>
     </p>
   )
 }

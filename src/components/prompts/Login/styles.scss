@@ -1,6 +1,8 @@
 @use '../../../styles/variables' as *;
 
 .login-prompt {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-normal;
   color: var(--text-secondary);
   text-align: center;
 }
