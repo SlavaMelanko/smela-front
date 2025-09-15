@@ -16,14 +16,9 @@
   }
 
   &:disabled {
-    color: var(--text-tertiary);
     cursor: not-allowed;
     background-color: var(--button-disabled-bg);
     border-color: var(--border-disabled);
-
-    &:hover {
-      border-color: var(--border-disabled);
-    }
   }
 
   &__icon {
