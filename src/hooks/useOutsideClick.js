@@ -5,7 +5,7 @@ const useOutsideClick = (initialValue = false) => {
   const ref = useRef(null)
 
   const handleClick = e => {
-    if (ref.current && !ref.current.contains(e.target)) {
+    if (ref.current && !ref.current?.contains(e.target)) {
       setIsActive(false)
     }
   }

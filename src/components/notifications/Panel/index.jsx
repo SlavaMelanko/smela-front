@@ -20,9 +20,11 @@ const NotificationPanel = ({ isOpen, onToggle, toggleButtonRef }) => {
   // If you click outside, it triggers onToggle() to close the panel.
   useEffect(() => {
     const handleOutsideClick = e => {
-      const clickedOutsidePanel = ref.current && !ref.current.contains(e.target)
+      const clickedOutsidePanel =
+        ref.current && !ref.current?.contains(e.target)
       const clickedOutsideToggleButton =
-        !toggleButtonRef?.current || !toggleButtonRef.current.contains(e.target)
+        !toggleButtonRef?.current ||
+        !toggleButtonRef.current?.contains(e.target)
 
       if (clickedOutsidePanel && clickedOutsideToggleButton) {
         onToggle() // close the panel
