@@ -7,20 +7,22 @@
   width: 100%;
   color: var(--bg-primary);
   text-transform: uppercase;
-  background-color: var(--button-offer-bg);
+  background-color: var(--button-offer-color);
 
-  &:hover {
-    background-color: var(--button-offer-hover);
+  &:hover,
+  &:focus {
+    background-color: var(--button-offer-accent);
   }
 
   &--outlined {
-    color: var(--button-offer-bg);
+    color: var(--button-offer-color);
     background-color: transparent;
-    border: 1px solid var(--button-offer-bg);
+    border: 1px solid var(--button-offer-color);
 
-    &:hover {
+    &:hover,
+    &:focus {
       color: var(--bg-primary);
-      background-color: var(--button-offer-bg);
+      background-color: var(--button-offer-color);
     }
   }
 }

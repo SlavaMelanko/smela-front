@@ -33,11 +33,11 @@
   --highlight-text: #be185d;
 
   // Button colors
-  --button-primary-bg: var(--orange);
-  --button-primary-hover: #f8826e;
-  --button-offer-bg: var(--purple);
-  --button-offer-hover: #7e22ce;
-  --button-disabled-bg: var(--bg-primary);
+  --button-primary-color: var(--orange);
+  --button-primary-accent: #f8826e;
+  --button-offer-color: var(--purple);
+  --button-offer-accent: #7e22ce;
+  --button-disabled-color: var(--bg-primary);
 
   // Shadow color
   --shadow-color: rgb(0 0 0 / 10%);

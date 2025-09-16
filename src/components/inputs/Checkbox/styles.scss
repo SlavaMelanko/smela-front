@@ -61,7 +61,7 @@
 
     &:disabled {
       cursor: not-allowed;
-      background-color: var(--button-disabled-bg);
+      background-color: var(--button-disabled-color);
       border-color: var(--border-disabled);
       opacity: 0.6;
     }

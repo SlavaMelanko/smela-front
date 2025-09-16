@@ -5,20 +5,22 @@
   @include button-base;
 
   color: var(--bg-primary);
-  background-color: var(--button-primary-bg);
+  background-color: var(--button-primary-color);
 
-  &:hover {
-    background-color: var(--button-primary-hover);
+  &:hover,
+  &:focus {
+    background-color: var(--button-primary-accent);
   }
 
   &--outlined {
-    color: var(--button-primary-bg);
+    color: var(--button-primary-color);
     background-color: transparent;
-    border: 1px solid var(--button-primary-bg);
+    border: 1px solid var(--button-primary-color);
 
-    &:hover {
+    &:hover,
+    &:focus {
       color: var(--bg-primary);
-      background-color: var(--button-primary-bg);
+      background-color: var(--button-primary-color);
     }
   }
 }
