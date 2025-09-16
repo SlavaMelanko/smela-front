@@ -4,7 +4,7 @@ set -e
 
 STAGED_FILES=$(git diff --name-only --cached)
 
-SORT_JSON_PATH="src/locales/*.json"
+SORT_JSON_PATH="public/locales/*.json"
 
 echo "Sorting locales in $SORT_JSON_PATH..."
 

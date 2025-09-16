@@ -12,7 +12,7 @@ import {
   waitForApiCalls
 } from './helpers'
 
-const t = JSON.parse(fs.readFileSync('./src/locales/en.json', 'utf-8'))
+const t = JSON.parse(fs.readFileSync('./public/locales/en.json', 'utf-8'))
 
 const emailService = new EmailService()
 

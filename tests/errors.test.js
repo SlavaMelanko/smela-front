@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import fs from 'fs'
 
-const t = JSON.parse(fs.readFileSync('./src/locales/en.json', 'utf-8'))
+const t = JSON.parse(fs.readFileSync('./public/locales/en.json', 'utf-8'))
 
 test.describe('Not Found Error', () => {
   test('should display 404 page for unknown routes', async ({ page }) => {
