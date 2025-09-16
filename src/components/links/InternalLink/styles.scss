@@ -2,12 +2,13 @@
 
 .internal-link {
   font-weight: $font-weight-medium;
-  color: #7678ed;
+  color: var(--link-primary);
   text-decoration: none;
   transition: color 0.3s;
 
-  &:hover {
-    color: #5658cd;
+  &:hover,
+  &:focus {
+    color: var(--link-accent);
   }
 
   &--sm {
