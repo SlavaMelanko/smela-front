@@ -4,9 +4,9 @@
 .oauth-button {
   @include button-base;
   @include flex-center;
+  @include text-primary-md-medium;
 
   gap: $spacing-sm;
-  color: var(--text-primary);
   background-color: transparent;
   border: 1px solid var(--border-color);
 

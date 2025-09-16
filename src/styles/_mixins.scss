@@ -111,6 +111,15 @@
   );
 }
 
+@mixin text-primary-md-medium($align: center) {
+  @include text(
+    var(--text-primary),
+    $font-size-md,
+    $font-weight-medium,
+    $align
+  );
+}
+
 @mixin text-primary-sm {
   @include text(var(--text-primary), $font-size-sm, $font-weight-normal);
 }
