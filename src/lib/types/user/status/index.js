@@ -1,6 +1,6 @@
 // Cross-references:
 //   - src/components/StatusBadge/styles.scss
-//   - src/locales/*.json
+//   - public/locales/*.json
 const UserStatus = {
   NEW: 'new',
   VERIFIED: 'verified',

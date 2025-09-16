@@ -1,9 +1,9 @@
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import en from '@/locales/en.json'
 import { renderWithProviders } from '@/tests'
 import { auth } from '@/tests/data'
+import en from '$/locales/en.json'
 
 import EmailConfirmationForm from '.'
 

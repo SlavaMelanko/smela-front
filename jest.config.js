@@ -12,7 +12,8 @@ export default {
     '^.+\\.(css|sass|scss)$': 'identity-obj-proxy',
     '^@components(.*)$': '<rootDir>/src/components$1',
     '^@/(.*)$': '<rootDir>/src/$1',
-    '^@/i18n$': '<rootDir>/src/i18n.js'
+    '^@/i18n$': '<rootDir>/src/i18n.js',
+    '^\\$\\/(.*)$': '<rootDir>/public/$1'
   },
 
   // Setup files
