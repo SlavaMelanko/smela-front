@@ -5,14 +5,12 @@ import { MemoryRouter } from 'react-router-dom'
 
 import { LocaleProvider } from '@/contexts/LocaleContext'
 import en from '$/locales/en.json'
-import uk from '$/locales/uk.json'
 
 // Initialize i18n for tests with static resources
 if (!i18n.isInitialized) {
   i18n.use(initReactI18next).init({
     resources: {
-      en: { translation: en },
-      uk: { translation: uk }
+      en: { translation: en }
     },
     lng: 'en',
     fallbackLng: 'en',
