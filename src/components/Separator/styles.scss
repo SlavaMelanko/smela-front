@@ -1,4 +1,5 @@
 @use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .separator {
   position: relative;
@@ -19,12 +20,12 @@
     position: relative;
     display: flex;
     justify-content: center;
-    font-size: $font-size-xs;
   }
 
   &__text {
+    @include text-secondary-sm;
+
     padding: 0 $spacing-sm;
-    color: var(--text-secondary);
     background-color: var(--bg-primary);
     transition: background-color $transition-default;
   }

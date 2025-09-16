@@ -10,8 +10,7 @@
 
   &:hover {
     background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-color: var(--border-hover);
+    border: 1px solid var(--button-primary-color);
   }
 }
 
@@ -37,7 +36,7 @@
     max-width: 4rem;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-weight: $font-weight-light;
+    font-weight: $font-weight-thin;
     white-space: nowrap;
 
     @media (max-width: $breakpoint-md) {

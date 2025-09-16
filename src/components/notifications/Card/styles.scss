@@ -24,7 +24,7 @@
   }
 
   &__title {
-    font-size: $font-size-md;
+    font-size: $font-size-lg;
     font-weight: $font-weight-semibold;
   }
 
@@ -38,7 +38,7 @@
 
   &__message {
     margin-top: $spacing-md;
-    font-size: $font-size-xs;
+    font-size: $font-size-sm;
     color: var(--text-secondary);
   }
 

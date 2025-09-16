@@ -10,6 +10,7 @@
 
   &__button {
     @include sidebar-button-base($spacing-sm, $spacing-md);
+    @include text-primary-md;
   }
 
   &__content-left {
@@ -30,7 +31,6 @@
     max-width: 130px;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-weight: $font-weight-normal;
     white-space: nowrap;
   }
 

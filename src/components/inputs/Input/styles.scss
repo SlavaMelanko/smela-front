@@ -1,26 +1,30 @@
 @use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
 
 .input {
   position: relative;
 
   &__field {
+    @include text-primary-md(left);
+
     width: 100%;
     padding: 0.75rem $spacing-md;
-    font-weight: $font-weight-light;
-    color: var(--text-primary);
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: $border-radius-sm;
 
+    &:hover,
     &:focus {
       outline: none;
-      border-color: transparent;
-      box-shadow: 0 0 0 2px var(--button-bg);
+      box-shadow: $shadow-xs;
     }
 
     &::placeholder {
-      font-weight: $font-weight-light;
-      color: var(--text-secondary);
+      color: var(--text-tertiary);
+    }
+
+    &:focus::placeholder {
+      opacity: 0.5;
     }
 
     &--with-left-icon {
@@ -43,11 +47,10 @@
   }
 
   &__icon {
+    @include flex-center;
+
     position: absolute;
     top: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transform: translateY(-50%);
 
     &--left {
@@ -60,9 +63,8 @@
   }
 
   &__toggle-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center;
+
     height: 100%;
     padding: 0;
     cursor: pointer;

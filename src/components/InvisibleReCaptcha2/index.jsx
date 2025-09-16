@@ -36,9 +36,7 @@ const InvisibleReCaptcha2 = forwardRef((props, ref) => {
     reset: () => {
       const recaptcha = recaptchaRef.current
 
-      if (recaptcha) {
-        recaptcha.reset()
-      }
+      recaptcha?.reset()
     }
   }))
 

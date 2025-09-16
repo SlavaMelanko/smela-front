@@ -4,19 +4,16 @@
 .pricing-page {
   &__title {
     margin-bottom: $spacing-md;
-    font-size: $font-size-2xl;
+    font-size: $font-size-3xl;
     font-weight: $font-weight-bold;
     color: var(--text-primary);
     text-align: center;
-    transition: color $transition-default;
   }
 
   &__subtitle {
+    @include text-secondary-lg;
+
     margin-bottom: $spacing-3xl;
-    font-size: $font-size-md;
-    color: var(--text-secondary);
-    text-align: center;
-    transition: color $transition-default;
   }
 
   &__content {
@@ -29,9 +26,8 @@
   }
 
   &__footer {
+    @include text-secondary-sm;
+
     margin-top: $spacing-md;
-    color: var(--text-secondary);
-    text-align: center;
-    transition: color $transition-default;
   }
 }

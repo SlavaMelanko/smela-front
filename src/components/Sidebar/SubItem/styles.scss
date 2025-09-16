@@ -8,9 +8,7 @@
 
   &__button {
     @include sidebar-button-base($spacing-xs, $spacing-sm);
-
-    font-size: $font-size-xs;
-    font-weight: $font-weight-light;
+    @include text-primary-sm;
   }
 
   &--active {
@@ -35,7 +33,6 @@
     max-width: 130px;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-weight: $font-weight-normal;
     white-space: nowrap;
   }
 

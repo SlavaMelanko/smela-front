@@ -32,12 +32,12 @@
       "yourEmail": "your email"
     },
     "error": {
-      "format": "Enter a valid email address.",
+      "format": "Enter a valid email.",
       "required": "Email is required."
     },
     "example": "your@email.com",
     "label": "Email",
-    "placeholder": "Email address",
+    "placeholder": "Email",
     "verification": {
       "error": {
         "general": "Email verification failed.",
@@ -158,7 +158,7 @@
     },
     "label": "Password",
     "placeholder": {
-      "default": "Your password",
+      "default": "Password",
       "masked": "••••••••",
       "new": "New password"
     },
@@ -166,7 +166,7 @@
       "loginPrompt": "Remember your password?",
       "request": {
         "cta": "Send instructions",
-        "description": "Enter your email address and we will send you instructions to reset your password.",
+        "description": "Enter your email and we will send you instructions to reset your password.",
         "success": "Password reset instructions sent."
       },
       "set": {

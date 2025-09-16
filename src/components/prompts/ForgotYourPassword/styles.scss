@@ -1,6 +1,5 @@
-@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
 
 .forgot-your-password-prompt {
-  color: var(--text-secondary);
-  text-align: center;
+  @include text-secondary-sm;
 }

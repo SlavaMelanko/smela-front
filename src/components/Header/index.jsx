@@ -76,7 +76,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
     <>
       <header className='header'>
         <div className='header__logo'>
-          <Logo width={160} />
+          <Logo width={130} />
         </div>
 
         <nav className='header__nav'>

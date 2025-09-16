@@ -2,11 +2,11 @@
 
 .discount-badge {
   padding: 0.375rem $spacing-md;
-  font-size: $font-size-sm;
+  font-size: $font-size-md;
   font-weight: $font-weight-medium;
   color: var(--highlight-text);
   text-transform: uppercase;
-  background-color: var(--highlight-bg);
+  background-color: var(--highlight-bg-primary);
   border-radius: $border-radius-full;
   transition:
     background-color $transition-default,

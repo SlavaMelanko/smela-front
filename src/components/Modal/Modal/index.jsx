@@ -26,9 +26,7 @@ const Modal = ({
   const { closeModal } = useModal()
 
   const handleClose = () => {
-    if (onClose) {
-      onClose()
-    }
+    onClose?.()
 
     closeModal(id)
   }

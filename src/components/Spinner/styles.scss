@@ -19,9 +19,7 @@
   }
 
   &__text {
-    font-size: $font-size-sm;
-    color: var(--text-secondary);
-    text-align: center;
+    @include text-secondary-sm;
   }
 
   .loader-icon {

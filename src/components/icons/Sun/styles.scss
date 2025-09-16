@@ -4,7 +4,8 @@
 .sun-icon--primary {
   color: var(--orange);
 
-  &:hover {
-    color: var(--button-primary-hover);
+  &:hover,
+  &:focus {
+    color: var(--button-primary-accent);
   }
 }

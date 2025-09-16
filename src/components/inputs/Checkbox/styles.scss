@@ -33,7 +33,7 @@
       background-color $transition-default;
 
     &:hover {
-      border-color: var(--border-hover);
+      border-color: var(--border-accent);
     }
 
     &:focus {
@@ -61,7 +61,7 @@
 
     &:disabled {
       cursor: not-allowed;
-      background-color: var(--button-disabled-bg);
+      background-color: var(--button-disabled-color);
       border-color: var(--border-disabled);
       opacity: 0.6;
     }
@@ -98,7 +98,7 @@
     }
 
     .checkbox__label {
-      font-size: $font-size-xs;
+      font-size: $font-size-sm;
     }
   }
 
@@ -114,7 +114,7 @@
     }
 
     .checkbox__label {
-      font-size: $font-size-sm;
+      font-size: $font-size-md;
     }
   }
 
@@ -130,7 +130,7 @@
     }
 
     .checkbox__label {
-      font-size: $font-size-md;
+      font-size: $font-size-lg;
     }
   }
 

@@ -29,12 +29,19 @@
 @mixin button-base {
   width: auto;
   padding: 0.75rem $spacing-md;
+  font-size: $font-size-md;
   font-weight: $font-weight-medium;
   cursor: pointer;
   outline: none;
   border: none;
   border-radius: $border-radius-sm;
   transition: all $transition-default;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    box-shadow: $shadow-sm;
+  }
 }
 
 @mixin action-button-base {
@@ -50,7 +57,7 @@
   transition: all $transition-default;
 
   &:hover {
-    border-color: var(--border-hover);
+    border-color: var(--border-accent);
   }
 }
 
@@ -80,20 +87,59 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: var(--highlight-bg);
+    background-color: var(--highlight-bg-secondary);
   }
 }
 
-@mixin title-base($align: center) {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-semibold;
-  color: var(--text-primary);
+@mixin text($color, $size, $weight: $font-weight-normal, $align: center) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
   text-align: $align;
 }
 
-@mixin description-base($align: center) {
-  font-size: $font-size-sm;
-  font-weight: $font-weight-light;
-  color: var(--text-secondary);
-  text-align: $align;
+@mixin text-primary-xl-semibold {
+  @include text(var(--text-primary), $font-size-xl, $font-weight-semibold);
+}
+
+@mixin text-primary-md($align: center) {
+  @include text(
+    var(--text-primary),
+    $font-size-md,
+    $font-weight-normal,
+    $align
+  );
+}
+
+@mixin text-primary-md-medium($align: center) {
+  @include text(
+    var(--text-primary),
+    $font-size-md,
+    $font-weight-medium,
+    $align
+  );
+}
+
+@mixin text-primary-sm {
+  @include text(var(--text-primary), $font-size-sm, $font-weight-normal);
+}
+
+@mixin text-secondary-lg {
+  @include text(var(--text-secondary), $font-size-lg, $font-weight-normal);
+}
+
+@mixin text-secondary-md {
+  @include text(var(--text-secondary), $font-size-md, $font-weight-normal);
+}
+
+@mixin text-secondary-md-medium {
+  @include text(var(--text-secondary), $font-size-md, $font-weight-medium);
+}
+
+@mixin text-secondary-sm {
+  @include text(var(--text-secondary), $font-size-sm);
+}
+
+@mixin text-tertiary-xs-thin {
+  @include text(var(--text-tertiary), $font-size-xs, $font-weight-thin);
 }

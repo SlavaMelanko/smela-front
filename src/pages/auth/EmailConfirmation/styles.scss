@@ -13,10 +13,10 @@
   }
 
   &__title {
-    @include title-base;
+    @include text-primary-xl-semibold;
   }
 
   &__description {
-    @include description-base;
+    @include text-secondary-md;
   }
 }
