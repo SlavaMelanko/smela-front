@@ -36,6 +36,12 @@
   border: none;
   border-radius: $border-radius-sm;
   transition: all $transition-default;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    box-shadow: $shadow-sm;
+  }
 }
 
 @mixin action-button-base {

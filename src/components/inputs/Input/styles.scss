@@ -13,20 +13,18 @@
     border: 1px solid var(--border-color);
     border-radius: $border-radius-sm;
 
-    &:hover {
-      outline: none;
-      border-color: var(--border-accent);
-      box-shadow: 0 0 0 2px var(--button-bg);
-    }
-
+    &:hover,
     &:focus {
       outline: none;
-      border-color: var(--border-accent);
-      box-shadow: 0 0 0 2px var(--button-bg);
+      box-shadow: $shadow-xs;
     }
 
     &::placeholder {
       color: var(--text-tertiary);
+    }
+
+    &:focus::placeholder {
+      opacity: 0.5;
     }
 
     &--with-left-icon {
@@ -49,11 +47,10 @@
   }
 
   &__icon {
+    @include flex-center;
+
     position: absolute;
     top: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transform: translateY(-50%);
 
     &--left {
@@ -66,9 +63,8 @@
   }
 
   &__toggle-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center;
+
     height: 100%;
     padding: 0;
     cursor: pointer;
