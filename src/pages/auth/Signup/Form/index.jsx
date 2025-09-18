@@ -8,6 +8,7 @@ import FormField from '@/components/form/Field'
 import { PasswordInput, TextInput } from '@/components/inputs'
 import InvisibleReCaptcha2 from '@/components/InvisibleReCaptcha2'
 import useLocale from '@/hooks/useLocale'
+import { Role } from '@/lib/types'
 
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
@@ -22,7 +23,7 @@ const SignupForm = ({ onSubmit, isLoading = false }) => {
     formState: { errors, isSubmitting }
   } = useForm({
     resolver,
-    defaultValues: getDefaultValues()
+    defaultValues: getDefaultValues(Role.USER)
   })
 
   const handleSubmitForm = async data => {
