@@ -204,6 +204,7 @@ describe('Signup Form', () => {
         expect(onSubmitMock).toHaveBeenCalledWith(
           expect.objectContaining({
             email: auth.email.ok,
+            role: 'user',
             captchaToken: auth.captcha.valid
           })
         )
@@ -263,6 +264,7 @@ describe('Signup Form', () => {
             firstName: auth.firstName.ok,
             email: auth.email.ok,
             password: auth.password.strong,
+            role: 'user',
             captchaToken: auth.captcha.alternative
           })
         )
@@ -271,6 +273,26 @@ describe('Signup Form', () => {
   })
 
   describe('Form Submission', () => {
+    it('includes role field with user value in submission', async () => {
+      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
+      const onSubmitMock = jest.fn()
+      const { firstNameInput, emailInput, passwordInput, submitButton } =
+        renderForm(onSubmitMock)
+
+      await user.type(firstNameInput, auth.firstName.ok)
+      await user.type(emailInput, auth.email.ok)
+      await user.type(passwordInput, auth.password.strong)
+      await user.click(submitButton)
+
+      await waitFor(() => {
+        expect(onSubmitMock).toHaveBeenCalledWith(
+          expect.objectContaining({
+            role: 'user'
+          })
+        )
+      })
+    })
+
     it('handles form submission correctly', async () => {
       global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
       const onSubmitMock = jest.fn(
@@ -292,6 +314,7 @@ describe('Signup Form', () => {
             firstName: auth.firstName.ok,
             email: auth.email.ok,
             password: auth.password.strong,
+            role: 'user',
             captchaToken: auth.captcha.valid
           })
         )
@@ -323,6 +346,7 @@ describe('Signup Form', () => {
             lastName: auth.lastName.ok,
             email: auth.email.ok,
             password: auth.password.strong,
+            role: 'user',
             captchaToken: auth.captcha.alternative
           })
         )
@@ -347,6 +371,7 @@ describe('Signup Form', () => {
             firstName: auth.firstName.ok,
             email: auth.email.ok,
             password: auth.password.strong,
+            role: 'user',
             captchaToken: auth.captcha.alternative
           })
         )
