@@ -1,50 +1,24 @@
-echo "Running pre-commit hook..."
-
+#!/bin/sh
 set -e
 
+# Get list of staged files for processing
 STAGED_FILES=$(git diff --name-only --cached)
 
-SORT_JSON_PATH="public/locales/*.json"
+# Sort JSON locale files alphabetically
+npx sort-json public/locales/*.json
 
-echo "Sorting locales in $SORT_JSON_PATH..."
-
-npx sort-json $SORT_JSON_PATH
-
-echo "JSON files checked✅"
-
-echo "Running lint-staged..."
-
+# Run linting and formatting on staged files
 npx lint-staged
 
-echo "Lint staged completed✅"
-
-echo "Checking for staged styles..."
-STAGED_STYLES=$(echo "$STAGED_FILES" | grep -E '\.scss$|\.css$' || true)
-
-if [ -n "$STAGED_STYLES" ]; then
-  echo "Affected styles files: $STAGED_STYLES"
-  echo "Running styles linting..."
-  npm run lint:styles:fix
-  echo "Styles linting completed✅"
-else
-  echo "No styles to lint. Stylelint skipped!"
-fi
-
-echo "Testing committed files..."
+# Run unit tests for staged JS files
 STAGED_JS=$(echo "$STAGED_FILES" | grep -E '\.js$|\.jsx$' || true)
-
 if [ -n "$STAGED_JS" ]; then
-  if ! npx --no-install jest --version > /dev/null 2>&1; then
-    echo "Jest is not installed. Skipping unit tests."
-  else
-    echo "Affected JS files: $STAGED_JS"
-    echo "Running related unit tests..."
+  if npx --no-install jest --version > /dev/null 2>&1; then
     npx jest --findRelatedTests $STAGED_JS --passWithNoTests
   fi
-else
-  echo "No JS files to test. Unit tests skipped!"
 fi
 
+# Re-add files that were modified by linters
 for file in $STAGED_FILES; do
   if [ -f "$file" ] && ! git diff --quiet "$file"; then
     git add "$file"
@@ -56,5 +30,3 @@ for file in $STAGED_FILES; do
     git add "$file"
   fi
 done
-
-echo "May the force be with you!🚀"

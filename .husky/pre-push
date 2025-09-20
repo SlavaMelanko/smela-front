@@ -1,6 +1,4 @@
-echo "Run affected playwright tests..."
+#!/bin/sh
+
+# Run end-to-end tests before pushing
 npm run e2e:ci
-
-echo "pre-push activities finished!"
-
-echo "Don't push on main branch on Friday!🚀"

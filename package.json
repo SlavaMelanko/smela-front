@@ -27,8 +27,11 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "eslint --max-warnings=0",
+      "eslint --max-warnings=0 --fix",
       "prettier --ignore-unknown --write"
+    ],
+    "*.{scss,css}": [
+      "stylelint --fix"
     ]
   },
   "dependencies": {
