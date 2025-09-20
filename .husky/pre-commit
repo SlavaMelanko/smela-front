@@ -11,10 +11,12 @@ npx sort-json public/locales/*.json
 npx lint-staged
 
 # Run unit tests for staged JS files
-STAGED_JS=$(echo "$STAGED_FILES" | grep -E '\.js$|\.jsx$' || true)
-if [ -n "$STAGED_JS" ]; then
-  if npx --no-install jest --version > /dev/null 2>&1; then
-    npx jest --findRelatedTests $STAGED_JS --passWithNoTests
+if [ -n "$STAGED_FILES" ]; then
+  STAGED_JS=$(echo "$STAGED_FILES" | grep -E '\.js$|\.jsx$' || true)
+  if [ -n "$STAGED_JS" ]; then
+    if npx --no-install jest --version > /dev/null 2>&1; then
+      npx jest --findRelatedTests $STAGED_JS --passWithNoTests
+    fi
   fi
 fi
 
