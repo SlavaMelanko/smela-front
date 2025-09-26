@@ -1,6 +1,14 @@
 import './styles.scss'
 
+import { useNavigate } from 'react-router-dom'
+
 const Logo = ({ width, height, className = '' }) => {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate('/')
+  }
+
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -8,6 +16,17 @@ const Logo = ({ width, height, className = '' }) => {
       width={width}
       height={height}
       className={className}
+      onClick={handleClick}
+      style={{ cursor: 'pointer', outline: 'none' }}
+      role='button'
+      tabIndex={0}
+      onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          handleClick()
+        }
+      }}
+      aria-label='Navigate to home page'
     >
       <path fill='none' d='M0 0h1000v600H0z' />
       <g transform='matrix(.49778 0 0 .49778 93.75 112.225)'>
