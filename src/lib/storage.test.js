@@ -1,29 +1,29 @@
 import storage from './storage'
 
-// Mock localStorage
-const mockLocalStorage = {
-  data: {},
-  getItem(key) {
-    return this.data[key] || null
-  },
-  setItem(key, value) {
-    this.data[key] = value
-  },
-  removeItem(key) {
-    delete this.data[key]
-  },
-  clear() {
-    this.data = {}
-  }
-}
-
-// Setup mock
-Object.defineProperty(window, 'localStorage', {
-  value: mockLocalStorage
-})
-
 describe('storage', () => {
+  let mockLocalStorage
+
   beforeEach(() => {
+    mockLocalStorage = {
+      data: {},
+      getItem(key) {
+        return this.data[key] || null
+      },
+      setItem(key, value) {
+        this.data[key] = value
+      },
+      removeItem(key) {
+        delete this.data[key]
+      },
+      clear() {
+        this.data = {}
+      }
+    }
+
+    Object.defineProperty(window, 'localStorage', {
+      value: mockLocalStorage
+    })
+
     mockLocalStorage.clear()
   })
 

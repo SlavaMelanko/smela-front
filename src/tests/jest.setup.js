@@ -12,8 +12,8 @@ global.TextDecoder = TextDecoder
 // Mock fetch globally for all tests
 global.fetch = jest.fn()
 
-// Clean up DOM and mocks after each test
-afterEach(() => {
+// Clean up DOM and mocks after all tests
+afterAll(() => {
   cleanup()
   jest.restoreAllMocks() // calls clearAllMocks() internally
 })
