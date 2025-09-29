@@ -49,7 +49,7 @@ const ReactQueryDevtools = import.meta.env.DEV
  * </QueryClientProvider>
  * ```
  */
-const TanStackDevTools = () => {
+const TanStackDevTools = ({ position = 'bottom-left' }) => {
   // Only render in development mode
   if (!import.meta.env.DEV) {
     return null
@@ -59,7 +59,7 @@ const TanStackDevTools = () => {
     <>
       {/* React Query DevTools */}
       <Suspense fallback={null}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ReactQueryDevtools initialIsOpen={false} buttonPosition={position} />
       </Suspense>
 
       {/* Future: TanStack Router DevTools */}
