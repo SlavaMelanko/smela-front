@@ -5,8 +5,8 @@ import { useEffect } from 'react'
 
 import useModal from '@/hooks/useModal'
 
-import ModalContent from '../ModalContent'
-import ModalOverlay from '../ModalOverlay'
+import ModalContent from './Content'
+import ModalOverlay from './Overlay'
 
 const Modal = ({
   id,
@@ -26,15 +26,15 @@ const Modal = ({
   const { closeModal } = useModal()
 
   const handleClose = () => {
-    if (onClose) {
-      onClose()
-    }
+    onClose?.()
 
     closeModal(id)
   }
 
   useEffect(() => {
-    if (!isOpen || !preserveScrollBarGap) return
+    if (!isOpen || !preserveScrollBarGap) {
+      return
+    }
 
     const scrollBarWidth =
       window.innerWidth - document.documentElement.clientWidth

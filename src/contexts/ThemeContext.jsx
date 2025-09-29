@@ -32,14 +32,14 @@ export const ThemeProvider = ({ children }) => {
     root.classList.remove('light', 'dark')
     root.classList.add(theme)
 
-    // Ensure browser-native UI (like form controls and scrollbars) match the theme.
+    // Ensure browser-native UI (like form controls and scrollbars) match the theme
     root.style.colorScheme = theme
   }, [theme])
 
   const toggleTheme = useCallback(() => {
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'))
 
-    // Clear toasts when theme is toggled to avoid visual glitches.
+    // Clear toasts when theme is toggled to avoid visual glitches
     toasts.clear()
   }, [])
 

@@ -9,7 +9,7 @@
 
   &__label {
     display: block;
-    font-size: $font-size-sm;
+    font-size: $font-size-md;
     font-weight: $font-weight-medium;
     line-height: $line-height-md;
     color: var(--text-primary);
@@ -30,9 +30,9 @@
   &__error {
     position: absolute;
     top: 100%;
-    min-height: min-height-from-font($font-size-xs);
+    min-height: min-height-from-font($font-size-sm);
     overflow: hidden;
-    font-size: $font-size-xs;
+    font-size: $font-size-sm;
     color: var(--text-error);
     white-space: nowrap;
     opacity: 0;

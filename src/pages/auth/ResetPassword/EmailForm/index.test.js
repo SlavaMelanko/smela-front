@@ -1,9 +1,9 @@
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import en from '@/locales/en.json'
 import { renderWithProviders } from '@/tests'
 import { auth } from '@/tests/data'
+import en from '$/locales/en.json'
 
 import ResetPasswordForm from '.'
 
@@ -11,14 +11,12 @@ const renderForm = (onSubmit = jest.fn()) => {
   renderWithProviders(<ResetPasswordForm onSubmit={onSubmit} />)
 
   const emailInput = screen.getByPlaceholderText(en.email.example)
-  const captchaButton = screen.getByTestId(auth.captcha.id)
   const submitButton = screen.getByRole('button', {
-    name: en.resetPassword.cta
+    name: en.password.reset.request.cta
   })
 
   return {
     emailInput,
-    captchaButton,
     submitButton
   }
 }
@@ -28,23 +26,22 @@ describe('Reset password form', () => {
 
   beforeEach(() => {
     user = userEvent.setup()
+    jest.clearAllMocks()
   })
 
   it('displays the reset form fields', () => {
-    const { emailInput, captchaButton, submitButton } = renderForm()
+    const { emailInput, submitButton } = renderForm()
 
     expect(emailInput).toBeInTheDocument()
-    expect(captchaButton).toBeInTheDocument()
     expect(submitButton).toBeInTheDocument()
   })
 
-  it('shows validation errors for missing email and captcha', async () => {
+  it('shows validation error for missing email', async () => {
     const { submitButton } = renderForm()
 
     await user.click(submitButton)
 
     expect(screen.getByText(en.email.error.required)).toBeInTheDocument()
-    expect(screen.getByText(en.captcha.error)).toBeInTheDocument()
   })
 
   it('shows an error when email format is invalid', async () => {
@@ -57,11 +54,11 @@ describe('Reset password form', () => {
   })
 
   it('shows loading state during form submission', async () => {
+    global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
     const onSubmitMock = jest.fn(() => new Promise(res => setTimeout(res, 500)))
-    const { emailInput, captchaButton, submitButton } = renderForm(onSubmitMock)
+    const { emailInput, submitButton } = renderForm(onSubmitMock)
 
     await user.type(emailInput, auth.email.ok)
-    await user.click(captchaButton)
     await user.click(submitButton)
 
     await waitFor(() => {
@@ -72,18 +69,40 @@ describe('Reset password form', () => {
   })
 
   it('submits the form successfully with valid email and captcha', async () => {
+    global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
     const onSubmitMock = jest.fn()
-    const { emailInput, captchaButton, submitButton } = renderForm(onSubmitMock)
+    const { emailInput, submitButton } = renderForm(onSubmitMock)
 
     await user.type(emailInput, auth.email.ok)
-    await user.click(captchaButton)
     await user.click(submitButton)
 
-    expect(onSubmitMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        email: auth.email.ok,
-        captcha: auth.captcha.value
-      })
-    )
+    await waitFor(() => {
+      expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          email: auth.email.ok,
+          captchaToken: auth.captcha.valid
+        })
+      )
+    })
+  })
+
+  it('handles reCAPTCHA failure gracefully', async () => {
+    global.mockExecuteReCaptcha.mockResolvedValue(null)
+    const onSubmitMock = jest.fn()
+    const { emailInput, submitButton } = renderForm(onSubmitMock)
+
+    await user.type(emailInput, auth.email.ok)
+    await user.click(submitButton)
+
+    await waitFor(() => {
+      expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          email: auth.email.ok,
+          captchaToken: null
+        })
+      )
+    })
   })
 })

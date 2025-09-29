@@ -4,5 +4,11 @@
   "jsxSingleQuote": true,
   "arrowParens": "avoid",
   "trailingComma": "none",
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "proseWrap": "always"
 }

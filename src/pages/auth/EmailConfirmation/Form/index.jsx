@@ -1,44 +1,31 @@
 import './styles.scss'
 
-import { useState } from 'react'
+import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { PrimaryButton } from '@/components/buttons'
-import Captcha from '@/components/Captcha'
-import FormField from '@/components/form/Field'
+import InvisibleReCaptcha2 from '@/components/InvisibleReCaptcha2'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
-import resolver from './resolver'
 
-const EmailConfirmationForm = ({ onSubmit }) => {
+const EmailConfirmationForm = ({ isLoading, userEmail, onSubmit }) => {
   const { t } = useLocale()
-  const [captchaResetKey, setCaptchaResetKey] = useState(0)
+  const recaptchaRef = useRef(null)
 
   const {
     handleSubmit,
-    setValue,
-    reset,
-    formState: { errors, isSubmitting }
+    formState: { isSubmitting }
   } = useForm({
-    resolver,
-    defaultValues: getDefaultValues()
+    defaultValues: getDefaultValues(userEmail)
   })
 
-  const setToken = token => {
-    setValue(FieldName.CAPTCHA, token, { shouldValidate: true })
-  }
-
-  const resetFormAndCaptcha = () => {
-    setCaptchaResetKey(prev => prev + 1)
-
-    reset()
-  }
-
   const handleSubmitForm = async data => {
+    const captchaToken = await recaptchaRef.current?.executeAsync()
+
     await onSubmit({
       ...data,
-      reset: resetFormAndCaptcha
+      [FieldName.CAPTCHA_TOKEN]: captchaToken
     })
   }
 
@@ -47,19 +34,13 @@ const EmailConfirmationForm = ({ onSubmit }) => {
       className='email-confirmation-form'
       onSubmit={handleSubmit(handleSubmitForm)}
     >
-      <div className='email-confirmation-form__fields'>
-        <FormField
-          name={FieldName.CAPTCHA}
-          error={errors[FieldName.CAPTCHA]}
-          required
-        >
-          <Captcha key={captchaResetKey} setToken={setToken} />
-        </FormField>
-      </div>
-
       <PrimaryButton type='submit' disabled={isSubmitting}>
-        {isSubmitting ? t('processing') : t('confirmationEmail.cta')}
+        {isSubmitting || isLoading
+          ? t('processing')
+          : t('email.confirmation.cta')}
       </PrimaryButton>
+
+      <InvisibleReCaptcha2 ref={recaptchaRef} />
     </form>
   )
 }

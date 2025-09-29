@@ -1,0 +1,28 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.pagination-container {
+  display: flex;
+  gap: $spacing-2xl;
+  align-items: center;
+  justify-content: flex-end;
+  height: 42px;
+  color: var(--text-secondary);
+
+  &__rows-per-page {
+    @include flex-center;
+
+    gap: $spacing-md;
+  }
+
+  &__page-buttons {
+    @include flex-center;
+
+    gap: $spacing-md;
+  }
+
+  // Make pagination buttons subtle without visual emphasis
+  .secondary-button {
+    border: 1px solid transparent;
+  }
+}

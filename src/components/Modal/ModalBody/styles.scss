@@ -3,28 +3,14 @@
 
 .modal-body {
   flex: 1;
+  gap: $spacing-md;
+  padding: $spacing-md $spacing-lg;
   line-height: $line-height-md;
   color: var(--text-primary);
 
   &--dividers {
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
-  }
-
-  &--padding-none {
-    padding: 0;
-  }
-
-  &--padding-sm {
-    padding: $spacing-md $spacing-xl;
-  }
-
-  &--padding-default {
-    padding: $spacing-lg $spacing-xl;
-  }
-
-  &--padding-lg {
-    padding: $spacing-xl $spacing-2xl;
   }
 
   &--scrollable {
@@ -46,7 +32,7 @@
       border-radius: $border-radius-full;
 
       &:hover {
-        background-color: var(--border-hover);
+        background-color: var(--border-accent);
       }
     }
   }

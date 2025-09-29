@@ -2,24 +2,25 @@
 
 .internal-link {
   font-weight: $font-weight-medium;
-  color: #7678ed;
+  color: var(--link-primary);
   text-decoration: none;
   transition: color 0.3s;
 
-  &:hover {
-    color: #5658cd;
+  &:hover,
+  &:focus {
+    color: var(--link-accent);
   }
 
   &--sm {
-    font-size: $font-size-xs;
-  }
-
-  &--md {
     font-size: $font-size-sm;
   }
 
-  &--lg {
+  &--md {
     font-size: $font-size-md;
+  }
+
+  &--lg {
+    font-size: $font-size-lg;
   }
 
   &--underline-hover {

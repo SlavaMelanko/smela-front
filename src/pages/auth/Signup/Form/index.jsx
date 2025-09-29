@@ -1,18 +1,21 @@
 import './styles.scss'
 
+import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { PrimaryButton } from '@/components/buttons'
 import FormField from '@/components/form/Field'
 import { PasswordInput, TextInput } from '@/components/inputs'
-import InternalLink from '@/components/links/InternalLink'
+import InvisibleReCaptcha2 from '@/components/InvisibleReCaptcha2'
 import useLocale from '@/hooks/useLocale'
+import { Role } from '@/lib/types'
 
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-const SignupForm = ({ onSubmit }) => {
+const SignupForm = ({ onSubmit, isLoading = false }) => {
   const { t } = useLocale()
+  const recaptchaRef = useRef(null)
 
   const {
     register,
@@ -20,11 +23,20 @@ const SignupForm = ({ onSubmit }) => {
     formState: { errors, isSubmitting }
   } = useForm({
     resolver,
-    defaultValues: getDefaultValues()
+    defaultValues: getDefaultValues(Role.USER)
   })
 
+  const handleSubmitForm = async data => {
+    const captchaToken = await recaptchaRef.current?.executeAsync()
+
+    onSubmit({
+      ...data,
+      [FieldName.CAPTCHA_TOKEN]: captchaToken
+    })
+  }
+
   return (
-    <form className='signup-form' onSubmit={handleSubmit(onSubmit)}>
+    <form className='signup-form' onSubmit={handleSubmit(handleSubmitForm)}>
       <div className='signup-form__fields'>
         <FormField
           label={t('firstName.label')}
@@ -38,7 +50,11 @@ const SignupForm = ({ onSubmit }) => {
           />
         </FormField>
 
-        <FormField label={t('lastName.label')} name={FieldName.LAST_NAME}>
+        <FormField
+          label={t('lastName.label')}
+          name={FieldName.LAST_NAME}
+          error={errors[FieldName.LAST_NAME]}
+        >
           <TextInput
             placeholder={t('lastName.example')}
             {...register(FieldName.LAST_NAME)}
@@ -68,23 +84,13 @@ const SignupForm = ({ onSubmit }) => {
             {...register(FieldName.PASSWORD)}
           />
         </FormField>
-
-        <p className='signup-form__terms-and-conditions'>
-          {t('termsAndPrivacy.prefix')}{' '}
-          <InternalLink to='/terms' size='sm' newTab>
-            {t('termsAndPrivacy.termsLink')}
-          </InternalLink>{' '}
-          {t('termsAndPrivacy.middle')}{' '}
-          <InternalLink to='/privacy' size='sm' newTab>
-            {t('termsAndPrivacy.privacyLink')}
-          </InternalLink>
-          {'.'}
-        </p>
       </div>
 
-      <PrimaryButton type='submit' disabled={isSubmitting}>
-        {isSubmitting ? t('processing') : t('signUp')}
+      <PrimaryButton type='submit' disabled={isSubmitting || isLoading}>
+        {isSubmitting || isLoading ? t('processing') : t('signUp')}
       </PrimaryButton>
+
+      <InvisibleReCaptcha2 ref={recaptchaRef} />
     </form>
   )
 }

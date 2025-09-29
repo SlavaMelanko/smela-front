@@ -1,0 +1,17 @@
+.logo {
+  &__circle {
+    fill: var(--text-primary);
+  }
+
+  &__inner-circle {
+    fill: var(--bg-primary);
+  }
+
+  &__symbol {
+    fill: var(--text-primary);
+  }
+
+  &__text {
+    fill: var(--text-primary);
+  }
+}

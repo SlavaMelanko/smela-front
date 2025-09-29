@@ -1,9 +1,11 @@
 const FieldName = {
-  CAPTCHA: 'captcha'
+  USER_EMAIL: 'email',
+  CAPTCHA_TOKEN: 'captchaToken'
 }
 
-const getDefaultValues = () => ({
-  [FieldName.CAPTCHA]: ''
+const getDefaultValues = userEmail => ({
+  [FieldName.USER_EMAIL]: userEmail || '',
+  [FieldName.CAPTCHA_TOKEN]: ''
 })
 
 export { FieldName, getDefaultValues }

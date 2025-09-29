@@ -4,9 +4,9 @@
 .notification-panel {
   position: fixed;
   top: calc($header-height + 1rem); // space between header and panel
-  right: $font-size-sm; // space from right edge
+  right: $font-size-md; // space from right edge
   width: 100%;
-  max-width: 28rem;
+  max-width: $container-width-sm;
   height: calc(100vh - $header-height - 2rem); // top + bottom spacing
   padding: $spacing-xl;
   overflow-y: auto;
@@ -14,7 +14,7 @@
   border: 1px solid var(--border-color);
   border-radius: $border-radius-md;
   box-shadow: $shadow-lg;
-  transform: translateX(calc(100% + $font-size-sm));
+  transform: translateX(calc(100% + $font-size-md));
   transition: transform $transition-default;
 
   &--open {
@@ -22,8 +22,8 @@
   }
 
   @media (max-width: $breakpoint-md) {
-    right: $font-size-sm;
-    left: $font-size-sm;
+    right: $font-size-md;
+    left: $font-size-md;
     width: auto;
     max-width: none;
   }
@@ -56,7 +56,7 @@
   }
 
   &__empty {
-    font-size: $font-size-xs;
+    font-size: $font-size-sm;
     color: var(--text-secondary);
     text-align: center;
   }

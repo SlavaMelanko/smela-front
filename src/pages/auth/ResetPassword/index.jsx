@@ -1,11 +1,12 @@
 import './styles.scss'
 
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { LoginPrompt } from '@/components/prompts'
+import { useRequestPasswordReset, useResetPassword } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
-import { confirmNewPassword, sendPasswordResetLink } from '@/services/firebase'
+import useUrlParams from '@/hooks/useUrlParams'
 
 import EmailForm from './EmailForm'
 import PasswordForm from './PasswordForm'
@@ -14,51 +15,68 @@ const ResetPassword = () => {
   const { t } = useLocale()
   const { showSuccessToast, showErrorToast } = useNotifications()
   const navigate = useNavigate()
-  const [params] = useSearchParams()
-  const oobCode = params.get('oobCode')
+  const { token } = useUrlParams(['token'])
+  const { mutate: requestPasswordReset, isPending: isRequestPending } =
+    useRequestPasswordReset()
+  const { mutate: resetPassword, isPending: isResetPending } =
+    useResetPassword()
 
-  const isStarting = !oobCode
+  const isRequest = !token
 
-  const handleSendResetLink = async ({ email, reset }) => {
-    try {
-      await sendPasswordResetLink(email)
-      showSuccessToast(t('resetPassword.success'))
+  const handleRequestPasswordReset = data => {
+    if (!data.captchaToken) {
+      showErrorToast(t('captcha.error'))
 
-      if (reset) {
-        reset()
-      }
-    } catch {
-      showErrorToast(t('error.unknown'))
+      return
     }
+
+    requestPasswordReset(data, {
+      onSuccess: () => {
+        showSuccessToast(t('password.reset.request.success'))
+      },
+      onError: () => {
+        showErrorToast(t('error.unknown'))
+      }
+    })
   }
 
-  const handleCompleteReset = async ({ newPassword }) => {
-    try {
-      await confirmNewPassword(oobCode, newPassword)
-      navigate('/login')
-
-      showSuccessToast(t('resetPassword.resetSuccess'))
-    } catch {
-      showErrorToast(t('resetPassword.error'))
-    }
+  const handleResetPassword = ({ newPassword }) => {
+    resetPassword(
+      { token, password: newPassword },
+      {
+        onSuccess: () => {
+          showSuccessToast(t('password.reset.set.success'))
+          navigate('/login')
+        },
+        onError: () => {
+          showErrorToast(t('password.reset.set.error'))
+        }
+      }
+    )
   }
 
   return (
     <div className='reset-password-page'>
       <p className='reset-password-page__description'>
-        {isStarting
-          ? t('resetPassword.description')
-          : t('resetPassword.newPassword')}
+        {isRequest
+          ? t('password.reset.request.description')
+          : t('password.reset.set.description')}
       </p>
 
-      {isStarting ? (
-        <EmailForm onSubmit={handleSendResetLink} />
+      {isRequest ? (
+        <EmailForm
+          onSubmit={handleRequestPasswordReset}
+          isLoading={isRequestPending}
+        />
       ) : (
-        <PasswordForm onSubmit={handleCompleteReset} />
+        <PasswordForm
+          onSubmit={handleResetPassword}
+          isLoading={isResetPending}
+        />
       )}
 
       <div className='reset-password-page__prompts'>
-        <LoginPrompt question={t('resetPassword.loginPrompt')} />
+        <LoginPrompt question={t('password.reset.loginPrompt')} />
       </div>
     </div>
   )

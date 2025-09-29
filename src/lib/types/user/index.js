@@ -1,3 +1,4 @@
-import UserStatus from './status'
+import Role from './role'
+import UserStatus, { adminActiveStatuses, userActiveStatuses } from './status'
 
-export { UserStatus }
+export { adminActiveStatuses, Role, userActiveStatuses, UserStatus }

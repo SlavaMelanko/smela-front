@@ -2,12 +2,10 @@ import './styles.scss'
 
 import clsx from 'clsx'
 
-import { ChevronDownIcon } from '@/components/icons'
+import { DropdownList } from '@/components/dropdowns'
 import useLocale from '@/hooks/useLocale'
 import useOutsideClick from '@/hooks/useOutsideClick'
-import toasts from '@/lib/toasts'
 
-import Dropdown from './Dropdown'
 import Flag from './Flag'
 import { languages } from './languages'
 
@@ -22,13 +20,14 @@ const LanguageSelector = ({ className = '' }) => {
 
   const toggle = () => setIsActive(prev => !prev)
 
-  const handleSelect = lang => {
-    changeLocale(lang.id)
-    setIsActive(false)
-
-    // Clear toasts when language is changed to avoid visual glitches.
-    toasts.clear()
-  }
+  const languageMenu = languages.map(lang => ({
+    label: lang.name,
+    icon: <Flag className='language-selector__flag' code={lang.code} />,
+    onClick: () => {
+      changeLocale(lang.id)
+      setIsActive(false)
+    }
+  }))
 
   return (
     <div className={clsx('language-selector', className)} ref={ref}>
@@ -39,12 +38,7 @@ const LanguageSelector = ({ className = '' }) => {
       >
         <Flag className='language-selector__flag' code={currentLanguage.code} />
       </button>
-      <Dropdown
-        className={clsx(isActive && 'language-selector__dropdown--open')}
-        languages={languages}
-        currentLanguage={currentLanguage}
-        onSelect={handleSelect}
-      />
+      <DropdownList menu={languageMenu} isOpen={isActive} />
     </div>
   )
 }

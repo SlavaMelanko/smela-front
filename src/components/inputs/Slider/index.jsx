@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import useLocale from '@/hooks/useLocale'
 
 const Slider = ({ value = 1, onChange, min, max, presetValues, unit }) => {
-  const { formatNumber } = useLocale()
+  const { formatNumberWithUnit } = useLocale()
 
   const labels = [min, Math.floor(max / 2), max]
   const progress = (value / max) * 100
@@ -18,14 +18,12 @@ const Slider = ({ value = 1, onChange, min, max, presetValues, unit }) => {
     onChange(val)
   }
 
-  const formatWithUnit = val => `${formatNumber(val)} ${unit}`
-
   return (
     <div className='slider'>
       <div className='slider__labels'>
         {labels.map(val => (
           <span key={val} className='slider__label'>
-            {formatWithUnit(val)}
+            {formatNumberWithUnit(val, unit)}
           </span>
         ))}
       </div>
@@ -52,7 +50,7 @@ const Slider = ({ value = 1, onChange, min, max, presetValues, unit }) => {
               'slider__preset--active': value === val
             })}
           >
-            {formatWithUnit(val)}
+            {formatNumberWithUnit(val, unit)}
           </button>
         ))}
       </div>

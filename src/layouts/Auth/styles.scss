@@ -16,7 +16,7 @@
 
     gap: $spacing-2xl;
     width: 100%;
-    max-width: 28rem; // 448px ~ md
+    max-width: $container-width-sm;
   }
 
   &__header {
@@ -27,8 +27,5 @@
 
   &__content {
     padding: 0 $spacing-2xl;
-    background-color: var(--bg-primary);
-    border-radius: $border-radius-md;
-    transition: all $transition-default;
   }
 }

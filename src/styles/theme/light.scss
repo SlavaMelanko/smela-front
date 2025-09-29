@@ -11,35 +11,37 @@
   --red: #dc2626;
 
   // Background colors
-  --bg-primary: #f9fafb;
+  --bg-primary: #f7f7f7;
   --bg-secondary: #fff;
+  --bg-tertiary: #eaeaea;
 
   // Text colors
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
-  --text-disabled: #9ca3af;
+  --text-primary: #141414;
+  --text-secondary: #5c5c5c;
+  --text-tertiary: #a0a0a0;
   --text-error: var(--red);
 
   // Border colors
   --border-color: #e5e7eb;
-  --border-hover: #e9d5ff;
-  --border-disabled: #d1d5db;
+  --border-accent: #e9d5ff;
+  --border-disabled: #f0f0f0;
   --border-error: var(--red);
 
   // Highlight/emphasis colors for user attention
-  --highlight-bg: #fce7f3;
+  --highlight-bg-primary: #fce7f3;
+  --highlight-bg-secondary: #fdf2f8;
   --highlight-text: #be185d;
 
   // Button colors
-  --button-primary-bg: var(--orange);
-  --button-primary-hover: #f8826e;
-  --button-offer-bg: var(--purple);
-  --button-offer-hover: #7e22ce;
-  --button-disabled-bg: #f3f4f6;
+  --button-primary-color: var(--text-primary);
+  --button-primary-accent: #2a2a2a;
+  --button-offer-color: var(--purple);
+  --button-offer-accent: #7c2ccf;
+  --button-disabled-color: var(--bg-primary);
 
-  // Gradient colors
-  --gradient-start: #fff;
-  --gradient-end: #f5f3ff;
+  // Link colors
+  --link-primary: #7678ed;
+  --link-accent: #5658cd;
 
   // Shadow color
   --shadow-color: rgb(0 0 0 / 10%);

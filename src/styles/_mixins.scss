@@ -27,18 +27,27 @@
 }
 
 @mixin button-base {
-  width: 100%;
+  width: auto;
   padding: 0.75rem $spacing-md;
+  font-size: $font-size-md;
   font-weight: $font-weight-medium;
   cursor: pointer;
+  outline: none;
   border: none;
   border-radius: $border-radius-sm;
   transition: all $transition-default;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    box-shadow: $shadow-sm;
+  }
 }
 
 @mixin action-button-base {
   @include flex-center;
 
+  gap: $spacing-xs;
   padding: $spacing-xs;
   color: var(--text-primary);
   cursor: pointer;
@@ -48,62 +57,7 @@
   transition: all $transition-default;
 
   &:hover {
-    border-color: var(--border-hover);
-  }
-}
-
-@mixin dropdown-base {
-  position: absolute;
-  top: $spacing-xl;
-  right: 0;
-  width: 12rem;
-  margin-top: $spacing-xs;
-  pointer-events: none;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: $border-radius-sm;
-  box-shadow: $shadow-sm;
-  opacity: 0;
-  transition: 0.3s all;
-
-  &--open {
-    top: 2.5rem;
-    pointer-events: all;
-    opacity: 1;
-  }
-}
-
-@mixin dropdown-item-base {
-  display: flex;
-  gap: $spacing-sm;
-  align-items: center;
-  width: 100%;
-  padding: $spacing-sm $spacing-md;
-  text-align: left;
-  cursor: pointer;
-  background: none;
-  border: none;
-
-  &:hover {
-    background-color: var(--highlight-bg);
-  }
-
-  &--active {
-    background-color: var(--highlight-bg);
-  }
-
-  &--first {
-    border-top-left-radius: $border-radius-sm;
-    border-top-right-radius: $border-radius-sm;
-  }
-
-  &--last {
-    border-bottom-right-radius: $border-radius-sm;
-    border-bottom-left-radius: $border-radius-sm;
-  }
-
-  &--danger {
-    color: var(--text-error);
+    border-color: var(--border-accent);
   }
 }
 
@@ -133,6 +87,59 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: var(--highlight-bg);
+    background-color: var(--highlight-bg-secondary);
   }
+}
+
+@mixin text($color, $size, $weight: $font-weight-normal, $align: center) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+  text-align: $align;
+}
+
+@mixin text-primary-xl-semibold {
+  @include text(var(--text-primary), $font-size-xl, $font-weight-semibold);
+}
+
+@mixin text-primary-md($align: center) {
+  @include text(
+    var(--text-primary),
+    $font-size-md,
+    $font-weight-normal,
+    $align
+  );
+}
+
+@mixin text-primary-md-medium($align: center) {
+  @include text(
+    var(--text-primary),
+    $font-size-md,
+    $font-weight-medium,
+    $align
+  );
+}
+
+@mixin text-primary-sm {
+  @include text(var(--text-primary), $font-size-sm, $font-weight-normal);
+}
+
+@mixin text-secondary-lg {
+  @include text(var(--text-secondary), $font-size-lg, $font-weight-normal);
+}
+
+@mixin text-secondary-md {
+  @include text(var(--text-secondary), $font-size-md, $font-weight-normal);
+}
+
+@mixin text-secondary-md-medium {
+  @include text(var(--text-secondary), $font-size-md, $font-weight-medium);
+}
+
+@mixin text-secondary-sm {
+  @include text(var(--text-secondary), $font-size-sm);
+}
+
+@mixin text-tertiary-xs-thin {
+  @include text(var(--text-tertiary), $font-size-xs, $font-weight-thin);
 }

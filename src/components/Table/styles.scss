@@ -1,0 +1,66 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.table {
+  width: 100%;
+  overflow: hidden;
+  color: var(--text-primary);
+  border-collapse: collapse;
+  background: var(--bg-secondary);
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+
+  th,
+  td {
+    padding: 0.75rem $spacing-md;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+  }
+
+  th {
+    position: relative;
+    font-weight: $font-weight-semibold;
+    color: var(--text-primary);
+    user-select: none;
+    background: var(--bg-primary);
+    transition: background $transition-default;
+
+    &:hover {
+      background: var(--bg-secondary);
+    }
+  }
+
+  tr {
+    transition: background $transition-default;
+
+    &:hover {
+      background: var(--bg-primary);
+    }
+  }
+
+  &__header-resizer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    touch-action: none;
+    cursor: col-resize;
+    user-select: none;
+    background: transparent;
+    border-radius: $border-radius-full;
+    opacity: 0;
+    transition: opacity $transition-default;
+
+    &--active {
+      background: var(--blue);
+      opacity: 1;
+    }
+
+    &:hover {
+      background: var(--border-color);
+      opacity: 1;
+    }
+  }
+}

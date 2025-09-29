@@ -1,48 +1,60 @@
 import './styles.scss'
 
-import useAuth from '@/hooks/useAuth'
+import { useLocation } from 'react-router-dom'
+
+import { useCurrentUser, useResendVerificationEmail } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
 import { toTranslationKey } from '@/services/catch'
-import { sendVerificationEmail } from '@/services/firebase'
 
 import EmailConfirmationForm from './Form'
 
 const EmailConfirmation = () => {
   const { t } = useLocale()
-  const { profile } = useAuth()
+  const location = useLocation()
+  const { mutate: resendVerificationEmail, isPending } =
+    useResendVerificationEmail()
   const { showSuccessToast, showErrorToast } = useNotifications()
+  const { user } = useCurrentUser()
 
-  const handleSubmit = async ({ reset }) => {
-    try {
-      await sendVerificationEmail()
+  const userEmail = location.state?.email || user?.email
 
-      showSuccessToast(t('confirmationEmail.success'))
+  const handleSubmit = data => {
+    if (!data.captchaToken) {
+      showErrorToast(t('captcha.error'))
 
-      if (reset) {
-        reset()
-      }
-    } catch (err) {
-      console.error(err)
-      showErrorToast(t(toTranslationKey(err)))
+      return
     }
+
+    resendVerificationEmail(data, {
+      onSuccess: () => {
+        showSuccessToast(t('email.confirmation.success'))
+      },
+      onError: err => {
+        showErrorToast(t(toTranslationKey(err)))
+      }
+    })
   }
 
   return (
     <div className='email-confirmation-page'>
       <div className='email-confirmation-page__content'>
         <h1 className='email-confirmation-page__title'>
-          {t('confirmationEmail.title')}
+          {t('email.confirmation.title')}
         </h1>
 
-        <p className='email-confirmation-page__message'>
-          {t('confirmationEmail.msg', {
-            email: profile?.email || t('confirmationEmail.yourEmail')
+        <p className='email-confirmation-page__description'>
+          {t('email.confirmation.description', {
+            email: userEmail || t('email.confirmation.yourEmail')
           })}
         </p>
       </div>
 
-      <EmailConfirmationForm onSubmit={handleSubmit} />
+      <EmailConfirmationForm
+        isLoading={isPending}
+        userEmail={userEmail}
+        onSubmit={handleSubmit}
+      />
     </div>
   )
 }

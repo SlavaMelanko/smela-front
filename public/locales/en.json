@@ -1,0 +1,216 @@
+{
+  "alreadyHaveAccount": "Already have an account?",
+  "backend": {
+    "auth/already-verified": "Invalid request. Please try logging in.",
+    "auth/bad-credentials": "Invalid email or password.",
+    "auth/email-already-in-use": "Email is already taken.",
+    "auth/invalid-credentials": "Invalid email or password.",
+    "auth/unauthorized": "Access denied. Please try logging in again.",
+    "auth/unverified-account": "Invalid email or password.",
+    "resource/not-found": "Access denied.",
+    "system/internal-error": "Something went wrong. Please try again later.",
+    "token/already-used": "Invalid or expired link.",
+    "token/deprecated": "Invalid or expired link.",
+    "token/expired": "Invalid or expired link.",
+    "token/not-found": "Invalid or expired link.",
+    "token/type-mismatch": "Invalid or expired link.",
+    "validation/error": "Please check your input and try again."
+  },
+  "captcha": {
+    "error": "Security verification failed. Please try again."
+  },
+  "companyName": "SMELA",
+  "continueWithGoogle": "Continue with Google",
+  "copyright": "© {{year}} {{companyName}}",
+  "doNotHaveAccount": "Don't have an account?",
+  "email": {
+    "confirmation": {
+      "cta": "Send again",
+      "description": "We've sent a confirmation link to {{email}}. Just click it to finish signing up.",
+      "success": "Confirmation email sent again.",
+      "title": "Confirmation email sent",
+      "yourEmail": "your email"
+    },
+    "error": {
+      "format": "Enter a valid email.",
+      "required": "Email is required."
+    },
+    "example": "your@email.com",
+    "label": "Email",
+    "placeholder": "Email",
+    "verification": {
+      "error": {
+        "general": "Email verification failed.",
+        "invalidToken": "Invalid token."
+      },
+      "loading": "Verifying email...",
+      "success": "Email verified successfully."
+    }
+  },
+  "error": {
+    "network": {
+      "cta": "Try again",
+      "message": {
+        "connectionInterrupted": "Your internet connection was interrupted. Please check your connection and try again.",
+        "connectionRefused": "Unable to connect to the server. The server may be down or unreachable.",
+        "nameNotResolved": "Unable to reach the server. Please check your internet connection.",
+        "offline": "You are currently offline. Please check your internet connection.",
+        "serverUnavailable": "The server is temporarily unavailable. Please try again later.",
+        "sslError": "There was a security issue connecting to the server.",
+        "timeout": "The connection timed out. Please check your internet connection and try again.",
+        "unknown": "A network error occurred. Please check your connection and try again later."
+      },
+      "title": "Network connection issue"
+    },
+    "notFound": {
+      "cta": "Go home",
+      "message": "The page you're looking for doesn't exist or has been moved.",
+      "title": "Page not found"
+    },
+    "unknown": "Something went wrong. Please try again later."
+  },
+  "firstName": {
+    "error": {
+      "max": "First name can’t be longer than 50 characters.",
+      "min": "First name must be at least 2 characters.",
+      "required": "First name is required."
+    },
+    "example": "e.g. Jason",
+    "label": "First Name",
+    "placeholder": "Your first name"
+  },
+  "forgotYourPassword": "Forgot your password?",
+  "lastName": {
+    "error": {
+      "max": "Last name can’t be longer than 50 characters.",
+      "min": "Last name must be at least 2 characters.",
+      "required": "Last name is required."
+    },
+    "example": "e.g. Statham",
+    "label": "Last Name",
+    "placeholder": "Your last name"
+  },
+  "login": {
+    "noun": "Login",
+    "verb": "Log in"
+  },
+  "logout": {
+    "noun": "Logout",
+    "verb": "Log out"
+  },
+  "noNewNotifications": "No new notifications.",
+  "notifications": "Notifications",
+  "offer": {
+    "cta": "Sign up now",
+    "custom": {
+      "cta": "Create plan",
+      "note": "Build your perfect plan. The more you use, the less you pay.",
+      "title": "Your plan"
+    },
+    "discount": {
+      "label": "-{{percent}}% Off",
+      "prefix": "Limited time offer"
+    },
+    "enterprise": {
+      "cta": "Contact us",
+      "msg": "Haven’t found a plan that meets your needs? We can help."
+    },
+    "features": {
+      "cancelAnytime": "Cancel your subscription at any time",
+      "dedicatedManager": "Dedicated account manager for fast issue resolution",
+      "emailSupport": "Support via email",
+      "oneTimePurchase": "One-time purchase, no subscription",
+      "rollover": "Unused bandwidth rolls over to the next month",
+      "slackSupport": "24/7 support on Slack"
+    },
+    "note": "Not sure yet? You can cancel or change your plan anytime.",
+    "plans": {
+      "basic": "Basic",
+      "custom": "Custom",
+      "enterprise": "Enterprise",
+      "entry": "Entry",
+      "starter": "Starter",
+      "trial": "Trial"
+    },
+    "subtitle": "Whether standard, custom, or enterprise — you decide.",
+    "summary": {
+      "includedFeatures": "Included features",
+      "price": "Price",
+      "selected": "Selected",
+      "total": "Total price"
+    },
+    "title": "Find your best plan",
+    "type": {
+      "enterprise": "Enterprise",
+      "standard": "Standard"
+    }
+  },
+  "or": "or",
+  "pagination": {
+    "of": "of",
+    "rowsPerPage": "Rows per page:"
+  },
+  "password": {
+    "error": {
+      "min": "Password must be at least 8 characters.",
+      "required": "Password is required.",
+      "strong": "Use at least: 1 uppercase letter, 1 number, 1 symbol."
+    },
+    "label": "Password",
+    "placeholder": {
+      "default": "Password",
+      "masked": "••••••••",
+      "new": "New password"
+    },
+    "reset": {
+      "loginPrompt": "Remember your password?",
+      "request": {
+        "cta": "Send instructions",
+        "description": "Enter your email and we will send you instructions to reset your password.",
+        "success": "Password reset instructions sent."
+      },
+      "set": {
+        "cta": "Set new password",
+        "description": "Only one step left — create a new password.",
+        "error": "Failed to reset password. Please try again.",
+        "success": "Your password has been reset successfully."
+      }
+    }
+  },
+  "processing": "Processing...",
+  "profile": "Profile",
+  "searchBy": "Search by name, email, etc...",
+  "signUp": "Sign up",
+  "support": "Support",
+  "table": {
+    "column": "Column",
+    "column_plural": "Columns",
+    "filter": "Filter",
+    "filter_plural": "Filters",
+    "users": {
+      "createdAt": "Created At",
+      "email": "Email",
+      "id": "ID",
+      "name": "Name",
+      "role": "Role",
+      "status": "Status"
+    }
+  },
+  "termsAndPrivacy": {
+    "error": {
+      "required": "You must accept the terms to continue."
+    },
+    "middle": "and",
+    "prefix": "By creating an account, you agree with our",
+    "privacyLink": "Privacy Policy",
+    "termsLink": "Terms"
+  },
+  "unit": {
+    "traffic": {
+      "gb": "GB",
+      "kb": "KB",
+      "mb": "MB",
+      "tb": "TB"
+    }
+  }
+}

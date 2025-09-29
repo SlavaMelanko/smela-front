@@ -1,0 +1,10 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.rows-per-page-dropdown {
+  position: relative;
+
+  &__button {
+    height: 42px;
+  }
+}

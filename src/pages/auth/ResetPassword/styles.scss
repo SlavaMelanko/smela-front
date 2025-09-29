@@ -7,7 +7,7 @@
   gap: $spacing-2xl;
 
   &__description {
-    text-align: center;
+    @include text-secondary-md;
   }
 
   &__prompts {

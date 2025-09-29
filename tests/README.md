@@ -2,9 +2,11 @@
 
 ## ⚠️ Prerequisites
 
-Before running the tests, make sure the `admin@joinmassive.com` account is registered.
+Before running the tests, make sure the `admin@example.com` account is
+registered.
 
-This account is used in tests that validate "email already in use" error on signup.
+This account is used in tests that validate "email already in use" error on
+signup.
 
 ## 📦 Setup
 
@@ -16,14 +18,14 @@ npx playwright install
 
 ## 🚀 Running Tests
 
-Run all tests in interactive UI mode:
+Run all tests headlessly:
 
 ```bash
-npx playwright test --ui
+npm run e2e
 ```
 
-Or run all tests headlessly:
+Or run tests in interactive UI mode:
 
 ```bash
-npm run test:e2e
+npm run e2e:ui
 ```

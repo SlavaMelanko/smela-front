@@ -35,6 +35,7 @@
   &__footer {
     position: absolute;
     bottom: 0;
+    width: calc(100% - $spacing-sm * 2);
     padding: $spacing-xs;
   }
 }

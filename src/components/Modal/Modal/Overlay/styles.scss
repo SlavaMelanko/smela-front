@@ -1,0 +1,36 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.modal-overlay {
+  @include flex-center;
+
+  position: fixed;
+  inset: 0;
+  z-index: $z-index-modal-overlay;
+  backdrop-filter: blur(2px);
+  animation: modal-fade-in $transition-default;
+
+  &--closing {
+    animation: modal-fade-out $transition-default;
+  }
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

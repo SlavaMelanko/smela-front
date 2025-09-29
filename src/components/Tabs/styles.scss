@@ -1,4 +1,5 @@
 @use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .custom-tabs {
   display: flex;
@@ -16,11 +17,10 @@
   }
 
   &__trigger {
+    @include text-secondary-md-medium;
+
     padding: 0.5rem 3rem;
     margin: 0.25rem;
-    font-weight: $font-weight-medium;
-    color: var(--text-secondary);
-    text-align: center;
     cursor: pointer;
     background: transparent;
     border: none;
@@ -33,7 +33,7 @@
 
     &--active {
       color: var(--text-primary);
-      background-color: var(--bg-secondary);
+      background-color: var(--bg-tertiary);
     }
   }
 

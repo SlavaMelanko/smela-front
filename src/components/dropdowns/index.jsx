@@ -1,4 +1,5 @@
+import DropdownList from './DropdownList'
 import LanguageSelector from './LanguageSelector'
 import ProfileDropdown from './ProfileDropdown'
 
-export { LanguageSelector, ProfileDropdown }
+export { DropdownList, LanguageSelector, ProfileDropdown }

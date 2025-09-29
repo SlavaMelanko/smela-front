@@ -1,12 +1,18 @@
 import './styles.scss'
 
+import clsx from 'clsx'
+
 import { GoogleIcon } from '@/components/icons'
 
-const OAuthButton = ({ icon, text, ...reset }) => {
+const OAuthButton = ({ icon, text, className, ...reset }) => {
   return (
-    <button type='button' className='oauth-button' {...reset}>
+    <button
+      type='button'
+      className={clsx('oauth-button', className)}
+      {...reset}
+    >
       {icon && <span className='oauth-button__icon'>{icon}</span>}
-      <span className='oauth-button__text'>{text}</span>
+      <span>{text}</span>
     </button>
   )
 }

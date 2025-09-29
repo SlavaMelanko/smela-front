@@ -1,27 +1,45 @@
 import * as yup from 'yup'
 
-const requiredString = errorMessage =>
-  yup.string().trim().required(errorMessage)
+import {
+  EmailConstraint,
+  NameConstraint,
+  PasswordConstraint
+} from './constants'
 
-const firstName = requiredString('firstName.error.required')
-  .min(2, 'firstName.error.min')
-  .max(50, 'firstName.error.max')
+const requiredStr = errorMessage => yup.string().trim().required(errorMessage)
 
-const lastName = requiredString('lastName.error.required')
-  .min(2, 'lastName.error.min')
-  .max(50, 'lastName.error.max')
+const firstName = requiredStr('firstName.error.required')
+  .min(NameConstraint.MIN_LENGTH, 'firstName.error.min')
+  .max(NameConstraint.MAX_LENGTH, 'firstName.error.max')
 
-const email = {
-  new: requiredString('email.error.required').email('email.error.format')
+const lastName = {
+  required: requiredStr('lastName.error.required')
+    .min(NameConstraint.MIN_LENGTH, 'lastName.error.min')
+    .max(NameConstraint.MAX_LENGTH, 'lastName.error.max'),
+
+  // Optional version - validates when provided but not required
+  optional: yup
+    .string()
+    .trim()
+    .transform(value => (value === '' ? undefined : value))
+    .min(NameConstraint.MIN_LENGTH, 'lastName.error.min')
+    .max(NameConstraint.MAX_LENGTH, 'lastName.error.max')
 }
 
-const captcha = requiredString('captcha.error')
+const email = {
+  new: requiredStr('email.error.required').matches(
+    EmailConstraint.STANDARD,
+    'email.error.format'
+  )
+}
+
+const captcha = requiredStr('captcha.error')
 
 const password = {
-  new: requiredString('password.error.required')
-    .min(6, 'password.error.min')
-    .matches(/[a-zA-Z]/, {
-      message: 'password.error.latin',
+  new: requiredStr('password.error.required')
+    .min(PasswordConstraint.MIN_LENGTH, 'password.error.min')
+    .matches(PasswordConstraint.STRONG, {
+      message: 'password.error.strong',
       excludeEmptyString: true
     })
 }

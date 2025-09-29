@@ -6,29 +6,13 @@
 
   &__button {
     @include action-button-base;
-
-    gap: $spacing-xs;
   }
 
   &__flag {
     @include flex-center;
 
-    width: 1.5rem;
-    height: 1.5rem;
-    font-size: $font-size-lg;
-    pointer-events: none;
-  }
-
-  &__dropdown {
-    @include dropdown-base;
-  }
-
-  &__list {
-    padding: 0;
-    margin: 0;
-  }
-
-  &__item {
-    @include dropdown-item-base;
+    flex-shrink: 0;
+    width: $icon-size-md;
+    height: $icon-size-md;
   }
 }

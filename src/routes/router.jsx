@@ -3,13 +3,14 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import RootRedirect from '@/components/RootRedirect'
 import { AuthLayout, LegalLayout, PublicLayout, UserLayout } from '@/layouts'
-import { UserStatus } from '@/lib/types'
-import { ActionHandler } from '@/pages/auth/ActionHandler'
+import ErrorLayout from '@/layouts/Error'
+import { adminActiveStatuses, userActiveStatuses } from '@/lib/types'
 import EmailConfirmationPage from '@/pages/auth/EmailConfirmation'
 import LoginPage from '@/pages/auth/Login'
 import ResetPasswordPage from '@/pages/auth/ResetPassword'
 import SignupPage from '@/pages/auth/Signup'
 import VerifyEmailPage from '@/pages/auth/VerifyEmail'
+import { NetworkErrorPage, NotFoundErrorPage } from '@/pages/errors'
 import PrivacyPolicyPage from '@/pages/legal/Privacy'
 import TermsPage from '@/pages/legal/Terms'
 import PricingPage from '@/pages/public/Pricing'
@@ -19,6 +20,7 @@ import PublicRoute from './PublicRoute'
 
 const HomePage = lazy(() => import('@/pages/user/Home'))
 const AdminDashboardPage = lazy(() => import('@/pages/admin/Dashboard'))
+const AdminUsersPage = lazy(() => import('@/pages/admin/Users'))
 
 const router = createBrowserRouter([
   {
@@ -29,31 +31,23 @@ const router = createBrowserRouter([
     ]
   },
   {
-    element: <AuthLayout />,
+    element: (
+      <PublicRoute>
+        <AuthLayout />
+      </PublicRoute>
+    ),
     children: [
       {
         path: 'login',
-        element: (
-          <PublicRoute>
-            <LoginPage />
-          </PublicRoute>
-        )
+        element: <LoginPage />
       },
       {
         path: 'signup',
-        element: (
-          <PublicRoute>
-            <SignupPage />
-          </PublicRoute>
-        )
+        element: <SignupPage />
       },
       {
         path: 'reset-password',
-        element: (
-          <PublicRoute>
-            <ResetPasswordPage />
-          </PublicRoute>
-        )
+        element: <ResetPasswordPage />
       },
       {
         path: 'email-confirmation',
@@ -61,15 +55,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'verify-email',
-        element: (
-          <ProtectedRoute requireStatuses={[UserStatus.NEW]}>
-            <VerifyEmailPage />
-          </ProtectedRoute>
-        )
-      },
-      {
-        path: 'auth/action',
-        element: <ActionHandler />
+        element: <VerifyEmailPage />
       }
     ]
   },
@@ -81,37 +67,45 @@ const router = createBrowserRouter([
     ]
   },
   {
-    element: <UserLayout />,
+    path: 'errors',
+    element: <ErrorLayout />,
+    children: [{ path: 'network', element: <NetworkErrorPage /> }]
+  },
+  {
+    element: (
+      <ProtectedRoute requireStatuses={userActiveStatuses}>
+        <UserLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: 'home',
-        element: (
-          <ProtectedRoute
-            requireStatuses={[UserStatus.VERIFIED, UserStatus.ACTIVE]}
-          >
-            <HomePage />
-          </ProtectedRoute>
-        )
+        element: <HomePage />
       }
     ]
   },
   {
     path: '/admin',
-    element: <UserLayout />,
+    element: (
+      <ProtectedRoute requireStatuses={adminActiveStatuses}>
+        <UserLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: 'dashboard',
-        element: (
-          <ProtectedRoute requireStatuses={[UserStatus.ACTIVE]}>
-            <AdminDashboardPage />
-          </ProtectedRoute>
-        )
+        element: <AdminDashboardPage />
+      },
+      {
+        path: 'users',
+        element: <AdminUsersPage />
       }
     ]
   },
   {
     path: '*',
-    element: <RootRedirect />
+    element: <ErrorLayout />,
+    children: [{ path: '*', element: <NotFoundErrorPage /> }]
   }
 ])
 

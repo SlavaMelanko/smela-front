@@ -1,15 +1,18 @@
-import RootRedirect from '@/components/RootRedirect'
-import useAuth from '@/hooks/useAuth'
+import { Navigate } from 'react-router-dom'
+
+import Spinner from '@/components/Spinner'
+import { useCurrentUser } from '@/hooks/useAuth'
+import { userActiveStatuses } from '@/lib/types'
 
 const PublicRoute = ({ children }) => {
-  const { isAuthenticated, loading } = useAuth()
+  const { isPending, isAuthenticated, user } = useCurrentUser()
 
-  if (loading) {
-    return null
+  if (isPending) {
+    return <Spinner centered />
   }
 
-  if (isAuthenticated) {
-    return <RootRedirect />
+  if (isAuthenticated && userActiveStatuses.includes(user?.status)) {
+    return <Navigate to='/' replace />
   }
 
   return children

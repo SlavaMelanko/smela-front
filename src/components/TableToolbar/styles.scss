@@ -1,0 +1,11 @@
+@use '../../styles/variables' as *;
+
+.table-toolbar {
+  display: flex;
+  gap: $spacing-md;
+  align-items: center;
+
+  &__search {
+    flex: 1;
+  }
+}

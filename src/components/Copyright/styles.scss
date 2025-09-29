@@ -1,8 +1,5 @@
-@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .copyright {
-  font-size: $font-size-xs;
-  font-weight: $font-weight-light;
-  color: var(--text-disabled);
-  text-align: center;
+  @include text-tertiary-xs-thin;
 }

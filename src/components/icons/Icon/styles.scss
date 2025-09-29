@@ -10,6 +10,10 @@
       color: var(--text-secondary);
     }
 
+    &--tertiary {
+      color: var(--text-tertiary);
+    }
+
     &--green {
       color: var(--green);
     }
@@ -42,6 +46,10 @@
       color: var(--pink);
     }
 
+    &--none {
+      color: transparent;
+    }
+
     &--xs {
       width: $icon-size-xs;
       height: $icon-size-xs;
@@ -60,11 +68,6 @@
     &--lg {
       width: $icon-size-lg;
       height: $icon-size-lg;
-    }
-
-    &--2xl {
-      width: $icon-size-2xl;
-      height: $icon-size-2xl;
     }
   }
 }

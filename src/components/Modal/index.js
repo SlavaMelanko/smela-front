@@ -1,7 +1,6 @@
-export { default as Modal } from './Modal'
-export { default as ModalBody } from './ModalBody'
-export { default as ModalContainer } from './ModalContainer'
-export { default as ModalContent } from './ModalContent'
-export { default as ModalFooter } from './ModalFooter'
-export { default as ModalHeader } from './ModalHeader'
-export { default as ModalOverlay } from './ModalOverlay'
+import Modal from './Modal'
+import ModalBody from './ModalBody'
+import ModalFooter from './ModalFooter'
+import ModalHeader from './ModalHeader'
+
+export { Modal as default, ModalBody, ModalFooter, ModalHeader }

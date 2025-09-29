@@ -1,5 +1,7 @@
 import '../src/styles/main.scss'
 
+import i18n from '../src/i18n'
+
 /** @type { import('@storybook/react-vite').Preview } */
 const preview = {
   parameters: {
@@ -14,7 +16,6 @@ const preview = {
   globalTypes: {
     theme: {
       name: 'Theme',
-      description: 'Light or Dark mode for Massive branding',
       defaultValue: 'light',
       toolbar: {
         icon: 'contrast',
@@ -26,17 +27,39 @@ const preview = {
           { value: 'dark', title: 'Dark' }
         ]
       }
+    },
+    locale: {
+      name: 'Locale',
+      description: 'Internationalization locale',
+      defaultValue: 'en',
+      toolbar: {
+        icon: 'globe',
+        title: 'Locale',
+        dynamicTitle: true,
+        items: [
+          { value: 'en', right: '🇺🇸', title: 'English' },
+          { value: 'uk', right: '🇺🇦', title: 'Українська' }
+        ]
+      }
     }
   },
 
   decorators: [
     (Story, context) => {
-      const isDark = context.globals.theme === 'dark'
+      const { theme, locale } = context.globals
+
+      const isDark = theme === 'dark'
 
       // toggle `dark` class on <html>
       document.documentElement.classList.toggle('dark', isDark)
 
-      return <Story />
+      // Set i18n language
+      if (locale) {
+        i18n.changeLanguage(locale)
+      }
+
+      // use key to force re-render when locale & theme changes
+      return <Story key={`${locale}-${theme}`} />
     }
   ]
 }

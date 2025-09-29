@@ -1,11 +1,25 @@
 @use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .spinner {
   &--centered {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+    @include flex-center;
+
+    position: fixed;
+    inset: 0;
+    z-index: $z-index-loader;
+    width: 100%;
+    height: 100vh;
+  }
+
+  &__content {
+    @include flex-center-column;
+
+    gap: $spacing-sm;
+  }
+
+  &__text {
+    @include text-secondary-sm;
   }
 
   .loader-icon {
@@ -20,8 +34,8 @@
   }
 
   50% {
-    opacity: 0.5;
-    transform: rotate(180deg) scale(1.3);
+    opacity: 0.6;
+    transform: rotate(180deg) scale(1.2);
   }
 
   100% {

@@ -3,9 +3,9 @@ import './styles.scss'
 import { useNavigate } from 'react-router-dom'
 
 import { GoogleOAuthButton } from '@/components/buttons'
-import { LoginPrompt } from '@/components/prompts'
+import { LoginPrompt, TermsAndPrivacyPrompt } from '@/components/prompts'
 import Separator from '@/components/Separator'
-import useAuth from '@/hooks/useAuth'
+import { useSignup, useSignupWithGoogle } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
 import { toTranslationKey } from '@/services/catch'
@@ -15,42 +15,53 @@ import SignupForm from './Form'
 const Signup = () => {
   const { t } = useLocale()
   const navigate = useNavigate()
-  const { signUp, signUpWithGoogle } = useAuth()
   const { showErrorToast } = useNotifications()
+  const { mutate: signUpWithEmail, isPending: isEmailPending } = useSignup()
+  const { mutate: signUpWithGoogle, isPending: isGooglePending } =
+    useSignupWithGoogle()
 
-  const handleSignUp = async data => {
-    try {
-      await signUp(data)
+  const handleSignupWithEmail = data => {
+    if (!data.captchaToken) {
+      showErrorToast(t('captcha.error'))
 
-      navigate('/email-confirmation')
-    } catch (err) {
-      console.error(err)
-      showErrorToast(t(toTranslationKey(err)))
+      return
     }
+
+    signUpWithEmail(data, {
+      onSuccess: () => {
+        navigate('/email-confirmation', { state: { email: data.email } })
+      },
+      onError: err => {
+        showErrorToast(t(toTranslationKey(err)))
+      }
+    })
   }
 
-  const handleSignupWithGoogle = async () => {
-    try {
-      await signUpWithGoogle()
-
-      navigate('/')
-    } catch (err) {
-      console.error(err)
-      showErrorToast(t(toTranslationKey(err)))
-    }
+  const handleSignupWithGoogle = () => {
+    signUpWithGoogle(undefined, {
+      onSuccess: () => {
+        navigate('/')
+      },
+      onError: err => {
+        showErrorToast(t(toTranslationKey(err)))
+      }
+    })
   }
 
   return (
     <div className='signup-page'>
-      <SignupForm onSubmit={handleSignUp} />
+      <SignupForm onSubmit={handleSignupWithEmail} isLoading={isEmailPending} />
       <div className='signup-page__separator'>
         <Separator text={t('or')} />
       </div>
       <GoogleOAuthButton
+        className='signup-page__oauth-button'
         text={t('continueWithGoogle')}
         onClick={handleSignupWithGoogle}
+        disabled={isGooglePending}
       />
       <div className='signup-page__prompts'>
+        <TermsAndPrivacyPrompt />
         <LoginPrompt />
       </div>
     </div>

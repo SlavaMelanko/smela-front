@@ -2,24 +2,24 @@ import './styles.scss'
 
 import clsx from 'clsx'
 
-import { ChevronDownIcon } from '@/components/icons'
+import { DropdownList } from '@/components/dropdowns'
+import { ChevronToggle } from '@/components/icons/animated'
 import useOutsideClick from '@/hooks/useOutsideClick'
 
 import Avatar from './Avatar'
-import Dropdown from './Dropdown'
 
 const ProfileDropdown = ({ className = '', name, menu }) => {
   const { ref, isActive, setIsActive } = useOutsideClick()
 
   const toggle = () => setIsActive(prev => !prev)
 
-  const handleSelect = ({ onClick }) => {
-    if (onClick) {
-      onClick()
+  const normalizedMenu = menu.map(item => ({
+    ...item,
+    onClick: () => {
+      item.onClick?.()
+      setIsActive(false)
     }
-
-    setIsActive(false)
-  }
+  }))
 
   return (
     <div className={clsx('profile-dropdown', className)} ref={ref}>
@@ -30,13 +30,9 @@ const ProfileDropdown = ({ className = '', name, menu }) => {
       >
         <Avatar className='profile-dropdown__avatar' />
         <span className='profile-dropdown__name'>{name}</span>
-        <ChevronDownIcon className='profile-dropdown__chevron' size='xs' />
+        <ChevronToggle isOpen={isActive} />
       </button>
-      <Dropdown
-        className={clsx(isActive && 'profile-dropdown__dropdown--open')}
-        menu={menu}
-        onSelect={handleSelect}
-      />
+      <DropdownList menu={normalizedMenu} isOpen={isActive} />
     </div>
   )
 }

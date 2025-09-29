@@ -7,8 +7,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-.env
-!.env.*
+# Environment files
+.env*
+!.env.example
 node_modules
 dist
 dist-ssr
@@ -17,6 +18,7 @@ dist-ssr
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .idea
 .DS_Store
 *.suo
@@ -30,6 +32,10 @@ dist-ssr
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Jest Coverage
+/coverage/
+*.lcov
 
 *storybook.log
 storybook-static
