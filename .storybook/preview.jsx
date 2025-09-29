@@ -53,7 +53,7 @@ const preview = {
       // toggle `dark` class on <html>
       document.documentElement.classList.toggle('dark', isDark)
 
-      // set i18n language
+      // Set i18n language
       if (locale) {
         i18n.changeLanguage(locale)
       }

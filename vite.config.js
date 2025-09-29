@@ -4,7 +4,7 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import { fileURLToPath } from 'url'
 import { defineConfig } from 'vite'
 
-// Simulate __dirname in ESM.
+// Simulate __dirname in ESM
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
@@ -14,7 +14,7 @@ export default defineConfig({
     process.env.ANALYZE &&
       visualizer({
         filename: 'dist/stats.html',
-        open: false, // we'll open it manually with npm script
+        open: false, // we're opening it with npm script
         gzipSize: true,
         brotliSize: true,
         template: 'treemap'

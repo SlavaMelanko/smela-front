@@ -17,7 +17,7 @@ const lastName = {
     .min(NameConstraint.MIN_LENGTH, 'lastName.error.min')
     .max(NameConstraint.MAX_LENGTH, 'lastName.error.max'),
 
-  // Optional version - validates when provided but not required.
+  // Optional version - validates when provided but not required
   optional: yup
     .string()
     .trim()

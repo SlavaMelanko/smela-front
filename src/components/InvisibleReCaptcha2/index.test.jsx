@@ -3,39 +3,38 @@ import React, { createRef } from 'react'
 
 import InvisibleReCaptcha2 from './index'
 
-// Mock environment
-jest.mock('@/lib/env', () => ({
-  CAPTCHA_SITE_KEY: 'test-site-key'
-}))
-
-// Mock hooks
-jest.mock('@/hooks/useTheme', () => () => ({
-  theme: 'light'
-}))
-
-jest.mock('@/hooks/useLocale', () => () => ({
-  locale: 'en'
-}))
-
-// Mock the async utility
-const mockWithTimeout = jest.fn()
-
-jest.mock('@/lib/async', () => ({
-  withTimeout: mockWithTimeout
-}))
-
-// Mock react-google-recaptcha completely
-jest.mock('react-google-recaptcha', () => {
-  return function MockReCAPTCHA() {
-    // eslint-disable-next-line no-undef
-    const mockReact = require('react')
-
-    return mockReact.createElement('div', { 'data-testid': 'recaptcha' })
-  }
-})
-
 describe('InvisibleReCaptcha2', () => {
   let recaptchaRef
+  let mockWithTimeout
+
+  beforeAll(() => {
+    jest.mock('@/lib/env', () => ({
+      CAPTCHA_SITE_KEY: 'test-site-key'
+    }))
+
+    jest.mock('@/hooks/useTheme', () => () => ({
+      theme: 'light'
+    }))
+
+    jest.mock('@/hooks/useLocale', () => () => ({
+      locale: 'en'
+    }))
+
+    mockWithTimeout = jest.fn()
+
+    jest.mock('@/lib/async', () => ({
+      withTimeout: mockWithTimeout
+    }))
+
+    jest.mock('react-google-recaptcha', () => {
+      return function MockReCAPTCHA() {
+        // eslint-disable-next-line no-undef
+        const mockReact = require('react')
+
+        return mockReact.createElement('div', { 'data-testid': 'recaptcha' })
+      }
+    })
+  })
 
   beforeEach(() => {
     recaptchaRef = createRef()

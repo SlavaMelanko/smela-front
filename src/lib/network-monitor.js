@@ -1,4 +1,4 @@
-// List of known network error messages that indicate connection problems.
+// List of known network error messages that indicate connection problems
 const NETWORK_ERROR_PATTERNS = [
   // chrome/chromium errors
   'ERR_CONNECTION_REFUSED',
@@ -61,7 +61,7 @@ const NETWORK_ERROR_PATTERNS = [
   'EPIPE'
 ]
 
-// HTTP status codes that may indicate network issues.
+// HTTP status codes that may indicate network issues
 const NETWORK_ERROR_STATUS_CODES = [
   0, // no response (often indicates network failure)
   502, // bad gateway
@@ -76,18 +76,18 @@ const NETWORK_ERROR_STATUS_CODES = [
   527 // cloudflare error
 ]
 
-// Determines if an error is a network connection issue.
+// Determines if an error is a network connection issue
 export function isNetworkError(error) {
   if (!error) {
     return false
   }
 
-  // Check if browser is offline.
+  // Check if browser is offline
   if (typeof navigator !== 'undefined' && !navigator.onLine) {
     return true
   }
 
-  // Check error message.
+  // Check error message
   if (error.message) {
     const errorMessage = error.message.toLowerCase()
     const hasNetworkError = NETWORK_ERROR_PATTERNS.some(pattern =>
@@ -99,7 +99,7 @@ export function isNetworkError(error) {
     }
   }
 
-  // Check error code.
+  // Check error code
   if (error.code) {
     const errorCode = error.code.toString().toUpperCase()
     const hasNetworkCode = NETWORK_ERROR_PATTERNS.some(pattern =>
@@ -111,7 +111,7 @@ export function isNetworkError(error) {
     }
   }
 
-  // Check error name.
+  // Check error name
   if (error.name) {
     const errorName = error.name.toLowerCase()
 
@@ -120,21 +120,21 @@ export function isNetworkError(error) {
     }
   }
 
-  // Check HTTP status code.
+  // Check HTTP status code
   if (error.status !== undefined) {
     if (NETWORK_ERROR_STATUS_CODES.includes(error.status)) {
       return true
     }
   }
 
-  // Check response status for fetch API responses.
+  // Check response status for fetch API responses
   if (error.response && error.response.status !== undefined) {
     if (NETWORK_ERROR_STATUS_CODES.includes(error.response.status)) {
       return true
     }
   }
 
-  // Check for axios-specific network errors.
+  // Check for axios-specific network errors
   if (error.isAxiosError && error.code) {
     const axiosNetworkCodes = [
       'ECONNABORTED',
@@ -147,7 +147,7 @@ export function isNetworkError(error) {
     }
   }
 
-  // Check for fetch-specific TypeError that often indicates network issues.
+  // Check for fetch-specific TypeError that often indicates network issues
   if (error instanceof TypeError && error.message === 'Failed to fetch') {
     return true
   }
@@ -166,7 +166,7 @@ export const NetworkErrorType = {
   UNKNOWN: 'unknown'
 }
 
-// Gets the network error type from an error object.
+// Gets the network error type from an error object
 export function getNetworkErrorType(error) {
   if (!navigator.onLine) {
     return NetworkErrorType.OFFLINE
@@ -227,7 +227,7 @@ export function getNetworkErrorType(error) {
   return NetworkErrorType.UNKNOWN
 }
 
-// Creates a network status monitor that tracks online/offline state.
+// Creates a network status monitor that tracks online/offline state
 export function createNetworkMonitor(onStatusChange) {
   const handleOnline = () => onStatusChange(true)
   const handleOffline = () => onStatusChange(false)
@@ -235,14 +235,14 @@ export function createNetworkMonitor(onStatusChange) {
   window.addEventListener('online', handleOnline)
   window.addEventListener('offline', handleOffline)
 
-  // Return cleanup function.
+  // Return cleanup function
   return () => {
     window.removeEventListener('online', handleOnline)
     window.removeEventListener('offline', handleOffline)
   }
 }
 
-// Checks if the browser is currently online.
+// Checks if the browser is currently online
 export function isOnline() {
   return typeof navigator !== 'undefined' ? navigator.onLine : true
 }

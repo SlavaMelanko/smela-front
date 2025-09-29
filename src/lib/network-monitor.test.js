@@ -8,7 +8,7 @@ import {
 
 describe('network-monitor', () => {
   beforeEach(() => {
-    // Reset navigator.onLine before each test.
+    // Reset navigator.onLine before each test
     Object.defineProperty(navigator, 'onLine', {
       writable: true,
       value: true
@@ -236,7 +236,7 @@ describe('network-monitor', () => {
     })
 
     afterEach(() => {
-      // Clean up any event listeners.
+      // Clean up any event listeners
       window.removeEventListener('online', mockCallback)
       window.removeEventListener('offline', mockCallback)
     })

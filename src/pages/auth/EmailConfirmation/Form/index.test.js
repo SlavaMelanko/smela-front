@@ -125,7 +125,7 @@ describe('EmailConfirmation Form', () => {
       )
       const { submitButton } = renderForm(onSubmitMock)
 
-      // Click multiple times quickly.
+      // Click multiple times quickly
       await user.click(submitButton)
       await user.click(submitButton)
       await user.click(submitButton)
@@ -143,7 +143,7 @@ describe('EmailConfirmation Form', () => {
       const onSubmitMock = jest.fn()
       const { submitButton } = renderForm(onSubmitMock)
 
-      // First submission.
+      // First submission
       await user.click(submitButton)
 
       await waitFor(() => {
@@ -153,10 +153,10 @@ describe('EmailConfirmation Form', () => {
         })
       })
 
-      // Reset form state for second submission.
+      // Reset form state for second submission
       onSubmitMock.mockClear()
 
-      // Second submission.
+      // Second submission
       await user.click(submitButton)
 
       await waitFor(() => {
@@ -166,7 +166,7 @@ describe('EmailConfirmation Form', () => {
         })
       })
 
-      // Verify reCAPTCHA was executed twice.
+      // Verify reCAPTCHA was executed twice
       expect(global.mockExecuteReCaptcha).toHaveBeenCalledTimes(2)
     })
   })
@@ -203,7 +203,7 @@ describe('EmailConfirmation Form', () => {
 
       await user.click(submitButton)
 
-      // Should show processing even if isLoading is false.
+      // Should show processing even if isLoading is false
       expect(submitButton).toHaveTextContent(en.processing)
       expect(submitButton).toBeDisabled()
 
