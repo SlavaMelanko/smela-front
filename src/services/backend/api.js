@@ -1,10 +1,10 @@
 import { StatusCodes } from 'http-status-codes'
 
-const API_BASE_URL = import.meta.env.VITE_APP_BE_BASE_URL
+import env from '@/lib/env'
 
 class ApiClient {
   constructor() {
-    this.baseUrl = API_BASE_URL
+    this.baseUrl = env.BE_BASE_URL
     this.defaultHeaders = {
       'Content-Type': 'application/json'
     }
