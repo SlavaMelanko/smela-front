@@ -49,11 +49,11 @@ export const useLogin = () => {
 export const useLoginWithGoogle = () =>
   useMutation({
     mutationFn: async () => {
-      // Temporary implementation until Google OAuth is implemented.
+      // Temporary implementation until Google OAuth is implemented
       throw new Error('Google login not implemented for backend API yet')
     },
     meta: {
-      // When implemented, this will invalidate queries to refetch user data.
+      // When implemented, this will invalidate queries to refetch user data
       invalidatesQueries: authKeys.user()
     }
   })
@@ -66,11 +66,11 @@ export const useSignup = () =>
 export const useSignupWithGoogle = () =>
   useMutation({
     mutationFn: async () => {
-      // Temporary implementation until Google OAuth is implemented.
+      // Temporary implementation until Google OAuth is implemented
       throw new Error('Google signup not implemented for backend API yet')
     },
     meta: {
-      // When implemented, this will invalidate queries to refetch user data.
+      // When implemented, this will invalidate queries to refetch user data
       invalidatesQueries: authKeys.user()
     }
   })
@@ -84,9 +84,9 @@ export const useLogout = () => {
       invalidatesQueries: authKeys.all()
     },
     onSuccess: () => {
-      // Set user data to null for immediate UI update.
+      // Set user data to null for immediate UI update
       queryClient.setQueryData(authKeys.user(), null)
-      // Also remove the query entirely to prevent cached 401 errors.
+      // Also remove the query entirely to prevent cached 401 errors
       queryClient.removeQueries({ queryKey: authKeys.user() })
     }
   })
@@ -124,34 +124,34 @@ export const useUpdateUser = () => {
   return useMutation({
     mutationFn: userService.updateUser,
     onMutate: async newUserData => {
-      // Cancel any in-flight queries for the user.
+      // Cancel any in-flight queries for the user
       await queryClient.cancelQueries({ queryKey: authKeys.user() })
 
-      // Snapshot the previous user data.
+      // Snapshot the previous user data
       const previousUser = queryClient.getQueryData(authKeys.user())
 
-      // Optimistically update the user data.
+      // Optimistically update the user data
       queryClient.setQueryData(authKeys.user(), data => {
         if (!data) {
           return data
         }
 
-        // Handle both direct user object and wrapped response.
+        // Handle both direct user object and wrapped response
         const currentUser = data.user || data
         const updatedUser = {
           ...currentUser,
           ...newUserData
         }
 
-        // Maintain the same structure as the original data.
+        // Maintain the same structure as the original data
         return data.user ? { ...data, user: updatedUser } : updatedUser
       })
 
-      // Return context with snapshot for potential rollback.
+      // Return context with snapshot for potential rollback
       return { previousUser }
     },
     onError: (_error, _newUserData, context) => {
-      // Rollback to the previous user data on error.
+      // Rollback to the previous user data on error
       if (context?.previousUser) {
         queryClient.setQueryData(authKeys.user(), context.previousUser)
       }

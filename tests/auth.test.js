@@ -24,7 +24,7 @@ const fillSignupFormAndSubmit = async (
   const firstNameInput = page.getByLabel(t.firstName.label)
   const lastNameInput = page.getByLabel(t.lastName.label)
   const emailInput = page.getByLabel(t.email.label)
-  // Use specific locator to avoid matching the toggle visibility button.
+  // Use specific locator to avoid matching the toggle visibility button
   const passwordInput = page.locator('input[type="password"]')
   const signupButton = page.getByRole('button', { name: t.signUp })
 
@@ -102,7 +102,7 @@ test.describe.serial('Authentication', () => {
     await expect(page.getByText(t.firstName.error.required)).toBeVisible()
     await expect(firstNameInput).toHaveClass(/input__field--error/)
 
-    // Last name is optional.
+    // Last name is optional
     await expect(page.getByText(t.lastName.error.required)).toHaveCount(0)
     await expect(lastNameInput).not.toHaveClass(/input__field--error/)
 
@@ -113,7 +113,7 @@ test.describe.serial('Authentication', () => {
     await expect(passwordInput).toHaveClass(/input__field--error/)
   })
 
-  // This test requires seed data with admin@example.com.
+  // This test requires seed data with admin@example.com
   test('signup: prevents duplicate email registration', async ({ page }) => {
     await page.goto('/signup')
 
@@ -240,15 +240,15 @@ test.describe.serial('Authentication', () => {
 
     const secondToken = new URL(secondLink).searchParams.get('token')
 
-    // Verify secure tokens differ between responses.
+    // Verify secure tokens differ between responses
     expect(firstToken).not.toBe(secondToken)
 
-    // Verify reCAPTCHA tokens are different between requests.
+    // Verify reCAPTCHA tokens are different between requests
     expect(signupCaptchaToken).not.toBe(resendCaptchaToken)
 
-    // Even if we navigate to the root.
+    // Even if we navigate to the root
     await page.goto('/')
-    // The email confirmation page should be shown again.
+    // The email confirmation page should be shown again
     await expect(page).toHaveURL(/email-confirmation/)
     await expect(
       page.getByRole('heading', { name: t.email.confirmation.title })
@@ -288,15 +288,15 @@ test.describe.serial('Authentication', () => {
     const url = new URL(link)
     const originalToken = url.searchParams.get('token')
 
-    // 1: Empty token.
+    // 1: Empty token
     await page.goto(`${url.origin}${url.pathname}?token=`)
-    // No API call is made for empty token - frontend handles it.
+    // No API call is made for empty token - frontend handles it
 
     await expect(
       page.getByText(t.email.verification.error.invalidToken)
     ).toBeVisible()
 
-    // 2: Malformed token (replace last char with underscore).
+    // 2: Malformed token (replace last char with underscore)
     const malformedToken = originalToken.slice(0, -1) + '_'
 
     await page.goto(`${url.origin}${url.pathname}?token=${malformedToken}`)
@@ -315,7 +315,7 @@ test.describe.serial('Authentication', () => {
 
     await expect(page.getByText(t.backend['token/not-found'])).toBeVisible()
 
-    // 3: Invalid token (completely wrong token).
+    // 3: Invalid token (completely wrong token)
     await page.goto(`${url.origin}${url.pathname}?token=invalid_token_12345`)
 
     await waitForApiCalls(page, [
@@ -331,7 +331,7 @@ test.describe.serial('Authentication', () => {
 
     await expect(page.getByText(t.backend['validation/error'])).toBeVisible()
 
-    // User should remain on email confirmation page after invalid attempts.
+    // User should remain on email confirmation page after invalid attempts
     await expect(page).toHaveURL(/email-confirmation/)
     await expect(
       page.getByRole('heading', { name: t.email.confirmation.title })
@@ -435,14 +435,14 @@ test.describe.serial('Authentication', () => {
       }
     ])
 
-    // After verification, user is redirected to home.
+    // After verification, user is redirected to home
     await page.waitForURL('/home')
 
     await expect(page.getByText(t.email.verification.success)).toBeVisible()
 
     await expect(page.getByText(auth.firstName.ok)).toBeVisible()
 
-    // Logout to ensure clean state for next test.
+    // Logout to ensure clean state for next test
     await logOut(page, t)
   })
 
@@ -557,7 +557,7 @@ test.describe.serial('Authentication', () => {
 
       await expect(errorMessage).toBeVisible()
 
-      // Verify that form fields retain their values after error.
+      // Verify that form fields retain their values after error
       await expect(emailInput).toHaveValue(testCase.email)
       await expect(passwordInput).toHaveValue(testCase.password)
     }
@@ -584,17 +584,17 @@ test.describe.serial('Authentication', () => {
 
     await expect(page.getByText(auth.firstName.ok)).toBeVisible()
 
-    // Check that authenticated users are redirected from /login.
+    // Check that authenticated users are redirected from /login
     await page.goto('/login')
     await page.waitForURL('/home')
     await expect(page).toHaveURL(/\/home/)
 
-    // Check that authenticated users are redirected from /signup.
+    // Check that authenticated users are redirected from /signup
     await page.goto('/signup')
     await page.waitForURL('/home')
     await expect(page).toHaveURL(/\/home/)
 
-    // Logout to ensure clean state for next test.
+    // Logout to ensure clean state for next test
     await logOut(page, t)
   })
 
@@ -654,7 +654,7 @@ test.describe.serial('Authentication', () => {
 
     await expect(page.getByText(auth.firstName.ok)).toBeVisible()
 
-    // Logout to ensure clean state.
+    // Logout to ensure clean state
     await logOut(page, t)
   })
 })

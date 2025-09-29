@@ -43,7 +43,7 @@ class ApiClient {
       throw error
     }
 
-    // Handle 204 No Content status - return null instead of trying to parse JSON.
+    // Handle 204 No Content status - return null instead of trying to parse JSON
     if (response.status === HttpStatus.NO_CONTENT) {
       return null
     }

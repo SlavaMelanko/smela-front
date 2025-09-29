@@ -85,7 +85,7 @@ export class EmailService {
         subject_includes: subject
       })
 
-      // Find first email that we haven't seen before.
+      // Find first email that we haven't seen before
       const newEmail = emails.find(email => profile.isNewEmail(email, subject))
 
       if (newEmail) {

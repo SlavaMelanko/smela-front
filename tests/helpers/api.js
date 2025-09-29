@@ -41,7 +41,7 @@ export const waitForApiCall = async (page, options, timeout = 30000) => {
     { timeout }
   )
 
-  // Return both response and parsed body for further use.
+  // Return both response and parsed body for further use
   try {
     const body = await response.json()
 

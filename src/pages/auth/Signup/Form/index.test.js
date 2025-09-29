@@ -53,7 +53,7 @@ describe('Signup Form', () => {
     it('renders required field indicators', () => {
       renderForm()
 
-      // First name, email, and password are required.
+      // First name, email, and password are required
       const firstNameField = screen
         .getByText(en.firstName.label)
         .closest('.form-field')
@@ -152,12 +152,12 @@ describe('Signup Form', () => {
         submitButton
       } = renderForm()
 
-      // Fill required fields first.
+      // Fill required fields first
       await user.type(firstNameInput, auth.firstName.ok)
       await user.type(emailInput, auth.email.ok)
       await user.type(passwordInput, auth.password.strong)
 
-      // Add invalid last name.
+      // Add invalid last name
       await user.type(lastNameInput, auth.lastName.short)
       await user.click(submitButton)
 
@@ -175,12 +175,12 @@ describe('Signup Form', () => {
         submitButton
       } = renderForm()
 
-      // Fill required fields first.
+      // Fill required fields first
       await user.type(firstNameInput, auth.firstName.ok)
       await user.type(emailInput, auth.email.ok)
       await user.type(passwordInput, auth.password.strong)
 
-      // Add invalid last name.
+      // Add invalid last name
       await user.type(lastNameInput, auth.lastName.long)
       await user.click(submitButton)
 
@@ -307,7 +307,7 @@ describe('Signup Form', () => {
       await user.type(passwordInput, auth.password.strong)
       await user.click(submitButton)
 
-      // Verify that the form submission happens.
+      // Verify that the form submission happens
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith(
           expect.objectContaining({
@@ -376,7 +376,7 @@ describe('Signup Form', () => {
           })
         )
 
-        // Verify lastName is not included when empty.
+        // Verify lastName is not included when empty
         expect(onSubmitMock).toHaveBeenCalledWith(
           expect.not.objectContaining({
             lastName: expect.anything()
@@ -391,19 +391,19 @@ describe('Signup Form', () => {
       const { firstNameInput, lastNameInput, emailInput, passwordInput } =
         renderForm()
 
-      // Start with first name focused.
+      // Start with first name focused
       firstNameInput.focus()
       expect(document.activeElement).toBe(firstNameInput)
 
-      // Tab to last name.
+      // Tab to last name
       await user.tab()
       expect(document.activeElement).toBe(lastNameInput)
 
-      // Tab to email.
+      // Tab to email
       await user.tab()
       expect(document.activeElement).toBe(emailInput)
 
-      // Tab to password.
+      // Tab to password
       await user.tab()
       expect(document.activeElement).toBe(passwordInput)
     })
@@ -411,7 +411,7 @@ describe('Signup Form', () => {
     it('clears field error when user starts typing', async () => {
       const { firstNameInput, submitButton } = renderForm()
 
-      // Submit to trigger validation errors.
+      // Submit to trigger validation errors
       await user.click(submitButton)
 
       await waitFor(() => {
@@ -420,7 +420,7 @@ describe('Signup Form', () => {
         ).toBeInTheDocument()
       })
 
-      // Start typing in the field.
+      // Start typing in the field
       await user.type(firstNameInput, 'J')
 
       await waitFor(() => {
@@ -434,7 +434,7 @@ describe('Signup Form', () => {
       const { firstNameInput, emailInput, passwordInput, submitButton } =
         renderForm()
 
-      // Enter invalid data for all fields.
+      // Enter invalid data for all fields
       await user.type(firstNameInput, auth.firstName.short)
       await user.type(emailInput, auth.email.invalid)
       await user.type(passwordInput, auth.password.short)
