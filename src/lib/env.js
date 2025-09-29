@@ -1,16 +1,16 @@
-const makeEnvKey = key => {
-  return `VITE_APP_${key}`
+const makeKey = key => {
+  return `VITE_${key}`
 }
 
-const getEnv = key => {
-  return import.meta.env[makeEnvKey(key)]
+const getValue = key => {
+  return import.meta.env[makeKey(key)]
 }
 
 const getRequiredEnv = key => {
-  const value = getEnv(key)
+  const value = getValue(key)
 
   if (!value) {
-    throw new Error(`Environment variable "${makeEnvKey(key)}" is required`)
+    throw new Error(`Environment variable "${makeKey(key)}" is required`)
   }
 
   return value

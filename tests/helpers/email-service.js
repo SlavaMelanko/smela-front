@@ -4,9 +4,9 @@ const BASE_TIMEOUT = 30000
 const POLL_INTERVAL = 1500
 
 export const emailConfig = {
-  apiKey: process.env.VITE_APP_MAILISK_API_KEY,
-  namespace: process.env.VITE_APP_MAILISK_NAMESPACE,
-  domain: `${process.env.VITE_APP_MAILISK_NAMESPACE}.mailisk.net`
+  apiKey: process.env.VITE_MAILISK_API_KEY,
+  namespace: process.env.VITE_MAILISK_NAMESPACE,
+  domain: `${process.env.VITE_MAILISK_NAMESPACE}.mailisk.net`
 }
 
 export const extractVerificationLink = text => {
