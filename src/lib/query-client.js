@@ -1,6 +1,6 @@
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query'
-import { StatusCodes } from 'http-status-codes'
 
+import { HttpStatus } from '@/lib/http-status'
 import { getNetworkErrorType, isNetworkError } from '@/lib/network-monitor'
 import { withQuery } from '@/lib/url'
 
@@ -60,8 +60,8 @@ const queryClient = new QueryClient({
       retry: (failureCount, error) => {
         // Don't retry on 4xx errors (client errors).
         if (
-          error?.status >= StatusCodes.BAD_REQUEST &&
-          error?.status < StatusCodes.INTERNAL_SERVER_ERROR
+          error?.status >= HttpStatus.BAD_REQUEST &&
+          error?.status < HttpStatus.INTERNAL_SERVER_ERROR
         ) {
           return false
         }

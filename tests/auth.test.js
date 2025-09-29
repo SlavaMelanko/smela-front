@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import fs from 'fs'
-import { StatusCodes } from 'http-status-codes'
 
+import { HttpStatus } from '../src/lib/http-status'
 import { Role, UserStatus } from '../src/lib/types'
 import { path } from '../src/services/backend/paths'
 import { auth } from '../src/tests/data'
@@ -130,7 +130,7 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCall(page, {
       path: path.SIGNUP,
-      status: StatusCodes.CONFLICT
+      status: HttpStatus.CONFLICT
     })
 
     const errorMessage = page.getByText(t.backend['auth/email-already-in-use'])
@@ -161,7 +161,7 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCall(page, {
       path: path.SIGNUP,
-      status: StatusCodes.CREATED,
+      status: HttpStatus.CREATED,
       validateRequest: b => {
         try {
           signupCaptchaToken = b.captchaToken
@@ -218,7 +218,7 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCall(page, {
       path: path.RESEND_VERIFICATION_EMAIL,
-      status: StatusCodes.ACCEPTED,
+      status: HttpStatus.ACCEPTED,
       validateRequest: b => {
         try {
           resendCaptchaToken = b.captchaToken
@@ -276,7 +276,7 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCall(page, {
       path: path.SIGNUP,
-      status: StatusCodes.CREATED
+      status: HttpStatus.CREATED
     })
 
     await page.waitForURL(/email-confirmation/)
@@ -305,11 +305,11 @@ test.describe.serial('Authentication', () => {
       {
         path: path.ME,
         method: 'GET',
-        status: StatusCodes.OK
+        status: HttpStatus.OK
       },
       {
         path: path.VERIFY_EMAIL,
-        status: StatusCodes.BAD_REQUEST
+        status: HttpStatus.BAD_REQUEST
       }
     ])
 
@@ -321,11 +321,11 @@ test.describe.serial('Authentication', () => {
     await waitForApiCalls(page, [
       {
         path: path.ME,
-        status: StatusCodes.OK
+        status: HttpStatus.OK
       },
       {
         path: path.VERIFY_EMAIL,
-        status: StatusCodes.BAD_REQUEST
+        status: HttpStatus.BAD_REQUEST
       }
     ])
 
@@ -358,7 +358,7 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCall(page, {
       path: path.SIGNUP,
-      status: StatusCodes.CREATED,
+      status: HttpStatus.CREATED,
       validateRequest: b => !!b.captchaToken
     })
 
@@ -375,7 +375,7 @@ test.describe.serial('Authentication', () => {
     await waitForApiCalls(page, [
       {
         path: path.ME,
-        status: StatusCodes.OK,
+        status: HttpStatus.OK,
         validateResponse: b => {
           if (!b.user) {
             return false
@@ -395,7 +395,7 @@ test.describe.serial('Authentication', () => {
       },
       {
         path: path.VERIFY_EMAIL,
-        status: StatusCodes.OK,
+        status: HttpStatus.OK,
         validateResponse: b => {
           if (!b.user || !b.token) {
             return false
@@ -415,7 +415,7 @@ test.describe.serial('Authentication', () => {
       },
       {
         path: path.ME,
-        status: StatusCodes.OK,
+        status: HttpStatus.OK,
         validateResponse: b => {
           if (!b.user) {
             return false
@@ -550,7 +550,7 @@ test.describe.serial('Authentication', () => {
 
       await waitForApiCall(page, {
         path: path.LOGIN,
-        status: StatusCodes.UNAUTHORIZED
+        status: HttpStatus.UNAUTHORIZED
       })
 
       const errorMessage = page.getByText(t.backend['auth/invalid-credentials'])
@@ -577,7 +577,7 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCall(page, {
       path: path.LOGIN,
-      status: StatusCodes.OK
+      status: HttpStatus.OK
     })
 
     await page.waitForURL('/home')
@@ -609,7 +609,7 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCall(page, {
       path: path.REQUEST_PASSWORD_RESET,
-      status: StatusCodes.ACCEPTED,
+      status: HttpStatus.ACCEPTED,
       validateRequest: b => !!b.captchaToken
     })
 
@@ -629,7 +629,7 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCall(page, {
       path: path.RESET_PASSWORD,
-      status: StatusCodes.OK
+      status: HttpStatus.OK
     })
 
     await expect(page.getByText(t.password.reset.set.success)).toBeVisible()
@@ -647,7 +647,7 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCall(page, {
       path: path.LOGIN,
-      status: StatusCodes.OK
+      status: HttpStatus.OK
     })
 
     await page.waitForURL('/home')

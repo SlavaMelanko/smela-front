@@ -1,6 +1,5 @@
-import { StatusCodes } from 'http-status-codes'
-
 import env from '@/lib/env'
+import { HttpStatus } from '@/lib/http-status'
 
 class ApiClient {
   constructor() {
@@ -19,7 +18,7 @@ class ApiClient {
 
     error.name = errorData.name || 'AppError'
     error.code = errorData.code || 'system:internal-error'
-    error.status = response.status || StatusCodes.INTERNAL_SERVER_ERROR
+    error.status = response.status || HttpStatus.INTERNAL_SERVER_ERROR
 
     return error
   }
@@ -45,7 +44,7 @@ class ApiClient {
     }
 
     // Handle 204 No Content status - return null instead of trying to parse JSON.
-    if (response.status === StatusCodes.NO_CONTENT) {
+    if (response.status === HttpStatus.NO_CONTENT) {
       return null
     }
 

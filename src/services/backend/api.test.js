@@ -1,4 +1,4 @@
-import { StatusCodes } from 'http-status-codes'
+import { HttpStatus } from '@/lib/http-status'
 
 describe('ApiClient', () => {
   let apiClient
@@ -51,7 +51,7 @@ describe('ApiClient', () => {
     it('should handle 204 No Content response', async () => {
       fetch.mockResolvedValueOnce({
         ok: true,
-        status: StatusCodes.NO_CONTENT
+        status: HttpStatus.NO_CONTENT
       })
 
       const result = await apiClient.get('/test')
@@ -118,7 +118,7 @@ describe('ApiClient', () => {
     it('should make a successful DELETE request', async () => {
       fetch.mockResolvedValueOnce({
         ok: true,
-        status: StatusCodes.NO_CONTENT
+        status: HttpStatus.NO_CONTENT
       })
 
       const result = await apiClient.delete('/test/1')
