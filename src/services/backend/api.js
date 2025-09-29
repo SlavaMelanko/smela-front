@@ -83,4 +83,5 @@ class ApiClient {
   }
 }
 
+// Export singleton instance for shared use across the application
 export default new ApiClient()
