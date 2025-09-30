@@ -204,7 +204,6 @@ describe('Signup Form', () => {
         expect(onSubmitMock).toHaveBeenCalledWith(
           expect.objectContaining({
             email: auth.email.ok,
-            role: 'user',
             captchaToken: auth.captcha.valid
           })
         )
@@ -264,7 +263,6 @@ describe('Signup Form', () => {
             firstName: auth.firstName.ok,
             email: auth.email.ok,
             password: auth.password.strong,
-            role: 'user',
             captchaToken: auth.captcha.alternative
           })
         )
@@ -273,7 +271,7 @@ describe('Signup Form', () => {
   })
 
   describe('Form Submission', () => {
-    it('includes role field with user value in submission', async () => {
+    it('does not include role field in submission', async () => {
       global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
       const onSubmitMock = jest.fn()
       const { firstNameInput, emailInput, passwordInput, submitButton } =
@@ -286,8 +284,8 @@ describe('Signup Form', () => {
 
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            role: 'user'
+          expect.not.objectContaining({
+            role: expect.anything()
           })
         )
       })
@@ -314,7 +312,6 @@ describe('Signup Form', () => {
             firstName: auth.firstName.ok,
             email: auth.email.ok,
             password: auth.password.strong,
-            role: 'user',
             captchaToken: auth.captcha.valid
           })
         )
@@ -346,7 +343,6 @@ describe('Signup Form', () => {
             lastName: auth.lastName.ok,
             email: auth.email.ok,
             password: auth.password.strong,
-            role: 'user',
             captchaToken: auth.captcha.alternative
           })
         )
@@ -371,7 +367,6 @@ describe('Signup Form', () => {
             firstName: auth.firstName.ok,
             email: auth.email.ok,
             password: auth.password.strong,
-            role: 'user',
             captchaToken: auth.captcha.alternative
           })
         )
