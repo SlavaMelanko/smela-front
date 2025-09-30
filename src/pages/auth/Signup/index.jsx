@@ -5,7 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import { GoogleOAuthButton } from '@/components/buttons'
 import { LoginPrompt, TermsAndPrivacyPrompt } from '@/components/prompts'
 import Separator from '@/components/Separator'
-import { useSignup, useSignupWithGoogle } from '@/hooks/useAuth'
+import {
+  useUserSignupWithEmail,
+  useUserSignupWithGoogle
+} from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
 import { toTranslationKey } from '@/services/catch'
@@ -16,9 +19,10 @@ const Signup = () => {
   const { t } = useLocale()
   const navigate = useNavigate()
   const { showErrorToast } = useNotifications()
-  const { mutate: signUpWithEmail, isPending: isEmailPending } = useSignup()
+  const { mutate: signUpWithEmail, isPending: isEmailPending } =
+    useUserSignupWithEmail()
   const { mutate: signUpWithGoogle, isPending: isGooglePending } =
-    useSignupWithGoogle()
+    useUserSignupWithGoogle()
 
   const handleSignupWithEmail = data => {
     if (!data.captchaToken) {
