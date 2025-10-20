@@ -1,0 +1,38 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 50%
+        informational: true
+    patch: off
+
+  range: 50..75
+  round: down
+  precision: 0
+
+ignore:
+  - '**/*.test.js'
+  - '**/*.test.jsx'
+  - '**/*.spec.js'
+  - '**/*.spec.jsx'
+  - '**/*.stories.js'
+  - '**/*.stories.jsx'
+  - '**/__tests__/**'
+  - 'src/tests/**'
+  - 'src/index.jsx'
+  - 'src/vite-env.d.js'
+  - 'src/App.jsx'
+  - 'src/i18n.js'
+  - 'node_modules/**'
+  - 'coverage/**'
+  - 'dist/**'
+  - 'build/**'
+  - 'tests/**'
+  - 'tests-examples/**'
+  - '.storybook/**'
+  - 'public/**'
+
+comment:
+  layout: 'reach,diff,flags,tree,footer'
+  behavior: default
+  require_changes: false
