@@ -16,7 +16,6 @@
     "e2e:ui": "npx playwright test --ui",
     "e2e:ci": "npx playwright test --only-changed",
     "ut": "NODE_ENV=test jest",
-    "utw": "NODE_ENV=test jest --watch",
     "cov": "NODE_ENV=test jest --coverage",
     "test": "npm run ut && npm run e2e",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,md,yml,yaml,scss}'",
