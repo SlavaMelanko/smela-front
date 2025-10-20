@@ -6,7 +6,8 @@ Quick guide for manually building and publishing CI Docker images.
 
 **Create GitHub Classic Token** (one-time setup):
 
-1. Go to https://github.com/settings/tokens
+1. Go to
+   [https://github.com/settings/tokens](https://github.com/settings/tokens)
 2. "Generate new token" → "Generate new token (classic)"
 3. Check `write:packages`
 4. Generate and copy token
