@@ -17,21 +17,27 @@ Quick guide for manually building and publishing CI Docker images.
 # 1. Login to GitHub Container Registry
 echo YOUR_TOKEN | docker login ghcr.io -u SlavaMelanko --password-stdin
 
-# 2. Build the image
-npm run docker:ci
+# 2. Set up Docker Buildx (required for multi-platform builds)
+docker buildx create --use --name multiplatform-builder || docker buildx use multiplatform-builder
 
-# 3. Tag for target branch(es)
-docker tag smela-front-ci ghcr.io/slavamelanko/smela-front-ci:dev
-docker tag smela-front-ci ghcr.io/slavamelanko/smela-front-ci:main
+# 3. Build and push multi-platform image for dev
+docker buildx build --platform linux/amd64,linux/arm64 \
+  -f Dockerfile.ci \
+  -t ghcr.io/slavamelanko/smela-front-ci:dev \
+  --push .
 
-# 4. Push to registry
-docker push ghcr.io/slavamelanko/smela-front-ci:dev
-docker push ghcr.io/slavamelanko/smela-front-ci:main
-```
+# 4. Build and push multi-platform image for main
+docker buildx build --platform linux/amd64,linux/arm64 \
+  -f Dockerfile.ci \
+  -t ghcr.io/slavamelanko/smela-front-ci:main \
+  --push .
 
-## Verify
+# 5. Verify multi-platform manifest (should show both linux/amd64 and linux/arm64)
+docker manifest inspect ghcr.io/slavamelanko/smela-front-ci:dev | jq '.manifests[] | select(.platform.architecture != "unknown") | {platform: .platform, size: .size}'
 
-```bash
+docker manifest inspect ghcr.io/slavamelanko/smela-front-ci:main | jq '.manifests[] | select(.platform.architecture != "unknown") | {platform: .platform, size: .size}'
+
+# 5. Pull and test on your platform
 docker pull ghcr.io/slavamelanko/smela-front-ci:dev
 docker pull ghcr.io/slavamelanko/smela-front-ci:main
 ```
