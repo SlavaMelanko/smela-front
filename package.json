@@ -12,6 +12,7 @@
     "build:staging": "vite build --mode staging",
     "build:analyze": "ANALYZE=true vite build --mode production && open dist/stats.html",
     "preview": "vite preview --mode production",
+    "docker:ci": "docker build -f Dockerfile.ci -t smela-front-ci:latest .",
     "e2e": "npx playwright test",
     "e2e:ui": "npx playwright test --ui",
     "e2e:ci": "npx playwright test --only-changed",
