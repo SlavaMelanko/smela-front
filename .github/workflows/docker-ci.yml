@@ -42,7 +42,7 @@ jobs:
           tags: |
             type=raw,value=dev,enable=${{ github.ref == 'refs/heads/dev' }}
             type=raw,value=main,enable=${{ github.ref == 'refs/heads/main' }}
-            type=sha,prefix={{branch}}-
+            type=sha,prefix={{branch}}-,format=short
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
