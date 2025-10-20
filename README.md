@@ -11,10 +11,9 @@ TanStack Query.
 
 ## 📋 Prerequisites
 
-- Node.js (v18 or higher)
-- npm (v9 or higher)
+- Node.js (v20 or higher)
 
-## 🛠️ Installation
+## 🛠️ Build and Run
 
 ### 1. Install dependencies
 
@@ -32,4 +31,4 @@ See [`.env.example`](.env.example) to configure required variables.
 npm run dev
 ```
 
-### 4. Open your browser and navigate to `http://localhost:5173`
+### 4. Open your browser and navigate to [http://localhost:5173](http://localhost:5173)
