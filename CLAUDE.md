@@ -9,6 +9,19 @@ This is a frontend application built with React 19, Vite, and TanStack Query.
 The project uses a custom backend API and emphasizes clear architecture, easy
 maintenance, and simple UX.
 
+## Technology Stack
+
+- **React 19** - UI library for building user interfaces
+- **Vite** - Next-generation frontend build tool
+- **TanStack Query** - Powerful data synchronization for React
+- **React Router** - Declarative routing for React
+- **React Hook Form** - Performant forms with easy validation
+- **Yup** - Schema validation
+- **SCSS** - CSS preprocessor with BEM methodology
+- **i18n** - Internationalization (English/Ukrainian)
+- **Jest** - Unit testing framework
+- **Playwright** - E2E testing framework
+
 ## Essential Commands
 
 ### Development
