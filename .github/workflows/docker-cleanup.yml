@@ -1,0 +1,30 @@
+name: Cleanup Old Docker Images
+
+on:
+  schedule:
+    - cron: '0 2 * * 0' # Run weekly on Sunday at 2 AM UTC
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+
+    steps:
+      - name: Delete old untagged images
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'smela-front-ci'
+          package-type: 'container'
+          min-versions-to-keep: 3
+          delete-only-untagged-versions: true
+
+      - name: Delete old feature branch images
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'smela-front-ci'
+          package-type: 'container'
+          min-versions-to-keep: 5
+          ignore-versions: '^(latest|dev-.*|main-.*)$'
+          delete-only-pre-release-versions: false
