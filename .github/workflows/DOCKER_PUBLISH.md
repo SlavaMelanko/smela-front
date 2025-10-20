@@ -36,31 +36,6 @@ docker pull ghcr.io/slavamelanko/smela-front-ci:dev
 docker pull ghcr.io/slavamelanko/smela-front-ci:main
 ```
 
-## Check Published Images
-
-To check what images are published to GitHub Container Registry:
-
-```bash
-# List all container packages for the user
-gh api "/users/slavamelanko/packages?package_type=container" | jq '.[] | {name, created_at, updated_at}'
-
-# Example output:
-# {
-#   "name": "smela-front-ci",
-#   "created_at": "2025-10-20T14:07:59Z",
-#   "updated_at": "2025-10-20T14:08:01Z"
-# }
-
-# List all tags/versions for a specific package
-gh api /users/slavamelanko/packages/container/smela-front-ci/versions | jq '.[] | {name: .metadata.container.tags[], created_at}'
-```
-
-Or browse in your web browser:
-
-- All packages: <https://github.com/slavamelanko?tab=packages>
-- Specific package:
-  <https://github.com/users/slavamelanko/packages/container/smela-front-ci>
-
 ## Test Image Locally
 
 After building the image, you can test it interactively:
