@@ -35,9 +35,9 @@ export default {
     '!src/**/*.spec.{js,jsx}',
     '!src/tests/**',
     '!src/index.jsx',
-    '!src/vite-env.d.js',
     '!src/App.jsx',
-    '!src/i18n.js'
+    '!src/i18n.js',
+    '!src/main.js'
   ],
   // Coverage thresholds removed to make coverage informational only
   // Coverage reports will still be generated but won't fail CI
