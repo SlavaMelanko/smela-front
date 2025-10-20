@@ -5,6 +5,8 @@ LABEL description="CI/CD image with Node.js 22 and Playwright browsers"
 
 RUN apt-get update && apt-get install -y \
     git \
+    curl \
+    gpg \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
