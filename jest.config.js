@@ -34,10 +34,10 @@ export default {
     '!src/**/*.test.{js,jsx}',
     '!src/**/*.spec.{js,jsx}',
     '!src/tests/**',
-    '!src/index.jsx',
-    '!src/App.jsx',
-    '!src/i18n.js',
-    '!src/main.js'
+    '!src/index.{js,jsx}',
+    '!src/App.{js,jsx}',
+    '!src/i18n.{js,jsx}',
+    '!src/main.{js,jsx}'
   ],
   // Coverage thresholds removed to make coverage informational only
   // Coverage reports will still be generated but won't fail CI
