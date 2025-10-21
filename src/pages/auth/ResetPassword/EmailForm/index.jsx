@@ -37,6 +37,7 @@ const ResetPasswordForm = ({ onSubmit, isLoading = false }) => {
   return (
     <form
       className='reset-password-email-form'
+      /* eslint-disable-next-line react-hooks/refs -- React Hook Form pattern is safe */
       onSubmit={handleSubmit(handleSubmitForm)}
     >
       <div className='reset-password-email-form__fields'>
