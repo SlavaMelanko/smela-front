@@ -18,7 +18,7 @@ if [ -z "$STAGED_FILES" ]; then
 fi
 
 # Check for Docker CI-related changes
-HAS_DOCKER_CI_CHANGES=$(echo "$STAGED_FILES" | grep -E "^(Dockerfile\.ci|package(-lock)?\.json|\.github/workflows/docker-ci\.yml)$" || true)
+HAS_DOCKER_CI_CHANGES=$(echo "$STAGED_FILES" | grep -E "^(Dockerfile\.ci|package-lock\.json|\.github/workflows/docker-ci\.yml)$" || true)
 
 # Add package emoji if any Docker CI files changed
 if [ -n "$HAS_DOCKER_CI_CHANGES" ]; then
