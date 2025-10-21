@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "prepare": "[ -d .git ] && husky || echo 'Skipping husky (not a git repo)'",
+    "prepare": "husky",
     "clean": "npm cache clean --force && rm -rf node_modules package-lock.json",
     "reinstall": "npm run clean && npm install",
     "dev": "vite --mode development",

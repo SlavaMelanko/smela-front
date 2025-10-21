@@ -34,6 +34,7 @@ jobs:
         'pull_request' && github.base_ref) || github.ref_name }}
     environment: test
     env:
+      HUSKY: 0
       VITE_CAPTCHA_SITE_KEY: ${{ secrets.VITE_CAPTCHA_SITE_KEY }}
     steps:
       - name: Checkout code
@@ -60,6 +61,7 @@ jobs:
     environment: test
     needs: ut
     env:
+      HUSKY: 0
       VITE_BE_BASE_URL: ${{ vars.VITE_BE_BASE_URL }}
       VITE_CAPTCHA_SITE_KEY: ${{ secrets.VITE_CAPTCHA_SITE_KEY }}
       VITE_MAILISK_API_KEY: ${{ secrets.VITE_MAILISK_API_KEY }}
