@@ -21,26 +21,43 @@ echo YOUR_TOKEN | docker login ghcr.io -u SlavaMelanko --password-stdin
 # 2. Set up Docker Buildx (required for multi-platform builds)
 docker buildx create --use --name multiplatform-builder || docker buildx use multiplatform-builder
 
-# 3. Build and push multi-platform image for dev
+# 3. Build and push multi-platform image
+# Choose one based on your needs:
+
+# For dev branch:
 docker buildx build --platform linux/amd64,linux/arm64 \
   -f Dockerfile.ci \
   -t ghcr.io/slavamelanko/smela-front-ci:dev \
   --push .
 
-# 4. Build and push multi-platform image for main
+# For main branch:
 docker buildx build --platform linux/amd64,linux/arm64 \
   -f Dockerfile.ci \
   -t ghcr.io/slavamelanko/smela-front-ci:main \
   --push .
 
-# 5. Verify multi-platform manifest (should show both linux/amd64 and linux/arm64)
-docker manifest inspect ghcr.io/slavamelanko/smela-front-ci:dev | jq '.manifests[] | select(.platform.architecture != "unknown") | {platform: .platform, size: .size}'
+# For current branch (e.g., sentry, docker, feature-x):
+docker buildx build --platform linux/amd64,linux/arm64 \
+  -f Dockerfile.ci \
+  -t ghcr.io/slavamelanko/smela-front-ci:$(git branch --show-current) \
+  --push .
 
+# 4. Verify multi-platform manifest (should show both linux/amd64 and linux/arm64)
+# Replace <tag> with: dev, main, or your branch name
+docker manifest inspect ghcr.io/slavamelanko/smela-front-ci:<tag> | jq '.manifests[] | select(.platform.architecture != "unknown") | {platform: .platform, size: .size}'
+
+# Examples:
+docker manifest inspect ghcr.io/slavamelanko/smela-front-ci:dev | jq '.manifests[] | select(.platform.architecture != "unknown") | {platform: .platform, size: .size}'
 docker manifest inspect ghcr.io/slavamelanko/smela-front-ci:main | jq '.manifests[] | select(.platform.architecture != "unknown") | {platform: .platform, size: .size}'
+docker manifest inspect ghcr.io/slavamelanko/smela-front-ci:sentry | jq '.manifests[] | select(.platform.architecture != "unknown") | {platform: .platform, size: .size}'
 
 # 5. Pull and test on your platform
+docker pull ghcr.io/slavamelanko/smela-front-ci:<tag>
+
+# Examples:
 docker pull ghcr.io/slavamelanko/smela-front-ci:dev
 docker pull ghcr.io/slavamelanko/smela-front-ci:main
+docker pull ghcr.io/slavamelanko/smela-front-ci:sentry
 ```
 
 ## Test Image Locally
