@@ -1,3 +1,4 @@
+import { codecovVitePlugin } from '@codecov/vite-plugin'
 import react from '@vitejs/plugin-react-swc'
 import path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -18,7 +19,12 @@ export default defineConfig({
         gzipSize: true,
         brotliSize: true,
         template: 'treemap'
-      })
+      }),
+    codecovVitePlugin({
+      enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
+      bundleName: 'smela-front',
+      uploadToken: process.env.CODECOV_TOKEN
+    })
   ].filter(Boolean),
   resolve: {
     alias: {
