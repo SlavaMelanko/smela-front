@@ -31,4 +31,4 @@ See [`.env.example`](.env.example) to configure required variables.
 npm run dev
 ```
 
-### 4. Open your browser and navigate to [http://localhost:5173](http://localhost:5173)
+Open your browser and navigate to [http://localhost:5173](http://localhost:5173)
