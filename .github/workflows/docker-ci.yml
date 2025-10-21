@@ -7,7 +7,6 @@ on:
       - main
     paths:
       - 'Dockerfile.ci'
-      - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/docker-ci.yml'
   workflow_dispatch:

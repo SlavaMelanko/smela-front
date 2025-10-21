@@ -35,7 +35,11 @@ const SignupForm = ({ onSubmit, isLoading = false }) => {
   }
 
   return (
-    <form className='signup-form' onSubmit={handleSubmit(handleSubmitForm)}>
+    <form
+      className='signup-form'
+      /* eslint-disable-next-line react-hooks/refs -- React Hook Form pattern is safe */
+      onSubmit={handleSubmit(handleSubmitForm)}
+    >
       <div className='signup-form__fields'>
         <FormField
           label={t('firstName.label')}

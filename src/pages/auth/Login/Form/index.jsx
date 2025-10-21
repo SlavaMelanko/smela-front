@@ -32,7 +32,11 @@ const LoginForm = ({ onSubmit, isLoading = false }) => {
   }
 
   return (
-    <form className='login-form' onSubmit={handleSubmit(handleFormSubmit)}>
+    <form
+      className='login-form'
+      /* eslint-disable-next-line react-hooks/refs -- React Hook Form pattern is safe */
+      onSubmit={handleSubmit(handleFormSubmit)}
+    >
       <div className='login-form__fields'>
         <FormField
           name={FieldName.EMAIL}

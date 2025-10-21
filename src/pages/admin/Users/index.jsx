@@ -29,6 +29,7 @@ const UsersTable = ({ data = [] }) => {
 
   const toggleFilters = () => setShowFilters(prev => !prev)
 
+  // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Table known limitation
   const config = useReactTable({
     data,
     columns,
