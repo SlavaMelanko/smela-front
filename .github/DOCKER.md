@@ -24,6 +24,9 @@ docker buildx create --use --name multiplatform-builder || docker buildx use mul
 # 3. Build and push multi-platform image
 # Choose one based on your needs:
 
+# For local development:
+docker build -f Dockerfile.ci -t smela-front-ci .
+
 # For dev branch:
 docker buildx build --platform linux/amd64,linux/arm64 \
   -f Dockerfile.ci \

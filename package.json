@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "prepare": "husky",
+    "prepare": "[ -d .git ] && husky || echo 'Skipping husky (not a git repo)'",
     "clean": "npm cache clean --force && rm -rf node_modules package-lock.json",
     "reinstall": "npm run clean && npm install",
     "dev": "vite --mode development",
@@ -12,9 +12,6 @@
     "build:staging": "vite build --mode staging",
     "build:analyze": "ANALYZE=true vite build --mode production && open dist/stats.html",
     "preview": "vite preview --mode production",
-    "docker:ci": "docker build -f Dockerfile.ci -t smela-front-ci .",
-    "docker:ci:dev": "docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile.ci -t ghcr.io/slavamelanko/smela-front-ci:dev --push .",
-    "docker:ci:main": "docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile.ci -t ghcr.io/slavamelanko/smela-front-ci:main --push .",
     "e2e": "npx playwright test",
     "e2e:ui": "npx playwright test --ui",
     "e2e:ci": "npx playwright test --only-changed",
