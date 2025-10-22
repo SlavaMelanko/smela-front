@@ -44,7 +44,7 @@ jobs:
         run: npm ci
 
       - name: Run tests with coverage
-        run: npm run cov
+        run: npm run ut:cov
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
