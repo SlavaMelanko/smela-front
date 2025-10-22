@@ -75,7 +75,7 @@ jobs:
         with:
           name: bundle-visualizer
           path: dist/bundle-visualizer.html
-          retention-days: 90
+          retention-days: 30
 
       - name: Upload bundle stats to RelativeCI
         uses: relative-ci/agent-action@v3
