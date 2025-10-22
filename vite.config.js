@@ -24,7 +24,7 @@ export default defineConfig({
     process.env.ANALYZE_BUNDLE &&
       visualizer({
         filename: 'dist/bundle-visualizer.html',
-        open: true,
+        open: !process.env.CI,
         gzipSize: true,
         brotliSize: true,
         template: 'treemap'
