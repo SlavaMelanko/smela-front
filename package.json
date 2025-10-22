@@ -12,19 +12,17 @@
     "build:staging": "vite build --mode staging",
     "build:analyze": "ANALYZE=true vite build --mode production && open dist/stats.html",
     "preview": "vite preview --mode production",
+    "ut": "NODE_ENV=test jest",
+    "ut:cov": "NODE_ENV=test jest --coverage",
     "e2e": "npx playwright test",
     "e2e:ui": "npx playwright test --ui",
-    "e2e:ci": "npx playwright test --only-changed",
-    "ut": "NODE_ENV=test jest",
-    "cov": "NODE_ENV=test jest --coverage",
-    "test": "npm run ut && npm run e2e",
+    "tests": "npm run ut && npm run e2e",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,md,yml,yaml,scss}'",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "lint:styles": "stylelint 'src/**/*.{scss,css}'",
-    "lint:styles:fix": "stylelint 'src/**/*.{scss,css}' --fix",
-    "stories": "storybook dev -p 6006 --no-open",
-    "stories:build": "storybook build"
+    "stylelint": "stylelint 'src/**/*.{scss,css}'",
+    "stylelint:fix": "stylelint 'src/**/*.{scss,css}' --fix",
+    "stories": "storybook dev -p 6006 --no-open"
   },
   "lint-staged": {
     "*.{js,jsx}": [
