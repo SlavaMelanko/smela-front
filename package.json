@@ -11,6 +11,7 @@
     "build": "vite build --mode production",
     "build:staging": "vite build --mode staging",
     "bundle:visualize": "ANALYZE_BUNDLE=true vite build --mode production",
+    "bundle:analyze": "ANALYZE_BUNDLE=true npm run build",
     "preview": "vite preview --mode production",
     "ut": "NODE_ENV=test jest",
     "ut:cov": "NODE_ENV=test jest --coverage",

@@ -29,17 +29,18 @@ export default defineConfig({
         brotliSize: true,
         template: 'treemap'
       }),
-    webpackStatsPlugin({
-      filename: 'dist/webpack-stats.json',
-      stats: {
-        all: false,
-        assets: true,
-        chunks: true,
-        modules: true,
-        reasons: true,
-        chunkModules: true
-      }
-    })
+    process.env.ANALYZE_BUNDLE &&
+      webpackStatsPlugin({
+        filename: 'dist/webpack-stats.json',
+        stats: {
+          all: false,
+          assets: true,
+          chunks: true,
+          modules: true,
+          reasons: true,
+          chunkModules: true
+        }
+      })
   ].filter(Boolean),
   resolve: {
     alias: {
