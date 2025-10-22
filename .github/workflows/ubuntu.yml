@@ -24,6 +24,9 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  HUSKY: 0
+
 jobs:
   ut:
     name: Unit Tests (Jest)
@@ -34,7 +37,6 @@ jobs:
         'pull_request' && github.base_ref) || github.ref_name }}
     environment: test
     env:
-      HUSKY: 0
       VITE_CAPTCHA_SITE_KEY: ${{ secrets.VITE_CAPTCHA_SITE_KEY }}
     steps:
       - name: Checkout code
@@ -58,8 +60,6 @@ jobs:
     environment: test
     container:
       image: ghcr.io/slavamelanko/smela-front-ci:dev
-    env:
-      HUSKY: 0
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
