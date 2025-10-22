@@ -75,7 +75,4 @@ docker run -it --rm smela-front-ci bash
 
 # 1. Check npm and Node versions
 npm --v && node --v
-
-# 2. Check Playwright
-npx playwright --version
 ```
