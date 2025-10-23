@@ -8,7 +8,6 @@ import FormField from '@/components/form/Field'
 import { PasswordInput, TextInput } from '@/components/inputs'
 import InvisibleReCaptcha2 from '@/components/InvisibleReCaptcha2'
 import useLocale from '@/hooks/useLocale'
-import { Role } from '@/lib/types'
 
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
@@ -23,7 +22,7 @@ const SignupForm = ({ onSubmit, isLoading = false }) => {
     formState: { errors, isSubmitting }
   } = useForm({
     resolver,
-    defaultValues: getDefaultValues(Role.USER)
+    defaultValues: getDefaultValues()
   })
 
   const handleSubmitForm = async data => {
@@ -36,7 +35,11 @@ const SignupForm = ({ onSubmit, isLoading = false }) => {
   }
 
   return (
-    <form className='signup-form' onSubmit={handleSubmit(handleSubmitForm)}>
+    <form
+      className='signup-form'
+      /* eslint-disable-next-line react-hooks/refs -- React Hook Form pattern is safe */
+      onSubmit={handleSubmit(handleSubmitForm)}
+    >
       <div className='signup-form__fields'>
         <FormField
           label={t('firstName.label')}

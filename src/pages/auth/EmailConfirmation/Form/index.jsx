@@ -32,6 +32,7 @@ const EmailConfirmationForm = ({ isLoading, userEmail, onSubmit }) => {
   return (
     <form
       className='email-confirmation-form'
+      /* eslint-disable-next-line react-hooks/refs -- React Hook Form pattern is safe */
       onSubmit={handleSubmit(handleSubmitForm)}
     >
       <PrimaryButton type='submit' disabled={isSubmitting}>

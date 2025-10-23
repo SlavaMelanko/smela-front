@@ -9,27 +9,45 @@ This is a frontend application built with React 19, Vite, and TanStack Query.
 The project uses a custom backend API and emphasizes clear architecture, easy
 maintenance, and simple UX.
 
+## Technology Stack
+
+- **React 19** - UI library for building user interfaces
+- **Vite** - Next-generation frontend build tool
+- **TanStack Query** - Powerful data synchronization for React
+- **React Router** - Declarative routing for React
+- **React Hook Form** - Performant forms with easy validation
+- **Yup** - Schema validation
+- **SCSS** - CSS preprocessor with BEM methodology
+- **i18n** - Internationalization (English/Ukrainian)
+- **Jest** - Unit testing framework
+- **Playwright** - E2E testing framework
+
 ## Essential Commands
+
+All npm scripts are defined in `package.json`. Key workflows:
 
 ### Development
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
+- Development server, production builds, and preview: `dev`, `build`, `preview`
+- Build analysis: `build:analyze` opens bundle visualization
 
 ### Testing
 
-- `npm run ut` - Run Jest unit tests
-- `npm run e2e` - Run Playwright e2e tests
-- `npm run e2e:ui` - Run Playwright tests in UI mode
-- To run a single test: `npm run ut -- path/to/test.spec.js`
+- Unit tests: `ut` (all tests), `ut:cov` (with coverage)
+- E2E tests: `e2e` (headless), `e2e:ui` (interactive mode)
+- Run single test: `npm run ut -- path/to/test.spec.js`
+- E2E tests require pre-registered `admin@example.com` account
 
 ### Code Quality
 
-- `npm run lint` - Check code with ESLint
-- `npm run lint:fix` - Auto-fix ESLint issues
-- `npm run lint:styles` - Check SCSS with Stylelint
-- `npm run format` - Format code with Prettier
+- Linting: `lint`, `lint:fix`, `stylelint`, `stylelint:fix`
+- Formatting: `format`
+- Pre-commit hooks automatically run ESLint and Prettier on staged files
+
+### Storybook
+
+- Component library: `stories` (opens browser on port 6006)
+- Build validation: `stories:build` (validates Storybook builds correctly)
 
 ## Architecture Overview
 
@@ -81,7 +99,7 @@ const { register, handleSubmit } = useForm({ resolver })
 ### Testing Strategy
 
 - **Unit tests** in `__tests__` folders near components
-- **E2E tests** in `/tests/` require pre-registered `admin@example.com` account
+- **E2E tests** in `/tests/` directory
 - Test utilities available in `/src/lib/tests/`
 
 ## Key Development Patterns

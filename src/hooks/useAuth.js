@@ -58,12 +58,12 @@ export const useLoginWithGoogle = () =>
     }
   })
 
-export const useSignup = () =>
+export const useUserSignupWithEmail = () =>
   useMutation({
     mutationFn: authService.signUp
   })
 
-export const useSignupWithGoogle = () =>
+export const useUserSignupWithGoogle = () =>
   useMutation({
     mutationFn: async () => {
       // Temporary implementation until Google OAuth is implemented

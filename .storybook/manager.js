@@ -5,7 +5,7 @@ addons.setConfig({
   theme: create({
     base: 'light',
     brandTitle: 'SMELA',
-    brandImage: '/logo-with-text-light.png',
+    brandImage: '/logo.svg',
     brandTarget: '_self'
   })
 })
