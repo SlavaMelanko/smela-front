@@ -44,6 +44,11 @@ All npm scripts are defined in `package.json`. Key workflows:
 - Formatting: `format`
 - Pre-commit hooks automatically run ESLint and Prettier on staged files
 
+### Storybook
+
+- Component library: `stories` (opens browser on port 6006)
+- Build validation: `stories:build` (validates Storybook builds correctly)
+
 ## Architecture Overview
 
 ### Component Structure

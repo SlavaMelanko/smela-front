@@ -23,7 +23,8 @@
     "lint:fix": "eslint src --fix",
     "stylelint": "stylelint 'src/**/*.{scss,css}'",
     "stylelint:fix": "stylelint 'src/**/*.{scss,css}' --fix",
-    "stories": "storybook dev -p 6006 --no-open"
+    "stories": "storybook dev -p 6006",
+    "stories:build": "storybook build"
   },
   "lint-staged": {
     "*.{js,jsx}": [
