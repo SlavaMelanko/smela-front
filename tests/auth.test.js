@@ -113,7 +113,7 @@ test.describe.serial('Authentication', () => {
     await expect(passwordInput).toHaveClass(/input__field--error/)
   })
 
-  // This test requires seed data with admin@example.com
+  // This test requires seed data with jason@example.com
   test('signup: prevents duplicate email registration', async ({ page }) => {
     await page.goto('/signup')
 

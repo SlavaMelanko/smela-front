@@ -27,7 +27,7 @@ export const auth = {
   },
   email: {
     ok: 'example@example.com',
-    admin: 'admin@example.com',
+    admin: 'jason@example.com',
     invalid: 'examp@',
     noAt: 'example.com',
     noDomain: 'example@',
