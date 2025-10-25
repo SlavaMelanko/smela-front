@@ -18,7 +18,7 @@ TanStack Query.
 ### 1. Install dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### 2. Environment setup
@@ -28,7 +28,7 @@ See [`.env.example`](.env.example) to configure required variables.
 ### 3. Start the development server
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Open your browser and navigate to [http://localhost:5173](http://localhost:5173)

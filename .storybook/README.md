@@ -6,7 +6,7 @@ Before using Storybook, ensure that all dependencies are installed. Run the
 following command to install the required packages:
 
 ```bash
-npm install
+pnpm install
 ```
 
 ## 📦 Setup
@@ -23,7 +23,7 @@ contains:
 To start Storybook in development mode, run:
 
 ```bash
-npm run stories
+pnpm run stories
 ```
 
 ## 📘 Storybook Guidelines
