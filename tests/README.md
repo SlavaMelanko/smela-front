@@ -11,7 +11,7 @@ error on signup.
 Install Playwright and browser dependencies:
 
 ```bash
-npx playwright install
+pnpm exec playwright install
 ```
 
 ## 🚀 Running Tests
@@ -19,11 +19,11 @@ npx playwright install
 Run all tests headlessly:
 
 ```bash
-npm run e2e
+pnpm run e2e
 ```
 
 Or run tests in interactive UI mode:
 
 ```bash
-npm run e2e:ui
+pnpm run e2e:ui
 ```

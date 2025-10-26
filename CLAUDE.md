@@ -24,7 +24,7 @@ maintenance, and simple UX.
 
 ## Essential Commands
 
-All npm scripts are defined in `package.json`. Key workflows:
+All pnpm scripts are defined in `package.json`. Key workflows:
 
 ### Development
 
@@ -35,7 +35,7 @@ All npm scripts are defined in `package.json`. Key workflows:
 
 - Unit tests: `ut` (all tests), `ut:cov` (with coverage)
 - E2E tests: `e2e` (headless), `e2e:ui` (interactive mode)
-- Run single test: `npm run ut -- path/to/test.spec.js`
+- Run single test: `pnpm run ut -- path/to/test.spec.js`
 - E2E tests require pre-registered `jason@example.com` account
 
 ### Code Quality

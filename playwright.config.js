@@ -22,7 +22,7 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    baseURL: process.env.VITE_BASE_URL || 'http://localhost:5173',
+    baseURL: process.env.VITE_FE_BASE_URL || 'http://localhost:5173',
 
     navigationTimeout: 30 * 1000,
 
@@ -86,10 +86,10 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'npm run dev',
+    command: 'pnpm run dev',
 
-    url: process.env.VITE_BASE_URL || 'http://localhost:5173',
+    url: process.env.VITE_FE_BASE_URL || 'http://localhost:5173',
     reuseExistingServer: true,
-    timeout: 100000
+    timeout: 30000
   }
 })
