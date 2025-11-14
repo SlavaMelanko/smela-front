@@ -14,17 +14,9 @@ jobs:
     steps:
       - name: Delete old untagged images
         uses: actions/delete-package-versions@v5
+        continue-on-error: true
         with:
           package-name: 'smela-front-ci'
           package-type: 'container'
           min-versions-to-keep: 8
           delete-only-untagged-versions: true
-
-      - name: Delete old feature branch tagged images
-        uses: actions/delete-package-versions@v5
-        with:
-          package-name: 'smela-front-ci'
-          package-type: 'container'
-          min-versions-to-keep: 0
-          ignore-versions: '^(dev|main|dev-.*|main-.*)$'
-          delete-only-pre-release-versions: false
