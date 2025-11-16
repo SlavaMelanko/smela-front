@@ -1,4 +1,4 @@
-const storage = {
+export default {
   get(key, fallback = null) {
     try {
       const value = localStorage.getItem(key)
@@ -33,5 +33,3 @@ const storage = {
     }
   }
 }
-
-export default storage
