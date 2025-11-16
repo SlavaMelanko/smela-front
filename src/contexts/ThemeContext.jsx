@@ -1,6 +1,6 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 
-import storage from '@/lib/storage'
+import { localStorage } from '@/lib/storage'
 import toasts from '@/lib/toasts'
 
 const THEME_STORAGE_KEY = 'theme'
@@ -8,7 +8,7 @@ const THEME_STORAGE_KEY = 'theme'
 const ThemeContext = createContext()
 
 const getInitialTheme = () => {
-  const savedTheme = storage.get(THEME_STORAGE_KEY)
+  const savedTheme = localStorage.get(THEME_STORAGE_KEY)
 
   if (savedTheme) {
     return savedTheme
@@ -25,7 +25,7 @@ export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(getInitialTheme)
 
   useEffect(() => {
-    storage.set(THEME_STORAGE_KEY, theme)
+    localStorage.set(THEME_STORAGE_KEY, theme)
 
     const root = document.documentElement
 
