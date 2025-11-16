@@ -3,13 +3,19 @@ import { accessTokenStorage } from '@/lib/storage'
 import api from './api'
 import { path } from './paths'
 
+const storeAccessToken = response => {
+  const { accessToken } = response.data
+
+  if (accessToken) {
+    accessTokenStorage.set(accessToken)
+  }
+}
+
 const authService = {
   async signUp(data) {
     const response = await api.post(path.SIGNUP, data)
 
-    if (response.data.accessToken) {
-      accessTokenStorage.set(response.data.accessToken)
-    }
+    storeAccessToken(response)
 
     return response
   },
@@ -17,9 +23,7 @@ const authService = {
   async logIn(data) {
     const response = await api.post(path.LOGIN, data)
 
-    if (response.data.accessToken) {
-      accessTokenStorage.set(response.data.accessToken)
-    }
+    storeAccessToken(response)
 
     return response
   },
@@ -27,9 +31,7 @@ const authService = {
   async verifyEmail(token) {
     const response = await api.post(path.VERIFY_EMAIL, { token })
 
-    if (response.data.accessToken) {
-      accessTokenStorage.set(response.data.accessToken)
-    }
+    storeAccessToken(response)
 
     return response
   },
@@ -49,9 +51,7 @@ const authService = {
   async refreshToken() {
     const response = await api.post(path.REFRESH_TOKEN)
 
-    if (response.data.accessToken) {
-      accessTokenStorage.set(response.data.accessToken)
-    }
+    storeAccessToken(response)
 
     return response
   },
