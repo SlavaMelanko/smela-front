@@ -75,11 +75,11 @@ describe('storage', () => {
     })
   })
 
-  describe('remove', () => {
+  describe('clear', () => {
     it('should remove value from localStorage', () => {
       localStorage.setItem('test-key', 'test-value')
 
-      storage.remove('test-key')
+      storage.clear('test-key')
 
       expect(localStorage.getItem('test-key')).toBe(null)
     })
@@ -91,9 +91,35 @@ describe('storage', () => {
         throw new Error('localStorage error')
       })
 
-      expect(() => storage.remove('test-key')).not.toThrow()
+      expect(() => storage.clear('test-key')).not.toThrow()
 
       localStorage.removeItem = originalRemoveItem
+    })
+  })
+
+  describe('clearAll', () => {
+    it('should clear all values from localStorage', () => {
+      localStorage.setItem('key1', 'value1')
+      localStorage.setItem('key2', 'value2')
+      localStorage.setItem('key3', 'value3')
+
+      storage.clearAll()
+
+      expect(localStorage.getItem('key1')).toBe(null)
+      expect(localStorage.getItem('key2')).toBe(null)
+      expect(localStorage.getItem('key3')).toBe(null)
+    })
+
+    it('should handle localStorage errors silently', () => {
+      const originalClear = localStorage.clear
+
+      localStorage.clear = jest.fn(() => {
+        throw new Error('localStorage error')
+      })
+
+      expect(() => storage.clearAll()).not.toThrow()
+
+      localStorage.clear = originalClear
     })
   })
 })

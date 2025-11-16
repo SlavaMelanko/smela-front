@@ -17,9 +17,17 @@ const storage = {
     }
   },
 
-  remove(key) {
+  clear(key) {
     try {
       localStorage.removeItem(key)
+    } catch {
+      // Fail silently (e.g., quota exceeded, private mode)
+    }
+  },
+
+  clearAll() {
+    try {
+      localStorage.clear()
     } catch {
       // Fail silently (e.g., quota exceeded, private mode)
     }
