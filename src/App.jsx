@@ -7,6 +7,7 @@ import { ModalProvider } from '@/contexts/ModalContext'
 import { NotificationProvider } from '@/contexts/NotificationContext.jsx'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { queryClient } from '@/lib/query-client'
+import { AccessTokenProvider } from '@/providers/AccessTokenProvider'
 import { router } from '@/routes'
 
 function App() {
@@ -16,7 +17,9 @@ function App() {
         <LocaleProvider>
           <NotificationProvider>
             <ModalProvider>
-              <RouterProvider router={router} />
+              <AccessTokenProvider>
+                <RouterProvider router={router} />
+              </AccessTokenProvider>
             </ModalProvider>
           </NotificationProvider>
         </LocaleProvider>
