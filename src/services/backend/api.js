@@ -77,8 +77,9 @@ class ApiClient {
     const response = await fetch(url, config)
 
     if (response.status === HttpStatus.UNAUTHORIZED) {
-      if (isRetry) {
-        // Double 401 - treat as auth failure
+      // Don't attempt refresh if we have no access token
+      // (means refresh already failed or user never logged in)
+      if (isRetry || !accessTokenStorage.get()) {
         handleAuthFailure()
         throw await createError(response)
       }

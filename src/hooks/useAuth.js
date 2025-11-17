@@ -16,14 +16,38 @@ export const authKeys = {
 export const getCurrentUserQueryOptions = () =>
   queryOptions({
     queryKey: authKeys.user(),
-    queryFn: userService.getCurrentUser
+    queryFn: userService.getCurrentUser,
+    retry: (failureCount, error) => {
+      // Don't retry on auth errors
+      if (error?.status === 401) {
+        return false
+      }
+
+      return failureCount < 2
+    }
   })
 
 export const useCurrentUser = () => {
+  const hasAccessToken = !!accessTokenStorage.get()
+
   const query = useQuery({
     ...getCurrentUserQueryOptions(),
+    enabled: hasAccessToken,
     select: data => data?.user || data || null
   })
+
+  // No token = definitively not authenticated (not "pending")
+  if (!hasAccessToken) {
+    return {
+      isPending: false,
+      isFetching: false,
+      isError: false,
+      error: null,
+      isSuccess: false,
+      user: null,
+      isAuthenticated: false
+    }
+  }
 
   return {
     isPending: query.isPending,
@@ -41,8 +65,8 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: authService.logIn,
-    onSuccess: response => {
-      const { accessToken } = response.data
+    onSuccess: data => {
+      const { accessToken } = data
 
       if (accessToken) {
         accessTokenStorage.set(accessToken)
@@ -68,8 +92,8 @@ export const useLoginWithGoogle = () =>
 export const useUserSignupWithEmail = () =>
   useMutation({
     mutationFn: authService.signUp,
-    onSuccess: response => {
-      const { accessToken } = response.data
+    onSuccess: data => {
+      const { accessToken } = data
 
       if (accessToken) {
         accessTokenStorage.set(accessToken)
@@ -146,8 +170,8 @@ export const useRefreshToken = () => {
 
   return useMutation({
     mutationFn: authService.refreshToken,
-    onSuccess: response => {
-      const { accessToken } = response.data
+    onSuccess: data => {
+      const { accessToken } = data
 
       if (accessToken) {
         accessTokenStorage.set(accessToken)

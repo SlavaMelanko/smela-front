@@ -51,7 +51,8 @@ export default class TokenRefreshManager {
       accessTokenStorage.set(accessToken)
 
       this.#pendingRequests.process()
-    } catch {
+    } catch (error) {
+      console.error(error)
       this.#pendingRequests.clear()
       onAuthFailure()
     } finally {
