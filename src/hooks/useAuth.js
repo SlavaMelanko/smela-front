@@ -5,6 +5,7 @@ import {
   useQueryClient
 } from '@tanstack/react-query'
 
+import { accessTokenStorage } from '@/lib/storage'
 import { authService, userService } from '@/services/backend'
 
 export const authKeys = {
@@ -40,7 +41,15 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: authService.logIn,
-    onSuccess: () => {
+    onSuccess: response => {
+      const {
+        data: { accessToken }
+      } = response
+
+      if (accessToken) {
+        accessTokenStorage.set(accessToken)
+      }
+
       queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
   })
@@ -60,7 +69,16 @@ export const useLoginWithGoogle = () =>
 
 export const useUserSignupWithEmail = () =>
   useMutation({
-    mutationFn: authService.signUp
+    mutationFn: authService.signUp,
+    onSuccess: response => {
+      const {
+        data: { accessToken }
+      } = response
+
+      if (accessToken) {
+        accessTokenStorage.set(accessToken)
+      }
+    }
   })
 
 export const useUserSignupWithGoogle = () =>
@@ -84,6 +102,7 @@ export const useLogout = () => {
       invalidatesQueries: authKeys.all()
     },
     onSuccess: () => {
+      accessTokenStorage.clear()
       // Set user data to null for immediate UI update
       queryClient.setQueryData(authKeys.user(), null)
       // Also remove the query entirely to prevent cached 401 errors
@@ -95,7 +114,15 @@ export const useLogout = () => {
 export const useVerifyEmail = ({ onSuccess, onError, onSettled }) =>
   useMutation({
     mutationFn: authService.verifyEmail,
-    onSuccess,
+    onSuccess: (data, variables, context) => {
+      const { accessToken } = data
+
+      if (accessToken) {
+        accessTokenStorage.set(accessToken)
+      }
+
+      onSuccess?.(data, variables, context)
+    },
     onError,
     onSettled,
     meta: {

@@ -1,3 +1,4 @@
+import { accessTokenStorage } from '@/lib/storage'
 import authService from '@/services/backend/auth'
 
 class PendingRequestQueue {
@@ -39,7 +40,16 @@ export default class TokenRefreshManager {
     this.#isRefreshing = true
 
     try {
-      await authService.refreshToken()
+      const {
+        data: { accessToken }
+      } = await authService.refreshToken()
+
+      if (!accessToken) {
+        throw new Error('No access token')
+      }
+
+      accessTokenStorage.set(accessToken)
+
       this.#pendingRequests.process()
     } catch {
       this.#pendingRequests.clear()

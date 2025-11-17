@@ -1,39 +1,17 @@
-import { accessTokenStorage } from '@/lib/storage'
-
 import api from './api'
 import { path } from './paths'
 
-const storeAccessToken = response => {
-  const { accessToken } = response.data
-
-  if (accessToken) {
-    accessTokenStorage.set(accessToken)
-  }
-}
-
 const authService = {
-  async signUp(data) {
-    const response = await api.post(path.SIGNUP, data)
-
-    storeAccessToken(response)
-
-    return response
+  signUp(data) {
+    return api.post(path.SIGNUP, data)
   },
 
-  async logIn(data) {
-    const response = await api.post(path.LOGIN, data)
-
-    storeAccessToken(response)
-
-    return response
+  logIn(data) {
+    return api.post(path.LOGIN, data)
   },
 
-  async verifyEmail(token) {
-    const response = await api.post(path.VERIFY_EMAIL, { token })
-
-    storeAccessToken(response)
-
-    return response
+  verifyEmail(token) {
+    return api.post(path.VERIFY_EMAIL, { token })
   },
 
   resendVerificationEmail(data) {
@@ -48,17 +26,11 @@ const authService = {
     return api.post(path.RESET_PASSWORD, data)
   },
 
-  async refreshToken() {
-    const response = await api.post(path.REFRESH_TOKEN)
-
-    storeAccessToken(response)
-
-    return response
+  refreshToken() {
+    return api.post(path.REFRESH_TOKEN)
   },
 
-  async logOut() {
-    accessTokenStorage.clear()
-
+  logOut() {
     return api.post(path.LOGOUT)
   }
 }
