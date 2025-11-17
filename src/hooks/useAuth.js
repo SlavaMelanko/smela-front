@@ -42,9 +42,7 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: authService.logIn,
     onSuccess: response => {
-      const {
-        data: { accessToken }
-      } = response
+      const { accessToken } = response.data
 
       if (accessToken) {
         accessTokenStorage.set(accessToken)
@@ -71,9 +69,7 @@ export const useUserSignupWithEmail = () =>
   useMutation({
     mutationFn: authService.signUp,
     onSuccess: response => {
-      const {
-        data: { accessToken }
-      } = response
+      const { accessToken } = response.data
 
       if (accessToken) {
         accessTokenStorage.set(accessToken)
@@ -144,6 +140,30 @@ export const useResetPassword = () =>
   useMutation({
     mutationFn: authService.resetPassword
   })
+
+export const useRefreshToken = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: authService.refreshToken,
+    onSuccess: response => {
+      const { accessToken } = response.data
+
+      if (accessToken) {
+        accessTokenStorage.set(accessToken)
+      }
+
+      queryClient.invalidateQueries({ queryKey: authKeys.user() })
+    },
+    onError: () => {
+      accessTokenStorage.clear()
+      // Set user data to null for immediate UI update
+      queryClient.setQueryData(authKeys.user(), null)
+      // Also remove the query entirely to prevent cached 401 errors
+      queryClient.removeQueries({ queryKey: authKeys.user() })
+    }
+  })
+}
 
 export const useUpdateUser = () => {
   const queryClient = useQueryClient()
