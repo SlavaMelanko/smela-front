@@ -172,7 +172,7 @@ test.describe.serial('Authentication', () => {
         }
       },
       validateResponse: b => {
-        if (!b.user || !b.token) {
+        if (!b.user || !b.accessToken) {
           return false
         }
 
@@ -397,7 +397,7 @@ test.describe.serial('Authentication', () => {
         path: path.VERIFY_EMAIL,
         status: HttpStatus.OK,
         validateResponse: b => {
-          if (!b.user || !b.token) {
+          if (!b.user || !b.accessToken) {
             return false
           }
 

@@ -26,6 +26,10 @@ const authService = {
     return apiClient.post(path.RESET_PASSWORD, data)
   },
 
+  refreshToken() {
+    return apiClient.post(path.REFRESH_TOKEN)
+  },
+
   logOut() {
     return apiClient.post(path.LOGOUT)
   }
