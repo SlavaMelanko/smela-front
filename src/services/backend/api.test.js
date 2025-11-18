@@ -1,4 +1,4 @@
-import { HttpStatus } from '@/lib/http-status'
+import { HttpStatus } from '@/lib/httpStatus'
 
 describe('ApiClient', () => {
   let apiClient

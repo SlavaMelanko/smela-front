@@ -1,28 +1,19 @@
-import inMemoryStorage from './inMemoryStorage'
+import localStorage from './localStorage'
 
 const ACCESS_TOKEN_KEY = 'access_token'
 
 export default {
   get() {
-    const token = inMemoryStorage.get(ACCESS_TOKEN_KEY)
-
-    // eslint-disable-next-line no-console
-    console.log(`got ${token}`)
+    const token = localStorage.get(ACCESS_TOKEN_KEY)
 
     return token
   },
 
   set(value) {
-    // eslint-disable-next-line no-console
-    console.log(`setting ${value}`)
-
-    inMemoryStorage.set(ACCESS_TOKEN_KEY, value)
+    localStorage.set(ACCESS_TOKEN_KEY, value)
   },
 
-  clear() {
-    // eslint-disable-next-line no-console
-    console.log(`clear access token`)
-
-    inMemoryStorage.clear(ACCESS_TOKEN_KEY)
+  remove() {
+    localStorage.remove(ACCESS_TOKEN_KEY)
   }
 }

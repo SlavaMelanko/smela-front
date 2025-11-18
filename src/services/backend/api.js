@@ -1,5 +1,5 @@
 import env from '@/lib/env'
-import { HttpStatus } from '@/lib/http-status'
+import { HttpStatus } from '@/lib/httpStatus'
 import accessTokenStorage from '@/lib/storage/accessTokenStorage'
 import TokenRefreshManager from '@/services/backend/authRefreshManager'
 

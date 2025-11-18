@@ -97,13 +97,13 @@ describe('storage', () => {
     })
   })
 
-  describe('clearAll', () => {
+  describe('clear', () => {
     it('should clear all values from localStorage', () => {
       localStorage.setItem('key1', 'value1')
       localStorage.setItem('key2', 'value2')
       localStorage.setItem('key3', 'value3')
 
-      storage.clearAll()
+      storage.clear()
 
       expect(localStorage.getItem('key1')).toBe(null)
       expect(localStorage.getItem('key2')).toBe(null)
@@ -117,7 +117,7 @@ describe('storage', () => {
         throw new Error('localStorage error')
       })
 
-      expect(() => storage.clearAll()).not.toThrow()
+      expect(() => storage.clear()).not.toThrow()
 
       localStorage.clear = originalClear
     })
