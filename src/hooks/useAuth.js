@@ -106,12 +106,12 @@ export const useVerifyEmail = ({ onSuccess, onError, onSettled }) => {
   return useMutation({
     mutationFn: authService.verifyEmail,
     onSuccess: (data, ...args) => {
-      // Store access token in localStorage
       if (data?.accessToken) {
         accessTokenStorage.set(data.accessToken)
       }
 
       queryClient.invalidateQueries({ queryKey: authKeys.user() })
+
       // Call the original onSuccess callback if provided
       onSuccess?.(data, ...args)
     },
@@ -175,21 +175,6 @@ export const useUpdateUser = () => {
     },
     meta: {
       invalidatesQueries: authKeys.user()
-    }
-  })
-}
-
-export const useRefreshToken = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: authService.refreshToken,
-    onSuccess: data => {
-      if (data?.accessToken) {
-        accessTokenStorage.set(data.accessToken)
-      }
-
-      queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
   })
 }
