@@ -12,7 +12,7 @@ class ApiClient {
   constructor(config = {}) {
     this.#baseUrl = config.baseUrl || env.BE_BASE_URL
     this.#httpClient = config.httpClient || fetch
-    this.#timeout = config.timeout ?? 15000 // 15 seconds
+    this.#timeout = config.timeout ?? 15_000 // 15 seconds
     this.#defaultHeaders = {
       'Content-Type': 'application/json',
       ...config.headers
