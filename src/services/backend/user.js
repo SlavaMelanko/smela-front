@@ -1,13 +1,13 @@
-import api from './api'
+import apiClient from './apiClient'
 import { path } from './paths'
 
 const userService = {
   getCurrentUser() {
-    return api.get(path.ME)
+    return apiClient.get(path.ME)
   },
 
   updateUser(data) {
-    return api.post(path.ME, data)
+    return apiClient.post(path.ME, data)
   }
 }
 
