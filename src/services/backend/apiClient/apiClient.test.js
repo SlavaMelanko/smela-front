@@ -1,17 +1,22 @@
 import { HttpStatus } from '@/lib/httpStatus'
 
 describe('ApiClient', () => {
+  let createApiClient
+  let mockFetch
   let apiClient
 
   beforeAll(async () => {
+    // Local mock - scoped only to this test file
     jest.doMock('@/lib/env', () => ({
       default: {
-        BE_BASE_URL: 'https://api.test.com'
+        BE_BASE_URL: 'https://api.example.com'
       }
     }))
 
-    // Import apiClient after mocking env
-    apiClient = (await import('./api')).default
+    // Dynamic import after mock is set up
+    const factory = await import('./factory')
+
+    createApiClient = factory.createApiClient
   })
 
   afterAll(() => {
@@ -19,14 +24,18 @@ describe('ApiClient', () => {
   })
 
   beforeEach(() => {
-    fetch.mockClear()
+    mockFetch = jest.fn()
+    apiClient = createApiClient({
+      baseUrl: 'https://api.test.com',
+      httpClient: mockFetch
+    })
   })
 
   describe('GET requests', () => {
     it('should make a successful GET request', async () => {
       const mockData = { id: 1, name: 'Test' }
 
-      fetch.mockResolvedValueOnce({
+      mockFetch.mockResolvedValueOnce({
         ok: true,
         status: 200,
         json: jest.fn().mockResolvedValueOnce(mockData)
@@ -34,7 +43,7 @@ describe('ApiClient', () => {
 
       const result = await apiClient.get('/test')
 
-      expect(fetch).toHaveBeenCalledWith(
+      expect(mockFetch).toHaveBeenCalledWith(
         expect.stringContaining('/test'),
         expect.objectContaining({
           method: 'GET',
@@ -49,7 +58,7 @@ describe('ApiClient', () => {
     })
 
     it('should handle 204 No Content response', async () => {
-      fetch.mockResolvedValueOnce({
+      mockFetch.mockResolvedValueOnce({
         ok: true,
         status: HttpStatus.NO_CONTENT
       })
@@ -65,7 +74,7 @@ describe('ApiClient', () => {
       const mockData = { id: 1, name: 'Created' }
       const requestData = { name: 'Test' }
 
-      fetch.mockResolvedValueOnce({
+      mockFetch.mockResolvedValueOnce({
         ok: true,
         status: 201,
         json: jest.fn().mockResolvedValueOnce(mockData)
@@ -73,7 +82,7 @@ describe('ApiClient', () => {
 
       const result = await apiClient.post('/test', requestData)
 
-      expect(fetch).toHaveBeenCalledWith(
+      expect(mockFetch).toHaveBeenCalledWith(
         expect.stringContaining('/test'),
         expect.objectContaining({
           method: 'POST',
@@ -94,7 +103,7 @@ describe('ApiClient', () => {
       const mockData = { id: 1, name: 'Updated' }
       const requestData = { name: 'Updated Test' }
 
-      fetch.mockResolvedValueOnce({
+      mockFetch.mockResolvedValueOnce({
         ok: true,
         status: 200,
         json: jest.fn().mockResolvedValueOnce(mockData)
@@ -102,7 +111,7 @@ describe('ApiClient', () => {
 
       const result = await apiClient.put('/test/1', requestData)
 
-      expect(fetch).toHaveBeenCalledWith(
+      expect(mockFetch).toHaveBeenCalledWith(
         expect.stringContaining('/test/1'),
         expect.objectContaining({
           method: 'PUT',
@@ -116,14 +125,14 @@ describe('ApiClient', () => {
 
   describe('DELETE requests', () => {
     it('should make a successful DELETE request', async () => {
-      fetch.mockResolvedValueOnce({
+      mockFetch.mockResolvedValueOnce({
         ok: true,
         status: HttpStatus.NO_CONTENT
       })
 
       const result = await apiClient.delete('/test/1')
 
-      expect(fetch).toHaveBeenCalledWith(
+      expect(mockFetch).toHaveBeenCalledWith(
         expect.stringContaining('/test/1'),
         expect.objectContaining({
           method: 'DELETE'
@@ -142,7 +151,7 @@ describe('ApiClient', () => {
         code: 'resource:not-found'
       }
 
-      fetch.mockResolvedValueOnce({
+      mockFetch.mockResolvedValueOnce({
         ok: false,
         status: 404,
         json: jest.fn().mockResolvedValueOnce(errorResponse)
@@ -152,14 +161,14 @@ describe('ApiClient', () => {
     })
 
     it('should handle error response without JSON body', async () => {
-      fetch.mockResolvedValueOnce({
+      mockFetch.mockResolvedValueOnce({
         ok: false,
         status: 500,
         json: jest.fn().mockRejectedValueOnce(new Error('Invalid JSON'))
       })
 
       await expect(apiClient.get('/test')).rejects.toThrow(
-        'HTTP error! status: 500'
+        'Request failed with status 500'
       )
     })
 
@@ -170,7 +179,7 @@ describe('ApiClient', () => {
         code: 'validation:invalid-input'
       }
 
-      fetch.mockResolvedValueOnce({
+      mockFetch.mockResolvedValueOnce({
         ok: false,
         status: 400,
         json: jest.fn().mockResolvedValueOnce(errorResponse)
@@ -189,7 +198,7 @@ describe('ApiClient', () => {
 
   describe('Headers and configuration', () => {
     it('should include custom headers', async () => {
-      fetch.mockResolvedValueOnce({
+      mockFetch.mockResolvedValueOnce({
         ok: true,
         status: 200,
         json: jest.fn().mockResolvedValueOnce({})
@@ -201,7 +210,7 @@ describe('ApiClient', () => {
         }
       })
 
-      expect(fetch).toHaveBeenCalledWith(
+      expect(mockFetch).toHaveBeenCalledWith(
         expect.any(String),
         expect.objectContaining({
           headers: {
@@ -213,7 +222,7 @@ describe('ApiClient', () => {
     })
 
     it('should always include credentials', async () => {
-      fetch.mockResolvedValueOnce({
+      mockFetch.mockResolvedValueOnce({
         ok: true,
         status: 200,
         json: jest.fn().mockResolvedValueOnce({})
@@ -221,12 +230,107 @@ describe('ApiClient', () => {
 
       await apiClient.get('/test')
 
-      expect(fetch).toHaveBeenCalledWith(
+      expect(mockFetch).toHaveBeenCalledWith(
         expect.any(String),
         expect.objectContaining({
           credentials: 'include'
         })
       )
+    })
+  })
+
+  describe('Timeout handling', () => {
+    beforeEach(() => {
+      jest.useFakeTimers()
+    })
+
+    afterEach(() => {
+      jest.useRealTimers()
+    })
+
+    it('should abort request after timeout expires', async () => {
+      const abortError = new Error('Aborted')
+
+      abortError.name = 'AbortError'
+
+      mockFetch.mockImplementationOnce(
+        (url, config) =>
+          new Promise((resolve, reject) => {
+            config.signal.addEventListener('abort', () => {
+              reject(abortError)
+            })
+          })
+      )
+
+      const requestPromise = apiClient.get('/test')
+
+      jest.advanceTimersByTime(15000)
+
+      await expect(requestPromise).rejects.toThrow('Aborted')
+      await expect(requestPromise).rejects.toMatchObject({
+        name: 'AbortError'
+      })
+    })
+
+    it('should clear timeout after successful request', async () => {
+      const clearTimeoutSpy = jest.spyOn(global, 'clearTimeout')
+
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: jest.fn().mockResolvedValueOnce({ data: 'test' })
+      })
+
+      await apiClient.get('/test')
+
+      expect(clearTimeoutSpy).toHaveBeenCalled()
+
+      clearTimeoutSpy.mockRestore()
+    })
+
+    it('should clear timeout after failed request', async () => {
+      const clearTimeoutSpy = jest.spyOn(global, 'clearTimeout')
+
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        json: jest.fn().mockResolvedValueOnce({
+          error: 'Server error'
+        })
+      })
+
+      await expect(apiClient.get('/test')).rejects.toThrow()
+
+      expect(clearTimeoutSpy).toHaveBeenCalled()
+
+      clearTimeoutSpy.mockRestore()
+    })
+
+    it('should use custom timeout when configured', async () => {
+      const customClient = createApiClient({
+        baseUrl: 'https://api.test.com',
+        httpClient: mockFetch,
+        timeout: 5000
+      })
+
+      const abortError = new Error('Aborted')
+
+      abortError.name = 'AbortError'
+
+      mockFetch.mockImplementationOnce(
+        (url, config) =>
+          new Promise((resolve, reject) => {
+            config.signal.addEventListener('abort', () => {
+              reject(abortError)
+            })
+          })
+      )
+
+      const requestPromise = customClient.get('/test')
+
+      jest.advanceTimersByTime(5000)
+
+      await expect(requestPromise).rejects.toThrow('Aborted')
     })
   })
 })
