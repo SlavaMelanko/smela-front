@@ -17,7 +17,7 @@ export default {
     }
   },
 
-  clear(key) {
+  remove(key) {
     try {
       localStorage.removeItem(key)
     } catch {
@@ -25,7 +25,7 @@ export default {
     }
   },
 
-  clearAll() {
+  clear() {
     try {
       localStorage.clear()
     } catch {

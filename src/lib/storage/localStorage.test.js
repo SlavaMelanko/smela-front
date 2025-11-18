@@ -75,11 +75,11 @@ describe('storage', () => {
     })
   })
 
-  describe('clear', () => {
+  describe('remove', () => {
     it('should remove value from localStorage', () => {
       localStorage.setItem('test-key', 'test-value')
 
-      storage.clear('test-key')
+      storage.remove('test-key')
 
       expect(localStorage.getItem('test-key')).toBe(null)
     })
@@ -91,19 +91,19 @@ describe('storage', () => {
         throw new Error('localStorage error')
       })
 
-      expect(() => storage.clear('test-key')).not.toThrow()
+      expect(() => storage.remove('test-key')).not.toThrow()
 
       localStorage.removeItem = originalRemoveItem
     })
   })
 
-  describe('clearAll', () => {
+  describe('clear', () => {
     it('should clear all values from localStorage', () => {
       localStorage.setItem('key1', 'value1')
       localStorage.setItem('key2', 'value2')
       localStorage.setItem('key3', 'value3')
 
-      storage.clearAll()
+      storage.clear()
 
       expect(localStorage.getItem('key1')).toBe(null)
       expect(localStorage.getItem('key2')).toBe(null)
@@ -117,7 +117,7 @@ describe('storage', () => {
         throw new Error('localStorage error')
       })
 
-      expect(() => storage.clearAll()).not.toThrow()
+      expect(() => storage.clear()).not.toThrow()
 
       localStorage.clear = originalClear
     })

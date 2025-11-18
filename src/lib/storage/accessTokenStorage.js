@@ -13,7 +13,7 @@ export default {
     localStorage.set(ACCESS_TOKEN_KEY, value)
   },
 
-  clear() {
-    localStorage.clear(ACCESS_TOKEN_KEY)
+  remove() {
+    localStorage.remove(ACCESS_TOKEN_KEY)
   }
 }
