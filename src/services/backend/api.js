@@ -1,5 +1,5 @@
 import env from '@/lib/env'
-import { HttpStatus } from '@/lib/http-status'
+import { HttpStatus } from '@/lib/httpStatus'
 
 class ApiClient {
   constructor() {

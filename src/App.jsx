@@ -6,7 +6,7 @@ import { LocaleProvider } from '@/contexts/LocaleContext'
 import { ModalProvider } from '@/contexts/ModalContext'
 import { NotificationProvider } from '@/contexts/NotificationContext.jsx'
 import { ThemeProvider } from '@/contexts/ThemeContext'
-import { queryClient } from '@/lib/query-client'
+import { queryClient } from '@/lib/queryClient'
 import { router } from '@/routes'
 
 function App() {

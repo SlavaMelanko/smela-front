@@ -6,7 +6,7 @@ import { SecondaryButton } from '@/components/buttons'
 import { CloudAlertIcon } from '@/components/icons'
 import useLocale from '@/hooks/useLocale'
 import useUrlParams from '@/hooks/useUrlParams'
-import { NetworkErrorType } from '@/lib/network-monitor'
+import { NetworkErrorType } from '@/lib/networkMonitor'
 
 const Network = () => {
   const { t } = useLocale()

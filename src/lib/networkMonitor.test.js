@@ -4,7 +4,7 @@ import {
   isNetworkError,
   isOnline,
   NetworkErrorType
-} from './network-monitor.js'
+} from './networkMonitor.js'
 
 describe('network-monitor', () => {
   beforeEach(() => {
