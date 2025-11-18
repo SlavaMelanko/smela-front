@@ -14,7 +14,7 @@ describe('ApiClient', () => {
     }))
 
     // Dynamic import after mock is set up
-    const factory = await import('./factory')
+    const factory = await import('../factory')
 
     createApiClient = factory.createApiClient
   })
