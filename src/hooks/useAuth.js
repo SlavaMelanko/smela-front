@@ -5,6 +5,7 @@ import {
   useQueryClient
 } from '@tanstack/react-query'
 
+import { accessTokenStorage } from '@/lib/storage'
 import { authService, userService } from '@/services/backend'
 
 export const authKeys = {
@@ -40,7 +41,11 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: authService.logIn,
-    onSuccess: () => {
+    onSuccess: data => {
+      if (data?.accessToken) {
+        accessTokenStorage.set(data.accessToken)
+      }
+
       queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
   })
@@ -60,7 +65,12 @@ export const useLoginWithGoogle = () =>
 
 export const useUserSignupWithEmail = () =>
   useMutation({
-    mutationFn: authService.signUp
+    mutationFn: authService.signUp,
+    onSuccess: data => {
+      if (data?.accessToken) {
+        accessTokenStorage.set(data.accessToken)
+      }
+    }
   })
 
 export const useUserSignupWithGoogle = () =>
@@ -84,24 +94,31 @@ export const useLogout = () => {
       invalidatesQueries: authKeys.all()
     },
     onSuccess: () => {
-      // Set user data to null for immediate UI update
-      queryClient.setQueryData(authKeys.user(), null)
-      // Also remove the query entirely to prevent cached 401 errors
+      accessTokenStorage.remove()
       queryClient.removeQueries({ queryKey: authKeys.user() })
     }
   })
 }
 
-export const useVerifyEmail = ({ onSuccess, onError, onSettled }) =>
-  useMutation({
+export const useVerifyEmail = ({ onSuccess, onError, onSettled }) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
     mutationFn: authService.verifyEmail,
-    onSuccess,
+    onSuccess: (data, ...args) => {
+      // Store access token in localStorage
+      if (data?.accessToken) {
+        accessTokenStorage.set(data.accessToken)
+      }
+
+      queryClient.invalidateQueries({ queryKey: authKeys.user() })
+      // Call the original onSuccess callback if provided
+      onSuccess?.(data, ...args)
+    },
     onError,
-    onSettled,
-    meta: {
-      invalidatesQueries: authKeys.user()
-    }
+    onSettled
   })
+}
 
 export const useResendVerificationEmail = () =>
   useMutation({
@@ -158,6 +175,21 @@ export const useUpdateUser = () => {
     },
     meta: {
       invalidatesQueries: authKeys.user()
+    }
+  })
+}
+
+export const useRefreshToken = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: authService.refreshToken,
+    onSuccess: data => {
+      if (data?.accessToken) {
+        accessTokenStorage.set(data.accessToken)
+      }
+
+      queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
   })
 }
