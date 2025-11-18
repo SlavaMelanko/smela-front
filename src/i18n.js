@@ -8,7 +8,7 @@ import i18n from 'i18next'
 import HttpBackend from 'i18next-http-backend'
 import { initReactI18next } from 'react-i18next'
 
-import storage from '@/lib/storage'
+import { localStorage } from '@/lib/storage'
 
 export const LOCALE_STORAGE_KEY = 'preferred_locale'
 
@@ -16,7 +16,7 @@ i18n
   .use(HttpBackend)
   .use(initReactI18next)
   .init({
-    lng: storage.get(LOCALE_STORAGE_KEY, 'en'),
+    lng: localStorage.get(LOCALE_STORAGE_KEY, 'en'),
     fallbackLng: 'en',
     backend: {
       loadPath: '/locales/{{lng}}.json'

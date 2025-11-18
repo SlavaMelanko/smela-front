@@ -1,4 +1,4 @@
-const storage = {
+export default {
   get(key, fallback = null) {
     try {
       const value = localStorage.getItem(key)
@@ -17,13 +17,19 @@ const storage = {
     }
   },
 
-  remove(key) {
+  clear(key) {
     try {
       localStorage.removeItem(key)
     } catch {
       // Fail silently (e.g., quota exceeded, private mode)
     }
+  },
+
+  clearAll() {
+    try {
+      localStorage.clear()
+    } catch {
+      // Fail silently (e.g., quota exceeded, private mode)
+    }
   }
 }
-
-export default storage

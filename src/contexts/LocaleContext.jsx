@@ -2,7 +2,7 @@ import { createContext, useCallback, useMemo, useState } from 'react'
 
 import i18n, { LOCALE_STORAGE_KEY } from '@/i18n'
 import { formatDate, formatNumber, formatPrice } from '@/lib/format'
-import storage from '@/lib/storage'
+import { localStorage } from '@/lib/storage'
 
 const LocaleContext = createContext()
 
@@ -14,7 +14,7 @@ export const LocaleProvider = ({ children }) => {
   const changeLocale = useCallback(locale => {
     setLocale(locale)
     i18n.changeLanguage(locale)
-    storage.set(LOCALE_STORAGE_KEY, locale)
+    localStorage.set(LOCALE_STORAGE_KEY, locale)
   }, [])
 
   const value = useMemo(
