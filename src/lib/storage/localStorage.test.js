@@ -75,11 +75,11 @@ describe('storage', () => {
     })
   })
 
-  describe('clear', () => {
+  describe('remove', () => {
     it('should remove value from localStorage', () => {
       localStorage.setItem('test-key', 'test-value')
 
-      storage.clear('test-key')
+      storage.remove('test-key')
 
       expect(localStorage.getItem('test-key')).toBe(null)
     })
@@ -91,7 +91,7 @@ describe('storage', () => {
         throw new Error('localStorage error')
       })
 
-      expect(() => storage.clear('test-key')).not.toThrow()
+      expect(() => storage.remove('test-key')).not.toThrow()
 
       localStorage.removeItem = originalRemoveItem
     })
