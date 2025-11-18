@@ -3,7 +3,7 @@ import inMemoryStorage from './inMemoryStorage'
 
 describe('accessTokenStorage', () => {
   beforeEach(() => {
-    inMemoryStorage.clearAll()
+    inMemoryStorage.clear()
   })
 
   describe('get', () => {
@@ -37,16 +37,16 @@ describe('accessTokenStorage', () => {
     })
   })
 
-  describe('clear', () => {
-    it('should clear the stored token', () => {
+  describe('remove', () => {
+    it('should remove the stored token', () => {
       storage.set('test-token')
-      storage.clear()
+      storage.remove()
 
       expect(storage.get()).toBe(null)
     })
 
     it('should work when no token is set', () => {
-      storage.clear()
+      storage.remove()
 
       expect(storage.get()).toBe(null)
     })
@@ -65,7 +65,7 @@ describe('accessTokenStorage', () => {
       inMemoryStorage.set('other-key', 'other-value')
       storage.set('token-value')
 
-      storage.clear()
+      storage.remove()
 
       expect(storage.get()).toBe(null)
       expect(inMemoryStorage.get('other-key')).toBe('other-value')

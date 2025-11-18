@@ -2,7 +2,7 @@ import storage from './inMemoryStorage'
 
 describe('inMemoryStorage', () => {
   beforeEach(() => {
-    storage.clearAll()
+    storage.clear()
   })
 
   describe('get', () => {
@@ -56,31 +56,31 @@ describe('inMemoryStorage', () => {
     })
   })
 
-  describe('clear', () => {
+  describe('remove', () => {
     it('should remove specific key', () => {
       storage.set('key1', 'value1')
       storage.set('key2', 'value2')
 
-      storage.clear('key1')
+      storage.remove('key1')
 
       expect(storage.get('key1')).toBe(null)
       expect(storage.get('key2')).toBe('value2')
     })
 
     it('should work when key does not exist', () => {
-      storage.clear('nonexistent')
+      storage.remove('nonexistent')
 
       expect(storage.get('nonexistent')).toBe(null)
     })
   })
 
-  describe('clearAll', () => {
+  describe('clear', () => {
     it('should remove all keys', () => {
       storage.set('key1', 'value1')
       storage.set('key2', 'value2')
       storage.set('key3', 'value3')
 
-      storage.clearAll()
+      storage.clear()
 
       expect(storage.get('key1')).toBe(null)
       expect(storage.get('key2')).toBe(null)
@@ -88,7 +88,7 @@ describe('inMemoryStorage', () => {
     })
 
     it('should work when storage is empty', () => {
-      storage.clearAll()
+      storage.clear()
 
       expect(storage.get('any-key')).toBe(null)
     })

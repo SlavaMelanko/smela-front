@@ -9,11 +9,11 @@ export default {
     storage[key] = value
   },
 
-  clear(key) {
+  remove(key) {
     delete storage[key]
   },
 
-  clearAll() {
+  clear() {
     Object.keys(storage).forEach(key => delete storage[key])
   }
 }
