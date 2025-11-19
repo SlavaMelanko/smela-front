@@ -16,6 +16,14 @@ const redirectToNetworkErrorPage = error => {
   }
 }
 
+const redirectToGeneralErrorPage = () => {
+  const path = '/errors/general'
+
+  if (!window.location.pathname.includes(path)) {
+    window.location.href = path
+  }
+}
+
 const handleError = error => {
   if (isNetworkError(error)) {
     redirectToNetworkErrorPage(error)
@@ -26,8 +34,7 @@ const handleError = error => {
   // Here we could integrate with error tracking services like Sentry, Bugsnag, etc.
   // errorTracker.captureException(error, { context }).
 
-  // We could also show user-facing notifications:
-  // toast.error('Something went wrong. Please try again.').
+  redirectToGeneralErrorPage()
 }
 
 const queryCache = new QueryCache({
