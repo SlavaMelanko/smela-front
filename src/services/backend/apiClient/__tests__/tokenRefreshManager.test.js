@@ -11,7 +11,7 @@ describe('TokenRefreshManager', () => {
     const requestFn = jest.fn().mockResolvedValue({ data: 'success' })
     const refreshFn = jest.fn().mockResolvedValue({ accessToken: 'new-token' })
 
-    const result = await manager.executeWithRefresh(requestFn, refreshFn)
+    const result = await manager.refreshAndRetry(requestFn, refreshFn)
 
     expect(refreshFn).toHaveBeenCalledTimes(1)
     expect(requestFn).toHaveBeenCalledTimes(1)
@@ -23,7 +23,7 @@ describe('TokenRefreshManager', () => {
     const refreshFn = jest.fn().mockResolvedValue({ accessToken: 'new-token' })
     const onSuccess = jest.fn()
 
-    await manager.executeWithRefresh(requestFn, refreshFn, onSuccess)
+    await manager.refreshAndRetry(requestFn, refreshFn, onSuccess)
 
     expect(onSuccess).toHaveBeenCalledWith('new-token')
   })
@@ -34,7 +34,7 @@ describe('TokenRefreshManager', () => {
     const onFailure = jest.fn()
 
     await expect(
-      manager.executeWithRefresh(requestFn, refreshFn, null, onFailure)
+      manager.refreshAndRetry(requestFn, refreshFn, null, onFailure)
     ).rejects.toThrow('Refresh failed')
 
     expect(onFailure).toHaveBeenCalled()
@@ -45,9 +45,9 @@ describe('TokenRefreshManager', () => {
     const requestFn = jest.fn()
     const refreshFn = jest.fn().mockResolvedValue({})
 
-    await expect(
-      manager.executeWithRefresh(requestFn, refreshFn)
-    ).rejects.toThrow('No access token')
+    await expect(manager.refreshAndRetry(requestFn, refreshFn)).rejects.toThrow(
+      'No access token'
+    )
   })
 
   it('should queue multiple requests and resolve all after single refresh', async () => {
@@ -56,8 +56,8 @@ describe('TokenRefreshManager', () => {
     const refreshFn = jest.fn().mockResolvedValue({ accessToken: 'token' })
 
     const [result1, result2] = await Promise.all([
-      manager.executeWithRefresh(requestFn1, refreshFn),
-      manager.executeWithRefresh(requestFn2, refreshFn)
+      manager.refreshAndRetry(requestFn1, refreshFn),
+      manager.refreshAndRetry(requestFn2, refreshFn)
     ])
 
     expect(refreshFn).toHaveBeenCalledTimes(1)

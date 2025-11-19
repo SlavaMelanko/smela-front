@@ -1,11 +1,15 @@
 import { HttpStatus } from '@/lib/httpStatus'
 
 const createError = async response => {
-  const errorData = await response.json().catch(err => {
-    console.warn('Failed to parse error response:', err.message)
+  let errorData = {}
 
-    return {}
-  })
+  if (!response.bodyUsed) {
+    errorData = await response.json().catch(err => {
+      console.warn('Failed to parse error response:', err.message)
+
+      return {}
+    })
+  }
 
   const error = new Error(
     errorData.error || `Request failed with status ${response.status}`

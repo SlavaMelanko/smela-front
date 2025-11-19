@@ -2,6 +2,7 @@ import env from '@/lib/env'
 import { HttpStatus } from '@/lib/httpStatus'
 import { accessTokenStorage } from '@/lib/storage'
 
+import { path } from '../paths'
 import { createError } from './error'
 import TokenRefreshManager from './tokenRefreshManager'
 
@@ -53,11 +54,11 @@ class ApiClient {
   }
 
   async #doRequest(path, options = {}) {
-    const url = `${this.#baseUrl}${path}`
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), this.#timeout)
 
     try {
+      const url = `${this.#baseUrl}${path}`
       const config = {
         ...options,
         credentials: 'include',
@@ -68,8 +69,13 @@ class ApiClient {
       const response = await this.#httpClient(url, config)
 
       if (!response.ok) {
-        if (response.status === HttpStatus.UNAUTHORIZED) {
-          return this.#tokenRefreshManager.executeWithRefresh(
+        const error = await createError(response)
+
+        if (
+          response.status === HttpStatus.UNAUTHORIZED &&
+          error.code === 'auth/unauthorized'
+        ) {
+          return this.#tokenRefreshManager.refreshAndRetry(
             () => this.#doRequest(path, options),
             () => this.#refreshToken(),
             accessToken => {
@@ -79,42 +85,18 @@ class ApiClient {
               accessTokenStorage.remove()
 
               if (typeof window !== 'undefined') {
-                window.location.href = '/login'
+                window.location.href = '/'
               }
             }
           )
         }
 
-        throw await createError(response)
+        // Enable TanStack Query error handling (retry, onError, error states)
+        throw error
       }
 
       if (response.status === HttpStatus.NO_CONTENT) {
         return null
-      }
-
-      return response.json()
-    } finally {
-      clearTimeout(timeoutId)
-    }
-  }
-
-  async #refreshToken() {
-    const url = `${this.#baseUrl}/api/v1/auth/refresh-token`
-    const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), this.#timeout)
-
-    try {
-      const config = {
-        method: 'POST',
-        credentials: 'include',
-        headers: this.#defaultHeaders,
-        signal: controller.signal
-      }
-
-      const response = await this.#httpClient(url, config)
-
-      if (!response.ok) {
-        throw await createError(response)
       }
 
       return response.json()
@@ -136,6 +118,31 @@ class ApiClient {
     }
 
     return headers
+  }
+
+  async #refreshToken() {
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), this.#timeout)
+
+    try {
+      const url = `${this.#baseUrl}${path.REFRESH_TOKEN}`
+      const config = {
+        method: 'POST',
+        credentials: 'include',
+        headers: this.#defaultHeaders,
+        signal: controller.signal
+      }
+
+      const response = await this.#httpClient(url, config)
+
+      if (!response.ok) {
+        throw await createError(response)
+      }
+
+      return response.json()
+    } finally {
+      clearTimeout(timeoutId)
+    }
   }
 }
 

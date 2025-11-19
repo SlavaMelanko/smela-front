@@ -2,7 +2,6 @@
   "alreadyHaveAccount": "Already have an account?",
   "backend": {
     "auth/already-verified": "Invalid request. Please try logging in.",
-    "auth/bad-credentials": "Invalid email or password.",
     "auth/email-already-in-use": "Email is already taken.",
     "auth/invalid-credentials": "Invalid email or password.",
     "auth/unauthorized": "Access denied. Please try logging in again.",

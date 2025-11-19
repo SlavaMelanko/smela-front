@@ -20,7 +20,18 @@ export default class TokenRefreshManager {
   #isRefreshing = false
   #pendingRequests = new PendingRequestQueue()
 
-  async executeWithRefresh(requestFn, refreshFn, onSuccess, onFailure) {
+  /**
+   * Queues a request and refreshes the token if not already in progress.
+   * All queued requests are retried once the token is refreshed.
+   *
+   * @param {() => Promise<T>} requestFn - The original request to retry after refresh
+   * @param {() => Promise<{accessToken: string}>} refreshFn - Function to refresh the token
+   * @param {(accessToken: string) => void} onSuccess - Called with new token on successful refresh
+   * @param {() => void} onFailure - Called when refresh fails
+   * @returns {Promise<T>} Result of the retried request
+   * @template T
+   */
+  async refreshAndRetry(requestFn, refreshFn, onSuccess, onFailure) {
     const promise = new Promise((resolve, reject) => {
       this.#pendingRequests.enqueue(error => {
         if (error) {
@@ -54,6 +65,8 @@ export default class TokenRefreshManager {
         onSuccess(accessToken)
       }
     } catch (error) {
+      console.error(error)
+
       this.#pendingRequests.reject(error)
 
       if (onFailure) {

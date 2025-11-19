@@ -2,7 +2,6 @@
   "alreadyHaveAccount": "Вже свій?",
   "backend": {
     "auth/already-verified": "Невірний запит. Спробуйте увійти в обліковий запис.",
-    "auth/bad-credentials": "Невірна електронна адреса або пароль.",
     "auth/email-already-in-use": "Електронна адреса вже зайнята.",
     "auth/invalid-credentials": "Невірна електронна адреса або пароль.",
     "auth/unauthorized": "Доступ заборонено. Увійдіть щоб продовжити.",
