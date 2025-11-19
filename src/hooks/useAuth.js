@@ -1,9 +1,4 @@
-import {
-  queryOptions,
-  useMutation,
-  useQuery,
-  useQueryClient
-} from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { accessTokenStorage } from '@/lib/storage'
 import { authService, userService } from '@/services/backend'
@@ -13,25 +8,23 @@ export const authKeys = {
   user: () => [...authKeys.all(), 'user']
 }
 
-export const getCurrentUserQueryOptions = () =>
-  queryOptions({
-    queryKey: authKeys.user(),
-    queryFn: userService.getCurrentUser
-  })
-
 export const useCurrentUser = () => {
+  const hasAccessToken = !!accessTokenStorage.get()
+
   const query = useQuery({
-    ...getCurrentUserQueryOptions(),
-    select: data => data?.user || data || null
+    queryKey: authKeys.user(),
+    queryFn: userService.getCurrentUser,
+    select: data => data?.user || data || null,
+    enabled: hasAccessToken
   })
 
   return {
-    isPending: query.isPending,
+    isPending: hasAccessToken ? query.isPending : false,
     isFetching: query.isFetching,
-    isError: query.isError,
+    isError: hasAccessToken ? query.isError : false,
     error: query.error,
-    isSuccess: query.isSuccess,
-    user: query.data,
+    isSuccess: hasAccessToken ? query.isSuccess : false,
+    user: query.data ?? null,
     isAuthenticated: !!query.data
   }
 }
