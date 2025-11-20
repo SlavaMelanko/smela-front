@@ -54,16 +54,13 @@ class ApiClient {
   }
 
   async #doRequest(path, options = {}) {
-    const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), this.#timeout)
-
-    try {
+    return this.#withTimeout(async signal => {
       const url = `${this.#baseUrl}${path}`
       const config = {
         ...options,
         credentials: 'include',
         headers: this.#prepareHeaders(options),
-        signal: controller.signal
+        signal
       }
 
       const response = await this.#httpClient(url, config)
@@ -76,17 +73,17 @@ class ApiClient {
           error.code === 'auth/unauthorized'
         ) {
           return this.#tokenRefreshManager.refreshAndRetry(
-            () => this.#doRequest(path, options),
-            () => this.#refreshToken(),
+            () => {
+              return this.#doRequest(path, options)
+            },
+            () => {
+              return this.#refreshToken()
+            },
             accessToken => {
               accessTokenStorage.set(accessToken)
             },
             () => {
               accessTokenStorage.remove()
-
-              if (typeof window !== 'undefined') {
-                window.location.href = '/'
-              }
             }
           )
         }
@@ -100,9 +97,7 @@ class ApiClient {
       }
 
       return response.json()
-    } finally {
-      clearTimeout(timeoutId)
-    }
+    })
   }
 
   #prepareHeaders(options) {
@@ -121,16 +116,13 @@ class ApiClient {
   }
 
   async #refreshToken() {
-    const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), this.#timeout)
-
-    try {
+    return this.#withTimeout(async signal => {
       const url = `${this.#baseUrl}${path.REFRESH_TOKEN}`
       const config = {
         method: 'POST',
         credentials: 'include',
         headers: this.#defaultHeaders,
-        signal: controller.signal
+        signal
       }
 
       const response = await this.#httpClient(url, config)
@@ -140,6 +132,16 @@ class ApiClient {
       }
 
       return response.json()
+    })
+  }
+
+  async #withTimeout(requestFn) {
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), this.#timeout)
+
+    try {
+      // Await ensures finally executes after request completes, not immediately
+      return await requestFn(controller.signal)
     } finally {
       clearTimeout(timeoutId)
     }
