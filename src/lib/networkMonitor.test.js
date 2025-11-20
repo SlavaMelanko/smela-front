@@ -78,10 +78,10 @@ describe('network-monitor', () => {
       expect(isNetworkError(error)).toBe(true)
     })
 
-    it('should detect TypeError by name', () => {
-      const error = { name: 'TypeError' }
+    it('should not detect generic TypeError as network error', () => {
+      const error = { name: 'TypeError', message: 'Illegal invocation' }
 
-      expect(isNetworkError(error)).toBe(true)
+      expect(isNetworkError(error)).toBe(false)
     })
 
     it('should detect network error status codes', () => {

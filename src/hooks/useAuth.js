@@ -1,10 +1,6 @@
-import {
-  queryOptions,
-  useMutation,
-  useQuery,
-  useQueryClient
-} from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
+import { accessTokenStorage } from '@/lib/storage'
 import { authService, userService } from '@/services/backend'
 
 export const authKeys = {
@@ -12,25 +8,23 @@ export const authKeys = {
   user: () => [...authKeys.all(), 'user']
 }
 
-export const getCurrentUserQueryOptions = () =>
-  queryOptions({
-    queryKey: authKeys.user(),
-    queryFn: userService.getCurrentUser
-  })
-
 export const useCurrentUser = () => {
+  const hasAccessToken = !!accessTokenStorage.get()
+
   const query = useQuery({
-    ...getCurrentUserQueryOptions(),
-    select: data => data?.user || data || null
+    queryKey: authKeys.user(),
+    queryFn: userService.getCurrentUser,
+    select: data => data?.user || data || null,
+    enabled: hasAccessToken
   })
 
   return {
-    isPending: query.isPending,
+    isPending: hasAccessToken ? query.isPending : false,
     isFetching: query.isFetching,
-    isError: query.isError,
+    isError: hasAccessToken ? query.isError : false,
     error: query.error,
-    isSuccess: query.isSuccess,
-    user: query.data,
+    isSuccess: hasAccessToken ? query.isSuccess : false,
+    user: query.data ?? null,
     isAuthenticated: !!query.data
   }
 }
@@ -40,7 +34,11 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: authService.logIn,
-    onSuccess: () => {
+    onSuccess: data => {
+      if (data?.accessToken) {
+        accessTokenStorage.set(data.accessToken)
+      }
+
       queryClient.invalidateQueries({ queryKey: authKeys.user() })
     }
   })
@@ -60,7 +58,12 @@ export const useLoginWithGoogle = () =>
 
 export const useUserSignupWithEmail = () =>
   useMutation({
-    mutationFn: authService.signUp
+    mutationFn: authService.signUp,
+    onSuccess: data => {
+      if (data?.accessToken) {
+        accessTokenStorage.set(data.accessToken)
+      }
+    }
   })
 
 export const useUserSignupWithGoogle = () =>
@@ -84,24 +87,31 @@ export const useLogout = () => {
       invalidatesQueries: authKeys.all()
     },
     onSuccess: () => {
-      // Set user data to null for immediate UI update
-      queryClient.setQueryData(authKeys.user(), null)
-      // Also remove the query entirely to prevent cached 401 errors
+      accessTokenStorage.remove()
       queryClient.removeQueries({ queryKey: authKeys.user() })
     }
   })
 }
 
-export const useVerifyEmail = ({ onSuccess, onError, onSettled }) =>
-  useMutation({
+export const useVerifyEmail = ({ onSuccess, onError, onSettled }) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
     mutationFn: authService.verifyEmail,
-    onSuccess,
+    onSuccess: (data, ...args) => {
+      if (data?.accessToken) {
+        accessTokenStorage.set(data.accessToken)
+      }
+
+      queryClient.invalidateQueries({ queryKey: authKeys.user() })
+
+      // Call the original onSuccess callback if provided
+      onSuccess?.(data, ...args)
+    },
     onError,
-    onSettled,
-    meta: {
-      invalidatesQueries: authKeys.user()
-    }
+    onSettled
   })
+}
 
 export const useResendVerificationEmail = () =>
   useMutation({

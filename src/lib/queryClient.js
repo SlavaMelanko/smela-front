@@ -25,9 +25,6 @@ const handleError = error => {
 
   // Here we could integrate with error tracking services like Sentry, Bugsnag, etc.
   // errorTracker.captureException(error, { context }).
-
-  // We could also show user-facing notifications:
-  // toast.error('Something went wrong. Please try again.').
 }
 
 const queryCache = new QueryCache({

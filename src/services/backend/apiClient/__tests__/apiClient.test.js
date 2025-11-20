@@ -14,7 +14,7 @@ describe('ApiClient', () => {
     }))
 
     // Dynamic import after mock is set up
-    const factory = await import('./factory')
+    const factory = await import('../factory')
 
     createApiClient = factory.createApiClient
   })
@@ -236,6 +236,102 @@ describe('ApiClient', () => {
           credentials: 'include'
         })
       )
+    })
+  })
+
+  describe('Token refresh', () => {
+    it('should refresh token only for auth/unauthorized error code', async () => {
+      const unauthorizedError = {
+        error: 'Unauthorized access',
+        name: 'UnauthorizedError',
+        code: 'auth/unauthorized'
+      }
+
+      mockFetch
+        .mockResolvedValueOnce({
+          ok: false,
+          status: HttpStatus.UNAUTHORIZED,
+          json: jest.fn().mockResolvedValueOnce(unauthorizedError)
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          json: jest.fn().mockResolvedValueOnce({ accessToken: 'new-token' })
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          json: jest.fn().mockResolvedValueOnce({ data: 'success' })
+        })
+
+      const result = await apiClient.get('/protected')
+
+      expect(result).toEqual({ data: 'success' })
+      expect(mockFetch).toHaveBeenCalledTimes(3)
+    })
+
+    it('should not refresh token for auth/invalid-credentials', async () => {
+      const invalidCredsError = {
+        error: 'Invalid email or password',
+        name: 'InvalidCredentialsError',
+        code: 'auth/invalid-credentials'
+      }
+
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: HttpStatus.UNAUTHORIZED,
+        json: jest.fn().mockResolvedValueOnce(invalidCredsError)
+      })
+
+      await expect(apiClient.post('/login', {})).rejects.toMatchObject({
+        message: 'Invalid email or password',
+        code: 'auth/invalid-credentials',
+        status: HttpStatus.UNAUTHORIZED
+      })
+
+      expect(mockFetch).toHaveBeenCalledTimes(1)
+    })
+
+    it('should not refresh token for refresh-token/expired', async () => {
+      const expiredRefreshToken = {
+        error: 'Refresh token expired',
+        name: 'RefreshTokenExpiredError',
+        code: 'refresh-token/expired'
+      }
+
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: HttpStatus.UNAUTHORIZED,
+        json: jest.fn().mockResolvedValueOnce(expiredRefreshToken)
+      })
+
+      await expect(apiClient.get('/protected')).rejects.toMatchObject({
+        message: 'Refresh token expired',
+        code: 'refresh-token/expired',
+        status: HttpStatus.UNAUTHORIZED
+      })
+
+      expect(mockFetch).toHaveBeenCalledTimes(1)
+    })
+
+    it('should not refresh token for 401 without error code', async () => {
+      const genericError = {
+        error: 'Unauthorized'
+      }
+
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: HttpStatus.UNAUTHORIZED,
+        json: jest.fn().mockResolvedValueOnce(genericError)
+      })
+
+      await expect(apiClient.get('/protected')).rejects.toMatchObject({
+        message: 'Unauthorized',
+        code: 'system:internal-error',
+        status: HttpStatus.UNAUTHORIZED
+      })
+
+      expect(mockFetch).toHaveBeenCalledTimes(1)
     })
   })
 

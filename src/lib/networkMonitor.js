@@ -115,7 +115,7 @@ export function isNetworkError(error) {
   if (error.name) {
     const errorName = error.name.toLowerCase()
 
-    if (errorName === 'networkerror' || errorName === 'typeerror') {
+    if (errorName === 'networkerror') {
       return true
     }
   }
