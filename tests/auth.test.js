@@ -571,7 +571,9 @@ test.describe.serial('Authentication', () => {
     }
   })
 
-  test('login: authenticates with valid credentials', async ({ page }) => {
+  test('login: authenticates with valid credentials and redirects to home', async ({
+    page
+  }) => {
     await page.goto('/login')
 
     await fillLoginFormAndSubmit(
@@ -592,12 +594,38 @@ test.describe.serial('Authentication', () => {
 
     await expect(page.getByText(auth.firstName.ok)).toBeVisible()
 
-    // Check that authenticated users are redirected from /login
+    // Logout to ensure clean state for next test
+    await logOut(page, t)
+  })
+
+  test('login: redirects authenticated users from auth pages', async ({
+    page
+  }) => {
+    // First, authenticate the user
+    await page.goto('/login')
+
+    await fillLoginFormAndSubmit(
+      page,
+      {
+        email: userCredentials.email,
+        password: userCredentials.initialPassword
+      },
+      t
+    )
+
+    await waitForApiCall(page, {
+      path: LOGIN_PATH,
+      status: HttpStatus.OK
+    })
+
+    await page.waitForURL('/home')
+
+    // Verify authenticated users cannot access /login
     await page.goto('/login')
     await page.waitForURL('/home')
     await expect(page).toHaveURL(/\/home/)
 
-    // Check that authenticated users are redirected from /signup
+    // Verify authenticated users cannot access /signup
     await page.goto('/signup')
     await page.waitForURL('/home')
     await expect(page).toHaveURL(/\/home/)
@@ -664,5 +692,52 @@ test.describe.serial('Authentication', () => {
 
     // Logout to ensure clean state
     await logOut(page, t)
+  })
+
+  test('logout: syncs authentication state across tabs', async ({
+    page,
+    context
+  }) => {
+    // Step 1: Login in first tab and verify home page
+    await page.goto('/login')
+
+    await fillLoginFormAndSubmit(
+      page,
+      {
+        email: userCredentials.email,
+        password: userCredentials.newPassword // password reset test changes the password
+      },
+      t
+    )
+
+    await waitForApiCall(page, {
+      path: LOGIN_PATH,
+      status: HttpStatus.OK
+    })
+
+    await page.waitForURL('/home')
+
+    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
+
+    // Step 2: Open second tab and navigate to home - should see same page
+    const secondTab = await context.newPage()
+
+    await secondTab.goto('/home')
+
+    await expect(secondTab.getByText(auth.firstName.ok)).toBeVisible()
+
+    // Step 3: Logout in first tab - should see login page
+    await logOut(page, t)
+
+    await expect(page).toHaveURL(/\/login/)
+
+    // Step 4: Refresh second tab - should redirect to login
+    await secondTab.reload()
+
+    await secondTab.waitForURL('/login')
+
+    await expect(secondTab).toHaveURL(/\/login/)
+
+    await secondTab.close()
   })
 })
