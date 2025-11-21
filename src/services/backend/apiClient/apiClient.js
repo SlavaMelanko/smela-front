@@ -2,7 +2,7 @@ import env from '@/lib/env'
 import { HttpStatus } from '@/lib/httpStatus'
 import { accessTokenStorage } from '@/lib/storage'
 
-import { path } from '../paths'
+import { REFRESH_TOKEN_PATH } from '../paths'
 import { createError } from './error'
 import TokenRefreshManager from './tokenRefreshManager'
 
@@ -117,7 +117,7 @@ class ApiClient {
 
   async #refreshToken() {
     return this.#withTimeout(async signal => {
-      const url = `${this.#baseUrl}${path.REFRESH_TOKEN}`
+      const url = `${this.#baseUrl}${REFRESH_TOKEN_PATH}`
       const config = {
         method: 'POST',
         credentials: 'include',
