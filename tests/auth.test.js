@@ -665,4 +665,51 @@ test.describe.serial('Authentication', () => {
     // Logout to ensure clean state
     await logOut(page, t)
   })
+
+  test('logout: syncs authentication state across tabs', async ({
+    page,
+    context
+  }) => {
+    // Step 1: Login in first tab and verify home page
+    await page.goto('/login')
+
+    await fillLoginFormAndSubmit(
+      page,
+      {
+        email: userCredentials.email,
+        password: userCredentials.newPassword // password reset test changes the password
+      },
+      t
+    )
+
+    await waitForApiCall(page, {
+      path: LOGIN_PATH,
+      status: HttpStatus.OK
+    })
+
+    await page.waitForURL('/home')
+
+    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
+
+    // Step 2: Open second tab and navigate to home - should see same page
+    const secondTab = await context.newPage()
+
+    await secondTab.goto('/home')
+
+    await expect(secondTab.getByText(auth.firstName.ok)).toBeVisible()
+
+    // Step 3: Logout in first tab - should see login page
+    await logOut(page, t)
+
+    await expect(page).toHaveURL(/\/login/)
+
+    // Step 4: Refresh second tab - should redirect to login
+    await secondTab.reload()
+
+    await secondTab.waitForURL('/login')
+
+    await expect(secondTab).toHaveURL(/\/login/)
+
+    await secondTab.close()
+  })
 })
