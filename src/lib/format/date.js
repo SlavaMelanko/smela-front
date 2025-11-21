@@ -1,4 +1,4 @@
-const DATE_FORMAT = {
+const datePreset = {
   short: {
     year: 'numeric',
     month: 'short',
@@ -17,7 +17,7 @@ const DATE_FORMAT = {
   }
 }
 
-const formatDate = (date, locale = 'en', options = DATE_FORMAT.numeric) => {
+const formatDate = (date, locale = 'en', options = datePreset.numeric) => {
   if (!date) {
     return ''
   }
@@ -28,4 +28,4 @@ const formatDate = (date, locale = 'en', options = DATE_FORMAT.numeric) => {
   return new Intl.DateTimeFormat(locale, options).format(parsed)
 }
 
-export { DATE_FORMAT, formatDate }
+export { datePreset, formatDate }

@@ -3,7 +3,15 @@ import fs from 'fs'
 
 import { HttpStatus } from '../src/lib/httpStatus'
 import { Role, UserStatus } from '../src/lib/types'
-import { path } from '../src/services/backend/paths'
+import {
+  LOGIN_PATH,
+  ME_PATH,
+  REQUEST_PASSWORD_RESET_PATH,
+  RESEND_VERIFICATION_EMAIL_PATH,
+  RESET_PASSWORD_PATH,
+  SIGNUP_PATH,
+  VERIFY_EMAIL_PATH
+} from '../src/services/backend/paths'
 import { auth } from '../src/tests/data'
 import {
   emailConfig,
@@ -129,7 +137,7 @@ test.describe.serial('Authentication', () => {
     )
 
     await waitForApiCall(page, {
-      path: path.SIGNUP,
+      path: SIGNUP_PATH,
       status: HttpStatus.CONFLICT
     })
 
@@ -160,7 +168,7 @@ test.describe.serial('Authentication', () => {
     )
 
     await waitForApiCall(page, {
-      path: path.SIGNUP,
+      path: SIGNUP_PATH,
       status: HttpStatus.CREATED,
       validateRequest: b => {
         try {
@@ -217,7 +225,7 @@ test.describe.serial('Authentication', () => {
     await page.getByRole('button', { name: t.email.confirmation.cta }).click()
 
     await waitForApiCall(page, {
-      path: path.RESEND_VERIFICATION_EMAIL,
+      path: RESEND_VERIFICATION_EMAIL_PATH,
       status: HttpStatus.ACCEPTED,
       validateRequest: b => {
         try {
@@ -275,7 +283,7 @@ test.describe.serial('Authentication', () => {
     )
 
     await waitForApiCall(page, {
-      path: path.SIGNUP,
+      path: SIGNUP_PATH,
       status: HttpStatus.CREATED
     })
 
@@ -303,12 +311,12 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCalls(page, [
       {
-        path: path.ME,
+        path: ME_PATH,
         method: 'GET',
         status: HttpStatus.OK
       },
       {
-        path: path.VERIFY_EMAIL,
+        path: VERIFY_EMAIL_PATH,
         status: HttpStatus.BAD_REQUEST
       }
     ])
@@ -320,11 +328,11 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCalls(page, [
       {
-        path: path.ME,
+        path: ME_PATH,
         status: HttpStatus.OK
       },
       {
-        path: path.VERIFY_EMAIL,
+        path: VERIFY_EMAIL_PATH,
         status: HttpStatus.BAD_REQUEST
       }
     ])
@@ -357,7 +365,7 @@ test.describe.serial('Authentication', () => {
     )
 
     await waitForApiCall(page, {
-      path: path.SIGNUP,
+      path: SIGNUP_PATH,
       status: HttpStatus.CREATED,
       validateRequest: b => !!b.captchaToken
     })
@@ -374,7 +382,7 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCalls(page, [
       {
-        path: path.ME,
+        path: ME_PATH,
         status: HttpStatus.OK,
         validateResponse: b => {
           if (!b.user) {
@@ -394,7 +402,7 @@ test.describe.serial('Authentication', () => {
         }
       },
       {
-        path: path.VERIFY_EMAIL,
+        path: VERIFY_EMAIL_PATH,
         status: HttpStatus.OK,
         validateResponse: b => {
           if (!b.user || !b.accessToken) {
@@ -414,7 +422,7 @@ test.describe.serial('Authentication', () => {
         }
       },
       {
-        path: path.ME,
+        path: ME_PATH,
         status: HttpStatus.OK,
         validateResponse: b => {
           if (!b.user) {
@@ -549,7 +557,7 @@ test.describe.serial('Authentication', () => {
       )
 
       await waitForApiCall(page, {
-        path: path.LOGIN,
+        path: LOGIN_PATH,
         status: HttpStatus.UNAUTHORIZED
       })
 
@@ -576,7 +584,7 @@ test.describe.serial('Authentication', () => {
     )
 
     await waitForApiCall(page, {
-      path: path.LOGIN,
+      path: LOGIN_PATH,
       status: HttpStatus.OK
     })
 
@@ -608,7 +616,7 @@ test.describe.serial('Authentication', () => {
     await fillRequestPasswordResetFormAndSubmit(page, userCredentials.email, t)
 
     await waitForApiCall(page, {
-      path: path.REQUEST_PASSWORD_RESET,
+      path: REQUEST_PASSWORD_RESET_PATH,
       status: HttpStatus.ACCEPTED,
       validateRequest: b => !!b.captchaToken
     })
@@ -628,7 +636,7 @@ test.describe.serial('Authentication', () => {
     await fillNewPasswordFormAndSubmit(page, userCredentials.newPassword, t)
 
     await waitForApiCall(page, {
-      path: path.RESET_PASSWORD,
+      path: RESET_PASSWORD_PATH,
       status: HttpStatus.OK
     })
 
@@ -646,7 +654,7 @@ test.describe.serial('Authentication', () => {
     )
 
     await waitForApiCall(page, {
-      path: path.LOGIN,
+      path: LOGIN_PATH,
       status: HttpStatus.OK
     })
 

@@ -1,16 +1,13 @@
-const path = {
-  // Auth endpoints
-  SIGNUP: '/api/v1/auth/signup',
-  LOGIN: '/api/v1/auth/login',
-  VERIFY_EMAIL: '/api/v1/auth/verify-email',
-  RESEND_VERIFICATION_EMAIL: '/api/v1/auth/resend-verification-email',
-  REQUEST_PASSWORD_RESET: '/api/v1/auth/request-password-reset',
-  RESET_PASSWORD: '/api/v1/auth/reset-password',
-  REFRESH_TOKEN: '/api/v1/auth/refresh-token',
-  LOGOUT: '/api/v1/auth/logout',
+// Auth endpoints
+export const SIGNUP_PATH = '/api/v1/auth/signup'
+export const LOGIN_PATH = '/api/v1/auth/login'
+export const VERIFY_EMAIL_PATH = '/api/v1/auth/verify-email'
+export const RESEND_VERIFICATION_EMAIL_PATH =
+  '/api/v1/auth/resend-verification-email'
+export const REQUEST_PASSWORD_RESET_PATH = '/api/v1/auth/request-password-reset'
+export const RESET_PASSWORD_PATH = '/api/v1/auth/reset-password'
+export const REFRESH_TOKEN_PATH = '/api/v1/auth/refresh-token'
+export const LOGOUT_PATH = '/api/v1/auth/logout'
 
-  // User endpoints
-  ME: '/api/v1/protected/me'
-}
-
-export { path }
+// User endpoints
+export const ME_PATH = '/api/v1/protected/me'
