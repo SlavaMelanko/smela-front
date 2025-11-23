@@ -10,4 +10,4 @@ export const REFRESH_TOKEN_PATH = '/api/v1/auth/refresh-token'
 export const LOGOUT_PATH = '/api/v1/auth/logout'
 
 // User endpoints
-export const ME_PATH = '/api/v1/protected/me'
+export const ME_PATH = '/api/v1/user/me'
