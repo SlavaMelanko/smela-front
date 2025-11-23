@@ -64,7 +64,7 @@ test.describe('General Error', () => {
 
     await goHomeButton.click()
 
-    // Verify we've navigated to the home page
-    await expect(page).toHaveURL('/')
+    // For unauthenticated users, home redirects to login
+    await expect(page).toHaveURL('/login')
   })
 })
