@@ -1,3 +1,4 @@
+import { withTimeout } from '@/lib/async'
 import env from '@/lib/env'
 import { HttpStatus } from '@/lib/httpStatus'
 import { accessTokenStorage } from '@/lib/storage'
@@ -54,7 +55,7 @@ class ApiClient {
   }
 
   async #doRequest(path, options = {}) {
-    return this.#withTimeout(async signal => {
+    return withTimeout(async signal => {
       const url = `${this.#baseUrl}${path}`
       const config = {
         ...options,
@@ -97,7 +98,7 @@ class ApiClient {
       }
 
       return response.json()
-    })
+    }, this.#timeout)
   }
 
   #prepareHeaders(options) {
@@ -116,7 +117,7 @@ class ApiClient {
   }
 
   async #refreshToken() {
-    return this.#withTimeout(async signal => {
+    return withTimeout(async signal => {
       const url = `${this.#baseUrl}${REFRESH_TOKEN_PATH}`
       const config = {
         method: 'POST',
@@ -132,19 +133,7 @@ class ApiClient {
       }
 
       return response.json()
-    })
-  }
-
-  async #withTimeout(requestFn) {
-    const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), this.#timeout)
-
-    try {
-      // Await ensures finally executes after request completes, not immediately
-      return await requestFn(controller.signal)
-    } finally {
-      clearTimeout(timeoutId)
-    }
+    }, this.#timeout)
   }
 }
 

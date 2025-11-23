@@ -1,79 +1,23 @@
-// List of known network error messages that indicate connection problems
+// Common network error patterns
 const NETWORK_ERROR_PATTERNS = [
-  // chrome/chromium errors
-  'ERR_CONNECTION_REFUSED',
-  'ERR_CONNECTION_RESET',
-  'ERR_CONNECTION_TIMED_OUT',
-  'ERR_CONNECTION_CLOSED',
-  'ERR_CONNECTION_FAILED',
-  'ERR_NETWORK_CHANGED',
-  'ERR_INTERNET_DISCONNECTED',
-  'ERR_NAME_NOT_RESOLVED',
-  'ERR_ADDRESS_UNREACHABLE',
-  'ERR_NETWORK_ACCESS_DENIED',
-  'ERR_PROXY_CONNECTION_FAILED',
-  'ERR_TUNNEL_CONNECTION_FAILED',
-  'ERR_SSL_PROTOCOL_ERROR',
-  'ERR_CERT_COMMON_NAME_INVALID',
-  'ERR_CERT_DATE_INVALID',
-  'ERR_CERT_AUTHORITY_INVALID',
-
-  // firefox errors
-  'NS_ERROR_CONNECTION_REFUSED',
-  'NS_ERROR_NET_TIMEOUT',
-  'NS_ERROR_OFFLINE',
-  'NS_ERROR_NET_RESET',
-  'NS_ERROR_NET_INTERRUPT',
-  'NS_ERROR_PROXY_CONNECTION_REFUSED',
-  'NS_ERROR_UNKNOWN_HOST',
-
-  // safari errors
-  // cspell:disable-next-line
-  'NSURLErrorDomain',
-  // cspell:disable-next-line
-  'NSURLErrorTimedOut',
-  // cspell:disable-next-line
-  'NSURLErrorCannotFindHost',
-  // cspell:disable-next-line
-  'NSURLErrorCannotConnectToHost',
-  // cspell:disable-next-line
-  'NSURLErrorNetworkConnectionLost',
-  // cspell:disable-next-line
-  'NSURLErrorNotConnectedToInternet',
-
-  // generic network errors
   'NetworkError',
   'Network request failed',
   'Failed to fetch',
   'Load failed',
-  'Request timeout',
-  'Request aborted',
-  'No internet connection',
-  'Unable to connect',
-  'Connection lost',
-  'Connection failed',
+  'timeout',
+  'Connection',
   'ECONNREFUSED',
   'ETIMEDOUT',
   'ENOTFOUND',
-  'ENETUNREACH',
-  'EHOSTUNREACH',
-  'ECONNRESET',
-  'EPIPE'
+  'ECONNRESET'
 ]
 
-// HTTP status codes that may indicate network issues
+// HTTP status codes that indicate network issues
 const NETWORK_ERROR_STATUS_CODES = [
-  0, // no response (often indicates network failure)
+  0, // no response
   502, // bad gateway
   503, // service unavailable
-  504, // gateway timeout
-  521, // web server is down
-  522, // connection timed out
-  523, // origin is unreachable
-  524, // a timeout occurred
-  525, // ssl handshake failed
-  526, // invalid ssl certificate
-  527 // cloudflare error
+  504 // gateway timeout
 ]
 
 // Determines if an error is a network connection issue
@@ -159,9 +103,7 @@ export const NetworkErrorType = {
   OFFLINE: 'offline',
   CONNECTION_REFUSED: 'connectionRefused',
   TIMEOUT: 'timeout',
-  CONNECTION_INTERRUPTED: 'connectionInterrupted',
   NAME_NOT_RESOLVED: 'nameNotResolved',
-  SSL_ERROR: 'sslError',
   SERVER_UNAVAILABLE: 'serverUnavailable',
   UNKNOWN: 'unknown'
 }
@@ -176,39 +118,21 @@ export function getNetworkErrorType(error) {
     return NetworkErrorType.UNKNOWN
   }
 
-  const errMsg = error?.message || error?.code || ''
+  const errMsg = (error?.message || error?.code || '').toLowerCase()
 
   if (
-    errMsg.includes('ERR_CONNECTION_REFUSED') ||
-    errMsg.includes('ECONNREFUSED')
+    errMsg.includes('econnrefused') ||
+    errMsg.includes('connection refused')
   ) {
     return NetworkErrorType.CONNECTION_REFUSED
   }
 
-  if (
-    errMsg.includes('ERR_CONNECTION_TIMED_OUT') ||
-    errMsg.includes('ETIMEDOUT') ||
-    errMsg.includes('timeout')
-  ) {
+  if (errMsg.includes('etimedout') || errMsg.includes('timeout')) {
     return NetworkErrorType.TIMEOUT
   }
 
-  if (
-    errMsg.includes('ERR_INTERNET_DISCONNECTED') ||
-    errMsg.includes('ERR_NETWORK_CHANGED')
-  ) {
-    return NetworkErrorType.CONNECTION_INTERRUPTED
-  }
-
-  if (
-    errMsg.includes('ERR_NAME_NOT_RESOLVED') ||
-    errMsg.includes('ENOTFOUND')
-  ) {
+  if (errMsg.includes('enotfound') || errMsg.includes('not resolved')) {
     return NetworkErrorType.NAME_NOT_RESOLVED
-  }
-
-  if (errMsg.includes('ERR_SSL') || errMsg.includes('ERR_CERT')) {
-    return NetworkErrorType.SSL_ERROR
   }
 
   if (error.status === 502 || error.status === 503 || error.status === 504) {
@@ -216,33 +140,13 @@ export function getNetworkErrorType(error) {
   }
 
   if (
-    errMsg.includes('Failed to fetch') ||
-    errMsg.includes('NetworkError') ||
-    errMsg.includes('Network request failed') ||
-    errMsg.includes('Load failed')
+    errMsg.includes('failed to fetch') ||
+    errMsg.includes('networkerror') ||
+    errMsg.includes('network request failed') ||
+    errMsg.includes('load failed')
   ) {
     return NetworkErrorType.SERVER_UNAVAILABLE
   }
 
   return NetworkErrorType.UNKNOWN
-}
-
-// Creates a network status monitor that tracks online/offline state
-export function createNetworkMonitor(onStatusChange) {
-  const handleOnline = () => onStatusChange(true)
-  const handleOffline = () => onStatusChange(false)
-
-  window.addEventListener('online', handleOnline)
-  window.addEventListener('offline', handleOffline)
-
-  // Return cleanup function
-  return () => {
-    window.removeEventListener('online', handleOnline)
-    window.removeEventListener('offline', handleOffline)
-  }
-}
-
-// Checks if the browser is currently online
-export function isOnline() {
-  return typeof navigator !== 'undefined' ? navigator.onLine : true
 }

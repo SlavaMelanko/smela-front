@@ -1,8 +1,6 @@
 import {
-  createNetworkMonitor,
   getNetworkErrorType,
   isNetworkError,
-  isOnline,
   NetworkErrorType
 } from './networkMonitor.js'
 
@@ -30,24 +28,6 @@ describe('network-monitor', () => {
       expect(isNetworkError({})).toBe(true)
     })
 
-    it('should detect Chrome network errors in message', () => {
-      const error = { message: 'ERR_CONNECTION_REFUSED' }
-
-      expect(isNetworkError(error)).toBe(true)
-    })
-
-    it('should detect Firefox network errors in message', () => {
-      const error = { message: 'NS_ERROR_CONNECTION_REFUSED' }
-
-      expect(isNetworkError(error)).toBe(true)
-    })
-
-    it('should detect Safari network errors in message', () => {
-      const error = { message: 'NSURLErrorDomain' }
-
-      expect(isNetworkError(error)).toBe(true)
-    })
-
     it('should detect generic network errors in message', () => {
       const error = { message: 'Failed to fetch' }
 
@@ -61,7 +41,7 @@ describe('network-monitor', () => {
     })
 
     it('should detect network errors in error code', () => {
-      const error = { code: 'ERR_CONNECTION_REFUSED' }
+      const error = { code: 'ECONNREFUSED' }
 
       expect(isNetworkError(error)).toBe(true)
     })
@@ -140,7 +120,7 @@ describe('network-monitor', () => {
     })
 
     it('should detect CONNECTION_REFUSED errors', () => {
-      expect(getNetworkErrorType({ message: 'ERR_CONNECTION_REFUSED' })).toBe(
+      expect(getNetworkErrorType({ message: 'Connection refused' })).toBe(
         NetworkErrorType.CONNECTION_REFUSED
       )
 
@@ -150,7 +130,7 @@ describe('network-monitor', () => {
     })
 
     it('should detect TIMEOUT errors', () => {
-      expect(getNetworkErrorType({ message: 'ERR_CONNECTION_TIMED_OUT' })).toBe(
+      expect(getNetworkErrorType({ message: 'Connection timeout' })).toBe(
         NetworkErrorType.TIMEOUT
       )
 
@@ -163,33 +143,13 @@ describe('network-monitor', () => {
       )
     })
 
-    it('should detect CONNECTION_INTERRUPTED errors', () => {
-      expect(
-        getNetworkErrorType({ message: 'ERR_INTERNET_DISCONNECTED' })
-      ).toBe(NetworkErrorType.CONNECTION_INTERRUPTED)
-
-      expect(getNetworkErrorType({ message: 'ERR_NETWORK_CHANGED' })).toBe(
-        NetworkErrorType.CONNECTION_INTERRUPTED
-      )
-    })
-
     it('should detect NAME_NOT_RESOLVED errors', () => {
-      expect(getNetworkErrorType({ message: 'ERR_NAME_NOT_RESOLVED' })).toBe(
+      expect(getNetworkErrorType({ message: 'Name not resolved' })).toBe(
         NetworkErrorType.NAME_NOT_RESOLVED
       )
 
       expect(getNetworkErrorType({ code: 'ENOTFOUND' })).toBe(
         NetworkErrorType.NAME_NOT_RESOLVED
-      )
-    })
-
-    it('should detect SSL_ERROR', () => {
-      expect(getNetworkErrorType({ message: 'ERR_SSL_PROTOCOL_ERROR' })).toBe(
-        NetworkErrorType.SSL_ERROR
-      )
-
-      expect(getNetworkErrorType({ message: 'ERR_CERT_DATE_INVALID' })).toBe(
-        NetworkErrorType.SSL_ERROR
       )
     })
 
@@ -225,102 +185,6 @@ describe('network-monitor', () => {
       expect(getNetworkErrorType({ message: 'Some other error' })).toBe(
         NetworkErrorType.UNKNOWN
       )
-    })
-  })
-
-  describe('createNetworkMonitor', () => {
-    let mockCallback
-
-    beforeEach(() => {
-      mockCallback = jest.fn()
-    })
-
-    afterEach(() => {
-      // Clean up any event listeners
-      window.removeEventListener('online', mockCallback)
-      window.removeEventListener('offline', mockCallback)
-    })
-
-    it('should add event listeners for online/offline events', () => {
-      const addEventListenerSpy = jest.spyOn(window, 'addEventListener')
-
-      createNetworkMonitor(mockCallback)
-
-      expect(addEventListenerSpy).toHaveBeenCalledWith(
-        'online',
-        expect.any(Function)
-      )
-
-      expect(addEventListenerSpy).toHaveBeenCalledWith(
-        'offline',
-        expect.any(Function)
-      )
-
-      addEventListenerSpy.mockRestore()
-    })
-
-    it('should call callback with true on online event', () => {
-      createNetworkMonitor(mockCallback)
-
-      window.dispatchEvent(new Event('online'))
-
-      expect(mockCallback).toHaveBeenCalledWith(true)
-    })
-
-    it('should call callback with false on offline event', () => {
-      createNetworkMonitor(mockCallback)
-
-      window.dispatchEvent(new Event('offline'))
-
-      expect(mockCallback).toHaveBeenCalledWith(false)
-    })
-
-    it('should return cleanup function that removes event listeners', () => {
-      const removeEventListenerSpy = jest.spyOn(window, 'removeEventListener')
-
-      const cleanup = createNetworkMonitor(mockCallback)
-
-      cleanup()
-
-      expect(removeEventListenerSpy).toHaveBeenCalledWith(
-        'online',
-        expect.any(Function)
-      )
-
-      expect(removeEventListenerSpy).toHaveBeenCalledWith(
-        'offline',
-        expect.any(Function)
-      )
-
-      removeEventListenerSpy.mockRestore()
-    })
-  })
-
-  describe('isOnline', () => {
-    it('should return navigator.onLine value when available', () => {
-      Object.defineProperty(navigator, 'onLine', {
-        writable: true,
-        value: true
-      })
-
-      expect(isOnline()).toBe(true)
-
-      Object.defineProperty(navigator, 'onLine', {
-        writable: true,
-        value: false
-      })
-
-      expect(isOnline()).toBe(false)
-    })
-
-    it('should return true when navigator is not available', () => {
-      const originalNavigator = global.navigator
-
-      delete global.navigator
-
-      expect(isOnline()).toBe(true)
-
-      global.navigator = originalNavigator
     })
   })
 })
