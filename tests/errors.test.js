@@ -123,3 +123,56 @@ test.describe('Network Error', () => {
     await expect(page).toHaveURL('/pricing')
   })
 })
+
+test.describe('General Error', () => {
+  test('should display general error page', async ({ page }) => {
+    // Navigate to the general error page
+    await page.goto('/errors/general')
+
+    // Check that the General error page is displayed
+    await expect(page.locator('.general-error-page')).toBeVisible()
+
+    // Verify the icon is displayed and properly loaded
+    const warningIcon = page.locator('.general-error-page__icon')
+
+    await expect(warningIcon).toBeVisible()
+    await expect(warningIcon).toHaveAttribute('class', /warning-icon/)
+
+    // Verify the page title
+    await expect(page.locator('.general-error-page__title')).toHaveText(
+      t.error.general.title
+    )
+
+    // Verify the error message
+    await expect(page.locator('.general-error-page__description')).toHaveText(
+      t.error.general.message
+    )
+
+    // Verify the "Go home" button is present
+    const goHomeButton = page.getByRole('button', {
+      name: t.error.general.cta
+    })
+
+    await expect(goHomeButton).toBeVisible()
+  })
+
+  test('should navigate to home page when clicking "Go home" button', async ({
+    page
+  }) => {
+    // Navigate to the general error page
+    await page.goto('/errors/general')
+
+    // Verify we're on the general error page
+    await expect(page.locator('.general-error-page')).toBeVisible()
+
+    // Click the "Go home" button
+    const goHomeButton = page.getByRole('button', {
+      name: t.error.general.cta
+    })
+
+    await goHomeButton.click()
+
+    // Verify we've navigated to the home page
+    await expect(page).toHaveURL('/')
+  })
+})
