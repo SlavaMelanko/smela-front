@@ -1,7 +1,9 @@
 /**
  * Wraps an async function with a timeout and abort capability.
- * @param {Function} asyncFn - Async function that receives AbortSignal
+ * @template T
+ * @param {(signal: AbortSignal) => Promise<T> | T} asyncFn - Async function that receives AbortSignal
  * @param {number} [timeoutMs=10000] - Timeout in milliseconds
+ * @returns {Promise<T>}
  */
 export const withTimeout = async (asyncFn, timeoutMs = 10000) => {
   const controller = new AbortController()
@@ -15,7 +17,7 @@ export const withTimeout = async (asyncFn, timeoutMs = 10000) => {
       Promise.resolve().then(() => asyncFn(controller.signal)),
       new Promise((_, reject) => {
         controller.signal.addEventListener('abort', () =>
-          reject(new Error('Timeout.'))
+          reject(new Error(`Operation timed out after ${timeoutMs}ms`))
         )
       })
     ])
