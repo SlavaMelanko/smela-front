@@ -13,6 +13,7 @@ jest.mock('@/hooks/useUrlParams')
 describe('NetworkErrorPage', () => {
   beforeEach(() => {
     global.mockNavigate.mockClear()
+    useUrlParams.mockClear()
     useUrlParams.mockReturnValue({ errorType: null })
   })
 
