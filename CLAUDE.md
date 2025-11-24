@@ -99,7 +99,7 @@ const { register, handleSubmit } = useForm({ resolver })
 ### Testing Strategy
 
 - **Unit tests** in `__tests__` folders near components
-- **E2E tests** in `/tests/` directory
+- **E2E tests** in `/e2e/` directory
 - Test utilities available in `/src/lib/tests/`
 
 ## Key Development Patterns

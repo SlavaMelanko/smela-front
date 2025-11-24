@@ -20,7 +20,7 @@ export default {
   setupFilesAfterEnv: ['<rootDir>/src/tests/jest.setup.js'],
 
   // Test patterns
-  testPathIgnorePatterns: ['/node_modules/', '/tests/', '/tests-examples/'],
+  testPathIgnorePatterns: ['/node_modules/', '/e2e/', '/tests-examples/'],
   testMatch: ['**/__tests__/**/*.(js|jsx)', '**/?(*.)+(spec|test).(js|jsx)'],
 
   // Module file extensions
