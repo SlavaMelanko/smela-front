@@ -10,13 +10,13 @@ import {
 } from '@/lib/types'
 
 const RootRedirect = () => {
-  const { isPending, isAuthenticated, user, isError } = useCurrentUser()
+  const { isFetching, isAuthenticated, user, isError } = useCurrentUser()
 
   if (isError) {
     return <Navigate to='/login' replace />
   }
 
-  if (isPending) {
+  if (isFetching) {
     return <Spinner />
   }
 

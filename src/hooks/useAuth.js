@@ -14,7 +14,7 @@ export const useCurrentUser = () => {
   const query = useQuery({
     queryKey: authKeys.user(),
     queryFn: userService.getCurrentUser,
-    select: data => data?.user || data || null,
+    select: data => data.user,
     enabled: hasAccessToken
   })
 
@@ -35,11 +35,14 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: authService.logIn,
     onSuccess: data => {
-      if (data?.accessToken) {
-        accessTokenStorage.set(data.accessToken)
-      }
+      accessTokenStorage.set(data.accessToken)
 
-      queryClient.invalidateQueries({ queryKey: authKeys.user() })
+      if (data?.user) {
+        queryClient.setQueryData(authKeys.user(), data.user)
+      } else {
+        // No user in response, fetch from /me endpoint
+        queryClient.invalidateQueries({ queryKey: authKeys.user() })
+      }
     }
   })
 }
@@ -56,15 +59,23 @@ export const useLoginWithGoogle = () =>
     }
   })
 
-export const useUserSignupWithEmail = () =>
-  useMutation({
+export const useUserSignupWithEmail = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
     mutationFn: authService.signUp,
     onSuccess: data => {
-      if (data?.accessToken) {
-        accessTokenStorage.set(data.accessToken)
+      accessTokenStorage.set(data.accessToken)
+
+      if (data?.user) {
+        queryClient.setQueryData(authKeys.user(), data.user)
+      } else {
+        // No user in response, fetch from /me endpoint
+        queryClient.invalidateQueries({ queryKey: authKeys.user() })
       }
     }
   })
+}
 
 export const useUserSignupWithGoogle = () =>
   useMutation({
@@ -88,6 +99,7 @@ export const useLogout = () => {
     },
     onSuccess: () => {
       accessTokenStorage.remove()
+
       queryClient.removeQueries({ queryKey: authKeys.user() })
     }
   })
@@ -99,11 +111,14 @@ export const useVerifyEmail = ({ onSuccess, onError, onSettled }) => {
   return useMutation({
     mutationFn: authService.verifyEmail,
     onSuccess: (data, ...args) => {
-      if (data?.accessToken) {
-        accessTokenStorage.set(data.accessToken)
-      }
+      accessTokenStorage.set(data.accessToken)
 
-      queryClient.invalidateQueries({ queryKey: authKeys.user() })
+      if (data?.user) {
+        queryClient.setQueryData(authKeys.user(), data.user)
+      } else {
+        // No user in response, fetch from /me endpoint
+        queryClient.invalidateQueries({ queryKey: authKeys.user() })
+      }
 
       // Call the original onSuccess callback if provided
       onSuccess?.(data, ...args)
@@ -141,20 +156,15 @@ export const useUpdateUser = () => {
       const previousUser = queryClient.getQueryData(authKeys.user())
 
       // Optimistically update the user data
-      queryClient.setQueryData(authKeys.user(), data => {
-        if (!data) {
-          return data
+      queryClient.setQueryData(authKeys.user(), cachedUser => {
+        if (!cachedUser) {
+          return cachedUser
         }
 
-        // Handle both direct user object and wrapped response
-        const currentUser = data.user || data
-        const updatedUser = {
-          ...currentUser,
+        return {
+          ...cachedUser,
           ...newUserData
         }
-
-        // Maintain the same structure as the original data
-        return data.user ? { ...data, user: updatedUser } : updatedUser
       })
 
       // Return context with snapshot for potential rollback
