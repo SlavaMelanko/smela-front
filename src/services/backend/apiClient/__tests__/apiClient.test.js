@@ -362,10 +362,9 @@ describe('ApiClient', () => {
 
       jest.advanceTimersByTime(15000)
 
-      await expect(requestPromise).rejects.toThrow('Aborted')
-      await expect(requestPromise).rejects.toMatchObject({
-        name: 'AbortError'
-      })
+      await expect(requestPromise).rejects.toThrow(
+        'Operation timed out after 15000ms'
+      )
     })
 
     it('should clear timeout after successful request', async () => {
@@ -426,7 +425,9 @@ describe('ApiClient', () => {
 
       jest.advanceTimersByTime(5000)
 
-      await expect(requestPromise).rejects.toThrow('Aborted')
+      await expect(requestPromise).rejects.toThrow(
+        'Operation timed out after 5000ms'
+      )
     })
   })
 })
