@@ -8,12 +8,12 @@ const ProtectedRoute = ({
   requireStatuses = [],
   requireRoles = []
 }) => {
-  const { isPending, isAuthenticated, hasAccess } = useHasAccess({
+  const { isFetching, isAuthenticated, hasAccess } = useHasAccess({
     requireStatuses,
     requireRoles
   })
 
-  if (isPending) {
+  if (isFetching) {
     return <Spinner centered />
   }
 
