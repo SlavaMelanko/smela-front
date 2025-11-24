@@ -35,12 +35,13 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: authService.logIn,
     onSuccess: data => {
-      if (data?.accessToken) {
-        accessTokenStorage.set(data.accessToken)
-      }
+      accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
         queryClient.setQueryData(authKeys.user(), data.user)
+      } else {
+        // No user in response, fetch from /me endpoint
+        queryClient.invalidateQueries({ queryKey: authKeys.user() })
       }
     }
   })
@@ -58,15 +59,23 @@ export const useLoginWithGoogle = () =>
     }
   })
 
-export const useUserSignupWithEmail = () =>
-  useMutation({
+export const useUserSignupWithEmail = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
     mutationFn: authService.signUp,
     onSuccess: data => {
-      if (data?.accessToken) {
-        accessTokenStorage.set(data.accessToken)
+      accessTokenStorage.set(data.accessToken)
+
+      if (data?.user) {
+        queryClient.setQueryData(authKeys.user(), data.user)
+      } else {
+        // No user in response, fetch from /me endpoint
+        queryClient.invalidateQueries({ queryKey: authKeys.user() })
       }
     }
   })
+}
 
 export const useUserSignupWithGoogle = () =>
   useMutation({
@@ -90,6 +99,7 @@ export const useLogout = () => {
     },
     onSuccess: () => {
       accessTokenStorage.remove()
+
       queryClient.removeQueries({ queryKey: authKeys.user() })
     }
   })
@@ -101,11 +111,14 @@ export const useVerifyEmail = ({ onSuccess, onError, onSettled }) => {
   return useMutation({
     mutationFn: authService.verifyEmail,
     onSuccess: (data, ...args) => {
-      if (data?.accessToken) {
-        accessTokenStorage.set(data.accessToken)
-      }
+      accessTokenStorage.set(data.accessToken)
 
-      queryClient.invalidateQueries({ queryKey: authKeys.user() })
+      if (data?.user) {
+        queryClient.setQueryData(authKeys.user(), data.user)
+      } else {
+        // No user in response, fetch from /me endpoint
+        queryClient.invalidateQueries({ queryKey: authKeys.user() })
+      }
 
       // Call the original onSuccess callback if provided
       onSuccess?.(data, ...args)
