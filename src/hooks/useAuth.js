@@ -14,7 +14,7 @@ export const useCurrentUser = () => {
   const query = useQuery({
     queryKey: authKeys.user(),
     queryFn: userService.getCurrentUser,
-    select: data => data?.user || data || null,
+    select: data => data.user,
     enabled: hasAccessToken
   })
 
@@ -143,20 +143,15 @@ export const useUpdateUser = () => {
       const previousUser = queryClient.getQueryData(authKeys.user())
 
       // Optimistically update the user data
-      queryClient.setQueryData(authKeys.user(), data => {
-        if (!data) {
-          return data
+      queryClient.setQueryData(authKeys.user(), cachedUser => {
+        if (!cachedUser) {
+          return cachedUser
         }
 
-        // Handle both direct user object and wrapped response
-        const currentUser = data.user || data
-        const updatedUser = {
-          ...currentUser,
+        return {
+          ...cachedUser,
           ...newUserData
         }
-
-        // Maintain the same structure as the original data
-        return data.user ? { ...data, user: updatedUser } : updatedUser
       })
 
       // Return context with snapshot for potential rollback
