@@ -170,7 +170,7 @@
       "loginPrompt": "Remember your password?",
       "request": {
         "cta": "Send instructions",
-        "description": "Enter your email and we will send you instructions to reset your password.",
+        "description": "Enter your email to receive password reset instructions.",
         "success": "Password reset instructions sent."
       },
       "set": {
