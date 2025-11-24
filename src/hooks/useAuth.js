@@ -39,7 +39,9 @@ export const useLogin = () => {
         accessTokenStorage.set(data.accessToken)
       }
 
-      queryClient.invalidateQueries({ queryKey: authKeys.user() })
+      if (data?.user) {
+        queryClient.setQueryData(authKeys.user(), data.user)
+      }
     }
   })
 }
