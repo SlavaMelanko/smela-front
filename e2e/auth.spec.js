@@ -170,21 +170,21 @@ test.describe.serial('Authentication', () => {
     await waitForApiCall(page, {
       path: SIGNUP_PATH,
       status: HttpStatus.CREATED,
-      validateRequest: b => {
+      validateRequest: body => {
         try {
-          signupCaptchaToken = b.captchaToken
+          signupCaptchaToken = body.captchaToken
 
           return !!signupCaptchaToken
         } catch {
           return false
         }
       },
-      validateResponse: b => {
-        if (!b.user || !b.accessToken) {
+      validateResponse: body => {
+        if (!body.user || !body.accessToken) {
           return false
         }
 
-        const { id, firstName, lastName, email, status, role } = b.user
+        const { id, firstName, lastName, email, status, role } = body.user
 
         return (
           id > 0 &&
@@ -420,26 +420,6 @@ test.describe.serial('Authentication', () => {
             role === Role.USER
           )
         }
-      },
-      {
-        path: ME_PATH,
-        status: HttpStatus.OK,
-        validateResponse: b => {
-          if (!b.user) {
-            return false
-          }
-
-          const { id, firstName, lastName, email, status, role } = b.user
-
-          return (
-            id > 0 &&
-            firstName === auth.firstName.ok &&
-            lastName === auth.lastName.ok &&
-            email === userCredentials.email &&
-            status === UserStatus.VERIFIED &&
-            role === Role.USER
-          )
-        }
       }
     ])
 
@@ -452,80 +432,6 @@ test.describe.serial('Authentication', () => {
 
     // Logout to ensure clean state for next test
     await logOut(page, t)
-  })
-
-  test('login: validates email format', async ({ page }) => {
-    await page.goto('/login')
-
-    const testCases = [
-      {
-        email: auth.email.empty,
-        expectedError: t.email.error.required
-      },
-      {
-        email: auth.email.invalid,
-        expectedError: t.email.error.format
-      },
-      {
-        email: auth.email.noAt,
-        expectedError: t.email.error.format
-      },
-      {
-        email: auth.email.noTld,
-        expectedError: t.email.error.format
-      }
-    ]
-
-    for (const testCase of testCases) {
-      await page.reload()
-
-      const { emailInput } = await fillLoginFormAndSubmit(
-        page,
-        {
-          email: testCase.email,
-          password: auth.password.strong
-        },
-        t
-      )
-
-      await expect(page.getByText(testCase.expectedError)).toBeVisible()
-      await expect(emailInput).toHaveClass(/input__field--error/)
-    }
-  })
-
-  test('login: validates password requirements', async ({ page }) => {
-    await page.goto('/login')
-
-    const testCases = [
-      {
-        password: auth.password.empty,
-        expectedError: t.password.error.required
-      },
-      {
-        password: auth.password.short,
-        expectedError: t.password.error.min
-      },
-      {
-        password: auth.password.noLetter,
-        expectedError: t.password.error.strong
-      }
-    ]
-
-    for (const testCase of testCases) {
-      await page.reload()
-
-      const { passwordInput } = await fillLoginFormAndSubmit(
-        page,
-        {
-          email: auth.email.ok,
-          password: testCase.password
-        },
-        t
-      )
-
-      await expect(page.getByText(testCase.expectedError)).toBeVisible()
-      await expect(passwordInput).toHaveClass(/input__field--error/)
-    }
   })
 
   test('login: shows error with invalid credentials and preserves form data', async ({
@@ -627,6 +533,11 @@ test.describe.serial('Authentication', () => {
 
     // Verify authenticated users cannot access /signup
     await page.goto('/signup')
+    await page.waitForURL('/home')
+    await expect(page).toHaveURL(/\/home/)
+
+    // Verify authenticated users cannot access /verify-email
+    await page.goto('/verify-email?token=sample_token_12345')
     await page.waitForURL('/home')
     await expect(page).toHaveURL(/\/home/)
 

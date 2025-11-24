@@ -38,7 +38,7 @@ export const useLogin = () => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
-        queryClient.setQueryData(authKeys.user(), data.user)
+        queryClient.setQueryData(authKeys.user(), { user: data.user })
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
@@ -68,7 +68,7 @@ export const useUserSignupWithEmail = () => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
-        queryClient.setQueryData(authKeys.user(), data.user)
+        queryClient.setQueryData(authKeys.user(), { user: data.user })
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
@@ -114,7 +114,7 @@ export const useVerifyEmail = ({ onSuccess, onError, onSettled }) => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
-        queryClient.setQueryData(authKeys.user(), data.user)
+        queryClient.setQueryData(authKeys.user(), { user: data.user })
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
