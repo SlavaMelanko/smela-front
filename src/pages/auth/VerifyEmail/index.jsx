@@ -22,21 +22,14 @@ const VerifyEmail = () => {
       showErrorToast(t(toTranslationKey(error)))
     },
     onSettled: () => {
-      setTimeout(() => {
-        navigate('/')
-      }, 1500)
+      navigate('/')
     }
   })
 
   useEffect(() => {
     if (!token) {
       showErrorToast(t('email.verification.error.invalidToken'))
-
-      const timeoutId = setTimeout(() => {
-        navigate('/')
-      }, 1500)
-
-      return () => clearTimeout(timeoutId)
+      navigate('/')
     }
   }, [token, showErrorToast, t, navigate])
 
