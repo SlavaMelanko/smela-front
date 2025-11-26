@@ -44,7 +44,7 @@ const Login = () => {
 
   return (
     <div className='login-page'>
-      <LoginForm onSubmit={handleLogin} isLoading={isEmailPending} />
+      <LoginForm isLoading={isEmailPending} onSubmit={handleLogin} />
       <div className='login-page__separator'>
         <Separator text={t('or')} />
       </div>
