@@ -5,12 +5,14 @@ import { useLocation } from 'react-router-dom'
 import { useCurrentUser, useResendVerificationEmail } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
+import useTheme from '@/hooks/useTheme'
 import { toTranslationKey } from '@/services/catch'
 
 import EmailConfirmationForm from './Form'
 
 const EmailConfirmation = () => {
-  const { t } = useLocale()
+  const { t, locale } = useLocale()
+  const { theme } = useTheme()
   const location = useLocation()
   const { mutate: resendVerificationEmail, isPending } =
     useResendVerificationEmail()
@@ -18,6 +20,7 @@ const EmailConfirmation = () => {
   const { user } = useCurrentUser()
 
   const userEmail = location.state?.email || user?.email
+  const preferences = { locale, theme }
 
   const handleSubmit = data => {
     if (!data.captchaToken) {
@@ -53,6 +56,7 @@ const EmailConfirmation = () => {
       <EmailConfirmationForm
         isLoading={isPending}
         userEmail={userEmail}
+        preferences={preferences}
         onSubmit={handleSubmit}
       />
     </div>

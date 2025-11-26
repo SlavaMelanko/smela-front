@@ -10,7 +10,7 @@ import useLocale from '@/hooks/useLocale'
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-const SetNewPasswordForm = ({ onSubmit, isLoading = false }) => {
+const SetNewPasswordForm = ({ isLoading, onSubmit }) => {
   const { t } = useLocale()
 
   const {

@@ -9,7 +9,12 @@ import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
 
-const EmailConfirmationForm = ({ isLoading, userEmail, onSubmit }) => {
+const EmailConfirmationForm = ({
+  isLoading,
+  userEmail,
+  preferences,
+  onSubmit
+}) => {
   const { t } = useLocale()
   const recaptchaRef = useRef(null)
 
@@ -25,7 +30,8 @@ const EmailConfirmationForm = ({ isLoading, userEmail, onSubmit }) => {
 
     await onSubmit({
       ...data,
-      [FieldName.CAPTCHA_TOKEN]: captchaToken
+      [FieldName.CAPTCHA_TOKEN]: captchaToken,
+      preferences
     })
   }
 

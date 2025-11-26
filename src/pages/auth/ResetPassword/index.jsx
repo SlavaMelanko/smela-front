@@ -6,13 +6,15 @@ import { LoginPrompt } from '@/components/prompts'
 import { useRequestPasswordReset, useResetPassword } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
+import useTheme from '@/hooks/useTheme'
 import useUrlParams from '@/hooks/useUrlParams'
 
 import EmailForm from './EmailForm'
 import PasswordForm from './PasswordForm'
 
 const ResetPassword = () => {
-  const { t } = useLocale()
+  const { t, locale } = useLocale()
+  const { theme } = useTheme()
   const { showSuccessToast, showErrorToast } = useNotifications()
   const navigate = useNavigate()
   const { token } = useUrlParams(['token'])
@@ -22,6 +24,7 @@ const ResetPassword = () => {
     useResetPassword()
 
   const isRequest = !token
+  const preferences = { locale, theme }
 
   const handleRequestPasswordReset = data => {
     if (!data.captchaToken) {
@@ -65,13 +68,14 @@ const ResetPassword = () => {
 
       {isRequest ? (
         <EmailForm
-          onSubmit={handleRequestPasswordReset}
           isLoading={isRequestPending}
+          preferences={preferences}
+          onSubmit={handleRequestPasswordReset}
         />
       ) : (
         <PasswordForm
-          onSubmit={handleResetPassword}
           isLoading={isResetPending}
+          onSubmit={handleResetPassword}
         />
       )}
 

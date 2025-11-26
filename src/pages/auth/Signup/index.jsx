@@ -11,18 +11,22 @@ import {
 } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
+import useTheme from '@/hooks/useTheme'
 import { toTranslationKey } from '@/services/catch'
 
 import SignupForm from './Form'
 
 const Signup = () => {
-  const { t } = useLocale()
+  const { t, locale } = useLocale()
+  const { theme } = useTheme()
   const navigate = useNavigate()
   const { showErrorToast } = useNotifications()
   const { mutate: signUpWithEmail, isPending: isEmailPending } =
     useUserSignupWithEmail()
   const { mutate: signUpWithGoogle, isPending: isGooglePending } =
     useUserSignupWithGoogle()
+
+  const preferences = { locale, theme }
 
   const handleSignupWithEmail = data => {
     if (!data.captchaToken) {
@@ -54,7 +58,11 @@ const Signup = () => {
 
   return (
     <div className='signup-page'>
-      <SignupForm onSubmit={handleSignupWithEmail} isLoading={isEmailPending} />
+      <SignupForm
+        isLoading={isEmailPending}
+        preferences={preferences}
+        onSubmit={handleSignupWithEmail}
+      />
       <div className='signup-page__separator'>
         <Separator text={t('or')} />
       </div>
