@@ -7,12 +7,15 @@ import en from '$/locales/en.json'
 
 import EmailConfirmationForm from '.'
 
+const mockPreferences = { locale: 'en', theme: 'light' }
+
 const renderForm = (onSubmit = jest.fn(), isLoading = false) => {
   renderWithProviders(
     <EmailConfirmationForm
       onSubmit={onSubmit}
       isLoading={isLoading}
       userEmail={auth.email.ok}
+      preferences={mockPreferences}
     />
   )
 
@@ -64,8 +67,9 @@ describe('EmailConfirmation Form', () => {
         expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
 
         expect(onSubmitMock).toHaveBeenCalledWith({
-          email: auth.email.ok,
-          captchaToken: auth.captcha.alternative
+          data: { email: auth.email.ok },
+          captcha: { token: auth.captcha.alternative },
+          preferences: mockPreferences
         })
       })
     })
@@ -80,8 +84,9 @@ describe('EmailConfirmation Form', () => {
       await waitFor(() => {
         expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
         expect(onSubmitMock).toHaveBeenCalledWith({
-          email: auth.email.ok,
-          captchaToken: null
+          data: { email: auth.email.ok },
+          captcha: { token: null },
+          preferences: mockPreferences
         })
       })
     })
@@ -112,8 +117,9 @@ describe('EmailConfirmation Form', () => {
 
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith({
-          email: auth.email.ok,
-          captchaToken: auth.captcha.alternative
+          data: { email: auth.email.ok },
+          captcha: { token: auth.captcha.alternative },
+          preferences: mockPreferences
         })
       })
     })
@@ -148,8 +154,9 @@ describe('EmailConfirmation Form', () => {
 
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith({
-          email: auth.email.ok,
-          captchaToken: auth.captcha.first
+          data: { email: auth.email.ok },
+          captcha: { token: auth.captcha.first },
+          preferences: mockPreferences
         })
       })
 
@@ -161,8 +168,9 @@ describe('EmailConfirmation Form', () => {
 
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith({
-          email: auth.email.ok,
-          captchaToken: auth.captcha.second
+          data: { email: auth.email.ok },
+          captcha: { token: auth.captcha.second },
+          preferences: mockPreferences
         })
       })
 
@@ -178,6 +186,7 @@ describe('EmailConfirmation Form', () => {
           onSubmit={jest.fn()}
           isLoading={true}
           userEmail={auth.email.ok}
+          preferences={mockPreferences}
         />
       )
 

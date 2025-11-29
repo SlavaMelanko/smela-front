@@ -7,8 +7,12 @@ import en from '$/locales/en.json'
 
 import ResetPasswordForm from '.'
 
+const mockPreferences = { locale: 'en', theme: 'light' }
+
 const renderForm = (onSubmit = jest.fn()) => {
-  renderWithProviders(<ResetPasswordForm onSubmit={onSubmit} />)
+  renderWithProviders(
+    <ResetPasswordForm onSubmit={onSubmit} preferences={mockPreferences} />
+  )
 
   const emailInput = screen.getByPlaceholderText(en.email.example)
   const submitButton = screen.getByRole('button', {
@@ -78,12 +82,11 @@ describe('Reset password form', () => {
 
     await waitFor(() => {
       expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
-      expect(onSubmitMock).toHaveBeenCalledWith(
-        expect.objectContaining({
-          email: auth.email.ok,
-          captchaToken: auth.captcha.valid
-        })
-      )
+      expect(onSubmitMock).toHaveBeenCalledWith({
+        data: { email: auth.email.ok },
+        captcha: { token: auth.captcha.valid },
+        preferences: mockPreferences
+      })
     })
   })
 
@@ -97,12 +100,11 @@ describe('Reset password form', () => {
 
     await waitFor(() => {
       expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
-      expect(onSubmitMock).toHaveBeenCalledWith(
-        expect.objectContaining({
-          email: auth.email.ok,
-          captchaToken: null
-        })
-      )
+      expect(onSubmitMock).toHaveBeenCalledWith({
+        data: { email: auth.email.ok },
+        captcha: { token: null },
+        preferences: mockPreferences
+      })
     })
   })
 })

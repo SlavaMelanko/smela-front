@@ -26,14 +26,14 @@ const ResetPassword = () => {
   const isRequest = !token
   const preferences = { locale, theme }
 
-  const handleRequestPasswordReset = data => {
-    if (!data.captchaToken) {
+  const handleRequestPasswordReset = payload => {
+    if (!payload.captcha?.token) {
       showErrorToast(t('captcha.error'))
 
       return
     }
 
-    requestPasswordReset(data, {
+    requestPasswordReset(payload, {
       onSuccess: () => {
         showSuccessToast(t('password.reset.request.success'))
       },
@@ -43,9 +43,9 @@ const ResetPassword = () => {
     })
   }
 
-  const handleResetPassword = ({ newPassword }) => {
+  const handleResetPassword = payload => {
     resetPassword(
-      { token, password: newPassword },
+      { data: { token, password: payload.data.newPassword } },
       {
         onSuccess: () => {
           showSuccessToast(t('password.reset.set.success'))

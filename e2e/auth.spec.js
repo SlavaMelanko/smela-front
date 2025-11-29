@@ -172,7 +172,7 @@ test.describe.serial('Authentication', () => {
       status: HttpStatus.CREATED,
       validateRequest: body => {
         try {
-          signupCaptchaToken = body.captchaToken
+          signupCaptchaToken = body.captcha?.token
 
           return !!signupCaptchaToken
         } catch {
@@ -229,7 +229,7 @@ test.describe.serial('Authentication', () => {
       status: HttpStatus.ACCEPTED,
       validateRequest: b => {
         try {
-          resendCaptchaToken = b.captchaToken
+          resendCaptchaToken = b.captcha?.token
 
           return !!resendCaptchaToken
         } catch {
@@ -367,7 +367,7 @@ test.describe.serial('Authentication', () => {
     await waitForApiCall(page, {
       path: SIGNUP_PATH,
       status: HttpStatus.CREATED,
-      validateRequest: b => !!b.captchaToken
+      validateRequest: b => !!b.captcha?.token
     })
 
     await page.waitForURL(/email-confirmation/)
@@ -557,7 +557,7 @@ test.describe.serial('Authentication', () => {
     await waitForApiCall(page, {
       path: REQUEST_PASSWORD_RESET_PATH,
       status: HttpStatus.ACCEPTED,
-      validateRequest: b => !!b.captchaToken
+      validateRequest: b => !!b.captcha?.token
     })
 
     await expect(page.getByText(t.password.reset.request.success)).toBeVisible()

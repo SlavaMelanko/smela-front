@@ -22,14 +22,14 @@ const EmailConfirmation = () => {
   const userEmail = location.state?.email || user?.email
   const preferences = { locale, theme }
 
-  const handleSubmit = data => {
-    if (!data.captchaToken) {
+  const handleSubmit = payload => {
+    if (!payload.captcha?.token) {
       showErrorToast(t('captcha.error'))
 
       return
     }
 
-    resendVerificationEmail(data, {
+    resendVerificationEmail(payload, {
       onSuccess: () => {
         showSuccessToast(t('email.confirmation.success'))
       },

@@ -7,7 +7,7 @@ import { PrimaryButton } from '@/components/buttons'
 import InvisibleReCaptcha2 from '@/components/InvisibleReCaptcha2'
 import useLocale from '@/hooks/useLocale'
 
-import { FieldName, getDefaultValues } from './fields'
+import { getDefaultValues } from './fields'
 
 const EmailConfirmationForm = ({
   isLoading,
@@ -25,12 +25,12 @@ const EmailConfirmationForm = ({
     defaultValues: getDefaultValues(userEmail)
   })
 
-  const handleSubmitForm = async data => {
+  const submitForm = async data => {
     const captchaToken = await recaptchaRef.current?.executeAsync()
 
     await onSubmit({
-      ...data,
-      [FieldName.CAPTCHA_TOKEN]: captchaToken,
+      data,
+      captcha: { token: captchaToken },
       preferences
     })
   }
@@ -39,7 +39,7 @@ const EmailConfirmationForm = ({
     <form
       className='email-confirmation-form'
       /* eslint-disable-next-line react-hooks/refs -- React Hook Form pattern is safe */
-      onSubmit={handleSubmit(handleSubmitForm)}
+      onSubmit={handleSubmit(submitForm)}
     >
       <PrimaryButton type='submit' disabled={isSubmitting}>
         {isSubmitting || isLoading

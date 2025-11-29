@@ -179,13 +179,10 @@ describe('Login Form', () => {
       await user.click(submitButton)
 
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
-        )
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          data: { email: auth.email.ok, password: auth.password.strong },
+          captcha: { token: auth.captcha.alternative }
+        })
       })
     })
   })
@@ -221,13 +218,10 @@ describe('Login Form', () => {
       await user.click(submitButton)
 
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
-        )
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          data: { email: auth.email.ok, password: auth.password.strong },
+          captcha: { token: auth.captcha.alternative }
+        })
       })
     })
 
@@ -266,13 +260,10 @@ describe('Login Form', () => {
 
       // Wait for the async operation to complete.
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
-        )
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          data: { email: auth.email.ok, password: auth.password.strong },
+          captcha: { token: auth.captcha.alternative }
+        })
       })
 
       // Form should have been submitted successfully

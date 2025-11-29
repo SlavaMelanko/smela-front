@@ -7,8 +7,12 @@ import en from '$/locales/en.json'
 
 import SignupForm from '.'
 
+const mockPreferences = { locale: 'en', theme: 'light' }
+
 const renderForm = (onSubmit = jest.fn()) => {
-  renderWithProviders(<SignupForm onSubmit={onSubmit} />)
+  renderWithProviders(
+    <SignupForm onSubmit={onSubmit} preferences={mockPreferences} />
+  )
 
   const firstNameInput = screen.getByPlaceholderText(en.firstName.example)
   const lastNameInput = screen.getByPlaceholderText(en.lastName.example)
@@ -203,8 +207,8 @@ describe('Signup Form', () => {
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith(
           expect.objectContaining({
-            email: auth.email.ok,
-            captchaToken: auth.captcha.valid
+            data: expect.objectContaining({ email: auth.email.ok }),
+            captcha: { token: auth.captcha.valid }
           })
         )
       })
@@ -243,7 +247,7 @@ describe('Signup Form', () => {
         expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
         expect(onSubmitMock).toHaveBeenCalledWith(
           expect.objectContaining({
-            captchaToken: null
+            captcha: { token: null }
           })
         )
       })
@@ -258,14 +262,15 @@ describe('Signup Form', () => {
       await user.click(formInputs.submitButton)
 
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          data: {
             firstName: auth.firstName.ok,
             email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
-        )
+            password: auth.password.strong
+          },
+          captcha: { token: auth.captcha.alternative },
+          preferences: mockPreferences
+        })
       })
     })
   })
@@ -284,8 +289,10 @@ describe('Signup Form', () => {
 
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.not.objectContaining({
-            role: expect.anything()
+          expect.objectContaining({
+            data: expect.not.objectContaining({
+              role: expect.anything()
+            })
           })
         )
       })
@@ -309,10 +316,12 @@ describe('Signup Form', () => {
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith(
           expect.objectContaining({
-            firstName: auth.firstName.ok,
-            email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.valid
+            data: expect.objectContaining({
+              firstName: auth.firstName.ok,
+              email: auth.email.ok,
+              password: auth.password.strong
+            }),
+            captcha: { token: auth.captcha.valid }
           })
         )
       })
@@ -337,15 +346,16 @@ describe('Signup Form', () => {
       await user.click(submitButton)
 
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          data: {
             firstName: auth.firstName.ok,
             lastName: auth.lastName.ok,
             email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
-        )
+            password: auth.password.strong
+          },
+          captcha: { token: auth.captcha.alternative },
+          preferences: mockPreferences
+        })
       })
     })
 
@@ -362,21 +372,15 @@ describe('Signup Form', () => {
       await user.click(submitButton)
 
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          data: {
             firstName: auth.firstName.ok,
             email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
-        )
-
-        // Verify lastName is not included when empty
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.not.objectContaining({
-            lastName: expect.anything()
-          })
-        )
+            password: auth.password.strong
+          },
+          captcha: { token: auth.captcha.alternative },
+          preferences: mockPreferences
+        })
       })
     })
   })

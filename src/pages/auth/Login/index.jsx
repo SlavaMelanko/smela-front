@@ -20,8 +20,14 @@ const Login = () => {
     useLoginWithGoogle()
   const { showErrorToast } = useNotifications()
 
-  const handleLogin = data => {
-    logInWithEmail(data, {
+  const handleLogin = payload => {
+    if (!payload.captcha?.token) {
+      showErrorToast(t('captcha.error'))
+
+      return
+    }
+
+    logInWithEmail(payload, {
       onSuccess: () => {
         navigate('/')
       },

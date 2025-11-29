@@ -22,10 +22,12 @@ const SetNewPasswordForm = ({ isLoading, onSubmit }) => {
     defaultValues: getDefaultValues()
   })
 
+  const submitForm = data => onSubmit({ data })
+
   return (
     <form
       className='reset-password-password-form'
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(submitForm)}
     >
       <div className='reset-password-password-form__fields'>
         <FormField

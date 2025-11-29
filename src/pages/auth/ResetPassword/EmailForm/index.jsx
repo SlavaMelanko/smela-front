@@ -25,12 +25,12 @@ const ResetPasswordForm = ({ isLoading, preferences, onSubmit }) => {
     defaultValues: getDefaultValues()
   })
 
-  const handleSubmitForm = async data => {
+  const submitForm = async data => {
     const captchaToken = await recaptchaRef.current?.executeAsync()
 
     await onSubmit({
-      ...data,
-      [FieldName.CAPTCHA_TOKEN]: captchaToken,
+      data,
+      captcha: { token: captchaToken },
       preferences
     })
   }
@@ -39,7 +39,7 @@ const ResetPasswordForm = ({ isLoading, preferences, onSubmit }) => {
     <form
       className='reset-password-email-form'
       /* eslint-disable-next-line react-hooks/refs -- React Hook Form pattern is safe */
-      onSubmit={handleSubmit(handleSubmitForm)}
+      onSubmit={handleSubmit(submitForm)}
     >
       <div className='reset-password-email-form__fields'>
         <FormField

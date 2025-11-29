@@ -25,17 +25,17 @@ const LoginForm = ({ isLoading, onSubmit }) => {
     defaultValues: getDefaultValues()
   })
 
-  const handleFormSubmit = async data => {
+  const submitForm = async data => {
     const captchaToken = await recaptchaRef.current?.executeAsync()
 
-    onSubmit({ ...data, captchaToken })
+    onSubmit({ data, captcha: { token: captchaToken } })
   }
 
   return (
     <form
       className='login-form'
       /* eslint-disable-next-line react-hooks/refs -- React Hook Form pattern is safe */
-      onSubmit={handleSubmit(handleFormSubmit)}
+      onSubmit={handleSubmit(submitForm)}
     >
       <div className='login-form__fields'>
         <FormField

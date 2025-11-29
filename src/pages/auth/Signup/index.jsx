@@ -28,16 +28,18 @@ const Signup = () => {
 
   const preferences = { locale, theme }
 
-  const handleSignupWithEmail = data => {
-    if (!data.captchaToken) {
+  const handleSignupWithEmail = payload => {
+    if (!payload.captcha?.token) {
       showErrorToast(t('captcha.error'))
 
       return
     }
 
-    signUpWithEmail(data, {
+    signUpWithEmail(payload, {
       onSuccess: () => {
-        navigate('/email-confirmation', { state: { email: data.email } })
+        navigate('/email-confirmation', {
+          state: { email: payload.data.email }
+        })
       },
       onError: err => {
         showErrorToast(t(toTranslationKey(err)))
