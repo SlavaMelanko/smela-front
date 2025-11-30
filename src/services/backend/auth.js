@@ -1,33 +1,41 @@
-import api from './api'
-import { path } from './paths'
+import apiClient from './apiClient'
+import {
+  LOGIN_PATH,
+  LOGOUT_PATH,
+  REQUEST_PASSWORD_RESET_PATH,
+  RESEND_VERIFICATION_EMAIL_PATH,
+  RESET_PASSWORD_PATH,
+  SIGNUP_PATH,
+  VERIFY_EMAIL_PATH
+} from './paths'
 
 const authService = {
   signUp(data) {
-    return api.post(path.SIGNUP, data)
+    return apiClient.post(SIGNUP_PATH, data)
   },
 
   logIn(data) {
-    return api.post(path.LOGIN, data)
+    return apiClient.post(LOGIN_PATH, data)
   },
 
-  verifyEmail(token) {
-    return api.post(path.VERIFY_EMAIL, { token })
+  verifyEmail(data) {
+    return apiClient.post(VERIFY_EMAIL_PATH, data)
   },
 
   resendVerificationEmail(data) {
-    return api.post(path.RESEND_VERIFICATION_EMAIL, data)
+    return apiClient.post(RESEND_VERIFICATION_EMAIL_PATH, data)
   },
 
   requestPasswordReset(data) {
-    return api.post(path.REQUEST_PASSWORD_RESET, data)
+    return apiClient.post(REQUEST_PASSWORD_RESET_PATH, data)
   },
 
   resetPassword(data) {
-    return api.post(path.RESET_PASSWORD, data)
+    return apiClient.post(RESET_PASSWORD_PATH, data)
   },
 
   logOut() {
-    return api.post(path.LOGOUT)
+    return apiClient.post(LOGOUT_PATH)
   }
 }
 

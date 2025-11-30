@@ -1,9 +1,17 @@
 import { expect, test } from '@playwright/test'
 import fs from 'fs'
 
-import { HttpStatus } from '../src/lib/http-status'
+import { HttpStatus } from '../src/lib/httpStatus'
 import { Role, UserStatus } from '../src/lib/types'
-import { path } from '../src/services/backend/paths'
+import {
+  LOGIN_PATH,
+  ME_PATH,
+  REQUEST_PASSWORD_RESET_PATH,
+  RESEND_VERIFICATION_EMAIL_PATH,
+  RESET_PASSWORD_PATH,
+  SIGNUP_PATH,
+  VERIFY_EMAIL_PATH
+} from '../src/services/backend/paths'
 import { auth } from '../src/tests/data'
 import {
   emailConfig,
@@ -113,7 +121,7 @@ test.describe.serial('Authentication', () => {
     await expect(passwordInput).toHaveClass(/input__field--error/)
   })
 
-  // This test requires seed data with admin@example.com
+  // This test requires seed data with jason@example.com
   test('signup: prevents duplicate email registration', async ({ page }) => {
     await page.goto('/signup')
 
@@ -129,7 +137,7 @@ test.describe.serial('Authentication', () => {
     )
 
     await waitForApiCall(page, {
-      path: path.SIGNUP,
+      path: SIGNUP_PATH,
       status: HttpStatus.CONFLICT
     })
 
@@ -160,23 +168,23 @@ test.describe.serial('Authentication', () => {
     )
 
     await waitForApiCall(page, {
-      path: path.SIGNUP,
+      path: SIGNUP_PATH,
       status: HttpStatus.CREATED,
-      validateRequest: b => {
+      validateRequest: body => {
         try {
-          signupCaptchaToken = b.captchaToken
+          signupCaptchaToken = body.captcha?.token
 
           return !!signupCaptchaToken
         } catch {
           return false
         }
       },
-      validateResponse: b => {
-        if (!b.user || !b.token) {
+      validateResponse: body => {
+        if (!body.user || !body.accessToken) {
           return false
         }
 
-        const { id, firstName, lastName, email, status, role } = b.user
+        const { id, firstName, lastName, email, status, role } = body.user
 
         return (
           id > 0 &&
@@ -217,11 +225,11 @@ test.describe.serial('Authentication', () => {
     await page.getByRole('button', { name: t.email.confirmation.cta }).click()
 
     await waitForApiCall(page, {
-      path: path.RESEND_VERIFICATION_EMAIL,
+      path: RESEND_VERIFICATION_EMAIL_PATH,
       status: HttpStatus.ACCEPTED,
       validateRequest: b => {
         try {
-          resendCaptchaToken = b.captchaToken
+          resendCaptchaToken = b.captcha?.token
 
           return !!resendCaptchaToken
         } catch {
@@ -275,7 +283,7 @@ test.describe.serial('Authentication', () => {
     )
 
     await waitForApiCall(page, {
-      path: path.SIGNUP,
+      path: SIGNUP_PATH,
       status: HttpStatus.CREATED
     })
 
@@ -303,12 +311,12 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCalls(page, [
       {
-        path: path.ME,
+        path: ME_PATH,
         method: 'GET',
         status: HttpStatus.OK
       },
       {
-        path: path.VERIFY_EMAIL,
+        path: VERIFY_EMAIL_PATH,
         status: HttpStatus.BAD_REQUEST
       }
     ])
@@ -320,11 +328,11 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCalls(page, [
       {
-        path: path.ME,
+        path: ME_PATH,
         status: HttpStatus.OK
       },
       {
-        path: path.VERIFY_EMAIL,
+        path: VERIFY_EMAIL_PATH,
         status: HttpStatus.BAD_REQUEST
       }
     ])
@@ -357,9 +365,9 @@ test.describe.serial('Authentication', () => {
     )
 
     await waitForApiCall(page, {
-      path: path.SIGNUP,
+      path: SIGNUP_PATH,
       status: HttpStatus.CREATED,
-      validateRequest: b => !!b.captchaToken
+      validateRequest: b => !!b.captcha?.token
     })
 
     await page.waitForURL(/email-confirmation/)
@@ -374,7 +382,7 @@ test.describe.serial('Authentication', () => {
 
     await waitForApiCalls(page, [
       {
-        path: path.ME,
+        path: ME_PATH,
         status: HttpStatus.OK,
         validateResponse: b => {
           if (!b.user) {
@@ -394,30 +402,10 @@ test.describe.serial('Authentication', () => {
         }
       },
       {
-        path: path.VERIFY_EMAIL,
+        path: VERIFY_EMAIL_PATH,
         status: HttpStatus.OK,
         validateResponse: b => {
-          if (!b.user || !b.token) {
-            return false
-          }
-
-          const { id, firstName, lastName, email, status, role } = b.user
-
-          return (
-            id > 0 &&
-            firstName === auth.firstName.ok &&
-            lastName === auth.lastName.ok &&
-            email === userCredentials.email &&
-            status === UserStatus.VERIFIED &&
-            role === Role.USER
-          )
-        }
-      },
-      {
-        path: path.ME,
-        status: HttpStatus.OK,
-        validateResponse: b => {
-          if (!b.user) {
+          if (!b.user || !b.accessToken) {
             return false
           }
 
@@ -444,80 +432,6 @@ test.describe.serial('Authentication', () => {
 
     // Logout to ensure clean state for next test
     await logOut(page, t)
-  })
-
-  test('login: validates email format', async ({ page }) => {
-    await page.goto('/login')
-
-    const testCases = [
-      {
-        email: auth.email.empty,
-        expectedError: t.email.error.required
-      },
-      {
-        email: auth.email.invalid,
-        expectedError: t.email.error.format
-      },
-      {
-        email: auth.email.noAt,
-        expectedError: t.email.error.format
-      },
-      {
-        email: auth.email.noTld,
-        expectedError: t.email.error.format
-      }
-    ]
-
-    for (const testCase of testCases) {
-      await page.reload()
-
-      const { emailInput } = await fillLoginFormAndSubmit(
-        page,
-        {
-          email: testCase.email,
-          password: auth.password.strong
-        },
-        t
-      )
-
-      await expect(page.getByText(testCase.expectedError)).toBeVisible()
-      await expect(emailInput).toHaveClass(/input__field--error/)
-    }
-  })
-
-  test('login: validates password requirements', async ({ page }) => {
-    await page.goto('/login')
-
-    const testCases = [
-      {
-        password: auth.password.empty,
-        expectedError: t.password.error.required
-      },
-      {
-        password: auth.password.short,
-        expectedError: t.password.error.min
-      },
-      {
-        password: auth.password.noLetter,
-        expectedError: t.password.error.strong
-      }
-    ]
-
-    for (const testCase of testCases) {
-      await page.reload()
-
-      const { passwordInput } = await fillLoginFormAndSubmit(
-        page,
-        {
-          email: auth.email.ok,
-          password: testCase.password
-        },
-        t
-      )
-
-      await expect(page.getByText(testCase.expectedError)).toBeVisible()
-      await expect(passwordInput).toHaveClass(/input__field--error/)
-    }
   })
 
   test('login: shows error with invalid credentials and preserves form data', async ({
@@ -549,7 +463,7 @@ test.describe.serial('Authentication', () => {
       )
 
       await waitForApiCall(page, {
-        path: path.LOGIN,
+        path: LOGIN_PATH,
         status: HttpStatus.UNAUTHORIZED
       })
 
@@ -563,7 +477,9 @@ test.describe.serial('Authentication', () => {
     }
   })
 
-  test('login: authenticates with valid credentials', async ({ page }) => {
+  test('login: authenticates with valid credentials and redirects to home', async ({
+    page
+  }) => {
     await page.goto('/login')
 
     await fillLoginFormAndSubmit(
@@ -576,7 +492,7 @@ test.describe.serial('Authentication', () => {
     )
 
     await waitForApiCall(page, {
-      path: path.LOGIN,
+      path: LOGIN_PATH,
       status: HttpStatus.OK
     })
 
@@ -584,13 +500,44 @@ test.describe.serial('Authentication', () => {
 
     await expect(page.getByText(auth.firstName.ok)).toBeVisible()
 
-    // Check that authenticated users are redirected from /login
+    // Logout to ensure clean state for next test
+    await logOut(page, t)
+  })
+
+  test('login: redirects authenticated users from auth pages', async ({
+    page
+  }) => {
+    // First, authenticate the user
+    await page.goto('/login')
+
+    await fillLoginFormAndSubmit(
+      page,
+      {
+        email: userCredentials.email,
+        password: userCredentials.initialPassword
+      },
+      t
+    )
+
+    await waitForApiCall(page, {
+      path: LOGIN_PATH,
+      status: HttpStatus.OK
+    })
+
+    await page.waitForURL('/home')
+
+    // Verify authenticated users cannot access /login
     await page.goto('/login')
     await page.waitForURL('/home')
     await expect(page).toHaveURL(/\/home/)
 
-    // Check that authenticated users are redirected from /signup
+    // Verify authenticated users cannot access /signup
     await page.goto('/signup')
+    await page.waitForURL('/home')
+    await expect(page).toHaveURL(/\/home/)
+
+    // Verify authenticated users cannot access /verify-email
+    await page.goto('/verify-email?token=sample_token_12345')
     await page.waitForURL('/home')
     await expect(page).toHaveURL(/\/home/)
 
@@ -608,9 +555,9 @@ test.describe.serial('Authentication', () => {
     await fillRequestPasswordResetFormAndSubmit(page, userCredentials.email, t)
 
     await waitForApiCall(page, {
-      path: path.REQUEST_PASSWORD_RESET,
+      path: REQUEST_PASSWORD_RESET_PATH,
       status: HttpStatus.ACCEPTED,
-      validateRequest: b => !!b.captchaToken
+      validateRequest: b => !!b.captcha?.token
     })
 
     await expect(page.getByText(t.password.reset.request.success)).toBeVisible()
@@ -628,7 +575,7 @@ test.describe.serial('Authentication', () => {
     await fillNewPasswordFormAndSubmit(page, userCredentials.newPassword, t)
 
     await waitForApiCall(page, {
-      path: path.RESET_PASSWORD,
+      path: RESET_PASSWORD_PATH,
       status: HttpStatus.OK
     })
 
@@ -646,7 +593,7 @@ test.describe.serial('Authentication', () => {
     )
 
     await waitForApiCall(page, {
-      path: path.LOGIN,
+      path: LOGIN_PATH,
       status: HttpStatus.OK
     })
 
@@ -656,5 +603,52 @@ test.describe.serial('Authentication', () => {
 
     // Logout to ensure clean state
     await logOut(page, t)
+  })
+
+  test('logout: syncs authentication state across tabs', async ({
+    page,
+    context
+  }) => {
+    // Step 1: Login in first tab and verify home page
+    await page.goto('/login')
+
+    await fillLoginFormAndSubmit(
+      page,
+      {
+        email: userCredentials.email,
+        password: userCredentials.newPassword // password reset test changes the password
+      },
+      t
+    )
+
+    await waitForApiCall(page, {
+      path: LOGIN_PATH,
+      status: HttpStatus.OK
+    })
+
+    await page.waitForURL('/home')
+
+    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
+
+    // Step 2: Open second tab and navigate to home - should see same page
+    const secondTab = await context.newPage()
+
+    await secondTab.goto('/home')
+
+    await expect(secondTab.getByText(auth.firstName.ok)).toBeVisible()
+
+    // Step 3: Logout in first tab - should see login page
+    await logOut(page, t)
+
+    await expect(page).toHaveURL(/\/login/)
+
+    // Step 4: Refresh second tab - should redirect to login
+    await secondTab.reload()
+
+    await secondTab.waitForURL('/login')
+
+    await expect(secondTab).toHaveURL(/\/login/)
+
+    await secondTab.close()
   })
 })

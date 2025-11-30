@@ -9,11 +9,11 @@ Object.assign(process.env, loadEnv('test', './', 'VITE_'))
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  testDir: './tests',
+  testDir: './e2e',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: false,
+  forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: 0,
   /* Opt out of parallel tests on CI. */
@@ -22,18 +22,16 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    baseURL: process.env.VITE_BASE_URL || 'http://localhost:5173',
-
-    navigationTimeout: 30 * 1000,
-
+    baseURL: process.env.VITE_FE_BASE_URL || 'http://localhost:5173',
+    navigationTimeout: 15000,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry'
   },
 
   expect: {
-    timeout: 30 * 1000
+    timeout: 15000
   },
-  timeout: 60000,
+  timeout: 30000,
 
   projects: [
     {
@@ -86,10 +84,9 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'npm run dev',
-
-    url: process.env.VITE_BASE_URL || 'http://localhost:5173',
+    command: 'pnpm run dev',
+    url: process.env.VITE_FE_BASE_URL || 'http://localhost:5173',
     reuseExistingServer: true,
-    timeout: 100000
+    timeout: 15000
   }
 })

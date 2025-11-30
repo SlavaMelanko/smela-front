@@ -9,12 +9,15 @@ RUN apt-get update && apt-get install -y \
     gpg \
     && rm -rf /var/lib/apt/lists/*
 
+# Install pnpm globally using corepack (recommended method)
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
 WORKDIR /workspace
 
-COPY package*.json ./
+COPY package.json pnpm-lock.yaml .npmrc ./
 
-RUN npm ci
+RUN pnpm install --frozen-lockfile
 
-RUN npm cache clean --force
+RUN pnpm store prune
 
 CMD ["/bin/bash"]

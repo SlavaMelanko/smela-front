@@ -1,7 +1,7 @@
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query'
 
-import { HttpStatus } from '@/lib/http-status'
-import { getNetworkErrorType, isNetworkError } from '@/lib/network-monitor'
+import { HttpStatus } from '@/lib/httpStatus'
+import { getNetworkErrorType, isNetworkError } from '@/lib/networkMonitor'
 import { withQuery } from '@/lib/url'
 
 const getRetryDelay = attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000) // max 30 seconds
@@ -25,9 +25,6 @@ const handleError = error => {
 
   // Here we could integrate with error tracking services like Sentry, Bugsnag, etc.
   // errorTracker.captureException(error, { context }).
-
-  // We could also show user-facing notifications:
-  // toast.error('Something went wrong. Please try again.').
 }
 
 const queryCache = new QueryCache({

@@ -10,7 +10,7 @@ import useLocale from '@/hooks/useLocale'
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-const SetNewPasswordForm = ({ onSubmit, isLoading = false }) => {
+const SetNewPasswordForm = ({ isLoading, onSubmit }) => {
   const { t } = useLocale()
 
   const {
@@ -25,7 +25,7 @@ const SetNewPasswordForm = ({ onSubmit, isLoading = false }) => {
   return (
     <form
       className='reset-password-password-form'
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(data => onSubmit(data))}
     >
       <div className='reset-password-password-form__fields'>
         <FormField

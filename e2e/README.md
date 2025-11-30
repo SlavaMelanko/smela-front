@@ -2,18 +2,16 @@
 
 ## ⚠️ Prerequisites
 
-Before running the tests, make sure the `admin@example.com` account is
-registered.
-
-This account is used in tests that validate "email already in use" error on
-signup.
+Before running the tests, make sure the `jason@example.com` account is
+registered. This account is used in tests that validate "email already in use"
+error on signup.
 
 ## 📦 Setup
 
 Install Playwright and browser dependencies:
 
 ```bash
-npx playwright install
+pnpm exec playwright install
 ```
 
 ## 🚀 Running Tests
@@ -21,11 +19,11 @@ npx playwright install
 Run all tests headlessly:
 
 ```bash
-npm run e2e
+pnpm run e2e
 ```
 
 Or run tests in interactive UI mode:
 
 ```bash
-npm run e2e:ui
+pnpm run e2e:ui
 ```

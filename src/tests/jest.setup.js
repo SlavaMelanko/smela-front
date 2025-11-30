@@ -12,15 +12,12 @@ global.TextDecoder = TextDecoder
 // Mock fetch globally for all tests
 global.fetch = jest.fn()
 
-// Clean up DOM and mocks after all tests
-afterAll(() => {
-  cleanup()
-  jest.restoreAllMocks() // calls clearAllMocks() internally
-})
-
 // Mock InvisibleReCaptcha2 component for all tests
 const mockExecuteReCaptcha = jest.fn()
 const mockResetReCaptcha = jest.fn()
+
+global.mockExecuteReCaptcha = mockExecuteReCaptcha
+global.mockResetReCaptcha = mockResetReCaptcha
 
 jest.mock('@/components/InvisibleReCaptcha2', () => {
   const { forwardRef, useImperativeHandle } = jest.requireActual('react')
@@ -38,6 +35,18 @@ jest.mock('@/components/InvisibleReCaptcha2', () => {
   }
 })
 
-// Export mock functions for use in tests
-global.mockExecuteReCaptcha = mockExecuteReCaptcha
-global.mockResetReCaptcha = mockResetReCaptcha
+// Mock react-router-dom navigation for all tests
+const mockNavigate = jest.fn()
+
+global.mockNavigate = mockNavigate
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate
+}))
+
+// Clean up DOM and mocks after all tests
+afterAll(() => {
+  cleanup()
+  jest.restoreAllMocks()
+})

@@ -5,9 +5,9 @@ import { useCurrentUser } from '@/hooks/useAuth'
 import { userActiveStatuses } from '@/lib/types'
 
 const PublicRoute = ({ children }) => {
-  const { isPending, isAuthenticated, user } = useCurrentUser()
+  const { isFetching, isAuthenticated, user } = useCurrentUser()
 
-  if (isPending) {
+  if (isFetching) {
     return <Spinner centered />
   }
 

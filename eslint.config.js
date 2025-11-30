@@ -35,7 +35,7 @@ export default [
 
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true }
@@ -111,7 +111,7 @@ export default [
   },
   {
     // Playwright
-    files: ['tests/**/*.{js,jsx}', 'playwright.config.js'],
+    files: ['e2e/**/*.{js,jsx}', 'playwright.config.js'],
     languageOptions: {
       globals: {
         ...globals.node,

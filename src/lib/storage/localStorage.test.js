@@ -1,4 +1,4 @@
-import storage from './storage'
+import storage from './localStorage'
 
 describe('storage', () => {
   let mockLocalStorage
@@ -94,6 +94,32 @@ describe('storage', () => {
       expect(() => storage.remove('test-key')).not.toThrow()
 
       localStorage.removeItem = originalRemoveItem
+    })
+  })
+
+  describe('clear', () => {
+    it('should clear all values from localStorage', () => {
+      localStorage.setItem('key1', 'value1')
+      localStorage.setItem('key2', 'value2')
+      localStorage.setItem('key3', 'value3')
+
+      storage.clear()
+
+      expect(localStorage.getItem('key1')).toBe(null)
+      expect(localStorage.getItem('key2')).toBe(null)
+      expect(localStorage.getItem('key3')).toBe(null)
+    })
+
+    it('should handle localStorage errors silently', () => {
+      const originalClear = localStorage.clear
+
+      localStorage.clear = jest.fn(() => {
+        throw new Error('localStorage error')
+      })
+
+      expect(() => storage.clear()).not.toThrow()
+
+      localStorage.clear = originalClear
     })
   })
 })

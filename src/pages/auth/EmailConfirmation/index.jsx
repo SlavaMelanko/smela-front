@@ -3,37 +3,48 @@ import './styles.scss'
 import { useLocation } from 'react-router-dom'
 
 import { useCurrentUser, useResendVerificationEmail } from '@/hooks/useAuth'
+import useCaptcha from '@/hooks/useCaptcha'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
+import useTheme from '@/hooks/useTheme'
 import { toTranslationKey } from '@/services/catch'
 
 import EmailConfirmationForm from './Form'
 
 const EmailConfirmation = () => {
-  const { t } = useLocale()
+  const { t, locale } = useLocale()
+  const { theme } = useTheme()
   const location = useLocation()
   const { mutate: resendVerificationEmail, isPending } =
     useResendVerificationEmail()
   const { showSuccessToast, showErrorToast } = useNotifications()
   const { user } = useCurrentUser()
+  const { getToken, Captcha } = useCaptcha()
 
   const userEmail = location.state?.email || user?.email
 
-  const handleSubmit = data => {
-    if (!data.captchaToken) {
+  const handleSubmit = async data => {
+    const token = await getToken()
+
+    if (!token) {
       showErrorToast(t('captcha.error'))
 
       return
     }
 
-    resendVerificationEmail(data, {
-      onSuccess: () => {
-        showSuccessToast(t('email.confirmation.success'))
-      },
-      onError: err => {
-        showErrorToast(t(toTranslationKey(err)))
+    const preferences = { locale, theme }
+
+    resendVerificationEmail(
+      { data, captcha: { token }, preferences },
+      {
+        onSuccess: () => {
+          showSuccessToast(t('email.confirmation.success'))
+        },
+        onError: err => {
+          showErrorToast(t(toTranslationKey(err)))
+        }
       }
-    })
+    )
   }
 
   return (
@@ -55,6 +66,8 @@ const EmailConfirmation = () => {
         userEmail={userEmail}
         onSubmit={handleSubmit}
       />
+
+      {Captcha}
     </div>
   )
 }

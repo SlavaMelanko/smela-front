@@ -13,7 +13,7 @@ const useVerifyEmailOnce = (token, options) => {
 
     hasVerified.current = true
 
-    verifyEmail(token)
+    verifyEmail({ data: { token } })
   }, [token, verifyEmail])
 }
 

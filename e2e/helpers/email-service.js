@@ -100,7 +100,7 @@ export class EmailService {
     throw new Error(`The email "${subject}" hasn't been received.`)
   }
 
-  async waitForVerificationEmail(emailAddress, subject = 'Welcome to SMELA') {
+  async waitForVerificationEmail(emailAddress, subject = 'Verify your email') {
     const email = await this.#waitForEmail(emailAddress, subject)
     const link = extractVerificationLink(email.text)
 
@@ -118,7 +118,7 @@ export class EmailService {
 
   async waitForResetPasswordEmail(
     emailAddress,
-    subject = 'Reset Your Password'
+    subject = 'Reset your password'
   ) {
     const email = await this.#waitForEmail(emailAddress, subject)
     const link = extractResetPasswordLink(email.text)

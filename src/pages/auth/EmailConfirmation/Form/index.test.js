@@ -52,44 +52,8 @@ describe('EmailConfirmation Form', () => {
     })
   })
 
-  describe('ReCaptcha Integration', () => {
-    it('executes reCAPTCHA on form submission', async () => {
-      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.alternative)
-      const onSubmitMock = jest.fn()
-      const { submitButton } = renderForm(onSubmitMock)
-
-      await user.click(submitButton)
-
-      await waitFor(() => {
-        expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
-
-        expect(onSubmitMock).toHaveBeenCalledWith({
-          email: auth.email.ok,
-          captchaToken: auth.captcha.alternative
-        })
-      })
-    })
-
-    it('handles reCAPTCHA failure gracefully', async () => {
-      global.mockExecuteReCaptcha.mockResolvedValue(null)
-      const onSubmitMock = jest.fn()
-      const { submitButton } = renderForm(onSubmitMock)
-
-      await user.click(submitButton)
-
-      await waitFor(() => {
-        expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
-        expect(onSubmitMock).toHaveBeenCalledWith({
-          email: auth.email.ok,
-          captchaToken: null
-        })
-      })
-    })
-  })
-
   describe('Form Submission', () => {
     it('disables submit button and shows loading text during submission', async () => {
-      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
       const onSubmitMock = jest.fn(
         () => new Promise(res => setTimeout(res, 100))
       )
@@ -103,23 +67,18 @@ describe('EmailConfirmation Form', () => {
       await waitFor(() => expect(onSubmitMock).toHaveBeenCalled())
     })
 
-    it('submits form with captcha token', async () => {
-      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.alternative)
+    it('submits form with email data', async () => {
       const onSubmitMock = jest.fn()
       const { submitButton } = renderForm(onSubmitMock)
 
       await user.click(submitButton)
 
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith({
-          email: auth.email.ok,
-          captchaToken: auth.captcha.alternative
-        })
+        expect(onSubmitMock).toHaveBeenCalledWith({ email: auth.email.ok })
       })
     })
 
     it('prevents multiple submissions while form is processing', async () => {
-      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
       const onSubmitMock = jest.fn(
         () => new Promise(res => setTimeout(res, 100))
       )
@@ -133,41 +92,6 @@ describe('EmailConfirmation Form', () => {
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledTimes(1)
       })
-    })
-
-    it('generates fresh token on each submission', async () => {
-      global.mockExecuteReCaptcha
-        .mockResolvedValueOnce(auth.captcha.first)
-        .mockResolvedValueOnce(auth.captcha.second)
-
-      const onSubmitMock = jest.fn()
-      const { submitButton } = renderForm(onSubmitMock)
-
-      // First submission
-      await user.click(submitButton)
-
-      await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith({
-          email: auth.email.ok,
-          captchaToken: auth.captcha.first
-        })
-      })
-
-      // Reset form state for second submission
-      onSubmitMock.mockClear()
-
-      // Second submission
-      await user.click(submitButton)
-
-      await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith({
-          email: auth.email.ok,
-          captchaToken: auth.captcha.second
-        })
-      })
-
-      // Verify reCAPTCHA was executed twice
-      expect(global.mockExecuteReCaptcha).toHaveBeenCalledTimes(2)
     })
   })
 
@@ -195,7 +119,6 @@ describe('EmailConfirmation Form', () => {
     })
 
     it('prioritizes form submission state over isLoading prop', async () => {
-      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
       const onSubmitMock = jest.fn(
         () => new Promise(res => setTimeout(res, 1000))
       )

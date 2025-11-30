@@ -1,4 +1,4 @@
-import { DATE_FORMAT, formatDate } from './date'
+import { datePreset, formatDate } from './date'
 
 describe('formatDate', () => {
   const testDate = '2025-07-04T00:00:00Z'
@@ -24,25 +24,25 @@ describe('formatDate', () => {
   })
 
   test('formats date with short preset in en locale', () => {
-    const formatted = formatDate(testDate, 'en', DATE_FORMAT.short)
+    const formatted = formatDate(testDate, 'en', datePreset.short)
 
     expect(formatted).toBe('Jul 4, 2025')
   })
 
   test('formats date with short preset in uk locale', () => {
-    const formatted = formatDate(testDate, 'uk', DATE_FORMAT.short)
+    const formatted = formatDate(testDate, 'uk', datePreset.short)
 
     expect(formatted).toBe('4 лип. 2025 р.')
   })
 
   test('formats date with long preset in en locale', () => {
-    const formatted = formatDate(testDate, 'en', DATE_FORMAT.long)
+    const formatted = formatDate(testDate, 'en', datePreset.long)
 
     expect(formatted).toBe('Friday, July 4, 2025')
   })
 
   test('formats date with long preset in uk locale', () => {
-    const formatted = formatDate(testDate, 'uk', DATE_FORMAT.long)
+    const formatted = formatDate(testDate, 'uk', datePreset.long)
 
     expect(formatted).toMatch(/4 липня 2025/)
   })

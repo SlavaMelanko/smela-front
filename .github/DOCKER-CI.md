@@ -27,15 +27,10 @@ docker buildx create --use --name multiplatform-builder || docker buildx use mul
 # For local development:
 docker build -f Dockerfile.ci -t smela-front-ci .
 
-# For dev branch:
+# For dev & main branches:
 docker buildx build --platform linux/amd64,linux/arm64 \
   -f Dockerfile.ci \
   -t ghcr.io/slavamelanko/smela-front-ci:dev \
-  --push .
-
-# For main branch:
-docker buildx build --platform linux/amd64,linux/arm64 \
-  -f Dockerfile.ci \
   -t ghcr.io/slavamelanko/smela-front-ci:main \
   --push .
 
@@ -73,6 +68,6 @@ docker run -it --rm smela-front-ci bash
 
 # Inside the container, verify installations:
 
-# 1. Check npm and Node versions
-npm --v && node --v
+# 1. Check pnpm and Node versions
+pnpm --v && node --v
 ```

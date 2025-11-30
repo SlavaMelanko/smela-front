@@ -2,16 +2,21 @@ import { Navigate } from 'react-router-dom'
 
 import Spinner from '@/components/Spinner'
 import { useCurrentUser } from '@/hooks/useAuth'
-import { UserStatus } from '@/lib/types'
+import {
+  adminActiveStatuses,
+  Role,
+  userActiveStatuses,
+  UserStatus
+} from '@/lib/types'
 
 const RootRedirect = () => {
-  const { isPending, isAuthenticated, user, isError } = useCurrentUser()
+  const { isFetching, isAuthenticated, user, isError } = useCurrentUser()
 
   if (isError) {
     return <Navigate to='/login' replace />
   }
 
-  if (isPending) {
+  if (isFetching) {
     return <Spinner />
   }
 
@@ -25,11 +30,22 @@ const RootRedirect = () => {
     return <Navigate to='/email-confirmation' replace />
   }
 
+  const role = user?.role
+
   if (
     isAuthenticated &&
-    (status === UserStatus.VERIFIED || status === UserStatus.ACTIVE)
+    (role === Role.USER || role === Role.ENTERPRISE) &&
+    userActiveStatuses.includes(status)
   ) {
     return <Navigate to='/home' replace />
+  }
+
+  if (
+    isAuthenticated &&
+    (role === Role.ADMIN || role === Role.OWNER) &&
+    adminActiveStatuses.includes(status)
+  ) {
+    return <Navigate to='/admin/dashboard' replace />
   }
 
   return <Navigate to='/login' replace />

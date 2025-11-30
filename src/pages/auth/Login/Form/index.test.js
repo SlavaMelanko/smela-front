@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react'
+import { cleanup, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { renderWithProviders } from '@/tests'
@@ -28,8 +28,6 @@ describe('Login Form', () => {
 
   beforeEach(() => {
     user = userEvent.setup()
-
-    global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.alternative)
   })
 
   describe('Rendering', () => {
@@ -55,21 +53,6 @@ describe('Login Form', () => {
       expect(emailField).toHaveClass('form-field--required')
       expect(passwordField).toHaveClass('form-field--required')
     })
-
-    it('integrates with reCAPTCHA component', async () => {
-      const onSubmitMock = jest.fn()
-      const { emailInput, passwordInput, submitButton } =
-        renderForm(onSubmitMock)
-
-      await user.type(emailInput, auth.email.ok)
-      await user.type(passwordInput, auth.password.strong)
-      await user.click(submitButton)
-
-      // Verify that the global reCAPTCHA mock was called during form submission
-      await waitFor(() => {
-        expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
-      })
-    })
   })
 
   describe('Validation', () => {
@@ -84,28 +67,74 @@ describe('Login Form', () => {
       })
     })
 
-    it('shows error for invalid email format', async () => {
-      const { emailInput, submitButton } = renderForm()
+    it('validates email with multiple invalid scenarios', async () => {
+      const testCases = [
+        {
+          email: auth.email.empty,
+          expectedError: en.email.error.required
+        },
+        {
+          email: auth.email.invalid,
+          expectedError: en.email.error.format
+        },
+        {
+          email: auth.email.noAt,
+          expectedError: en.email.error.format
+        },
+        {
+          email: auth.email.noTld,
+          expectedError: en.email.error.format
+        }
+      ]
 
-      await user.type(emailInput, auth.email.invalid)
-      await user.click(submitButton)
+      for (const testCase of testCases) {
+        cleanup()
 
-      await waitFor(() => {
-        expect(screen.getByText(en.email.error.format)).toBeInTheDocument()
-        expect(screen.getByText(en.password.error.required)).toBeInTheDocument()
-      })
+        const { emailInput, submitButton } = renderForm()
+
+        if (testCase.email) {
+          await user.type(emailInput, testCase.email)
+        }
+
+        await user.click(submitButton)
+
+        await waitFor(() => {
+          expect(screen.getByText(testCase.expectedError)).toBeInTheDocument()
+        })
+      }
     })
 
-    it('shows error for password shorter than minimum length', async () => {
-      const { passwordInput, submitButton } = renderForm()
+    it('validates password with multiple invalid scenarios', async () => {
+      const testCases = [
+        {
+          password: auth.password.empty,
+          expectedError: en.password.error.required
+        },
+        {
+          password: auth.password.short,
+          expectedError: en.password.error.min
+        },
+        {
+          password: auth.password.noLetter,
+          expectedError: en.password.error.strong
+        }
+      ]
 
-      await user.type(passwordInput, auth.password.short)
-      await user.click(submitButton)
+      for (const testCase of testCases) {
+        cleanup()
 
-      await waitFor(() => {
-        expect(screen.getByText(en.email.error.required)).toBeInTheDocument()
-        expect(screen.getByText(en.password.error.min)).toBeInTheDocument()
-      })
+        const { passwordInput, submitButton } = renderForm()
+
+        if (testCase.password) {
+          await user.type(passwordInput, testCase.password)
+        }
+
+        await user.click(submitButton)
+
+        await waitFor(() => {
+          expect(screen.getByText(testCase.expectedError)).toBeInTheDocument()
+        })
+      }
     })
 
     it('shows multiple validation errors simultaneously', async () => {
@@ -133,13 +162,10 @@ describe('Login Form', () => {
       await user.click(submitButton)
 
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
-        )
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          email: auth.email.ok,
+          password: auth.password.strong
+        })
       })
     })
   })
@@ -175,13 +201,10 @@ describe('Login Form', () => {
       await user.click(submitButton)
 
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
-        )
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          email: auth.email.ok,
+          password: auth.password.strong
+        })
       })
     })
 
@@ -220,13 +243,10 @@ describe('Login Form', () => {
 
       // Wait for the async operation to complete.
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
-        )
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          email: auth.email.ok,
+          password: auth.password.strong
+        })
       })
 
       // Form should have been submitted successfully
