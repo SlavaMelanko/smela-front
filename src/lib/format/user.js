@@ -1,4 +1,4 @@
-export function getFullName(user) {
+export const getFullName = user => {
   if (!user) {
     return ''
   }

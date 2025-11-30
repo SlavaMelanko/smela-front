@@ -9,7 +9,7 @@ import { ThemeProvider } from '@/contexts/ThemeContext'
 import { queryClient } from '@/lib/queryClient'
 import { router } from '@/routes'
 
-function App() {
+const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
