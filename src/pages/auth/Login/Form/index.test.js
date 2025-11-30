@@ -28,8 +28,6 @@ describe('Login Form', () => {
 
   beforeEach(() => {
     user = userEvent.setup()
-
-    global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.alternative)
   })
 
   describe('Rendering', () => {
@@ -54,21 +52,6 @@ describe('Login Form', () => {
 
       expect(emailField).toHaveClass('form-field--required')
       expect(passwordField).toHaveClass('form-field--required')
-    })
-
-    it('integrates with reCAPTCHA component', async () => {
-      const onSubmitMock = jest.fn()
-      const { emailInput, passwordInput, submitButton } =
-        renderForm(onSubmitMock)
-
-      await user.type(emailInput, auth.email.ok)
-      await user.type(passwordInput, auth.password.strong)
-      await user.click(submitButton)
-
-      // Verify that the global reCAPTCHA mock was called during form submission
-      await waitFor(() => {
-        expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
-      })
     })
   })
 
@@ -180,8 +163,8 @@ describe('Login Form', () => {
 
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith({
-          data: { email: auth.email.ok, password: auth.password.strong },
-          captcha: { token: auth.captcha.alternative }
+          email: auth.email.ok,
+          password: auth.password.strong
         })
       })
     })
@@ -219,8 +202,8 @@ describe('Login Form', () => {
 
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith({
-          data: { email: auth.email.ok, password: auth.password.strong },
-          captcha: { token: auth.captcha.alternative }
+          email: auth.email.ok,
+          password: auth.password.strong
         })
       })
     })
@@ -261,8 +244,8 @@ describe('Login Form', () => {
       // Wait for the async operation to complete.
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith({
-          data: { email: auth.email.ok, password: auth.password.strong },
-          captcha: { token: auth.captcha.alternative }
+          email: auth.email.ok,
+          password: auth.password.strong
         })
       })
 
