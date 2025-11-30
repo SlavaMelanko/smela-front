@@ -9,6 +9,7 @@ import {
   useUserSignupWithEmail,
   useUserSignupWithGoogle
 } from '@/hooks/useAuth'
+import useCaptcha from '@/hooks/useCaptcha'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
 import useTheme from '@/hooks/useTheme'
@@ -25,26 +26,30 @@ const Signup = () => {
     useUserSignupWithEmail()
   const { mutate: signUpWithGoogle, isPending: isGooglePending } =
     useUserSignupWithGoogle()
+  const { getToken, Captcha } = useCaptcha()
 
-  const preferences = { locale, theme }
+  const handleSignupWithEmail = async data => {
+    const token = await getToken()
 
-  const handleSignupWithEmail = payload => {
-    if (!payload.captcha?.token) {
+    if (!token) {
       showErrorToast(t('captcha.error'))
 
       return
     }
 
-    signUpWithEmail(payload, {
-      onSuccess: () => {
-        navigate('/email-confirmation', {
-          state: { email: payload.data.email }
-        })
-      },
-      onError: err => {
-        showErrorToast(t(toTranslationKey(err)))
+    const preferences = { locale, theme }
+
+    signUpWithEmail(
+      { data, captcha: { token }, preferences },
+      {
+        onSuccess: () => {
+          navigate('/email-confirmation', { state: { email: data.email } })
+        },
+        onError: err => {
+          showErrorToast(t(toTranslationKey(err)))
+        }
       }
-    })
+    )
   }
 
   const handleSignupWithGoogle = () => {
@@ -60,24 +65,25 @@ const Signup = () => {
 
   return (
     <div className='signup-page'>
-      <SignupForm
-        isLoading={isEmailPending}
-        preferences={preferences}
-        onSubmit={handleSignupWithEmail}
-      />
+      <SignupForm isLoading={isEmailPending} onSubmit={handleSignupWithEmail} />
+
       <div className='signup-page__separator'>
         <Separator text={t('or')} />
       </div>
+
       <GoogleOAuthButton
         className='signup-page__oauth-button'
         text={t('continueWithGoogle')}
         onClick={handleSignupWithGoogle}
         disabled={isGooglePending}
       />
+
       <div className='signup-page__prompts'>
         <TermsAndPrivacyPrompt />
         <LoginPrompt />
       </div>
+
+      {Captcha}
     </div>
   )
 }
