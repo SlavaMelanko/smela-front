@@ -28,8 +28,6 @@ describe('Login Form', () => {
 
   beforeEach(() => {
     user = userEvent.setup()
-
-    global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.alternative)
   })
 
   describe('Rendering', () => {
@@ -54,21 +52,6 @@ describe('Login Form', () => {
 
       expect(emailField).toHaveClass('form-field--required')
       expect(passwordField).toHaveClass('form-field--required')
-    })
-
-    it('integrates with reCAPTCHA component', async () => {
-      const onSubmitMock = jest.fn()
-      const { emailInput, passwordInput, submitButton } =
-        renderForm(onSubmitMock)
-
-      await user.type(emailInput, auth.email.ok)
-      await user.type(passwordInput, auth.password.strong)
-      await user.click(submitButton)
-
-      // Verify that the global reCAPTCHA mock was called during form submission
-      await waitFor(() => {
-        expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
-      })
     })
   })
 
@@ -179,13 +162,10 @@ describe('Login Form', () => {
       await user.click(submitButton)
 
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
-        )
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          email: auth.email.ok,
+          password: auth.password.strong
+        })
       })
     })
   })
@@ -221,13 +201,10 @@ describe('Login Form', () => {
       await user.click(submitButton)
 
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
-        )
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          email: auth.email.ok,
+          password: auth.password.strong
+        })
       })
     })
 
@@ -266,13 +243,10 @@ describe('Login Form', () => {
 
       // Wait for the async operation to complete.
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
-        )
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          email: auth.email.ok,
+          password: auth.password.strong
+        })
       })
 
       // Form should have been submitted successfully

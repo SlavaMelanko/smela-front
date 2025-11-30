@@ -18,8 +18,8 @@ const authService = {
     return apiClient.post(LOGIN_PATH, data)
   },
 
-  verifyEmail(token) {
-    return apiClient.post(VERIFY_EMAIL_PATH, { token })
+  verifyEmail(data) {
+    return apiClient.post(VERIFY_EMAIL_PATH, data)
   },
 
   resendVerificationEmail(data) {

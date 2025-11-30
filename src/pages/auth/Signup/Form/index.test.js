@@ -190,7 +190,6 @@ describe('Signup Form', () => {
     })
 
     it('automatically trims whitespace from the email before submitting', async () => {
-      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
       const onSubmitMock = jest.fn()
       const { firstNameInput, emailInput, passwordInput, submitButton } =
         renderForm(onSubmitMock)
@@ -202,69 +201,7 @@ describe('Signup Form', () => {
 
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            email: auth.email.ok,
-            captchaToken: auth.captcha.valid
-          })
-        )
-      })
-    })
-  })
-
-  describe('ReCaptcha Integration', () => {
-    const validFormData = async (user, inputs) => {
-      await user.type(inputs.firstNameInput, auth.firstName.ok)
-      await user.type(inputs.emailInput, auth.email.ok)
-      await user.type(inputs.passwordInput, auth.password.strong)
-    }
-
-    it('executes reCAPTCHA on form submission', async () => {
-      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.alternative)
-      const onSubmitMock = jest.fn()
-      const formInputs = renderForm(onSubmitMock)
-
-      await validFormData(user, formInputs)
-      await user.click(formInputs.submitButton)
-
-      await waitFor(() => {
-        expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
-      })
-    })
-
-    it('handles reCAPTCHA failure gracefully', async () => {
-      global.mockExecuteReCaptcha.mockResolvedValue(null)
-      const onSubmitMock = jest.fn()
-      const formInputs = renderForm(onSubmitMock)
-
-      await validFormData(user, formInputs)
-      await user.click(formInputs.submitButton)
-
-      await waitFor(() => {
-        expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            captchaToken: null
-          })
-        )
-      })
-    })
-
-    it('includes captcha token in form submission', async () => {
-      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.alternative)
-      const onSubmitMock = jest.fn()
-      const formInputs = renderForm(onSubmitMock)
-
-      await validFormData(user, formInputs)
-      await user.click(formInputs.submitButton)
-
-      await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            firstName: auth.firstName.ok,
-            email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
+          expect.objectContaining({ email: auth.email.ok })
         )
       })
     })
@@ -272,7 +209,6 @@ describe('Signup Form', () => {
 
   describe('Form Submission', () => {
     it('does not include role field in submission', async () => {
-      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
       const onSubmitMock = jest.fn()
       const { firstNameInput, emailInput, passwordInput, submitButton } =
         renderForm(onSubmitMock)
@@ -284,15 +220,12 @@ describe('Signup Form', () => {
 
       await waitFor(() => {
         expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.not.objectContaining({
-            role: expect.anything()
-          })
+          expect.not.objectContaining({ role: expect.anything() })
         )
       })
     })
 
     it('handles form submission correctly', async () => {
-      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
       const onSubmitMock = jest.fn(
         () => new Promise(res => setTimeout(res, 100))
       )
@@ -305,21 +238,16 @@ describe('Signup Form', () => {
       await user.type(passwordInput, auth.password.strong)
       await user.click(submitButton)
 
-      // Verify that the form submission happens
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            firstName: auth.firstName.ok,
-            email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.valid
-          })
-        )
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          firstName: auth.firstName.ok,
+          email: auth.email.ok,
+          password: auth.password.strong
+        })
       })
     })
 
     it('submits form with valid data', async () => {
-      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.alternative)
       const onSubmitMock = jest.fn()
       const {
         firstNameInput,
@@ -337,20 +265,16 @@ describe('Signup Form', () => {
       await user.click(submitButton)
 
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            firstName: auth.firstName.ok,
-            lastName: auth.lastName.ok,
-            email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
-        )
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          firstName: auth.firstName.ok,
+          lastName: auth.lastName.ok,
+          email: auth.email.ok,
+          password: auth.password.strong
+        })
       })
     })
 
     it('submits form without optional last name', async () => {
-      global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.alternative)
       const onSubmitMock = jest.fn()
       const { firstNameInput, emailInput, passwordInput, submitButton } =
         renderForm(onSubmitMock)
@@ -362,21 +286,11 @@ describe('Signup Form', () => {
       await user.click(submitButton)
 
       await waitFor(() => {
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.objectContaining({
-            firstName: auth.firstName.ok,
-            email: auth.email.ok,
-            password: auth.password.strong,
-            captchaToken: auth.captcha.alternative
-          })
-        )
-
-        // Verify lastName is not included when empty
-        expect(onSubmitMock).toHaveBeenCalledWith(
-          expect.not.objectContaining({
-            lastName: expect.anything()
-          })
-        )
+        expect(onSubmitMock).toHaveBeenCalledWith({
+          firstName: auth.firstName.ok,
+          email: auth.email.ok,
+          password: auth.password.strong
+        })
       })
     })
   })

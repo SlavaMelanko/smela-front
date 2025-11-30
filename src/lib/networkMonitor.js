@@ -21,7 +21,7 @@ const NETWORK_ERROR_STATUS_CODES = [
 ]
 
 // Determines if an error is a network connection issue
-export function isNetworkError(error) {
+export const isNetworkError = error => {
   if (!error) {
     return false
   }
@@ -109,7 +109,7 @@ export const NetworkErrorType = {
 }
 
 // Gets the network error type from an error object
-export function getNetworkErrorType(error) {
+export const getNetworkErrorType = error => {
   if (!navigator.onLine) {
     return NetworkErrorType.OFFLINE
   }

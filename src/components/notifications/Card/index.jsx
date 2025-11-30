@@ -3,14 +3,14 @@ import './styles.scss'
 import { PrimaryButton } from '@/components/buttons'
 import { BellIcon, CalendarIcon, CloseIcon, InfoIcon } from '@/components/icons'
 
-export default function NotificationCard({
+const NotificationCard = ({
   title,
   message,
   buttonText,
   onClose = () => {},
   onAction = () => {},
   type = 'important'
-}) {
+}) => {
   const iconMap = {
     important: <InfoIcon size='md' color='blue' />,
     event: <CalendarIcon size='md' color='green' />,
@@ -45,3 +45,5 @@ export default function NotificationCard({
     </div>
   )
 }
+
+export default NotificationCard

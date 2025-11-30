@@ -1,20 +1,17 @@
 import './styles.scss'
 
-import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { PrimaryButton } from '@/components/buttons'
 import FormField from '@/components/form/Field'
 import { TextInput } from '@/components/inputs'
-import InvisibleReCaptcha2 from '@/components/InvisibleReCaptcha2'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-const ResetPasswordForm = ({ isLoading, preferences, onSubmit }) => {
+const ResetPasswordForm = ({ isLoading, onSubmit }) => {
   const { t } = useLocale()
-  const recaptchaRef = useRef(null)
 
   const {
     register,
@@ -25,21 +22,10 @@ const ResetPasswordForm = ({ isLoading, preferences, onSubmit }) => {
     defaultValues: getDefaultValues()
   })
 
-  const handleSubmitForm = async data => {
-    const captchaToken = await recaptchaRef.current?.executeAsync()
-
-    await onSubmit({
-      ...data,
-      [FieldName.CAPTCHA_TOKEN]: captchaToken,
-      preferences
-    })
-  }
-
   return (
     <form
       className='reset-password-email-form'
-      /* eslint-disable-next-line react-hooks/refs -- React Hook Form pattern is safe */
-      onSubmit={handleSubmit(handleSubmitForm)}
+      onSubmit={handleSubmit(data => onSubmit(data))}
     >
       <div className='reset-password-email-form__fields'>
         <FormField
@@ -59,8 +45,6 @@ const ResetPasswordForm = ({ isLoading, preferences, onSubmit }) => {
           ? t('processing')
           : t('password.reset.request.cta')}
       </PrimaryButton>
-
-      <InvisibleReCaptcha2 ref={recaptchaRef} />
     </form>
   )
 }

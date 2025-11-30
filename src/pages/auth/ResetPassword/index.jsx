@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { LoginPrompt } from '@/components/prompts'
 import { useRequestPasswordReset, useResetPassword } from '@/hooks/useAuth'
+import useCaptcha from '@/hooks/useCaptcha'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
 import useTheme from '@/hooks/useTheme'
@@ -17,35 +18,42 @@ const ResetPassword = () => {
   const { theme } = useTheme()
   const { showSuccessToast, showErrorToast } = useNotifications()
   const navigate = useNavigate()
-  const { token } = useUrlParams(['token'])
+  const { token: urlToken } = useUrlParams(['token'])
   const { mutate: requestPasswordReset, isPending: isRequestPending } =
     useRequestPasswordReset()
   const { mutate: resetPassword, isPending: isResetPending } =
     useResetPassword()
+  const { getToken, Captcha } = useCaptcha()
 
-  const isRequest = !token
-  const preferences = { locale, theme }
+  const isRequest = !urlToken
 
-  const handleRequestPasswordReset = data => {
-    if (!data.captchaToken) {
+  const handleRequestPasswordReset = async data => {
+    const token = await getToken()
+
+    if (!token) {
       showErrorToast(t('captcha.error'))
 
       return
     }
 
-    requestPasswordReset(data, {
-      onSuccess: () => {
-        showSuccessToast(t('password.reset.request.success'))
-      },
-      onError: () => {
-        showErrorToast(t('error.unknown'))
+    const preferences = { locale, theme }
+
+    requestPasswordReset(
+      { data, captcha: { token }, preferences },
+      {
+        onSuccess: () => {
+          showSuccessToast(t('password.reset.request.success'))
+        },
+        onError: () => {
+          showErrorToast(t('error.unknown'))
+        }
       }
-    })
+    )
   }
 
-  const handleResetPassword = ({ newPassword }) => {
+  const handleResetPassword = data => {
     resetPassword(
-      { token, password: newPassword },
+      { data: { token: urlToken, password: data.newPassword } },
       {
         onSuccess: () => {
           showSuccessToast(t('password.reset.set.success'))
@@ -69,7 +77,6 @@ const ResetPassword = () => {
       {isRequest ? (
         <EmailForm
           isLoading={isRequestPending}
-          preferences={preferences}
           onSubmit={handleRequestPasswordReset}
         />
       ) : (
@@ -82,6 +89,8 @@ const ResetPassword = () => {
       <div className='reset-password-page__prompts'>
         <LoginPrompt question={t('password.reset.loginPrompt')} />
       </div>
+
+      {Captcha}
     </div>
   )
 }
