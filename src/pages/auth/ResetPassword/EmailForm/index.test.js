@@ -7,12 +7,8 @@ import en from '$/locales/en.json'
 
 import ResetPasswordForm from '.'
 
-const mockPreferences = { locale: 'en', theme: 'light' }
-
 const renderForm = (onSubmit = jest.fn()) => {
-  renderWithProviders(
-    <ResetPasswordForm onSubmit={onSubmit} preferences={mockPreferences} />
-  )
+  renderWithProviders(<ResetPasswordForm onSubmit={onSubmit} />)
 
   const emailInput = screen.getByPlaceholderText(en.email.example)
   const submitButton = screen.getByRole('button', {
@@ -58,7 +54,6 @@ describe('Reset password form', () => {
   })
 
   it('shows loading state during form submission', async () => {
-    global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
     const onSubmitMock = jest.fn(() => new Promise(res => setTimeout(res, 500)))
     const { emailInput, submitButton } = renderForm(onSubmitMock)
 
@@ -72,8 +67,7 @@ describe('Reset password form', () => {
     })
   })
 
-  it('submits the form successfully with valid email and captcha', async () => {
-    global.mockExecuteReCaptcha.mockResolvedValue(auth.captcha.valid)
+  it('submits the form successfully with valid email', async () => {
     const onSubmitMock = jest.fn()
     const { emailInput, submitButton } = renderForm(onSubmitMock)
 
@@ -81,30 +75,7 @@ describe('Reset password form', () => {
     await user.click(submitButton)
 
     await waitFor(() => {
-      expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
-      expect(onSubmitMock).toHaveBeenCalledWith({
-        data: { email: auth.email.ok },
-        captcha: { token: auth.captcha.valid },
-        preferences: mockPreferences
-      })
-    })
-  })
-
-  it('handles reCAPTCHA failure gracefully', async () => {
-    global.mockExecuteReCaptcha.mockResolvedValue(null)
-    const onSubmitMock = jest.fn()
-    const { emailInput, submitButton } = renderForm(onSubmitMock)
-
-    await user.type(emailInput, auth.email.ok)
-    await user.click(submitButton)
-
-    await waitFor(() => {
-      expect(global.mockExecuteReCaptcha).toHaveBeenCalled()
-      expect(onSubmitMock).toHaveBeenCalledWith({
-        data: { email: auth.email.ok },
-        captcha: { token: null },
-        preferences: mockPreferences
-      })
+      expect(onSubmitMock).toHaveBeenCalledWith({ email: auth.email.ok })
     })
   })
 })
