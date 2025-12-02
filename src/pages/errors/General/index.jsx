@@ -1,17 +1,15 @@
 import './styles.scss'
 
-import { useNavigate } from 'react-router-dom'
-
 import { SecondaryButton } from '@/components/buttons'
 import { WarningIcon } from '@/components/icons'
 import useLocale from '@/hooks/useLocale'
 
 const General = () => {
   const { t } = useLocale()
-  const navigate = useNavigate()
 
   const handleGoHome = () => {
-    navigate('/')
+    // Router context unavailable here
+    window.location.href = '/'
   }
 
   return (
