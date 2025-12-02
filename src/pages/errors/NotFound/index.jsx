@@ -1,6 +1,8 @@
 import './styles.scss'
 
-import { useNavigate } from 'react-router-dom'
+import * as Sentry from '@sentry/react'
+import { useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { SecondaryButton } from '@/components/buttons'
 import { SearchXIcon } from '@/components/icons'
@@ -9,11 +11,14 @@ import useLocale from '@/hooks/useLocale'
 const NotFound = () => {
   const { t } = useLocale()
   const navigate = useNavigate()
+  const location = useLocation()
 
-  // TODO: Report requested path URL to external services like Sentry, Bugsnag, etc.
-  // This helps track which pages users are trying to access but don't exist.
-  // Example: errorTracker.captureException(new Error(`404 Not Found: ${location.pathname}${location.search}`))
-  // Available data: location.pathname (e.g., "/missing-page"), location.search (e.g., "?param=value")
+  useEffect(() => {
+    Sentry.captureMessage(
+      `404 Not Found: ${location.pathname}${location.search}`,
+      'warning'
+    )
+  }, [location.pathname, location.search])
 
   const handleGoHome = () => {
     navigate('/')

@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react'
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query'
 
 import { HttpStatus } from '@/lib/httpStatus'
@@ -23,8 +24,7 @@ const handleError = error => {
     return
   }
 
-  // Here we could integrate with error tracking services like Sentry, Bugsnag, etc.
-  // errorTracker.captureException(error, { context }).
+  Sentry.captureException(error)
 }
 
 const queryCache = new QueryCache({

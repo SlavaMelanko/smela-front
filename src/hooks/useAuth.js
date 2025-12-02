@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { accessTokenStorage } from '@/lib/storage'
 import { authService, userService } from '@/services/backend'
+import { clearSentryUser, setSentryUser } from '@/services/sentry'
 
 export const authKeys = {
   all: () => ['auth'],
@@ -38,7 +39,11 @@ export const useLogin = () => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
-        queryClient.setQueryData(authKeys.user(), { user: data.user })
+        const user = data.user
+
+        queryClient.setQueryData(authKeys.user(), { user })
+
+        setSentryUser(user)
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
@@ -68,7 +73,11 @@ export const useUserSignupWithEmail = () => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
-        queryClient.setQueryData(authKeys.user(), { user: data.user })
+        const user = data.user
+
+        queryClient.setQueryData(authKeys.user(), { user })
+
+        setSentryUser(user)
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
@@ -101,6 +110,8 @@ export const useLogout = () => {
       accessTokenStorage.remove()
 
       queryClient.removeQueries({ queryKey: authKeys.user() })
+
+      clearSentryUser()
     }
   })
 }
@@ -114,7 +125,11 @@ export const useVerifyEmail = ({ onSuccess, onError, onSettled }) => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
-        queryClient.setQueryData(authKeys.user(), { user: data.user })
+        const user = data.user
+
+        queryClient.setQueryData(authKeys.user(), { user })
+
+        setSentryUser(user)
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
