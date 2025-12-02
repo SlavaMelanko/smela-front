@@ -2,6 +2,8 @@ import * as Sentry from '@sentry/react'
 
 import env from '@/lib/env'
 
+import packageJson from '../../../package.json'
+
 export const initSentry = () => {
   if (!env.SENTRY_DSN) {
     return
@@ -9,7 +11,8 @@ export const initSentry = () => {
 
   Sentry.init({
     dsn: env.SENTRY_DSN,
-    environment: import.meta.env.MODE
+    environment: import.meta.env.MODE,
+    release: `${packageJson.name}@${packageJson.version}`
   })
 }
 

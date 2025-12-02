@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from '@sentry/vite-plugin'
 import react from '@vitejs/plugin-react-swc'
 import path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -5,12 +6,15 @@ import webpackStatsPlugin from 'rollup-plugin-webpack-stats'
 import { fileURLToPath } from 'url'
 import { defineConfig } from 'vite'
 
+import packageJson from './package.json' with { type: 'json' }
+
 // Simulate __dirname in ESM
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 export default defineConfig({
   build: {
+    sourcemap: true,
     rollupOptions: {
       output: {
         assetFileNames: 'assets/[name].[hash][extname]',
@@ -43,6 +47,15 @@ export default defineConfig({
           modules: true,
           reasons: true,
           chunkModules: true
+        }
+      }),
+    process.env.SENTRY_AUTH_TOKEN &&
+      sentryVitePlugin({
+        org: 'smela',
+        project: `${packageJson.name}`,
+        authToken: process.env.SENTRY_AUTH_TOKEN,
+        release: {
+          name: `${packageJson.name}@${packageJson.version}`
         }
       })
   ].filter(Boolean),

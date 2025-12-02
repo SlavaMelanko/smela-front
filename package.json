@@ -1,7 +1,7 @@
 {
-  "name": "smela",
+  "name": "smela-front",
   "private": true,
-  "version": "1.0.0",
+  "version": "2025.12",
   "type": "module",
   "scripts": {
     "prepare": "husky",
@@ -60,6 +60,7 @@
     "@eslint/js": "^9.39.1",
     "@hookform/devtools": "^4.4.0",
     "@playwright/test": "^1.56.1",
+    "@sentry/vite-plugin": "^4.6.1",
     "@storybook/addon-onboarding": "^10.0.7",
     "@storybook/react-vite": "^10.0.7",
     "@tanstack/eslint-plugin-query": "^5.91.2",
