@@ -7,10 +7,6 @@ import en from '$/locales/en.json'
 
 import NotFoundErrorPage from '../index'
 
-jest.mock('@/services/errorTracker', () => ({
-  captureMessage: jest.fn()
-}))
-
 describe('NotFoundErrorPage', () => {
   beforeEach(() => {
     global.mockNavigate.mockClear()

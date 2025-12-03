@@ -1,5 +1,3 @@
-/* eslint-env jest, node */
-
 import '@testing-library/jest-dom'
 
 import { cleanup } from '@testing-library/react'
@@ -9,10 +7,9 @@ import { TextDecoder, TextEncoder } from 'util'
 global.TextEncoder = TextEncoder
 global.TextDecoder = TextDecoder
 
-// Mock fetch globally for all tests
+// Mock fetch globally
 global.fetch = jest.fn()
 
-// Mock env for all tests (individual tests can override with jest.doMock)
 jest.mock('@/lib/env', () => ({
   default: {
     MODE: 'test',
@@ -22,7 +19,6 @@ jest.mock('@/lib/env', () => ({
   }
 }))
 
-// Mock InvisibleReCaptcha2 component for all tests
 const mockExecuteReCaptcha = jest.fn()
 const mockResetReCaptcha = jest.fn()
 
@@ -45,7 +41,6 @@ jest.mock('@/components/InvisibleReCaptcha2', () => {
   }
 })
 
-// Mock react-router-dom navigation for all tests
 const mockNavigate = jest.fn()
 
 global.mockNavigate = mockNavigate
@@ -55,7 +50,6 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockNavigate
 }))
 
-// Mock Sentry for all tests
 jest.mock('@/services/errorTracker', () => ({
   clearUser: jest.fn(),
   setUser: jest.fn(),
