@@ -3,9 +3,9 @@ import './styles/main.scss'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { initSentry } from './services/sentry'
+import { initErrorTracker } from './services/errorTracker'
 
-initSentry()
+initErrorTracker()
 
 import './i18n'
 

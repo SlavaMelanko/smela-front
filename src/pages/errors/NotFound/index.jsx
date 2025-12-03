@@ -1,12 +1,12 @@
 import './styles.scss'
 
-import * as Sentry from '@sentry/react'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { SecondaryButton } from '@/components/buttons'
 import { SearchXIcon } from '@/components/icons'
 import useLocale from '@/hooks/useLocale'
+import { captureMessage } from '@/services/errorTracker'
 
 const NotFound = () => {
   const { t } = useLocale()
@@ -14,7 +14,7 @@ const NotFound = () => {
   const location = useLocation()
 
   useEffect(() => {
-    Sentry.captureMessage(
+    captureMessage(
       `404 Not Found: ${location.pathname}${location.search}`,
       'warning'
     )

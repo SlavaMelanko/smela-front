@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { accessTokenStorage } from '@/lib/storage'
 import { authService, userService } from '@/services/backend'
-import { clearSentryUser, setSentryUser } from '@/services/sentry'
+import { clearUser, setUser } from '@/services/errorTracker'
 
 export const authKeys = {
   all: () => ['auth'],
@@ -43,7 +43,7 @@ export const useLogin = () => {
 
         queryClient.setQueryData(authKeys.user(), { user })
 
-        setSentryUser(user)
+        setUser(user)
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
@@ -77,7 +77,7 @@ export const useUserSignupWithEmail = () => {
 
         queryClient.setQueryData(authKeys.user(), { user })
 
-        setSentryUser(user)
+        setUser(user)
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
@@ -111,7 +111,7 @@ export const useLogout = () => {
 
       queryClient.removeQueries({ queryKey: authKeys.user() })
 
-      clearSentryUser()
+      clearUser()
     }
   })
 }
@@ -129,7 +129,7 @@ export const useVerifyEmail = ({ onSuccess, onError, onSettled }) => {
 
         queryClient.setQueryData(authKeys.user(), { user })
 
-        setSentryUser(user)
+        setUser(user)
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })

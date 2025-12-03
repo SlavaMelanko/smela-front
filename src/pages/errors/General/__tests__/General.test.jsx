@@ -7,22 +7,8 @@ import en from '$/locales/en.json'
 import GeneralErrorPage from '../index'
 
 describe('GeneralErrorPage', () => {
-  const originalLocation = window.location
-  let assignMock
-
-  beforeAll(() => {
-    assignMock = jest.fn()
-    delete window.location
-    window.location = { href: '', assign: assignMock }
-  })
-
-  afterAll(() => {
-    window.location = originalLocation
-  })
-
   beforeEach(() => {
-    window.location.href = ''
-    assignMock.mockClear()
+    global.mockNavigate.mockClear()
   })
 
   it('renders with correct structure and classes', () => {
@@ -70,7 +56,7 @@ describe('GeneralErrorPage', () => {
 
     await user.click(button)
 
-    // jsdom resolves "/" to full URL
-    expect(window.location.href).toMatch(/\/$/)
+    expect(global.mockNavigate).toHaveBeenCalledWith('/')
+    expect(global.mockNavigate).toHaveBeenCalledTimes(1)
   })
 })

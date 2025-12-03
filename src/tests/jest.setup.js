@@ -12,6 +12,16 @@ global.TextDecoder = TextDecoder
 // Mock fetch globally for all tests
 global.fetch = jest.fn()
 
+// Mock env for all tests (individual tests can override with jest.doMock)
+jest.mock('@/lib/env', () => ({
+  default: {
+    MODE: 'test',
+    CAPTCHA_SITE_KEY: 'test-captcha-key',
+    BE_BASE_URL: 'https://api.test.com',
+    SENTRY_DSN: undefined
+  }
+}))
+
 // Mock InvisibleReCaptcha2 component for all tests
 const mockExecuteReCaptcha = jest.fn()
 const mockResetReCaptcha = jest.fn()

@@ -1,9 +1,9 @@
 import * as Sentry from '@sentry/react'
 
-export const setSentryUser = user => {
+export const setUser = user => {
   Sentry.setUser({ id: user.id })
 }
 
-export const clearSentryUser = () => {
+export const clearUser = () => {
   Sentry.setUser(null)
 }
