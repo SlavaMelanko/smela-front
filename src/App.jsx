@@ -1,4 +1,3 @@
-import * as Sentry from '@sentry/react'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider } from 'react-router-dom'
 
@@ -8,7 +7,6 @@ import { ModalProvider } from '@/contexts/ModalContext'
 import { NotificationProvider } from '@/contexts/NotificationContext.jsx'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { queryClient } from '@/lib/queryClient'
-import { GeneralErrorPage } from '@/pages/errors'
 import { router } from '@/routes'
 
 const App = () => {
@@ -18,9 +16,7 @@ const App = () => {
         <LocaleProvider>
           <NotificationProvider>
             <ModalProvider>
-              <Sentry.ErrorBoundary fallback={<GeneralErrorPage />}>
-                <RouterProvider router={router} />
-              </Sentry.ErrorBoundary>
+              <RouterProvider router={router} />
             </ModalProvider>
           </NotificationProvider>
         </LocaleProvider>

@@ -12,9 +12,12 @@ import packageJson from './package.json' with { type: 'json' }
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
+const isProdOrStage =
+  process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging'
+
 export default defineConfig({
   build: {
-    sourcemap: true,
+    sourcemap: isProdOrStage ? 'hidden' : true,
     rollupOptions: {
       output: {
         assetFileNames: 'assets/[name].[hash][extname]',
@@ -56,6 +59,9 @@ export default defineConfig({
         authToken: process.env.SENTRY_AUTH_TOKEN,
         release: {
           name: `${packageJson.name}@${packageJson.version}`
+        },
+        sourcemaps: {
+          filesToDeleteAfterUpload: ['./dist/**/*.map']
         }
       })
   ].filter(Boolean),

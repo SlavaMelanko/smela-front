@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react'
 import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
@@ -19,6 +20,7 @@ import PrivacyPolicyPage from '@/pages/legal/Privacy'
 import TermsPage from '@/pages/legal/Terms'
 import PricingPage from '@/pages/public/Pricing'
 
+import ErrorBoundary from './ErrorBoundary'
 import ProtectedRoute from './ProtectedRoute'
 import PublicRoute from './PublicRoute'
 
@@ -26,9 +28,13 @@ const HomePage = lazy(() => import('@/pages/user/Home'))
 const AdminDashboardPage = lazy(() => import('@/pages/admin/Dashboard'))
 const AdminUsersPage = lazy(() => import('@/pages/admin/Users'))
 
-const router = createBrowserRouter([
+const sentryCreateBrowserRouter =
+  Sentry.wrapCreateBrowserRouterV6(createBrowserRouter)
+
+const router = sentryCreateBrowserRouter([
   {
     element: <PublicLayout />,
+    errorElement: <ErrorBoundary />,
     children: [
       { path: '/', element: <RootRedirect /> },
       { path: 'pricing', element: <PricingPage /> }
@@ -40,6 +46,7 @@ const router = createBrowserRouter([
         <AuthLayout />
       </PublicRoute>
     ),
+    errorElement: <ErrorBoundary />,
     children: [
       {
         path: 'login',
@@ -65,17 +72,10 @@ const router = createBrowserRouter([
   },
   {
     element: <LegalLayout />,
+    errorElement: <ErrorBoundary />,
     children: [
       { path: 'terms', element: <TermsPage /> },
       { path: 'privacy', element: <PrivacyPolicyPage /> }
-    ]
-  },
-  {
-    path: 'errors',
-    element: <ErrorLayout />,
-    children: [
-      { path: 'general', element: <GeneralErrorPage /> },
-      { path: 'network', element: <NetworkErrorPage /> }
     ]
   },
   {
@@ -84,6 +84,7 @@ const router = createBrowserRouter([
         <UserLayout />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorBoundary />,
     children: [
       {
         path: 'home',
@@ -98,6 +99,7 @@ const router = createBrowserRouter([
         <UserLayout />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorBoundary />,
     children: [
       {
         path: 'dashboard',
@@ -107,6 +109,14 @@ const router = createBrowserRouter([
         path: 'users',
         element: <AdminUsersPage />
       }
+    ]
+  },
+  {
+    path: 'errors',
+    element: <ErrorLayout />,
+    children: [
+      { path: 'general', element: <GeneralErrorPage /> },
+      { path: 'network', element: <NetworkErrorPage /> }
     ]
   },
   {
