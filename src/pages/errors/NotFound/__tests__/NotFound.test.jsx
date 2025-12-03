@@ -1,14 +1,20 @@
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
+import { captureMessage } from '@/services/errorTracker'
 import { renderWithProviders } from '@/tests'
 import en from '$/locales/en.json'
 
 import NotFoundErrorPage from '../index'
 
+jest.mock('@/services/errorTracker', () => ({
+  captureMessage: jest.fn()
+}))
+
 describe('NotFoundErrorPage', () => {
   beforeEach(() => {
     global.mockNavigate.mockClear()
+    captureMessage.mockClear()
   })
 
   it('renders with correct structure and classes', () => {
@@ -59,5 +65,12 @@ describe('NotFoundErrorPage', () => {
 
     expect(global.mockNavigate).toHaveBeenCalledWith('/')
     expect(global.mockNavigate).toHaveBeenCalledTimes(1)
+  })
+
+  it('reports 404 to error tracker on mount', () => {
+    renderWithProviders(<NotFoundErrorPage />)
+
+    expect(captureMessage).toHaveBeenCalledWith('404 Not Found: /', 'warning')
+    expect(captureMessage).toHaveBeenCalledTimes(1)
   })
 })
