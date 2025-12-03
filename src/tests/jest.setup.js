@@ -55,6 +55,15 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockNavigate
 }))
 
+// Mock Sentry for all tests
+jest.mock('@/services/errorTracker', () => ({
+  clearUser: jest.fn(),
+  setUser: jest.fn(),
+  initErrorTracker: jest.fn(),
+  captureException: jest.fn(),
+  captureMessage: jest.fn()
+}))
+
 // Clean up DOM and mocks after all tests
 afterAll(() => {
   cleanup()
