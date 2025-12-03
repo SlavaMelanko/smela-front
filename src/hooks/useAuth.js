@@ -2,7 +2,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { accessTokenStorage } from '@/lib/storage'
 import { authService, userService } from '@/services/backend'
-import { clearUser, setUser } from '@/services/errorTracker'
+import {
+  clearUser as clearErrorTrackerUser,
+  setUser as setErrorTrackerUser
+} from '@/services/errorTracker'
 
 export const authKeys = {
   all: () => ['auth'],
@@ -43,7 +46,7 @@ export const useLogin = () => {
 
         queryClient.setQueryData(authKeys.user(), { user })
 
-        setUser(user)
+        setErrorTrackerUser(user)
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
@@ -77,7 +80,7 @@ export const useUserSignupWithEmail = () => {
 
         queryClient.setQueryData(authKeys.user(), { user })
 
-        setUser(user)
+        setErrorTrackerUser(user)
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
@@ -111,7 +114,7 @@ export const useLogout = () => {
 
       queryClient.removeQueries({ queryKey: authKeys.user() })
 
-      clearUser()
+      clearErrorTrackerUser()
     }
   })
 }
@@ -129,7 +132,7 @@ export const useVerifyEmail = ({ onSuccess, onError, onSettled }) => {
 
         queryClient.setQueryData(authKeys.user(), { user })
 
-        setUser(user)
+        setErrorTrackerUser(user)
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
