@@ -3,7 +3,7 @@ import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query'
 import { HttpStatus } from '@/lib/httpStatus'
 import { getNetworkErrorType, isNetworkError } from '@/lib/networkMonitor'
 import { withQuery } from '@/lib/url'
-import { captureException } from '@/services/errorTracker'
+import { captureError } from '@/services/errorTracker'
 
 const getRetryDelay = attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000) // max 30 seconds
 
@@ -24,7 +24,7 @@ const handleError = error => {
     return
   }
 
-  captureException(error)
+  captureError(error)
 }
 
 const queryCache = new QueryCache({

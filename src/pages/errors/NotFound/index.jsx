@@ -14,10 +14,7 @@ const NotFound = () => {
   const location = useLocation()
 
   useEffect(() => {
-    captureMessage(
-      `404 Not Found: ${location.pathname}${location.search}`,
-      'warning'
-    )
+    captureMessage(`404 Not Found: ${location.pathname}${location.search}`)
   }, [location.pathname, location.search])
 
   const handleGoHome = () => {

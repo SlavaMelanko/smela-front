@@ -54,7 +54,7 @@ jest.mock('@/services/errorTracker', () => ({
   clearUser: jest.fn(),
   setUser: jest.fn(),
   initErrorTracker: jest.fn(),
-  captureException: jest.fn(),
+  captureError: jest.fn(),
   captureMessage: jest.fn()
 }))
 

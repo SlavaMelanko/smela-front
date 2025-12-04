@@ -1,14 +1,14 @@
-import * as Sentry from '@sentry/react'
 import { useEffect } from 'react'
 import { useNavigate, useRouteError } from 'react-router-dom'
+
+import { captureError } from '@/services/errorTracker'
 
 const ErrorBoundary = () => {
   const error = useRouteError()
   const navigate = useNavigate()
 
   useEffect(() => {
-    Sentry.captureException(error)
-    Sentry.showReportDialog()
+    captureError(error, { showReportDialog: true })
 
     navigate('/errors/general', { replace: true })
   }, [error, navigate])

@@ -66,7 +66,7 @@ describe('NotFoundErrorPage', () => {
   it('reports 404 to error tracker on mount', () => {
     renderWithProviders(<NotFoundErrorPage />)
 
-    expect(captureMessage).toHaveBeenCalledWith('404 Not Found: /', 'warning')
+    expect(captureMessage).toHaveBeenCalledWith('404 Not Found: /')
     expect(captureMessage).toHaveBeenCalledTimes(1)
   })
 })
