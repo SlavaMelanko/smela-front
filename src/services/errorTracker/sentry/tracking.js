@@ -1,13 +1,20 @@
-import * as Sentry from '@sentry/react'
+import {
+  captureException,
+  captureMessage as sentryCaptureMessage,
+  showReportDialog
+} from '@sentry/react'
 
-export const captureError = (error, { showReportDialog = false } = {}) => {
-  Sentry.captureException(error)
+export const captureError = (
+  error,
+  { showReportDialog: shouldShowDialog = false } = {}
+) => {
+  captureException(error)
 
-  if (showReportDialog) {
-    Sentry.showReportDialog()
+  if (shouldShowDialog) {
+    showReportDialog()
   }
 }
 
 export const captureMessage = (message, level = 'warning') => {
-  Sentry.captureMessage(message, level)
+  sentryCaptureMessage(message, level)
 }

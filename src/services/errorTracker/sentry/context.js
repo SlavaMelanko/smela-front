@@ -1,9 +1,9 @@
-import * as Sentry from '@sentry/react'
+import { setUser as sentrySetUser } from '@sentry/react'
 
 export const setUser = user => {
-  Sentry.setUser({ id: user.id })
+  sentrySetUser({ id: user.id })
 }
 
 export const clearUser = () => {
-  Sentry.setUser(null)
+  sentrySetUser(null)
 }
