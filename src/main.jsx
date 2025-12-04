@@ -1,10 +1,13 @@
-/* eslint-disable simple-import-sort/imports */
 import './styles/main.scss'
 
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import './i18n' // 👈 should be here
+import { initErrorTracker } from './services/errorTracker'
+
+initErrorTracker()
+
+import './i18n'
 
 import App from './App.jsx'
 
