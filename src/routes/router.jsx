@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/react'
+import { wrapCreateBrowserRouterV6 } from '@sentry/react'
 import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
@@ -28,8 +28,7 @@ const HomePage = lazy(() => import('@/pages/user/Home'))
 const AdminDashboardPage = lazy(() => import('@/pages/admin/Dashboard'))
 const AdminUsersPage = lazy(() => import('@/pages/admin/Users'))
 
-const sentryCreateBrowserRouter =
-  Sentry.wrapCreateBrowserRouterV6(createBrowserRouter)
+const sentryCreateBrowserRouter = wrapCreateBrowserRouterV6(createBrowserRouter)
 
 const router = sentryCreateBrowserRouter([
   {

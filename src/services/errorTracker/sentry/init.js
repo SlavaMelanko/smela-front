@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/react'
+import { init as sentryInit } from '@sentry/react'
 
 import env from '@/lib/env'
 
@@ -9,7 +9,7 @@ export const init = () => {
     return
   }
 
-  Sentry.init({
+  sentryInit({
     dsn: env.SENTRY_DSN,
     environment: env.MODE,
     release: `${packageJson.name}@${packageJson.version}`
