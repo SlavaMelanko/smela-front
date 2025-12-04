@@ -30,6 +30,10 @@ export default defineConfig({
       }
     }
   },
+  define: {
+    // Strip Sentry debug logging from production bundles
+    __SENTRY_DEBUG__: false
+  },
   plugins: [
     react(),
     process.env.ANALYZE_BUNDLE &&
