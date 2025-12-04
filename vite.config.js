@@ -30,6 +30,9 @@ export default defineConfig({
       }
     }
   },
+  define: {
+    __SENTRY_DEBUG__: false
+  },
   plugins: [
     react(),
     process.env.ANALYZE_BUNDLE &&
@@ -62,9 +65,6 @@ export default defineConfig({
         },
         sourcemaps: {
           filesToDeleteAfterUpload: ['./dist/**/*.map']
-        },
-        bundleSizeOptimizations: {
-          excludeDebugStatements: true
         }
       })
   ].filter(Boolean),
