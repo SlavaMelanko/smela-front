@@ -62,6 +62,9 @@ export default defineConfig({
         },
         sourcemaps: {
           filesToDeleteAfterUpload: ['./dist/**/*.map']
+        },
+        bundleSizeOptimizations: {
+          excludeDebugStatements: true
         }
       })
   ].filter(Boolean),
