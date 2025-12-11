@@ -52,6 +52,7 @@
       "message": "This is unexpected for us too. We'll take a closer look and handle it according to our current priorities. Thanks for your patience.",
       "title": "Oops! Something went wrong"
     },
+    "loadingFailed": "Failed to load data. Please try again.",
     "network": {
       "cta": "Try again",
       "message": {
@@ -72,6 +73,10 @@
       "title": "Page not found"
     },
     "unknown": "Something went wrong. Please try again later."
+  },
+  "filters": {
+    "role": "Role",
+    "status": "Status"
   },
   "firstName": {
     "error": {
@@ -94,6 +99,7 @@
     "label": "Last Name",
     "placeholder": "Your last name"
   },
+  "loading": "Loading...",
   "login": {
     "noun": "Login",
     "verb": "Log in"
@@ -183,8 +189,24 @@
   },
   "processing": "Processing...",
   "profile": "Profile",
+  "role": {
+    "admin": "Admin",
+    "enterprise": "Enterprise",
+    "guest": "Guest",
+    "owner": "Owner",
+    "user": "User"
+  },
   "searchBy": "Search by name, email, etc...",
   "signUp": "Sign up",
+  "status": {
+    "active": "Active",
+    "archived": "Archived",
+    "new": "New",
+    "pending": "Pending",
+    "suspended": "Suspended",
+    "trial": "Trial",
+    "verified": "Verified"
+  },
   "support": "Support",
   "table": {
     "column": "Column",

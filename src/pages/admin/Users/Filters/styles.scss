@@ -16,6 +16,27 @@
   }
 
   &__content {
+    display: flex;
+    gap: $spacing-lg;
     padding: $spacing-md;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: var(--text-secondary);
+  }
+
+  &__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
   }
 }

@@ -1,7 +1,5 @@
 import './styles.scss'
 
-import { useState } from 'react'
-
 import { SecondaryButtonWithIcon } from '@/components/buttons'
 import {
   CheckIcon,
@@ -13,34 +11,63 @@ import useLocale from '@/hooks/useLocale'
 import RowsPerPage from './limit'
 import RowsPerPageDropdown from './RowsPerPageDropdown'
 
-const Pagination = () => {
+const Pagination = ({
+  page = 1,
+  limit = 25,
+  total = 0,
+  onPageChange,
+  onLimitChange
+}) => {
   const { t } = useLocale()
 
-  const [selected, setSelected] = useState(25)
+  const totalPages = Math.ceil(total / limit) || 1
+  const start = total === 0 ? 0 : (page - 1) * limit + 1
+  const end = Math.min(page * limit, total)
 
-  const handleSelect = value => {
-    setSelected(value)
+  const canGoBack = page > 1
+  const canGoForward = page < totalPages
+
+  const handlePrevPage = () => {
+    if (canGoBack) {
+      onPageChange?.(page - 1)
+    }
+  }
+
+  const handleNextPage = () => {
+    if (canGoForward) {
+      onPageChange?.(page + 1)
+    }
+  }
+
+  const handleLimitSelect = value => {
+    onLimitChange?.(value)
   }
 
   const menu = Object.values(RowsPerPage).map(size => ({
     label: size,
-    icon: <CheckIcon size='xs' color={selected === size ? 'green' : 'none'} />,
-    onClick: () => handleSelect(size)
+    icon: <CheckIcon size='xs' color={limit === size ? 'green' : 'none'} />,
+    onClick: () => handleLimitSelect(size)
   }))
 
   return (
     <div className='pagination-container'>
       <div className='pagination-container__rows-per-page'>
         <span>{t('pagination.rowsPerPage')}</span>
-        <RowsPerPageDropdown label={selected} menu={menu} />
+        <RowsPerPageDropdown label={limit} menu={menu} />
       </div>
-      <p>1 - 10 {t('pagination.of')} 100</p>
+      <p>
+        {start} - {end} {t('pagination.of')} {total}
+      </p>
       <div className='pagination-container__page-buttons'>
         <SecondaryButtonWithIcon
           iconLeft={<ChevronLeftIcon size='xs' color='secondary' />}
+          onClick={handlePrevPage}
+          disabled={!canGoBack}
         />
         <SecondaryButtonWithIcon
           iconLeft={<ChevronRightIcon size='xs' color='secondary' />}
+          onClick={handleNextPage}
+          disabled={!canGoForward}
         />
       </div>
     </div>

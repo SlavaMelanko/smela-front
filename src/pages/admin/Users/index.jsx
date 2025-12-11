@@ -3,23 +3,39 @@ import './styles.scss'
 import {
   getCoreRowModel,
   getFilteredRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
 import { useState } from 'react'
 
+import { ProfileModal } from '@/components/dialogs/ProfileModal'
 import { CheckIcon } from '@/components/icons'
 import Pagination from '@/components/Pagination'
+import Spinner from '@/components/Spinner'
 import Table from '@/components/Table'
 import TableToolbar from '@/components/TableToolbar'
+import { useUsers } from '@/hooks/useAdmin'
 import useLocale from '@/hooks/useLocale'
+import useModal from '@/hooks/useModal'
 
 import { getAccessibleColumns } from './columns'
 import Filters from './Filters'
+import useUsersTableParams from './hooks/useUsersTableParams'
 
-const UsersTable = ({ data = [] }) => {
+const UsersTable = () => {
   const { t, formatDate } = useLocale()
+  const { openModal } = useModal()
+
+  const { params, apiParams, setParams } = useUsersTableParams()
+  const { data, isPending, isError } = useUsers(apiParams)
+
+  const users = data?.users ?? []
+  const pagination = data?.pagination ?? {
+    page: 1,
+    limit: 25,
+    total: 0,
+    totalPages: 0
+  }
 
   const [columns] = useState(() => [...getAccessibleColumns(t, formatDate)])
   const [columnVisibility, setColumnVisibility] = useState({})
@@ -29,21 +45,36 @@ const UsersTable = ({ data = [] }) => {
 
   const toggleFilters = () => setShowFilters(prev => !prev)
 
+  const handleRowClick = user => {
+    const close = openModal({
+      children: <ProfileModal profile={user} onClose={() => close()} />
+    })
+  }
+
+  const handlePageChange = page => {
+    setParams({ page })
+  }
+
+  const handleLimitChange = limit => {
+    setParams({ limit }, { resetPage: true })
+  }
+
   // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Table known limitation
   const config = useReactTable({
-    data,
+    data: users,
     columns,
     state: {
       sorting,
       columnVisibility
     },
+    manualPagination: true,
+    pageCount: pagination.totalPages,
     columnResizeMode: 'onChange',
     columnResizeDirection: 'ltl',
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel()
   })
 
@@ -57,6 +88,22 @@ const UsersTable = ({ data = [] }) => {
     }
   }))
 
+  if (isPending) {
+    return (
+      <div className='table-container table-container--loading'>
+        <Spinner centered text={t('loading')} />
+      </div>
+    )
+  }
+
+  if (isError) {
+    return (
+      <div className='table-container table-container--error'>
+        <p>{t('error.loadingFailed')}</p>
+      </div>
+    )
+  }
+
   return (
     <div className='table-container'>
       <TableToolbar
@@ -64,10 +111,16 @@ const UsersTable = ({ data = [] }) => {
         showFilters={showFilters}
         onToggleFilters={toggleFilters}
       />
-      <Filters isShow={showFilters} />
-      <Table config={config} />
+      <Filters isShow={showFilters} params={params} setParams={setParams} />
+      <Table config={config} onRowClick={handleRowClick} />
       <div className='table-container__pagination'>
-        <Pagination />
+        <Pagination
+          page={pagination.page}
+          limit={params.limit}
+          total={pagination.total}
+          onPageChange={handlePageChange}
+          onLimitChange={handleLimitChange}
+        />
       </div>
     </div>
   )
