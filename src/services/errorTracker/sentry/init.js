@@ -12,15 +12,6 @@ export const init = () => {
   sentryInit({
     dsn: env.SENTRY_DSN,
     environment: env.MODE,
-    release: `${packageJson.name}@${packageJson.version}`,
-    beforeSend(event) {
-      event.tags = {
-        ...event.tags,
-        source: 'frontend',
-        app: packageJson.name
-      }
-
-      return event
-    }
+    release: `${packageJson.name}@${packageJson.version}`
   })
 }
