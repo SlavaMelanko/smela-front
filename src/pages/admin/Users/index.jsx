@@ -118,6 +118,7 @@ const UsersTable = () => {
           page={pagination.page}
           limit={params.limit}
           total={pagination.total}
+          totalPages={pagination.totalPages}
           onPageChange={handlePageChange}
           onLimitChange={handleLimitChange}
         />

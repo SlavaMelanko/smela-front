@@ -1,6 +1,7 @@
 import './styles.scss'
 
 import { flexRender } from '@tanstack/react-table'
+import clsx from 'clsx'
 
 import { BodyCell as Cell } from './Cell'
 import Row from './Row'
@@ -10,7 +11,7 @@ const TableBody = ({ config, onRowClick }) => (
     {config.getRowModel().rows.map(row => (
       <Row
         key={row.id}
-        className={onRowClick ? 'table__row--clickable' : ''}
+        className={clsx({ 'table__row--clickable': onRowClick })}
         onClick={onRowClick ? () => onRowClick(row.original) : undefined}
       >
         {row.getVisibleCells().map(cell => (

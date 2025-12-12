@@ -15,12 +15,12 @@ const Pagination = ({
   page = 1,
   limit = 25,
   total = 0,
+  totalPages = 1,
   onPageChange,
   onLimitChange
 }) => {
   const { t } = useLocale()
 
-  const totalPages = Math.ceil(total / limit) || 1
   const start = total === 0 ? 0 : (page - 1) * limit + 1
   const end = Math.min(page * limit, total)
 
