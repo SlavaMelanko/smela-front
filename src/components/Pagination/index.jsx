@@ -74,4 +74,5 @@ const Pagination = ({
   )
 }
 
+export { default as RowsPerPage } from './limit'
 export default Pagination

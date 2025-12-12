@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom'
 
-const DEFAULT_LIMIT = 25
+import { RowsPerPage } from '@/components/Pagination'
 
 const useUsersTableParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -10,7 +10,7 @@ const useUsersTableParams = () => {
     roles: searchParams.get('roles')?.split(',').filter(Boolean) || [],
     statuses: searchParams.get('statuses')?.split(',').filter(Boolean) || [],
     page: Number(searchParams.get('page')) || 1,
-    limit: Number(searchParams.get('limit')) || DEFAULT_LIMIT
+    limit: Number(searchParams.get('limit')) || RowsPerPage.SM
   }
 
   // Write: update URL with new values
