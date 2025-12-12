@@ -102,6 +102,28 @@ const { register, handleSubmit } = useForm({ resolver })
 - **E2E tests** in `/e2e/` directory
 - Test utilities available in `/src/lib/tests/`
 
+### Locale File Structure
+
+Translation files (`public/locales/*.json`) follow entity-based organization:
+
+- **Entity cohesion**: Group related data together (e.g., `name` + `values`)
+- **Single source of truth**: Define labels once, reference with `$t()`
+- **No fragmentation**: Avoid separate objects like `filters.role` when `role.name`
+  exists
+
+```json
+// Entity pattern
+"role": {
+  "name": "Role",
+  "values": { "admin": "Admin", "user": "User" }
+}
+
+// Reference pattern (avoids duplication)
+"table": {
+  "users": { "role": "$t(role.name)" }
+}
+```
+
 ## Key Development Patterns
 
 1. **Path aliases**: Use `@/` for `src/` and `@components` for `src/components`
