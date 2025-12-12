@@ -8,9 +8,11 @@ import Header from '@/components/Header'
 import Sidebar from '@/components/Sidebar'
 import Spinner from '@/components/Spinner'
 import { useIsDesktop } from '@/hooks/useMediaQuery'
+import useSidebarMenu from '@/hooks/useSidebarMenu'
 
 const UserLayout = () => {
   const isDesktop = useIsDesktop()
+  const { items } = useSidebarMenu()
   const [isSidebarOpen, setIsSidebarOpen] = useState(isDesktop)
 
   useEffect(() => {
@@ -33,7 +35,7 @@ const UserLayout = () => {
             'user-layout__sidebar--collapsed': !isSidebarOpen
           })}
         >
-          <Sidebar isOpen={isSidebarOpen} />
+          <Sidebar isOpen={isSidebarOpen} items={items} />
         </aside>
 
         <main className='user-layout__content'>

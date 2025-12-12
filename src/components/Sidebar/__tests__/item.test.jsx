@@ -1,34 +1,41 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { HomeIcon, ProxyIcon } from '@/components/icons'
+import { renderWithProviders } from '@/tests'
 
-import SidebarItem from './index'
+import SidebarItem from '../Item'
 
 describe('SidebarItem', () => {
   const mockSetActiveItem = jest.fn()
 
   const simpleItem = {
     name: 'Home',
-    icon: HomeIcon
+    icon: HomeIcon,
+    path: '/home'
   }
 
   const itemWithBadge = {
     name: 'Dashboard',
     icon: HomeIcon,
-    badge: '5'
+    badge: '5',
+    path: '/dashboard'
   }
 
   const itemWithSubItems = {
     name: 'Proxies',
     icon: ProxyIcon,
-    subItems: [{ name: 'Residential', badge: '1' }, { name: 'ISP' }]
+    subItems: [
+      { name: 'Residential', badge: '1', path: '/proxies/residential' },
+      { name: 'ISP', path: '/proxies/isp' }
+    ]
   }
 
   const externalItem = {
     name: 'Documentation',
     icon: HomeIcon,
-    external: true
+    external: true,
+    href: 'https://docs.example.com'
   }
 
   beforeEach(() => {
@@ -36,7 +43,7 @@ describe('SidebarItem', () => {
   })
 
   it('renders item with icon and label', () => {
-    render(
+    renderWithProviders(
       <SidebarItem
         item={simpleItem}
         activeItem='Home'
@@ -49,7 +56,7 @@ describe('SidebarItem', () => {
   })
 
   it('shows notification badge when present', () => {
-    render(
+    renderWithProviders(
       <SidebarItem
         item={itemWithBadge}
         activeItem=''
@@ -61,7 +68,7 @@ describe('SidebarItem', () => {
   })
 
   it('applies active class when item is active', () => {
-    const { container } = render(
+    const { container } = renderWithProviders(
       <SidebarItem
         item={simpleItem}
         activeItem='Home'
@@ -75,7 +82,7 @@ describe('SidebarItem', () => {
   })
 
   it('does not apply active class when item is not active', () => {
-    const { container } = render(
+    const { container } = renderWithProviders(
       <SidebarItem
         item={simpleItem}
         activeItem='Other'
@@ -89,7 +96,7 @@ describe('SidebarItem', () => {
   })
 
   it('calls setActiveItem when simple item is clicked', async () => {
-    render(
+    renderWithProviders(
       <SidebarItem
         item={simpleItem}
         activeItem=''
@@ -105,7 +112,9 @@ describe('SidebarItem', () => {
   })
 
   it('does not call setActiveItem for external items', async () => {
-    render(
+    const openSpy = jest.spyOn(window, 'open').mockImplementation(() => null)
+
+    renderWithProviders(
       <SidebarItem
         item={externalItem}
         activeItem=''
@@ -118,10 +127,17 @@ describe('SidebarItem', () => {
     await userEvent.click(button)
 
     expect(mockSetActiveItem).not.toHaveBeenCalled()
+    expect(openSpy).toHaveBeenCalledWith(
+      'https://docs.example.com',
+      '_blank',
+      'noopener,noreferrer'
+    )
+
+    openSpy.mockRestore()
   })
 
   it('shows external icon for external items', () => {
-    render(
+    renderWithProviders(
       <SidebarItem
         item={externalItem}
         activeItem=''
@@ -137,7 +153,7 @@ describe('SidebarItem', () => {
   })
 
   it('toggles expansion when item with subItems is clicked', async () => {
-    const { container } = render(
+    const { container } = renderWithProviders(
       <SidebarItem
         item={itemWithSubItems}
         activeItem=''
@@ -160,7 +176,7 @@ describe('SidebarItem', () => {
   })
 
   it('renders sub-items when item has subItems', () => {
-    render(
+    renderWithProviders(
       <SidebarItem
         item={itemWithSubItems}
         activeItem=''
@@ -173,7 +189,7 @@ describe('SidebarItem', () => {
   })
 
   it('shows chevron icon for items with subItems', () => {
-    const { container } = render(
+    const { container } = renderWithProviders(
       <SidebarItem
         item={itemWithSubItems}
         activeItem=''
@@ -189,7 +205,7 @@ describe('SidebarItem', () => {
   })
 
   it('rotates chevron icon when expanded', async () => {
-    const { container } = render(
+    const { container } = renderWithProviders(
       <SidebarItem
         item={itemWithSubItems}
         activeItem=''
@@ -212,7 +228,7 @@ describe('SidebarItem', () => {
   })
 
   it('calls setActiveItem when sub-item is clicked', async () => {
-    render(
+    renderWithProviders(
       <SidebarItem
         item={itemWithSubItems}
         activeItem=''
@@ -225,5 +241,74 @@ describe('SidebarItem', () => {
     await userEvent.click(subItemButton)
 
     expect(mockSetActiveItem).toHaveBeenCalledWith('Residential')
+  })
+
+  describe('accessibility', () => {
+    it('sets aria-current="page" on active item', () => {
+      renderWithProviders(
+        <SidebarItem
+          item={simpleItem}
+          activeItem='Home'
+          setActiveItem={mockSetActiveItem}
+        />
+      )
+
+      const button = screen.getByRole('button', { name: /home/i })
+
+      expect(button).toHaveAttribute('aria-current', 'page')
+    })
+
+    it('does not set aria-current on inactive item', () => {
+      renderWithProviders(
+        <SidebarItem
+          item={simpleItem}
+          activeItem='Other'
+          setActiveItem={mockSetActiveItem}
+        />
+      )
+
+      const button = screen.getByRole('button', { name: /home/i })
+
+      expect(button).not.toHaveAttribute('aria-current')
+    })
+  })
+
+  describe('edge cases', () => {
+    it('renders item without icon', () => {
+      const itemWithoutIcon = { name: 'NoIcon', path: '/no-icon' }
+
+      renderWithProviders(
+        <SidebarItem
+          item={itemWithoutIcon}
+          activeItem=''
+          setActiveItem={mockSetActiveItem}
+        />
+      )
+
+      expect(screen.getByText('NoIcon')).toBeInTheDocument()
+      expect(screen.getByRole('button')).toBeInTheDocument()
+    })
+
+    it('renders item with empty subItems array', () => {
+      const itemWithEmptySubItems = {
+        name: 'Empty',
+        icon: HomeIcon,
+        subItems: []
+      }
+
+      const { container } = renderWithProviders(
+        <SidebarItem
+          item={itemWithEmptySubItems}
+          activeItem=''
+          setActiveItem={mockSetActiveItem}
+        />
+      )
+
+      expect(screen.getByText('Empty')).toBeInTheDocument()
+
+      const submenu = container.querySelector('.sidebar-item__submenu')
+
+      expect(submenu).not.toBeInTheDocument()
+    })
   })
 })
