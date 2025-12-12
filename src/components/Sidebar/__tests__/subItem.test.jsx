@@ -66,4 +66,26 @@ describe('SidebarSubItem', () => {
 
     expect(handleClick).toHaveBeenCalledTimes(1)
   })
+
+  describe('accessibility', () => {
+    it('sets aria-current="page" when active', () => {
+      renderWithProviders(
+        <SidebarSubItem item={mockItem} isActive onClick={jest.fn()} />
+      )
+
+      const button = screen.getByRole('button')
+
+      expect(button).toHaveAttribute('aria-current', 'page')
+    })
+
+    it('does not set aria-current when inactive', () => {
+      renderWithProviders(
+        <SidebarSubItem item={mockItem} isActive={false} onClick={jest.fn()} />
+      )
+
+      const button = screen.getByRole('button')
+
+      expect(button).not.toHaveAttribute('aria-current')
+    })
+  })
 })

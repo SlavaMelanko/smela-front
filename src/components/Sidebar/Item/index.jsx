@@ -54,6 +54,7 @@ const SidebarItem = ({ item, activeItem, setActiveItem }) => {
           type='button'
           onClick={handleItemClick}
           className='sidebar-item__button'
+          aria-current={isActive ? 'page' : undefined}
         >
           <div className='sidebar-item__content-left'>
             {item.icon && <item.icon className='sidebar-item__main-icon' />}

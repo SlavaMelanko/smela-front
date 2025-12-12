@@ -242,4 +242,73 @@ describe('SidebarItem', () => {
 
     expect(mockSetActiveItem).toHaveBeenCalledWith('Residential')
   })
+
+  describe('accessibility', () => {
+    it('sets aria-current="page" on active item', () => {
+      renderWithProviders(
+        <SidebarItem
+          item={simpleItem}
+          activeItem='Home'
+          setActiveItem={mockSetActiveItem}
+        />
+      )
+
+      const button = screen.getByRole('button', { name: /home/i })
+
+      expect(button).toHaveAttribute('aria-current', 'page')
+    })
+
+    it('does not set aria-current on inactive item', () => {
+      renderWithProviders(
+        <SidebarItem
+          item={simpleItem}
+          activeItem='Other'
+          setActiveItem={mockSetActiveItem}
+        />
+      )
+
+      const button = screen.getByRole('button', { name: /home/i })
+
+      expect(button).not.toHaveAttribute('aria-current')
+    })
+  })
+
+  describe('edge cases', () => {
+    it('renders item without icon', () => {
+      const itemWithoutIcon = { name: 'NoIcon', path: '/no-icon' }
+
+      renderWithProviders(
+        <SidebarItem
+          item={itemWithoutIcon}
+          activeItem=''
+          setActiveItem={mockSetActiveItem}
+        />
+      )
+
+      expect(screen.getByText('NoIcon')).toBeInTheDocument()
+      expect(screen.getByRole('button')).toBeInTheDocument()
+    })
+
+    it('renders item with empty subItems array', () => {
+      const itemWithEmptySubItems = {
+        name: 'Empty',
+        icon: HomeIcon,
+        subItems: []
+      }
+
+      const { container } = renderWithProviders(
+        <SidebarItem
+          item={itemWithEmptySubItems}
+          activeItem=''
+          setActiveItem={mockSetActiveItem}
+        />
+      )
+
+      expect(screen.getByText('Empty')).toBeInTheDocument()
+
+      const submenu = container.querySelector('.sidebar-item__submenu')
+
+      expect(submenu).not.toBeInTheDocument()
+    })
+  })
 })

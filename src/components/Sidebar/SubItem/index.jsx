@@ -23,6 +23,7 @@ const SidebarSubItem = ({ item, isActive, onClick }) => {
         type='button'
         onClick={onClick}
         className='sidebar-sub-item__button'
+        aria-current={isActive ? 'page' : undefined}
       >
         <div className='sidebar-sub-item__content-left'>
           <span className='sidebar-sub-item__label'>{displayName}</span>
