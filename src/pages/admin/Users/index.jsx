@@ -6,7 +6,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import { ProfileModal } from '@/components/dialogs/ProfileModal'
 import { CheckIcon } from '@/components/icons'
@@ -37,7 +37,10 @@ const UsersTable = () => {
     totalPages: 0
   }
 
-  const [columns] = useState(() => [...getAccessibleColumns(t, formatDate)])
+  const columns = useMemo(
+    () => getAccessibleColumns(t, formatDate),
+    [t, formatDate]
+  )
   const [columnVisibility, setColumnVisibility] = useState({})
   const [sorting, setSorting] = useState([])
 
