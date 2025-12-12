@@ -99,7 +99,7 @@ const UsersTable = () => {
   if (isError) {
     return (
       <div className='table-container table-container--error'>
-        <p>{t('error.loadingFailed')}</p>
+        <p>{t('error.loading')}</p>
       </div>
     )
   }

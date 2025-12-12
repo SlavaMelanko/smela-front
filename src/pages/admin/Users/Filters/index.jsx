@@ -36,7 +36,7 @@ const Filters = ({ isShow, params, setParams }) => {
     >
       <div className='filters-container__content'>
         <div className='filters-container__group'>
-          <h4 className='filters-container__title'>{t('filters.role')}</h4>
+          <h4 className='filters-container__title'>{t('role.name')}</h4>
           <div className='filters-container__options'>
             {Object.values(Role).map(role => (
               <Checkbox
@@ -45,14 +45,14 @@ const Filters = ({ isShow, params, setParams }) => {
                 checked={params.roles.includes(role)}
                 onChange={() => handleRoleChange(role)}
               >
-                {t(`role.${role}`)}
+                {t(`role.values.${role}`)}
               </Checkbox>
             ))}
           </div>
         </div>
 
         <div className='filters-container__group'>
-          <h4 className='filters-container__title'>{t('filters.status')}</h4>
+          <h4 className='filters-container__title'>{t('status.name')}</h4>
           <div className='filters-container__options'>
             {Object.values(UserStatus).map(status => (
               <Checkbox
@@ -61,7 +61,7 @@ const Filters = ({ isShow, params, setParams }) => {
                 checked={params.statuses.includes(status)}
                 onChange={() => handleStatusChange(status)}
               >
-                {t(`status.${status}`)}
+                {t(`status.values.${status}`)}
               </Checkbox>
             ))}
           </div>

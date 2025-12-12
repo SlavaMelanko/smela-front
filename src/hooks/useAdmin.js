@@ -13,7 +13,7 @@ export const adminKeys = {
 // should be visible immediately, not cached for minutes
 const adminQueryOptions = {
   staleTime: 0,
-  gcTime: 60 * 1000,
+  gcTime: 60 * 1000, // 1 minute
   refetchOnWindowFocus: true
 }
 

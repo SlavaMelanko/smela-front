@@ -52,7 +52,7 @@
       "message": "This is unexpected for us too. We'll take a closer look and handle it according to our current priorities. Thanks for your patience.",
       "title": "Oops! Something went wrong"
     },
-    "loadingFailed": "Failed to load data. Please try again.",
+    "loading": "Failed to load data. Please try again.",
     "network": {
       "cta": "Try again",
       "message": {
@@ -73,10 +73,6 @@
       "title": "Page not found"
     },
     "unknown": "Something went wrong. Please try again later."
-  },
-  "filters": {
-    "role": "Role",
-    "status": "Status"
   },
   "firstName": {
     "error": {
@@ -190,22 +186,28 @@
   "processing": "Processing...",
   "profile": "Profile",
   "role": {
-    "admin": "Admin",
-    "enterprise": "Enterprise",
-    "guest": "Guest",
-    "owner": "Owner",
-    "user": "User"
+    "name": "Role",
+    "values": {
+      "admin": "Admin",
+      "enterprise": "Enterprise",
+      "guest": "Guest",
+      "owner": "Owner",
+      "user": "User"
+    }
   },
   "searchBy": "Search by name, email, etc...",
   "signUp": "Sign up",
   "status": {
-    "active": "Active",
-    "archived": "Archived",
-    "new": "New",
-    "pending": "Pending",
-    "suspended": "Suspended",
-    "trial": "Trial",
-    "verified": "Verified"
+    "name": "Status",
+    "values": {
+      "active": "Active",
+      "archived": "Archived",
+      "new": "New",
+      "pending": "Pending",
+      "suspended": "Suspended",
+      "trial": "Trial",
+      "verified": "Verified"
+    }
   },
   "support": "Support",
   "table": {
@@ -218,8 +220,8 @@
       "email": "Email",
       "id": "ID",
       "name": "Name",
-      "role": "Role",
-      "status": "Status"
+      "role": "$t(role.name)",
+      "status": "$t(status.name)"
     }
   },
   "termsAndPrivacy": {
