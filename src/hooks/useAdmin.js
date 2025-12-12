@@ -5,8 +5,8 @@ import { adminService } from '@/services/backend'
 export const adminKeys = {
   all: () => ['admin'],
   users: () => [...adminKeys.all(), 'users'],
-  users_list: params => [...adminKeys.users(), 'list', params],
-  user_detail: id => [...adminKeys.users(), 'detail', id]
+  usersList: params => [...adminKeys.users(), 'list', params],
+  userDetail: id => [...adminKeys.users(), 'detail', id]
 }
 
 // Admin queries need fresh data — new registrations or user updates
@@ -19,7 +19,7 @@ const adminQueryOptions = {
 
 export const useUsers = (params = {}) => {
   return useQuery({
-    queryKey: adminKeys.users_list(params),
+    queryKey: adminKeys.usersList(params),
     queryFn: () => adminService.getUsers(params),
     placeholderData: keepPreviousData,
     ...adminQueryOptions
@@ -28,7 +28,7 @@ export const useUsers = (params = {}) => {
 
 export const useUser = (id, options = {}) => {
   return useQuery({
-    queryKey: adminKeys.user_detail(id),
+    queryKey: adminKeys.userDetail(id),
     queryFn: () => adminService.getUserById(id),
     enabled: !!id,
     ...adminQueryOptions,
