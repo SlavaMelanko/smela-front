@@ -2,15 +2,38 @@ import { useSearchParams } from 'react-router-dom'
 
 import { RowsPerPage } from '@/components/Pagination'
 
+const parseArrayParam = value => {
+  if (!value) {
+    return []
+  }
+
+  return value.split(',').filter(Boolean)
+}
+
+const parsePage = pageStr => {
+  const page = Number(pageStr)
+
+  return Number.isInteger(page) && page > 0 ? page : 1
+}
+
+const parseLimit = limitStr => {
+  const limit = Number(limitStr)
+  const validLimits = Object.values(RowsPerPage)
+
+  return Number.isInteger(limit) && validLimits.includes(limit)
+    ? limit
+    : RowsPerPage.SM
+}
+
 const useUsersTableParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   // Read: parse URL into structured state
   const params = {
-    roles: searchParams.get('roles')?.split(',').filter(Boolean) || [],
-    statuses: searchParams.get('statuses')?.split(',').filter(Boolean) || [],
-    page: Number(searchParams.get('page')) || 1,
-    limit: Number(searchParams.get('limit')) || RowsPerPage.SM
+    roles: parseArrayParam(searchParams.get('roles')),
+    statuses: parseArrayParam(searchParams.get('statuses')),
+    page: parsePage(searchParams.get('page')),
+    limit: parseLimit(searchParams.get('limit'))
   }
 
   // Write: update URL with new values

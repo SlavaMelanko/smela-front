@@ -4,8 +4,7 @@ import clsx from 'clsx'
 
 import { Checkbox } from '@/components/inputs'
 import useLocale from '@/hooks/useLocale'
-import Role from '@/lib/types/user/role'
-import UserStatus from '@/lib/types/user/status'
+import { Role, UserStatus } from '@/lib/types'
 
 const Filters = ({ isShow, params, setParams }) => {
   const { t } = useLocale()

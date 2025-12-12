@@ -10,7 +10,7 @@ import { useState } from 'react'
 
 import { ProfileModal } from '@/components/dialogs/ProfileModal'
 import { CheckIcon } from '@/components/icons'
-import Pagination from '@/components/Pagination'
+import Pagination, { RowsPerPage } from '@/components/Pagination'
 import Spinner from '@/components/Spinner'
 import Table from '@/components/Table'
 import TableToolbar from '@/components/TableToolbar'
@@ -32,7 +32,7 @@ const UsersTable = () => {
   const users = data?.users ?? []
   const pagination = data?.pagination ?? {
     page: 1,
-    limit: 25,
+    limit: RowsPerPage.SM,
     total: 0,
     totalPages: 0
   }
