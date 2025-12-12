@@ -1,2 +1,2 @@
 export { isValidLimit, RowsPerPage } from './limit'
-export { default as Pagination } from './Pagination'
+export { default, default as Pagination } from './Pagination'

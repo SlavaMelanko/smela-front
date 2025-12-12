@@ -122,7 +122,7 @@ const UsersTable = () => {
       <div className='table-container__pagination'>
         <Pagination
           page={pagination.page}
-          limit={params.limit}
+          limit={pagination.limit}
           total={pagination.total}
           totalPages={pagination.totalPages}
           onPageChange={handlePageChange}

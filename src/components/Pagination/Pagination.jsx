@@ -8,7 +8,7 @@ import {
 } from '@/components/icons'
 import useLocale from '@/hooks/useLocale'
 
-import RowsPerPage from './limit'
+import { RowsPerPage } from './limit'
 import RowsPerPageDropdown from './RowsPerPageDropdown'
 
 const Pagination = ({
