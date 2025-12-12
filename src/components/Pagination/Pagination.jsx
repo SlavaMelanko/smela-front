@@ -74,6 +74,4 @@ const Pagination = ({
   )
 }
 
-// eslint-disable-next-line react-refresh/only-export-components -- re-export utility
-export { isValidLimit, default as RowsPerPage } from './limit'
 export default Pagination
