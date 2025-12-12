@@ -20,6 +20,12 @@ export const ProfileModal = ({ profile, onClose }) => {
             <div className='profile-modal__field'>
               <strong>Email:</strong> {profile.email}
             </div>
+            {profile.role && (
+              <div className='profile-modal__field'>
+                <strong>Role:</strong>{' '}
+                <span className='profile-modal__role'>{profile.role}</span>
+              </div>
+            )}
             <div className='profile-modal__field'>
               <strong>Status:</strong> <StatusBadge status={profile.status} />
             </div>

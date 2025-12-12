@@ -1,7 +1,11 @@
-const RowsPerPage = Object.freeze({
+export const RowsPerPage = Object.freeze({
   SM: 25,
   MD: 50,
   LG: 100
 })
 
-export default RowsPerPage
+export const isValidLimit = value => {
+  const validLimits = Object.values(RowsPerPage)
+
+  return Number.isInteger(value) && validLimits.includes(value)
+}
