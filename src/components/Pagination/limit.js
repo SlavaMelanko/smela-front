@@ -4,4 +4,10 @@ const RowsPerPage = Object.freeze({
   LG: 100
 })
 
+export const isValidLimit = value => {
+  const validLimits = Object.values(RowsPerPage)
+
+  return Number.isInteger(value) && validLimits.includes(value)
+}
+
 export default RowsPerPage

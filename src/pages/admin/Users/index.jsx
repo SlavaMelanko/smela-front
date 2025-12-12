@@ -6,7 +6,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 import { ProfileModal } from '@/components/dialogs/ProfileModal'
 import { CheckIcon } from '@/components/icons'
@@ -48,11 +48,14 @@ const UsersTable = () => {
 
   const toggleFilters = () => setShowFilters(prev => !prev)
 
-  const handleRowClick = user => {
-    const close = openModal({
-      children: <ProfileModal profile={user} onClose={() => close()} />
-    })
-  }
+  const handleRowClick = useCallback(
+    user => {
+      const close = openModal({
+        children: <ProfileModal profile={user} onClose={() => close()} />
+      })
+    },
+    [openModal]
+  )
 
   const handlePageChange = page => {
     setParams({ page })

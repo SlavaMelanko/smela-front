@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom'
 
-import { RowsPerPage } from '@/components/Pagination'
+import { isValidLimit, RowsPerPage } from '@/components/Pagination'
 
 const parseArrayParam = value => {
   if (!value) {
@@ -18,11 +18,8 @@ const parsePage = pageStr => {
 
 const parseLimit = limitStr => {
   const limit = Number(limitStr)
-  const validLimits = Object.values(RowsPerPage)
 
-  return Number.isInteger(limit) && validLimits.includes(limit)
-    ? limit
-    : RowsPerPage.SM
+  return isValidLimit(limit) ? limit : RowsPerPage.SM
 }
 
 const useUsersTableParams = () => {

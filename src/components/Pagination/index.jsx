@@ -13,7 +13,7 @@ import RowsPerPageDropdown from './RowsPerPageDropdown'
 
 const Pagination = ({
   page = 1,
-  limit = 25,
+  limit = RowsPerPage.SM,
   total = 0,
   totalPages = 1,
   onPageChange,
@@ -74,5 +74,6 @@ const Pagination = ({
   )
 }
 
-export { default as RowsPerPage } from './limit'
+// eslint-disable-next-line react-refresh/only-export-components -- re-export utility
+export { isValidLimit, default as RowsPerPage } from './limit'
 export default Pagination
