@@ -196,6 +196,17 @@
     }
   },
   "searchBy": "Search by name, email, etc...",
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "documentation": "Documentation",
+    "home": "Home",
+    "isp": "ISP",
+    "proxies": "Proxies",
+    "residential": "Residential",
+    "serpApi": "SERP API",
+    "settings": "Settings",
+    "users": "Users"
+  },
   "signUp": "Sign up",
   "status": {
     "name": "Status",

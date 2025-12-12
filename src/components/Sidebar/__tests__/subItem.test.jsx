@@ -1,7 +1,9 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import SidebarSubItem from './index'
+import { renderWithProviders } from '@/tests'
+
+import SidebarSubItem from '../SubItem'
 
 describe('SidebarSubItem', () => {
   const mockItem = {
@@ -9,7 +11,7 @@ describe('SidebarSubItem', () => {
   }
 
   it('renders with label', () => {
-    render(
+    renderWithProviders(
       <SidebarSubItem item={mockItem} isActive={false} onClick={jest.fn()} />
     )
 
@@ -20,7 +22,7 @@ describe('SidebarSubItem', () => {
   it('shows notification badge when present', () => {
     const itemWithBadge = { ...mockItem, badge: '3' }
 
-    render(
+    renderWithProviders(
       <SidebarSubItem
         item={itemWithBadge}
         isActive={false}
@@ -32,7 +34,7 @@ describe('SidebarSubItem', () => {
   })
 
   it('applies active class when isActive is true', () => {
-    const { container } = render(
+    const { container } = renderWithProviders(
       <SidebarSubItem item={mockItem} isActive onClick={jest.fn()} />
     )
 
@@ -42,7 +44,7 @@ describe('SidebarSubItem', () => {
   })
 
   it('does not apply active class when isActive is false', () => {
-    const { container } = render(
+    const { container } = renderWithProviders(
       <SidebarSubItem item={mockItem} isActive={false} onClick={jest.fn()} />
     )
 
@@ -54,7 +56,7 @@ describe('SidebarSubItem', () => {
   it('calls onClick when button is clicked', async () => {
     const handleClick = jest.fn()
 
-    render(
+    renderWithProviders(
       <SidebarSubItem item={mockItem} isActive={false} onClick={handleClick} />
     )
 
