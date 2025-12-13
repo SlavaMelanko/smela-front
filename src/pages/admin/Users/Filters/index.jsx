@@ -1,6 +1,7 @@
 import './styles.scss'
 
 import clsx from 'clsx'
+import { useMemo } from 'react'
 
 import { Multiselect } from '@/components/inputs'
 import useLocale from '@/hooks/useLocale'
@@ -9,27 +10,38 @@ import { Role, UserStatus } from '@/lib/types'
 const Filters = ({ isShow, params, setParams }) => {
   const { t } = useLocale()
 
-  const overrideStrings = {
-    allItemsAreSelected: t('multiselect.allItemsAreSelected'),
-    clearSearch: t('multiselect.clearSearch'),
-    clearSelected: t('multiselect.clearSelected'),
-    noOptions: t('multiselect.noOptions'),
-    search: t('multiselect.search'),
-    selectAll: t('multiselect.selectAll'),
-    selectAllFiltered: t('multiselect.selectAllFiltered'),
-    selectSomeItems: t('multiselect.selectSomeItems'),
-    create: t('multiselect.create')
-  }
+  const overrideStrings = useMemo(
+    () => ({
+      allItemsAreSelected: t('multiselect.allItemsAreSelected'),
+      clearSearch: t('multiselect.clearSearch'),
+      clearSelected: t('multiselect.clearSelected'),
+      noOptions: t('multiselect.noOptions'),
+      search: t('multiselect.search'),
+      selectAll: t('multiselect.selectAll'),
+      selectAllFiltered: t('multiselect.selectAllFiltered'),
+      selectSomeItems: t('multiselect.selectSomeItems'),
+      create: t('multiselect.create')
+    }),
+    [t]
+  )
 
-  const roleOptions = Object.values(Role).map(role => ({
-    label: t(`role.values.${role}`),
-    value: role
-  }))
+  const roleOptions = useMemo(
+    () =>
+      Object.values(Role).map(role => ({
+        label: t(`role.values.${role}`),
+        value: role
+      })),
+    [t]
+  )
 
-  const statusOptions = Object.values(UserStatus).map(status => ({
-    label: t(`status.values.${status}`),
-    value: status
-  }))
+  const statusOptions = useMemo(
+    () =>
+      Object.values(UserStatus).map(status => ({
+        label: t(`status.values.${status}`),
+        value: status
+      })),
+    [t]
+  )
 
   const selectedRoles = roleOptions.filter(opt =>
     params.roles.includes(opt.value)
