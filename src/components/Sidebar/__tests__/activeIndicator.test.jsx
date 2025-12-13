@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 
-import ActiveIndicator from './index'
+import ActiveIndicator from '../ActiveIndicator'
 
 describe('ActiveIndicator', () => {
   it('renders without variant', () => {

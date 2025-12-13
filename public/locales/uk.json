@@ -196,6 +196,17 @@
     }
   },
   "searchBy": "Шукати за ім'ям, email, тощо...",
+  "sidebar": {
+    "dashboard": "Адмін-панель",
+    "documentation": "Документація",
+    "home": "Головна",
+    "isp": "ISP",
+    "proxies": "Проксі",
+    "residential": "Резидентні",
+    "serpApi": "SERP API",
+    "settings": "Налаштування",
+    "users": "Користувачі"
+  },
   "signUp": "Зареєструватися",
   "status": {
     "name": "Статус",

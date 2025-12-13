@@ -2,28 +2,41 @@ import './styles.scss'
 
 import clsx from 'clsx'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { ChevronDownIcon, ExternalIcon } from '@/components/icons'
 import { NotificationBadge } from '@/components/notifications'
+import useLocale from '@/hooks/useLocale'
 
 import ActiveIndicator from '../ActiveIndicator'
 import SidebarSubItem from '../SubItem'
 
 const SidebarItem = ({ item, activeItem, setActiveItem }) => {
+  const navigate = useNavigate()
+  const { t } = useLocale()
   const [expanded, setExpanded] = useState(false)
 
-  const hasSubItems = item.subItems && item.subItems.length > 0
+  const hasSubItems = item.subItems?.length > 0
   const isActive = activeItem === item.name
 
   const toggleExpand = () => setExpanded(prev => !prev)
 
   const handleItemClick = () => {
-    if (setActiveItem && !hasSubItems && !item.external) {
-      setActiveItem(item.name)
-    }
-
     if (hasSubItems) {
       toggleExpand()
+
+      return
+    }
+
+    if (item.external && item.href) {
+      window.open(item.href, '_blank', 'noopener,noreferrer')
+
+      return
+    }
+
+    if (item.path) {
+      setActiveItem(item.name)
+      navigate(item.path)
     }
   }
 
@@ -40,10 +53,11 @@ const SidebarItem = ({ item, activeItem, setActiveItem }) => {
           type='button'
           onClick={handleItemClick}
           className='sidebar-item__button'
+          aria-current={isActive ? 'page' : undefined}
         >
           <div className='sidebar-item__content-left'>
             {item.icon && <item.icon className='sidebar-item__main-icon' />}
-            <span className='sidebar-item__label'>{item.name}</span>
+            <span className='sidebar-item__label'>{t(item.name)}</span>
           </div>
 
           <div className='sidebar-item__content-right'>
@@ -74,7 +88,13 @@ const SidebarItem = ({ item, activeItem, setActiveItem }) => {
                 key={subItem.name}
                 item={subItem}
                 isActive={activeItem === subItem.name}
-                onClick={() => setActiveItem(subItem.name)}
+                onClick={() => {
+                  setActiveItem(subItem.name)
+
+                  if (subItem.path) {
+                    navigate(subItem.path)
+                  }
+                }}
               />
             ))}
           </ul>
