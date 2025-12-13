@@ -2,29 +2,49 @@ import './styles.scss'
 
 import clsx from 'clsx'
 
-import { Checkbox } from '@/components/inputs'
+import { Multiselect } from '@/components/inputs'
 import useLocale from '@/hooks/useLocale'
 import { Role, UserStatus } from '@/lib/types'
 
 const Filters = ({ isShow, params, setParams }) => {
   const { t } = useLocale()
 
-  const handleRoleChange = role => {
-    const currentRoles = params.roles
-    const newRoles = currentRoles.includes(role)
-      ? currentRoles.filter(r => r !== role)
-      : [...currentRoles, role]
-
-    setParams({ roles: newRoles }, { resetPage: true })
+  const overrideStrings = {
+    allItemsAreSelected: t('multiselect.allItemsAreSelected'),
+    clearSearch: t('multiselect.clearSearch'),
+    clearSelected: t('multiselect.clearSelected'),
+    noOptions: t('multiselect.noOptions'),
+    search: t('multiselect.search'),
+    selectAll: t('multiselect.selectAll'),
+    selectAllFiltered: t('multiselect.selectAllFiltered'),
+    selectSomeItems: t('multiselect.selectSomeItems'),
+    create: t('multiselect.create')
   }
 
-  const handleStatusChange = status => {
-    const currentStatuses = params.statuses
-    const newStatuses = currentStatuses.includes(status)
-      ? currentStatuses.filter(s => s !== status)
-      : [...currentStatuses, status]
+  const roleOptions = Object.values(Role).map(role => ({
+    label: t(`role.values.${role}`),
+    value: role
+  }))
 
-    setParams({ statuses: newStatuses }, { resetPage: true })
+  const statusOptions = Object.values(UserStatus).map(status => ({
+    label: t(`status.values.${status}`),
+    value: status
+  }))
+
+  const selectedRoles = roleOptions.filter(opt =>
+    params.roles.includes(opt.value)
+  )
+
+  const selectedStatuses = statusOptions.filter(opt =>
+    params.statuses.includes(opt.value)
+  )
+
+  const handleRoleChange = selected => {
+    setParams({ roles: selected.map(s => s.value) }, { resetPage: true })
+  }
+
+  const handleStatusChange = selected => {
+    setParams({ statuses: selected.map(s => s.value) }, { resetPage: true })
   }
 
   return (
@@ -36,34 +56,24 @@ const Filters = ({ isShow, params, setParams }) => {
       <div className='filters-container__content'>
         <div className='filters-container__group'>
           <h4 className='filters-container__title'>{t('role.name')}</h4>
-          <div className='filters-container__options'>
-            {Object.values(Role).map(role => (
-              <Checkbox
-                key={role}
-                name={`role-${role}`}
-                checked={params.roles.includes(role)}
-                onChange={() => handleRoleChange(role)}
-              >
-                {t(`role.values.${role}`)}
-              </Checkbox>
-            ))}
-          </div>
+          <Multiselect
+            options={roleOptions}
+            value={selectedRoles}
+            onChange={handleRoleChange}
+            labelledBy={t('role.name')}
+            overrideStrings={overrideStrings}
+          />
         </div>
 
         <div className='filters-container__group'>
           <h4 className='filters-container__title'>{t('status.name')}</h4>
-          <div className='filters-container__options'>
-            {Object.values(UserStatus).map(status => (
-              <Checkbox
-                key={status}
-                name={`status-${status}`}
-                checked={params.statuses.includes(status)}
-                onChange={() => handleStatusChange(status)}
-              >
-                {t(`status.values.${status}`)}
-              </Checkbox>
-            ))}
-          </div>
+          <Multiselect
+            options={statusOptions}
+            value={selectedStatuses}
+            onChange={handleStatusChange}
+            labelledBy={t('status.name')}
+            overrideStrings={overrideStrings}
+          />
         </div>
       </div>
     </div>

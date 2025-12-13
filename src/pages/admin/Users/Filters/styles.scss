@@ -23,8 +23,10 @@
 
   &__group {
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: $spacing-sm;
+    min-width: 12rem;
   }
 
   &__title {
@@ -32,11 +34,5 @@
     font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
     color: var(--text-secondary);
-  }
-
-  &__options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $spacing-sm;
   }
 }
