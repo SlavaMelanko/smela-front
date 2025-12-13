@@ -9,7 +9,6 @@ import ActiveIndicator from '../ActiveIndicator'
 
 const SidebarSubItem = ({ item, isActive, onClick }) => {
   const { t } = useLocale()
-  const displayName = t(item.name)
 
   return (
     <li
@@ -26,7 +25,7 @@ const SidebarSubItem = ({ item, isActive, onClick }) => {
         aria-current={isActive ? 'page' : undefined}
       >
         <div className='sidebar-sub-item__content-left'>
-          <span className='sidebar-sub-item__label'>{displayName}</span>
+          <span className='sidebar-sub-item__label'>{t(item.name)}</span>
         </div>
 
         <div className='sidebar-sub-item__content-right'>

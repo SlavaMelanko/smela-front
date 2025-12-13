@@ -18,7 +18,6 @@ const SidebarItem = ({ item, activeItem, setActiveItem }) => {
 
   const hasSubItems = item.subItems?.length > 0
   const isActive = activeItem === item.name
-  const displayName = t(item.name)
 
   const toggleExpand = () => setExpanded(prev => !prev)
 
@@ -58,7 +57,7 @@ const SidebarItem = ({ item, activeItem, setActiveItem }) => {
         >
           <div className='sidebar-item__content-left'>
             {item.icon && <item.icon className='sidebar-item__main-icon' />}
-            <span className='sidebar-item__label'>{displayName}</span>
+            <span className='sidebar-item__label'>{t(item.name)}</span>
           </div>
 
           <div className='sidebar-item__content-right'>
