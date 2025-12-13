@@ -3,6 +3,22 @@ import { useTranslation } from 'react-i18next'
 
 import Multiselect from './index'
 
+const useMultiselectStrings = () => {
+  const { t } = useTranslation()
+
+  return {
+    allItemsAreSelected: t('multiselect.allItemsAreSelected'),
+    clearSearch: t('multiselect.clearSearch'),
+    clearSelected: t('multiselect.clearSelected'),
+    noOptions: t('multiselect.noOptions'),
+    search: t('multiselect.search'),
+    selectAll: t('multiselect.selectAll'),
+    selectAllFiltered: t('multiselect.selectAllFiltered'),
+    selectSomeItems: t('multiselect.selectSomeItems'),
+    create: t('multiselect.create')
+  }
+}
+
 export default {
   title: 'Multiselect',
   component: Multiselect,
@@ -37,6 +53,7 @@ export default {
 
 const RolesTemplate = args => {
   const { t } = useTranslation()
+  const overrideStrings = useMultiselectStrings()
   const [selected, setSelected] = useState([])
 
   const options = [
@@ -55,6 +72,7 @@ const RolesTemplate = args => {
         value={selected}
         onChange={setSelected}
         labelledBy={t('role.name')}
+        overrideStrings={overrideStrings}
       />
     </div>
   )
@@ -67,6 +85,7 @@ export const Roles = {
 
 const StatusesTemplate = args => {
   const { t } = useTranslation()
+  const overrideStrings = useMultiselectStrings()
   const [selected, setSelected] = useState([])
 
   const options = [
@@ -85,6 +104,7 @@ const StatusesTemplate = args => {
         value={selected}
         onChange={setSelected}
         labelledBy={t('status.name')}
+        overrideStrings={overrideStrings}
       />
     </div>
   )

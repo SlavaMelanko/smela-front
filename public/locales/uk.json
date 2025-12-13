@@ -104,6 +104,17 @@
     "noun": "Вийти",
     "verb": "Вийти"
   },
+  "multiselect": {
+    "allItemsAreSelected": "Усі елементи вибрано",
+    "clearSearch": "Очистити пошук",
+    "clearSelected": "Скасувати вибір",
+    "create": "Створити",
+    "noOptions": "Нічого не знайдено",
+    "search": "Пошук",
+    "selectAll": "Вибрати всі",
+    "selectAllFiltered": "Вибрати всі (за фільтром)",
+    "selectSomeItems": "Оберіть…"
+  },
   "noNewNotifications": "Нових сповіщень немає.",
   "notifications": "Сповіщення",
   "offer": {
