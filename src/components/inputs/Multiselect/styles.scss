@@ -1,0 +1,76 @@
+@use '../../../styles/variables' as *;
+
+.multiselect {
+  // Override library CSS custom properties
+  .rmsc {
+    --rmsc-main: var(--purple);
+    --rmsc-hover: var(--highlight-bg-secondary);
+    --rmsc-selected: var(--highlight-bg-secondary);
+    --rmsc-border: var(--border-color);
+    --rmsc-gray: var(--text-tertiary);
+    --rmsc-bg: var(--bg-secondary);
+    --rmsc-p: #{$spacing-md};
+    --rmsc-radius: #{$border-radius-sm};
+    --rmsc-h: 2.75rem;
+  }
+
+  .dropdown-container {
+    &:hover,
+    &:focus-within {
+      box-shadow: $shadow-xs;
+    }
+  }
+
+  .rmsc .dropdown-heading {
+    font-size: $font-size-sm;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+
+  .dropdown-heading-value {
+    color: var(--text-primary);
+
+    .gray {
+      color: var(--text-tertiary);
+    }
+  }
+
+  .dropdown-content {
+    .panel-content {
+      border: 1px solid var(--border-color);
+      box-shadow: $shadow-sm;
+    }
+  }
+
+  .search input {
+    font-size: $font-size-sm;
+    color: var(--text-primary);
+
+    &::placeholder {
+      color: var(--text-tertiary);
+    }
+  }
+
+  .options {
+    font-size: $font-size-sm;
+  }
+
+  .rmsc .select-item {
+    padding: $spacing-sm $spacing-md;
+    color: var(--text-primary);
+  }
+
+  .no-options {
+    font-size: $font-size-sm;
+  }
+
+  // Error state
+  &--error .rmsc {
+    --rmsc-border: var(--border-error);
+
+    .dropdown-container {
+      border-width: 0;
+      border-bottom-width: 1px;
+    }
+  }
+}
