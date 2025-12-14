@@ -5,7 +5,7 @@ import TableHeader from './Header'
 
 const Table = ({ config, onRowClick }) => {
   return (
-    <div className='table-container'>
+    <div className='table-wrapper'>
       <table className='table'>
         <TableHeader config={config} />
         <TableBody config={config} onRowClick={onRowClick} />
