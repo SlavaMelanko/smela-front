@@ -47,26 +47,29 @@ jobs:
 
           # Direct prompt for automated review (no @claude mention needed)
           direct_prompt: |
-            Please review this pull request and provide feedback on:
+            Please review this pull request for a Vite + React (JavaScript) frontend application.
+
+            Review areas:
             1. Code quality and best practices
             2. Potential bugs or issues
-            3. Performance considerations
+            3. Performance considerations (only flag obvious issues, not speculative optimizations)
             4. Security concerns
             5. Test coverage: We aim for 60-80% coverage, not 100%. In real development with limited team size (might be solo dev), we focus on minimum testable solution. Prefer a few tests covering normal flow plus a few edge cases. When issues arise, we add unit tests to prevent regression. We can focus on comprehensive testing later if needed.
 
-            Be constructive and helpful in your feedback. For each of the 5 review items above, organize feedback as follows:
-            - First, mention any strengths of the implementation if applicable
-            - Then list things to fix or update, organized by priority:
-              * Critical: Issues that must be fixed immediately (bugs, security vulnerabilities, breaking changes)
-              * Medium: Important improvements that should be addressed
-              * Skip low priority issues to speed up the review process
+            Format your feedback:
+              - Start with implementation strengths (if any)
+              - Group issues by priority:
+                * **Critical**: Bugs, security vulnerabilities, breaking changes — must fix
+                * **Medium**: Important improvements to address
+                * Skip low-priority nitpicks
+              - Include code examples for each suggestion
 
-            For each feedback item, provide a code example showing how it should be implemented in your opinion.
-
-            Code review guidelines - DO NOT suggest:
-            1. JSDoc comments: We don't use JSDoc. Only suggest comments for complex code lines or functions where the logic isn't immediately clear. Rule: if someone returning after a month/year would have questions, then add a comment.
-            2. PropTypes: Do not suggest adding PropTypes to components. We don't use PropTypes.
-            3. Component.defaultProps: Do not suggest using defaultProps. Default values should be in the function parameter list (e.g., `const Component = ({ prop = defaultValue }) => ...`).
+              DO NOT suggest:
+              - JSDoc comments (only comment genuinely complex logic)
+              - PropTypes (we intentionally don't use them)
+              - Component.defaultProps (use inline defaults: `{ prop = default }`)
+              - Converting to TypeScript
+              - Barrel files or index.ts re-exports
 
           # Optional: Use sticky comments to make Claude reuse the same comment on subsequent pushes to the same PR
           # use_sticky_comment: true
