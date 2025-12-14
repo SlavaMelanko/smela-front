@@ -1,6 +1,13 @@
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
 
+.table-container {
+  @media (width <= $breakpoint-lg) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 .table {
   width: 100%;
   overflow: hidden;

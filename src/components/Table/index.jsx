@@ -5,10 +5,12 @@ import TableHeader from './Header'
 
 const Table = ({ config, onRowClick }) => {
   return (
-    <table className='table'>
-      <TableHeader config={config} />
-      <TableBody config={config} onRowClick={onRowClick} />
-    </table>
+    <div className='table-container'>
+      <table className='table'>
+        <TableHeader config={config} />
+        <TableBody config={config} onRowClick={onRowClick} />
+      </table>
+    </div>
   )
 }
 
