@@ -1,7 +1,9 @@
 import './styles.scss'
 
-const TableRow = ({ children, className = '', ...props }) => (
-  <tr className={className} {...props}>
+import clsx from 'clsx'
+
+const TableRow = ({ children, className, ...props }) => (
+  <tr className={clsx('table__row', className)} {...props}>
     {children}
   </tr>
 )

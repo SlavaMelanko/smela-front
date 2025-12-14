@@ -4,12 +4,17 @@ import clsx from 'clsx'
 
 import useLocale from '@/hooks/useLocale'
 
-const DropdownList = ({ className, menu, isOpen }) => {
+const DropdownList = ({ className, menu, isOpen, direction = 'bottom' }) => {
   const { t } = useLocale()
 
   return (
     <div
-      className={clsx('dropdown', { 'dropdown--open': isOpen }, className)}
+      className={clsx(
+        'dropdown',
+        `dropdown--${direction}`,
+        { 'dropdown--open': isOpen },
+        className
+      )}
       role='menu'
     >
       <div className='dropdown__list'>
