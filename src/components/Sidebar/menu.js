@@ -46,6 +46,11 @@ export const adminMenuItems = [
     name: 'sidebar.users',
     path: '/admin/users',
     icon: UsersIcon
+  },
+  {
+    name: 'sidebar.settings',
+    path: '/settings',
+    icon: SettingsIcon
   }
 ]
 
