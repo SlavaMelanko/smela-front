@@ -28,7 +28,7 @@ const RowsPerPageDropdown = ({ className = '', label, menu }) => {
         text={label}
         onClick={toggle}
       />
-      <DropdownList menu={normalizedMenu} isOpen={isActive} />
+      <DropdownList menu={normalizedMenu} isOpen={isActive} direction='top' />
     </div>
   )
 }
