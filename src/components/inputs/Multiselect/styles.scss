@@ -35,11 +35,9 @@
     }
   }
 
-  .dropdown-content {
-    .panel-content {
-      border: 1px solid var(--border-color);
-      box-shadow: $shadow-sm;
-    }
+  .rmsc .dropdown-content .panel-content {
+    border: 1px solid var(--border-color);
+    box-shadow: $shadow-lg;
   }
 
   .search input {
