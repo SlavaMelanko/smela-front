@@ -1,5 +1,6 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
+import { defaultOptions } from '@/components/Pagination'
 import { adminService } from '@/services/backend'
 
 export const adminKeys = {
@@ -21,6 +22,10 @@ export const useUsers = (params = {}) => {
   return useQuery({
     queryKey: adminKeys.usersList(params),
     queryFn: () => adminService.getUsers(params),
+    select: data => ({
+      users: data?.users ?? [],
+      pagination: data?.pagination ?? defaultOptions
+    }),
     placeholderData: keepPreviousData,
     ...adminQueryOptions
   })

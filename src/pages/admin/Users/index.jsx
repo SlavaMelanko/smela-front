@@ -10,7 +10,7 @@ import { useCallback, useMemo, useState } from 'react'
 
 import { ProfileModal } from '@/components/dialogs/ProfileModal'
 import { CheckIcon } from '@/components/icons'
-import Pagination, { RowsPerPage } from '@/components/Pagination'
+import Pagination, { defaultOptions } from '@/components/Pagination'
 import Spinner from '@/components/Spinner'
 import Table from '@/components/Table'
 import TableToolbar from '@/components/TableToolbar'
@@ -20,6 +20,7 @@ import useModal from '@/hooks/useModal'
 
 import { getAccessibleColumns } from './columns'
 import Filters from './Filters'
+import useDebouncedSearch from './hooks/useDebouncedSearch'
 import useUsersTableParams from './hooks/useUsersTableParams'
 
 const UsersTable = () => {
@@ -27,15 +28,12 @@ const UsersTable = () => {
   const { openModal } = useModal()
 
   const { params, apiParams, setParams } = useUsersTableParams()
+  const [searchValue, setSearchValue] = useDebouncedSearch(
+    params.search,
+    value => setParams({ search: value || null }, { resetPage: true })
+  )
   const { data, isPending, isError } = useUsers(apiParams)
-
-  const users = data?.users ?? []
-  const pagination = data?.pagination ?? {
-    page: 1,
-    limit: RowsPerPage.SM,
-    total: 0,
-    totalPages: 0
-  }
+  const { users = [], pagination = defaultOptions } = data ?? {}
 
   const columns = useMemo(
     () => getAccessibleColumns(t, formatDate),
@@ -115,19 +113,14 @@ const UsersTable = () => {
         columns={availableColumns}
         showFilters={showFilters}
         onToggleFilters={toggleFilters}
-        searchValue={params.search}
-        onSearchChange={value =>
-          setParams({ search: value }, { resetPage: true })
-        }
+        searchValue={searchValue}
+        onSearchChange={setSearchValue}
       />
       <Filters isShow={showFilters} params={params} setParams={setParams} />
       <Table config={config} onRowClick={handleRowClick} />
       <div className='table-container__pagination'>
         <Pagination
-          page={pagination.page}
-          limit={pagination.limit}
-          total={pagination.total}
-          totalPages={pagination.totalPages}
+          pagination={pagination}
           onPageChange={handlePageChange}
           onLimitChange={handleLimitChange}
         />
