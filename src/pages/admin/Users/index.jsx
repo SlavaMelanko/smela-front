@@ -43,7 +43,6 @@ const UsersTable = () => {
   )
   const [columnVisibility, setColumnVisibility] = useState({})
   const [sorting, setSorting] = useState([])
-
   const [showFilters, setShowFilters] = useState(false)
 
   const toggleFilters = () => setShowFilters(prev => !prev)
@@ -116,6 +115,10 @@ const UsersTable = () => {
         columns={availableColumns}
         showFilters={showFilters}
         onToggleFilters={toggleFilters}
+        searchValue={params.search}
+        onSearchChange={value =>
+          setParams({ search: value }, { resetPage: true })
+        }
       />
       <Filters isShow={showFilters} params={params} setParams={setParams} />
       <Table config={config} onRowClick={handleRowClick} />

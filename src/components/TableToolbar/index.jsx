@@ -6,7 +6,13 @@ import ColumnVisibilityDropdown from './ColumnVisibilityDropdown'
 import FilterToggle from './FilterToggle'
 import SearchInput from './SearchInput'
 
-const TableToolbar = ({ columns, showFilters, onToggleFilters }) => {
+const TableToolbar = ({
+  columns,
+  showFilters,
+  onToggleFilters,
+  searchValue,
+  onSearchChange
+}) => {
   const { t } = useLocale()
 
   return (
@@ -14,6 +20,8 @@ const TableToolbar = ({ columns, showFilters, onToggleFilters }) => {
       <SearchInput
         className='table-toolbar__search'
         placeholder={t('searchBy')}
+        value={searchValue}
+        onChange={onSearchChange}
       />
       <FilterToggle
         label={t('table.filter_plural')}

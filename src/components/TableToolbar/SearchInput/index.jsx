@@ -5,7 +5,12 @@ import clsx from 'clsx'
 import { SearchIcon } from '@/components/icons'
 import { TextInput } from '@/components/inputs'
 
-const SearchInput = ({ className = '', placeholder = '' }) => (
+const SearchInput = ({
+  className = '',
+  placeholder = '',
+  value = '',
+  onChange
+}) => (
   <div className={clsx('search', className)}>
     <TextInput
       id='search'
@@ -14,6 +19,8 @@ const SearchInput = ({ className = '', placeholder = '' }) => (
       placeholder={placeholder}
       autoComplete='on'
       aria-label='Search users'
+      value={value}
+      onChange={e => onChange?.(e.target.value)}
       leftElement={<SearchIcon size='xs' color='secondary' />}
     />
   </div>
