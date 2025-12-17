@@ -33,7 +33,7 @@ const UsersTable = () => {
     value => setParams({ search: value || null }, { resetPage: true }),
     [setParams]
   )
-  const [searchValue, setSearchValue] = useDebouncedSearch(
+  const { searchValue, setSearchValue } = useDebouncedSearch(
     params.search,
     handleSearch
   )

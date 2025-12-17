@@ -18,7 +18,7 @@ const useDebouncedSearch = (urlValue, onSearch) => {
     setInstantValue(urlValue)
   }, [urlValue])
 
-  return [instantValue, setInstantValue]
+  return { searchValue: instantValue, setSearchValue: setInstantValue }
 }
 
 export default useDebouncedSearch
