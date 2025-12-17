@@ -28,10 +28,16 @@ const UsersTable = () => {
   const { openModal } = useModal()
 
   const { params, apiParams, setParams } = useUsersTableParams()
+
+  const handleSearch = useCallback(
+    value => setParams({ search: value || null }, { resetPage: true }),
+    [setParams]
+  )
   const [searchValue, setSearchValue] = useDebouncedSearch(
     params.search,
-    value => setParams({ search: value || null }, { resetPage: true })
+    handleSearch
   )
+
   const { data, isPending, isError } = useUsers(apiParams)
   const { users = [], pagination = defaultOptions } = data ?? {}
 
