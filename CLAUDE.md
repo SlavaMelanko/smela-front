@@ -36,7 +36,7 @@ All pnpm scripts are defined in `package.json`. Key workflows:
 - Unit tests: `ut` (all tests), `ut:cov` (with coverage)
 - E2E tests: `e2e` (headless), `e2e:ui` (interactive mode)
 - Run single test: `pnpm run ut -- path/to/test.spec.js`
-- E2E tests require pre-registered `jason@example.com` account
+- E2E tests require pre-registered admin and user accounts
 
 ### Code Quality
 
@@ -108,8 +108,8 @@ Translation files (`public/locales/*.json`) follow entity-based organization:
 
 - **Entity cohesion**: Group related data together (e.g., `name` + `values`)
 - **Single source of truth**: Define labels once, reference with `$t()`
-- **No fragmentation**: Avoid separate objects like `filters.role` when `role.name`
-  exists
+- **No fragmentation**: Avoid separate objects like `filters.role` when
+  `role.name` exists
 
 ```json
 // Entity pattern

@@ -2,9 +2,8 @@
 
 ## ⚠️ Prerequisites
 
-Before running the tests, make sure the `jason@example.com` account is
-registered. This account is used in tests that validate "email already in use"
-error on signup.
+Before running the tests, make sure pre-registered accounts are seeded into the
+database.
 
 ## 📦 Setup
 
