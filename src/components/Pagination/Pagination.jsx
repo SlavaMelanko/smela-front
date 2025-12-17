@@ -8,17 +8,15 @@ import {
 } from '@/components/icons'
 import useLocale from '@/hooks/useLocale'
 
-import { RowsPerPage } from './limit'
+import { defaultOptions, RowsPerPage } from './options'
 import RowsPerPageDropdown from './RowsPerPageDropdown'
 
 const Pagination = ({
-  page = 1,
-  limit = RowsPerPage.SM,
-  total = 0,
-  totalPages = 1,
+  pagination = defaultOptions,
   onPageChange,
   onLimitChange
 }) => {
+  const { page, limit, total, totalPages } = pagination
   const { t } = useLocale()
 
   const start = total === 0 ? 0 : (page - 1) * limit + 1

@@ -9,3 +9,10 @@ export const isValidLimit = value => {
 
   return Number.isInteger(value) && validLimits.includes(value)
 }
+
+export const defaultOptions = Object.freeze({
+  page: 1,
+  limit: RowsPerPage.SM,
+  total: 0,
+  totalPages: 0
+})

@@ -27,6 +27,7 @@ const useUsersTableParams = () => {
 
   // Read: parse URL into structured state
   const params = {
+    search: searchParams.get('search') || '',
     roles: parseArrayParam(searchParams.get('roles')),
     statuses: parseArrayParam(searchParams.get('statuses')),
     page: parsePage(searchParams.get('page')),
@@ -66,6 +67,7 @@ const useUsersTableParams = () => {
 
   // API params: transform for backend consumption
   const apiParams = {
+    ...(params.search && { search: params.search }),
     ...(params.roles.length && { roles: params.roles.join(',') }),
     ...(params.statuses.length && { statuses: params.statuses.join(',') }),
     page: params.page,
