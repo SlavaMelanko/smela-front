@@ -2,9 +2,10 @@ import './styles.scss'
 
 import { useNavigate } from 'react-router-dom'
 
-import { GoogleOAuthButton } from '@/components/buttons'
+import { GoogleIcon } from '@/components/icons'
 import { ForgotYourPasswordPrompt, SignupPrompt } from '@/components/prompts'
 import Separator from '@/components/Separator'
+import { Button } from '@/components/ui/button'
 import { useLogin, useLoginWithGoogle } from '@/hooks/useAuth'
 import useCaptcha from '@/hooks/useCaptcha'
 import useLocale from '@/hooks/useLocale'
@@ -63,12 +64,15 @@ const Login = () => {
         <Separator text={t('or')} />
       </div>
 
-      <GoogleOAuthButton
-        className='login-page__oauth-button'
-        text={t('continueWithGoogle')}
+      <Button
+        variant='outline'
+        className='w-full'
         onClick={handleLoginWithGoogle}
         disabled={isGooglePending}
-      />
+      >
+        <GoogleIcon />
+        {t('continueWithGoogle')}
+      </Button>
 
       <div className='login-page__prompts'>
         <SignupPrompt />
