@@ -9,7 +9,10 @@ const Copyright = ({ className }) => {
 
   return (
     <div
-      className={clsx('text-xs font-light text-muted-foreground', className)}
+      className={clsx(
+        'text-center text-xs font-light text-muted-foreground',
+        className
+      )}
     >
       {t('copyright', {
         year: currentYear,
