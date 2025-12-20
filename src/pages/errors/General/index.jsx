@@ -1,8 +1,6 @@
-import './styles.scss'
-
+import { ServerCrash } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
-import { WarningIcon } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
@@ -15,24 +13,18 @@ const General = () => {
   }
 
   return (
-    <div className='general-error-page'>
-      <div className='general-error-page__content'>
-        <WarningIcon
-          className='general-error-page__icon'
-          size='lg'
-          color='orange'
-        />
+    <div className='flex flex-col gap-8'>
+      <div className='flex flex-col items-center gap-4'>
+        <ServerCrash className='mb-4 size-12 text-destructive' />
 
-        <h1 className='general-error-page__title'>
-          {t('error.general.title')}
-        </h1>
+        <h1 className='text-2xl font-semibold'>{t('error.general.title')}</h1>
 
-        <p className='general-error-page__description'>
+        <p className='text-center text-muted-foreground'>
           {t('error.general.message')}
         </p>
 
         <Button
-          className='w-full mt-4'
+          className='mt-4 w-full'
           variant='outline'
           onClick={handleGoHome}
         >

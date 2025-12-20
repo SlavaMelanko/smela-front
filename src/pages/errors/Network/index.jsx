@@ -1,8 +1,6 @@
-import './styles.scss'
-
+import { CloudAlert } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
-import { CloudAlertIcon } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 import useUrlParams from '@/hooks/useUrlParams'
@@ -18,23 +16,17 @@ const Network = () => {
   }
 
   return (
-    <div className='network-error-page'>
-      <div className='network-error-page__content'>
-        <CloudAlertIcon
-          className='network-error-page__icon'
-          size='lg'
-          color='orange'
-        />
+    <div className='flex flex-col gap-8'>
+      <div className='flex flex-col items-center gap-4'>
+        <CloudAlert className='mb-4 size-12 text-destructive' />
 
-        <h1 className='network-error-page__title'>
-          {t('error.network.title')}
-        </h1>
+        <h1 className='text-2xl font-semibold'>{t('error.network.title')}</h1>
 
-        <p className='network-error-page__description'>
+        <p className='text-center text-muted-foreground'>
           {t(`error.network.message.${errorType || NetworkErrorType.UNKNOWN}`)}
         </p>
 
-        <Button className='w-full mt-4' variant='outline' onClick={handleRetry}>
+        <Button className='mt-4 w-full' variant='outline' onClick={handleRetry}>
           {t('error.network.cta')}
         </Button>
       </div>

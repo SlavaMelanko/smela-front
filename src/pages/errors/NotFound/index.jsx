@@ -1,9 +1,7 @@
-import './styles.scss'
-
+import { SearchX } from 'lucide-react'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { SearchXIcon } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 import { captureMessage } from '@/services/errorTracker'
@@ -22,24 +20,18 @@ const NotFound = () => {
   }
 
   return (
-    <div className='not-found-error-page'>
-      <div className='not-found-error-page__content'>
-        <SearchXIcon
-          className='not-found-error-page__icon'
-          size='lg'
-          color='orange'
-        />
+    <div className='flex flex-col gap-8'>
+      <div className='flex flex-col items-center gap-4'>
+        <SearchX className='mb-4 size-12 text-destructive' />
 
-        <h1 className='not-found-error-page__title'>
-          {t('error.notFound.title')}
-        </h1>
+        <h1 className='text-2xl font-semibold'>{t('error.notFound.title')}</h1>
 
-        <p className='not-found-error-page__description'>
+        <p className='text-center text-muted-foreground'>
           {t('error.notFound.message')}
         </p>
 
         <Button
-          className='w-full mt-4'
+          className='mt-4 w-full'
           variant='outline'
           onClick={handleGoHome}
         >
