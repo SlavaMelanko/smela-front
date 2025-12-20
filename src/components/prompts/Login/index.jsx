@@ -1,6 +1,6 @@
 import './styles.scss'
 
-import InternalLink from '@/components/links/InternalLink'
+import { Link } from '@/components/ui/link'
 import useLocale from '@/hooks/useLocale'
 
 const LoginPrompt = ({ question }) => {
@@ -9,9 +9,9 @@ const LoginPrompt = ({ question }) => {
   return (
     <p className='login-prompt'>
       {question || t('alreadyHaveAccount')}{' '}
-      <InternalLink size='sm' to='/login'>
+      <Link size='sm' to='/login'>
         {t('login.verb')}
-      </InternalLink>
+      </Link>
     </p>
   )
 }

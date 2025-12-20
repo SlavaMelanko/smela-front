@@ -1,6 +1,6 @@
 import './styles.scss'
 
-import InternalLink from '@/components/links/InternalLink'
+import { Link } from '@/components/ui/link'
 import useLocale from '@/hooks/useLocale'
 
 const SignupPrompt = () => {
@@ -9,9 +9,9 @@ const SignupPrompt = () => {
   return (
     <p className='signup-prompt'>
       {t('doNotHaveAccount')}{' '}
-      <InternalLink size='sm' to='/pricing'>
+      <Link size='sm' to='/pricing'>
         {t('signUp')}
-      </InternalLink>
+      </Link>
     </p>
   )
 }

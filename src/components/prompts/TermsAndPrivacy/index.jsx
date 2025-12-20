@@ -2,7 +2,7 @@ import './styles.scss'
 
 import clsx from 'clsx'
 
-import InternalLink from '@/components/links/InternalLink'
+import { Link } from '@/components/ui/link'
 import useLocale from '@/hooks/useLocale'
 
 const TermsAndPrivacyPrompt = ({ className }) => {
@@ -11,13 +11,13 @@ const TermsAndPrivacyPrompt = ({ className }) => {
   return (
     <p className={clsx('terms-and-privacy-prompt', className)}>
       {t('termsAndPrivacy.prefix')}{' '}
-      <InternalLink to='/terms' size='sm' newTab>
+      <Link to='/terms' size='sm' openInNewTab>
         {t('termsAndPrivacy.termsLink')}
-      </InternalLink>{' '}
+      </Link>{' '}
       {t('termsAndPrivacy.middle')}{' '}
-      <InternalLink to='/privacy' size='sm' newTab>
+      <Link to='/privacy' size='sm' openInNewTab>
         {t('termsAndPrivacy.privacyLink')}
-      </InternalLink>
+      </Link>
       {'.'}
     </p>
   )

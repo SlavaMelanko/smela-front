@@ -1,6 +1,6 @@
 import './styles.scss'
 
-import InternalLink from '@/components/links/InternalLink'
+import { Link } from '@/components/ui/link'
 import useLocale from '@/hooks/useLocale'
 
 const ForgotYourPasswordPrompt = () => {
@@ -8,9 +8,9 @@ const ForgotYourPasswordPrompt = () => {
 
   return (
     <p className='forgot-your-password-prompt'>
-      <InternalLink to='/reset-password' size='sm'>
+      <Link to='/reset-password' size='sm'>
         {t('forgotYourPassword')}
-      </InternalLink>
+      </Link>
     </p>
   )
 }
