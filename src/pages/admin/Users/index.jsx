@@ -100,7 +100,7 @@ const UsersTable = () => {
   if (isPending) {
     return (
       <div className='table-container table-container--loading'>
-        <Spinner centered text={t('loading')} />
+        <Spinner text={t('loading')} />
       </div>
     )
   }

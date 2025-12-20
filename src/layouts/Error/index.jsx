@@ -18,7 +18,7 @@ const ErrorLayout = () => {
 
       <div className='error-layout__container'>
         <main className='error-layout__content'>
-          <Suspense fallback={<Spinner centered />}>
+          <Suspense fallback={<Spinner />}>
             <Outlet />
           </Suspense>
         </main>

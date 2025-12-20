@@ -22,7 +22,7 @@ const LegalLayout = () => (
       </header>
 
       <main className='legal-layout__content'>
-        <Suspense fallback={<Spinner centered />}>
+        <Suspense fallback={<Spinner />}>
           <Outlet />
         </Suspense>
       </main>

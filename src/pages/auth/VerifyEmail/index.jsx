@@ -33,7 +33,7 @@ const VerifyEmail = () => {
     }
   }, [token, showErrorToast, t, navigate])
 
-  return <Spinner centered />
+  return <Spinner />
 }
 
 export default VerifyEmail

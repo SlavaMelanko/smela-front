@@ -18,7 +18,7 @@ const PublicLayout = () => {
 
       <div className='public-layout__container'>
         <main className='public-layout__content'>
-          <Suspense fallback={<Spinner centered />}>
+          <Suspense fallback={<Spinner />}>
             <Outlet />
           </Suspense>
         </main>

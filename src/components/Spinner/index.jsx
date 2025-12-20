@@ -1,27 +1,20 @@
-import './styles.scss'
+import { Spinner as ShadcnSpinner } from '@/components/ui/spinner'
+import { cn } from '@/lib/utils'
 
-import clsx from 'clsx'
+const sizeMap = { sm: 16, md: 24, lg: 32, xl: 48 }
 
-import { LoaderIcon } from '@/components/icons'
-
-const Spinner = ({
-  size = 'md',
-  centered = false,
-  className,
-  text,
-  ...rest
-}) => {
-  return (
-    <div
-      className={clsx('spinner', centered && 'spinner--centered', className)}
-      {...rest}
-    >
-      <div className='spinner__content'>
-        <LoaderIcon size={size} />
-        {text && <span className='spinner__text'>{text}</span>}
-      </div>
+const Spinner = ({ text, size = 'md', className, ...props }) => (
+  <div
+    className={cn(
+      'fixed inset-0 z-50 flex items-center justify-center',
+      className
+    )}
+  >
+    <div className='flex flex-col items-center gap-2'>
+      <ShadcnSpinner size={sizeMap[size]} {...props} />
+      {text && <span className='text-sm text-muted-foreground'>{text}</span>}
     </div>
-  )
-}
+  </div>
+)
 
 export default Spinner

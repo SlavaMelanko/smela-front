@@ -23,7 +23,7 @@ const AuthLayout = () => {
         </header>
 
         <main className='auth-layout__content'>
-          <Suspense fallback={<Spinner centered />}>
+          <Suspense fallback={<Spinner />}>
             <Outlet />
           </Suspense>
         </main>

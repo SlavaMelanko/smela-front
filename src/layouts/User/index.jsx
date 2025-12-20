@@ -39,7 +39,7 @@ const UserLayout = () => {
         </aside>
 
         <main className='user-layout__content'>
-          <Suspense fallback={<Spinner centered />}>
+          <Suspense fallback={<Spinner />}>
             <Outlet />
           </Suspense>
         </main>
