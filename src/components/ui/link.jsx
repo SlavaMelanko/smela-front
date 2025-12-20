@@ -8,8 +8,9 @@ const linkVariants = cva(
   {
     variants: {
       size: {
-        default: 'text-base',
+        xs: 'text-xs',
         sm: 'text-sm',
+        default: 'text-base',
         lg: 'text-lg'
       },
       underline: {

@@ -37,8 +37,8 @@
   --sidebar-accent-foreground: oklch(20.5% 0 0deg);
   --sidebar-border: oklch(92.2% 0 0deg);
   --sidebar-ring: oklch(70.8% 0 0deg);
-  --link: oklch(51% 0.23 277deg);
-  --link-foreground: oklch(42% 0.20 277deg);
+  --link: oklch(51% 0.12 277deg);
+  --link-foreground: oklch(42% 0.15 277deg);
 }
 
 .dark {
@@ -73,8 +73,8 @@
   --sidebar-accent-foreground: oklch(98.5% 0 0deg);
   --sidebar-border: oklch(100% 0 0deg / 10%);
   --sidebar-ring: oklch(55.6% 0 0deg);
-  --link: oklch(68% 0.16 277deg);
-  --link-foreground: oklch(79% 0.1 275deg);
+  --link: oklch(68% 0.10 277deg);
+  --link-foreground: oklch(79% 0.12 275deg);
 }
 
 @theme inline {

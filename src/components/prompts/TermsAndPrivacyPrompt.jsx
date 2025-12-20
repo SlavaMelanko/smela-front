@@ -1,25 +1,22 @@
-import './styles.scss'
-
-import clsx from 'clsx'
-
 import { Link } from '@/components/ui/link'
+import { Prompt } from '@/components/ui/prompt'
 import useLocale from '@/hooks/useLocale'
 
 const TermsAndPrivacyPrompt = ({ className }) => {
   const { t } = useLocale()
 
   return (
-    <p className={clsx('terms-and-privacy-prompt', className)}>
+    <Prompt size='sm' className={className}>
       {t('termsAndPrivacy.prefix')}{' '}
-      <Link to='/terms' size='sm' openInNewTab>
+      <Link size='sm' to='/terms' openInNewTab>
         {t('termsAndPrivacy.termsLink')}
       </Link>{' '}
       {t('termsAndPrivacy.middle')}{' '}
-      <Link to='/privacy' size='sm' openInNewTab>
+      <Link size='sm' to='/privacy' openInNewTab>
         {t('termsAndPrivacy.privacyLink')}
       </Link>
       {'.'}
-    </p>
+    </Prompt>
   )
 }
 
