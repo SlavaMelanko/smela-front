@@ -48,7 +48,6 @@ describe('EmailConfirmation Form', () => {
 
       expect(submitButton).toHaveTextContent(en.email.confirmation.cta)
       expect(submitButton).toHaveAttribute('type', 'submit')
-      expect(submitButton).toHaveClass('primary-button')
     })
   })
 

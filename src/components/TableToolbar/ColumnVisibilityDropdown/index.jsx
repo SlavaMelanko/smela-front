@@ -2,9 +2,9 @@ import './styles.scss'
 
 import clsx from 'clsx'
 
-import { SecondaryButtonWithIcon } from '@/components/buttons'
 import { DropdownList } from '@/components/dropdowns'
 import { SettingsIcon } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 import useOutsideClick from '@/hooks/useOutsideClick'
 
 const ColumnVisibilityDropdown = ({ className = '', label, menu }) => {
@@ -19,12 +19,10 @@ const ColumnVisibilityDropdown = ({ className = '', label, menu }) => {
 
   return (
     <div className={clsx('column-visibility-dropdown', className)} ref={ref}>
-      <SecondaryButtonWithIcon
-        className='column-visibility-dropdown__button'
-        iconLeft={<SettingsIcon color='secondary' size='xs' />}
-        text={label}
-        onClick={toggle}
-      />
+      <Button variant='outline' size='sm' onClick={toggle}>
+        <SettingsIcon color='secondary' size='xs' />
+        {label}
+      </Button>
       <DropdownList menu={normalizedMenu} isOpen={isActive} />
     </div>
   )

@@ -1,11 +1,11 @@
 import './styles.scss'
 
-import { SecondaryButtonWithIcon } from '@/components/buttons'
 import {
   CheckIcon,
   ChevronLeftIcon,
   ChevronRightIcon
 } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
 import { defaultOptions, RowsPerPage } from './options'
@@ -57,16 +57,22 @@ const Pagination = ({
         {start} - {end} {t('pagination.of')} {total}
       </p>
       <div className='pagination-container__page-buttons'>
-        <SecondaryButtonWithIcon
-          iconLeft={<ChevronLeftIcon size='xs' color='secondary' />}
+        <Button
+          variant='ghost'
+          size='icon-sm'
           onClick={handlePrevPage}
           disabled={!canGoBack}
-        />
-        <SecondaryButtonWithIcon
-          iconLeft={<ChevronRightIcon size='xs' color='secondary' />}
+        >
+          <ChevronLeftIcon size='xs' color='secondary' />
+        </Button>
+        <Button
+          variant='ghost'
+          size='icon-sm'
           onClick={handleNextPage}
           disabled={!canGoForward}
-        />
+        >
+          <ChevronRightIcon size='xs' color='secondary' />
+        </Button>
       </div>
     </div>
   )

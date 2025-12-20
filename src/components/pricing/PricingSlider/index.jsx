@@ -3,8 +3,8 @@ import './styles.scss'
 import { useState } from 'react'
 
 import { DiscountBadge } from '@/components/badges'
-import { OfferButton } from '@/components/buttons'
 import { Slider } from '@/components/inputs'
+import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
 import FeatureList from './FeatureList'
@@ -37,7 +37,9 @@ const PricingSlider = ({ discount, onComplete }) => {
         <PlanSummary value={bandwidth} discount={discount} />
       </div>
 
-      <OfferButton onClick={onComplete}>{t('offer.cta')}</OfferButton>
+      <Button className='w-full' onClick={onComplete}>
+        {t('offer.cta')}
+      </Button>
     </div>
   )
 }

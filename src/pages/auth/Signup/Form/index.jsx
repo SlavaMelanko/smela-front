@@ -2,9 +2,9 @@ import './styles.scss'
 
 import { useForm } from 'react-hook-form'
 
-import { PrimaryButton } from '@/components/buttons'
 import FormField from '@/components/form/Field'
 import { PasswordInput, TextInput } from '@/components/inputs'
+import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
@@ -76,9 +76,9 @@ const SignupForm = ({ isLoading, onSubmit }) => {
         </FormField>
       </div>
 
-      <PrimaryButton type='submit' disabled={isSubmitting || isLoading}>
+      <Button type='submit' disabled={isSubmitting || isLoading}>
         {isSubmitting || isLoading ? t('processing') : t('signUp')}
-      </PrimaryButton>
+      </Button>
     </form>
   )
 }

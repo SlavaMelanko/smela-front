@@ -2,7 +2,7 @@ import './styles.scss'
 
 import { useNavigate } from 'react-router-dom'
 
-import { OfferButton } from '@/components/buttons'
+import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
 const EnterpriseTab = () => {
@@ -12,13 +12,13 @@ const EnterpriseTab = () => {
   return (
     <div className='enterprise-tab'>
       <p className='enterprise-tab__text'>{t('offer.enterprise.msg')}</p>
-      <OfferButton
-        className='enterprise-tab__contact-us'
-        variant='outlined'
+      <Button
+        variant='outline'
+        className='w-full'
         onClick={() => navigate('/signup')}
       >
         {t('offer.enterprise.cta')}
-      </OfferButton>
+      </Button>
     </div>
   )
 }

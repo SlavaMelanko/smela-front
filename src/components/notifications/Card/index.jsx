@@ -1,7 +1,7 @@
 import './styles.scss'
 
-import { PrimaryButton } from '@/components/buttons'
 import { BellIcon, CalendarIcon, CloseIcon, InfoIcon } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 
 const NotificationCard = ({
   title,
@@ -35,13 +35,9 @@ const NotificationCard = ({
 
       <p className='notification-card__message'>{message}</p>
 
-      <PrimaryButton
-        className='notification-card__button'
-        variant='outlined'
-        onClick={onAction}
-      >
+      <Button variant='outline' onClick={onAction}>
         {buttonText}
-      </PrimaryButton>
+      </Button>
     </div>
   )
 }

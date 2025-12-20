@@ -2,7 +2,7 @@ import './styles.scss'
 
 import clsx from 'clsx'
 
-import { OfferButton } from '@/components/buttons'
+import { Button } from '@/components/ui/button'
 
 import { BandwidthStub, PricePerUnitStub, TotalPriceStub } from '../containers'
 
@@ -31,13 +31,9 @@ const CustomPricingCard = ({
         <p>{customMessage}</p>
       </div>
 
-      <OfferButton
-        className='pricing-card__cta'
-        variant='outlined'
-        onClick={() => showModal()}
-      >
+      <Button variant='outline' onClick={() => showModal()}>
         {buttonText}
-      </OfferButton>
+      </Button>
     </div>
   )
 }

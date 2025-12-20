@@ -2,8 +2,8 @@ import './styles.scss'
 
 import { useNavigate } from 'react-router-dom'
 
-import { SecondaryButton } from '@/components/buttons'
 import { CloudAlertIcon } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 import useUrlParams from '@/hooks/useUrlParams'
 import { NetworkErrorType } from '@/lib/networkMonitor'
@@ -34,12 +34,9 @@ const Network = () => {
           {t(`error.network.message.${errorType || NetworkErrorType.UNKNOWN}`)}
         </p>
 
-        <SecondaryButton
-          className='network-error-page__cta'
-          onClick={handleRetry}
-        >
+        <Button className='w-full mt-4' variant='outline' onClick={handleRetry}>
           {t('error.network.cta')}
-        </SecondaryButton>
+        </Button>
       </div>
     </div>
   )

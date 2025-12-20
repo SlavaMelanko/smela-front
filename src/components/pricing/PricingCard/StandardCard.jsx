@@ -3,8 +3,8 @@ import './styles.scss'
 import { useNavigate } from 'react-router-dom'
 
 import { DiscountBadge } from '@/components/badges'
-import { OfferButton } from '@/components/buttons'
 import Tooltip from '@/components/Tooltip'
+import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
 import { Bandwidth, PricePerUnit, TotalPrice } from '../containers'
@@ -62,12 +62,7 @@ const StandardPricingCard = ({
         ))}
       </div>
 
-      <OfferButton
-        className='pricing-card__cta'
-        onClick={() => navigate(redirectPath)}
-      >
-        {t('offer.cta')}
-      </OfferButton>
+      <Button onClick={() => navigate(redirectPath)}>{t('offer.cta')}</Button>
     </div>
   )
 }

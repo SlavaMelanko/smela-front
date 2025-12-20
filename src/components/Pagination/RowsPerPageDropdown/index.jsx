@@ -2,9 +2,9 @@ import './styles.scss'
 
 import clsx from 'clsx'
 
-import { SecondaryButtonWithIcon } from '@/components/buttons'
 import { DropdownList } from '@/components/dropdowns'
 import { ChevronToggle } from '@/components/icons/animated'
+import { Button } from '@/components/ui/button'
 import useOutsideClick from '@/hooks/useOutsideClick'
 
 const RowsPerPageDropdown = ({ className = '', label, menu }) => {
@@ -22,12 +22,10 @@ const RowsPerPageDropdown = ({ className = '', label, menu }) => {
 
   return (
     <div className={clsx('rows-per-page-dropdown', className)} ref={ref}>
-      <SecondaryButtonWithIcon
-        className='rows-per-page-dropdown__button'
-        iconRight={<ChevronToggle isOpen={isActive} />}
-        text={label}
-        onClick={toggle}
-      />
+      <Button variant='ghost' size='sm' onClick={toggle}>
+        {label}
+        <ChevronToggle isOpen={isActive} />
+      </Button>
       <DropdownList menu={normalizedMenu} isOpen={isActive} direction='top' />
     </div>
   )

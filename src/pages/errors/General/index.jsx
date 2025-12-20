@@ -2,8 +2,8 @@ import './styles.scss'
 
 import { useNavigate } from 'react-router-dom'
 
-import { SecondaryButton } from '@/components/buttons'
 import { WarningIcon } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
 const General = () => {
@@ -31,12 +31,13 @@ const General = () => {
           {t('error.general.message')}
         </p>
 
-        <SecondaryButton
-          className='general-error-page__cta'
+        <Button
+          className='w-full mt-4'
+          variant='outline'
           onClick={handleGoHome}
         >
           {t('error.general.cta')}
-        </SecondaryButton>
+        </Button>
       </div>
     </div>
   )

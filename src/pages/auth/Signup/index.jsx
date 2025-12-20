@@ -2,9 +2,10 @@ import './styles.scss'
 
 import { useNavigate } from 'react-router-dom'
 
-import { GoogleOAuthButton } from '@/components/buttons'
+import { GoogleIcon } from '@/components/icons'
 import { LoginPrompt, TermsAndPrivacyPrompt } from '@/components/prompts'
 import Separator from '@/components/Separator'
+import { Button } from '@/components/ui/button'
 import {
   useUserSignupWithEmail,
   useUserSignupWithGoogle
@@ -71,12 +72,15 @@ const Signup = () => {
         <Separator text={t('or')} />
       </div>
 
-      <GoogleOAuthButton
-        className='signup-page__oauth-button'
-        text={t('continueWithGoogle')}
+      <Button
+        variant='outline'
+        className='w-full'
         onClick={handleSignupWithGoogle}
         disabled={isGooglePending}
-      />
+      >
+        <GoogleIcon />
+        {t('continueWithGoogle')}
+      </Button>
 
       <div className='signup-page__prompts'>
         <TermsAndPrivacyPrompt />

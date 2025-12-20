@@ -3,8 +3,8 @@ import './styles.scss'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { SecondaryButton } from '@/components/buttons'
 import { SearchXIcon } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 import { captureMessage } from '@/services/errorTracker'
 
@@ -38,12 +38,13 @@ const NotFound = () => {
           {t('error.notFound.message')}
         </p>
 
-        <SecondaryButton
-          className='not-found-error-page__cta'
+        <Button
+          className='w-full mt-4'
+          variant='outline'
           onClick={handleGoHome}
         >
           {t('error.notFound.cta')}
-        </SecondaryButton>
+        </Button>
       </div>
     </div>
   )

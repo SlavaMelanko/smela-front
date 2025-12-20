@@ -2,10 +2,6 @@
 @use '../../../styles/mixins' as *;
 
 .signup-page {
-  &__oauth-button {
-    width: 100%;
-  }
-
   &__separator {
     margin: $spacing-sm 0;
   }

@@ -1,4 +1,4 @@
-import { PrimaryButton, SecondaryButton } from '@/components/buttons'
+import { Button } from '@/components/ui/button'
 import { ModalProvider } from '@/contexts/ModalContext'
 import { NotificationProvider } from '@/contexts/NotificationContext.jsx'
 import { ThemeProvider } from '@/contexts/ThemeContext'
@@ -26,14 +26,14 @@ const SimpleModalExample = () => {
             <p>Congratulations! You’ve just opened a simple modal.</p>
           </ModalBody>
           <ModalFooter>
-            <PrimaryButton onClick={() => close()}>OK</PrimaryButton>
+            <Button onClick={() => close()}>OK</Button>
           </ModalFooter>
         </>
       )
     })
   }
 
-  return <PrimaryButton onClick={handleOpen}>Open simple modal</PrimaryButton>
+  return <Button onClick={handleOpen}>Open simple modal</Button>
 }
 
 const ModalWithActionsExample = () => {
@@ -49,31 +49,30 @@ const ModalWithActionsExample = () => {
             <p>Please confirm what you’d like to do:</p>
           </ModalBody>
           <ModalFooter>
-            <SecondaryButton
+            <Button
+              variant='outline'
               onClick={() => {
                 showErrorToast('Declined')
                 close()
               }}
             >
               Decline
-            </SecondaryButton>
-            <PrimaryButton
+            </Button>
+            <Button
               onClick={() => {
                 showSuccessToast('Accepted')
                 close()
               }}
             >
               Accept
-            </PrimaryButton>
+            </Button>
           </ModalFooter>
         </>
       )
     })
   }
 
-  return (
-    <PrimaryButton onClick={handleOpen}>Open modal with actions</PrimaryButton>
-  )
+  return <Button onClick={handleOpen}>Open modal with actions</Button>
 }
 
 const ModalInModalExample = () => {
@@ -89,7 +88,7 @@ const ModalInModalExample = () => {
             <p>This is the child modal.</p>
           </ModalBody>
           <ModalFooter>
-            <PrimaryButton
+            <Button
               onClick={() => {
                 showSuccessToast('Child accepted')
                 close()
@@ -97,7 +96,7 @@ const ModalInModalExample = () => {
               }}
             >
               Accept & close all
-            </PrimaryButton>
+            </Button>
           </ModalFooter>
         </>
       )
@@ -113,20 +112,16 @@ const ModalInModalExample = () => {
             <p>This is the parent modal.</p>
           </ModalBody>
           <ModalFooter>
-            <PrimaryButton onClick={() => openChildModal(closeParent)}>
+            <Button onClick={() => openChildModal(closeParent)}>
               Open child modal
-            </PrimaryButton>
+            </Button>
           </ModalFooter>
         </>
       )
     })
   }
 
-  return (
-    <PrimaryButton onClick={handleParentOpen}>
-      Open modal-in-modal
-    </PrimaryButton>
-  )
+  return <Button onClick={handleParentOpen}>Open modal-in-modal</Button>
 }
 
 export const SimpleModal = () => (
