@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import Copyright from '@/components/Copyright'
-import { LanguageSelector } from '@/components/dropdowns'
+import { LanguageDropdown } from '@/components/dropdowns'
 import Spinner from '@/components/Spinner'
 import ThemeToggle from '@/components/ThemeToggle'
 
@@ -13,7 +13,7 @@ const PublicLayout = () => {
     <div className='public-layout'>
       <div className='public-layout__user-preferences'>
         <ThemeToggle />
-        <LanguageSelector />
+        <LanguageDropdown />
       </div>
 
       <div className='public-layout__container'>

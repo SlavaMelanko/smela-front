@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ProfileModal } from '@/components/dialogs'
-import { LanguageSelector, ProfileDropdown } from '@/components/dropdowns'
+import { LanguageDropdown, ProfileDropdown } from '@/components/dropdowns'
 import { HelpIcon, Logo, LogoutIcon, UserIcon } from '@/components/icons'
 import MobileMenuToggle from '@/components/MobileMenuToggle'
 import {
@@ -91,7 +91,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
           </div>
 
           <div className='header__language'>
-            <LanguageSelector />
+            <LanguageDropdown />
           </div>
 
           <div className='header__profile'>

@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import Copyright from '@/components/Copyright'
-import { LanguageSelector } from '@/components/dropdowns'
+import { LanguageDropdown } from '@/components/dropdowns'
 import { Logo } from '@/components/icons'
 import Spinner from '@/components/Spinner'
 import ThemeToggle from '@/components/ThemeToggle'
@@ -14,7 +14,7 @@ const AuthLayout = () => {
     <div className='auth-layout'>
       <div className='auth-layout__user-preferences'>
         <ThemeToggle />
-        <LanguageSelector />
+        <LanguageDropdown />
       </div>
 
       <div className='auth-layout__container'>
