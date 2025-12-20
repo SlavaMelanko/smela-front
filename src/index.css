@@ -73,7 +73,7 @@
   --sidebar-accent-foreground: oklch(98.5% 0 0deg);
   --sidebar-border: oklch(100% 0 0deg / 10%);
   --sidebar-ring: oklch(55.6% 0 0deg);
-  --link: oklch(68% 0.10 277deg);
+  --link: oklch(68% 0.1 277deg);
   --link-foreground: oklch(79% 0.12 275deg);
 }
 
