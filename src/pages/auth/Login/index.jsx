@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { GoogleIcon } from '@/components/icons'
 import { ForgotYourPasswordPrompt, SignupPrompt } from '@/components/prompts'
-import Separator from '@/components/Separator'
+import { TextSeparator } from '@/components/Separator'
 import { Button } from '@/components/ui/button'
 import { useLogin, useLoginWithGoogle } from '@/hooks/useAuth'
 import useCaptcha from '@/hooks/useCaptcha'
@@ -61,7 +61,7 @@ const Login = () => {
       <LoginForm isLoading={isEmailPending} onSubmit={handleLogin} />
 
       <div className='login-page__separator'>
-        <Separator text={t('or')} />
+        <TextSeparator text={t('or')} />
       </div>
 
       <Button

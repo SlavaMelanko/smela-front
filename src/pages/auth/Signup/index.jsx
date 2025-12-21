@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { GoogleIcon } from '@/components/icons'
 import { LoginPrompt, TermsAndPrivacyPrompt } from '@/components/prompts'
-import Separator from '@/components/Separator'
+import { TextSeparator } from '@/components/Separator'
 import { Button } from '@/components/ui/button'
 import {
   useUserSignupWithEmail,
@@ -69,7 +69,7 @@ const Signup = () => {
       <SignupForm isLoading={isEmailPending} onSubmit={handleSignupWithEmail} />
 
       <div className='signup-page__separator'>
-        <Separator text={t('or')} />
+        <TextSeparator text={t('or')} />
       </div>
 
       <Button

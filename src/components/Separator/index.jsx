@@ -1,16 +1,17 @@
-import './styles.scss'
+import { Separator } from '@/components/ui/separator'
+import { cn } from '@/lib/utils'
 
-const Separator = ({ text }) => {
-  return (
-    <div className='separator'>
-      <div className='separator__line-wrapper'>
-        <div className='separator__line' />
-      </div>
-      <div className='separator__text-wrapper'>
-        <span className='separator__text'>{text}</span>
-      </div>
+export { Separator }
+
+export const TextSeparator = ({ text, className }) => (
+  <div className={cn('relative', className)}>
+    <div className='absolute inset-0 flex items-center'>
+      <Separator className='w-full' />
     </div>
-  )
-}
-
-export default Separator
+    <div className='relative flex justify-center'>
+      <span className='bg-background text-muted-foreground px-2 text-sm'>
+        {text}
+      </span>
+    </div>
+  </div>
+)
