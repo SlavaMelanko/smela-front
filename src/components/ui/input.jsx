@@ -5,13 +5,13 @@ import { forwardRef } from 'react'
 import { cn } from '@/lib/utils'
 
 const inputVariants = cva(
-  'w-full rounded-md border border-border bg-background px-4 py-3 text-base outline-none placeholder:text-muted-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:border-ring disabled:pointer-events-none disabled:opacity-50',
+  'w-full rounded-md border border-border bg-background px-4 py-3 text-base outline-none placeholder:text-muted-foreground focus-visible:ring-[1px] focus-visible:ring-ring/50 focus-visible:border-ring disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
         default: '',
         error:
-          'border-destructive border-b border-t-0 border-l-0 border-r-0 focus-visible:border-destructive focus-visible:ring-destructive/20'
+          'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20'
       }
     },
     defaultVariants: {
