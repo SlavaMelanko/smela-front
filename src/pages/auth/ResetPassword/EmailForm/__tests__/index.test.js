@@ -5,7 +5,7 @@ import { renderWithProviders } from '@/tests'
 import { auth } from '@/tests/data'
 import en from '$/locales/en.json'
 
-import ResetPasswordForm from '.'
+import ResetPasswordForm from '..'
 
 const renderForm = (onSubmit = jest.fn()) => {
   renderWithProviders(<ResetPasswordForm onSubmit={onSubmit} />)

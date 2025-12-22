@@ -5,7 +5,7 @@ import { renderWithProviders } from '@/tests'
 import { auth } from '@/tests/data'
 import en from '$/locales/en.json'
 
-import EmailConfirmationForm from '.'
+import EmailConfirmationForm from '..'
 
 const renderForm = (onSubmit = jest.fn(), isLoading = false) => {
   renderWithProviders(
