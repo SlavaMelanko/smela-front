@@ -61,18 +61,6 @@
   }
 }
 
-@mixin form-layout {
-  display: flex;
-  flex-direction: column;
-
-  &__fields {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-md;
-    margin-bottom: $spacing-2xl;
-  }
-}
-
 @mixin sidebar-button-base($padding-y: $spacing-sm, $padding-x: $spacing-md) {
   display: flex;
   align-items: center;

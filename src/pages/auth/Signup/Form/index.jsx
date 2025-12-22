@@ -1,8 +1,6 @@
-import './styles.scss'
-
 import { useForm } from 'react-hook-form'
 
-import { FormField } from '@/components/form'
+import { FormContainer, FormField, FormFields } from '@/components/form'
 import { PasswordInput, TextInput } from '@/components/inputs'
 import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
@@ -23,11 +21,8 @@ const SignupForm = ({ isLoading, onSubmit }) => {
   })
 
   return (
-    <form
-      className='signup-form'
-      onSubmit={handleSubmit(data => onSubmit(data))}
-    >
-      <div className='signup-form__fields'>
+    <FormContainer onSubmit={handleSubmit(data => onSubmit(data))}>
+      <FormFields>
         <FormField
           label={t('firstName.label')}
           name={FieldName.FIRST_NAME}
@@ -72,12 +67,12 @@ const SignupForm = ({ isLoading, onSubmit }) => {
             {...register(FieldName.PASSWORD)}
           />
         </FormField>
-      </div>
+      </FormFields>
 
       <Button type='submit' disabled={isSubmitting || isLoading}>
         {isSubmitting || isLoading ? t('processing') : t('signUp')}
       </Button>
-    </form>
+    </FormContainer>
   )
 }
 

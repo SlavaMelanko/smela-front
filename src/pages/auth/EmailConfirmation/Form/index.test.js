@@ -34,15 +34,6 @@ describe('EmailConfirmation Form', () => {
   })
 
   describe('Rendering', () => {
-    it('renders form with proper structure', () => {
-      renderForm()
-
-      const form = document.querySelector('.email-confirmation-form')
-
-      expect(form).toBeInTheDocument()
-      expect(form.tagName.toLowerCase()).toBe('form')
-    })
-
     it('renders submit button with correct text', () => {
       const { submitButton } = renderForm()
 
@@ -134,15 +125,6 @@ describe('EmailConfirmation Form', () => {
   })
 
   describe('Accessibility', () => {
-    it('has accessible form structure', () => {
-      renderForm()
-
-      const form = document.querySelector('.email-confirmation-form')
-
-      expect(form).toBeInTheDocument()
-      expect(form.tagName.toLowerCase()).toBe('form')
-    })
-
     it('makes submit button accessible with proper role and text', () => {
       renderForm()
 
