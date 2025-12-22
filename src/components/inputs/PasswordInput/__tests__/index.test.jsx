@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useForm } from 'react-hook-form'
 
-import { PasswordInput } from '..'
+import PasswordInput from '..'
 
 const FormWithPasswordInput = ({ onSubmit, defaultPassword = '' }) => {
   const { register, handleSubmit } = useForm({

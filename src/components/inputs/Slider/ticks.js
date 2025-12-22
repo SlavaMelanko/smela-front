@@ -11,8 +11,11 @@ export const generateTicks = (min, max, tickCount) => {
   const ticks = []
 
   for (let i = 0; i < tickCount; i++) {
-    ticks.push(Math.round(min + step * i))
+    ticks.push(Math.floor(min + step * i))
   }
+
+  // Ensure last tick is exactly max
+  ticks[tickCount - 1] = max
 
   return ticks
 }

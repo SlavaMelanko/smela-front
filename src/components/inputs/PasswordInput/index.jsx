@@ -50,4 +50,4 @@ const PasswordInput = forwardRef(
 
 PasswordInput.displayName = 'PasswordInput'
 
-export { PasswordInput }
+export default PasswordInput
