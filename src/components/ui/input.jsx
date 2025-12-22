@@ -20,6 +20,18 @@ const inputVariants = cva(
   }
 )
 
+const IconWrapper = ({ position, children }) =>
+  children ? (
+    <div
+      className={cn(
+        'absolute top-1/2 flex -translate-y-1/2 items-center',
+        position === 'left' ? 'left-4' : 'right-4'
+      )}
+    >
+      {children}
+    </div>
+  ) : null
+
 const Input = forwardRef(
   (
     {
@@ -37,11 +49,7 @@ const Input = forwardRef(
 
     return (
       <div className='relative'>
-        {leftIcon && (
-          <div className='absolute left-4 top-1/2 flex -translate-y-1/2 items-center'>
-            {leftIcon}
-          </div>
-        )}
+        <IconWrapper position='left'>{leftIcon}</IconWrapper>
         <InputPrimitive
           ref={ref}
           type={type}
@@ -54,11 +62,7 @@ const Input = forwardRef(
           )}
           {...props}
         />
-        {rightIcon && (
-          <div className='absolute right-4 top-1/2 flex -translate-y-1/2 items-center'>
-            {rightIcon}
-          </div>
-        )}
+        <IconWrapper position='right'>{rightIcon}</IconWrapper>
       </div>
     )
   }
