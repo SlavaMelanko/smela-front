@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react'
+import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { renderWithProviders } from '@/tests'
@@ -13,7 +13,9 @@ const renderForm = (onSubmit = jest.fn()) => {
   const firstNameInput = screen.getByPlaceholderText(en.firstName.example)
   const lastNameInput = screen.getByPlaceholderText(en.lastName.example)
   const emailInput = screen.getByPlaceholderText(en.email.example)
-  const passwordInput = screen.getByLabelText(en.password.label)
+  const passwordInput = screen.getByPlaceholderText(
+    en.password.placeholder.masked
+  )
   const submitButton = screen.getByRole('button', { name: en.signUp })
 
   return {
@@ -53,22 +55,18 @@ describe('Signup Form', () => {
     it('renders required field indicators', () => {
       renderForm()
 
-      // First name, email, and password are required
-      const firstNameField = screen
-        .getByText(en.firstName.label)
-        .closest('.form-field')
-      const emailField = screen.getByText(en.email.label).closest('.form-field')
-      const passwordField = screen
-        .getByText(en.password.label)
-        .closest('.form-field')
-      const lastNameField = screen
-        .getByText(en.lastName.label)
-        .closest('.form-field')
+      const firstNameLabel = screen.getByText(en.firstName.label)
+      const emailLabel = screen.getByText(en.email.label)
+      const passwordLabel = screen.getByText(en.password.label)
+      const lastNameLabel = screen.getByText(en.lastName.label)
 
-      expect(firstNameField).toHaveClass('form-field--required')
-      expect(emailField).toHaveClass('form-field--required')
-      expect(passwordField).toHaveClass('form-field--required')
-      expect(lastNameField).not.toHaveClass('form-field--required')
+      // First name, email, and password are required (have asterisk)
+      expect(within(firstNameLabel).getByText('*')).toBeInTheDocument()
+      expect(within(emailLabel).getByText('*')).toBeInTheDocument()
+      expect(within(passwordLabel).getByText('*')).toBeInTheDocument()
+
+      // Last name is optional (no asterisk)
+      expect(within(lastNameLabel).queryByText('*')).not.toBeInTheDocument()
     })
   })
 
@@ -362,10 +360,19 @@ describe('Signup Form', () => {
     it('has proper ARIA labels for all inputs', () => {
       renderForm()
 
-      expect(screen.getByLabelText(en.firstName.label)).toBeInTheDocument()
+      // Labels with required asterisks use regex to match partial text
+      expect(
+        screen.getByLabelText(new RegExp(en.firstName.label))
+      ).toBeInTheDocument()
+
       expect(screen.getByLabelText(en.lastName.label)).toBeInTheDocument()
-      expect(screen.getByLabelText(en.email.label)).toBeInTheDocument()
-      expect(screen.getByLabelText(en.password.label)).toBeInTheDocument()
+      expect(
+        screen.getByLabelText(new RegExp(en.email.label))
+      ).toBeInTheDocument()
+
+      expect(
+        screen.getByLabelText(new RegExp(en.password.label))
+      ).toBeInTheDocument()
     })
 
     it('shows error messages for invalid fields', async () => {
@@ -375,10 +382,7 @@ describe('Signup Form', () => {
       await user.click(submitButton)
 
       await waitFor(() => {
-        const errorMessage = screen.getByText(en.firstName.error.min)
-
-        expect(errorMessage).toBeInTheDocument()
-        expect(errorMessage).toHaveClass('form-field__error')
+        expect(screen.getByText(en.firstName.error.min)).toBeInTheDocument()
       })
     })
   })

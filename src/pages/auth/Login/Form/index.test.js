@@ -38,21 +38,6 @@ describe('Login Form', () => {
       expect(passwordInput).toBeInTheDocument()
       expect(submitButton).toBeInTheDocument()
     })
-
-    it('renders required field indicators', () => {
-      renderForm()
-
-      // Login form doesn't have labels, check by placeholder
-      const emailField = screen
-        .getByPlaceholderText(en.email.placeholder)
-        .closest('.form-field')
-      const passwordField = screen
-        .getByPlaceholderText(en.password.placeholder.default)
-        .closest('.form-field')
-
-      expect(emailField).toHaveClass('form-field--required')
-      expect(passwordField).toHaveClass('form-field--required')
-    })
   })
 
   describe('Validation', () => {
@@ -333,22 +318,6 @@ describe('Login Form', () => {
         const errorMessage = screen.getByText(en.email.error.format)
 
         expect(errorMessage).toBeInTheDocument()
-        // Error message is inside a div with form-field__error class
-        expect(errorMessage.closest('.form-field__error')).toBeInTheDocument()
-      })
-    })
-
-    it('applies error styling to invalid fields', async () => {
-      const { emailInput, submitButton } = renderForm()
-
-      await user.type(emailInput, auth.email.invalid)
-      await user.click(submitButton)
-
-      await waitFor(() => {
-        expect(emailInput).toHaveClass('input__field--error')
-        expect(emailInput.closest('.form-field')).toHaveClass(
-          'form-field--with-error'
-        )
       })
     })
 

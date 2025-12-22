@@ -2,7 +2,7 @@ import './styles.scss'
 
 import { useForm } from 'react-hook-form'
 
-import FormField from '@/components/form/Field'
+import { FormField } from '@/components/form'
 import { PasswordInput, TextInput } from '@/components/inputs'
 import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
@@ -32,7 +32,6 @@ const SignupForm = ({ isLoading, onSubmit }) => {
           label={t('firstName.label')}
           name={FieldName.FIRST_NAME}
           error={errors[FieldName.FIRST_NAME]}
-          required
         >
           <TextInput
             placeholder={t('firstName.example')}
@@ -44,6 +43,7 @@ const SignupForm = ({ isLoading, onSubmit }) => {
           label={t('lastName.label')}
           name={FieldName.LAST_NAME}
           error={errors[FieldName.LAST_NAME]}
+          optional
         >
           <TextInput
             placeholder={t('lastName.example')}
@@ -55,7 +55,6 @@ const SignupForm = ({ isLoading, onSubmit }) => {
           label={t('email.label')}
           name={FieldName.EMAIL}
           error={errors[FieldName.EMAIL]}
-          required
         >
           <TextInput
             placeholder={t('email.example')}
@@ -67,7 +66,6 @@ const SignupForm = ({ isLoading, onSubmit }) => {
           label={t('password.label')}
           name={FieldName.PASSWORD}
           error={errors[FieldName.PASSWORD]}
-          required
         >
           <PasswordInput
             placeholder={t('password.placeholder.masked')}

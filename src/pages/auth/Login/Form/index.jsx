@@ -2,7 +2,7 @@ import './styles.scss'
 
 import { useForm } from 'react-hook-form'
 
-import FormField from '@/components/form/Field'
+import { FormField } from '@/components/form'
 import { PasswordInput, TextInput } from '@/components/inputs'
 import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
@@ -28,22 +28,14 @@ const LoginForm = ({ isLoading, onSubmit }) => {
       onSubmit={handleSubmit(data => onSubmit(data))}
     >
       <div className='login-form__fields'>
-        <FormField
-          name={FieldName.EMAIL}
-          error={errors[FieldName.EMAIL]}
-          required
-        >
+        <FormField name={FieldName.EMAIL} error={errors[FieldName.EMAIL]}>
           <TextInput
             placeholder={t('email.placeholder')}
             {...register(FieldName.EMAIL)}
           />
         </FormField>
 
-        <FormField
-          name={FieldName.PASSWORD}
-          error={errors[FieldName.PASSWORD]}
-          required
-        >
+        <FormField name={FieldName.PASSWORD} error={errors[FieldName.PASSWORD]}>
           <PasswordInput
             placeholder={t('password.placeholder.default')}
             {...register(FieldName.PASSWORD)}

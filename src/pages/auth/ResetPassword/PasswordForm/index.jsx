@@ -2,7 +2,7 @@ import './styles.scss'
 
 import { useForm } from 'react-hook-form'
 
-import FormField from '@/components/form/Field'
+import { FormField } from '@/components/form'
 import { PasswordInput } from '@/components/inputs'
 import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
@@ -31,7 +31,6 @@ const SetNewPasswordForm = ({ isLoading, onSubmit }) => {
         <FormField
           name={FieldName.NEW_PASSWORD}
           error={errors[FieldName.NEW_PASSWORD]}
-          required
         >
           <PasswordInput
             placeholder={t('password.placeholder.new')}
