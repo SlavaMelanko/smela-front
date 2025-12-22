@@ -1,55 +1,57 @@
+import { useMemo } from 'react'
+
 import useLocale from '@/hooks/useLocale'
-import { cn } from '@/lib/utils'
 
-import { Button } from '../../ui/button'
-import { Slider as BaseSlider } from '../../ui/slider'
+import { PresetValues, Range, Track } from './components'
+import { generateTicks } from './ticks'
 
-const Slider = ({ value = 1, onChange, min, max, presetValues, unit }) => {
+const Slider = ({
+  value = 1,
+  onChange,
+  min,
+  max,
+  step,
+  tickCount = 3,
+  presetValues,
+  unit
+}) => {
   const { formatNumberWithUnit } = useLocale()
 
-  const labels = [min, Math.floor(max / 2), max]
-  const progress = ((value - min) / (max - min)) * 100
+  const tickLabels = useMemo(
+    () =>
+      generateTicks(min, max, tickCount).map(val =>
+        formatNumberWithUnit(val, unit)
+      ),
+    [min, max, tickCount, unit, formatNumberWithUnit]
+  )
 
-  const handleValueChange = newValue => {
-    onChange(newValue)
-  }
+  const presetLabels = useMemo(
+    () =>
+      presetValues?.map(val => ({
+        value: val,
+        label: formatNumberWithUnit(val, unit)
+      })),
+    [presetValues, unit, formatNumberWithUnit]
+  )
+
+  const progress = ((value - min) / (max - min)) * 100
 
   return (
     <div className='w-full'>
-      <div className='mb-2 flex items-center justify-between'>
-        {labels.map(val => (
-          <span key={val} className='text-base font-normal text-foreground'>
-            {formatNumberWithUnit(val, unit)}
-          </span>
-        ))}
-      </div>
-
-      <div className='relative mt-2'>
-        <BaseSlider
-          value={value}
-          onValueChange={handleValueChange}
-          min={min}
-          max={max}
-          style={{ '--slider-progress': `${progress}%` }}
-        />
-      </div>
-
-      <div className='mt-4 flex flex-wrap items-center justify-center gap-1'>
-        {presetValues.map(val => (
-          <Button
-            key={val}
-            variant='ghost'
-            size='sm'
-            onClick={() => onChange(val)}
-            className={cn(
-              'font-light text-muted-foreground',
-              value === val && 'text-foreground'
-            )}
-          >
-            {formatNumberWithUnit(val, unit)}
-          </Button>
-        ))}
-      </div>
+      <Range tickLabels={tickLabels} />
+      <Track
+        value={value}
+        onChange={onChange}
+        min={min}
+        max={max}
+        step={step}
+        progress={progress}
+      />
+      <PresetValues
+        values={presetLabels}
+        activeValue={value}
+        onSelect={onChange}
+      />
     </div>
   )
 }

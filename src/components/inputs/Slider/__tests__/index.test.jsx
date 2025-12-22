@@ -1,14 +1,9 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import Slider from '../index'
+import { renderWithProviders } from '@/tests'
 
-jest.mock('@/hooks/useLocale', () => ({
-  __esModule: true,
-  default: () => ({
-    formatNumberWithUnit: (val, unit) => (unit ? `${val} ${unit}` : String(val))
-  })
-}))
+import Slider from '../index'
 
 const defaultProps = {
   value: 500,
@@ -25,29 +20,29 @@ describe('Slider', () => {
   })
 
   it('renders labels with min, mid, and max values', () => {
-    const { container } = render(<Slider {...defaultProps} />)
+    const { container } = renderWithProviders(<Slider {...defaultProps} />)
 
     const labels = container.querySelectorAll('.text-foreground')
 
     expect(labels[0]).toHaveTextContent('0 USD')
     expect(labels[1]).toHaveTextContent('500 USD')
-    expect(labels[2]).toHaveTextContent('1000 USD')
+    expect(labels[2]).toHaveTextContent('1,000 USD')
   })
 
   it('renders preset buttons', () => {
-    render(<Slider {...defaultProps} />)
+    renderWithProviders(<Slider {...defaultProps} />)
 
     expect(screen.getByRole('button', { name: '100 USD' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: '250 USD' })).toBeInTheDocument()
     expect(screen.getAllByText('500 USD')).toHaveLength(2) // label + preset
     expect(screen.getByRole('button', { name: '750 USD' })).toBeInTheDocument()
-    expect(screen.getAllByText('1000 USD')).toHaveLength(2) // label + preset
+    expect(screen.getAllByText('1,000 USD')).toHaveLength(2) // label + preset
   })
 
   it('calls onChange when preset button is clicked', async () => {
     const onChange = jest.fn()
 
-    render(<Slider {...defaultProps} onChange={onChange} />)
+    renderWithProviders(<Slider {...defaultProps} onChange={onChange} />)
 
     await userEvent.click(screen.getByRole('button', { name: '250 USD' }))
 
@@ -55,7 +50,7 @@ describe('Slider', () => {
   })
 
   it('highlights active preset button', () => {
-    render(<Slider {...defaultProps} value={750} />)
+    renderWithProviders(<Slider {...defaultProps} value={750} />)
 
     const activeButton = screen.getByRole('button', { name: '750 USD' })
 
@@ -63,11 +58,13 @@ describe('Slider', () => {
   })
 
   it('renders without unit', () => {
-    const { container } = render(<Slider {...defaultProps} unit={undefined} />)
+    const { container } = renderWithProviders(
+      <Slider {...defaultProps} unit={undefined} />
+    )
 
     const labels = container.querySelectorAll('.text-foreground')
 
     expect(labels[0]).toHaveTextContent('0')
-    expect(labels[2]).toHaveTextContent('1000')
+    expect(labels[2]).toHaveTextContent('1,000')
   })
 })
