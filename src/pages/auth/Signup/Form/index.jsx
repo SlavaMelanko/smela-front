@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form'
 
 import { FormContainer, FormField, FormFields } from '@/components/form'
+import { PasswordInput } from '@/components/inputs'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { PasswordInput } from '@/components/ui/password-input'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'

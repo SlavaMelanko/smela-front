@@ -17,7 +17,7 @@ const SearchInput = ({
       aria-label='Search users'
       value={value}
       onChange={e => onChange?.(e.target.value)}
-      leftElement={<SearchIcon size='xs' color='secondary' />}
+      leftIcon={<SearchIcon size='xs' color='secondary' />}
     />
   </div>
 )

@@ -1,7 +1,7 @@
 import { Eye, EyeOff } from 'lucide-react'
 import { forwardRef, useState } from 'react'
 
-import { Input } from './input'
+import { Input } from '@/components/ui/input'
 
 const PasswordInput = forwardRef(
   (
@@ -32,7 +32,7 @@ const PasswordInput = forwardRef(
         {...props}
         disabled={disabled}
         type={showPassword ? 'text' : 'password'}
-        rightElement={
+        rightIcon={
           <button
             type='button'
             onClick={handleToggle}
