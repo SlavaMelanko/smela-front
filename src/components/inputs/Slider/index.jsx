@@ -1,57 +1,53 @@
-import './styles.scss'
-
-import clsx from 'clsx'
-
 import useLocale from '@/hooks/useLocale'
+import { cn } from '@/lib/utils'
+
+import { Button } from '../../ui/button'
+import { Slider as BaseSlider } from '../../ui/slider'
 
 const Slider = ({ value = 1, onChange, min, max, presetValues, unit }) => {
   const { formatNumberWithUnit } = useLocale()
 
   const labels = [min, Math.floor(max / 2), max]
-  const progress = (value / max) * 100
+  const progress = ((value - min) / (max - min)) * 100
 
-  const handleRangeChange = e => {
-    onChange(+e.target.value)
-  }
-
-  const handlePresetSelect = val => {
-    onChange(val)
+  const handleValueChange = newValue => {
+    onChange(newValue)
   }
 
   return (
-    <div className='slider'>
-      <div className='slider__labels'>
+    <div className='w-full'>
+      <div className='mb-2 flex items-center justify-between'>
         {labels.map(val => (
-          <span key={val} className='slider__label'>
+          <span key={val} className='text-base font-normal text-foreground'>
             {formatNumberWithUnit(val, unit)}
           </span>
         ))}
       </div>
 
-      <div className='slider__track'>
-        <div className='slider__track-bg' />
-        <div className='slider__progress' style={{ width: `${progress}%` }} />
-        <input
-          type='range'
+      <div className='relative mt-2'>
+        <BaseSlider
+          value={value}
+          onValueChange={handleValueChange}
           min={min}
           max={max}
-          value={value}
-          onChange={handleRangeChange}
-          className='slider__input'
+          style={{ '--slider-progress': `${progress}%` }}
         />
       </div>
 
-      <div className='slider__presets'>
+      <div className='mt-4 flex flex-wrap items-center justify-center gap-1'>
         {presetValues.map(val => (
-          <button
+          <Button
             key={val}
-            onClick={() => handlePresetSelect(val)}
-            className={clsx('slider__preset', {
-              'slider__preset--active': value === val
-            })}
+            variant='ghost'
+            size='sm'
+            onClick={() => onChange(val)}
+            className={cn(
+              'font-light text-muted-foreground',
+              value === val && 'text-foreground'
+            )}
           >
             {formatNumberWithUnit(val, unit)}
-          </button>
+          </Button>
         ))}
       </div>
     </div>
