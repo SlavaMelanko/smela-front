@@ -1,8 +1,9 @@
 import { useForm } from 'react-hook-form'
 
 import { FormContainer, FormField, FormFields } from '@/components/form'
-import { PasswordInput, TextInput } from '@/components/inputs'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { PasswordInput } from '@/components/ui/password-input'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
@@ -28,7 +29,7 @@ const SignupForm = ({ isLoading, onSubmit }) => {
           name={FieldName.FIRST_NAME}
           error={errors[FieldName.FIRST_NAME]}
         >
-          <TextInput
+          <Input
             placeholder={t('firstName.example')}
             {...register(FieldName.FIRST_NAME)}
           />
@@ -40,7 +41,7 @@ const SignupForm = ({ isLoading, onSubmit }) => {
           error={errors[FieldName.LAST_NAME]}
           optional
         >
-          <TextInput
+          <Input
             placeholder={t('lastName.example')}
             {...register(FieldName.LAST_NAME)}
           />
@@ -51,7 +52,7 @@ const SignupForm = ({ isLoading, onSubmit }) => {
           name={FieldName.EMAIL}
           error={errors[FieldName.EMAIL]}
         >
-          <TextInput
+          <Input
             placeholder={t('email.example')}
             {...register(FieldName.EMAIL)}
           />

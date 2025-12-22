@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useForm } from 'react-hook-form'
 
-import PasswordInput from './index'
+import { PasswordInput } from '../password-input'
 
 const FormWithPasswordInput = ({ onSubmit, defaultPassword = '' }) => {
   const { register, handleSubmit } = useForm({
@@ -176,19 +176,6 @@ describe('PasswordInput', () => {
         expect.anything()
       )
     })
-  })
-
-  it('applies error state when error prop is provided', () => {
-    render(
-      <PasswordInput
-        placeholder='Enter password'
-        error='Password is required'
-      />
-    )
-
-    const input = screen.getByPlaceholderText('Enter password')
-
-    expect(input).toHaveClass('input__field--error')
   })
 
   it('toggle button is accessible via keyboard', async () => {

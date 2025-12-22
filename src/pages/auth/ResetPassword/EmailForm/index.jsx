@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form'
 
 import { FormContainer, FormField, FormFields } from '@/components/form'
-import { TextInput } from '@/components/inputs'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
@@ -24,7 +24,7 @@ const ResetPasswordForm = ({ isLoading, onSubmit }) => {
     <FormContainer onSubmit={handleSubmit(data => onSubmit(data))}>
       <FormFields>
         <FormField name={FieldName.EMAIL} error={errors[FieldName.EMAIL]}>
-          <TextInput
+          <Input
             placeholder={t('email.example')}
             {...register(FieldName.EMAIL)}
           />

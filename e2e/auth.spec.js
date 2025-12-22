@@ -108,17 +108,17 @@ test.describe.serial('Authentication', () => {
       )
 
     await expect(page.getByText(t.firstName.error.required)).toBeVisible()
-    await expect(firstNameInput).toHaveClass(/input__field--error/)
+    await expect(firstNameInput).toHaveClass(/border-destructive/)
 
     // Last name is optional
     await expect(page.getByText(t.lastName.error.required)).toHaveCount(0)
-    await expect(lastNameInput).not.toHaveClass(/input__field--error/)
+    await expect(lastNameInput).not.toHaveClass(/border-destructive/)
 
     await expect(page.getByText(t.email.error.required)).toBeVisible()
-    await expect(emailInput).toHaveClass(/input__field--error/)
+    await expect(emailInput).toHaveClass(/border-destructive/)
 
     await expect(page.getByText(t.password.error.required)).toBeVisible()
-    await expect(passwordInput).toHaveClass(/input__field--error/)
+    await expect(passwordInput).toHaveClass(/border-destructive/)
   })
 
   // This test requires a pre-registered admin account
