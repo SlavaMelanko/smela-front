@@ -34,8 +34,6 @@ const Slider = ({
     [presetValues, unit, formatNumberWithUnit]
   )
 
-  const progress = ((value - min) / (max - min)) * 100
-
   return (
     <div className='w-full'>
       <Range tickLabels={tickLabels} />
@@ -45,7 +43,6 @@ const Slider = ({
         min={min}
         max={max}
         step={step}
-        progress={progress}
       />
       <PresetValues
         values={presetLabels}

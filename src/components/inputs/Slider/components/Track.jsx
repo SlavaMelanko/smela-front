@@ -1,6 +1,6 @@
 import { Slider } from '@/components/ui/slider'
 
-const Track = ({ value, onChange, min, max, step, progress }) => (
+const Track = ({ value, onChange, min, max, step }) => (
   <div className='relative mt-2'>
     <Slider
       value={value}
@@ -8,7 +8,6 @@ const Track = ({ value, onChange, min, max, step, progress }) => (
       min={min}
       max={max}
       step={step}
-      style={{ '--slider-progress': `${progress}%` }}
     />
   </div>
 )
