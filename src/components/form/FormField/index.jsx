@@ -2,10 +2,7 @@ import React from 'react'
 
 import useLocale from '@/hooks/useLocale'
 
-import Container from '../components/Container'
-import Error from '../components/Error'
-import InputWrapper from '../components/InputWrapper'
-import Label from '../components/Label'
+import { Container, Error, InputWrapper, Label } from '../components'
 
 /**
  * Form field wrapper for native inputs using register().
