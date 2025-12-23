@@ -16,7 +16,7 @@ import { useCurrentUser, useLogout } from '@/hooks/useAuth'
 import useModal from '@/hooks/useModal'
 import useNotifications from '@/hooks/useNotifications'
 
-import ProfileDropdown from './ProfileDropdown'
+import { ProfileDropdown } from './components'
 
 const Header = ({ isSidebarOpen, toggleSidebar }) => {
   const { user } = useCurrentUser()

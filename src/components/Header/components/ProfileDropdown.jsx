@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarStatus } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -8,7 +7,8 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import useLocale from '@/hooks/useLocale'
-import { getStatusBgColor } from '@/lib/types/user/status'
+
+import UserAvatar from './UserAvatar'
 
 const ProfileDropdown = ({ firstName, status, menu }) => {
   const { t } = useLocale()
@@ -25,12 +25,7 @@ const ProfileDropdown = ({ firstName, status, menu }) => {
           />
         }
       >
-        <Avatar className='size-6'>
-          <AvatarFallback className='text-lg'>
-            {firstName?.[0] || 'X'}
-          </AvatarFallback>
-          <AvatarStatus color={getStatusBgColor(status)} />
-        </Avatar>
+        <UserAvatar firstName={firstName} status={status} />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align='end'>
