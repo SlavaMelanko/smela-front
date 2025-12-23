@@ -1,5 +1,3 @@
-import './styles.scss'
-
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -76,35 +74,30 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
 
   return (
     <>
-      <header className='header'>
-        <div className='header__logo'>
+      <header className='flex items-center justify-between gap-4 w-full bg-sidebar'>
+        <div className='flex items-center h-full w-[calc(var(--sidebar-width)-3rem)] md:w-auto'>
           <Logo width={130} />
         </div>
 
-        <nav className='header__nav'>
+        <nav className='flex items-center gap-2'>
           <NotificationToggle
             unreadCount={inboxNotifications?.length || 0}
             onClick={togglePanel}
             ref={notificationToggleRef}
           />
 
-          <div className='header__toggle'>
+          <div className='hidden md:flex items-center gap-2'>
             <ThemeToggle />
-          </div>
-
-          <div className='header__language'>
             <LanguageDropdown />
           </div>
 
-          <div className='header__profile'>
-            <ProfileDropdown
-              firstName={user?.firstName}
-              status={user?.status}
-              menu={menu}
-            />
-          </div>
+          <ProfileDropdown
+            firstName={user?.firstName}
+            status={user?.status}
+            menu={menu}
+          />
 
-          <div className='header__mobile-menu-toggle'>
+          <div className='lg:hidden'>
             <MobileMenuToggle isOpen={isSidebarOpen} onToggle={toggleSidebar} />
           </div>
         </nav>
