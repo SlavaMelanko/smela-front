@@ -9,7 +9,6 @@ import {
 import { useCallback, useMemo, useState } from 'react'
 
 import { ProfileModal } from '@/components/dialogs/ProfileModal'
-import { CheckIcon } from '@/components/icons'
 import Pagination, { defaultOptions } from '@/components/Pagination'
 import Spinner from '@/components/Spinner'
 import Table from '@/components/Table'
@@ -88,13 +87,10 @@ const UsersTable = () => {
   })
 
   const availableColumns = config.getAllLeafColumns().map(column => ({
+    id: column.id,
     label: t(`table.users.${column.id}`),
-    icon: (
-      <CheckIcon color={column.getIsVisible() ? 'green' : 'none'} size='xs' />
-    ),
-    onClick: () => {
-      column.toggleVisibility()
-    }
+    getIsVisible: () => column.getIsVisible(),
+    toggleVisibility: () => column.toggleVisibility()
   }))
 
   if (isPending) {

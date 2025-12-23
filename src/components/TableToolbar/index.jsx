@@ -30,7 +30,7 @@ const TableToolbar = ({
       />
       <ColumnVisibilityDropdown
         label={t('table.column_plural')}
-        menu={columns}
+        columns={columns}
       />
     </div>
   )

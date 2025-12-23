@@ -124,23 +124,30 @@ function DropdownMenuSubContent({
   )
 }
 
-function DropdownMenuCheckboxItem({ className, children, checked, ...props }) {
+function DropdownMenuCheckboxItem({
+  className,
+  children,
+  checked,
+  closeOnClick = true,
+  ...props
+}) {
   return (
     <MenuPrimitive.CheckboxItem
       data-slot='dropdown-menu-checkbox-item'
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm [&_svg:not([class*='size-'])]:size-4 relative flex cursor-default items-center outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm [&_svg:not([class*='size-'])]:size-4 relative flex cursor-pointer items-center outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className
       )}
       checked={checked}
+      closeOnClick={closeOnClick}
       {...props}
     >
       <span
-        className='pointer-events-none absolute right-2 flex items-center justify-center pointer-events-none'
+        className='pointer-events-none absolute left-2 flex items-center justify-center text-green-500'
         data-slot='dropdown-menu-checkbox-item-indicator'
       >
         <MenuPrimitive.CheckboxItemIndicator>
-          <CheckIcon />
+          <CheckIcon className='size-4' />
         </MenuPrimitive.CheckboxItemIndicator>
       </span>
       {children}

@@ -1,31 +1,37 @@
-import './styles.scss'
+import { Settings } from 'lucide-react'
 
-import clsx from 'clsx'
-
-import { DropdownList } from '@/components/dropdowns'
-import { SettingsIcon } from '@/components/icons'
 import { Button } from '@/components/ui/button'
-import useOutsideClick from '@/hooks/useOutsideClick'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { cn } from '@/lib/utils'
 
-const ColumnVisibilityDropdown = ({ className = '', label, menu }) => {
-  const { ref, isActive, setIsActive } = useOutsideClick()
+const ColumnVisibilityDropdown = ({ className, label, columns }) => (
+  <DropdownMenu>
+    <DropdownMenuTrigger
+      className={cn(className)}
+      render={<Button variant='outline' />}
+    >
+      <Settings className='size-4' />
+      <span className='hidden sm:inline'>{label}</span>
+    </DropdownMenuTrigger>
 
-  const toggle = () => setIsActive(prev => !prev)
-
-  const normalizedMenu = menu.map(item => ({
-    ...item,
-    onClick: () => item.onClick?.()
-  }))
-
-  return (
-    <div className={clsx('column-visibility-dropdown', className)} ref={ref}>
-      <Button variant='outline' size='sm' onClick={toggle}>
-        <SettingsIcon color='secondary' size='xs' />
-        {label}
-      </Button>
-      <DropdownList menu={normalizedMenu} isOpen={isActive} />
-    </div>
-  )
-}
+    <DropdownMenuContent align='end'>
+      {columns.map(column => (
+        <DropdownMenuCheckboxItem
+          key={column.id}
+          checked={column.getIsVisible()}
+          onCheckedChange={column.toggleVisibility}
+          closeOnClick={false}
+        >
+          {column.label}
+        </DropdownMenuCheckboxItem>
+      ))}
+    </DropdownMenuContent>
+  </DropdownMenu>
+)
 
 export default ColumnVisibilityDropdown
