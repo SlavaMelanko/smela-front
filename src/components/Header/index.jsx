@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ProfileModal } from '@/components/dialogs'
-import { LanguageDropdown, ProfileDropdown } from '@/components/dropdowns'
+import { LanguageDropdown } from '@/components/dropdowns'
 import { HelpIcon, Logo, LogoutIcon, UserIcon } from '@/components/icons'
 import MobileMenuToggle from '@/components/MobileMenuToggle'
 import {
@@ -15,6 +15,8 @@ import ThemeToggle from '@/components/ThemeToggle'
 import { useCurrentUser, useLogout } from '@/hooks/useAuth'
 import useModal from '@/hooks/useModal'
 import useNotifications from '@/hooks/useNotifications'
+
+import ProfileDropdown from './ProfileDropdown'
 
 const Header = ({ isSidebarOpen, toggleSidebar }) => {
   const { user } = useCurrentUser()
