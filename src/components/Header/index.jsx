@@ -95,7 +95,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
           </div>
 
           <div className='header__profile'>
-            <ProfileDropdown name={user?.firstName} menu={menu} />
+            <ProfileDropdown firstName={user?.firstName} menu={menu} />
           </div>
 
           <div className='header__mobile-menu-toggle'>
