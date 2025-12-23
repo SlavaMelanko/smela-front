@@ -1,7 +1,7 @@
 import './styles.scss'
 
-import { StatusBadge } from '@/components/badges'
 import { ModalBody, ModalHeader } from '@/components/Modal'
+import StatusLabel from '@/components/StatusLabel'
 import { getFullName } from '@/lib/format/user'
 
 export const ProfileModal = ({ profile, onClose }) => {
@@ -27,7 +27,7 @@ export const ProfileModal = ({ profile, onClose }) => {
               </div>
             )}
             <div className='profile-modal__field'>
-              <strong>Status:</strong> <StatusBadge status={profile.status} />
+              <strong>Status:</strong> <StatusLabel status={profile.status} />
             </div>
           </div>
         </div>
