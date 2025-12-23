@@ -1,9 +1,10 @@
+import { CircleHelp, LogOut, User } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ProfileModal } from '@/components/dialogs'
 import { LanguageDropdown } from '@/components/dropdowns'
-import { HelpIcon, Logo, LogoutIcon, UserIcon } from '@/components/icons'
+import { Logo } from '@/components/icons'
 import MobileMenuToggle from '@/components/MobileMenuToggle'
 import {
   NotificationPanel,
@@ -53,19 +54,19 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
   const menu = [
     {
       label: 'profile',
-      icon: <UserIcon size='xs' />,
+      icon: <User className='size-4' />,
       onClick: openProfileModal
     },
     {
       label: 'support',
-      icon: <HelpIcon size='xs' />,
+      icon: <CircleHelp className='size-4' />,
       onClick: () => {
         navigate('/support')
       }
     },
     {
       label: 'logout.noun',
-      icon: <LogoutIcon size='xs' color='red' />,
+      icon: <LogOut className='size-4 text-destructive' />,
       onClick: handleLogOut,
       separatorBefore: true,
       danger: true
