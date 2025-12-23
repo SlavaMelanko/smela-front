@@ -1,14 +1,10 @@
 import './styles.scss'
 
-import {
-  CheckIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon
-} from '@/components/icons'
+import { ChevronLeftIcon, ChevronRightIcon } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
-import { defaultOptions, RowsPerPage } from './options'
+import { defaultOptions, limitOptions } from './options'
 import RowsPerPageDropdown from './RowsPerPageDropdown'
 
 const Pagination = ({
@@ -37,21 +33,19 @@ const Pagination = ({
     }
   }
 
-  const handleLimitSelect = value => {
-    onLimitChange?.(value)
+  const handleLimitChange = value => {
+    onLimitChange?.(Number(value))
   }
-
-  const menu = Object.values(RowsPerPage).map(size => ({
-    label: size,
-    icon: <CheckIcon size='xs' color={limit === size ? 'green' : 'none'} />,
-    onClick: () => handleLimitSelect(size)
-  }))
 
   return (
     <div className='pagination-container'>
       <div className='pagination-container__rows-per-page'>
         <span>{t('pagination.rowsPerPage')}</span>
-        <RowsPerPageDropdown label={limit} menu={menu} />
+        <RowsPerPageDropdown
+          value={limit}
+          options={limitOptions}
+          onChange={handleLimitChange}
+        />
       </div>
       <p>
         {start} - {end} {t('pagination.of')} {total}

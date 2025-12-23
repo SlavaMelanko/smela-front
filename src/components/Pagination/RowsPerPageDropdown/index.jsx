@@ -1,34 +1,35 @@
-import './styles.scss'
+import { ChevronDown } from 'lucide-react'
 
-import clsx from 'clsx'
-
-import { DropdownList } from '@/components/dropdowns'
-import { ChevronToggle } from '@/components/icons/animated'
 import { Button } from '@/components/ui/button'
-import useOutsideClick from '@/hooks/useOutsideClick'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { cn } from '@/lib/utils'
 
-const RowsPerPageDropdown = ({ className = '', label, menu }) => {
-  const { ref, isActive, setIsActive } = useOutsideClick()
+const RowsPerPageDropdown = ({ className, value, options, onChange }) => (
+  <DropdownMenu>
+    <DropdownMenuTrigger
+      className={cn(className)}
+      render={<Button variant='ghost' size='sm' />}
+    >
+      {value}
+      <ChevronDown className='size-4 transition-transform duration-300 group-aria-expanded/button:rotate-180' />
+    </DropdownMenuTrigger>
 
-  const toggle = () => setIsActive(prev => !prev)
-
-  const normalizedMenu = menu.map(item => ({
-    ...item,
-    onClick: () => {
-      item.onClick?.()
-      setIsActive(false)
-    }
-  }))
-
-  return (
-    <div className={clsx('rows-per-page-dropdown', className)} ref={ref}>
-      <Button variant='ghost' size='sm' onClick={toggle}>
-        {label}
-        <ChevronToggle isOpen={isActive} />
-      </Button>
-      <DropdownList menu={normalizedMenu} isOpen={isActive} direction='top' />
-    </div>
-  )
-}
+    <DropdownMenuContent align='start' className='min-w-0'>
+      <DropdownMenuRadioGroup value={String(value)} onValueChange={onChange}>
+        {options.map(option => (
+          <DropdownMenuRadioItem key={option} value={String(option)}>
+            {option}
+          </DropdownMenuRadioItem>
+        ))}
+      </DropdownMenuRadioGroup>
+    </DropdownMenuContent>
+  </DropdownMenu>
+)
 
 export default RowsPerPageDropdown

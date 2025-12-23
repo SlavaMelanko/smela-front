@@ -12,7 +12,7 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock('@/components/Pagination', () => ({
   isValidLimit: value => [25, 50, 100].includes(value),
-  RowsPerPage: { SM: 25, MD: 50, LG: 100 }
+  Limit: { SM: 25, MD: 50, LG: 100 }
 }))
 
 describe('useUsersTableParams', () => {
