@@ -1,4 +1,4 @@
-import { Settings } from 'lucide-react'
+import { ChevronDown, SlidersVertical } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -15,11 +15,12 @@ const ColumnVisibilityDropdown = ({ className, label, columns }) => (
       className={cn(className)}
       render={<Button variant='outline' />}
     >
-      <Settings className='size-4' />
+      <SlidersVertical className='size-4' />
       <span className='hidden sm:inline'>{label}</span>
+      <ChevronDown className='hidden size-4 transition-transform duration-200 group-aria-expanded/button:rotate-180 sm:block' />
     </DropdownMenuTrigger>
 
-    <DropdownMenuContent align='end'>
+    <DropdownMenuContent align='end' className='min-w-(--anchor-width)'>
       {columns.map(column => (
         <DropdownMenuCheckboxItem
           key={column.id}
