@@ -1,6 +1,3 @@
-import './styles.scss'
-
-import clsx from 'clsx'
 import { Suspense, useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 
@@ -9,6 +6,7 @@ import Sidebar from '@/components/Sidebar'
 import Spinner from '@/components/Spinner'
 import { useIsDesktop } from '@/hooks/useMediaQuery'
 import useSidebarMenu from '@/hooks/useSidebarMenu'
+import { cn } from '@/lib/utils'
 
 const UserLayout = () => {
   const isDesktop = useIsDesktop()
@@ -24,21 +22,22 @@ const UserLayout = () => {
   }
 
   return (
-    <div className='user-layout'>
-      <header className='user-layout__header'>
+    <div className='flex flex-col h-screen'>
+      <header className='z-10 flex shrink-0 items-center h-11 px-4 md:px-6 bg-sidebar border-b border-sidebar-border'>
         <Header isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       </header>
 
-      <div className='user-layout__main'>
+      <div className='flex flex-1 min-h-0'>
         <aside
-          className={clsx('user-layout__sidebar', {
-            'user-layout__sidebar--collapsed': !isSidebarOpen
-          })}
+          className={cn(
+            'w-64 overflow-hidden transition-[width] duration-300 ease-in-out',
+            !isSidebarOpen && 'w-0 delay-300'
+          )}
         >
           <Sidebar isOpen={isSidebarOpen} items={items} />
         </aside>
 
-        <main className='user-layout__content'>
+        <main className='flex flex-col flex-1 p-4 overflow-auto'>
           <Suspense fallback={<Spinner />}>
             <Outlet />
           </Suspense>
