@@ -1,4 +1,4 @@
-import { CircleHelp, LogOut, User } from 'lucide-react'
+import { LogOut, MessageCircleQuestion, User } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -59,7 +59,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
     },
     {
       label: 'support',
-      icon: <CircleHelp className='size-4' />,
+      icon: <MessageCircleQuestion className='size-4' />,
       onClick: () => {
         navigate('/support')
       }
