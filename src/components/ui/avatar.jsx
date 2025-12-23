@@ -40,7 +40,7 @@ function AvatarStatus({ color, className, ...props }) {
     <span
       data-slot='avatar-status'
       className={cn(
-        'absolute bottom-0 right-0 size-2 rounded-full',
+        'absolute bottom-0 right-0 size-2 rounded-full ring-1 ring-background',
         color,
         className
       )}
