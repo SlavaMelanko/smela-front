@@ -1,11 +1,8 @@
-import './styles.scss'
-
-import clsx from 'clsx'
+import { getStatusTextColor } from '@/lib/types/user/status'
+import { cn } from '@/lib/utils'
 
 const StatusBadge = ({ status }) => (
-  <span className={clsx('status-badge', `status-badge--${status}`)}>
-    {status}
-  </span>
+  <span className={cn('capitalize', getStatusTextColor(status))}>{status}</span>
 )
 
 export default StatusBadge

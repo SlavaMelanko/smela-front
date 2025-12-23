@@ -27,7 +27,7 @@ function AvatarFallback({ className, ...props }) {
     <span
       data-slot='avatar-fallback'
       className={cn(
-        'bg-foreground text-background flex size-full items-center justify-center rounded-full font-medium',
+        'bg-foreground text-background flex size-full items-center justify-center rounded-full font-medium uppercase',
         className
       )}
       {...props}
@@ -35,23 +35,13 @@ function AvatarFallback({ className, ...props }) {
   )
 }
 
-const statusColors = {
-  new: 'bg-cyan',
-  verified: 'bg-yellow',
-  trial: 'bg-purple',
-  active: 'bg-green',
-  suspended: 'bg-red',
-  archived: 'bg-blue',
-  pending: 'bg-orange'
-}
-
-function AvatarStatus({ status, className, ...props }) {
+function AvatarStatus({ color, className, ...props }) {
   return (
     <span
       data-slot='avatar-status'
       className={cn(
         'absolute bottom-0 right-0 size-2 rounded-full',
-        statusColors[status] ?? 'bg-muted-foreground',
+        color,
         className
       )}
       {...props}

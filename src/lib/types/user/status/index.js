@@ -1,6 +1,4 @@
-// Cross-references:
-//   - src/components/StatusBadge/styles.scss
-//   - public/locales/*.json
+// Cross-references: public/locales/*.json
 const UserStatus = {
   NEW: 'new',
   VERIFIED: 'verified',
@@ -18,5 +16,23 @@ export const userActiveStatuses = [
 ]
 
 export const adminActiveStatuses = [UserStatus.ACTIVE]
+
+const statusColors = {
+  [UserStatus.NEW]: 'cyan',
+  [UserStatus.VERIFIED]: 'yellow',
+  [UserStatus.TRIAL]: 'purple',
+  [UserStatus.ACTIVE]: 'green',
+  [UserStatus.SUSPENDED]: 'red',
+  [UserStatus.ARCHIVED]: 'blue',
+  [UserStatus.PENDING]: 'orange'
+}
+
+const getStatusColor = (status, prefix) =>
+  statusColors[status]
+    ? `${prefix}-${statusColors[status]}`
+    : `${prefix}-muted-foreground`
+
+export const getStatusBgColor = status => getStatusColor(status, 'bg')
+export const getStatusTextColor = status => getStatusColor(status, 'text')
 
 export default UserStatus

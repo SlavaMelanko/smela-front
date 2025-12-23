@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import useLocale from '@/hooks/useLocale'
+import { getStatusBgColor } from '@/lib/types/user/status'
 
 const ProfileDropdown = ({ firstName, status, menu }) => {
   const { t } = useLocale()
@@ -26,9 +27,9 @@ const ProfileDropdown = ({ firstName, status, menu }) => {
       >
         <Avatar className='size-6'>
           <AvatarFallback className='text-lg'>
-            {firstName?.[0].toUpperCase() || 'X'}
+            {firstName?.[0] || 'X'}
           </AvatarFallback>
-          <AvatarStatus status={status} />
+          <AvatarStatus color={getStatusBgColor(status)} />
         </Avatar>
       </DropdownMenuTrigger>
 
