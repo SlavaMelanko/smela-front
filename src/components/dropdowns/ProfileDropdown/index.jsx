@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarStatus } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import useLocale from '@/hooks/useLocale'
 
-const ProfileDropdown = ({ firstName, menu }) => {
+const ProfileDropdown = ({ firstName, status, menu }) => {
   const { t } = useLocale()
 
   return (
@@ -28,6 +28,7 @@ const ProfileDropdown = ({ firstName, menu }) => {
           <AvatarFallback className='text-lg'>
             {firstName?.[0].toUpperCase() || 'X'}
           </AvatarFallback>
+          <AvatarStatus status={status} />
         </Avatar>
       </DropdownMenuTrigger>
 

@@ -4,10 +4,7 @@ function Avatar({ className, ...props }) {
   return (
     <span
       data-slot='avatar'
-      className={cn(
-        'relative flex shrink-0 overflow-hidden rounded-full',
-        className
-      )}
+      className={cn('relative flex shrink-0 rounded-full', className)}
       {...props}
     />
   )
@@ -38,4 +35,28 @@ function AvatarFallback({ className, ...props }) {
   )
 }
 
-export { Avatar, AvatarFallback, AvatarImage }
+const statusColors = {
+  new: 'bg-cyan',
+  verified: 'bg-yellow',
+  trial: 'bg-purple',
+  active: 'bg-green',
+  suspended: 'bg-red',
+  archived: 'bg-blue',
+  pending: 'bg-orange'
+}
+
+function AvatarStatus({ status, className, ...props }) {
+  return (
+    <span
+      data-slot='avatar-status'
+      className={cn(
+        'absolute bottom-0 right-0 size-2 rounded-full',
+        statusColors[status] ?? 'bg-muted-foreground',
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+export { Avatar, AvatarFallback, AvatarImage, AvatarStatus }
