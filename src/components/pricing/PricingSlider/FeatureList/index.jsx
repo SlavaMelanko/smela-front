@@ -8,7 +8,11 @@ import {
   SlackIcon,
   UserPlusIcon
 } from '@/components/icons'
-import Tooltip from '@/components/Tooltip'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from '@/components/ui/tooltip'
 import useLocale from '@/hooks/useLocale'
 
 const FEATURE = {
@@ -72,7 +76,10 @@ const FeatureList = ({ value }) => {
       <ul className='features__items'>
         {features.map(({ icon, text }) => (
           <li key={text} className='features__item'>
-            <Tooltip text={t(text)} icon={icon} />
+            <Tooltip>
+              <TooltipTrigger>{icon}</TooltipTrigger>
+              <TooltipContent>{t(text)}</TooltipContent>
+            </Tooltip>
           </li>
         ))}
       </ul>

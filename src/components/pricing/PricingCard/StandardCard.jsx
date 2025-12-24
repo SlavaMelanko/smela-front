@@ -2,9 +2,13 @@ import './styles.scss'
 
 import { useNavigate } from 'react-router-dom'
 
-import Tooltip from '@/components/Tooltip'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from '@/components/ui/tooltip'
 import useLocale from '@/hooks/useLocale'
 
 import { Bandwidth, PricePerUnit, TotalPrice } from '../containers'
@@ -57,7 +61,10 @@ const StandardPricingCard = ({
 
       <div className='pricing-card__features'>
         {features.map((feature, index) => (
-          <Tooltip key={index} icon={feature.icon} text={feature.text} />
+          <Tooltip key={index}>
+            <TooltipTrigger>{feature.icon}</TooltipTrigger>
+            <TooltipContent>{feature.text}</TooltipContent>
+          </Tooltip>
         ))}
       </div>
 
