@@ -1,13 +1,10 @@
-import './styles.scss'
-
-import clsx from 'clsx'
-
 import { GlobeIcon } from '@/components/icons'
+import { cn } from '@/lib/utils'
 
 const Bandwidth = ({ value, unit, className = '', showIcon = true }) => (
-  <div className={clsx('bandwidth-container', className)}>
+  <div className={cn('flex items-center justify-center gap-2', className)}>
     {showIcon && <GlobeIcon />}
-    <p className='bandwidth-container__value'>
+    <p className='text-2xl font-medium text-foreground'>
       {value} {unit}
     </p>
   </div>

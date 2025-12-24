@@ -1,5 +1,3 @@
-import './styles.scss'
-
 import { useNavigate } from 'react-router-dom'
 
 import { Badge } from '@/components/ui/badge'
@@ -27,39 +25,35 @@ const StandardPricingCard = ({
   hasDiscount
 }) => {
   const { t, formatPrice } = useLocale()
-
   const navigate = useNavigate()
 
   return (
-    <div className='pricing-card'>
+    <div className='relative flex h-[460px] w-full flex-col rounded-lg border bg-card p-4 shadow-sm transition-shadow hover:border-primary hover:shadow-lg'>
       {hasDiscount && (
-        <Badge variant='discount' className='pricing-card__discount-badge'>
+        <Badge variant='discount' className='absolute -top-4 -right-3'>
           {t('offer.discount.label', { percent: 50 })}
         </Badge>
       )}
 
-      <div className='pricing-card__header'>
-        <h2 className='pricing-card__title'>{title}</h2>
-      </div>
+      <h2 className='mb-8 text-3xl font-bold text-foreground'>{title}</h2>
 
       <Bandwidth
-        className='pricing-card__bandwidth'
+        className='mb-8'
         value={bandwidth.value}
         unit={translateUnit(bandwidth.unit, t)}
       />
       <PricePerUnit
-        className='pricing-card__price-per-unit'
+        className='mb-8'
         original={formatPrice(pricePerUnit.original)}
         final={formatPrice(pricePerUnit.final)}
         unit={translateUnit(pricePerUnit.unit, t)}
       />
       <TotalPrice
-        className='pricing-card__total-price'
         original={formatPrice(totalPrice.original)}
         final={formatPrice(totalPrice.final)}
       />
 
-      <div className='pricing-card__features'>
+      <div className='flex flex-1 flex-wrap items-center justify-center gap-6'>
         {features.map((feature, index) => (
           <Tooltip key={index}>
             <TooltipTrigger>{feature.icon}</TooltipTrigger>
@@ -68,7 +62,9 @@ const StandardPricingCard = ({
         ))}
       </div>
 
-      <Button onClick={() => navigate(redirectPath)}>{t('offer.cta')}</Button>
+      <Button className='mt-auto w-full' onClick={() => navigate(redirectPath)}>
+        {t('offer.cta')}
+      </Button>
     </div>
   )
 }

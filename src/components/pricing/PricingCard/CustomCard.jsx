@@ -1,10 +1,5 @@
-import './styles.scss'
-
-import clsx from 'clsx'
-
 import { Button } from '@/components/ui/button'
-
-import { BandwidthStub, PricePerUnitStub, TotalPriceStub } from '../containers'
+import { cn } from '@/lib/utils'
 
 const CustomPricingCard = ({
   title,
@@ -15,23 +10,32 @@ const CustomPricingCard = ({
   className
 }) => {
   return (
-    <div className={clsx('pricing-card', className)}>
-      <div className='pricing-card__header'>
-        <h2 className='pricing-card__title'>{title}</h2>
+    <div
+      className={cn(
+        'relative flex h-[460px] w-full flex-col rounded-lg border bg-card p-4 shadow-sm transition-shadow hover:border-primary hover:shadow-lg',
+        className
+      )}
+    >
+      <h2 className='mb-8 text-3xl font-bold text-foreground'>{title}</h2>
+
+      {/* Stub for Bandwidth */}
+      <div className='mb-8 h-7' />
+      {/* Stub for PricePerUnit */}
+      <div className='mb-8 h-6' />
+      {/* TotalPrice equivalent */}
+      <p className='text-center text-2xl font-bold text-foreground'>
+        {totalPrice.original}
+      </p>
+
+      <div className='flex flex-1 items-center justify-center'>
+        <p className='text-center text-muted-foreground'>{customMessage}</p>
       </div>
 
-      <BandwidthStub />
-      <PricePerUnitStub />
-      <TotalPriceStub
-        className='pricing-card__total-price'
-        text={totalPrice.original}
-      />
-
-      <div className='pricing-card__custom-message'>
-        <p>{customMessage}</p>
-      </div>
-
-      <Button variant='outline' onClick={() => showModal()}>
+      <Button
+        className='mt-auto w-full'
+        variant='outline'
+        onClick={() => showModal()}
+      >
         {buttonText}
       </Button>
     </div>

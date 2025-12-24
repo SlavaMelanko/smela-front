@@ -1,12 +1,5 @@
-import { Bandwidth, BandwidthStub } from './Bandwidth'
-import { PricePerUnit, PricePerUnitStub } from './PricePerUnit'
-import { TotalPrice, TotalPriceStub } from './TotalPrice'
+import Bandwidth from './Bandwidth/Bandwidth'
+import PricePerUnit from './PricePerUnit/PricePerUnit'
+import TotalPrice from './TotalPrice/TotalPrice'
 
-export {
-  Bandwidth,
-  BandwidthStub,
-  PricePerUnit,
-  PricePerUnitStub,
-  TotalPrice,
-  TotalPriceStub
-}
+export { Bandwidth, PricePerUnit, TotalPrice }

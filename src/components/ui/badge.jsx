@@ -20,7 +20,7 @@ const badgeVariants = cva(
           'hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50',
         link: 'text-primary underline-offset-4 hover:underline',
         discount:
-          'bg-highlight text-highlight-foreground uppercase rounded-full'
+          'bg-highlight text-highlight-foreground text-base uppercase rounded-full px-4 py-4'
       }
     },
     defaultVariants: {
