@@ -1,24 +1,19 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 
-import Modal from '@/components/Modal'
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogContent,
+  DialogPortal
+} from '@/components/ui/dialog'
 
 const ModalContext = createContext()
-
-const CLOSE_ANIMATION_MS = 200
 
 export const ModalProvider = ({ children }) => {
   const [modals, setModals] = useState([])
 
   const closeModal = useCallback(id => {
-    setModals(prev =>
-      prev.map(modal =>
-        modal.id === id ? { ...modal, isOpen: false, isClosing: true } : modal
-      )
-    )
-
-    setTimeout(() => {
-      setModals(prev => prev.filter(modal => modal.id !== id))
-    }, CLOSE_ANIMATION_MS)
+    setModals(prev => prev.filter(modal => modal.id !== id))
   }, [])
 
   const openModal = useCallback(
@@ -26,13 +21,8 @@ export const ModalProvider = ({ children }) => {
       const id = crypto.randomUUID()
       const modal = {
         id,
-        isOpen: true,
         size: 'md',
-        centered: true,
-        closeOnOverlayClick: true,
         closeOnEsc: true,
-        preserveScrollBarGap: true,
-        animationPreset: 'slide-in-bottom',
         ...modalConfig
       }
 
@@ -44,13 +34,7 @@ export const ModalProvider = ({ children }) => {
   )
 
   const closeAllModals = useCallback(() => {
-    setModals(prev =>
-      prev.map(modal => ({ ...modal, isOpen: false, isClosing: true }))
-    )
-
-    setTimeout(() => {
-      setModals([])
-    }, CLOSE_ANIMATION_MS)
+    setModals([])
   }, [])
 
   const updateModal = useCallback((id, updates) => {
@@ -89,7 +73,28 @@ export const ModalProvider = ({ children }) => {
       {children}
 
       {modals.map(modal => (
-        <Modal key={modal.id} {...modal} />
+        <Dialog
+          key={modal.id}
+          defaultOpen
+          onOpenChange={open => {
+            if (!open) {
+              closeModal(modal.id)
+            }
+          }}
+        >
+          <DialogPortal>
+            <DialogBackdrop />
+            <DialogContent
+              size={modal.size}
+              className={modal.className}
+              onEscapeKeyDown={
+                modal.closeOnEsc ? undefined : e => e.preventDefault()
+              }
+            >
+              {modal.children}
+            </DialogContent>
+          </DialogPortal>
+        </Dialog>
       ))}
     </ModalContext.Provider>
   )

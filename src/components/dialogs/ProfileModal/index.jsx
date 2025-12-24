@@ -1,37 +1,39 @@
-import './styles.scss'
-
-import { ModalBody, ModalHeader } from '@/components/Modal'
 import StatusLabel from '@/components/StatusLabel'
+import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { getFullName } from '@/lib/format/user'
 
 export const ProfileModal = ({ profile, onClose }) => {
   return (
     <>
-      <ModalHeader onClose={onClose}>User Profile</ModalHeader>
-      <ModalBody>
-        <div className='profile-modal__content'>
-          <div className='profile-modal__info'>
-            <div className='profile-modal__field'>
-              <strong>ID:</strong> {profile.id}
+      <DialogHeader onClose={onClose}>
+        <DialogTitle>User Profile</DialogTitle>
+      </DialogHeader>
+      <DialogBody>
+        <div className='flex flex-col gap-3'>
+          <div className='text-foreground'>
+            <span className='font-medium text-muted-foreground'>ID:</span>{' '}
+            {profile.id}
+          </div>
+          <div className='text-foreground'>
+            <span className='font-medium text-muted-foreground'>Name:</span>{' '}
+            {getFullName(profile)}
+          </div>
+          <div className='text-foreground'>
+            <span className='font-medium text-muted-foreground'>Email:</span>{' '}
+            {profile.email}
+          </div>
+          {profile.role && (
+            <div className='text-foreground'>
+              <span className='font-medium text-muted-foreground'>Role:</span>{' '}
+              <span className='capitalize'>{profile.role}</span>
             </div>
-            <div className='profile-modal__field'>
-              <strong>Name:</strong> {getFullName(profile)}
-            </div>
-            <div className='profile-modal__field'>
-              <strong>Email:</strong> {profile.email}
-            </div>
-            {profile.role && (
-              <div className='profile-modal__field'>
-                <strong>Role:</strong>{' '}
-                <span className='profile-modal__role'>{profile.role}</span>
-              </div>
-            )}
-            <div className='profile-modal__field'>
-              <strong>Status:</strong> <StatusLabel status={profile.status} />
-            </div>
+          )}
+          <div className='flex items-center gap-2 text-foreground'>
+            <span className='font-medium text-muted-foreground'>Status:</span>
+            <StatusLabel status={profile.status} />
           </div>
         </div>
-      </ModalBody>
+      </DialogBody>
     </>
   )
 }

@@ -17,24 +17,30 @@ export const userActiveStatuses = [
 
 export const adminActiveStatuses = [UserStatus.ACTIVE]
 
-const statusToColor = {
-  [UserStatus.NEW]: 'cyan',
-  [UserStatus.VERIFIED]: 'yellow',
-  [UserStatus.TRIAL]: 'purple',
-  [UserStatus.ACTIVE]: 'green',
-  [UserStatus.SUSPENDED]: 'red',
-  [UserStatus.ARCHIVED]: 'blue',
-  [UserStatus.PENDING]: 'orange'
+const statusToBgColor = {
+  [UserStatus.NEW]: 'bg-sky-500',
+  [UserStatus.VERIFIED]: 'bg-emerald-500',
+  [UserStatus.TRIAL]: 'bg-violet-500',
+  [UserStatus.ACTIVE]: 'bg-green-500',
+  [UserStatus.SUSPENDED]: 'bg-red-500',
+  [UserStatus.ARCHIVED]: 'bg-slate-500',
+  [UserStatus.PENDING]: 'bg-amber-500'
 }
 
 export const getStatusBgColor = status =>
-  statusToColor[status]
-    ? `bg-${statusToColor[status]}-500`
-    : 'bg-muted-foreground'
+  statusToBgColor[status] ?? 'bg-muted-foreground'
+
+const statusToTextColor = {
+  [UserStatus.NEW]: 'text-sky-500',
+  [UserStatus.VERIFIED]: 'text-emerald-500',
+  [UserStatus.TRIAL]: 'text-violet-500',
+  [UserStatus.ACTIVE]: 'text-green-500',
+  [UserStatus.SUSPENDED]: 'text-red-500',
+  [UserStatus.ARCHIVED]: 'text-slate-500',
+  [UserStatus.PENDING]: 'text-amber-500'
+}
 
 export const getStatusTextColor = status =>
-  statusToColor[status]
-    ? `text-${statusToColor[status]}-500`
-    : 'text-muted-foreground'
+  statusToTextColor[status] ?? 'text-muted-foreground'
 
 export default UserStatus
