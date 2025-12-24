@@ -47,6 +47,8 @@
   --cyan: oklch(70% 0.14 195deg);
   --pink: oklch(66% 0.23 349deg);
   --red: oklch(57% 0.22 27deg);
+  --highlight: oklch(91% 0.05 350deg);
+  --highlight-foreground: oklch(45% 0.2 350deg);
 }
 
 .dark {
@@ -83,6 +85,8 @@
   --sidebar-ring: oklch(55.6% 0 0deg);
   --link: oklch(68% 0.1 277deg);
   --link-foreground: oklch(79% 0.12 275deg);
+  --highlight: oklch(35% 0.12 350deg);
+  --highlight-foreground: oklch(90% 0.08 350deg);
 }
 
 @theme inline {
@@ -135,6 +139,8 @@
   --color-cyan: var(--cyan);
   --color-pink: var(--pink);
   --color-red: var(--red);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
 }
 
 @layer base {

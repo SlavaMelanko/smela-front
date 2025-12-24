@@ -2,8 +2,8 @@ import './styles.scss'
 
 import { useState } from 'react'
 
-import { DiscountBadge } from '@/components/badges'
 import { Slider } from '@/components/inputs'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
@@ -17,10 +17,9 @@ const PricingSlider = ({ discount, onComplete }) => {
   return (
     <div className='pricing-slider'>
       {discount && (
-        <DiscountBadge
-          prefix={t('offer.discount.prefix')}
-          label={t('offer.discount.label', { percent: discount })}
-        />
+        <Badge variant='discount'>
+          {t('offer.discount.label', { percent: discount })}
+        </Badge>
       )}
 
       <Slider

@@ -2,8 +2,8 @@ import './styles.scss'
 
 import { useNavigate } from 'react-router-dom'
 
-import { DiscountBadge } from '@/components/badges'
 import Tooltip from '@/components/Tooltip'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
@@ -29,10 +29,9 @@ const StandardPricingCard = ({
   return (
     <div className='pricing-card'>
       {hasDiscount && (
-        <DiscountBadge
-          className='pricing-card__discount-badge'
-          label={t('offer.discount.label', { percent: 50 })}
-        />
+        <Badge variant='discount' className='pricing-card__discount-badge'>
+          {t('offer.discount.label', { percent: 50 })}
+        </Badge>
       )}
 
       <div className='pricing-card__header'>
