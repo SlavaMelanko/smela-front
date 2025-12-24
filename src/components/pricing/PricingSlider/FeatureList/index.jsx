@@ -1,12 +1,7 @@
 import './styles.scss'
 
-import {
-  CalendarXIcon,
-  MailIcon,
-  RefreshIcon,
-  SlackIcon,
-  UserPlusIcon
-} from '@/components/icons'
+import { CalendarX, Mail, RefreshCw, Slack, UserPlus } from 'lucide-react'
+
 import {
   Tooltip,
   TooltipContent,
@@ -16,23 +11,23 @@ import useLocale from '@/hooks/useLocale'
 
 const FEATURE = {
   emailSupport: {
-    icon: <MailIcon color='blue' />,
+    icon: <Mail className='size-6 text-blue-500' />,
     text: 'offer.features.emailSupport'
   },
   cancelAnytime: {
-    icon: <CalendarXIcon color='orange' />,
+    icon: <CalendarX className='size-6 text-orange-500' />,
     text: 'offer.features.cancelAnytime'
   },
   rollover: {
-    icon: <RefreshIcon color='pink' />,
+    icon: <RefreshCw className='size-6 text-pink-500' />,
     text: 'offer.features.rollover'
   },
   slackSupport: {
-    icon: <SlackIcon color='blue' />,
+    icon: <Slack className='size-6 text-blue-500' />,
     text: 'offer.features.slackSupport'
   },
   dedicatedManager: {
-    icon: <UserPlusIcon color='green' />,
+    icon: <UserPlus className='size-6 text-green-500' />,
     text: 'offer.features.dedicatedManager'
   }
 }

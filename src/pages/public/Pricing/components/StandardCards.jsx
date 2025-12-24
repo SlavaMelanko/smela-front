@@ -1,13 +1,7 @@
+import { CalendarX, Mail, RefreshCw, Slack, UserPlus } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 import { PricingSliderModal } from '@/components/dialogs'
-import {
-  CalendarXIcon,
-  MailIcon,
-  RefreshIcon,
-  SlackIcon,
-  UserPlusIcon
-} from '@/components/icons'
 import { CustomPricingCard, StandardPricingCard } from '@/components/pricing'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
@@ -35,7 +29,7 @@ const StandardCards = () => {
       },
       features: [
         {
-          icon: <MailIcon color='blue' />,
+          icon: <Mail className='size-6 text-blue-500' />,
           text: t('features.emailSupport')
         }
       ],
@@ -59,15 +53,15 @@ const StandardCards = () => {
       },
       features: [
         {
-          icon: <MailIcon color='blue' />,
+          icon: <Mail className='size-6 text-blue-500' />,
           text: t('features.emailSupport')
         },
         {
-          icon: <CalendarXIcon color='orange' />,
+          icon: <CalendarX className='size-6 text-orange-500' />,
           text: t('features.cancelAnytime')
         },
         {
-          icon: <RefreshIcon color='pink' />,
+          icon: <RefreshCw className='size-6 text-pink-500' />,
           text: t('features.rollover')
         }
       ],
@@ -92,19 +86,19 @@ const StandardCards = () => {
       },
       features: [
         {
-          icon: <SlackIcon color='blue' />,
+          icon: <Slack className='size-6 text-blue-500' />,
           text: t('features.slackSupport')
         },
         {
-          icon: <CalendarXIcon color='orange' />,
+          icon: <CalendarX className='size-6 text-orange-500' />,
           text: t('features.cancelAnytime')
         },
         {
-          icon: <RefreshIcon color='pink' />,
+          icon: <RefreshCw className='size-6 text-pink-500' />,
           text: t('features.rollover')
         },
         {
-          icon: <UserPlusIcon color='green' />,
+          icon: <UserPlus className='size-6 text-green-500' />,
           text: t('features.dedicatedManager')
         }
       ],

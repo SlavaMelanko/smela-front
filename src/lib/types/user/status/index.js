@@ -17,7 +17,7 @@ export const userActiveStatuses = [
 
 export const adminActiveStatuses = [UserStatus.ACTIVE]
 
-const statusColors = {
+const statusToColor = {
   [UserStatus.NEW]: 'cyan',
   [UserStatus.VERIFIED]: 'yellow',
   [UserStatus.TRIAL]: 'purple',
@@ -27,12 +27,14 @@ const statusColors = {
   [UserStatus.PENDING]: 'orange'
 }
 
-const getStatusColor = (status, prefix) =>
-  statusColors[status]
-    ? `${prefix}-${statusColors[status]}`
-    : `${prefix}-muted-foreground`
+export const getStatusBgColor = status =>
+  statusToColor[status]
+    ? `bg-${statusToColor[status]}-500`
+    : 'bg-muted-foreground'
 
-export const getStatusBgColor = status => getStatusColor(status, 'bg')
-export const getStatusTextColor = status => getStatusColor(status, 'text')
+export const getStatusTextColor = status =>
+  statusToColor[status]
+    ? `text-${statusToColor[status]}-500`
+    : 'text-muted-foreground'
 
 export default UserStatus
