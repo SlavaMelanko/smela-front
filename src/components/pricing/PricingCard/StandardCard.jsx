@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/tooltip'
 import useLocale from '@/hooks/useLocale'
 
-import { Bandwidth, PricePerUnit, TotalPrice } from '../containers'
+import { Bandwidth, PricePerUnit, TotalPrice } from '../components'
 
 const translateUnit = (unit, t) => {
   return t(`unit.traffic.${unit.toLowerCase()}`)
