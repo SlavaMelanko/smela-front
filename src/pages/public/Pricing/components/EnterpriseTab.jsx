@@ -1,5 +1,3 @@
-import './styles.scss'
-
 import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
@@ -10,11 +8,13 @@ const EnterpriseTab = () => {
   const navigate = useNavigate()
 
   return (
-    <div className='enterprise-tab'>
-      <p className='enterprise-tab__text'>{t('offer.enterprise.msg')}</p>
+    <div className='flex h-[28.75rem] w-[22rem] flex-col items-center justify-center gap-8'>
+      <p className='text-center text-base text-muted-foreground'>
+        {t('offer.enterprise.msg')}
+      </p>
       <Button
         variant='outline'
-        className='w-full'
+        className='w-full uppercase'
         onClick={() => navigate('/signup')}
       >
         {t('offer.enterprise.cta')}

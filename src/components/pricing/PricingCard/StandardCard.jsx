@@ -62,7 +62,10 @@ const StandardPricingCard = ({
         ))}
       </div>
 
-      <Button className='mt-auto w-full' onClick={() => navigate(redirectPath)}>
+      <Button
+        className='mt-auto w-full uppercase'
+        onClick={() => navigate(redirectPath)}
+      >
         {t('offer.cta')}
       </Button>
     </div>

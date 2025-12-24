@@ -32,7 +32,7 @@ const CustomPricingCard = ({
       </div>
 
       <Button
-        className='mt-auto w-full'
+        className='mt-auto w-full uppercase'
         variant='outline'
         onClick={() => showModal()}
       >
