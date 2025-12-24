@@ -9,7 +9,6 @@ export {
   ChevronUpIcon
 } from './Chevron'
 export { default as CloseIcon } from './Close'
-export { default as CreditCardIcon } from './CreditCard'
 export { default as DashboardIcon } from './Dashboard'
 export { default as EnterpriseIcon } from './Enterprise'
 export { default as ExternalIcon } from './External'

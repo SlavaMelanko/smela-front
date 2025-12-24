@@ -2,7 +2,6 @@ import './styles.scss'
 
 import {
   CalendarXIcon,
-  CreditCardIcon,
   MailIcon,
   RefreshIcon,
   SlackIcon,
@@ -19,10 +18,6 @@ const FEATURE = {
   emailSupport: {
     icon: <MailIcon color='blue' />,
     text: 'offer.features.emailSupport'
-  },
-  oneTimePurchase: {
-    icon: <CreditCardIcon color='yellow' />,
-    text: 'offer.features.oneTimePurchase'
   },
   cancelAnytime: {
     icon: <CalendarXIcon color='orange' />,
@@ -43,10 +38,6 @@ const FEATURE = {
 }
 
 const getFeatures = value => {
-  if (value <= 1) {
-    return [FEATURE.emailSupport, FEATURE.oneTimePurchase]
-  }
-
   if (value < 100) {
     return [FEATURE.emailSupport, FEATURE.cancelAnytime, FEATURE.rollover]
   }

@@ -142,12 +142,11 @@
     },
     "note": "Not sure yet? You can cancel or change your plan anytime.",
     "plans": {
-      "basic": "Basic",
       "custom": "Custom",
       "enterprise": "Enterprise",
-      "entry": "Entry",
-      "starter": "Starter",
-      "trial": "Trial"
+      "free": "Free",
+      "max": "Max",
+      "pro": "Pro"
     },
     "subtitle": "Whether standard, custom, or enterprise — you decide.",
     "summary": {

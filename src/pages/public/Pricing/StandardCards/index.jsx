@@ -1,11 +1,8 @@
-import './styles.scss'
-
 import { useNavigate } from 'react-router-dom'
 
 import { PricingSliderModal } from '@/components/dialogs'
 import {
   CalendarXIcon,
-  CreditCardIcon,
   MailIcon,
   RefreshIcon,
   SlackIcon,
@@ -22,35 +19,31 @@ const StandardCards = () => {
 
   const plans = [
     {
-      id: 'trial',
-      title: t('plans.trial'),
+      id: 'free',
+      title: t('plans.free'),
       bandwidth: {
         value: 1,
         unit: 'GB'
       },
       pricePerUnit: {
-        original: 7.99,
-        final: 7.99,
+        original: 0.0,
+        final: 0.0,
         unit: 'GB'
       },
       totalPrice: {
-        original: 7.99
+        original: 0.0
       },
       features: [
         {
           icon: <MailIcon color='blue' />,
           text: t('features.emailSupport')
-        },
-        {
-          icon: <CreditCardIcon color='yellow' />,
-          text: t('features.oneTimePurchase')
         }
       ],
       redirectPath: '/signup'
     },
     {
-      id: 'entry',
-      title: t('plans.entry'),
+      id: 'pro',
+      title: t('plans.pro'),
       bandwidth: {
         value: 10,
         unit: 'GB'
@@ -82,41 +75,8 @@ const StandardCards = () => {
       hasDiscount: true
     },
     {
-      id: 'starter',
-      title: t('plans.starter'),
-      bandwidth: {
-        value: 30,
-        unit: 'GB'
-      },
-      pricePerUnit: {
-        original: 7.0,
-        final: 3.5,
-        unit: 'GB'
-      },
-      totalPrice: {
-        original: 210.0,
-        final: 105.0
-      },
-      features: [
-        {
-          icon: <SlackIcon color='blue' />,
-          text: t('features.slackSupport')
-        },
-        {
-          icon: <CalendarXIcon color='orange' />,
-          text: t('features.cancelAnytime')
-        },
-        {
-          icon: <RefreshIcon color='pink' />,
-          text: t('features.rollover')
-        }
-      ],
-      redirectPath: '/signup',
-      hasDiscount: true
-    },
-    {
-      id: 'basic',
-      title: t('plans.basic'),
+      id: 'max',
+      title: t('plans.max'),
       bandwidth: {
         value: 100,
         unit: 'GB'
@@ -179,7 +139,7 @@ const StandardCards = () => {
   ]
 
   return (
-    <div className='standard-plans__cards'>
+    <div className='grid grid-cols-1 justify-items-center gap-6 md:grid-cols-2 lg:flex lg:justify-center lg:gap-6'>
       {plans.map(plan =>
         plan.customPricing ? (
           <CustomPricingCard key={plan.id} {...plan} />
