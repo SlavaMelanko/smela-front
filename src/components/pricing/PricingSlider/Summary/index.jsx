@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 import useLocale from '@/hooks/useLocale'
 
-import { Bandwidth, PricePerUnit, TotalPrice } from '../../containers'
+import { Bandwidth, PricePerUnit, TotalPrice } from '../../components'
 
 const getPricePerGB = bandwidth => {
   const price = 4 - ((bandwidth - 1) / 998) * 2
