@@ -77,7 +77,7 @@ function DialogHeader({
         <button
           type='button'
           onClick={onClose}
-          className='text-muted-foreground hover:text-foreground focus-visible:ring-ring cursor-pointer rounded-sm p-1 transition-colors focus-visible:ring-1 focus-visible:outline-none'
+          className='text-muted-foreground hover:text-foreground focus-visible:ring-ring cursor-pointer rounded-full p-1 transition-colors focus-visible:ring-1 focus-visible:outline-none'
           aria-label='Close dialog'
         >
           <X className='size-4' />
