@@ -2,8 +2,8 @@ import { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import Copyright from '@/components/Copyright'
-import { LanguageDropdown } from '@/components/dropdowns'
 import { Logo } from '@/components/icons'
+import LanguageDropdown from '@/components/LanguageDropdown'
 import Spinner from '@/components/Spinner'
 import ThemeToggle from '@/components/ThemeToggle'
 

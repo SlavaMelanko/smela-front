@@ -3,8 +3,8 @@ import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ProfileModal } from '@/components/dialogs'
-import { LanguageDropdown } from '@/components/dropdowns'
 import { Logo } from '@/components/icons'
+import LanguageDropdown from '@/components/LanguageDropdown'
 import MobileMenuToggle from '@/components/MobileMenuToggle'
 import {
   NotificationPanel,
