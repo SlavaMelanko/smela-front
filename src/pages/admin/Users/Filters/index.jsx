@@ -10,21 +10,6 @@ import { Role, UserStatus } from '@/lib/types'
 const Filters = ({ isShow, params, setParams }) => {
   const { t } = useLocale()
 
-  const overrideStrings = useMemo(
-    () => ({
-      allItemsAreSelected: t('multiselect.allItemsAreSelected'),
-      clearSearch: t('multiselect.clearSearch'),
-      clearSelected: t('multiselect.clearSelected'),
-      noOptions: t('multiselect.noOptions'),
-      search: t('multiselect.search'),
-      selectAll: t('multiselect.selectAll'),
-      selectAllFiltered: t('multiselect.selectAllFiltered'),
-      selectSomeItems: t('multiselect.selectSomeItems'),
-      create: t('multiselect.create')
-    }),
-    [t]
-  )
-
   const roleOptions = useMemo(
     () =>
       Object.values(Role).map(role => ({
@@ -72,8 +57,7 @@ const Filters = ({ isShow, params, setParams }) => {
             options={roleOptions}
             value={selectedRoles}
             onChange={handleRoleChange}
-            labelledBy={t('role.name')}
-            overrideStrings={overrideStrings}
+            placeholder={t('role.name')}
           />
         </div>
 
@@ -83,8 +67,7 @@ const Filters = ({ isShow, params, setParams }) => {
             options={statusOptions}
             value={selectedStatuses}
             onChange={handleStatusChange}
-            labelledBy={t('status.name')}
-            overrideStrings={overrideStrings}
+            placeholder={t('status.name')}
           />
         </div>
       </div>
