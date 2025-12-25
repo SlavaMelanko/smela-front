@@ -18,28 +18,18 @@
   }
 
   &__content {
-    @include flex-column;
-
+    display: flex;
+    flex-direction: column;
     gap: $spacing-lg;
     padding: $spacing-md;
 
     @media (min-width: $breakpoint-md) {
       flex-direction: row;
+
+      > * {
+        flex: 1;
+        min-width: 12rem;
+      }
     }
-  }
-
-  &__group {
-    @include flex-column;
-
-    flex: 1;
-    gap: $spacing-sm;
-    min-width: 12rem;
-  }
-
-  &__title {
-    margin: 0;
-    font-size: $font-size-sm;
-    font-weight: $font-weight-semibold;
-    color: var(--text-secondary);
   }
 }

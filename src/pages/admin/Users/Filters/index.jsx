@@ -51,25 +51,19 @@ const Filters = ({ isShow, params, setParams }) => {
       })}
     >
       <div className='filters-container__content'>
-        <div className='filters-container__group'>
-          <h4 className='filters-container__title'>{t('role.name')}</h4>
-          <Multiselect
-            options={roleOptions}
-            value={selectedRoles}
-            onChange={handleRoleChange}
-            placeholder={t('role.name')}
-          />
-        </div>
+        <Multiselect
+          options={roleOptions}
+          value={selectedRoles}
+          onChange={handleRoleChange}
+          placeholder={t('role.name')}
+        />
 
-        <div className='filters-container__group'>
-          <h4 className='filters-container__title'>{t('status.name')}</h4>
-          <Multiselect
-            options={statusOptions}
-            value={selectedStatuses}
-            onChange={handleStatusChange}
-            placeholder={t('status.name')}
-          />
-        </div>
+        <Multiselect
+          options={statusOptions}
+          value={selectedStatuses}
+          onChange={handleStatusChange}
+          placeholder={t('status.name')}
+        />
       </div>
     </div>
   )
