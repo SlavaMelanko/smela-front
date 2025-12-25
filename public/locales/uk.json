@@ -186,6 +186,7 @@
   "profile": "Профіль",
   "role": {
     "name": "Роль",
+    "placeholder": "Виберіть ролі",
     "values": {
       "admin": "Адмін",
       "enterprise": "Корпоративний",
@@ -209,6 +210,7 @@
   "signUp": "Зареєструватися",
   "status": {
     "name": "Статус",
+    "placeholder": "Виберіть статуси",
     "values": {
       "active": "Активний",
       "archived": "Заархівований",

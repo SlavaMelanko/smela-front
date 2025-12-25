@@ -55,14 +55,14 @@ const Filters = ({ isShow, params, setParams }) => {
           options={roleOptions}
           value={selectedRoles}
           onChange={handleRoleChange}
-          placeholder={t('role.name')}
+          placeholder={t('role.placeholder')}
         />
 
         <Multiselect
           options={statusOptions}
           value={selectedStatuses}
           onChange={handleStatusChange}
-          placeholder={t('status.name')}
+          placeholder={t('status.placeholder')}
         />
       </div>
     </div>

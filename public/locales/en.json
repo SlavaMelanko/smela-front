@@ -186,6 +186,7 @@
   "profile": "Profile",
   "role": {
     "name": "Role",
+    "placeholder": "Select roles",
     "values": {
       "admin": "Admin",
       "enterprise": "Enterprise",
@@ -209,6 +210,7 @@
   "signUp": "Sign up",
   "status": {
     "name": "Status",
+    "placeholder": "Select statuses",
     "values": {
       "active": "Active",
       "archived": "Archived",
