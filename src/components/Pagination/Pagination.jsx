@@ -1,6 +1,5 @@
-import './styles.scss'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-import { ChevronLeftIcon, ChevronRightIcon } from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
@@ -38,8 +37,8 @@ const Pagination = ({
   }
 
   return (
-    <div className='pagination-container'>
-      <div className='pagination-container__rows-per-page'>
+    <div className='flex h-11 items-center justify-end gap-6 text-muted-foreground'>
+      <div className='flex items-center gap-2'>
         <span>{t('pagination.rowsPerPage')}</span>
         <RowsPerPageDropdown
           value={limit}
@@ -50,22 +49,24 @@ const Pagination = ({
       <p>
         {start} - {end} {t('pagination.of')} {total}
       </p>
-      <div className='pagination-container__page-buttons'>
+      <div className='flex items-center gap-2'>
         <Button
           variant='ghost'
-          size='icon-sm'
+          size='icon'
+          className='size-11'
           onClick={handlePrevPage}
           disabled={!canGoBack}
         >
-          <ChevronLeftIcon size='xs' color='secondary' />
+          <ChevronLeft className='size-4' />
         </Button>
         <Button
           variant='ghost'
-          size='icon-sm'
+          size='icon'
+          className='size-11'
           onClick={handleNextPage}
           disabled={!canGoForward}
         >
-          <ChevronRightIcon size='xs' color='secondary' />
+          <ChevronRight className='size-4' />
         </Button>
       </div>
     </div>

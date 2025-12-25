@@ -14,7 +14,7 @@ const RowsPerPageDropdown = ({ className, value, options, onChange }) => (
   <DropdownMenu>
     <DropdownMenuTrigger
       className={cn(className)}
-      render={<Button variant='ghost' size='sm' />}
+      render={<Button variant='ghost' className='h-11 px-3' />}
     >
       {value}
       <ChevronDown className='size-4 transition-transform duration-300 group-aria-expanded/button:rotate-180' />
