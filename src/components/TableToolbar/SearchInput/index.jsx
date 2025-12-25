@@ -1,4 +1,5 @@
-import { SearchIcon } from '@/components/icons'
+import { Search } from 'lucide-react'
+
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 
@@ -17,7 +18,7 @@ const SearchInput = ({
       aria-label='Search users'
       value={value}
       onChange={e => onChange?.(e.target.value)}
-      leftIcon={<SearchIcon size='xs' color='secondary' />}
+      leftIcon={<Search className='size-4' />}
     />
   </div>
 )

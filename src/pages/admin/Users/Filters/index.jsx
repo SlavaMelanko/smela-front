@@ -1,11 +1,9 @@
-import './styles.scss'
-
-import clsx from 'clsx'
 import { useMemo } from 'react'
 
 import { Multiselect } from '@/components/inputs'
 import useLocale from '@/hooks/useLocale'
 import { Role, UserStatus } from '@/lib/types'
+import { cn } from '@/lib/utils'
 
 const Filters = ({ isShow, params, setParams }) => {
   const { t } = useLocale()
@@ -46,24 +44,27 @@ const Filters = ({ isShow, params, setParams }) => {
 
   return (
     <div
-      className={clsx('filters-container', {
-        'filters-container--open': isShow
-      })}
+      className={cn(
+        'grid grid-rows-[0fr] rounded-md border border-transparent bg-background transition-all duration-300',
+        isShow && 'grid-rows-[1fr] border-border'
+      )}
     >
-      <div className='filters-container__content'>
-        <Multiselect
-          options={roleOptions}
-          value={selectedRoles}
-          onChange={handleRoleChange}
-          placeholder={t('role.placeholder')}
-        />
+      <div className='overflow-hidden'>
+        <div className='flex flex-col gap-6 p-4 md:flex-row md:[&>*]:min-w-48 md:[&>*]:flex-1'>
+          <Multiselect
+            options={roleOptions}
+            value={selectedRoles}
+            onChange={handleRoleChange}
+            placeholder={t('role.placeholder')}
+          />
 
-        <Multiselect
-          options={statusOptions}
-          value={selectedStatuses}
-          onChange={handleStatusChange}
-          placeholder={t('status.placeholder')}
-        />
+          <Multiselect
+            options={statusOptions}
+            value={selectedStatuses}
+            onChange={handleStatusChange}
+            placeholder={t('status.placeholder')}
+          />
+        </div>
       </div>
     </div>
   )
