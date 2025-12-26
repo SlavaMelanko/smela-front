@@ -1,4 +1,10 @@
-import { CalendarX, Mail, RefreshCw, Slack, UserPlus } from 'lucide-react'
+import {
+  CalendarX,
+  Mail,
+  MessageCircle,
+  RefreshCw,
+  UserPlus
+} from 'lucide-react'
 
 import {
   Tooltip,
@@ -21,7 +27,7 @@ const FEATURE = {
     text: 'offer.features.rollover'
   },
   slackSupport: {
-    icon: <Slack className='size-6 text-blue-500' />,
+    icon: <MessageCircle className='size-6 text-blue-500' />,
     text: 'offer.features.slackSupport'
   },
   dedicatedManager: {
