@@ -25,6 +25,8 @@ import {
 } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
 
+// https://wds-shadcn-registry.netlify.app/components/multi-select/
+
 const MultiSelectContext = createContext(null)
 
 function debounce(func, wait) {
