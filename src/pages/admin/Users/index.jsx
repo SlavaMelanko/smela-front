@@ -1,5 +1,3 @@
-import './styles.scss'
-
 import {
   getCoreRowModel,
   getFilteredRowModel,
@@ -95,7 +93,7 @@ const UsersTable = () => {
 
   if (isPending) {
     return (
-      <div className='table-container table-container--loading'>
+      <div className='flex flex-col gap-2'>
         <Spinner text={t('loading')} />
       </div>
     )
@@ -103,14 +101,14 @@ const UsersTable = () => {
 
   if (isError) {
     return (
-      <div className='table-container table-container--error'>
+      <div className='flex flex-col gap-2'>
         <p>{t('error.loading')}</p>
       </div>
     )
   }
 
   return (
-    <div className='table-container'>
+    <div className='flex flex-col gap-2'>
       <TableToolbar
         columns={availableColumns}
         showFilters={showFilters}
@@ -120,7 +118,7 @@ const UsersTable = () => {
       />
       <Filters isShow={showFilters} params={params} setParams={setParams} />
       <Table config={config} onRowClick={handleRowClick} />
-      <div className='table-container__pagination'>
+      <div className='mt-2'>
         <Pagination
           pagination={pagination}
           onPageChange={handlePageChange}

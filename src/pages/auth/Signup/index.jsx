@@ -1,5 +1,3 @@
-import './styles.scss'
-
 import { useNavigate } from 'react-router-dom'
 
 import { GoogleIcon } from '@/components/icons'
@@ -65,30 +63,38 @@ const Signup = () => {
   }
 
   return (
-    <div className='signup-page'>
-      <SignupForm isLoading={isEmailPending} onSubmit={handleSignupWithEmail} />
+    <>
+      <div className='flex flex-col gap-8'>
+        <div className='flex flex-col gap-2'>
+          <SignupForm
+            isLoading={isEmailPending}
+            onSubmit={handleSignupWithEmail}
+          />
 
-      <div className='signup-page__separator'>
-        <TextSeparator text={t('or')} />
-      </div>
+          <TextSeparator text={t('or')} />
 
-      <Button
-        variant='outline'
-        className='w-full'
-        onClick={handleSignupWithGoogle}
-        disabled={isGooglePending}
-      >
-        <GoogleIcon />
-        {t('continueWithGoogle')}
-      </Button>
+          <div className='flex flex-col gap-4'>
+            <Button
+              variant='outline'
+              className='w-full'
+              onClick={handleSignupWithGoogle}
+              disabled={isGooglePending}
+            >
+              <GoogleIcon />
+              {t('continueWithGoogle')}
+            </Button>
+          </div>
+        </div>
 
-      <div className='signup-page__prompts'>
-        <TermsAndPrivacyPrompt />
+        <div className='-mt-5'>
+          <TermsAndPrivacyPrompt />
+        </div>
+
         <LoginPrompt />
       </div>
 
       {Captcha}
-    </div>
+    </>
   )
 }
 

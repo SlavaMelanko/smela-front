@@ -14,7 +14,7 @@ const AuthLayout = () => (
       <LanguageDropdown />
     </div>
 
-    <div className='flex w-full max-w-md flex-col gap-8'>
+    <div className='flex w-full max-w-md flex-col gap-12'>
       <header className='flex items-center justify-center text-foreground'>
         <Logo width={280} />
       </header>
