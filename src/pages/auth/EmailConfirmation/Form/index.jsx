@@ -5,15 +5,17 @@ import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
 import { getDefaultValues } from './fields'
+import resolver from './resolver'
 
-const EmailConfirmationForm = ({ isLoading, userEmail, onSubmit }) => {
+const EmailConfirmationForm = ({ isLoading, email, onSubmit }) => {
   const { t } = useLocale()
 
   const {
     handleSubmit,
     formState: { isSubmitting }
   } = useForm({
-    defaultValues: getDefaultValues(userEmail)
+    resolver,
+    defaultValues: getDefaultValues(email)
   })
 
   return (

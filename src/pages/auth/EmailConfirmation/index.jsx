@@ -19,7 +19,7 @@ const EmailConfirmation = () => {
   const { user } = useCurrentUser()
   const { getToken, Captcha } = useCaptcha()
 
-  const userEmail = location.state?.email || user?.email
+  const email = location.state?.email || user?.email
 
   const handleSubmit = async data => {
     const token = await getToken()
@@ -55,14 +55,14 @@ const EmailConfirmation = () => {
 
           <p className='text-base text-muted-foreground'>
             {t('email.confirmation.description', {
-              email: userEmail || t('email.confirmation.yourEmail')
+              email: email || t('email.confirmation.yourEmail')
             })}
           </p>
         </div>
 
         <EmailConfirmationForm
           isLoading={isPending}
-          userEmail={userEmail}
+          email={email}
           onSubmit={handleSubmit}
         />
       </div>

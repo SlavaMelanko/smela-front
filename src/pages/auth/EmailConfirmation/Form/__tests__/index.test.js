@@ -12,7 +12,7 @@ const renderForm = (onSubmit = jest.fn(), isLoading = false) => {
     <EmailConfirmationForm
       onSubmit={onSubmit}
       isLoading={isLoading}
-      userEmail={auth.email.ok}
+      email={auth.email.ok}
     />
   )
 
@@ -53,7 +53,7 @@ describe('EmailConfirmation Form', () => {
       <EmailConfirmationForm
         onSubmit={jest.fn()}
         isLoading={true}
-        userEmail={auth.email.ok}
+        email={auth.email.ok}
       />
     )
 

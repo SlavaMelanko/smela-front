@@ -1,9 +1,9 @@
 const FieldName = {
-  USER_EMAIL: 'email'
+  EMAIL: 'email'
 }
 
-const getDefaultValues = userEmail => ({
-  [FieldName.USER_EMAIL]: userEmail || ''
+const getDefaultValues = email => ({
+  [FieldName.EMAIL]: email || ''
 })
 
 export { FieldName, getDefaultValues }
