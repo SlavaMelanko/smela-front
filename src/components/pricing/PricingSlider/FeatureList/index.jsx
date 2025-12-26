@@ -1,5 +1,3 @@
-import './styles.scss'
-
 import { CalendarX, Mail, RefreshCw, Slack, UserPlus } from 'lucide-react'
 
 import {
@@ -55,13 +53,13 @@ const FeatureList = ({ value }) => {
   const features = getFeatures(value)
 
   return (
-    <div className='features'>
-      <div className='features__title'>
+    <div className='flex w-full flex-wrap items-center justify-between gap-4'>
+      <div className='mr-auto whitespace-nowrap text-muted-foreground'>
         {t('offer.summary.includedFeatures')}
       </div>
-      <ul className='features__items'>
+      <ul className='m-0 flex list-none flex-wrap justify-end gap-4 p-0'>
         {features.map(({ icon, text }) => (
-          <li key={text} className='features__item'>
+          <li key={text} className='flex items-center'>
             <Tooltip>
               <TooltipTrigger>{icon}</TooltipTrigger>
               <TooltipContent>{t(text)}</TooltipContent>

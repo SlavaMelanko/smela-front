@@ -1,5 +1,3 @@
-import './styles.scss'
-
 import { useState } from 'react'
 
 import { Slider } from '@/components/inputs'
@@ -15,7 +13,7 @@ const PricingSlider = ({ discount, onComplete }) => {
   const [bandwidth, setBandwidth] = useState(1)
 
   return (
-    <div className='pricing-slider'>
+    <div className='flex flex-col items-center gap-4'>
       {discount && (
         <Badge variant='discount'>
           {t('offer.discount.label', { percent: discount })}
@@ -31,7 +29,7 @@ const PricingSlider = ({ discount, onComplete }) => {
         unit={t('unit.traffic.gb')}
       />
 
-      <div className='pricing-slider__summary'>
+      <div className='flex w-full flex-col items-center gap-2'>
         <FeatureList value={bandwidth} />
         <PlanSummary value={bandwidth} discount={discount} />
       </div>

@@ -1,7 +1,3 @@
-import './styles.scss'
-
-import clsx from 'clsx'
-
 import useLocale from '@/hooks/useLocale'
 
 import { Bandwidth, PricePerUnit, TotalPrice } from '../../components'
@@ -19,34 +15,9 @@ const getPricePerGbWithDiscount = (bandwidth, discount) => {
   return parseFloat(priceWithDiscount.toFixed(2))
 }
 
-const SummaryItem = ({
-  label,
-  value,
-  valueWithDiscount,
-  isTotal = false,
-  discount
-}) => (
-  <div
-    className={clsx(`slider__detail-row`, {
-      'slider__detail-row--total': isTotal,
-      'slider__detail-row--discounted': discount
-    })}
-  >
-    {discount ? (
-      <>
-        {label}{' '}
-        <div className='slider__detail-row__prices'>
-          <span className='slider__detail-row__old-price'>{value}</span>{' '}
-          <span className='slider__detail-row__new-price'>
-            {valueWithDiscount}
-          </span>
-        </div>
-      </>
-    ) : (
-      <>
-        {label} <span>{value}</span>
-      </>
-    )}
+const SummaryItem = ({ label, value }) => (
+  <div className='flex items-center justify-between text-muted-foreground'>
+    {label} <span>{value}</span>
   </div>
 )
 
@@ -59,7 +30,7 @@ const PlanSummary = ({ value, discount }) => {
   const totalPriceWithDiscount = (value * pricePerGbWithDiscount).toFixed(2)
 
   return (
-    <div className='slider__details'>
+    <div className='flex w-full flex-col gap-2'>
       <SummaryItem
         label={t('offer.summary.selected')}
         value={
