@@ -35,6 +35,7 @@ const NotificationCard = ({
           <Button
             variant='ghost'
             size='icon'
+            className='rounded-full'
             aria-label='Close'
             onClick={onClose}
           >

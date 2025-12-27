@@ -18,7 +18,7 @@ const NotificationPanel = ({ open, onOpenChange }) => {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className='flex flex-col gap-0 sm:min-w-[420px]'>
-        <SheetHeader className='h-11 px-4 flex-row items-center justify-between bg-sidebar border-b border-sidebar-border'>
+        <SheetHeader className='h-11 py-0 px-4 flex-row items-center justify-between bg-sidebar border-b border-sidebar-border'>
           <SheetTitle className='text-base'>{t('notifications')}</SheetTitle>
         </SheetHeader>
 
