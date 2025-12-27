@@ -1,5 +1,5 @@
 import { LogOut, MessageCircleQuestion, User } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ProfileModal } from '@/components/dialogs'
@@ -23,13 +23,8 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
   const { inboxNotifications } = useNotifications()
   const { openModal } = useModal()
   const navigate = useNavigate()
-  const notificationToggleRef = useRef(null)
 
   const [isPanelOpen, setIsPanelOpen] = useState(false)
-
-  const togglePanel = () => {
-    setIsPanelOpen(prev => !prev)
-  }
 
   const handleLogOut = () => {
     logOut(undefined, {
@@ -83,8 +78,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
         <nav className='flex items-center gap-2'>
           <NotificationToggle
             unreadCount={inboxNotifications?.length || 0}
-            onClick={togglePanel}
-            ref={notificationToggleRef}
+            onClick={() => setIsPanelOpen(true)}
           />
 
           <div className='hidden md:flex items-center gap-2'>
@@ -103,11 +97,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
           </div>
         </nav>
       </header>
-      <NotificationPanel
-        isOpen={isPanelOpen}
-        onToggle={togglePanel}
-        toggleButtonRef={notificationToggleRef}
-      />
+      <NotificationPanel open={isPanelOpen} onOpenChange={setIsPanelOpen} />
     </>
   )
 }

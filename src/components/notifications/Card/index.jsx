@@ -29,7 +29,7 @@ const NotificationCard = ({
       <CardHeader>
         <div className='flex items-center gap-3'>
           {iconMap[type]}
-          <CardTitle>{title}</CardTitle>
+          <CardTitle className='text-base'>{title}</CardTitle>
         </div>
         <CardAction>
           <Button
@@ -42,7 +42,7 @@ const NotificationCard = ({
           </Button>
         </CardAction>
       </CardHeader>
-      <CardDescription>{message}</CardDescription>
+      <CardDescription className='text-sm'>{message}</CardDescription>
       <CardFooter>
         <Button variant='outline' className='w-full' onClick={onAction}>
           {buttonText}
