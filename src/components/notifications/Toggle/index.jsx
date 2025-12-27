@@ -1,15 +1,14 @@
 import './styles.scss'
 
 import { BellIcon } from '@/components/icons'
-
-import Badge from '../Badge'
+import { Badge } from '@/components/ui/badge'
 
 const NotificationToggle = ({ unreadCount = 0, onClick, ref }) => (
   <button className='notification-toggle' onClick={onClick} ref={ref}>
     <BellIcon size='md' />
     {unreadCount > 0 && (
-      <Badge className='notification-toggle__badge'>
-        {unreadCount > 99 ? '99+' : unreadCount}
+      <Badge variant='notification' className='notification-toggle__badge'>
+        {unreadCount > 9 ? '9+' : unreadCount}
       </Badge>
     )}
   </button>

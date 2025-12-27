@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ChevronDownIcon, ExternalIcon } from '@/components/icons'
-import { NotificationBadge } from '@/components/notifications'
+import { Badge } from '@/components/ui/badge'
 import useLocale from '@/hooks/useLocale'
 
 import ActiveIndicator from '../ActiveIndicator'
@@ -61,7 +61,11 @@ const SidebarItem = ({ item, activeItem, setActiveItem }) => {
           </div>
 
           <div className='sidebar-item__content-right'>
-            {item.badge && <NotificationBadge>{item.badge}</NotificationBadge>}
+            {item.badge && (
+              <Badge variant='notification'>
+                {item.badge > 9 ? '9+' : item.badge}
+              </Badge>
+            )}
             {hasSubItems && (
               <ChevronDownIcon
                 className={clsx('sidebar-item__additional-icon', {

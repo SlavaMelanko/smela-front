@@ -2,7 +2,7 @@ import './styles.scss'
 
 import clsx from 'clsx'
 
-import { NotificationBadge } from '@/components/notifications'
+import { Badge } from '@/components/ui/badge'
 import useLocale from '@/hooks/useLocale'
 
 import ActiveIndicator from '../ActiveIndicator'
@@ -29,7 +29,11 @@ const SidebarSubItem = ({ item, isActive, onClick }) => {
         </div>
 
         <div className='sidebar-sub-item__content-right'>
-          {item.badge && <NotificationBadge>{item.badge}</NotificationBadge>}
+          {item.badge && (
+            <Badge variant='notification'>
+              {item.badge > 9 ? '9+' : item.badge}
+            </Badge>
+          )}
         </div>
       </button>
     </li>
