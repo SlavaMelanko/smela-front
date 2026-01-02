@@ -1,4 +1,5 @@
-import { BellIcon } from '@/components/icons'
+import { Bell } from 'lucide-react'
+
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
@@ -10,7 +11,7 @@ const NotificationToggle = ({ unreadCount = 0, onClick, ref }) => (
     onClick={onClick}
     ref={ref}
   >
-    <BellIcon size='md' />
+    <Bell className='size-6' />
     {unreadCount > 0 && (
       <Badge variant='notification' className='absolute top-0.5 right-0'>
         {unreadCount > 9 ? '9+' : unreadCount}
