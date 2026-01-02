@@ -70,11 +70,9 @@ const Header = () => {
 
   return (
     <>
-      <header className='flex items-center justify-between gap-4 w-full bg-sidebar'>
-        <div className='flex items-center gap-2'>
-          <SidebarTrigger className='md:hidden' />
-          <Logo width={130} />
-        </div>
+      <header className='flex items-center justify-between gap-4 w-full h-11 bg-sidebar md:justify-end'>
+        <SidebarTrigger className='md:hidden' />
+        <Logo width={130} className='md:hidden' />
 
         <nav className='flex items-center gap-2'>
           <NotificationToggle

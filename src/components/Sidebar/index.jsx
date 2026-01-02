@@ -2,6 +2,7 @@ import { ChevronDown, ExternalLink } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import Copyright from '@/components/Copyright'
+import { Logo } from '@/components/icons'
 import {
   Collapsible,
   CollapsibleContent,
@@ -13,6 +14,7 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuBadge,
   SidebarMenuButton,
@@ -42,6 +44,9 @@ const Sidebar = ({ items }) => {
 
   return (
     <ShadcnSidebar>
+      <SidebarHeader className='h-11 items-center justify-center'>
+        <Logo width={130} />
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
