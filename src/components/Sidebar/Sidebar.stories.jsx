@@ -13,29 +13,29 @@ import AppSidebar, { adminMenuItems, userMenuItems } from './index'
 // Demo items for Storybook (plain strings, no i18n keys)
 const demoMenuItems = [
   {
-    name: 'Home',
-    path: '/home',
+    title: 'Home',
+    url: '/home',
     icon: HomeIcon,
     badge: '1'
   },
   {
-    name: 'Proxies',
+    title: 'Proxies',
     icon: ProxyIcon,
-    subItems: [
-      { name: 'Residential', path: '/proxies/residential', badge: '2' },
-      { name: 'ISP', path: '/proxies/isp' },
-      { name: 'SERP API', path: '/proxies/serp-api' }
+    items: [
+      { title: 'Residential', url: '/proxies/residential', badge: '2' },
+      { title: 'ISP', url: '/proxies/isp' },
+      { title: 'SERP API', url: '/proxies/serp-api' }
     ]
   },
   {
-    name: 'Documentation',
+    title: 'Documentation',
     icon: BookOpenIcon,
     external: true,
-    href: 'https://docs.example.com'
+    url: 'https://docs.example.com'
   },
   {
-    name: 'Settings',
-    path: '/settings',
+    title: 'Settings',
+    url: '/settings',
     icon: SettingsIcon
   }
 ]

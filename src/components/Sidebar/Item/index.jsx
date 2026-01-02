@@ -16,8 +16,8 @@ const SidebarItem = ({ item, activeItem, setActiveItem }) => {
   const { t } = useLocale()
   const [expanded, setExpanded] = useState(false)
 
-  const hasSubItems = item.subItems?.length > 0
-  const isActive = activeItem === item.name
+  const hasSubItems = item.items?.length > 0
+  const isActive = activeItem === item.title
 
   const toggleExpand = () => setExpanded(prev => !prev)
 
@@ -28,15 +28,15 @@ const SidebarItem = ({ item, activeItem, setActiveItem }) => {
       return
     }
 
-    if (item.external && item.href) {
-      window.open(item.href, '_blank', 'noopener,noreferrer')
+    if (item.external && item.url) {
+      window.open(item.url, '_blank', 'noopener,noreferrer')
 
       return
     }
 
-    if (item.path) {
-      setActiveItem(item.name)
-      navigate(item.path)
+    if (item.url) {
+      setActiveItem(item.title)
+      navigate(item.url)
     }
   }
 
@@ -57,7 +57,7 @@ const SidebarItem = ({ item, activeItem, setActiveItem }) => {
         >
           <div className='sidebar-item__content-left'>
             {item.icon && <item.icon className='sidebar-item__main-icon' />}
-            <span className='sidebar-item__label'>{t(item.name)}</span>
+            <span className='sidebar-item__label'>{t(item.title)}</span>
           </div>
 
           <div className='sidebar-item__content-right'>
@@ -87,16 +87,16 @@ const SidebarItem = ({ item, activeItem, setActiveItem }) => {
           })}
         >
           <ul className='sidebar-item__sublist'>
-            {item.subItems.map(subItem => (
+            {item.items.map(subItem => (
               <SidebarSubItem
-                key={subItem.name}
+                key={subItem.title}
                 item={subItem}
-                isActive={activeItem === subItem.name}
+                isActive={activeItem === subItem.title}
                 onClick={() => {
-                  setActiveItem(subItem.name)
+                  setActiveItem(subItem.title)
 
-                  if (subItem.path) {
-                    navigate(subItem.path)
+                  if (subItem.url) {
+                    navigate(subItem.url)
                   }
                 }}
               />

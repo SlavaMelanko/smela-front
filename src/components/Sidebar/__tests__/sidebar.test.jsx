@@ -7,18 +7,18 @@ import { renderWithProviders } from '@/tests'
 import AppSidebar from '..'
 
 const testMenuItems = [
-  { name: 'Home', path: '/home', icon: HomeIcon },
+  { title: 'Home', url: '/home', icon: HomeIcon },
   {
-    name: 'Proxies',
+    title: 'Proxies',
     icon: ProxyIcon,
-    subItems: [
-      { name: 'Residential', path: '/proxies/residential' },
-      { name: 'ISP', path: '/proxies/isp' },
-      { name: 'SERP API', path: '/proxies/serp-api' }
+    items: [
+      { title: 'Residential', url: '/proxies/residential' },
+      { title: 'ISP', url: '/proxies/isp' },
+      { title: 'SERP API', url: '/proxies/serp-api' }
     ]
   },
-  { name: 'Documentation', icon: SettingsIcon, external: true },
-  { name: 'Settings', path: '/settings', icon: SettingsIcon }
+  { title: 'Documentation', icon: SettingsIcon, external: true },
+  { title: 'Settings', url: '/settings', icon: SettingsIcon }
 ]
 
 describe('AppSidebar', () => {

@@ -10,32 +10,32 @@ describe('SidebarItem', () => {
   const mockSetActiveItem = jest.fn()
 
   const simpleItem = {
-    name: 'Home',
+    title: 'Home',
     icon: HomeIcon,
-    path: '/home'
+    url: '/home'
   }
 
   const itemWithBadge = {
-    name: 'Dashboard',
+    title: 'Dashboard',
     icon: HomeIcon,
     badge: '5',
-    path: '/dashboard'
+    url: '/dashboard'
   }
 
   const itemWithSubItems = {
-    name: 'Proxies',
+    title: 'Proxies',
     icon: ProxyIcon,
-    subItems: [
-      { name: 'Residential', badge: '1', path: '/proxies/residential' },
-      { name: 'ISP', path: '/proxies/isp' }
+    items: [
+      { title: 'Residential', badge: '1', url: '/proxies/residential' },
+      { title: 'ISP', url: '/proxies/isp' }
     ]
   }
 
   const externalItem = {
-    name: 'Documentation',
+    title: 'Documentation',
     icon: HomeIcon,
     external: true,
-    href: 'https://docs.example.com'
+    url: 'https://docs.example.com'
   }
 
   beforeEach(() => {
@@ -275,7 +275,7 @@ describe('SidebarItem', () => {
 
   describe('edge cases', () => {
     it('renders item without icon', () => {
-      const itemWithoutIcon = { name: 'NoIcon', path: '/no-icon' }
+      const itemWithoutIcon = { title: 'NoIcon', url: '/no-icon' }
 
       renderWithProviders(
         <SidebarItem
@@ -291,9 +291,9 @@ describe('SidebarItem', () => {
 
     it('renders item with empty subItems array', () => {
       const itemWithEmptySubItems = {
-        name: 'Empty',
+        title: 'Empty',
         icon: HomeIcon,
-        subItems: []
+        items: []
       }
 
       const { container } = renderWithProviders(

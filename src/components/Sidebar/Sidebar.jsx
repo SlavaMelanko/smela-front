@@ -10,20 +10,20 @@ import SidebarItem from './Item'
 
 const findActiveItem = (items, pathname) => {
   for (const item of items) {
-    if (item.path === pathname) {
-      return item.name
+    if (item.url === pathname) {
+      return item.title
     }
 
-    if (item.subItems) {
-      const subItem = item.subItems.find(sub => sub.path === pathname)
+    if (item.items) {
+      const subItem = item.items.find(sub => sub.url === pathname)
 
       if (subItem) {
-        return subItem.name
+        return subItem.title
       }
     }
   }
 
-  return items[0]?.name ?? ''
+  return items[0]?.title ?? ''
 }
 
 const AppSidebar = ({ isOpen, items }) => {
@@ -39,7 +39,7 @@ const AppSidebar = ({ isOpen, items }) => {
           <ul className='app-sidebar__list'>
             {items.map(item => (
               <SidebarItem
-                key={item.name}
+                key={item.title}
                 item={item}
                 activeItem={activeItem}
                 setActiveItem={setActiveItem}

@@ -10,46 +10,46 @@ import Role from '@/lib/types/user/role'
 
 export const userMenuItems = [
   {
-    name: 'sidebar.home',
-    path: '/home',
+    title: 'sidebar.home',
+    url: '/home',
     icon: HomeIcon
   },
   {
-    name: 'sidebar.proxies',
+    title: 'sidebar.proxies',
     icon: ProxyIcon,
-    subItems: [
-      { name: 'sidebar.residential', path: '/proxies/residential' },
-      { name: 'sidebar.isp', path: '/proxies/isp' },
-      { name: 'sidebar.serpApi', path: '/proxies/serp-api' }
+    items: [
+      { title: 'sidebar.residential', url: '/proxies/residential' },
+      { title: 'sidebar.isp', url: '/proxies/isp' },
+      { title: 'sidebar.serpApi', url: '/proxies/serp-api' }
     ]
   },
   {
-    name: 'sidebar.documentation',
+    title: 'sidebar.documentation',
     icon: BookOpenIcon,
     external: true,
-    href: 'https://docs.smela.com'
+    url: 'https://docs.smela.com'
   },
   {
-    name: 'sidebar.settings',
-    path: '/settings',
+    title: 'sidebar.settings',
+    url: '/settings',
     icon: SettingsIcon
   }
 ]
 
 export const adminMenuItems = [
   {
-    name: 'sidebar.dashboard',
-    path: '/admin/dashboard',
+    title: 'sidebar.dashboard',
+    url: '/admin/dashboard',
     icon: DashboardIcon
   },
   {
-    name: 'sidebar.users',
-    path: '/admin/users',
+    title: 'sidebar.users',
+    url: '/admin/users',
     icon: UsersIcon
   },
   {
-    name: 'sidebar.settings',
-    path: '/settings',
+    title: 'sidebar.settings',
+    url: '/settings',
     icon: SettingsIcon
   }
 ]

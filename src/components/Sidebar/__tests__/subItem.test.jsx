@@ -7,7 +7,7 @@ import SidebarSubItem from '../SubItem'
 
 describe('SidebarSubItem', () => {
   const mockItem = {
-    name: 'Residential'
+    title: 'Residential'
   }
 
   it('renders with label', () => {
