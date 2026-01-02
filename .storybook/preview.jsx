@@ -1,4 +1,4 @@
-import '../src/styles/main.scss'
+import '../src/index.css'
 
 import i18n from '../src/i18n'
 

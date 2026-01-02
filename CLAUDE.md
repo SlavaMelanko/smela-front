@@ -17,7 +17,7 @@ maintenance, and simple UX.
 - **React Router** - Declarative routing for React
 - **React Hook Form** - Performant forms with easy validation
 - **Yup** - Schema validation
-- **SCSS** - CSS preprocessor with BEM methodology
+- **Tailwind CSS v4** - Utility-first CSS framework with shadcn/ui components
 - **i18n** - Internationalization (English/Ukrainian)
 - **Jest** - Unit testing framework
 - **Playwright** - E2E testing framework
@@ -40,7 +40,7 @@ All pnpm scripts are defined in `package.json`. Key workflows:
 
 ### Code Quality
 
-- Linting: `lint`, `lint:fix`, `stylelint`, `stylelint:fix`
+- Linting: `lint`, `lint:fix`
 - Formatting: `format`
 - Pre-commit hooks automatically run ESLint and Prettier on staged files
 
@@ -55,8 +55,7 @@ All pnpm scripts are defined in `package.json`. Key workflows:
 
 Components are organized in `/src/components/` with each component having:
 
-- `index.jsx` - Component implementation
-- `styles.scss` - SCSS styles using BEM methodology
+- `index.jsx` - Component implementation with Tailwind CSS classes
 - Component stories for Storybook when applicable
 
 ### State Management
@@ -128,8 +127,8 @@ Translation files (`public/locales/*.json`) follow entity-based organization:
 
 1. **Path aliases**: Use `@/` for `src/` and `@components` for `src/components`
 2. **Component imports**: Always import from component folders, not files
-3. **SCSS organization**: Global styles in `/src/styles/`, component styles
-   co-located
+3. **Styling**: Tailwind CSS utilities with shadcn/ui components in
+   `/src/components/ui/`
 4. **i18n keys**: Keep translations "short, clear, and easy to understand"
 5. **ESLint compliance**: No console.log (use console.warn/error), prefer const
 6. **Control flow formatting**: Always use curly braces with `if` statements on

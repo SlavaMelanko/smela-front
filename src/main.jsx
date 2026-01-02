@@ -1,4 +1,3 @@
-//import './styles/main.scss'
 import './index.css'
 
 import { StrictMode } from 'react'
