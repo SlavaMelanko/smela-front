@@ -1,7 +1,7 @@
-import React, { createContext, useCallback, useMemo, useState } from 'react'
+import { createContext, useCallback, useMemo, useState } from 'react'
+import { toast } from 'sonner'
 
 import { Toaster } from '@/components/notifications'
-import toasts from '@/lib/toasts'
 
 const NotificationContext = createContext(undefined)
 
@@ -36,17 +36,9 @@ export const NotificationProvider = ({ children }) => {
   )
 
   // 🍞 Toasts
-  const showSuccessToast = useCallback(message => {
-    toasts.success(message)
-  }, [])
-
-  const showErrorToast = useCallback(message => {
-    toasts.error(message)
-  }, [])
-
-  const clearToasts = useCallback(() => {
-    toasts.clear()
-  }, [])
+  const showSuccessToast = useCallback(message => toast.success(message), [])
+  const showErrorToast = useCallback(message => toast.error(message), [])
+  const clearToasts = useCallback(() => toast.dismiss(), [])
 
   // 🛎️ Inbox notifications
   const addInboxNotification = useCallback(newNotification => {
