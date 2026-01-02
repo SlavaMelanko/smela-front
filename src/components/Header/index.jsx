@@ -5,19 +5,19 @@ import { useNavigate } from 'react-router-dom'
 import { ProfileModal } from '@/components/dialogs'
 import { Logo } from '@/components/icons'
 import LanguageDropdown from '@/components/LanguageDropdown'
-import MobileMenuToggle from '@/components/MobileMenuToggle'
 import {
   NotificationPanel,
   NotificationToggle
 } from '@/components/notifications'
 import ThemeToggle from '@/components/ThemeToggle'
+import { SidebarTrigger } from '@/components/ui/sidebar'
 import { useCurrentUser, useLogout } from '@/hooks/useAuth'
 import useModal from '@/hooks/useModal'
 import useNotifications from '@/hooks/useNotifications'
 
 import { ProfileDropdown } from './components'
 
-const Header = ({ isSidebarOpen, toggleSidebar }) => {
+const Header = () => {
   const { user } = useCurrentUser()
   const { mutate: logOut } = useLogout()
   const { inboxNotifications } = useNotifications()
@@ -71,7 +71,8 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
   return (
     <>
       <header className='flex items-center justify-between gap-4 w-full bg-sidebar'>
-        <div className='flex items-center h-full w-[calc(var(--sidebar-width)-3rem)] md:w-auto'>
+        <div className='flex items-center gap-2'>
+          <SidebarTrigger className='md:hidden' />
           <Logo width={130} />
         </div>
 
@@ -91,10 +92,6 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
             status={user?.status}
             menu={menu}
           />
-
-          <div className='lg:hidden'>
-            <MobileMenuToggle isOpen={isSidebarOpen} onToggle={toggleSidebar} />
-          </div>
         </nav>
       </header>
       <NotificationPanel open={isPanelOpen} onOpenChange={setIsPanelOpen} />

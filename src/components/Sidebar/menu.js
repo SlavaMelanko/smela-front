@@ -1,22 +1,23 @@
 import {
-  BookOpenIcon,
-  DashboardIcon,
-  HomeIcon,
-  ProxyIcon,
-  SettingsIcon,
-  UsersIcon
-} from '@/components/icons'
+  BookOpen,
+  Home,
+  LayoutDashboard,
+  MapPinCheckInside,
+  Settings,
+  Users
+} from 'lucide-react'
+
 import Role from '@/lib/types/user/role'
 
 export const userMenuItems = [
   {
     title: 'sidebar.home',
     url: '/home',
-    icon: HomeIcon
+    icon: Home
   },
   {
     title: 'sidebar.proxies',
-    icon: ProxyIcon,
+    icon: MapPinCheckInside,
     items: [
       { title: 'sidebar.residential', url: '/proxies/residential' },
       { title: 'sidebar.isp', url: '/proxies/isp' },
@@ -25,14 +26,14 @@ export const userMenuItems = [
   },
   {
     title: 'sidebar.documentation',
-    icon: BookOpenIcon,
+    icon: BookOpen,
     external: true,
     url: 'https://docs.smela.com'
   },
   {
     title: 'sidebar.settings',
     url: '/settings',
-    icon: SettingsIcon
+    icon: Settings
   }
 ]
 
@@ -40,17 +41,17 @@ export const adminMenuItems = [
   {
     title: 'sidebar.dashboard',
     url: '/admin/dashboard',
-    icon: DashboardIcon
+    icon: LayoutDashboard
   },
   {
     title: 'sidebar.users',
     url: '/admin/users',
-    icon: UsersIcon
+    icon: Users
   },
   {
     title: 'sidebar.settings',
     url: '/settings',
-    icon: SettingsIcon
+    icon: Settings
   }
 ]
 
