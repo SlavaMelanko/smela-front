@@ -14,13 +14,17 @@ const VerifyEmail = () => {
   const { token } = useUrlParams(['token'])
 
   useVerifyEmailOnce(token, {
-    onEmptyToken: () => {
-      showErrorToast(t('email.verification.error.invalidToken'))
+    onSettled: (data, error) => {
+      if (data?.user) {
+        showSuccessToast(t('email.verification.success'))
+      }
+
+      if (error) {
+        showErrorToast(t(toTranslationKey(error)))
+      }
+
       navigate('/')
-    },
-    onSuccess: () => showSuccessToast(t('email.verification.success')),
-    onError: err => showErrorToast(t(toTranslationKey(err))),
-    onSettled: () => navigate('/')
+    }
   })
 
   return <Spinner />

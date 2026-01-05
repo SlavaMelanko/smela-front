@@ -3,32 +3,24 @@ import { useEffect, useRef } from 'react'
 import { useVerifyEmail } from './useAuth'
 
 /**
- * Handles email verification with StrictMode-safe guards.
- * Automatically handles empty token case and prevents double execution.
+ * Handles email verification with StrictMode-safe guard to prevent double execution.
+ *
+ * Note: onSuccess is intentionally omitted. Use onSettled to show toasts
+ * before navigation to prevent them from being lost during unmount.
  */
-const useVerifyEmailOnce = (
-  token,
-  { onEmptyToken, onSuccess, onError, onSettled }
-) => {
-  const { mutate: verifyEmail, isIdle } = useVerifyEmail()
-  const hasHandledEmptyToken = useRef(false)
+const useVerifyEmailOnce = (token, { onSettled }) => {
+  const { mutate: verifyEmail } = useVerifyEmail({ onSettled })
+  const hasVerified = useRef(false)
 
   useEffect(() => {
-    // Handle empty token case (no API call needed)
-    if (!token && !hasHandledEmptyToken.current) {
-      hasHandledEmptyToken.current = true
-      onEmptyToken?.()
-    }
-  }, [token, onEmptyToken])
-
-  useEffect(() => {
-    // Only verify if we have a token and mutation hasn't started yet
-    if (!token || !isIdle) {
+    if (hasVerified.current) {
       return
     }
 
-    verifyEmail({ data: { token } }, { onSuccess, onError, onSettled })
-  }, [token, verifyEmail, isIdle, onSuccess, onError, onSettled])
+    hasVerified.current = true
+
+    verifyEmail({ data: { token } }, { onSettled })
+  }, [token, verifyEmail, onSettled])
 }
 
 export default useVerifyEmailOnce

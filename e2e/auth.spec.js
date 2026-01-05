@@ -300,9 +300,7 @@ test.describe.serial('Authentication', () => {
     await page.goto(`${url.origin}${url.pathname}?token=`)
     // No API call is made for empty token - frontend handles it
 
-    await expect(
-      page.getByText(t.email.verification.error.invalidToken)
-    ).toBeVisible()
+    await expect(page.getByText(t.backend['validation/error'])).toBeVisible()
 
     // 2: Malformed token (replace last char with underscore)
     const malformedToken = originalToken.slice(0, -1) + '_'

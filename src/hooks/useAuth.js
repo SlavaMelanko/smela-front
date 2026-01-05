@@ -119,7 +119,7 @@ export const useLogout = () => {
   })
 }
 
-export const useVerifyEmail = () => {
+export const useVerifyEmail = ({ onSettled }) => {
   const queryClient = useQueryClient()
 
   return useMutation({
@@ -137,7 +137,8 @@ export const useVerifyEmail = () => {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
       }
-    }
+    },
+    onSettled
   })
 }
 
