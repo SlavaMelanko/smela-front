@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Spinner from '@/components/Spinner'
@@ -15,23 +14,14 @@ const VerifyEmail = () => {
   const { token } = useUrlParams(['token'])
 
   useVerifyEmailOnce(token, {
-    onSuccess: () => {
-      showSuccessToast(t('email.verification.success'))
-    },
-    onError: error => {
-      showErrorToast(t(toTranslationKey(error)))
-    },
-    onSettled: () => {
-      navigate('/')
-    }
-  })
-
-  useEffect(() => {
-    if (!token) {
+    onEmptyToken: () => {
       showErrorToast(t('email.verification.error.invalidToken'))
       navigate('/')
-    }
-  }, [token, showErrorToast, t, navigate])
+    },
+    onSuccess: () => showSuccessToast(t('email.verification.success')),
+    onError: err => showErrorToast(t(toTranslationKey(err))),
+    onSettled: () => navigate('/')
+  })
 
   return <Spinner />
 }
