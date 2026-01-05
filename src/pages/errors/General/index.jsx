@@ -17,7 +17,7 @@ const General = () => {
   const navigate = useNavigate()
 
   return (
-    <Container>
+    <Container data-testid='general-error-page'>
       <Icon as={ServerCrash} />
       <Content>
         <Title>{t('error.general.title')}</Title>

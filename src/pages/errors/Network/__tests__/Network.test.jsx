@@ -17,39 +17,30 @@ describe('NetworkErrorPage', () => {
     useUrlParams.mockReturnValue({ errorType: null })
   })
 
-  it('renders title, default message, and button', () => {
+  it('renders title, button, and data-testid', () => {
     renderWithProviders(<NetworkErrorPage />)
+
+    expect(screen.getByTestId('network-error-page')).toBeInTheDocument()
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       en.error.network.title
     )
 
-    expect(screen.getByText(en.error.network.message.unknown)).toBeVisible()
     expect(
       screen.getByRole('button', { name: en.error.network.cta })
     ).toBeVisible()
   })
 
-  it('displays connectionRefused message when errorType=connectionRefused', () => {
-    useUrlParams.mockReturnValue({
-      errorType: NetworkErrorType.CONNECTION_REFUSED
-    })
+  it.each([
+    [null, 'unknown'],
+    [NetworkErrorType.CONNECTION_REFUSED, 'connectionRefused'],
+    [NetworkErrorType.TIMEOUT, 'timeout']
+  ])('displays %s message', (errorType, messageKey) => {
+    useUrlParams.mockReturnValue({ errorType })
 
     renderWithProviders(<NetworkErrorPage />)
 
-    expect(
-      screen.getByText(en.error.network.message.connectionRefused)
-    ).toBeVisible()
-  })
-
-  it('displays timeout message when errorType=timeout', () => {
-    useUrlParams.mockReturnValue({
-      errorType: NetworkErrorType.TIMEOUT
-    })
-
-    renderWithProviders(<NetworkErrorPage />)
-
-    expect(screen.getByText(en.error.network.message.timeout)).toBeVisible()
+    expect(screen.getByText(en.error.network.message[messageKey])).toBeVisible()
   })
 
   it('navigates back when button is clicked', async () => {

@@ -14,11 +14,14 @@ describe('GeneralErrorPage', () => {
   it('renders error icon, title, message, and button', () => {
     renderWithProviders(<GeneralErrorPage />)
 
+    expect(screen.getByTestId('general-error-page')).toBeInTheDocument()
+
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       en.error.general.title
     )
 
     expect(screen.getByText(en.error.general.message)).toBeVisible()
+
     expect(
       screen.getByRole('button', { name: en.error.general.cta })
     ).toBeVisible()

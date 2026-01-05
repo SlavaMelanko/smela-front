@@ -16,11 +16,14 @@ describe('NotFoundErrorPage', () => {
   it('renders title, message, and button', () => {
     renderWithProviders(<NotFoundErrorPage />)
 
+    expect(screen.getByTestId('not-found-error-page')).toBeInTheDocument()
+
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       en.error.notFound.title
     )
 
     expect(screen.getByText(en.error.notFound.message)).toBeVisible()
+
     expect(
       screen.getByRole('button', { name: en.error.notFound.cta })
     ).toBeVisible()

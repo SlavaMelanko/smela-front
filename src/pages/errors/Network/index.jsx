@@ -20,7 +20,7 @@ const Network = () => {
   const { errorType } = useUrlParams(['errorType'])
 
   return (
-    <Container>
+    <Container data-testid='network-error-page'>
       <Icon as={CloudAlert} />
       <Content>
         <Title>{t('error.network.title')}</Title>

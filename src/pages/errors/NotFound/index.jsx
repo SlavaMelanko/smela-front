@@ -24,7 +24,7 @@ const NotFound = () => {
   }, [location.pathname, location.search])
 
   return (
-    <Container>
+    <Container data-testid='not-found-error-page'>
       <Icon as={SearchX} />
       <Content>
         <Title>{t('error.notFound.title')}</Title>
