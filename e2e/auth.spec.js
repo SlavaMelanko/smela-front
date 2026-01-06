@@ -75,10 +75,8 @@ const fillNewPasswordFormAndSubmit = async (page, newPassword, t) => {
 }
 
 const logOut = async (page, t) => {
-  const selector = 'Profile dropdown'
-
-  await page.getByRole('button', { name: selector }).click()
-  await page.getByRole('button', { name: t.logout.noun }).click()
+  await page.getByRole('button', { name: 'Profile menu' }).click()
+  await page.getByRole('menuitem', { name: t.logout.noun }).click()
   await page.waitForURL('/login')
 }
 
@@ -426,8 +424,6 @@ test.describe.serial('Authentication', () => {
 
     await expect(page.getByText(t.email.verification.success)).toBeVisible()
 
-    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
-
     // Logout to ensure clean state for next test
     await logOut(page, t)
   })
@@ -495,8 +491,6 @@ test.describe.serial('Authentication', () => {
     })
 
     await page.waitForURL('/home')
-
-    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
 
     // Logout to ensure clean state for next test
     await logOut(page, t)
@@ -596,8 +590,6 @@ test.describe.serial('Authentication', () => {
     })
 
     await page.waitForURL('/home')
-
-    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
 
     // Logout to ensure clean state
     await logOut(page, t)

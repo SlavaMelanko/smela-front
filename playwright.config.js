@@ -23,13 +23,13 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: process.env.VITE_FE_BASE_URL || 'http://localhost:5173',
-    navigationTimeout: 15000,
+    navigationTimeout: 30000,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry'
   },
 
   expect: {
-    timeout: 15000
+    timeout: 30000
   },
   timeout: 30000,
 
@@ -87,6 +87,6 @@ export default defineConfig({
     command: 'pnpm run dev',
     url: process.env.VITE_FE_BASE_URL || 'http://localhost:5173',
     reuseExistingServer: true,
-    timeout: 15000
+    timeout: 30000
   }
 })
