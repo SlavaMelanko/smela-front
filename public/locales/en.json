@@ -168,7 +168,7 @@
       "new": "New password"
     },
     "reset": {
-      "loginPrompt": "Remember your password?",
+      "rememberYourPassword": "Remember your password?",
       "request": {
         "cta": "Send instructions",
         "description": "Enter your email to receive password reset instructions.",

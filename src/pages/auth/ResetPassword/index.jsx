@@ -85,7 +85,7 @@ const ResetPassword = () => {
           />
         )}
 
-        <LoginPrompt question={t('password.reset.loginPrompt')} />
+        <LoginPrompt question={t('password.reset.rememberYourPassword')} />
       </div>
 
       {Captcha}

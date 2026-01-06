@@ -90,7 +90,7 @@ const Signup = () => {
           <TermsAndPrivacyPrompt />
         </div>
 
-        <LoginPrompt />
+        <LoginPrompt question={t('alreadyHaveAccount')} />
       </div>
 
       {Captcha}
