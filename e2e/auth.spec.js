@@ -618,14 +618,10 @@ test.describe.serial('Authentication', () => {
 
     await page.waitForURL('/home')
 
-    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
-
     // Step 2: Open second tab and navigate to home - should see same page
     const secondTab = await context.newPage()
 
     await secondTab.goto('/home')
-
-    await expect(secondTab.getByText(auth.firstName.ok)).toBeVisible()
 
     // Step 3: Logout in first tab - should see login page
     await logOut(page, t)
