@@ -237,13 +237,13 @@
     }
   },
   "termsAndPrivacy": {
+    "and": "and",
     "error": {
       "required": "You must accept the terms to continue."
     },
-    "middle": "and",
     "prefix": "By creating an account, you agree with our",
-    "privacyLink": "Privacy Policy",
-    "termsLink": "Terms"
+    "privacy": "Privacy Policy",
+    "terms": "Terms"
   },
   "unit": {
     "traffic": {
