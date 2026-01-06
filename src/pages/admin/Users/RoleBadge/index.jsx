@@ -1,19 +1,15 @@
-import './styles.scss'
+import { Building2, User } from 'lucide-react'
 
-import clsx from 'clsx'
-
-import { EnterpriseIcon, UserIcon } from '@/components/icons'
 import { Role } from '@/lib/types'
 
 const RoleBadge = ({ role }) => {
-  const icon =
-    role === Role.ENTERPRISE ? (
-      <EnterpriseIcon size='xs' />
-    ) : (
-      <UserIcon size='xs' />
-    )
+  const Icon = role === Role.ENTERPRISE ? Building2 : User
 
-  return <span className={clsx('role-badge')}>{icon}</span>
+  return (
+    <span className='flex items-center justify-center'>
+      <Icon className='size-4' />
+    </span>
+  )
 }
 
 export default RoleBadge

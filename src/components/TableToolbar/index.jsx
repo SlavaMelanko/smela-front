@@ -1,5 +1,3 @@
-import './styles.scss'
-
 import useLocale from '@/hooks/useLocale'
 
 import ColumnVisibilityDropdown from './ColumnVisibilityDropdown'
@@ -16,9 +14,9 @@ const TableToolbar = ({
   const { t } = useLocale()
 
   return (
-    <div className='table-toolbar'>
+    <div className='flex max-h-11 items-center gap-4'>
       <SearchInput
-        className='table-toolbar__search'
+        className='flex-1'
         placeholder={t('searchBy')}
         value={searchValue}
         onChange={onSearchChange}
@@ -30,7 +28,7 @@ const TableToolbar = ({
       />
       <ColumnVisibilityDropdown
         label={t('table.column_plural')}
-        menu={columns}
+        columns={columns}
       />
     </div>
   )

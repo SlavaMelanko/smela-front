@@ -1,5 +1,3 @@
-import './styles.scss'
-
 import {
   getCoreRowModel,
   getFilteredRowModel,
@@ -9,7 +7,6 @@ import {
 import { useCallback, useMemo, useState } from 'react'
 
 import { ProfileModal } from '@/components/dialogs/ProfileModal'
-import { CheckIcon } from '@/components/icons'
 import Pagination, { defaultOptions } from '@/components/Pagination'
 import Spinner from '@/components/Spinner'
 import Table from '@/components/Table'
@@ -88,33 +85,30 @@ const UsersTable = () => {
   })
 
   const availableColumns = config.getAllLeafColumns().map(column => ({
+    id: column.id,
     label: t(`table.users.${column.id}`),
-    icon: (
-      <CheckIcon color={column.getIsVisible() ? 'green' : 'none'} size='xs' />
-    ),
-    onClick: () => {
-      column.toggleVisibility()
-    }
+    getIsVisible: () => column.getIsVisible(),
+    toggleVisibility: () => column.toggleVisibility()
   }))
 
   if (isPending) {
     return (
-      <div className='table-container table-container--loading'>
-        <Spinner centered text={t('loading')} />
+      <div className='flex flex-col gap-2'>
+        <Spinner text={t('loading')} />
       </div>
     )
   }
 
   if (isError) {
     return (
-      <div className='table-container table-container--error'>
+      <div className='flex flex-col gap-2'>
         <p>{t('error.loading')}</p>
       </div>
     )
   }
 
   return (
-    <div className='table-container'>
+    <div className='flex flex-col gap-2'>
       <TableToolbar
         columns={availableColumns}
         showFilters={showFilters}
@@ -124,7 +118,7 @@ const UsersTable = () => {
       />
       <Filters isShow={showFilters} params={params} setParams={setParams} />
       <Table config={config} onRowClick={handleRowClick} />
-      <div className='table-container__pagination'>
+      <div className='mt-2'>
         <Pagination
           pagination={pagination}
           onPageChange={handlePageChange}

@@ -1,26 +1,27 @@
-import './styles.scss'
-
 import Copyright from '@/components/Copyright'
-import { ModalBody, ModalFooter, ModalHeader } from '@/components/Modal'
 import { PricingSlider } from '@/components/pricing'
+import {
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+} from '@/components/ui/dialog'
 import useLocale from '@/hooks/useLocale'
 
 export const PricingSliderModal = ({ onComplete, onClose }) => {
   const { t } = useLocale()
 
   return (
-    <div className='pricing-slider-modal'>
-      <ModalHeader onClose={onClose}>{t('offer.custom.title')}</ModalHeader>
-      <ModalBody scrollable={false}>
-        <PricingSlider
-          onComplete={() => {
-            onComplete()
-          }}
-        />
-      </ModalBody>
-      <ModalFooter>
+    <>
+      <DialogHeader onClose={onClose}>
+        <DialogTitle>{t('offer.custom.title')}</DialogTitle>
+      </DialogHeader>
+      <DialogBody scrollable={false}>
+        <PricingSlider onComplete={onComplete} />
+      </DialogBody>
+      <DialogFooter className='justify-center'>
         <Copyright />
-      </ModalFooter>
-    </div>
+      </DialogFooter>
+    </>
   )
 }

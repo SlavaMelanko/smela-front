@@ -104,17 +104,6 @@
     "noun": "Logout",
     "verb": "Log out"
   },
-  "multiselect": {
-    "allItemsAreSelected": "All items are selected.",
-    "clearSearch": "Clear Search",
-    "clearSelected": "Clear Selected",
-    "create": "Create",
-    "noOptions": "No options",
-    "search": "Search",
-    "selectAll": "Select All",
-    "selectAllFiltered": "Select All (Filtered)",
-    "selectSomeItems": "Select..."
-  },
   "noNewNotifications": "No new notifications.",
   "notifications": "Notifications",
   "offer": {
@@ -142,12 +131,11 @@
     },
     "note": "Not sure yet? You can cancel or change your plan anytime.",
     "plans": {
-      "basic": "Basic",
       "custom": "Custom",
       "enterprise": "Enterprise",
-      "entry": "Entry",
-      "starter": "Starter",
-      "trial": "Trial"
+      "free": "Free",
+      "max": "Max",
+      "pro": "Pro"
     },
     "subtitle": "Whether standard, custom, or enterprise — you decide.",
     "summary": {
@@ -198,6 +186,7 @@
   "profile": "Profile",
   "role": {
     "name": "Role",
+    "placeholder": "Select roles",
     "values": {
       "admin": "Admin",
       "enterprise": "Enterprise",
@@ -221,6 +210,7 @@
   "signUp": "Sign up",
   "status": {
     "name": "Status",
+    "placeholder": "Select statuses",
     "values": {
       "active": "Active",
       "archived": "Archived",

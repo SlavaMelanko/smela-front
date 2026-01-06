@@ -1,2 +1,2 @@
-export { defaultOptions, isValidLimit, RowsPerPage } from './options'
+export { defaultOptions, isValidLimit, Limit } from './options'
 export { default, default as Pagination } from './Pagination'

@@ -1,31 +1,46 @@
-import './styles.scss'
-
-import clsx from 'clsx'
-import { MultiSelect } from 'react-multi-select-component'
+import {
+  MultiSelect,
+  MultiSelectContent,
+  MultiSelectItem,
+  MultiSelectTrigger,
+  MultiSelectValue
+} from '@/components/ui/multi-select'
 
 const Multiselect = ({
   options,
   value,
   onChange,
-  labelledBy,
+  placeholder,
   className,
-  error,
-  disabled,
-  ...rest
+  disabled
 }) => {
+  // Convert { label, value }[] to string[] for WDS
+  const selectedValues = value.map(v => v.value)
+
+  // Convert string[] back to { label, value }[] for parent
+  const handleChange = vals => {
+    const selectedOptions = options.filter(opt => vals.includes(opt.value))
+
+    onChange(selectedOptions)
+  }
+
   return (
-    <div
-      className={clsx('multiselect', error && 'multiselect--error', className)}
+    <MultiSelect
+      value={selectedValues}
+      onValueChange={handleChange}
+      disabled={disabled}
     >
-      <MultiSelect
-        options={options}
-        value={value}
-        onChange={onChange}
-        labelledBy={labelledBy}
-        disabled={disabled}
-        {...rest}
-      />
-    </div>
+      <MultiSelectTrigger className={className}>
+        <MultiSelectValue placeholder={placeholder} />
+      </MultiSelectTrigger>
+      <MultiSelectContent>
+        {options.map(opt => (
+          <MultiSelectItem key={opt.value} value={opt.value}>
+            {opt.label}
+          </MultiSelectItem>
+        ))}
+      </MultiSelectContent>
+    </MultiSelect>
   )
 }
 

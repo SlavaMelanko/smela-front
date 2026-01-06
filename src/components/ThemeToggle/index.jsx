@@ -1,21 +1,32 @@
-import './styles.scss'
+import { Moon, Sun } from 'lucide-react'
 
-import { MoonIcon, SunIcon } from '@/components/icons'
+import { Button } from '@/components/ui/button'
 import useTheme from '@/hooks/useTheme'
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme()
 
+  const isDark = theme === 'dark'
+
   return (
-    <button
-      className='theme-toggle'
+    <Button
+      variant='ghost'
+      size='icon'
       onClick={toggleTheme}
-      aria-label={
-        theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
-      }
+      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      className='relative rounded-full'
     >
-      {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-    </button>
+      <Sun
+        className={`size-6 transition-transform duration-300 ${
+          isDark ? 'rotate-0 scale-100' : '-rotate-90 scale-0'
+        }`}
+      />
+      <Moon
+        className={`absolute size-6 transition-transform duration-300 ${
+          isDark ? 'rotate-90 scale-0' : 'rotate-0 scale-100'
+        }`}
+      />
+    </Button>
   )
 }
 

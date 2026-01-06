@@ -1,9 +1,7 @@
-import './styles.scss'
+import { Search } from 'lucide-react'
 
-import clsx from 'clsx'
-
-import { SearchIcon } from '@/components/icons'
-import { TextInput } from '@/components/inputs'
+import { Input } from '@/components/ui/input'
+import { cn } from '@/lib/utils'
 
 const SearchInput = ({
   className = '',
@@ -11,17 +9,16 @@ const SearchInput = ({
   value = '',
   onChange
 }) => (
-  <div className={clsx('search', className)}>
-    <TextInput
+  <div className={cn('w-full', className)}>
+    <Input
       id='search'
       name='userSearch'
-      className='search__input'
       placeholder={placeholder}
       autoComplete='on'
       aria-label='Search users'
       value={value}
       onChange={e => onChange?.(e.target.value)}
-      leftElement={<SearchIcon size='xs' color='secondary' />}
+      leftIcon={<Search className='size-4' />}
     />
   </div>
 )

@@ -1,10 +1,8 @@
-import './styles.scss'
-
 import { useState } from 'react'
 
-import { DiscountBadge } from '@/components/badges'
-import { OfferButton } from '@/components/buttons'
 import { Slider } from '@/components/inputs'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
 import FeatureList from './FeatureList'
@@ -15,12 +13,11 @@ const PricingSlider = ({ discount, onComplete }) => {
   const [bandwidth, setBandwidth] = useState(1)
 
   return (
-    <div className='pricing-slider'>
+    <div className='flex flex-col items-center gap-4'>
       {discount && (
-        <DiscountBadge
-          prefix={t('offer.discount.prefix')}
-          label={t('offer.discount.label', { percent: discount })}
-        />
+        <Badge variant='discount'>
+          {t('offer.discount.label', { percent: discount })}
+        </Badge>
       )}
 
       <Slider
@@ -32,12 +29,14 @@ const PricingSlider = ({ discount, onComplete }) => {
         unit={t('unit.traffic.gb')}
       />
 
-      <div className='pricing-slider__summary'>
+      <div className='flex w-full flex-col items-center gap-2'>
         <FeatureList value={bandwidth} />
         <PlanSummary value={bandwidth} discount={discount} />
       </div>
 
-      <OfferButton onClick={onComplete}>{t('offer.cta')}</OfferButton>
+      <Button className='w-full' onClick={onComplete}>
+        {t('offer.cta')}
+      </Button>
     </div>
   )
 }

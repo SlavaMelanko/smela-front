@@ -1,33 +1,38 @@
-import './styles.scss'
+import { ChevronDown, SlidersVertical } from 'lucide-react'
 
-import clsx from 'clsx'
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { cn } from '@/lib/utils'
 
-import { SecondaryButtonWithIcon } from '@/components/buttons'
-import { DropdownList } from '@/components/dropdowns'
-import { SettingsIcon } from '@/components/icons'
-import useOutsideClick from '@/hooks/useOutsideClick'
+const ColumnVisibilityDropdown = ({ className, label, columns }) => (
+  <DropdownMenu>
+    <DropdownMenuTrigger
+      className={cn(className)}
+      render={<Button variant='outline' />}
+    >
+      <SlidersVertical className='size-4' />
+      <span className='hidden sm:inline'>{label}</span>
+      <ChevronDown className='hidden size-4 transition-transform duration-300 group-aria-expanded/button:rotate-180 sm:block' />
+    </DropdownMenuTrigger>
 
-const ColumnVisibilityDropdown = ({ className = '', label, menu }) => {
-  const { ref, isActive, setIsActive } = useOutsideClick()
-
-  const toggle = () => setIsActive(prev => !prev)
-
-  const normalizedMenu = menu.map(item => ({
-    ...item,
-    onClick: () => item.onClick?.()
-  }))
-
-  return (
-    <div className={clsx('column-visibility-dropdown', className)} ref={ref}>
-      <SecondaryButtonWithIcon
-        className='column-visibility-dropdown__button'
-        iconLeft={<SettingsIcon color='secondary' size='xs' />}
-        text={label}
-        onClick={toggle}
-      />
-      <DropdownList menu={normalizedMenu} isOpen={isActive} />
-    </div>
-  )
-}
+    <DropdownMenuContent align='end' className='min-w-(--anchor-width)'>
+      {columns.map(column => (
+        <DropdownMenuCheckboxItem
+          key={column.id}
+          checked={column.getIsVisible()}
+          onCheckedChange={column.toggleVisibility}
+          closeOnClick={false}
+        >
+          {column.label}
+        </DropdownMenuCheckboxItem>
+      ))}
+    </DropdownMenuContent>
+  </DropdownMenu>
+)
 
 export default ColumnVisibilityDropdown

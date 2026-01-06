@@ -1,18 +1,23 @@
-import './styles.scss'
+import { Bell } from 'lucide-react'
 
-import { BellIcon } from '@/components/icons'
-
-import Badge from '../Badge'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 
 const NotificationToggle = ({ unreadCount = 0, onClick, ref }) => (
-  <button className='notification-toggle' onClick={onClick} ref={ref}>
-    <BellIcon size='md' />
+  <Button
+    variant='ghost'
+    size='icon'
+    className='relative rounded-full'
+    onClick={onClick}
+    ref={ref}
+  >
+    <Bell className='size-6' />
     {unreadCount > 0 && (
-      <Badge className='notification-toggle__badge'>
-        {unreadCount > 99 ? '99+' : unreadCount}
+      <Badge variant='notification' className='absolute top-0.5 right-0'>
+        {unreadCount > 9 ? '9+' : unreadCount}
       </Badge>
     )}
-  </button>
+  </Button>
 )
 
 export default NotificationToggle

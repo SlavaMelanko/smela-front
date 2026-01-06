@@ -8,7 +8,7 @@ const PublicRoute = ({ children }) => {
   const { isFetching, isAuthenticated, user } = useCurrentUser()
 
   if (isFetching) {
-    return <Spinner centered />
+    return <Spinner />
   }
 
   if (isAuthenticated && userActiveStatuses.includes(user?.status)) {

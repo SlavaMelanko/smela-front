@@ -1,56 +1,57 @@
 import {
-  BookOpenIcon,
-  DashboardIcon,
-  HomeIcon,
-  ProxyIcon,
-  SettingsIcon,
-  UsersIcon
-} from '@/components/icons'
+  BookOpen,
+  Home,
+  LayoutDashboard,
+  MapPinCheckInside,
+  Settings,
+  Users
+} from 'lucide-react'
+
 import Role from '@/lib/types/user/role'
 
 export const userMenuItems = [
   {
-    name: 'sidebar.home',
-    path: '/home',
-    icon: HomeIcon
+    title: 'sidebar.home',
+    url: '/home',
+    icon: Home
   },
   {
-    name: 'sidebar.proxies',
-    icon: ProxyIcon,
-    subItems: [
-      { name: 'sidebar.residential', path: '/proxies/residential' },
-      { name: 'sidebar.isp', path: '/proxies/isp' },
-      { name: 'sidebar.serpApi', path: '/proxies/serp-api' }
+    title: 'sidebar.proxies',
+    icon: MapPinCheckInside,
+    items: [
+      { title: 'sidebar.residential', url: '/proxies/residential' },
+      { title: 'sidebar.isp', url: '/proxies/isp' },
+      { title: 'sidebar.serpApi', url: '/proxies/serp-api' }
     ]
   },
   {
-    name: 'sidebar.documentation',
-    icon: BookOpenIcon,
+    title: 'sidebar.documentation',
+    icon: BookOpen,
     external: true,
-    href: 'https://docs.smela.com'
+    url: 'https://docs.smela.com'
   },
   {
-    name: 'sidebar.settings',
-    path: '/settings',
-    icon: SettingsIcon
+    title: 'sidebar.settings',
+    url: '/settings',
+    icon: Settings
   }
 ]
 
 export const adminMenuItems = [
   {
-    name: 'sidebar.dashboard',
-    path: '/admin/dashboard',
-    icon: DashboardIcon
+    title: 'sidebar.dashboard',
+    url: '/admin/dashboard',
+    icon: LayoutDashboard
   },
   {
-    name: 'sidebar.users',
-    path: '/admin/users',
-    icon: UsersIcon
+    title: 'sidebar.users',
+    url: '/admin/users',
+    icon: Users
   },
   {
-    name: 'sidebar.settings',
-    path: '/settings',
-    icon: SettingsIcon
+    title: 'sidebar.settings',
+    url: '/settings',
+    icon: Settings
   }
 ]
 

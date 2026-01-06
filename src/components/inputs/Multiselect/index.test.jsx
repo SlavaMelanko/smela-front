@@ -1,6 +1,18 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import Multiselect from './index'
+
+// Mock browser APIs for tests
+beforeAll(() => {
+  global.ResizeObserver = class ResizeObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+
+  Element.prototype.scrollIntoView = jest.fn()
+})
 
 const defaultOptions = [
   { label: 'Option A', value: 'a' },
@@ -10,139 +22,105 @@ const defaultOptions = [
 
 describe('Multiselect', () => {
   describe('Rendering', () => {
-    it('renders with default class', () => {
-      const { container } = render(
+    it('renders with placeholder when no value selected', () => {
+      render(
         <Multiselect
           options={defaultOptions}
           value={[]}
           onChange={() => {}}
-          labelledBy='test'
+          placeholder='Select items'
         />
       )
 
-      expect(container.querySelector('.multiselect')).toBeInTheDocument()
+      expect(screen.getByText('Select items')).toBeInTheDocument()
     })
 
-    it('applies custom className without error class', () => {
-      const { container } = render(
-        <Multiselect
-          options={defaultOptions}
-          value={[]}
-          onChange={() => {}}
-          labelledBy='test'
-          className='custom-class'
-        />
-      )
-
-      const wrapper = container.querySelector('.multiselect')
-
-      expect(wrapper).toHaveClass('custom-class')
-      expect(wrapper).not.toHaveClass('multiselect--error')
-    })
-
-    it('applies error class when error is true', () => {
-      const { container } = render(
-        <Multiselect
-          options={defaultOptions}
-          value={[]}
-          onChange={() => {}}
-          labelledBy='test'
-          error
-        />
-      )
-
-      expect(container.querySelector('.multiselect')).toHaveClass(
-        'multiselect--error'
-      )
-    })
-  })
-
-  describe('Props Forwarding', () => {
-    it('forwards options to MultiSelect', () => {
-      const { container } = render(
-        <Multiselect
-          options={defaultOptions}
-          value={[]}
-          onChange={() => {}}
-          labelledBy='test'
-        />
-      )
-
-      const dropdown = container.querySelector('.dropdown-container')
-
-      expect(dropdown).toBeInTheDocument()
-    })
-
-    it('renders with empty options array', () => {
-      const { container } = render(
-        <Multiselect
-          options={[]}
-          value={[]}
-          onChange={() => {}}
-          labelledBy='test'
-        />
-      )
-
-      expect(container.querySelector('.multiselect')).toBeInTheDocument()
-    })
-
-    it('displays selected value', () => {
+    it('displays selected value as badge', () => {
       render(
         <Multiselect
           options={defaultOptions}
           value={[{ label: 'Option A', value: 'a' }]}
           onChange={() => {}}
-          labelledBy='test'
+          placeholder='Select items'
         />
       )
 
-      expect(screen.getByText('Option A')).toBeInTheDocument()
+      const trigger = screen.getByRole('combobox')
+      const badge = within(trigger).getByText('Option A')
+
+      expect(badge).toBeInTheDocument()
     })
 
-    it('forwards disabled prop', () => {
-      const { container } = render(
+    it('displays multiple selected values as badges', () => {
+      render(
+        <Multiselect
+          options={defaultOptions}
+          value={[
+            { label: 'Option A', value: 'a' },
+            { label: 'Option B', value: 'b' }
+          ]}
+          onChange={() => {}}
+          placeholder='Select items'
+        />
+      )
+
+      const trigger = screen.getByRole('combobox')
+
+      expect(within(trigger).getByText('Option A')).toBeInTheDocument()
+      expect(within(trigger).getByText('Option B')).toBeInTheDocument()
+    })
+  })
+
+  describe('Interaction', () => {
+    it('calls onChange when selecting an option', async () => {
+      const user = userEvent.setup()
+      const handleChange = jest.fn()
+
+      render(
+        <Multiselect
+          options={defaultOptions}
+          value={[]}
+          onChange={handleChange}
+          placeholder='Select items'
+        />
+      )
+
+      await user.click(screen.getByRole('combobox'))
+      await user.click(screen.getByRole('option', { name: /Option A/i }))
+
+      expect(handleChange).toHaveBeenCalledWith([
+        { label: 'Option A', value: 'a' }
+      ])
+    })
+  })
+
+  describe('Props', () => {
+    it('disables the component when disabled prop is true', () => {
+      render(
         <Multiselect
           options={defaultOptions}
           value={[]}
           onChange={() => {}}
-          labelledBy='test'
+          placeholder='Select items'
           disabled
         />
       )
 
-      const dropdown = container.querySelector('.dropdown-container')
-
-      expect(dropdown).toHaveAttribute('aria-disabled', 'true')
+      expect(screen.getByRole('combobox')).toBeDisabled()
     })
 
-    it('forwards labelledBy prop', () => {
-      const { container } = render(
+    it('applies custom className to trigger', () => {
+      render(
         <Multiselect
           options={defaultOptions}
           value={[]}
           onChange={() => {}}
-          labelledBy='role-filter'
+          placeholder='Select items'
+          className='custom-class'
         />
       )
 
-      const dropdown = container.querySelector('.dropdown-container')
-
-      expect(dropdown).toHaveAttribute('aria-labelledby', 'role-filter')
-    })
-
-    it('forwards rest props to MultiSelect', () => {
-      const { container } = render(
-        <Multiselect
-          options={defaultOptions}
-          value={[]}
-          onChange={() => {}}
-          labelledBy='test'
-          data-testid='multiselect-test'
-        />
-      )
-
-      // Verify the component renders with forwarded props
-      expect(container.querySelector('.rmsc')).toBeInTheDocument()
+      expect(screen.getByRole('combobox')).toHaveClass('custom-class')
     })
   })
 })

@@ -119,12 +119,12 @@ export const useLogout = () => {
   })
 }
 
-export const useVerifyEmail = ({ onSuccess, onError, onSettled }) => {
+export const useVerifyEmail = ({ onSettled }) => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: authService.verifyEmail,
-    onSuccess: (data, ...args) => {
+    onSuccess: data => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
@@ -137,11 +137,7 @@ export const useVerifyEmail = ({ onSuccess, onError, onSettled }) => {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
       }
-
-      // Call the original onSuccess callback if provided
-      onSuccess?.(data, ...args)
     },
-    onError,
     onSettled
   })
 }

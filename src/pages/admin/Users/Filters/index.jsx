@@ -1,29 +1,12 @@
-import './styles.scss'
-
-import clsx from 'clsx'
 import { useMemo } from 'react'
 
 import { Multiselect } from '@/components/inputs'
 import useLocale from '@/hooks/useLocale'
 import { Role, UserStatus } from '@/lib/types'
+import { cn } from '@/lib/utils'
 
 const Filters = ({ isShow, params, setParams }) => {
   const { t } = useLocale()
-
-  const overrideStrings = useMemo(
-    () => ({
-      allItemsAreSelected: t('multiselect.allItemsAreSelected'),
-      clearSearch: t('multiselect.clearSearch'),
-      clearSelected: t('multiselect.clearSelected'),
-      noOptions: t('multiselect.noOptions'),
-      search: t('multiselect.search'),
-      selectAll: t('multiselect.selectAll'),
-      selectAllFiltered: t('multiselect.selectAllFiltered'),
-      selectSomeItems: t('multiselect.selectSomeItems'),
-      create: t('multiselect.create')
-    }),
-    [t]
-  )
 
   const roleOptions = useMemo(
     () =>
@@ -61,30 +44,25 @@ const Filters = ({ isShow, params, setParams }) => {
 
   return (
     <div
-      className={clsx('filters-container', {
-        'filters-container--open': isShow
-      })}
+      className={cn(
+        'grid grid-rows-[0fr] rounded-md border border-transparent bg-background transition-all duration-300',
+        isShow && 'grid-rows-[1fr] border-border'
+      )}
     >
-      <div className='filters-container__content'>
-        <div className='filters-container__group'>
-          <h4 className='filters-container__title'>{t('role.name')}</h4>
+      <div className='overflow-hidden'>
+        <div className='flex flex-col gap-6 p-4 md:flex-row md:[&>*]:min-w-48 md:[&>*]:flex-1'>
           <Multiselect
             options={roleOptions}
             value={selectedRoles}
             onChange={handleRoleChange}
-            labelledBy={t('role.name')}
-            overrideStrings={overrideStrings}
+            placeholder={t('role.placeholder')}
           />
-        </div>
 
-        <div className='filters-container__group'>
-          <h4 className='filters-container__title'>{t('status.name')}</h4>
           <Multiselect
             options={statusOptions}
             value={selectedStatuses}
             onChange={handleStatusChange}
-            labelledBy={t('status.name')}
-            overrideStrings={overrideStrings}
+            placeholder={t('status.placeholder')}
           />
         </div>
       </div>

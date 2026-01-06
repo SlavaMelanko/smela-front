@@ -3,11 +3,10 @@ import { createResolver, rules } from '@/lib/validation'
 import { FieldName } from './fields'
 
 const makeSchema = () => {
-  const { email, captcha } = rules
+  const { email } = rules
 
   return {
-    [FieldName.USER_EMAIL]: email,
-    [FieldName.CAPTCHA_TOKEN]: captcha
+    [FieldName.EMAIL]: email.new
   }
 }
 

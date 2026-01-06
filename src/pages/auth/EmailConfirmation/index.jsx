@@ -1,5 +1,3 @@
-import './styles.scss'
-
 import { useLocation } from 'react-router-dom'
 
 import { useCurrentUser, useResendVerificationEmail } from '@/hooks/useAuth'
@@ -21,7 +19,7 @@ const EmailConfirmation = () => {
   const { user } = useCurrentUser()
   const { getToken, Captcha } = useCaptcha()
 
-  const userEmail = location.state?.email || user?.email
+  const email = location.state?.email || user?.email
 
   const handleSubmit = async data => {
     const token = await getToken()
@@ -48,27 +46,29 @@ const EmailConfirmation = () => {
   }
 
   return (
-    <div className='email-confirmation-page'>
-      <div className='email-confirmation-page__content'>
-        <h1 className='email-confirmation-page__title'>
-          {t('email.confirmation.title')}
-        </h1>
+    <>
+      <div className='flex flex-col gap-8'>
+        <div className='flex flex-col gap-4 text-center'>
+          <h1 className='text-xl font-semibold text-foreground'>
+            {t('email.confirmation.title')}
+          </h1>
 
-        <p className='email-confirmation-page__description'>
-          {t('email.confirmation.description', {
-            email: userEmail || t('email.confirmation.yourEmail')
-          })}
-        </p>
+          <p className='text-base text-muted-foreground'>
+            {t('email.confirmation.description', {
+              email: email || t('email.confirmation.yourEmail')
+            })}
+          </p>
+        </div>
+
+        <EmailConfirmationForm
+          isLoading={isPending}
+          email={email}
+          onSubmit={handleSubmit}
+        />
       </div>
 
-      <EmailConfirmationForm
-        isLoading={isPending}
-        userEmail={userEmail}
-        onSubmit={handleSubmit}
-      />
-
       {Captcha}
-    </div>
+    </>
   )
 }
 

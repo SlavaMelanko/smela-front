@@ -1,0 +1,26 @@
+import { useNavigate } from 'react-router-dom'
+
+import { Button } from '@/components/ui/button'
+import useLocale from '@/hooks/useLocale'
+
+const EnterpriseTab = () => {
+  const { t } = useLocale()
+  const navigate = useNavigate()
+
+  return (
+    <div className='flex h-[28.75rem] w-[22rem] flex-col items-center justify-center gap-8'>
+      <p className='text-center text-base text-muted-foreground'>
+        {t('offer.enterprise.msg')}
+      </p>
+      <Button
+        variant='outline'
+        className='w-full uppercase'
+        onClick={() => navigate('/signup')}
+      >
+        {t('offer.enterprise.cta')}
+      </Button>
+    </div>
+  )
+}
+
+export default EnterpriseTab

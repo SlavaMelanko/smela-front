@@ -1,48 +1,42 @@
-import './styles.scss'
+import {
+  CalendarX,
+  Mail,
+  MessageCircle,
+  RefreshCw,
+  UserPlus
+} from 'lucide-react'
 
 import {
-  CalendarXIcon,
-  CreditCardIcon,
-  MailIcon,
-  RefreshIcon,
-  SlackIcon,
-  UserPlusIcon
-} from '@/components/icons'
-import Tooltip from '@/components/Tooltip'
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from '@/components/ui/tooltip'
 import useLocale from '@/hooks/useLocale'
 
 const FEATURE = {
   emailSupport: {
-    icon: <MailIcon color='blue' />,
+    icon: <Mail className='size-6 text-blue-500' />,
     text: 'offer.features.emailSupport'
   },
-  oneTimePurchase: {
-    icon: <CreditCardIcon color='yellow' />,
-    text: 'offer.features.oneTimePurchase'
-  },
   cancelAnytime: {
-    icon: <CalendarXIcon color='orange' />,
+    icon: <CalendarX className='size-6 text-orange-500' />,
     text: 'offer.features.cancelAnytime'
   },
   rollover: {
-    icon: <RefreshIcon color='pink' />,
+    icon: <RefreshCw className='size-6 text-pink-500' />,
     text: 'offer.features.rollover'
   },
   slackSupport: {
-    icon: <SlackIcon color='blue' />,
+    icon: <MessageCircle className='size-6 text-blue-500' />,
     text: 'offer.features.slackSupport'
   },
   dedicatedManager: {
-    icon: <UserPlusIcon color='green' />,
+    icon: <UserPlus className='size-6 text-green-500' />,
     text: 'offer.features.dedicatedManager'
   }
 }
 
 const getFeatures = value => {
-  if (value <= 1) {
-    return [FEATURE.emailSupport, FEATURE.oneTimePurchase]
-  }
-
   if (value < 100) {
     return [FEATURE.emailSupport, FEATURE.cancelAnytime, FEATURE.rollover]
   }
@@ -65,14 +59,17 @@ const FeatureList = ({ value }) => {
   const features = getFeatures(value)
 
   return (
-    <div className='features'>
-      <div className='features__title'>
+    <div className='flex w-full flex-wrap items-center justify-between gap-4'>
+      <div className='mr-auto whitespace-nowrap text-muted-foreground'>
         {t('offer.summary.includedFeatures')}
       </div>
-      <ul className='features__items'>
+      <ul className='m-0 flex list-none flex-wrap justify-end gap-4 p-0'>
         {features.map(({ icon, text }) => (
-          <li key={text} className='features__item'>
-            <Tooltip text={t(text)} icon={icon} />
+          <li key={text} className='flex items-center'>
+            <Tooltip>
+              <TooltipTrigger>{icon}</TooltipTrigger>
+              <TooltipContent>{t(text)}</TooltipContent>
+            </Tooltip>
           </li>
         ))}
       </ul>

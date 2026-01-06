@@ -1,12 +1,18 @@
-import './styles.scss'
-
+import { SearchX } from 'lucide-react'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { SecondaryButton } from '@/components/buttons'
-import { SearchXIcon } from '@/components/icons'
 import useLocale from '@/hooks/useLocale'
 import { captureMessage } from '@/services/errorTracker'
+
+import {
+  Action,
+  Container,
+  Content,
+  Description,
+  Icon,
+  Title
+} from '../components'
 
 const NotFound = () => {
   const { t } = useLocale()
@@ -17,35 +23,15 @@ const NotFound = () => {
     captureMessage(`404 Not Found: ${location.pathname}${location.search}`)
   }, [location.pathname, location.search])
 
-  const handleGoHome = () => {
-    navigate('/')
-  }
-
   return (
-    <div className='not-found-error-page'>
-      <div className='not-found-error-page__content'>
-        <SearchXIcon
-          className='not-found-error-page__icon'
-          size='lg'
-          color='orange'
-        />
-
-        <h1 className='not-found-error-page__title'>
-          {t('error.notFound.title')}
-        </h1>
-
-        <p className='not-found-error-page__description'>
-          {t('error.notFound.message')}
-        </p>
-
-        <SecondaryButton
-          className='not-found-error-page__cta'
-          onClick={handleGoHome}
-        >
-          {t('error.notFound.cta')}
-        </SecondaryButton>
-      </div>
-    </div>
+    <Container data-testid='not-found-error-page'>
+      <Icon as={SearchX} />
+      <Content>
+        <Title>{t('error.notFound.title')}</Title>
+        <Description>{t('error.notFound.message')}</Description>
+      </Content>
+      <Action onClick={() => navigate('/')}>{t('error.notFound.cta')}</Action>
+    </Container>
   )
 }
 

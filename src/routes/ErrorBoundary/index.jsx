@@ -8,7 +8,7 @@ const ErrorBoundary = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    captureError(error, { showReportDialog: true })
+    captureError(error)
 
     navigate('/errors/general', { replace: true })
   }, [error, navigate])

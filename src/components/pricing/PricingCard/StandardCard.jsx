@@ -1,13 +1,15 @@
-import './styles.scss'
-
 import { useNavigate } from 'react-router-dom'
 
-import { DiscountBadge } from '@/components/badges'
-import { OfferButton } from '@/components/buttons'
-import Tooltip from '@/components/Tooltip'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from '@/components/ui/tooltip'
 import useLocale from '@/hooks/useLocale'
 
-import { Bandwidth, PricePerUnit, TotalPrice } from '../containers'
+import { Bandwidth, PricePerUnit, TotalPrice } from '../components'
 
 const translateUnit = (unit, t) => {
   return t(`unit.traffic.${unit.toLowerCase()}`)
@@ -23,51 +25,49 @@ const StandardPricingCard = ({
   hasDiscount
 }) => {
   const { t, formatPrice } = useLocale()
-
   const navigate = useNavigate()
 
   return (
-    <div className='pricing-card'>
+    <div className='relative flex h-[460px] w-full flex-col rounded-lg border bg-card p-4 shadow-sm transition-shadow hover:border-primary hover:shadow-lg'>
       {hasDiscount && (
-        <DiscountBadge
-          className='pricing-card__discount-badge'
-          label={t('offer.discount.label', { percent: 50 })}
-        />
+        <Badge variant='discount' className='absolute -top-4 -right-3'>
+          {t('offer.discount.label', { percent: 50 })}
+        </Badge>
       )}
 
-      <div className='pricing-card__header'>
-        <h2 className='pricing-card__title'>{title}</h2>
-      </div>
+      <h2 className='mb-8 text-3xl font-bold text-foreground'>{title}</h2>
 
       <Bandwidth
-        className='pricing-card__bandwidth'
+        className='mb-8'
         value={bandwidth.value}
         unit={translateUnit(bandwidth.unit, t)}
       />
       <PricePerUnit
-        className='pricing-card__price-per-unit'
+        className='mb-8'
         original={formatPrice(pricePerUnit.original)}
         final={formatPrice(pricePerUnit.final)}
         unit={translateUnit(pricePerUnit.unit, t)}
       />
       <TotalPrice
-        className='pricing-card__total-price'
         original={formatPrice(totalPrice.original)}
         final={formatPrice(totalPrice.final)}
       />
 
-      <div className='pricing-card__features'>
+      <div className='flex flex-1 flex-wrap items-center justify-center gap-6'>
         {features.map((feature, index) => (
-          <Tooltip key={index} icon={feature.icon} text={feature.text} />
+          <Tooltip key={index}>
+            <TooltipTrigger>{feature.icon}</TooltipTrigger>
+            <TooltipContent>{feature.text}</TooltipContent>
+          </Tooltip>
         ))}
       </div>
 
-      <OfferButton
-        className='pricing-card__cta'
+      <Button
+        className='mt-auto w-full uppercase'
         onClick={() => navigate(redirectPath)}
       >
         {t('offer.cta')}
-      </OfferButton>
+      </Button>
     </div>
   )
 }

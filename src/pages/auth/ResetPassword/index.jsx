@@ -1,5 +1,3 @@
-import './styles.scss'
-
 import { useNavigate } from 'react-router-dom'
 
 import { LoginPrompt } from '@/components/prompts'
@@ -67,31 +65,31 @@ const ResetPassword = () => {
   }
 
   return (
-    <div className='reset-password-page'>
-      <p className='reset-password-page__description'>
-        {isRequest
-          ? t('password.reset.request.description')
-          : t('password.reset.set.description')}
-      </p>
+    <>
+      <div className='flex flex-col gap-8'>
+        <p className='text-base text-center text-muted-foreground'>
+          {isRequest
+            ? t('password.reset.request.description')
+            : t('password.reset.set.description')}
+        </p>
 
-      {isRequest ? (
-        <EmailForm
-          isLoading={isRequestPending}
-          onSubmit={handleRequestPasswordReset}
-        />
-      ) : (
-        <PasswordForm
-          isLoading={isResetPending}
-          onSubmit={handleResetPassword}
-        />
-      )}
+        {isRequest ? (
+          <EmailForm
+            isLoading={isRequestPending}
+            onSubmit={handleRequestPasswordReset}
+          />
+        ) : (
+          <PasswordForm
+            isLoading={isResetPending}
+            onSubmit={handleResetPassword}
+          />
+        )}
 
-      <div className='reset-password-page__prompts'>
         <LoginPrompt question={t('password.reset.loginPrompt')} />
       </div>
 
       {Captcha}
-    </div>
+    </>
   )
 }
 

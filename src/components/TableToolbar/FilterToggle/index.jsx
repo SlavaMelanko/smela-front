@@ -1,18 +1,20 @@
-import './styles.scss'
+import { ChevronDown, Filter } from 'lucide-react'
 
-import { SecondaryButtonWithIcon } from '@/components/buttons'
-import { FilterIcon } from '@/components/icons'
-import { ChevronToggle } from '@/components/icons/animated'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
-const FilterToggle = ({ label, isActive, onToggle }) => {
+const FilterToggle = ({ className, label, isActive, onToggle }) => {
   return (
-    <SecondaryButtonWithIcon
-      className='filter-toggle'
-      iconLeft={<FilterIcon color='secondary' size='xs' />}
-      text={label}
-      iconRight={<ChevronToggle isOpen={isActive} />}
+    <Button
+      variant='outline'
+      aria-expanded={isActive}
       onClick={onToggle}
-    />
+      className={cn(className)}
+    >
+      <Filter className='size-4' />
+      <span className='hidden sm:inline'>{label}</span>
+      <ChevronDown className='hidden size-4 transition-transform duration-300 group-aria-expanded/button:rotate-180 sm:block' />
+    </Button>
   )
 }
 

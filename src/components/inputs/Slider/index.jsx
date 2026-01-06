@@ -1,59 +1,54 @@
-import './styles.scss'
-
-import clsx from 'clsx'
+import { useMemo } from 'react'
 
 import useLocale from '@/hooks/useLocale'
 
-const Slider = ({ value = 1, onChange, min, max, presetValues, unit }) => {
+import { PresetValues, Range, Track } from './components'
+import { generateTicks } from './ticks'
+
+const Slider = ({
+  value = 1,
+  onChange,
+  min,
+  max,
+  step,
+  tickCount = 3,
+  presetValues,
+  unit
+}) => {
   const { formatNumberWithUnit } = useLocale()
 
-  const labels = [min, Math.floor(max / 2), max]
-  const progress = (value / max) * 100
+  const tickLabels = useMemo(
+    () =>
+      generateTicks(min, max, tickCount).map(val =>
+        formatNumberWithUnit(val, unit)
+      ),
+    [min, max, tickCount, unit, formatNumberWithUnit]
+  )
 
-  const handleRangeChange = e => {
-    onChange(+e.target.value)
-  }
-
-  const handlePresetSelect = val => {
-    onChange(val)
-  }
+  const presetLabels = useMemo(
+    () =>
+      presetValues?.map(val => ({
+        value: val,
+        label: formatNumberWithUnit(val, unit)
+      })),
+    [presetValues, unit, formatNumberWithUnit]
+  )
 
   return (
-    <div className='slider'>
-      <div className='slider__labels'>
-        {labels.map(val => (
-          <span key={val} className='slider__label'>
-            {formatNumberWithUnit(val, unit)}
-          </span>
-        ))}
-      </div>
-
-      <div className='slider__track'>
-        <div className='slider__track-bg' />
-        <div className='slider__progress' style={{ width: `${progress}%` }} />
-        <input
-          type='range'
-          min={min}
-          max={max}
-          value={value}
-          onChange={handleRangeChange}
-          className='slider__input'
-        />
-      </div>
-
-      <div className='slider__presets'>
-        {presetValues.map(val => (
-          <button
-            key={val}
-            onClick={() => handlePresetSelect(val)}
-            className={clsx('slider__preset', {
-              'slider__preset--active': value === val
-            })}
-          >
-            {formatNumberWithUnit(val, unit)}
-          </button>
-        ))}
-      </div>
+    <div className='w-full'>
+      <Range tickLabels={tickLabels} />
+      <Track
+        value={value}
+        onChange={onChange}
+        min={min}
+        max={max}
+        step={step}
+      />
+      <PresetValues
+        values={presetLabels}
+        activeValue={value}
+        onSelect={onChange}
+      />
     </div>
   )
 }

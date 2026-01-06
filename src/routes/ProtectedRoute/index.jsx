@@ -14,7 +14,7 @@ const ProtectedRoute = ({
   })
 
   if (isFetching) {
-    return <Spinner centered />
+    return <Spinner />
   }
 
   if (!isAuthenticated || !hasAccess) {

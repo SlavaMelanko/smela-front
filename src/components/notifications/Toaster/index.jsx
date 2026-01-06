@@ -1,26 +1,10 @@
-import './styles.scss'
-
-import { ToastContainer } from 'react-toastify'
-
+import { Toaster as SonnerToaster } from '@/components/ui/sonner'
 import useTheme from '@/hooks/useTheme'
-
-const defaultOptions = {
-  position: 'top-center',
-  autoClose: 5000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  limit: 2,
-  newestOnTop: true,
-  pauseOnFocusLoss: true
-}
 
 const Toaster = () => {
   const { theme } = useTheme()
 
-  return <ToastContainer {...defaultOptions} theme={theme} />
+  return <SonnerToaster theme={theme} position='top-center' closeButton />
 }
 
 export default Toaster

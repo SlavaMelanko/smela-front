@@ -1,10 +1,9 @@
-import './styles.scss'
-
 import { useNavigate } from 'react-router-dom'
 
-import { GoogleOAuthButton } from '@/components/buttons'
+import { GoogleIcon } from '@/components/icons'
 import { ForgotYourPasswordPrompt, SignupPrompt } from '@/components/prompts'
-import Separator from '@/components/Separator'
+import { TextSeparator } from '@/components/Separator'
+import { Button } from '@/components/ui/button'
 import { useLogin, useLoginWithGoogle } from '@/hooks/useAuth'
 import useCaptcha from '@/hooks/useCaptcha'
 import useLocale from '@/hooks/useLocale'
@@ -56,27 +55,33 @@ const Login = () => {
   }
 
   return (
-    <div className='login-page'>
-      <LoginForm isLoading={isEmailPending} onSubmit={handleLogin} />
+    <>
+      <div className='flex flex-col gap-8'>
+        <div className='flex flex-col gap-2'>
+          <LoginForm isLoading={isEmailPending} onSubmit={handleLogin} />
 
-      <div className='login-page__separator'>
-        <Separator text={t('or')} />
-      </div>
+          <TextSeparator text={t('or')} />
 
-      <GoogleOAuthButton
-        className='login-page__oauth-button'
-        text={t('continueWithGoogle')}
-        onClick={handleLoginWithGoogle}
-        disabled={isGooglePending}
-      />
+          <div className='flex flex-col gap-4'>
+            <Button
+              variant='outline'
+              className='w-full'
+              onClick={handleLoginWithGoogle}
+              disabled={isGooglePending}
+            >
+              <GoogleIcon />
+              {t('continueWithGoogle')}
+            </Button>
+          </div>
+        </div>
 
-      <div className='login-page__prompts'>
         <SignupPrompt />
+
         <ForgotYourPasswordPrompt />
       </div>
 
       {Captcha}
-    </div>
+    </>
   )
 }
 

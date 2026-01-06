@@ -1,4 +1,4 @@
-import { StatusBadge } from '@/components/badges'
+import StatusLabel from '@/components/StatusLabel'
 import { getFullName } from '@/lib/format/user'
 
 import RoleBadge from './RoleBadge'
@@ -32,7 +32,7 @@ const getAccessibleColumns = (t, formatDate) => [
     accessorKey: 'status',
     header: t('table.users.status'),
     size: 100,
-    cell: info => <StatusBadge status={info.getValue()} />
+    cell: info => <StatusLabel status={info.getValue()} />
   },
   {
     accessorKey: 'createdAt',

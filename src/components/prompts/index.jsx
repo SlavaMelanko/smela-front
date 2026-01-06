@@ -1,7 +1,7 @@
-import ForgotYourPasswordPrompt from './ForgotYourPassword'
-import LoginPrompt from './Login'
-import SignupPrompt from './Signup'
-import TermsAndPrivacyPrompt from './TermsAndPrivacy'
+import ForgotYourPasswordPrompt from './ForgotYourPasswordPrompt'
+import LoginPrompt from './LoginPrompt'
+import SignupPrompt from './SignupPrompt'
+import TermsAndPrivacyPrompt from './TermsAndPrivacyPrompt'
 
 export {
   ForgotYourPasswordPrompt,

@@ -1,50 +1,29 @@
-import './styles.scss'
-
-import clsx from 'clsx'
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import Header from '@/components/Header'
 import Sidebar from '@/components/Sidebar'
 import Spinner from '@/components/Spinner'
-import { useIsDesktop } from '@/hooks/useMediaQuery'
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import useSidebarMenu from '@/hooks/useSidebarMenu'
 
 const UserLayout = () => {
-  const isDesktop = useIsDesktop()
   const { items } = useSidebarMenu()
-  const [isSidebarOpen, setIsSidebarOpen] = useState(isDesktop)
-
-  useEffect(() => {
-    setIsSidebarOpen(isDesktop)
-  }, [isDesktop])
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(prev => !prev)
-  }
 
   return (
-    <div className='user-layout'>
-      <header className='user-layout__header'>
-        <Header isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      </header>
-
-      <div className='user-layout__main'>
-        <aside
-          className={clsx('user-layout__sidebar', {
-            'user-layout__sidebar--collapsed': !isSidebarOpen
-          })}
-        >
-          <Sidebar isOpen={isSidebarOpen} items={items} />
-        </aside>
-
-        <main className='user-layout__content'>
-          <Suspense fallback={<Spinner centered />}>
+    <SidebarProvider>
+      <Sidebar items={items} />
+      <SidebarInset>
+        <header className='z-10 flex shrink-0 items-center h-11 px-4 md:px-6 bg-sidebar border-b border-sidebar-border'>
+          <Header />
+        </header>
+        <main className='flex flex-col flex-1 p-4 overflow-auto'>
+          <Suspense fallback={<Spinner />}>
             <Outlet />
           </Suspense>
         </main>
-      </div>
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   )
 }
 

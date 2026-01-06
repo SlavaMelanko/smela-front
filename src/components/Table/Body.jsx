@@ -1,27 +1,28 @@
-import './styles.scss'
-
 import { flexRender } from '@tanstack/react-table'
-import clsx from 'clsx'
 
-import { BodyCell as Cell } from './Cell'
-import Row from './Row'
+import {
+  TableBody as TableBodyRoot,
+  TableCell,
+  TableRow
+} from '@/components/ui/table'
+import { cn } from '@/lib/utils'
 
 const TableBody = ({ config, onRowClick }) => (
-  <tbody>
+  <TableBodyRoot>
     {config.getRowModel().rows.map(row => (
-      <Row
+      <TableRow
         key={row.id}
-        className={clsx({ 'table__row--clickable': onRowClick })}
+        className={cn(onRowClick && 'cursor-pointer')}
         onClick={onRowClick ? () => onRowClick(row.original) : undefined}
       >
         {row.getVisibleCells().map(cell => (
-          <Cell key={cell.id}>
+          <TableCell key={cell.id} className='text-center'>
             {flexRender(cell.column.columnDef.cell, cell.getContext())}
-          </Cell>
+          </TableCell>
         ))}
-      </Row>
+      </TableRow>
     ))}
-  </tbody>
+  </TableBodyRoot>
 )
 
 export default TableBody

@@ -1,41 +1,52 @@
-import './styles.scss'
-
 import { flexRender } from '@tanstack/react-table'
-import clsx from 'clsx'
+import { ChevronDown, ChevronUp } from 'lucide-react'
 
-import { HeaderCell as Cell } from './Cell'
-import Row from './Row'
+import {
+  TableHead,
+  TableHeader as TableHeaderRoot,
+  TableRow
+} from '@/components/ui/table'
+import { cn } from '@/lib/utils'
 
 const TableHeader = ({ config }) => (
-  <thead>
+  <TableHeaderRoot>
     {config.getHeaderGroups().map(headerGroup => (
-      <Row key={headerGroup.id}>
-        {headerGroup.headers.map(header => (
-          <Cell
-            key={header.id}
-            colSpan={header.colSpan}
-            style={{ width: header.getSize?.() }}
-            onClick={header.column.getToggleSortingHandler?.()}
-          >
-            {flexRender(header.column.columnDef.header, header.getContext())}
-            {header.column.getIsSorted()
-              ? header.column.getIsSorted() === 'asc'
-                ? ' ↑'
-                : ' ↓'
-              : ''}
-            <div
-              onDoubleClick={() => header.column.resetSize()}
-              onMouseDown={header.getResizeHandler()}
-              onTouchStart={header.getResizeHandler()}
-              className={clsx('table__header-resizer', {
-                'table__header-resizer--active': header.column.getIsResizing()
-              })}
-            />
-          </Cell>
-        ))}
-      </Row>
+      <TableRow key={headerGroup.id} className='hover:bg-transparent'>
+        {headerGroup.headers.map(header => {
+          const isSorted = header.column.getIsSorted()
+
+          return (
+            <TableHead
+              key={header.id}
+              colSpan={header.colSpan}
+              style={{ width: header.getSize?.() ?? 'auto' }}
+              aria-sort={isSorted || 'none'}
+              className='relative cursor-pointer select-none bg-muted/50 text-center transition-colors hover:bg-muted'
+              onClick={header.column.getToggleSortingHandler?.()}
+            >
+              <span className='inline-flex items-center gap-1'>
+                {flexRender(
+                  header.column.columnDef.header,
+                  header.getContext()
+                )}
+                {isSorted === 'asc' && <ChevronUp className='size-4' />}
+                {isSorted === 'desc' && <ChevronDown className='size-4' />}
+              </span>
+              <div
+                onDoubleClick={() => header.column.resetSize()}
+                onMouseDown={header.getResizeHandler()}
+                onTouchStart={header.getResizeHandler()}
+                className={cn(
+                  'absolute right-0 top-0 h-full w-1 cursor-col-resize touch-none select-none rounded-full opacity-0 transition-opacity hover:bg-border hover:opacity-100',
+                  header.column.getIsResizing() && 'bg-primary opacity-100'
+                )}
+              />
+            </TableHead>
+          )
+        })}
+      </TableRow>
     ))}
-  </thead>
+  </TableHeaderRoot>
 )
 
 export default TableHeader

@@ -75,10 +75,8 @@ const fillNewPasswordFormAndSubmit = async (page, newPassword, t) => {
 }
 
 const logOut = async (page, t) => {
-  const selector = 'Profile dropdown'
-
-  await page.getByRole('button', { name: selector }).click()
-  await page.getByRole('button', { name: t.logout.noun }).click()
+  await page.getByRole('button', { name: 'Profile menu' }).click()
+  await page.getByRole('menuitem', { name: t.logout.noun }).click()
   await page.waitForURL('/login')
 }
 
@@ -108,17 +106,17 @@ test.describe.serial('Authentication', () => {
       )
 
     await expect(page.getByText(t.firstName.error.required)).toBeVisible()
-    await expect(firstNameInput).toHaveClass(/input__field--error/)
+    await expect(firstNameInput).toHaveClass(/border-destructive/)
 
     // Last name is optional
     await expect(page.getByText(t.lastName.error.required)).toHaveCount(0)
-    await expect(lastNameInput).not.toHaveClass(/input__field--error/)
+    await expect(lastNameInput).not.toHaveClass(/border-destructive/)
 
     await expect(page.getByText(t.email.error.required)).toBeVisible()
-    await expect(emailInput).toHaveClass(/input__field--error/)
+    await expect(emailInput).toHaveClass(/border-destructive/)
 
     await expect(page.getByText(t.password.error.required)).toBeVisible()
-    await expect(passwordInput).toHaveClass(/input__field--error/)
+    await expect(passwordInput).toHaveClass(/border-destructive/)
   })
 
   // This test requires a pre-registered admin account
@@ -300,9 +298,7 @@ test.describe.serial('Authentication', () => {
     await page.goto(`${url.origin}${url.pathname}?token=`)
     // No API call is made for empty token - frontend handles it
 
-    await expect(
-      page.getByText(t.email.verification.error.invalidToken)
-    ).toBeVisible()
+    await expect(page.getByText(t.backend['validation/error'])).toBeVisible()
 
     // 2: Malformed token (replace last char with underscore)
     const malformedToken = originalToken.slice(0, -1) + '_'
@@ -428,8 +424,6 @@ test.describe.serial('Authentication', () => {
 
     await expect(page.getByText(t.email.verification.success)).toBeVisible()
 
-    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
-
     // Logout to ensure clean state for next test
     await logOut(page, t)
   })
@@ -497,8 +491,6 @@ test.describe.serial('Authentication', () => {
     })
 
     await page.waitForURL('/home')
-
-    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
 
     // Logout to ensure clean state for next test
     await logOut(page, t)
@@ -599,8 +591,6 @@ test.describe.serial('Authentication', () => {
 
     await page.waitForURL('/home')
 
-    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
-
     // Logout to ensure clean state
     await logOut(page, t)
   })
@@ -628,14 +618,10 @@ test.describe.serial('Authentication', () => {
 
     await page.waitForURL('/home')
 
-    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
-
     // Step 2: Open second tab and navigate to home - should see same page
     const secondTab = await context.newPage()
 
     await secondTab.goto('/home')
-
-    await expect(secondTab.getByText(auth.firstName.ok)).toBeVisible()
 
     // Step 3: Logout in first tab - should see login page
     await logOut(page, t)

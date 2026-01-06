@@ -1,10 +1,9 @@
-import './styles.scss'
-
 import { useNavigate } from 'react-router-dom'
 
-import { GoogleOAuthButton } from '@/components/buttons'
+import { GoogleIcon } from '@/components/icons'
 import { LoginPrompt, TermsAndPrivacyPrompt } from '@/components/prompts'
-import Separator from '@/components/Separator'
+import { TextSeparator } from '@/components/Separator'
+import { Button } from '@/components/ui/button'
 import {
   useUserSignupWithEmail,
   useUserSignupWithGoogle
@@ -64,27 +63,38 @@ const Signup = () => {
   }
 
   return (
-    <div className='signup-page'>
-      <SignupForm isLoading={isEmailPending} onSubmit={handleSignupWithEmail} />
+    <>
+      <div className='flex flex-col gap-8'>
+        <div className='flex flex-col gap-2'>
+          <SignupForm
+            isLoading={isEmailPending}
+            onSubmit={handleSignupWithEmail}
+          />
 
-      <div className='signup-page__separator'>
-        <Separator text={t('or')} />
-      </div>
+          <TextSeparator text={t('or')} />
 
-      <GoogleOAuthButton
-        className='signup-page__oauth-button'
-        text={t('continueWithGoogle')}
-        onClick={handleSignupWithGoogle}
-        disabled={isGooglePending}
-      />
+          <div className='flex flex-col gap-4'>
+            <Button
+              variant='outline'
+              className='w-full'
+              onClick={handleSignupWithGoogle}
+              disabled={isGooglePending}
+            >
+              <GoogleIcon />
+              {t('continueWithGoogle')}
+            </Button>
+          </div>
+        </div>
 
-      <div className='signup-page__prompts'>
-        <TermsAndPrivacyPrompt />
+        <div className='-mt-5'>
+          <TermsAndPrivacyPrompt />
+        </div>
+
         <LoginPrompt />
       </div>
 
       {Captcha}
-    </div>
+    </>
   )
 }
 

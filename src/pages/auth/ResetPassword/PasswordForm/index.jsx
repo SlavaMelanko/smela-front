@@ -1,10 +1,8 @@
-import './styles.scss'
-
 import { useForm } from 'react-hook-form'
 
-import { PrimaryButton } from '@/components/buttons'
-import FormField from '@/components/form/Field'
+import { FormContainer, FormField, FormFields } from '@/components/form'
 import { PasswordInput } from '@/components/inputs'
+import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
@@ -23,29 +21,25 @@ const SetNewPasswordForm = ({ isLoading, onSubmit }) => {
   })
 
   return (
-    <form
-      className='reset-password-password-form'
-      onSubmit={handleSubmit(data => onSubmit(data))}
-    >
-      <div className='reset-password-password-form__fields'>
+    <FormContainer onSubmit={handleSubmit(data => onSubmit(data))}>
+      <FormFields>
         <FormField
           name={FieldName.NEW_PASSWORD}
           error={errors[FieldName.NEW_PASSWORD]}
-          required
         >
           <PasswordInput
             placeholder={t('password.placeholder.new')}
             {...register(FieldName.NEW_PASSWORD)}
           />
         </FormField>
-      </div>
+      </FormFields>
 
-      <PrimaryButton type='submit' disabled={isSubmitting || isLoading}>
+      <Button type='submit' disabled={isSubmitting || isLoading}>
         {isSubmitting || isLoading
           ? t('processing')
           : t('password.reset.set.cta')}
-      </PrimaryButton>
-    </form>
+      </Button>
+    </FormContainer>
   )
 }
 

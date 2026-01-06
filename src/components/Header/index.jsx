@@ -1,34 +1,30 @@
-import './styles.scss'
-
-import { useRef, useState } from 'react'
+import { LogOut, MessageCircleQuestion, User } from 'lucide-react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ProfileModal } from '@/components/dialogs'
-import { LanguageSelector, ProfileDropdown } from '@/components/dropdowns'
-import { HelpIcon, Logo, LogoutIcon, UserIcon } from '@/components/icons'
-import MobileMenuToggle from '@/components/MobileMenuToggle'
+import { Logo } from '@/components/icons'
+import LanguageDropdown from '@/components/LanguageDropdown'
 import {
   NotificationPanel,
   NotificationToggle
 } from '@/components/notifications'
 import ThemeToggle from '@/components/ThemeToggle'
+import { SidebarTrigger } from '@/components/ui/sidebar'
 import { useCurrentUser, useLogout } from '@/hooks/useAuth'
 import useModal from '@/hooks/useModal'
 import useNotifications from '@/hooks/useNotifications'
 
-const Header = ({ isSidebarOpen, toggleSidebar }) => {
+import { ProfileDropdown } from './components'
+
+const Header = () => {
   const { user } = useCurrentUser()
   const { mutate: logOut } = useLogout()
   const { inboxNotifications } = useNotifications()
   const { openModal } = useModal()
   const navigate = useNavigate()
-  const notificationToggleRef = useRef(null)
 
   const [isPanelOpen, setIsPanelOpen] = useState(false)
-
-  const togglePanel = () => {
-    setIsPanelOpen(prev => !prev)
-  }
 
   const handleLogOut = () => {
     logOut(undefined, {
@@ -53,19 +49,19 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
   const menu = [
     {
       label: 'profile',
-      icon: <UserIcon size='xs' />,
+      icon: <User className='size-4' />,
       onClick: openProfileModal
     },
     {
       label: 'support',
-      icon: <HelpIcon size='xs' />,
+      icon: <MessageCircleQuestion className='size-4' />,
       onClick: () => {
         navigate('/support')
       }
     },
     {
       label: 'logout.noun',
-      icon: <LogoutIcon size='xs' color='red' />,
+      icon: <LogOut className='size-4 text-destructive' />,
       onClick: handleLogOut,
       separatorBefore: true,
       danger: true
@@ -74,40 +70,29 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
 
   return (
     <>
-      <header className='header'>
-        <div className='header__logo'>
-          <Logo width={130} />
-        </div>
+      <header className='flex items-center justify-between gap-4 w-full h-11 bg-sidebar md:justify-end'>
+        <SidebarTrigger className='md:hidden' />
+        <Logo width={130} className='md:hidden' />
 
-        <nav className='header__nav'>
+        <nav className='flex items-center gap-2'>
           <NotificationToggle
             unreadCount={inboxNotifications?.length || 0}
-            onClick={togglePanel}
-            ref={notificationToggleRef}
+            onClick={() => setIsPanelOpen(true)}
           />
 
-          <div className='header__toggle'>
+          <div className='hidden md:flex items-center gap-2'>
             <ThemeToggle />
+            <LanguageDropdown />
           </div>
 
-          <div className='header__language'>
-            <LanguageSelector />
-          </div>
-
-          <div className='header__profile'>
-            <ProfileDropdown name={user?.firstName} menu={menu} />
-          </div>
-
-          <div className='header__mobile-menu-toggle'>
-            <MobileMenuToggle isOpen={isSidebarOpen} onToggle={toggleSidebar} />
-          </div>
+          <ProfileDropdown
+            firstName={user?.firstName}
+            status={user?.status}
+            menu={menu}
+          />
         </nav>
       </header>
-      <NotificationPanel
-        isOpen={isPanelOpen}
-        onToggle={togglePanel}
-        toggleButtonRef={notificationToggleRef}
-      />
+      <NotificationPanel open={isPanelOpen} onOpenChange={setIsPanelOpen} />
     </>
   )
 }

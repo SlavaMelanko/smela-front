@@ -1,10 +1,9 @@
-import './styles.scss'
-
 import { useForm } from 'react-hook-form'
 
-import { PrimaryButton } from '@/components/buttons'
-import FormField from '@/components/form/Field'
-import { PasswordInput, TextInput } from '@/components/inputs'
+import { FormContainer, FormField, FormFields } from '@/components/form'
+import { PasswordInput } from '@/components/inputs'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
@@ -23,18 +22,14 @@ const SignupForm = ({ isLoading, onSubmit }) => {
   })
 
   return (
-    <form
-      className='signup-form'
-      onSubmit={handleSubmit(data => onSubmit(data))}
-    >
-      <div className='signup-form__fields'>
+    <FormContainer onSubmit={handleSubmit(data => onSubmit(data))}>
+      <FormFields>
         <FormField
           label={t('firstName.label')}
           name={FieldName.FIRST_NAME}
           error={errors[FieldName.FIRST_NAME]}
-          required
         >
-          <TextInput
+          <Input
             placeholder={t('firstName.example')}
             {...register(FieldName.FIRST_NAME)}
           />
@@ -44,8 +39,9 @@ const SignupForm = ({ isLoading, onSubmit }) => {
           label={t('lastName.label')}
           name={FieldName.LAST_NAME}
           error={errors[FieldName.LAST_NAME]}
+          optional
         >
-          <TextInput
+          <Input
             placeholder={t('lastName.example')}
             {...register(FieldName.LAST_NAME)}
           />
@@ -55,9 +51,8 @@ const SignupForm = ({ isLoading, onSubmit }) => {
           label={t('email.label')}
           name={FieldName.EMAIL}
           error={errors[FieldName.EMAIL]}
-          required
         >
-          <TextInput
+          <Input
             placeholder={t('email.example')}
             {...register(FieldName.EMAIL)}
           />
@@ -67,19 +62,18 @@ const SignupForm = ({ isLoading, onSubmit }) => {
           label={t('password.label')}
           name={FieldName.PASSWORD}
           error={errors[FieldName.PASSWORD]}
-          required
         >
           <PasswordInput
             placeholder={t('password.placeholder.masked')}
             {...register(FieldName.PASSWORD)}
           />
         </FormField>
-      </div>
+      </FormFields>
 
-      <PrimaryButton type='submit' disabled={isSubmitting || isLoading}>
+      <Button type='submit' disabled={isSubmitting || isLoading}>
         {isSubmitting || isLoading ? t('processing') : t('signUp')}
-      </PrimaryButton>
-    </form>
+      </Button>
+    </FormContainer>
   )
 }
 

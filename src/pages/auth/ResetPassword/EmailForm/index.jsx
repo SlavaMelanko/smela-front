@@ -1,10 +1,8 @@
-import './styles.scss'
-
 import { useForm } from 'react-hook-form'
 
-import { PrimaryButton } from '@/components/buttons'
-import FormField from '@/components/form/Field'
-import { TextInput } from '@/components/inputs'
+import { FormContainer, FormField, FormFields } from '@/components/form'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
@@ -23,29 +21,22 @@ const ResetPasswordForm = ({ isLoading, onSubmit }) => {
   })
 
   return (
-    <form
-      className='reset-password-email-form'
-      onSubmit={handleSubmit(data => onSubmit(data))}
-    >
-      <div className='reset-password-email-form__fields'>
-        <FormField
-          name={FieldName.EMAIL}
-          error={errors[FieldName.EMAIL]}
-          required
-        >
-          <TextInput
+    <FormContainer onSubmit={handleSubmit(data => onSubmit(data))}>
+      <FormFields>
+        <FormField name={FieldName.EMAIL} error={errors[FieldName.EMAIL]}>
+          <Input
             placeholder={t('email.example')}
             {...register(FieldName.EMAIL)}
           />
         </FormField>
-      </div>
+      </FormFields>
 
-      <PrimaryButton type='submit' disabled={isSubmitting || isLoading}>
+      <Button type='submit' disabled={isSubmitting || isLoading}>
         {isSubmitting || isLoading
           ? t('processing')
           : t('password.reset.request.cta')}
-      </PrimaryButton>
-    </form>
+      </Button>
+    </FormContainer>
   )
 }
 

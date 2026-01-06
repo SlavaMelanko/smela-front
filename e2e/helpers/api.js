@@ -52,13 +52,7 @@ export const waitForApiCall = async (page, options, timeout = 30000) => {
 }
 
 export const waitForApiCalls = async (page, optionsArray, timeout = 30000) => {
-  const results = []
-
-  for (const options of optionsArray) {
-    const result = await waitForApiCall(page, options, timeout)
-
-    results.push(result)
-  }
-
-  return results
+  return Promise.all(
+    optionsArray.map(options => waitForApiCall(page, options, timeout))
+  )
 }

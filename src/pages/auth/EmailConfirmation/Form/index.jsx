@@ -1,33 +1,31 @@
-import './styles.scss'
-
 import { useForm } from 'react-hook-form'
 
-import { PrimaryButton } from '@/components/buttons'
+import { FormContainer } from '@/components/form'
+import { Button } from '@/components/ui/button'
 import useLocale from '@/hooks/useLocale'
 
 import { getDefaultValues } from './fields'
+import resolver from './resolver'
 
-const EmailConfirmationForm = ({ isLoading, userEmail, onSubmit }) => {
+const EmailConfirmationForm = ({ isLoading, email, onSubmit }) => {
   const { t } = useLocale()
 
   const {
     handleSubmit,
     formState: { isSubmitting }
   } = useForm({
-    defaultValues: getDefaultValues(userEmail)
+    resolver,
+    defaultValues: getDefaultValues(email)
   })
 
   return (
-    <form
-      className='email-confirmation-form'
-      onSubmit={handleSubmit(data => onSubmit(data))}
-    >
-      <PrimaryButton type='submit' disabled={isSubmitting || isLoading}>
+    <FormContainer onSubmit={handleSubmit(data => onSubmit(data))}>
+      <Button type='submit' disabled={isSubmitting || isLoading}>
         {isSubmitting || isLoading
           ? t('processing')
           : t('email.confirmation.cta')}
-      </PrimaryButton>
-    </form>
+      </Button>
+    </FormContainer>
   )
 }
 
