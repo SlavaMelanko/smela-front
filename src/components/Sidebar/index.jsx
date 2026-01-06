@@ -1,7 +1,7 @@
 import { ChevronDown, ExternalLink } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import Copyright from '@/components/Copyright'
+import { Copyright } from '@/components/Copyright'
 import { Logo } from '@/components/icons'
 import {
   Collapsible,
