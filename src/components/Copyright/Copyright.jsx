@@ -19,7 +19,7 @@ const copyrightVariants = cva('text-center font-light text-muted-foreground', {
   }
 })
 
-export const Copyright = ({ className, size }) => {
+export const Copyright = ({ className, size = 'xs' }) => {
   const { t } = useLocale()
 
   return (
