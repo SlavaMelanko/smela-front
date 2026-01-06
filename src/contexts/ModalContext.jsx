@@ -5,7 +5,7 @@ import {
   DialogBackdrop,
   DialogContent,
   DialogPortal
-} from '@/components/ui/dialog'
+} from '@/components/ui'
 
 const ModalContext = createContext()
 

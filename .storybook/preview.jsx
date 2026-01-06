@@ -1,5 +1,8 @@
 import '../src/index.css'
 
+import { MemoryRouter } from 'react-router-dom'
+
+import { LocaleProvider } from '../src/contexts/LocaleContext'
 import i18n from '../src/i18n'
 
 /** @type { import('@storybook/react-vite').Preview } */
@@ -59,7 +62,13 @@ const preview = {
       }
 
       // use key to force re-render when locale & theme changes
-      return <Story key={`${locale}-${theme}`} />
+      return (
+        <MemoryRouter>
+          <LocaleProvider>
+            <Story key={`${locale}-${theme}`} />
+          </LocaleProvider>
+        </MemoryRouter>
+      )
     }
   ]
 }

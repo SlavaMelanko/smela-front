@@ -1,23 +1,22 @@
-import { Link } from '@/components/ui/link'
-import { Prompt } from '@/components/ui/prompt'
+import { Link } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-const TermsAndPrivacyPrompt = ({ className }) => {
+import { Prompt } from './components'
+
+export const TermsAndPrivacyPrompt = ({ size = 'sm' }) => {
   const { t } = useLocale()
 
   return (
-    <Prompt size='sm' className={className}>
-      {t('termsAndPrivacy.prefix')}{' '}
-      <Link size='sm' to='/terms' openInNewTab>
-        {t('termsAndPrivacy.termsLink')}
-      </Link>{' '}
-      {t('termsAndPrivacy.middle')}{' '}
-      <Link size='sm' to='/privacy' openInNewTab>
-        {t('termsAndPrivacy.privacyLink')}
+    <Prompt size={size}>
+      <span>{t('termsAndPrivacy.prefix')}</span>
+      <Link size={size} to='/terms' openInNewTab>
+        {t('termsAndPrivacy.terms')}
       </Link>
-      {'.'}
+      <span>{t('termsAndPrivacy.and')}</span>
+      <Link size={size} to='/privacy' openInNewTab>
+        {t('termsAndPrivacy.privacy')}
+      </Link>
+      <span>.</span>
     </Prompt>
   )
 }
-
-export default TermsAndPrivacyPrompt

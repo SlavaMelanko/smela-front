@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 const PresetValue = memo(({ value, label, isActive, onSelect }) => (

@@ -1,4 +1,4 @@
-import { Table as TableRoot } from '@/components/ui/table'
+import { Table as TableRoot } from '@/components/ui'
 
 import TableBody from './Body'
 import TableHeader from './Header'

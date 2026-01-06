@@ -5,7 +5,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle
-} from '@/components/ui/dialog'
+} from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 export const PricingSliderModal = ({ onComplete, onClose }) => {

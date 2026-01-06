@@ -8,7 +8,9 @@ import {
   useState
 } from 'react'
 
-import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
+
+import { Badge } from './badge'
 import {
   Command,
   CommandEmpty,
@@ -17,13 +19,8 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator
-} from '@/components/ui/command'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '@/components/ui/popover'
-import { cn } from '@/lib/utils'
+} from './command'
+import { Popover, PopoverContent, PopoverTrigger } from './popover'
 
 // https://wds-shadcn-registry.netlify.app/components/multi-select/
 

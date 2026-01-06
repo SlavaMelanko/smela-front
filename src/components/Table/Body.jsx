@@ -4,7 +4,7 @@ import {
   TableBody as TableBodyRoot,
   TableCell,
   TableRow
-} from '@/components/ui/table'
+} from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 const TableBody = ({ config, onRowClick }) => (

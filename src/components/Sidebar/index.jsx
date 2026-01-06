@@ -6,9 +6,7 @@ import { Logo } from '@/components/icons'
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger
-} from '@/components/ui/collapsible'
-import {
+  CollapsibleTrigger,
   Sidebar as ShadcnSidebar,
   SidebarContent,
   SidebarFooter,
@@ -22,7 +20,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem
-} from '@/components/ui/sidebar'
+} from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 const Sidebar = ({ items }) => {

@@ -1,4 +1,4 @@
-import { Spinner as ShadcnSpinner } from '@/components/ui/spinner'
+import { Spinner as ShadcnSpinner } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 const sizeMap = { sm: 16, md: 24, lg: 32, xl: 48 }

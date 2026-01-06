@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
+  Badge,
+  Button,
   Tooltip,
   TooltipContent,
   TooltipTrigger
-} from '@/components/ui/tooltip'
+} from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import { Bandwidth, PricePerUnit, TotalPrice } from '../components'

@@ -1,14 +1,14 @@
 import { Bell, Calendar, Info, X } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Card,
   CardAction,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle
-} from '@/components/ui/card'
+} from '@/components/ui'
 
 const NotificationCard = ({
   title,

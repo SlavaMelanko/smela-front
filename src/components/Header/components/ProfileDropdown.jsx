@@ -1,11 +1,11 @@
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+} from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import UserAvatar from './UserAvatar'

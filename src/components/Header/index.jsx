@@ -10,7 +10,7 @@ import {
   NotificationToggle
 } from '@/components/notifications'
 import ThemeToggle from '@/components/ThemeToggle'
-import { SidebarTrigger } from '@/components/ui/sidebar'
+import { SidebarTrigger } from '@/components/ui'
 import { useCurrentUser, useLogout } from '@/hooks/useAuth'
 import useModal from '@/hooks/useModal'
 import useNotifications from '@/hooks/useNotifications'

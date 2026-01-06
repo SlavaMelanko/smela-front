@@ -1,13 +1,13 @@
 import { ChevronDown } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+} from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 const RowsPerPageDropdown = ({ className, value, options, onChange }) => (

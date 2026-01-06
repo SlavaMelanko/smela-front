@@ -6,11 +6,7 @@ import {
   UserPlus
 } from 'lucide-react'
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger
-} from '@/components/ui/tooltip'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 const FEATURE = {

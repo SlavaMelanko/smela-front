@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { GoogleIcon } from '@/components/icons'
 import { LoginPrompt, TermsAndPrivacyPrompt } from '@/components/prompts'
 import { TextSeparator } from '@/components/Separator'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import {
   useUserSignupWithEmail,
   useUserSignupWithGoogle
@@ -90,7 +90,7 @@ const Signup = () => {
           <TermsAndPrivacyPrompt />
         </div>
 
-        <LoginPrompt />
+        <LoginPrompt question={t('alreadyHaveAccount')} />
       </div>
 
       {Captcha}

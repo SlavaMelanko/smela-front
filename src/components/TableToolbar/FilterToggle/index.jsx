@@ -1,6 +1,6 @@
 import { ChevronDown, Filter } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 const FilterToggle = ({ className, label, isActive, onToggle }) => {
