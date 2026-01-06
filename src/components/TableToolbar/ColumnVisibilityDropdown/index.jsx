@@ -1,12 +1,12 @@
 import { ChevronDown, SlidersVertical } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+} from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 const ColumnVisibilityDropdown = ({ className, label, columns }) => (

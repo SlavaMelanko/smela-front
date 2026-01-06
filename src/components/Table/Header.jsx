@@ -5,7 +5,7 @@ import {
   TableHead,
   TableHeader as TableHeaderRoot,
   TableRow
-} from '@/components/ui/table'
+} from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 const TableHeader = ({ config }) => (

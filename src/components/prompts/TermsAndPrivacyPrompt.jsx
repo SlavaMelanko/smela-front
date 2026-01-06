@@ -1,5 +1,4 @@
-import { Link } from '@/components/ui/link'
-import { Prompt } from '@/components/ui/prompt'
+import { Link, Prompt } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 const TermsAndPrivacyPrompt = ({ className }) => {

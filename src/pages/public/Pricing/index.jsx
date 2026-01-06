@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import EnterpriseTab from './components/EnterpriseTab'

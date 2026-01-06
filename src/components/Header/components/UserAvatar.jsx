@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarStatus } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarStatus } from '@/components/ui'
 import { getStatusBgColor } from '@/lib/types/user/status'
 
 const UserAvatar = ({ firstName, status }) => (

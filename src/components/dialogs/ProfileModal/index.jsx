@@ -1,5 +1,5 @@
 import StatusLabel from '@/components/StatusLabel'
-import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
 import { getFullName } from '@/lib/format/user'
 
 export const ProfileModal = ({ profile, onClose }) => {

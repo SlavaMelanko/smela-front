@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 const EnterpriseTab = () => {

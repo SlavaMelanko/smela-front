@@ -1,4 +1,4 @@
-import { Toaster as SonnerToaster } from '@/components/ui/sonner'
+import { Toaster as SonnerToaster } from '@/components/ui'
 import useTheme from '@/hooks/useTheme'
 
 const Toaster = () => {

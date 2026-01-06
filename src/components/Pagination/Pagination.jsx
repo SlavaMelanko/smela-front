@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import { defaultOptions, limitOptions } from './options'

@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 
 const Action = ({ children, onClick }) => (
   <Button className='w-full' variant='outline' onClick={onClick}>

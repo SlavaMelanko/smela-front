@@ -33,6 +33,8 @@ themes belong together as CSS variable swaps — no need for separate theme file
 - **Modify directly** for project-wide design decisions (colors, spacing,
   cursor, sizing)
 - You own this code — it's your design system, not an external dependency
+- **No unit tests** — primitives are tested upstream by shadcn/Base UI
+- **No Storybook stories** — document usage in domain components instead
 
 ### Layer 2: `src/components/` — Domain Components
 
@@ -91,12 +93,14 @@ export function SubmitButton({ loading, children, ...props }) {
 
 ## Barrel Exports
 
-Use an index file to consolidate ui/ imports:
+Use an index file to consolidate ui/ imports. Export only components, not CVA
+variants (keep variants as internal implementation details):
 
 ```tsx
-// src/components/ui/index.ts
-export { Button, buttonVariants } from './button'
-export { Badge, badgeVariants } from './badge'
+// src/components/ui/index.js
+export { Button } from './button' // not buttonVariants
+export { Badge } from './badge' // not badgeVariants
+export { Input } from './input' // not inputVariants
 export { Card, CardHeader, CardTitle, CardContent, CardFooter } from './card'
 // ... add as you install components
 ```
@@ -111,9 +115,21 @@ import { Card } from '@/components/ui/card'
 
 // After: single line
 import { Button, Badge, Card } from '@/components/ui'
+
+// If you need variants for extending styles, import directly:
+import { buttonVariants } from '@/components/ui/button'
 ```
 
-Update `index.ts` each time you add a new shadcn component.
+Update `index.js` each time you add a new shadcn component.
+
+**Internal imports within `ui/`**: When one ui component imports another (e.g.,
+`sidebar.jsx` importing `button`), use relative paths:
+
+```tsx
+// Inside src/components/ui/sidebar.jsx
+import { Button } from './button' // not '@/components/ui/button'
+import { Sheet, SheetContent } from './sheet'
+```
 
 ## Tailwind Best Practices
 

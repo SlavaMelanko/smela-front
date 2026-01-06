@@ -1,8 +1,7 @@
 import { useForm } from 'react-hook-form'
 
 import { FormContainer, FormField, FormFields } from '@/components/form'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Button, Input } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'

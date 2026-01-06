@@ -1,8 +1,7 @@
 import { useState } from 'react'
 
 import { Slider } from '@/components/inputs'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Badge, Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import FeatureList from './FeatureList'
