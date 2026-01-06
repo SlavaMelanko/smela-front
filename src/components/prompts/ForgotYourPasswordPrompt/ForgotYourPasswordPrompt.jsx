@@ -1,16 +1,16 @@
-import { Link, Prompt } from '@/components/ui'
+import { Link } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-const ForgotYourPasswordPrompt = () => {
+import { Prompt } from '../components'
+
+export const ForgotYourPasswordPrompt = () => {
   const { t } = useLocale()
 
   return (
-    <Prompt size='sm'>
+    <Prompt>
       <Link size='sm' to='/reset-password'>
         {t('forgotYourPassword')}
       </Link>
     </Prompt>
   )
 }
-
-export default ForgotYourPasswordPrompt

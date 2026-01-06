@@ -16,12 +16,8 @@ const promptVariants = cva('text-muted-foreground text-center', {
   }
 })
 
-function Prompt({ className, size, children, ...props }) {
-  return (
-    <p className={cn(promptVariants({ size }), className)} {...props}>
-      {children}
-    </p>
-  )
-}
-
-export { Prompt, promptVariants }
+export const Prompt = ({ className, size, children, ...props }) => (
+  <p className={cn(promptVariants({ size }), className)} {...props}>
+    {children}
+  </p>
+)

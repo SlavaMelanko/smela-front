@@ -1,11 +1,13 @@
-import { Link, Prompt } from '@/components/ui'
+import { Link } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-const LoginPrompt = ({ question }) => {
+import { Prompt } from '../components'
+
+export const LoginPrompt = ({ question }) => {
   const { t } = useLocale()
 
   return (
-    <Prompt size='sm'>
+    <Prompt>
       {question || t('alreadyHaveAccount')}{' '}
       <Link size='sm' to='/login'>
         {t('login.verb')}
@@ -13,5 +15,3 @@ const LoginPrompt = ({ question }) => {
     </Prompt>
   )
 }
-
-export default LoginPrompt

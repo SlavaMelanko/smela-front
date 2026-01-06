@@ -74,7 +74,6 @@ export {
   PopoverTitle,
   PopoverTrigger
 } from './popover'
-export { Prompt } from './prompt'
 export { Separator } from './separator'
 export {
   Sheet,

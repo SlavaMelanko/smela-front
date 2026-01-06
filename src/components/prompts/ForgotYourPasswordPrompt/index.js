@@ -1,0 +1,1 @@
+export { ForgotYourPasswordPrompt } from './ForgotYourPasswordPrompt'

@@ -1,11 +1,13 @@
-import { Link, Prompt } from '@/components/ui'
+import { Link } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-const SignupPrompt = () => {
+import { Prompt } from '../components'
+
+export const SignupPrompt = () => {
   const { t } = useLocale()
 
   return (
-    <Prompt size='sm'>
+    <Prompt>
       {t('doNotHaveAccount')}{' '}
       <Link size='sm' to='/pricing'>
         {t('signUp')}
@@ -13,5 +15,3 @@ const SignupPrompt = () => {
     </Prompt>
   )
 }
-
-export default SignupPrompt

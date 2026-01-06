@@ -1,0 +1,1 @@
+export { TermsAndPrivacyPrompt } from './TermsAndPrivacyPrompt'
