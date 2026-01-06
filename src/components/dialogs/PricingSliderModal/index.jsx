@@ -1,4 +1,4 @@
-import Copyright from '@/components/Copyright'
+import { Copyright } from '@/components/Copyright'
 import { PricingSlider } from '@/components/pricing'
 import {
   DialogBody,
