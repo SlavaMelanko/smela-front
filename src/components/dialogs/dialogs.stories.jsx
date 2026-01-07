@@ -1,15 +1,7 @@
 import { Dialog, dialogContentVariants } from '@/components/ui/dialog'
+import { Role, UserStatus } from '@/lib/types/user'
 
 import { PricingSliderDialog, ProfileDialog } from '.'
-
-const mockProfile = {
-  id: 'usr_12345',
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'john.doe@example.com',
-  role: 'admin',
-  status: 'active'
-}
 
 // Wrapper with Dialog context for Base UI components
 const DialogWrapper = ({ size, children }) => (
@@ -33,9 +25,33 @@ export default {
 }
 
 export const UserProfile = {
-  render: ({ size }) => (
+  argTypes: {
+    role: {
+      control: 'select',
+      options: Object.values(Role)
+    },
+    status: {
+      control: 'select',
+      options: Object.values(UserStatus)
+    }
+  },
+  args: {
+    role: Role.ADMIN,
+    status: UserStatus.ACTIVE
+  },
+  render: ({ size, role, status }) => (
     <DialogWrapper size={size}>
-      <ProfileDialog profile={mockProfile} onClose={noop} />
+      <ProfileDialog
+        profile={{
+          id: 'usr_12345',
+          firstName: 'John',
+          lastName: 'Doe',
+          email: 'john.doe@example.com',
+          role,
+          status
+        }}
+        onClose={noop}
+      />
     </DialogWrapper>
   )
 }
