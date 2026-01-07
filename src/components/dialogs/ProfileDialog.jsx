@@ -14,36 +14,27 @@ const Label = ({ children }) => (
 export const ProfileDialog = ({ profile, onClose }) => {
   const { t } = useLocale()
 
+  const fields = [
+    { label: 'ID', value: <span>{profile.id}</span> },
+    { label: t('firstName.label'), value: <span>{profile.firstName}</span> },
+    { label: t('lastName.label'), value: <span>{profile.lastName}</span> },
+    { label: t('email.label'), value: <EmailLink email={profile.email} /> },
+    { label: t('role.name'), value: <RoleBadge role={profile.role} /> },
+    { label: t('status.name'), value: <StatusBadge status={profile.status} /> }
+  ]
+
   return (
     <>
       <DialogHeader onClose={onClose}>
         <DialogTitle>{t('profile')}</DialogTitle>
       </DialogHeader>
       <DialogBody className='flex flex-col gap-3'>
-        <Row>
-          <Label>ID</Label>
-          <span>{profile.id}</span>
-        </Row>
-        <Row>
-          <Label>{t('firstName.label')}</Label>
-          <span>{profile.firstName}</span>
-        </Row>
-        <Row>
-          <Label>{t('lastName.label')}</Label>
-          <span>{profile.lastName}</span>
-        </Row>
-        <Row>
-          <Label>{t('email.label')}</Label>
-          <EmailLink email={profile.email} />
-        </Row>
-        <Row>
-          <Label>{t('role.name')}</Label>
-          <RoleBadge role={profile.role} />
-        </Row>
-        <Row>
-          <Label>{t('status.name')}</Label>
-          <StatusBadge status={profile.status} />
-        </Row>
+        {fields.map(({ label, value }) => (
+          <Row key={label}>
+            <Label>{label}</Label>
+            {value}
+          </Row>
+        ))}
       </DialogBody>
     </>
   )
