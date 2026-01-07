@@ -56,7 +56,6 @@ export {
   DropdownMenuTrigger
 } from './dropdown-menu'
 export { Input } from './input'
-export { Link } from './link'
 export {
   MultiSelect,
   MultiSelectContent,

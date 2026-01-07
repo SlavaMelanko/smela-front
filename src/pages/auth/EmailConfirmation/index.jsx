@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom'
 
-import { EmailLink } from '@/components/EmailLink'
+import { EmailLink } from '@/components/links'
 import { useCurrentUser, useResendVerificationEmail } from '@/hooks/useAuth'
 import useCaptcha from '@/hooks/useCaptcha'
 import useLocale from '@/hooks/useLocale'

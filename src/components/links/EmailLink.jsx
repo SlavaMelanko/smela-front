@@ -1,5 +1,6 @@
-import { linkVariants } from '@/components/ui/link'
 import { cn } from '@/lib/utils'
+
+import { linkVariants } from './variants'
 
 export const EmailLink = ({ email, className, size, underline, children }) => {
   return (

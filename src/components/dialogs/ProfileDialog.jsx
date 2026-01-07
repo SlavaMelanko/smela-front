@@ -1,5 +1,5 @@
 import { RoleBadge, StatusBadge } from '@/components/badges'
-import { EmailLink } from '@/components/EmailLink'
+import { EmailLink } from '@/components/links'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 

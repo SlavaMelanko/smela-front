@@ -1,4 +1,4 @@
-import { Link } from '@/components/ui'
+import { Link } from '@/components/links'
 import useLocale from '@/hooks/useLocale'
 
 import { Prompt } from './components'
