@@ -1,7 +1,7 @@
 import { Link } from '@/components/links'
 import useLocale from '@/hooks/useLocale'
 
-import { Prompt } from './components'
+import { Prompt } from './elements'
 
 export const ForgotYourPasswordPrompt = ({ size = 'sm' }) => {
   const { t } = useLocale()

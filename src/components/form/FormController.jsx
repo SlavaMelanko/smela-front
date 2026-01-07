@@ -2,7 +2,7 @@ import { Controller } from 'react-hook-form'
 
 import useLocale from '@/hooks/useLocale'
 
-import { Error, FieldWrapper, InputWrapper, Label } from './components'
+import { Error, FieldWrapper, InputWrapper, Label } from './elements'
 
 /**
  * Form field wrapper for controlled components using Controller.

@@ -2,7 +2,7 @@ import { cloneElement } from 'react'
 
 import useLocale from '@/hooks/useLocale'
 
-import { Error, FieldWrapper, InputWrapper, Label } from './components'
+import { Error, FieldWrapper, InputWrapper, Label } from './elements'
 
 /**
  * Form field wrapper for native inputs using register().
