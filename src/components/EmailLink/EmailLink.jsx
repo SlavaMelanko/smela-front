@@ -1,7 +1,7 @@
 import { linkVariants } from '@/components/ui/link'
 import { cn } from '@/lib/utils'
 
-export function EmailLink({ email, className, size, underline, children }) {
+export const EmailLink = ({ email, className, size, underline, children }) => {
   return (
     <a
       href={`mailto:${email}`}
