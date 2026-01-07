@@ -2,7 +2,7 @@ import { Controller } from 'react-hook-form'
 
 import useLocale from '@/hooks/useLocale'
 
-import { Container, Error, InputWrapper, Label } from '../components'
+import { Error, FieldWrapper, InputWrapper, Label } from './elements'
 
 /**
  * Form field wrapper for controlled components using Controller.
@@ -21,7 +21,7 @@ import { Container, Error, InputWrapper, Label } from '../components'
  *   )}
  * />
  */
-const FormController = ({
+export const FormController = ({
   name,
   label,
   optional,
@@ -34,7 +34,7 @@ const FormController = ({
   const { t } = useLocale()
 
   return (
-    <Container hasError={!!error}>
+    <FieldWrapper hasError={!!error}>
       {label && (
         <Label htmlFor={name} optional={optional}>
           {label}
@@ -51,8 +51,6 @@ const FormController = ({
       </InputWrapper>
       {/* Always rendered for smooth enter/exit CSS transitions */}
       <Error message={error?.message ? t(error.message) : null} />
-    </Container>
+    </FieldWrapper>
   )
 }
-
-export default FormController

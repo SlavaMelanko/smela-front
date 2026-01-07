@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 
-import { FormContainer, FormField, FormFields } from '@/components/form'
+import { FormField, FormFields, FormRoot } from '@/components/form'
 import { PasswordInput } from '@/components/inputs'
 import { Button, Input } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
@@ -21,7 +21,7 @@ const LoginForm = ({ isLoading, onSubmit }) => {
   })
 
   return (
-    <FormContainer onSubmit={handleSubmit(data => onSubmit(data))}>
+    <FormRoot onSubmit={handleSubmit(data => onSubmit(data))}>
       <FormFields>
         <FormField name={FieldName.EMAIL} error={errors[FieldName.EMAIL]}>
           <Input
@@ -41,7 +41,7 @@ const LoginForm = ({ isLoading, onSubmit }) => {
       <Button type='submit' disabled={isSubmitting || isLoading}>
         {isSubmitting || isLoading ? t('processing') : t('login.verb')}
       </Button>
-    </FormContainer>
+    </FormRoot>
   )
 }
 

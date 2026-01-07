@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 
-import { FormContainer, FormField, FormFields } from '@/components/form'
+import { FormField, FormFields, FormRoot } from '@/components/form'
 import { PasswordInput } from '@/components/inputs'
 import { Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
@@ -21,7 +21,7 @@ const SetNewPasswordForm = ({ isLoading, onSubmit }) => {
   })
 
   return (
-    <FormContainer onSubmit={handleSubmit(data => onSubmit(data))}>
+    <FormRoot onSubmit={handleSubmit(data => onSubmit(data))}>
       <FormFields>
         <FormField
           name={FieldName.NEW_PASSWORD}
@@ -39,7 +39,7 @@ const SetNewPasswordForm = ({ isLoading, onSubmit }) => {
           ? t('processing')
           : t('password.reset.set.cta')}
       </Button>
-    </FormContainer>
+    </FormRoot>
   )
 }
 

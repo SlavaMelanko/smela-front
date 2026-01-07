@@ -1,8 +1,8 @@
-import React from 'react'
+import { cloneElement } from 'react'
 
 import useLocale from '@/hooks/useLocale'
 
-import { Container, Error, InputWrapper, Label } from '../components'
+import { Error, FieldWrapper, InputWrapper, Label } from './elements'
 
 /**
  * Form field wrapper for native inputs using register().
@@ -15,10 +15,10 @@ import { Container, Error, InputWrapper, Label } from '../components'
  *   <TextInput placeholder={t('email.placeholder')} {...register('email')} />
  * </FormField>
  */
-const FormField = ({ name, label, optional, children, error }) => {
+export const FormField = ({ name, label, optional, children, error }) => {
   const { t } = useLocale()
 
-  const wrappedChild = React.cloneElement(children, {
+  const wrappedChild = cloneElement(children, {
     ...children.props,
     name,
     id: name,
@@ -26,7 +26,7 @@ const FormField = ({ name, label, optional, children, error }) => {
   })
 
   return (
-    <Container hasError={!!error}>
+    <FieldWrapper hasError={!!error}>
       {label && (
         <Label htmlFor={name} optional={optional}>
           {label}
@@ -35,8 +35,6 @@ const FormField = ({ name, label, optional, children, error }) => {
       <InputWrapper>{wrappedChild}</InputWrapper>
       {/* Always rendered for smooth enter/exit CSS transitions */}
       <Error message={error?.message ? t(error.message) : null} />
-    </Container>
+    </FieldWrapper>
   )
 }
-
-export default FormField

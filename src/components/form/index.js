@@ -1,3 +1,3 @@
-export { default as FormController } from './FormController'
-export { default as FormField } from './FormField'
-export { FormContainer, FormFields } from './layouts'
+export { FormFields, FormRoot } from './containers'
+export { FormController } from './FormController'
+export { FormField } from './FormField'
