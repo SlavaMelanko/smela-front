@@ -19,30 +19,31 @@ export const ProfileDialog = ({ profile, onClose }) => {
       <DialogHeader onClose={onClose}>
         <DialogTitle>{t('profile')}</DialogTitle>
       </DialogHeader>
-      <DialogBody>
-        <div className='flex flex-col gap-2'>
-          <Row>
-            <Label>ID</Label> {profile.id}
-          </Row>
-          <Row>
-            <Label>{t('firstName.label')}</Label> {profile.firstName}
-          </Row>
-          <Row>
-            <Label>{t('lastName.label')}</Label> {profile.lastName}
-          </Row>
-          <Row>
-            <Label>{t('email.label')}</Label>
-            <EmailLink email={profile.email} />
-          </Row>
-          <Row>
-            <Label>{t('role.name')}</Label>
-            <RoleBadge role={profile.role} />
-          </Row>
-          <Row>
-            <Label>{t('status.name')}</Label>
-            <StatusBadge status={profile.status} />
-          </Row>
-        </div>
+      <DialogBody className='flex flex-col gap-3'>
+        <Row>
+          <Label>ID</Label>
+          <span>{profile.id}</span>
+        </Row>
+        <Row>
+          <Label>{t('firstName.label')}</Label>
+          <span>{profile.firstName}</span>
+        </Row>
+        <Row>
+          <Label>{t('lastName.label')}</Label>
+          <span>{profile.lastName}</span>
+        </Row>
+        <Row>
+          <Label>{t('email.label')}</Label>
+          <EmailLink email={profile.email} />
+        </Row>
+        <Row>
+          <Label>{t('role.name')}</Label>
+          <RoleBadge role={profile.role} />
+        </Row>
+        <Row>
+          <Label>{t('status.name')}</Label>
+          <StatusBadge status={profile.status} />
+        </Row>
       </DialogBody>
     </>
   )
