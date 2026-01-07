@@ -16,7 +16,7 @@ description:
 src/
 ├── components/
 │   ├── ui/           # shadcn primitives (Button, Card, Dialog, etc.)
-│   │   └── index.ts  # barrel exports
+│   │   └── index.js  # barrel exports
 │   └── [feature]/    # Domain components composed from ui/ primitives
 ├── pages/            # Page components, compose from components/
 └── index.css         # Global styles, Tailwind imports, theme variables
@@ -56,8 +56,8 @@ themes belong together as CSS variable swaps — no need for separate theme file
 - Adding new variants that apply globally
 - Adjusting base styles for consistency
 
-```tsx
-// src/components/ui/button.tsx — modify directly
+```jsx
+// src/components/ui/button.jsx — modify directly
 const buttonVariants = cva(
   'cursor-pointer active:cursor-grabbing ...', // project cursor rules
   {
@@ -76,8 +76,8 @@ const buttonVariants = cva(
 - Composing multiple primitives together
 - Creating contextual variations (MenuButton, SubmitButton with loading state)
 
-```tsx
-// src/components/SubmitButton.tsx — wrapper for behavior
+```jsx
+// src/components/SubmitButton.jsx — wrapper for behavior
 import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 
@@ -96,7 +96,7 @@ export function SubmitButton({ loading, children, ...props }) {
 Use an index file to consolidate ui/ imports. Export only components, not CVA
 variants (keep variants as internal implementation details):
 
-```tsx
+```js
 // src/components/ui/index.js
 export { Button } from './button' // not buttonVariants
 export { Badge } from './badge' // not badgeVariants
@@ -107,7 +107,7 @@ export { Card, CardHeader, CardTitle, CardContent, CardFooter } from './card'
 
 Then import from a single path:
 
-```tsx
+```jsx
 // Before: multiple lines
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -125,7 +125,7 @@ Update `index.js` each time you add a new shadcn component.
 **Internal imports within `ui/`**: When one ui component imports another (e.g.,
 `sidebar.jsx` importing `button`), use relative paths:
 
-```tsx
+```jsx
 // Inside src/components/ui/sidebar.jsx
 import { Button } from './button' // not '@/components/ui/button'
 import { Sheet, SheetContent } from './sheet'
@@ -138,7 +138,7 @@ import { Sheet, SheetContent } from './sheet'
 Order classes consistently: layout → sizing → spacing → typography → colors →
 effects
 
-```tsx
+```jsx
 // Good: logical grouping
 <div className='flex items-center gap-4 p-4 text-sm text-muted-foreground bg-card rounded-lg shadow-sm' />
 ```
@@ -147,14 +147,14 @@ effects
 
 Extract repeated **behavioral** patterns into wrapper components:
 
-```tsx
+```jsx
 // Avoid: repeating complex compositions
 ;<Button variant='ghost' className='w-full justify-start gap-2'>
   <Icon /> Menu Item
 </Button>
 
 // Prefer: wrapper for repeated composition + behavior
-// components/MenuItem.tsx
+// components/MenuItem.jsx
 export const MenuItem = ({ icon: Icon, children, ...props }) => (
   <Button variant='ghost' className='w-full justify-start gap-2' {...props}>
     {Icon && <Icon className='h-4 w-4' />}
@@ -167,8 +167,8 @@ export const MenuItem = ({ icon: Icon, children, ...props }) => (
 
 Extend variants via `cva` when the variant applies project-wide:
 
-```tsx
-// components/ui/button.tsx - add new variant
+```jsx
+// components/ui/button.jsx - add new variant
 const buttonVariants = cva('...', {
   variants: {
     variant: {
@@ -200,52 +200,38 @@ Reference via Tailwind: `bg-brand`, `text-brand-foreground`
 
 ## Component Composition Pattern
 
-```tsx
-// components/ui/card.tsx - shadcn primitive (don't modify)
-// components/ui/button.tsx - shadcn primitive (don't modify)
+```jsx
+// components/ui/card.jsx - shadcn primitive (don't modify)
+// components/ui/button.jsx - shadcn primitive (don't modify)
 
-// components/FeatureCard.tsx - custom composition
+// components/FeatureCard.jsx - custom composition
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
-interface FeatureCardProps {
-  title: string
-  description: string
-  onAction?: () => void
-}
+export const FeatureCard = ({ title, description, onAction }) => (
+  <Card>
+    <CardHeader>
+      <CardTitle>{title}</CardTitle>
+    </CardHeader>
+    <CardContent className='space-y-4'>
+      <p className='text-muted-foreground'>{description}</p>
+      {onAction && <Button onClick={onAction}>Learn More</Button>}
+    </CardContent>
+  </Card>
+)
 
-export function FeatureCard({
-  title,
-  description,
-  onAction
-}: FeatureCardProps) {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
-      <CardContent className='space-y-4'>
-        <p className='text-muted-foreground'>{description}</p>
-        {onAction && <Button onClick={onAction}>Learn More</Button>}
-      </CardContent>
-    </Card>
-  )
-}
-
-// pages/Features.tsx - page composition
+// pages/Features.jsx - page composition
 import { FeatureCard } from '@/components/FeatureCard'
 
-export function FeaturesPage() {
-  return (
-    <main className='container py-12'>
-      <h1 className='text-3xl font-bold mb-8'>Features</h1>
-      <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
-        <FeatureCard title='Fast' description='...' />
-        <FeatureCard title='Secure' description='...' onAction={() => {}} />
-      </div>
-    </main>
-  )
-}
+export const FeaturesPage = () => (
+  <main className='container py-12'>
+    <h1 className='text-3xl font-bold mb-8'>Features</h1>
+    <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
+      <FeatureCard title='Fast' description='...' />
+      <FeatureCard title='Secure' description='...' onAction={() => {}} />
+    </div>
+  </main>
+)
 ```
 
 ## Common Patterns
@@ -254,7 +240,7 @@ export function FeaturesPage() {
 
 Mobile-first with breakpoint prefixes:
 
-```tsx
+```jsx
 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' />
 ```
 
@@ -262,7 +248,7 @@ Mobile-first with breakpoint prefixes:
 
 Use shadcn's built-in dark mode support via `dark:` prefix:
 
-```tsx
+```jsx
 <div className="bg-background text-foreground" /> // Automatic
 <div className="bg-white dark:bg-slate-900" />    // Manual override
 ```
@@ -280,7 +266,7 @@ Use consistent spacing scale: `gap-4`, `space-y-4`, `p-4`, `m-4` (16px base)
 
 Use Tailwind's transition utilities:
 
-```tsx
+```jsx
 <Button className='transition-colors hover:bg-primary/90' />
 ```
 
