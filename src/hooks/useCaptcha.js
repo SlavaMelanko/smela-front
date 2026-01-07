@@ -1,13 +1,11 @@
 import { useRef } from 'react'
 
-import InvisibleReCaptcha2 from '@/components/InvisibleReCaptcha2'
-
 const useCaptcha = () => {
-  const ref = useRef(null)
+  const captchaRef = useRef(null)
 
-  const getToken = async () => {
+  const getCaptchaToken = async () => {
     try {
-      const token = await ref.current?.executeAsync()
+      const token = await captchaRef.current?.executeAsync()
 
       if (!token) {
         console.error('Captcha error: token is empty')
@@ -21,9 +19,7 @@ const useCaptcha = () => {
     }
   }
 
-  const Captcha = <InvisibleReCaptcha2 ref={ref} />
-
-  return { getToken, Captcha }
+  return { captchaRef, getCaptchaToken }
 }
 
 export default useCaptcha

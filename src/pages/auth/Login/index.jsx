@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 import { GoogleIcon } from '@/components/icons'
+import { InvisibleReCaptcha } from '@/components/InvisibleReCaptcha'
 import { ForgotYourPasswordPrompt, SignupPrompt } from '@/components/prompts'
 import { TextSeparator } from '@/components/Separator'
 import { Button } from '@/components/ui'
@@ -19,10 +20,10 @@ const Login = () => {
   const { mutate: logInWithGoogle, isPending: isGooglePending } =
     useLoginWithGoogle()
   const { showErrorToast } = useNotifications()
-  const { getToken, Captcha } = useCaptcha()
+  const { captchaRef, getCaptchaToken } = useCaptcha()
 
   const handleLogin = async data => {
-    const token = await getToken()
+    const token = await getCaptchaToken()
 
     if (!token) {
       showErrorToast(t('captcha.error'))
@@ -80,7 +81,7 @@ const Login = () => {
         <ForgotYourPasswordPrompt />
       </div>
 
-      {Captcha}
+      <InvisibleReCaptcha ref={captchaRef} />
     </>
   )
 }

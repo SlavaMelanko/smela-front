@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 import { GoogleIcon } from '@/components/icons'
+import { InvisibleReCaptcha } from '@/components/InvisibleReCaptcha'
 import { LoginPrompt, TermsAndPrivacyPrompt } from '@/components/prompts'
 import { TextSeparator } from '@/components/Separator'
 import { Button } from '@/components/ui'
@@ -25,10 +26,10 @@ const Signup = () => {
     useUserSignupWithEmail()
   const { mutate: signUpWithGoogle, isPending: isGooglePending } =
     useUserSignupWithGoogle()
-  const { getToken, Captcha } = useCaptcha()
+  const { captchaRef, getCaptchaToken } = useCaptcha()
 
   const handleSignupWithEmail = async data => {
-    const token = await getToken()
+    const token = await getCaptchaToken()
 
     if (!token) {
       showErrorToast(t('captcha.error'))
@@ -93,7 +94,7 @@ const Signup = () => {
         <LoginPrompt question={t('alreadyHaveAccount')} />
       </div>
 
-      {Captcha}
+      <InvisibleReCaptcha ref={captchaRef} />
     </>
   )
 }

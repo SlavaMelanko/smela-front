@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
+import { InvisibleReCaptcha } from '@/components/InvisibleReCaptcha'
 import { LoginPrompt } from '@/components/prompts'
 import { useRequestPasswordReset, useResetPassword } from '@/hooks/useAuth'
 import useCaptcha from '@/hooks/useCaptcha'
@@ -21,12 +22,12 @@ const ResetPassword = () => {
     useRequestPasswordReset()
   const { mutate: resetPassword, isPending: isResetPending } =
     useResetPassword()
-  const { getToken, Captcha } = useCaptcha()
+  const { captchaRef, getCaptchaToken } = useCaptcha()
 
   const isRequest = !urlToken
 
   const handleRequestPasswordReset = async data => {
-    const token = await getToken()
+    const token = await getCaptchaToken()
 
     if (!token) {
       showErrorToast(t('captcha.error'))
@@ -88,7 +89,7 @@ const ResetPassword = () => {
         <LoginPrompt question={t('password.reset.rememberYourPassword')} />
       </div>
 
-      {Captcha}
+      <InvisibleReCaptcha ref={captchaRef} />
     </>
   )
 }
