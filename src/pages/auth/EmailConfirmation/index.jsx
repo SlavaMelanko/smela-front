@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom'
 
+import { EmailLink } from '@/components/links'
 import { useCurrentUser, useResendVerificationEmail } from '@/hooks/useAuth'
 import useCaptcha from '@/hooks/useCaptcha'
 import useLocale from '@/hooks/useLocale'
@@ -54,9 +55,13 @@ const EmailConfirmation = () => {
           </h1>
 
           <p className='text-base text-muted-foreground'>
-            {t('email.confirmation.description', {
-              email: email || t('email.confirmation.yourEmail')
-            })}
+            {t('email.confirmation.description.start')}{' '}
+            {email ? (
+              <EmailLink email={email} />
+            ) : (
+              t('email.confirmation.yourEmail')
+            )}
+            . {t('email.confirmation.description.end')}
           </p>
         </div>
 

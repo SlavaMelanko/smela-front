@@ -2,7 +2,7 @@ import { Building2, User } from 'lucide-react'
 
 import { Role } from '@/lib/types'
 
-const RoleBadge = ({ role }) => {
+const RoleIcon = ({ role }) => {
   const Icon = role === Role.ENTERPRISE ? Building2 : User
 
   return (
@@ -12,4 +12,4 @@ const RoleBadge = ({ role }) => {
   )
 }
 
-export default RoleBadge
+export default RoleIcon

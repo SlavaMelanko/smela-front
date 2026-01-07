@@ -1,14 +1,8 @@
-import { Copyright } from '@/components/Copyright'
 import { PricingSlider } from '@/components/pricing'
-import {
-  DialogBody,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle
-} from '@/components/ui'
+import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-export const PricingSliderModal = ({ onComplete, onClose }) => {
+export const PricingSliderDialog = ({ onComplete, onClose }) => {
   const { t } = useLocale()
 
   return (
@@ -19,9 +13,6 @@ export const PricingSliderModal = ({ onComplete, onClose }) => {
       <DialogBody scrollable={false}>
         <PricingSlider onComplete={onComplete} />
       </DialogBody>
-      <DialogFooter className='justify-center'>
-        <Copyright />
-      </DialogFooter>
     </>
   )
 }

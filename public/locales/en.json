@@ -25,7 +25,10 @@
   "email": {
     "confirmation": {
       "cta": "Send again",
-      "description": "We've sent a confirmation link to {{email}}. Just click it to finish signing up.",
+      "description": {
+        "end": "Just click it to finish signing up.",
+        "start": "We've sent a confirmation link to"
+      },
       "success": "Confirmation email sent again.",
       "title": "Confirmation email sent",
       "yourEmail": "your email"
@@ -126,8 +129,8 @@
       "dedicatedManager": "Dedicated account manager for fast issue resolution",
       "emailSupport": "Support via email",
       "oneTimePurchase": "One-time purchase, no subscription",
-      "rollover": "Unused bandwidth rolls over to the next month",
-      "slackSupport": "24/7 support on Slack"
+      "premiumSupport": "24/7 premium support",
+      "rollover": "Unused bandwidth rolls over to the next month"
     },
     "note": "Not sure yet? You can cancel or change your plan anytime.",
     "plans": {

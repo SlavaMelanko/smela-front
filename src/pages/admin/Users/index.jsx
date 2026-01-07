@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-table'
 import { useCallback, useMemo, useState } from 'react'
 
-import { ProfileModal } from '@/components/dialogs/ProfileModal'
+import { ProfileDialog } from '@/components/dialogs'
 import Pagination, { defaultOptions } from '@/components/Pagination'
 import Spinner from '@/components/Spinner'
 import Table from '@/components/Table'
@@ -51,7 +51,7 @@ const UsersTable = () => {
   const handleRowClick = useCallback(
     user => {
       const close = openModal({
-        children: <ProfileModal profile={user} onClose={() => close()} />
+        children: <ProfileDialog profile={user} onClose={() => close()} />
       })
     },
     [openModal]

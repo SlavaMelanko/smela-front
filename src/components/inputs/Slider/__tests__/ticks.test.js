@@ -1,7 +1,11 @@
 import { generateTicks } from '../ticks'
 
 describe('generateTicks', () => {
-  it('returns default 3 ticks (min, mid, max)', () => {
+  it('returns 2 ticks (min, max) by default', () => {
+    expect(generateTicks(0, 1000, 2)).toEqual([0, 1000])
+  })
+
+  it('returns 3 ticks (min, mid, max)', () => {
     expect(generateTicks(0, 1000, 3)).toEqual([0, 500, 1000])
   })
 
