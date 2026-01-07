@@ -38,7 +38,7 @@ description:
 
 ## Directory Structure
 
-```
+```zsh
 src/
 ├── components/          # Shared/reusable components
 │   ├── prompts/         # Grouping folder (flat structure)
@@ -110,13 +110,13 @@ export const ProfileDialog = ({ profile }) => {
 
 ## Form Utilities Pattern
 
-```
+```zsh
 form/
-├── index.js              # Exports: FormController, FormField, FormContainer, FormFields
+├── index.js              # Exports: FormController, FormField, FormRoot, FormFields
 ├── FormController.jsx    # Wrapper for controlled inputs (Select, Switch)
 ├── FormField.jsx         # Wrapper for native inputs (Input, Textarea)
 ├── elements/             # Shared primitives (Error, Label, FieldWrapper)
-└── containers/           # Layout utilities (FormContainer, FormFields)
+└── containers/           # Layout utilities (FormRoot, FormFields)
 ```
 
 Use `containers/` (not `layouts/`) to avoid confusion with page layouts.
@@ -134,5 +134,5 @@ Use `containers/` (not `layouts/`) to avoid confusion with page layouts.
 import { LoginPrompt, SignupPrompt } from '@/components/prompts'
 import { PricingSliderDialog } from '@/components/dialogs'
 import { Button, Card } from '@/components/ui'
-import { FormController, FormContainer } from '@/components/form'
+import { FormController, FormRoot } from '@/components/form'
 ```

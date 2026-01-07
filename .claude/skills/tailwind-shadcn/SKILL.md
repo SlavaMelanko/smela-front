@@ -12,7 +12,7 @@ description:
 
 ## Folder Structure
 
-```
+```zsh
 src/
 ├── components/
 │   ├── ui/           # shadcn primitives (Button, Card, Dialog, etc.)
