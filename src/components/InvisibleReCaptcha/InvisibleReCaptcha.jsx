@@ -6,7 +6,7 @@ import useTheme from '@/hooks/useTheme'
 import { withTimeout } from '@/lib/async'
 import env from '@/lib/env'
 
-const InvisibleReCaptcha2 = forwardRef((props, ref) => {
+export const InvisibleReCaptcha = forwardRef((props, ref) => {
   const { theme } = useTheme()
   const { locale } = useLocale()
   const recaptchaRef = useRef(null)
@@ -39,6 +39,7 @@ const InvisibleReCaptcha2 = forwardRef((props, ref) => {
     }
   }))
 
+  // Key forces re-mount when theme or locale changes, ensuring reCAPTCHA widget updates
   return (
     <ReCAPTCHA
       key={`recaptcha-${theme}-${locale}`}
@@ -52,6 +53,4 @@ const InvisibleReCaptcha2 = forwardRef((props, ref) => {
   )
 })
 
-InvisibleReCaptcha2.displayName = 'InvisibleReCaptcha2'
-
-export default InvisibleReCaptcha2
+InvisibleReCaptcha.displayName = 'InvisibleReCaptcha'

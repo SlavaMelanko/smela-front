@@ -25,18 +25,18 @@ const mockResetReCaptcha = jest.fn()
 global.mockExecuteReCaptcha = mockExecuteReCaptcha
 global.mockResetReCaptcha = mockResetReCaptcha
 
-jest.mock('@/components/InvisibleReCaptcha2', () => {
+jest.mock('@/components/InvisibleReCaptcha', () => {
   const { forwardRef, useImperativeHandle } = jest.requireActual('react')
 
   return {
     __esModule: true,
-    default: forwardRef((_, ref) => {
+    InvisibleReCaptcha: forwardRef((_, ref) => {
       useImperativeHandle(ref, () => ({
         executeAsync: mockExecuteReCaptcha,
         reset: mockResetReCaptcha
       }))
 
-      return null // invisible component for tests
+      return null
     })
   }
 })

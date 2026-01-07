@@ -1,4 +1,4 @@
-# InvisibleReCaptcha2 Component
+# InvisibleReCaptcha Component
 
 A React component that wraps Google's reCAPTCHA v2 with invisible mode for form
 protection.
@@ -20,7 +20,7 @@ https://www.google.com/recaptcha/admin/site/734411735
 
 ```jsx
 import { useRef } from 'react'
-import InvisibleReCaptcha2 from '@components/InvisibleReCaptcha2'
+import { InvisibleReCaptcha } from '@/components/InvisibleReCaptcha'
 
 const MyForm = () => {
   const recaptchaRef = useRef(null)
@@ -33,7 +33,7 @@ const MyForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       {/* Form fields */}
-      <InvisibleReCaptcha2 ref={recaptchaRef} />
+      <InvisibleReCaptcha ref={recaptchaRef} />
     </form>
   )
 }

@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom'
 
+import { InvisibleReCaptcha } from '@/components/InvisibleReCaptcha'
 import { EmailLink } from '@/components/links'
 import { useCurrentUser, useResendVerificationEmail } from '@/hooks/useAuth'
 import useCaptcha from '@/hooks/useCaptcha'
@@ -18,12 +19,12 @@ const EmailConfirmation = () => {
     useResendVerificationEmail()
   const { showSuccessToast, showErrorToast } = useNotifications()
   const { user } = useCurrentUser()
-  const { getToken, Captcha } = useCaptcha()
+  const { captchaRef, getCaptchaToken } = useCaptcha()
 
   const email = location.state?.email || user?.email
 
   const handleSubmit = async data => {
-    const token = await getToken()
+    const token = await getCaptchaToken()
 
     if (!token) {
       showErrorToast(t('captcha.error'))
@@ -72,7 +73,7 @@ const EmailConfirmation = () => {
         />
       </div>
 
-      {Captcha}
+      <InvisibleReCaptcha ref={captchaRef} />
     </>
   )
 }
