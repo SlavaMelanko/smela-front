@@ -1,4 +1,4 @@
-export { default as Error } from './Error'
-export { default as FieldWrapper } from './FieldWrapper'
-export { default as InputWrapper } from './InputWrapper'
-export { default as Label } from './Label'
+export { Error } from './Error'
+export { FieldWrapper } from './FieldWrapper'
+export { InputWrapper } from './InputWrapper'
+export { Label } from './Label'
