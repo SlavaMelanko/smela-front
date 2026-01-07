@@ -9,7 +9,7 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-const FEATURE = {
+const featureMap = {
   emailSupport: {
     icon: <Mail className='size-6 text-blue-500' />,
     text: 'offer.features.emailSupport'
@@ -22,9 +22,9 @@ const FEATURE = {
     icon: <RefreshCw className='size-6 text-pink-500' />,
     text: 'offer.features.rollover'
   },
-  slackSupport: {
+  premiumSupport: {
     icon: <MessageCircle className='size-6 text-blue-500' />,
-    text: 'offer.features.slackSupport'
+    text: 'offer.features.premiumSupport'
   },
   dedicatedManager: {
     icon: <UserPlus className='size-6 text-green-500' />,
@@ -34,18 +34,26 @@ const FEATURE = {
 
 const getFeatures = value => {
   if (value < 100) {
-    return [FEATURE.emailSupport, FEATURE.cancelAnytime, FEATURE.rollover]
+    return [
+      featureMap.emailSupport,
+      featureMap.cancelAnytime,
+      featureMap.rollover
+    ]
   }
 
   if (value < 500) {
-    return [FEATURE.slackSupport, FEATURE.cancelAnytime, FEATURE.rollover]
+    return [
+      featureMap.premiumSupport,
+      featureMap.cancelAnytime,
+      featureMap.rollover
+    ]
   }
 
   return [
-    FEATURE.slackSupport,
-    FEATURE.cancelAnytime,
-    FEATURE.rollover,
-    FEATURE.dedicatedManager
+    featureMap.premiumSupport,
+    featureMap.cancelAnytime,
+    featureMap.rollover,
+    featureMap.dedicatedManager
   ]
 }
 

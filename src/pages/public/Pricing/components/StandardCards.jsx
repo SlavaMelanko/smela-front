@@ -7,7 +7,7 @@ import {
 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
-import { PricingSliderModal } from '@/components/dialogs'
+import { PricingSliderDialog } from '@/components/dialogs'
 import { CustomPricingCard, StandardPricingCard } from '@/components/pricing'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
@@ -93,7 +93,7 @@ const StandardCards = () => {
       features: [
         {
           icon: <MessageCircle className='size-6 text-blue-500' />,
-          text: t('features.slackSupport')
+          text: t('features.premiumSupport')
         },
         {
           icon: <CalendarX className='size-6 text-orange-500' />,
@@ -123,7 +123,7 @@ const StandardCards = () => {
       showModal: () => {
         const close = openModal({
           children: (
-            <PricingSliderModal
+            <PricingSliderDialog
               onComplete={() => {
                 close()
                 navigate('/signup')

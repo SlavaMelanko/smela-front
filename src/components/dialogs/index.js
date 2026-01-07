@@ -1,2 +1,2 @@
-export { PricingSliderModal } from './PricingSliderModal'
-export { ProfileModal } from './ProfileModal'
+export { PricingSliderDialog } from './PricingSliderDialog'
+export { ProfileDialog } from './ProfileDialog'

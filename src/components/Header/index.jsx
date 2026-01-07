@@ -2,7 +2,7 @@ import { LogOut, MessageCircleQuestion, User } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { ProfileModal } from '@/components/dialogs'
+import { ProfileDialog } from '@/components/dialogs'
 import { Logo } from '@/components/icons'
 import LanguageDropdown from '@/components/LanguageDropdown'
 import {
@@ -35,9 +35,9 @@ const Header = () => {
   }
 
   // TODO: extract.
-  const openProfileModal = () => {
+  const openProfileDialog = () => {
     const close = openModal({
-      children: <ProfileModal profile={user} onClose={() => close()} />,
+      children: <ProfileDialog profile={user} onClose={() => close()} />,
       size: 'md',
       centered: true,
       closeOnOverlayClick: true,
@@ -50,7 +50,7 @@ const Header = () => {
     {
       label: 'profile',
       icon: <User className='size-4' />,
-      onClick: openProfileModal
+      onClick: openProfileDialog
     },
     {
       label: 'support',

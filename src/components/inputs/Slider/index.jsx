@@ -11,7 +11,7 @@ const Slider = ({
   min,
   max,
   step,
-  tickCount = 3,
+  tickCount = 2,
   presetValues,
   unit
 }) => {

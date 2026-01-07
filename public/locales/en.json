@@ -126,8 +126,8 @@
       "dedicatedManager": "Dedicated account manager for fast issue resolution",
       "emailSupport": "Support via email",
       "oneTimePurchase": "One-time purchase, no subscription",
-      "rollover": "Unused bandwidth rolls over to the next month",
-      "slackSupport": "24/7 support on Slack"
+      "premiumSupport": "24/7 premium support",
+      "rollover": "Unused bandwidth rolls over to the next month"
     },
     "note": "Not sure yet? You can cancel or change your plan anytime.",
     "plans": {

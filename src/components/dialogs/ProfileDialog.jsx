@@ -1,12 +1,14 @@
 import StatusLabel from '@/components/StatusLabel'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
-import { getFullName } from '@/lib/format/user'
+import useLocale from '@/hooks/useLocale'
 
-export const ProfileModal = ({ profile, onClose }) => {
+export const ProfileDialog = ({ profile, onClose }) => {
+  const { t } = useLocale()
+
   return (
     <>
       <DialogHeader onClose={onClose}>
-        <DialogTitle>User Profile</DialogTitle>
+        <DialogTitle>{t('profile')}</DialogTitle>
       </DialogHeader>
       <DialogBody>
         <div className='flex flex-col gap-3'>
@@ -15,21 +17,35 @@ export const ProfileModal = ({ profile, onClose }) => {
             {profile.id}
           </div>
           <div className='text-foreground'>
-            <span className='font-medium text-muted-foreground'>Name:</span>{' '}
-            {getFullName(profile)}
+            <span className='font-medium text-muted-foreground'>
+              {t('firstName.label')}:
+            </span>{' '}
+            {profile.firstName}
           </div>
           <div className='text-foreground'>
-            <span className='font-medium text-muted-foreground'>Email:</span>{' '}
+            <span className='font-medium text-muted-foreground'>
+              {t('lastName.label')}:
+            </span>{' '}
+            {profile.lastName}
+          </div>
+          <div className='text-foreground'>
+            <span className='font-medium text-muted-foreground'>
+              {t('email.label')}:
+            </span>{' '}
             {profile.email}
           </div>
           {profile.role && (
             <div className='text-foreground'>
-              <span className='font-medium text-muted-foreground'>Role:</span>{' '}
+              <span className='font-medium text-muted-foreground'>
+                {t('role.name')}:
+              </span>{' '}
               <span className='capitalize'>{profile.role}</span>
             </div>
           )}
           <div className='flex items-center gap-2 text-foreground'>
-            <span className='font-medium text-muted-foreground'>Status:</span>
+            <span className='font-medium text-muted-foreground'>
+              {t('status.name')}:
+            </span>
             <StatusLabel status={profile.status} />
           </div>
         </div>
