@@ -1,4 +1,5 @@
 import { RoleBadge, StatusBadge } from '@/components/badges'
+import { EmailLink } from '@/components/EmailLink'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
@@ -30,7 +31,8 @@ export const ProfileDialog = ({ profile, onClose }) => {
             <Label>{t('lastName.label')}</Label> {profile.lastName}
           </Row>
           <Row>
-            <Label>{t('email.label')}</Label> {profile.email}
+            <Label>{t('email.label')}</Label>
+            <EmailLink email={profile.email} />
           </Row>
           <Row>
             <Label>{t('role.name')}</Label>

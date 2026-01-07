@@ -32,7 +32,7 @@ export default {
   args: { size: 'md' }
 }
 
-export const Profile = {
+export const UserProfile = {
   render: ({ size }) => (
     <DialogWrapper size={size}>
       <ProfileDialog profile={mockProfile} onClose={noop} />

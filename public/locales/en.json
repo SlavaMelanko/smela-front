@@ -25,7 +25,10 @@
   "email": {
     "confirmation": {
       "cta": "Send again",
-      "description": "We've sent a confirmation link to {{email}}. Just click it to finish signing up.",
+      "description": {
+        "end": "Just click it to finish signing up.",
+        "start": "We've sent a confirmation link to"
+      },
       "success": "Confirmation email sent again.",
       "title": "Confirmation email sent",
       "yourEmail": "your email"

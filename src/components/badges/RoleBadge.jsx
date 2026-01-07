@@ -1,3 +1,3 @@
-const RoleBadge = ({ role }) => <span className='capitalize'>{role}</span>
-
-export default RoleBadge
+export const RoleBadge = ({ role }) => (
+  <span className='capitalize'>{role}</span>
+)

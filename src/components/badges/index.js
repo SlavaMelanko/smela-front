@@ -1,2 +1,2 @@
-export { default as RoleBadge } from './RoleBadge'
-export { default as StatusBadge } from './StatusBadge'
+export { RoleBadge } from './RoleBadge'
+export { StatusBadge } from './StatusBadge'

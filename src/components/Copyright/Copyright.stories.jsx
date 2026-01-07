@@ -14,14 +14,3 @@ export default {
 }
 
 export const Default = {}
-
-export const AllSizes = {
-  render: () => (
-    <div className='flex flex-col gap-4'>
-      <Copyright size='xs' />
-      <Copyright size='sm' />
-      <Copyright size='default' />
-      <Copyright size='lg' />
-    </div>
-  )
-}
