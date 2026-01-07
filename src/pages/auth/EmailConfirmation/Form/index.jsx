@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 
-import { FormContainer } from '@/components/form'
+import { FormRoot } from '@/components/form'
 import { Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
@@ -19,13 +19,13 @@ const EmailConfirmationForm = ({ isLoading, email, onSubmit }) => {
   })
 
   return (
-    <FormContainer onSubmit={handleSubmit(data => onSubmit(data))}>
+    <FormRoot onSubmit={handleSubmit(data => onSubmit(data))}>
       <Button type='submit' disabled={isSubmitting || isLoading}>
         {isSubmitting || isLoading
           ? t('processing')
           : t('email.confirmation.cta')}
       </Button>
-    </FormContainer>
+    </FormRoot>
   )
 }
 
