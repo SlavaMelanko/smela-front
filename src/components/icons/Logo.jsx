@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { cn } from '@/lib/utils'
 
-const Logo = ({ width, height, className }) => {
+export const Logo = ({ width, height, className }) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
@@ -53,5 +53,3 @@ const Logo = ({ width, height, className }) => {
     </svg>
   )
 }
-
-export default Logo
