@@ -1,8 +1,5 @@
-import { LogOut, MessageCircleQuestion, User } from 'lucide-react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
-import { ProfileDialog } from '@/components/dialogs'
 import { Logo } from '@/components/icons'
 import { LanguageDropdown } from '@/components/LanguageDropdown'
 import {
@@ -11,56 +8,16 @@ import {
 } from '@/components/notifications'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { SidebarTrigger } from '@/components/ui'
-import { useCurrentUser, useLogout } from '@/hooks/useAuth'
-import useModal from '@/hooks/useModal'
+import { useCurrentUser } from '@/hooks/useAuth'
 import useNotifications from '@/hooks/useNotifications'
 
-import { ProfileDropdown } from './elements'
+import { UserProfileDropdown } from './elements'
 
 export const Header = () => {
   const { user } = useCurrentUser()
-  const { mutate: logOut } = useLogout()
   const { inboxNotifications } = useNotifications()
-  const { openModal } = useModal()
-  const navigate = useNavigate()
 
   const [isPanelOpen, setIsPanelOpen] = useState(false)
-
-  const handleLogOut = () => {
-    logOut(undefined, {
-      onSuccess: () => {
-        navigate('/login')
-      }
-    })
-  }
-
-  const openProfileDialog = () => {
-    const close = openModal({
-      children: <ProfileDialog profile={user} onClose={() => close()} />
-    })
-  }
-
-  const menu = [
-    {
-      label: 'profile',
-      icon: <User className='size-4' />,
-      onClick: openProfileDialog
-    },
-    {
-      label: 'support',
-      icon: <MessageCircleQuestion className='size-4' />,
-      onClick: () => {
-        navigate('/support')
-      }
-    },
-    {
-      label: 'logout.noun',
-      icon: <LogOut className='size-4 text-destructive' />,
-      onClick: handleLogOut,
-      separatorBefore: true,
-      danger: true
-    }
-  ]
 
   return (
     <>
@@ -79,11 +36,7 @@ export const Header = () => {
             <LanguageDropdown />
           </div>
 
-          <ProfileDropdown
-            firstName={user?.firstName}
-            status={user?.status}
-            menu={menu}
-          />
+          <UserProfileDropdown user={user} />
         </nav>
       </header>
       <NotificationPanel open={isPanelOpen} onOpenChange={setIsPanelOpen} />

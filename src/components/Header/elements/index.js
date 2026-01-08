@@ -1,1 +1,1 @@
-export { ProfileDropdown } from './ProfileDropdown'
+export { UserProfileDropdown } from './UserProfileDropdown'
