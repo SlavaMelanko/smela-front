@@ -1,7 +1,7 @@
 import { createContext, useCallback, useMemo, useState } from 'react'
 import { toast } from 'sonner'
 
-import { Toaster } from '@/components/notifications'
+import { NotificationPanel, Toaster } from '@/components/notifications'
 
 const NotificationContext = createContext(undefined)
 
@@ -45,6 +45,16 @@ export const NotificationProvider = ({ children }) => {
     setInboxNotifications(prev => [...prev, newNotification])
   }, [])
 
+  const [isNotificationPanelOpen, setIsNotificationPanelOpen] = useState(false)
+  const openNotificationPanel = useCallback(
+    () => setIsNotificationPanelOpen(true),
+    []
+  )
+  const closeNotificationPanel = useCallback(
+    () => setIsNotificationPanelOpen(false),
+    []
+  )
+
   // 📣 Interactive notifications
   // TODO: Think about interactive notifications like rate our service, etc.
 
@@ -52,6 +62,9 @@ export const NotificationProvider = ({ children }) => {
     () => ({
       inboxNotifications,
       addInboxNotification,
+      isNotificationPanelOpen,
+      openNotificationPanel,
+      closeNotificationPanel,
       showSuccessToast,
       showErrorToast,
       clearToasts
@@ -59,6 +72,9 @@ export const NotificationProvider = ({ children }) => {
     [
       inboxNotifications,
       addInboxNotification,
+      isNotificationPanelOpen,
+      openNotificationPanel,
+      closeNotificationPanel,
       showSuccessToast,
       showErrorToast,
       clearToasts
@@ -69,8 +85,10 @@ export const NotificationProvider = ({ children }) => {
     <NotificationContext.Provider value={value}>
       {children}
       <Toaster />
-      {/* Interactive Notifications — optional future use or */}
-      {/* move NotificationPanel here if you want it callable from anywhere */}
+      <NotificationPanel
+        open={isNotificationPanelOpen}
+        onOpenChange={setIsNotificationPanelOpen}
+      />
     </NotificationContext.Provider>
   )
 }
