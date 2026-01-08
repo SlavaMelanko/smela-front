@@ -3,7 +3,7 @@ import { getStatusBgColor } from '@/lib/types/user/status'
 
 export const UserAvatar = ({ firstName, status }) => (
   <Avatar className='size-6 overflow-visible'>
-    <AvatarFallback className='text-lg'>{firstName?.[0] || 'X'}</AvatarFallback>
-    <AvatarStatus color={getStatusBgColor(status)} />
+    <AvatarFallback className='text-lg'>{firstName?.[0] || '?'}</AvatarFallback>
+    {status && <AvatarStatus color={getStatusBgColor(status)} />}
   </Avatar>
 )

@@ -50,3 +50,20 @@ export const Default = {
     })
   }
 }
+
+export const Loading = {
+  beforeEach: async () => {
+    useCurrentUser.mockReturnValue({
+      isPending: true,
+      isError: false,
+      isSuccess: false,
+      user: null,
+      isAuthenticated: false
+    })
+
+    useLogout.mockReturnValue({
+      mutate: () => {},
+      isPending: false
+    })
+  }
+}
