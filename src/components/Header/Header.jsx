@@ -15,9 +15,9 @@ import { useCurrentUser, useLogout } from '@/hooks/useAuth'
 import useModal from '@/hooks/useModal'
 import useNotifications from '@/hooks/useNotifications'
 
-import { ProfileDropdown } from './components'
+import { ProfileDropdown } from './elements'
 
-const Header = () => {
+export const Header = () => {
   const { user } = useCurrentUser()
   const { mutate: logOut } = useLogout()
   const { inboxNotifications } = useNotifications()
@@ -34,15 +34,9 @@ const Header = () => {
     })
   }
 
-  // TODO: extract.
   const openProfileDialog = () => {
     const close = openModal({
-      children: <ProfileDialog profile={user} onClose={() => close()} />,
-      size: 'md',
-      centered: true,
-      closeOnOverlayClick: true,
-      closeOnEsc: true,
-      preserveScrollBarGap: true
+      children: <ProfileDialog profile={user} onClose={() => close()} />
     })
   }
 
@@ -96,5 +90,3 @@ const Header = () => {
     </>
   )
 }
-
-export default Header
