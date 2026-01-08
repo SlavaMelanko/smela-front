@@ -14,7 +14,7 @@ const UserLayout = () => {
     <SidebarProvider>
       <Sidebar items={items} />
       <SidebarInset>
-        <header className='flex shrink-0 items-center z-10 h-11 px-4 md:px-6 bg-sidebar border-b border-sidebar-border'>
+        <header className='flex shrink-0 items-center z-10 h-11.25 px-4 md:px-6 bg-sidebar border-b border-sidebar-border'>
           <Header />
         </header>
 
