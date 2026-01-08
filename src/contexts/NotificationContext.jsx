@@ -41,10 +41,6 @@ export const NotificationProvider = ({ children }) => {
   const clearToasts = useCallback(() => toast.dismiss(), [])
 
   // 🛎️ Inbox notifications
-  const addInboxNotification = useCallback(newNotification => {
-    setInboxNotifications(prev => [...prev, newNotification])
-  }, [])
-
   const [isNotificationPanelOpen, setIsNotificationPanelOpen] = useState(false)
   const openNotificationPanel = useCallback(
     () => setIsNotificationPanelOpen(true),
@@ -54,6 +50,9 @@ export const NotificationProvider = ({ children }) => {
     () => setIsNotificationPanelOpen(false),
     []
   )
+  const addInboxNotification = useCallback(newNotification => {
+    setInboxNotifications(prev => [...prev, newNotification])
+  }, [])
 
   // 📣 Interactive notifications
   // TODO: Think about interactive notifications like rate our service, etc.

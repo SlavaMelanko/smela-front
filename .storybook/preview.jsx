@@ -1,9 +1,17 @@
 import '../src/index.css'
 
 import { MemoryRouter } from 'react-router-dom'
+import { sb } from 'storybook/test'
 
+import { SidebarProvider } from '../src/components/ui/sidebar'
 import { LocaleProvider } from '../src/contexts/LocaleContext'
+import { ModalProvider } from '../src/contexts/ModalContext'
+import { NotificationProvider } from '../src/contexts/NotificationContext'
+import { ThemeProvider } from '../src/contexts/ThemeContext'
 import i18n from '../src/i18n'
+
+// Register mocks for auth hooks
+sb.mock('../src/hooks/useAuth.js')
 
 /** @type { import('@storybook/react-vite').Preview } */
 const preview = {
@@ -64,9 +72,18 @@ const preview = {
       // use key to force re-render when locale & theme changes
       return (
         <MemoryRouter>
-          <LocaleProvider>
-            <Story key={`${locale}-${theme}`} />
-          </LocaleProvider>
+          <ThemeProvider>
+            <LocaleProvider>
+              <NotificationProvider>
+                <ModalProvider>
+                  {/* SidebarProvider is extra for Storybook only */}
+                  <SidebarProvider>
+                    <Story key={`${locale}-${theme}`} />
+                  </SidebarProvider>
+                </ModalProvider>
+              </NotificationProvider>
+            </LocaleProvider>
+          </ThemeProvider>
         </MemoryRouter>
       )
     }
