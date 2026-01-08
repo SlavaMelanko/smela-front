@@ -6,14 +6,16 @@ import LanguageDropdown from '@/components/LanguageDropdown'
 import Spinner from '@/components/Spinner'
 import ThemeToggle from '@/components/ThemeToggle'
 
+import { CenteredPage, PageContent, TopRightControls } from './containers'
+
 const ErrorLayout = () => (
-  <div className='relative flex min-h-screen flex-col items-center justify-center bg-background p-4'>
-    <div className='absolute right-4 top-4 z-4 flex gap-4 md:right-8 md:top-8'>
+  <CenteredPage>
+    <TopRightControls>
       <ThemeToggle />
       <LanguageDropdown />
-    </div>
+    </TopRightControls>
 
-    <div className='flex w-full max-w-md flex-col gap-8'>
+    <PageContent className='max-w-md'>
       <main className='px-8'>
         <Suspense fallback={<Spinner />}>
           <Outlet />
@@ -23,8 +25,8 @@ const ErrorLayout = () => (
       <footer>
         <Copyright />
       </footer>
-    </div>
-  </div>
+    </PageContent>
+  </CenteredPage>
 )
 
 export default ErrorLayout

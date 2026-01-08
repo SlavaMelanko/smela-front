@@ -6,14 +6,16 @@ import LanguageDropdown from '@/components/LanguageDropdown'
 import Spinner from '@/components/Spinner'
 import ThemeToggle from '@/components/ThemeToggle'
 
+import { CenteredPage, PageContent, TopRightControls } from './containers'
+
 const PublicLayout = () => (
-  <div className='relative flex min-h-screen flex-col items-center justify-center bg-background px-4 py-16'>
-    <div className='absolute right-4 top-4 z-4 flex gap-4 md:right-8 md:top-8'>
+  <CenteredPage>
+    <TopRightControls>
       <ThemeToggle />
       <LanguageDropdown />
-    </div>
+    </TopRightControls>
 
-    <div className='mx-auto flex w-full max-w-7xl flex-col gap-8'>
+    <PageContent className='max-w-7xl'>
       <main>
         <Suspense fallback={<Spinner />}>
           <Outlet />
@@ -23,8 +25,8 @@ const PublicLayout = () => (
       <footer>
         <Copyright />
       </footer>
-    </div>
-  </div>
+    </PageContent>
+  </CenteredPage>
 )
 
 export default PublicLayout

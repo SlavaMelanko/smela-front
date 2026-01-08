@@ -14,10 +14,11 @@ const UserLayout = () => {
     <SidebarProvider>
       <Sidebar items={items} />
       <SidebarInset>
-        <header className='z-10 flex shrink-0 items-center h-11 px-4 md:px-6 bg-sidebar border-b border-sidebar-border'>
+        <header className='flex shrink-0 items-center z-10 h-11 px-4 md:px-6 bg-sidebar border-b border-sidebar-border'>
           <Header />
         </header>
-        <main className='flex flex-col flex-1 p-4 overflow-auto'>
+
+        <main className='flex flex-col flex-1 overflow-auto p-4 md:p-8 xl:p-10'>
           <Suspense fallback={<Spinner />}>
             <Outlet />
           </Suspense>
