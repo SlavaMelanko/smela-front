@@ -3,7 +3,7 @@ import { Moon, Sun } from 'lucide-react'
 import { Button } from '@/components/ui'
 import useTheme from '@/hooks/useTheme'
 
-const ThemeToggle = () => {
+export const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme()
 
   const isDark = theme === 'dark'
@@ -13,7 +13,7 @@ const ThemeToggle = () => {
       variant='ghost'
       size='icon'
       onClick={toggleTheme}
-      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      aria-label='Theme toggle'
       className='relative rounded-full'
     >
       <Sun
@@ -29,5 +29,3 @@ const ThemeToggle = () => {
     </Button>
   )
 }
-
-export default ThemeToggle

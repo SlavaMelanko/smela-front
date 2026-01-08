@@ -3,18 +3,20 @@ import { Outlet } from 'react-router-dom'
 
 import { Copyright } from '@/components/Copyright'
 import { Logo } from '@/components/icons'
-import LanguageDropdown from '@/components/LanguageDropdown'
+import { LanguageDropdown } from '@/components/LanguageDropdown'
 import Spinner from '@/components/Spinner'
-import ThemeToggle from '@/components/ThemeToggle'
+import { ThemeToggle } from '@/components/ThemeToggle'
+
+import { CenteredPage, PageContent, TopRightControls } from './containers'
 
 const AuthLayout = () => (
-  <div className='relative flex min-h-screen flex-col items-center justify-center overflow-y-auto bg-background p-4 py-8 md:p-8'>
-    <div className='absolute right-4 top-4 z-[4] flex gap-4 md:right-8 md:top-8'>
+  <CenteredPage>
+    <TopRightControls>
       <ThemeToggle />
       <LanguageDropdown />
-    </div>
+    </TopRightControls>
 
-    <div className='flex w-full max-w-md flex-col gap-12'>
+    <PageContent className='max-w-md'>
       <header className='flex items-center justify-center text-foreground'>
         <Logo width={280} />
       </header>
@@ -28,8 +30,8 @@ const AuthLayout = () => (
       <footer>
         <Copyright />
       </footer>
-    </div>
-  </div>
+    </PageContent>
+  </CenteredPage>
 )
 
 export default AuthLayout

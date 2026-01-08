@@ -1,5 +1,3 @@
-// https://github.com/HatScripts/circle-flags/tree/gh-pages/flags
-
 import ua from './ua.svg'
 import us from './us.svg'
 

@@ -3,23 +3,25 @@ import { Outlet } from 'react-router-dom'
 
 import { Copyright } from '@/components/Copyright'
 import { Logo } from '@/components/icons'
-import LanguageDropdown from '@/components/LanguageDropdown'
+import { LanguageDropdown } from '@/components/LanguageDropdown'
 import Spinner from '@/components/Spinner'
-import ThemeToggle from '@/components/ThemeToggle'
+import { ThemeToggle } from '@/components/ThemeToggle'
+
+import { CenteredPage, PageContent, TopRightControls } from './containers'
 
 const LegalLayout = () => (
-  <div className='relative flex min-h-screen flex-col items-center justify-center bg-background px-4 py-16'>
-    <div className='absolute right-4 top-4 z-[4] flex gap-4 md:right-8 md:top-8'>
+  <CenteredPage>
+    <TopRightControls>
       <ThemeToggle />
       <LanguageDropdown />
-    </div>
+    </TopRightControls>
 
-    <div className='mx-auto flex w-full max-w-screen-lg grow flex-col items-center gap-8'>
+    <PageContent className='grow max-w-5xl'>
       <header className='flex items-center justify-center text-foreground'>
         <Logo width={280} />
       </header>
 
-      <main className='w-full grow p-4'>
+      <main className='grow w-full p-4'>
         <Suspense fallback={<Spinner />}>
           <Outlet />
         </Suspense>
@@ -28,8 +30,8 @@ const LegalLayout = () => (
       <footer>
         <Copyright />
       </footer>
-    </div>
-  </div>
+    </PageContent>
+  </CenteredPage>
 )
 
 export default LegalLayout

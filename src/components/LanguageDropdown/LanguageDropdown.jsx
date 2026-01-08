@@ -8,10 +8,10 @@ import {
 } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-import Flag from './Flag'
+import { Flag } from './elements'
 import { languages } from './languages'
 
-const LanguageDropdown = () => {
+export const LanguageDropdown = () => {
   const { locale, changeLocale } = useLocale()
 
   const currentLanguage =
@@ -45,5 +45,3 @@ const LanguageDropdown = () => {
     </DropdownMenu>
   )
 }
-
-export default LanguageDropdown
