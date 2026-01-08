@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom'
 
 import { ProfileDialog } from '@/components/dialogs'
 import { Logo } from '@/components/icons'
-import LanguageDropdown from '@/components/LanguageDropdown'
+import { LanguageDropdown } from '@/components/LanguageDropdown'
 import {
   NotificationPanel,
   NotificationToggle
 } from '@/components/notifications'
-import ThemeToggle from '@/components/ThemeToggle'
+import { ThemeToggle } from '@/components/ThemeToggle'
 import { SidebarTrigger } from '@/components/ui'
 import { useCurrentUser, useLogout } from '@/hooks/useAuth'
 import useModal from '@/hooks/useModal'

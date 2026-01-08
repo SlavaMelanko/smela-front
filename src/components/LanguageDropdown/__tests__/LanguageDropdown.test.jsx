@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import useLocale from '@/hooks/useLocale'
 import { renderWithProviders } from '@/tests'
 
-import LanguageDropdown from '../LanguageDropdown'
+import { LanguageDropdown } from '../LanguageDropdown'
 import { languages } from '../languages'
 
 const mockChangeLocale = jest.fn()

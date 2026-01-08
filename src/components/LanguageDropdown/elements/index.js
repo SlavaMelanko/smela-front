@@ -1,3 +1,1 @@
-import Flag from './Flag'
-
-export { Flag }
+export { Flag } from './Flag'

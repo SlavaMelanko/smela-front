@@ -1,3 +1,1 @@
-import LanguageDropdown from './LanguageDropdown'
-
-export default LanguageDropdown
+export { LanguageDropdown } from './LanguageDropdown'
