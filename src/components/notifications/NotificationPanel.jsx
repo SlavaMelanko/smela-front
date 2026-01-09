@@ -25,9 +25,9 @@ export const NotificationPanel = ({ open, onOpenChange }) => {
             </p>
           ) : (
             <div className='flex flex-col gap-4'>
-              {inboxNotifications.map((notification, index) => (
+              {inboxNotifications.map(notification => (
                 <NotificationCard
-                  key={index}
+                  key={notification.id || notification.title}
                   title={notification.title}
                   message={notification.message}
                   buttonText={notification.buttonText}

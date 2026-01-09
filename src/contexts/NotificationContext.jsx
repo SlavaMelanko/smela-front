@@ -30,9 +30,7 @@ export const NotificationProvider = ({ children }) => {
     }
   ]
 
-  const [inboxNotifications, setInboxNotifications] = useState(
-    notifications || []
-  )
+  const [inboxNotifications, setInboxNotifications] = useState(notifications)
 
   const [isNotificationPanelOpen, setIsNotificationPanelOpen] = useState(false)
   const openNotificationPanel = useCallback(
@@ -46,8 +44,6 @@ export const NotificationProvider = ({ children }) => {
   const addInboxNotification = useCallback(newNotification => {
     setInboxNotifications(prev => [...prev, newNotification])
   }, [])
-
-  // TODO: Think about interactive notifications like rate our service, etc.
 
   const value = useMemo(
     () => ({

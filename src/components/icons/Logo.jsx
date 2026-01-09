@@ -19,7 +19,10 @@ export const Logo = ({ size = 'sm', className }) => {
       xmlns='http://www.w3.org/2000/svg'
       viewBox='90 190 880 220'
       width={sizeMap[size]}
-      className={cn('cursor-pointer outline-none', className)}
+      className={cn(
+        'cursor-pointer rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+        className
+      )}
       onClick={handleClick}
       role='button'
       tabIndex={0}
