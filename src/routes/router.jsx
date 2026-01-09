@@ -3,8 +3,13 @@ import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
 import RootRedirect from '@/components/RootRedirect'
-import { AuthLayout, LegalLayout, PublicLayout, UserLayout } from '@/layouts'
-import ErrorLayout from '@/layouts/Error'
+import {
+  AuthLayout,
+  ErrorLayout,
+  LegalLayout,
+  PublicLayout,
+  UserLayout
+} from '@/layouts'
 import { adminActiveStatuses, userActiveStatuses } from '@/lib/types'
 import EmailConfirmationPage from '@/pages/auth/EmailConfirmation'
 import LoginPage from '@/pages/auth/Login'

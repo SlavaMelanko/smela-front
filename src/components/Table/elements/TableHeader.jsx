@@ -8,7 +8,7 @@ import {
 } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-const TableHeader = ({ config }) => (
+export const TableHeader = ({ config }) => (
   <TableHeaderRoot>
     {config.getHeaderGroups().map(headerGroup => (
       <TableRow key={headerGroup.id} className='hover:bg-transparent'>
@@ -48,5 +48,3 @@ const TableHeader = ({ config }) => (
     ))}
   </TableHeaderRoot>
 )
-
-export default TableHeader

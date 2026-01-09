@@ -6,7 +6,7 @@ import {
   MultiSelectValue
 } from '@/components/ui'
 
-const Multiselect = ({
+export const Multiselect = ({
   options,
   value,
   onChange,
@@ -43,5 +43,3 @@ const Multiselect = ({
     </MultiSelect>
   )
 }
-
-export default Multiselect

@@ -9,7 +9,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { ProfileDialog } from '@/components/dialogs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
-import Table from '@/components/Table'
+import { Table } from '@/components/Table'
 import TableToolbar from '@/components/TableToolbar'
 import { useUsers } from '@/hooks/useAdmin'
 import useLocale from '@/hooks/useLocale'
@@ -65,7 +65,9 @@ const UsersTable = () => {
     setParams({ limit }, { resetPage: true })
   }
 
-  // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Table known limitation
+  // TanStack Table uses interior mutability which is incompatible with React Compiler's memoization.
+  // See: https://react.dev/reference/eslint-plugin-react-hooks/lints/incompatible-library
+  // eslint-disable-next-line react-hooks/incompatible-library
   const config = useReactTable({
     data: users,
     columns,

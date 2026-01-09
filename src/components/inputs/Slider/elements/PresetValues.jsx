@@ -19,7 +19,7 @@ const PresetValue = memo(({ value, label, isActive, onSelect }) => (
 
 PresetValue.displayName = 'PresetValue'
 
-const PresetValues = memo(({ values, activeValue, onSelect }) => {
+export const PresetValues = memo(({ values, activeValue, onSelect }) => {
   if (!values?.length) {
     return null
   }
@@ -40,5 +40,3 @@ const PresetValues = memo(({ values, activeValue, onSelect }) => {
 })
 
 PresetValues.displayName = 'PresetValues'
-
-export default PresetValues

@@ -9,6 +9,13 @@ export default {
   parameters: {
     layout: 'fullscreen'
   },
+  decorators: [
+    Story => (
+      <div className='flex w-full shrink-0 items-center z-10 h-11.25 px-4 md:px-8 bg-sidebar border-b border-sidebar-border'>
+        <Story />
+      </div>
+    )
+  ],
   argTypes: {
     role: {
       control: 'select',
