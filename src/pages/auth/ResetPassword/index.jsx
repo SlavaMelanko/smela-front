@@ -5,8 +5,8 @@ import { LoginPrompt } from '@/components/prompts'
 import { useRequestPasswordReset, useResetPassword } from '@/hooks/useAuth'
 import useCaptcha from '@/hooks/useCaptcha'
 import useLocale from '@/hooks/useLocale'
-import useNotifications from '@/hooks/useNotifications'
 import useTheme from '@/hooks/useTheme'
+import useToast from '@/hooks/useToast'
 import useUrlParams from '@/hooks/useUrlParams'
 
 import EmailForm from './EmailForm'
@@ -15,7 +15,7 @@ import PasswordForm from './PasswordForm'
 const ResetPassword = () => {
   const { t, locale } = useLocale()
   const { theme } = useTheme()
-  const { showSuccessToast, showErrorToast } = useNotifications()
+  const { showSuccessToast, showErrorToast } = useToast()
   const navigate = useNavigate()
   const { token: urlToken } = useUrlParams(['token'])
   const { mutate: requestPasswordReset, isPending: isRequestPending } =

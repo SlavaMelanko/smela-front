@@ -2,14 +2,14 @@ import { useNavigate } from 'react-router-dom'
 
 import { Spinner } from '@/components/Spinner'
 import useLocale from '@/hooks/useLocale'
-import useNotifications from '@/hooks/useNotifications'
+import useToast from '@/hooks/useToast'
 import useUrlParams from '@/hooks/useUrlParams'
 import useVerifyEmailOnce from '@/hooks/useVerifyEmailOnce'
 import { toTranslationKey } from '@/services/catch'
 
 const VerifyEmail = () => {
   const { t } = useLocale()
-  const { showErrorToast, showSuccessToast } = useNotifications()
+  const { showErrorToast, showSuccessToast } = useToast()
   const navigate = useNavigate()
   const { token } = useUrlParams(['token'])
 

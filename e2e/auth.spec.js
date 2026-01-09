@@ -202,9 +202,7 @@ test.describe.serial('Authentication', () => {
     ).toBeVisible()
 
     await expect(
-      page.getByText(
-        t.email.confirmation.description.replace('{{email}}', testEmail)
-      )
+      page.getByText(t.email.confirmation.description.start)
     ).toBeVisible()
 
     await expect(
