@@ -18,7 +18,7 @@ const AuthLayout = () => (
 
     <PageContent className='max-w-md'>
       <header className='flex items-center justify-center text-foreground'>
-        <Logo width={280} />
+        <Logo size='lg' />
       </header>
 
       <main className='px-8'>

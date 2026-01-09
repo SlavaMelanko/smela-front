@@ -18,7 +18,7 @@ const LegalLayout = () => (
 
     <PageContent className='grow max-w-5xl'>
       <header className='flex items-center justify-center text-foreground'>
-        <Logo width={280} />
+        <Logo size='lg' />
       </header>
 
       <main className='grow w-full p-4'>

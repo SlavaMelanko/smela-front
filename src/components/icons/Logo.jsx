@@ -2,7 +2,12 @@ import { useNavigate } from 'react-router-dom'
 
 import { cn } from '@/lib/utils'
 
-export const Logo = ({ width, height, className }) => {
+const sizeMap = {
+  sm: 130,
+  lg: 280
+}
+
+export const Logo = ({ size = 'sm', className }) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
@@ -13,8 +18,7 @@ export const Logo = ({ width, height, className }) => {
     <svg
       xmlns='http://www.w3.org/2000/svg'
       viewBox='90 190 880 220'
-      width={width}
-      height={height}
+      width={sizeMap[size]}
       className={cn('cursor-pointer outline-none', className)}
       onClick={handleClick}
       role='button'

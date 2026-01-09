@@ -2,7 +2,7 @@ import { Bell } from 'lucide-react'
 
 import { Badge, Button } from '@/components/ui'
 
-const NotificationToggle = ({ unreadCount = 0, onClick, ref }) => (
+export const NotificationToggle = ({ unreadCount = 0, onClick, ref }) => (
   <Button
     variant='ghost'
     size='icon'
@@ -18,5 +18,3 @@ const NotificationToggle = ({ unreadCount = 0, onClick, ref }) => (
     )}
   </Button>
 )
-
-export default NotificationToggle

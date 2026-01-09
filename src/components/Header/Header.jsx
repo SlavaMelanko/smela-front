@@ -16,7 +16,7 @@ export const Header = () => {
     <header className='flex items-center justify-between gap-4 px-2 w-full h-11 bg-sidebar md:justify-end'>
       <div className='flex items-center gap-2 md:hidden'>
         <SidebarTrigger />
-        <Logo width={130} />
+        <Logo />
       </div>
 
       <nav className='flex items-center gap-2'>

@@ -43,7 +43,7 @@ const Sidebar = ({ items }) => {
   return (
     <ShadcnSidebar>
       <SidebarHeader className='h-11 items-center justify-center'>
-        <Logo width={130} />
+        <Logo />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
