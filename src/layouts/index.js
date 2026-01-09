@@ -1,7 +1,7 @@
-import AuthLayout from './Auth'
-import ErrorLayout from './Error'
-import LegalLayout from './Legal'
-import PublicLayout from './Public'
-import UserLayout from './User'
+import AuthLayout from './AuthLayout'
+import ErrorLayout from './ErrorLayout'
+import LegalLayout from './LegalLayout'
+import PublicLayout from './PublicLayout'
+import UserLayout from './UserLayout'
 
 export { AuthLayout, ErrorLayout, LegalLayout, PublicLayout, UserLayout }
