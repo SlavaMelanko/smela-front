@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import { Header } from '@/components/Header'
-import Sidebar from '@/components/Sidebar'
+import { Sidebar } from '@/components/Sidebar'
 import { Spinner } from '@/components/Spinner'
 import { SidebarInset, SidebarProvider } from '@/components/ui'
 import { NotificationProvider } from '@/contexts/NotificationContext'
