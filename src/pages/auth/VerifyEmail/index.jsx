@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-import Spinner from '@/components/Spinner'
+import { Spinner } from '@/components/Spinner'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
 import useUrlParams from '@/hooks/useUrlParams'
