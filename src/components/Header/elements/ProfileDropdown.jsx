@@ -8,9 +8,9 @@ import {
 } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-import UserAvatar from './UserAvatar'
+import { UserAvatar } from './UserAvatar'
 
-const ProfileDropdown = ({ firstName, status, menu }) => {
+export const ProfileDropdown = ({ firstName, status, menu }) => {
   const { t } = useLocale()
 
   return (
@@ -45,5 +45,3 @@ const ProfileDropdown = ({ firstName, status, menu }) => {
     </DropdownMenu>
   )
 }
-
-export default ProfileDropdown

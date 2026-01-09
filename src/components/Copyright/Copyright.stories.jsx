@@ -10,7 +10,14 @@ const sizeToClass = {
 export default {
   title: 'Components/Copyright',
   component: Copyright,
-  parameters: { layout: 'centered' },
+  parameters: { layout: 'fullscreen' },
+  decorators: [
+    Story => (
+      <div className='flex items-center justify-center w-full min-h-screen'>
+        <Story />
+      </div>
+    )
+  ],
   argTypes: {
     size: {
       control: 'select',
