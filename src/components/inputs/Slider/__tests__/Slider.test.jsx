@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 
 import { renderWithProviders } from '@/tests'
 
-import Slider from '../index'
+import { Slider } from '../Slider'
 
 const defaultProps = {
   value: 500,

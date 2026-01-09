@@ -3,7 +3,7 @@ import { forwardRef, useState } from 'react'
 
 import { Input } from '@/components/ui'
 
-const PasswordInput = forwardRef(
+export const PasswordInput = forwardRef(
   (
     {
       defaultVisible = false,
@@ -49,5 +49,3 @@ const PasswordInput = forwardRef(
 )
 
 PasswordInput.displayName = 'PasswordInput'
-
-export default PasswordInput

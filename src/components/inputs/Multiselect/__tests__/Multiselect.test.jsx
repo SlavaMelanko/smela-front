@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import Multiselect from './index'
+import { Multiselect } from '../Multiselect'
 
 // Mock browser APIs for tests
 beforeAll(() => {

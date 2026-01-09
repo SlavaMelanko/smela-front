@@ -2,10 +2,10 @@ import { useMemo } from 'react'
 
 import useLocale from '@/hooks/useLocale'
 
-import { PresetValues, Range, Track } from './components'
+import { PresetValues, Range, Track } from './elements'
 import { generateTicks } from './ticks'
 
-const Slider = ({
+export const Slider = ({
   value = 1,
   onChange,
   min,
@@ -52,5 +52,3 @@ const Slider = ({
     </div>
   )
 }
-
-export default Slider

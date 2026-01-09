@@ -1,6 +1,6 @@
 import { Slider } from '@/components/ui'
 
-const Track = ({ value, onChange, min, max, step }) => (
+export const Track = ({ value, onChange, min, max, step }) => (
   <div className='relative mt-2'>
     <Slider
       value={value}
@@ -11,5 +11,3 @@ const Track = ({ value, onChange, min, max, step }) => (
     />
   </div>
 )
-
-export default Track

@@ -1,5 +1,3 @@
-import Multiselect from './Multiselect'
-import PasswordInput from './PasswordInput'
-import Slider from './Slider'
-
-export { Multiselect, PasswordInput, Slider }
+export { Multiselect } from './Multiselect'
+export { PasswordInput } from './PasswordInput'
+export { Slider } from './Slider'
