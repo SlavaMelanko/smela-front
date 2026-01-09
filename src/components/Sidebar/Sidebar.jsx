@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Copyright } from '@/components/Copyright'
 import { Logo } from '@/components/icons'
 import {
+  Badge,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
@@ -23,7 +24,9 @@ import {
 } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-const Sidebar = ({ items }) => {
+const formatBadge = count => (count > 9 ? '9+' : count)
+
+export const Sidebar = ({ items }) => {
   const { t } = useLocale()
   const { pathname } = useLocation()
   const navigate = useNavigate()
@@ -37,8 +40,6 @@ const Sidebar = ({ items }) => {
       navigate(item.url)
     }
   }
-
-  const formatBadge = count => (count > 9 ? '9+' : count)
 
   return (
     <ShadcnSidebar>
@@ -89,8 +90,10 @@ const Sidebar = ({ items }) => {
                       {item.external && <ExternalLink />}
                     </SidebarMenuButton>
                     {item.badge && (
-                      <SidebarMenuBadge>
-                        {formatBadge(item.badge)}
+                      <SidebarMenuBadge className='top-1/2! -translate-y-1/2'>
+                        <Badge variant='notification'>
+                          {formatBadge(item.badge)}
+                        </Badge>
                       </SidebarMenuBadge>
                     )}
                   </SidebarMenuItem>
@@ -106,5 +109,3 @@ const Sidebar = ({ items }) => {
     </ShadcnSidebar>
   )
 }
-
-export default Sidebar

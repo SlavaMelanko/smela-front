@@ -1,4 +1,4 @@
-import { menuByRole, userMenuItems } from '@/components/Sidebar/menu'
+import { menuByRole, userMenuItems } from '@/components/Sidebar'
 import { useCurrentUser } from '@/hooks/useAuth'
 
 const useSidebarMenu = () => {
