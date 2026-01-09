@@ -1,13 +1,10 @@
 import { Table as TableRoot } from '@/components/ui'
 
-import TableBody from './Body'
-import TableHeader from './Header'
+import { TableBody, TableHeader } from './elements'
 
-const Table = ({ config, onRowClick }) => (
+export const Table = ({ config, onRowClick }) => (
   <TableRoot className='overflow-hidden rounded-md border bg-card shadow-sm'>
     <TableHeader config={config} />
     <TableBody config={config} onRowClick={onRowClick} />
   </TableRoot>
 )
-
-export default Table

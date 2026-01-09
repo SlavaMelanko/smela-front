@@ -7,7 +7,7 @@ import {
 } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-const TableBody = ({ config, onRowClick }) => (
+export const TableBody = ({ config, onRowClick }) => (
   <TableBodyRoot>
     {config.getRowModel().rows.map(row => (
       <TableRow
@@ -24,5 +24,3 @@ const TableBody = ({ config, onRowClick }) => (
     ))}
   </TableBodyRoot>
 )
-
-export default TableBody
