@@ -1,8 +1,6 @@
 import { Separator } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-export { Separator }
-
 export const TextSeparator = ({ text, className }) => (
   <div className={cn('relative', className)}>
     <div className='absolute inset-0 flex items-center'>

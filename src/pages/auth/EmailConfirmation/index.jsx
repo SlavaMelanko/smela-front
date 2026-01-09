@@ -5,8 +5,8 @@ import { EmailLink } from '@/components/links'
 import { useCurrentUser, useResendVerificationEmail } from '@/hooks/useAuth'
 import useCaptcha from '@/hooks/useCaptcha'
 import useLocale from '@/hooks/useLocale'
-import useNotifications from '@/hooks/useNotifications'
 import useTheme from '@/hooks/useTheme'
+import useToast from '@/hooks/useToast'
 import { toTranslationKey } from '@/services/catch'
 
 import EmailConfirmationForm from './Form'
@@ -17,7 +17,7 @@ const EmailConfirmation = () => {
   const location = useLocation()
   const { mutate: resendVerificationEmail, isPending } =
     useResendVerificationEmail()
-  const { showSuccessToast, showErrorToast } = useNotifications()
+  const { showSuccessToast, showErrorToast } = useToast()
   const { user } = useCurrentUser()
   const { captchaRef, getCaptchaToken } = useCaptcha()
 

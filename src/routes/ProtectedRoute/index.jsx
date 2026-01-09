@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom'
 
-import Spinner from '@/components/Spinner'
+import { Spinner } from '@/components/Spinner'
 import useHasAccess from '@/hooks/useHasAccess'
 
 const ProtectedRoute = ({

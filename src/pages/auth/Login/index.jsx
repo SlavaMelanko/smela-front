@@ -8,7 +8,7 @@ import { Button } from '@/components/ui'
 import { useLogin, useLoginWithGoogle } from '@/hooks/useAuth'
 import useCaptcha from '@/hooks/useCaptcha'
 import useLocale from '@/hooks/useLocale'
-import useNotifications from '@/hooks/useNotifications'
+import useToast from '@/hooks/useToast'
 import { toTranslationKey } from '@/services/catch'
 
 import LoginForm from './Form'
@@ -19,7 +19,7 @@ const Login = () => {
   const { mutate: logInWithEmail, isPending: isEmailPending } = useLogin()
   const { mutate: logInWithGoogle, isPending: isGooglePending } =
     useLoginWithGoogle()
-  const { showErrorToast } = useNotifications()
+  const { showErrorToast } = useToast()
   const { captchaRef, getCaptchaToken } = useCaptcha()
 
   const handleLogin = async data => {

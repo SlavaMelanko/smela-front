@@ -8,7 +8,7 @@ import { useCallback, useMemo, useState } from 'react'
 
 import { ProfileDialog } from '@/components/dialogs'
 import Pagination, { defaultOptions } from '@/components/Pagination'
-import Spinner from '@/components/Spinner'
+import { Spinner } from '@/components/Spinner'
 import Table from '@/components/Table'
 import TableToolbar from '@/components/TableToolbar'
 import { useUsers } from '@/hooks/useAdmin'

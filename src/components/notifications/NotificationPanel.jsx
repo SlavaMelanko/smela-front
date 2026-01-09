@@ -1,18 +1,19 @@
 import { useNavigate } from 'react-router-dom'
 
-import { NotificationCard } from '@/components/notifications'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 import useNotifications from '@/hooks/useNotifications'
 
-const NotificationPanel = ({ open, onOpenChange }) => {
+import { NotificationCard } from './NotificationCard'
+
+export const NotificationPanel = ({ open, onOpenChange }) => {
   const { inboxNotifications } = useNotifications()
   const { t } = useLocale()
   const navigate = useNavigate()
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className='flex flex-col gap-0 sm:min-w-[420px]'>
+      <SheetContent className='flex flex-col gap-0 w-full! sm:w-auto! sm:min-w-105'>
         <SheetHeader className='h-11 py-0 px-4 flex-row items-center justify-between bg-sidebar border-b border-sidebar-border'>
           <SheetTitle className='text-base'>{t('notifications')}</SheetTitle>
         </SheetHeader>
@@ -24,9 +25,9 @@ const NotificationPanel = ({ open, onOpenChange }) => {
             </p>
           ) : (
             <div className='flex flex-col gap-4'>
-              {inboxNotifications.map((notification, index) => (
+              {inboxNotifications.map(notification => (
                 <NotificationCard
-                  key={index}
+                  key={notification.id || notification.title}
                   title={notification.title}
                   message={notification.message}
                   buttonText={notification.buttonText}
@@ -48,5 +49,3 @@ const NotificationPanel = ({ open, onOpenChange }) => {
     </Sheet>
   )
 }
-
-export default NotificationPanel

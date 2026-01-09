@@ -11,8 +11,8 @@ import {
 } from '@/hooks/useAuth'
 import useCaptcha from '@/hooks/useCaptcha'
 import useLocale from '@/hooks/useLocale'
-import useNotifications from '@/hooks/useNotifications'
 import useTheme from '@/hooks/useTheme'
+import useToast from '@/hooks/useToast'
 import { toTranslationKey } from '@/services/catch'
 
 import SignupForm from './Form'
@@ -21,7 +21,7 @@ const Signup = () => {
   const { t, locale } = useLocale()
   const { theme } = useTheme()
   const navigate = useNavigate()
-  const { showErrorToast } = useNotifications()
+  const { showErrorToast } = useToast()
   const { mutate: signUpWithEmail, isPending: isEmailPending } =
     useUserSignupWithEmail()
   const { mutate: signUpWithGoogle, isPending: isGooglePending } =

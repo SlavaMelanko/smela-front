@@ -3,8 +3,8 @@ import { RouterProvider } from 'react-router-dom'
 
 import { LocaleProvider } from '@/contexts/LocaleContext'
 import { ModalProvider } from '@/contexts/ModalContext'
-import { NotificationProvider } from '@/contexts/NotificationContext.jsx'
 import { ThemeProvider } from '@/contexts/ThemeContext'
+import { ToastProvider } from '@/contexts/ToastContext'
 import { TanStackQueryDevTools } from '@/devtools'
 import { queryClient } from '@/lib/queryClient'
 import { router } from '@/routes'
@@ -14,11 +14,11 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <LocaleProvider>
-          <NotificationProvider>
+          <ToastProvider>
             <ModalProvider>
               <RouterProvider router={router} />
             </ModalProvider>
-          </NotificationProvider>
+          </ToastProvider>
         </LocaleProvider>
       </ThemeProvider>
       <TanStackQueryDevTools />
