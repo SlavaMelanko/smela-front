@@ -10,7 +10,12 @@ import {
 } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-const RowsPerPageDropdown = ({ className, value, options, onChange }) => (
+export const RowsPerPageDropdown = ({
+  className,
+  value,
+  options,
+  onChange
+}) => (
   <DropdownMenu>
     <DropdownMenuTrigger
       className={cn(className)}
@@ -31,5 +36,3 @@ const RowsPerPageDropdown = ({ className, value, options, onChange }) => (
     </DropdownMenuContent>
   </DropdownMenu>
 )
-
-export default RowsPerPageDropdown

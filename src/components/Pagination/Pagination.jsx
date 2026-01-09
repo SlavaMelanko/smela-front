@@ -3,10 +3,10 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
+import { RowsPerPageDropdown } from './elements/RowsPerPageDropdown'
 import { defaultOptions, limitOptions } from './options'
-import RowsPerPageDropdown from './RowsPerPageDropdown'
 
-const Pagination = ({
+export const Pagination = ({
   pagination = defaultOptions,
   onPageChange,
   onLimitChange
@@ -72,5 +72,3 @@ const Pagination = ({
     </div>
   )
 }
-
-export default Pagination
