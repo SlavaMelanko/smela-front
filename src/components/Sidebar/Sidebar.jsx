@@ -24,7 +24,11 @@ import {
 } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-const formatBadge = count => (count > 9 ? '9+' : count)
+const formatBadge = count => {
+  const num = Number(count)
+
+  return isNaN(num) || num <= 0 ? '0' : num > 9 ? '9+' : num
+}
 
 export const Sidebar = ({ items }) => {
   const { t } = useLocale()
