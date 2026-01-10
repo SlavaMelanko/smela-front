@@ -37,7 +37,12 @@ description:
 | ------------------- | ------------------- | ------------------------------------------- |
 | `src/components/*/` | `elements/`         | Small atomic primitives (Label, Error)      |
 | `src/components/*/` | `assets/` or domain | Static resources (flags/, icons/)           |
-| `src/pages/*/`      | `components/`       | Larger page-specific pieces (forms, tables) |
+| `src/pages/*/`      | `components/`       | Shared pieces used by 2+ sibling pages      |
+| `src/pages/*/`      | `containers/`       | Shared layout utilities for sibling pages   |
+
+**Important**: Only create `components/` or `containers/` folders in pages when
+helpers are shared by multiple sibling pages. For single-page helpers, keep
+files flat in the page folder.
 
 ## Directory Structure
 
@@ -82,10 +87,21 @@ src/
 │   └── ui/              # shadcn/ui primitives ONLY
 ├── layouts/
 ├── pages/
-│   └── admin/Users/
+│   ├── admin/Users/
+│   │   ├── index.js
+│   │   ├── UsersPage.jsx
+│   │   └── Toolbar/     # Single-page helper → flat in page folder
+│   ├── errors/          # Multiple pages sharing helpers
+│   │   ├── General/
+│   │   ├── Network/
+│   │   ├── NotFound/
+│   │   ├── components/  # Shared by all error pages
+│   │   └── containers/  # Shared layout utilities
+│   └── public/Pricing/
 │       ├── index.js
-│       ├── UsersPage.jsx
-│       └── components/  # Page-specific pieces
+│       ├── PricingPage.jsx
+│       ├── EnterpriseTab.jsx   # Single-page helpers → flat
+│       └── StandardCards.jsx
 └── hooks/               # Shared hooks
 ```
 

@@ -1,8 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-import EnterpriseTab from './components/EnterpriseTab'
-import StandardCards from './components/StandardCards'
+import EnterpriseTab from './EnterpriseTab'
+import StandardCards from './StandardCards'
 
 const TabId = Object.freeze({
   STANDARD: 'standard',
