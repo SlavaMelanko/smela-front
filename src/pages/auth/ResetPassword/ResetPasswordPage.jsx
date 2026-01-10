@@ -9,8 +9,8 @@ import useTheme from '@/hooks/useTheme'
 import useToast from '@/hooks/useToast'
 import useUrlParams from '@/hooks/useUrlParams'
 
-import EmailForm from './EmailForm'
-import PasswordForm from './PasswordForm'
+import { EmailForm } from './EmailForm'
+import { ResetPasswordForm } from './PasswordForm'
 
 export const ResetPasswordPage = () => {
   const { t, locale } = useLocale()
@@ -80,7 +80,7 @@ export const ResetPasswordPage = () => {
             onSubmit={handleRequestPasswordReset}
           />
         ) : (
-          <PasswordForm
+          <ResetPasswordForm
             isLoading={isResetPending}
             onSubmit={handleResetPassword}
           />

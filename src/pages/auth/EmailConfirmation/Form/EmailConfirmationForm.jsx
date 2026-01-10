@@ -7,7 +7,7 @@ import useLocale from '@/hooks/useLocale'
 import { getDefaultValues } from './fields'
 import resolver from './resolver'
 
-const EmailConfirmationForm = ({ isLoading, email, onSubmit }) => {
+export const EmailConfirmationForm = ({ isLoading, email, onSubmit }) => {
   const { t } = useLocale()
 
   const {
@@ -28,5 +28,3 @@ const EmailConfirmationForm = ({ isLoading, email, onSubmit }) => {
     </FormRoot>
   )
 }
-
-export default EmailConfirmationForm

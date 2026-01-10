@@ -15,7 +15,7 @@ import useTheme from '@/hooks/useTheme'
 import useToast from '@/hooks/useToast'
 import { toTranslationKey } from '@/services/catch'
 
-import SignupForm from './Form'
+import { SignupForm } from './Form'
 
 export const SignupPage = () => {
   const { t, locale } = useLocale()

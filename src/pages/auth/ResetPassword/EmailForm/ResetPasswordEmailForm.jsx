@@ -7,7 +7,7 @@ import useLocale from '@/hooks/useLocale'
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-const ResetPasswordForm = ({ isLoading, onSubmit }) => {
+export const EmailForm = ({ isLoading, onSubmit }) => {
   const { t } = useLocale()
 
   const {
@@ -38,5 +38,3 @@ const ResetPasswordForm = ({ isLoading, onSubmit }) => {
     </FormRoot>
   )
 }
-
-export default ResetPasswordForm

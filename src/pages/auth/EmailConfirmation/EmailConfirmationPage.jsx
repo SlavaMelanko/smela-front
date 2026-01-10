@@ -9,7 +9,7 @@ import useTheme from '@/hooks/useTheme'
 import useToast from '@/hooks/useToast'
 import { toTranslationKey } from '@/services/catch'
 
-import EmailConfirmationForm from './Form'
+import { EmailConfirmationForm } from './Form'
 
 export const EmailConfirmationPage = () => {
   const { t, locale } = useLocale()
