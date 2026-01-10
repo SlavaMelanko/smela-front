@@ -7,7 +7,7 @@ const RoleIcon = ({ role }) => {
 
   return (
     <span className='flex items-center justify-center'>
-      <Icon className='size-4' />
+      <Icon className='size-5' />
     </span>
   )
 }

@@ -9,7 +9,7 @@ import {
 } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-const ColumnVisibilityDropdown = ({ className, label, columns }) => (
+export const ColumnVisibilityDropdown = ({ className, label, columns }) => (
   <DropdownMenu>
     <DropdownMenuTrigger
       className={cn(className)}
@@ -34,5 +34,3 @@ const ColumnVisibilityDropdown = ({ className, label, columns }) => (
     </DropdownMenuContent>
   </DropdownMenu>
 )
-
-export default ColumnVisibilityDropdown

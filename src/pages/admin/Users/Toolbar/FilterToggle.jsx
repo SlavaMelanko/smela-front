@@ -3,7 +3,7 @@ import { ChevronDown, Filter } from 'lucide-react'
 import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-const FilterToggle = ({ className, label, isActive, onToggle }) => {
+export const FilterToggle = ({ className, label, isActive, onToggle }) => {
   return (
     <Button
       variant='outline'
@@ -17,5 +17,3 @@ const FilterToggle = ({ className, label, isActive, onToggle }) => {
     </Button>
   )
 }
-
-export default FilterToggle

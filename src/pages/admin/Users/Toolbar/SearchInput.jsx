@@ -3,7 +3,7 @@ import { Search } from 'lucide-react'
 import { Input } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-const SearchInput = ({
+export const SearchInput = ({
   className = '',
   placeholder = '',
   value = '',
@@ -22,5 +22,3 @@ const SearchInput = ({
     />
   </div>
 )
-
-export default SearchInput

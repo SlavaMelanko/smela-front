@@ -4,7 +4,7 @@ import ColumnVisibilityDropdown from './ColumnVisibilityDropdown'
 import FilterToggle from './FilterToggle'
 import SearchInput from './SearchInput'
 
-const TableToolbar = ({
+export const Toolbar = ({
   columns,
   showFilters,
   onToggleFilters,
@@ -33,5 +33,3 @@ const TableToolbar = ({
     </div>
   )
 }
-
-export default TableToolbar
