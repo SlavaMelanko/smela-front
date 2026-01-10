@@ -5,7 +5,7 @@ import { renderWithProviders } from '@/tests'
 import { auth } from '@/tests/data'
 import en from '$/locales/en.json'
 
-import LoginForm from '..'
+import { LoginForm } from '..'
 
 const renderForm = (onSubmit = jest.fn()) => {
   renderWithProviders(<LoginForm onSubmit={onSubmit} />)

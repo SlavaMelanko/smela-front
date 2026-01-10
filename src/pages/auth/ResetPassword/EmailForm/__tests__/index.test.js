@@ -5,10 +5,10 @@ import { renderWithProviders } from '@/tests'
 import { auth } from '@/tests/data'
 import en from '$/locales/en.json'
 
-import ResetPasswordForm from '..'
+import { EmailForm } from '..'
 
 const renderForm = (onSubmit = jest.fn()) => {
-  renderWithProviders(<ResetPasswordForm onSubmit={onSubmit} />)
+  renderWithProviders(<EmailForm onSubmit={onSubmit} />)
 
   return {
     emailInput: screen.getByPlaceholderText(en.email.example),

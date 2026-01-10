@@ -8,7 +8,7 @@ import useLocale from '@/hooks/useLocale'
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-const SignupForm = ({ isLoading, onSubmit }) => {
+export const SignupForm = ({ isLoading, onSubmit }) => {
   const { t } = useLocale()
 
   const {
@@ -75,5 +75,3 @@ const SignupForm = ({ isLoading, onSubmit }) => {
     </FormRoot>
   )
 }
-
-export default SignupForm

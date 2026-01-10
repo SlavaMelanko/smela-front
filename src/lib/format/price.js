@@ -1,6 +1,11 @@
-import { ADAPTERS } from './adapters'
+import { adapters } from './adapters'
 
-const formatPrice = (value, locale = 'en', currency = 'USD', options = {}) => {
+export const formatPrice = (
+  value,
+  locale = 'en',
+  currency = 'USD',
+  options = {}
+) => {
   const formatter = new Intl.NumberFormat(locale, {
     style: 'currency',
     currency,
@@ -9,7 +14,7 @@ const formatPrice = (value, locale = 'en', currency = 'USD', options = {}) => {
 
   let formatted = formatter.format(value)
 
-  const adapter = ADAPTERS[locale]
+  const adapter = adapters[locale]
 
   if (adapter) {
     formatted = adapter.price(formatted)
@@ -17,5 +22,3 @@ const formatPrice = (value, locale = 'en', currency = 'USD', options = {}) => {
 
   return formatted
 }
-
-export { formatPrice }

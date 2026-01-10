@@ -10,15 +10,15 @@ import { ProfileDialog } from '@/components/dialogs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { Table } from '@/components/Table'
-import TableToolbar from '@/components/TableToolbar'
 import { useUsers } from '@/hooks/useAdmin'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 
 import { getAccessibleColumns } from './columns'
-import Filters from './Filters'
+import { Filters } from './Filters'
 import useDebouncedSearch from './hooks/useDebouncedSearch'
 import useUsersTableParams from './hooks/useUsersTableParams'
+import { Toolbar } from './Toolbar'
 
 export const UsersPage = () => {
   const { t, formatDate } = useLocale()
@@ -111,7 +111,7 @@ export const UsersPage = () => {
 
   return (
     <div className='flex flex-col gap-2'>
-      <TableToolbar
+      <Toolbar
         columns={availableColumns}
         showFilters={showFilters}
         onToggleFilters={toggleFilters}

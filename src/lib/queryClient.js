@@ -43,7 +43,7 @@ const mutationCache = new MutationCache({
   }
 })
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   queryCache,
   mutationCache,
   defaultOptions: {
@@ -78,5 +78,3 @@ const queryClient = new QueryClient({
     }
   }
 })
-
-export { queryClient }

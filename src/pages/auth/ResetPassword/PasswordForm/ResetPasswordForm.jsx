@@ -2,13 +2,13 @@ import { useForm } from 'react-hook-form'
 
 import { FormField, FormFields, FormRoot } from '@/components/form'
 import { PasswordInput } from '@/components/inputs'
-import { Button, Input } from '@/components/ui'
+import { Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-const LoginForm = ({ isLoading, onSubmit }) => {
+export const ResetPasswordForm = ({ isLoading, onSubmit }) => {
   const { t } = useLocale()
 
   const {
@@ -23,26 +23,22 @@ const LoginForm = ({ isLoading, onSubmit }) => {
   return (
     <FormRoot onSubmit={handleSubmit(data => onSubmit(data))}>
       <FormFields>
-        <FormField name={FieldName.EMAIL} error={errors[FieldName.EMAIL]}>
-          <Input
-            placeholder={t('email.placeholder')}
-            {...register(FieldName.EMAIL)}
-          />
-        </FormField>
-
-        <FormField name={FieldName.PASSWORD} error={errors[FieldName.PASSWORD]}>
+        <FormField
+          name={FieldName.NEW_PASSWORD}
+          error={errors[FieldName.NEW_PASSWORD]}
+        >
           <PasswordInput
-            placeholder={t('password.placeholder.default')}
-            {...register(FieldName.PASSWORD)}
+            placeholder={t('password.placeholder.new')}
+            {...register(FieldName.NEW_PASSWORD)}
           />
         </FormField>
       </FormFields>
 
       <Button type='submit' disabled={isSubmitting || isLoading}>
-        {isSubmitting || isLoading ? t('processing') : t('login.verb')}
+        {isSubmitting || isLoading
+          ? t('processing')
+          : t('password.reset.set.cta')}
       </Button>
     </FormRoot>
   )
 }
-
-export default LoginForm

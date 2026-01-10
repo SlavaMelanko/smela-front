@@ -5,11 +5,11 @@ import { renderWithProviders } from '@/tests'
 import { auth } from '@/tests/data'
 import en from '$/locales/en.json'
 
-import SetNewPasswordForm from '..'
+import { ResetPasswordForm } from '..'
 
 const renderForm = (onSubmit = jest.fn(), isLoading = false) => {
   renderWithProviders(
-    <SetNewPasswordForm onSubmit={onSubmit} isLoading={isLoading} />
+    <ResetPasswordForm onSubmit={onSubmit} isLoading={isLoading} />
   )
 
   return {
@@ -72,7 +72,7 @@ describe('Set New Password Form', () => {
 
   it('shows loading state', () => {
     renderWithProviders(
-      <SetNewPasswordForm onSubmit={jest.fn()} isLoading={true} />
+      <ResetPasswordForm onSubmit={jest.fn()} isLoading={true} />
     )
 
     const submitButton = screen.getByRole('button', { name: en.processing })

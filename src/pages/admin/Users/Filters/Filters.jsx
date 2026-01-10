@@ -5,7 +5,7 @@ import useLocale from '@/hooks/useLocale'
 import { Role, UserStatus } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
-const Filters = ({ isShow, params, setParams }) => {
+export const Filters = ({ isShow, params, setParams }) => {
   const { t } = useLocale()
 
   const roleOptions = useMemo(
@@ -50,7 +50,7 @@ const Filters = ({ isShow, params, setParams }) => {
       )}
     >
       <div className='overflow-hidden'>
-        <div className='flex flex-col gap-6 p-4 md:flex-row md:[&>*]:min-w-48 md:[&>*]:flex-1'>
+        <div className='flex flex-col gap-6 p-4 md:flex-row md:*:min-w-48 md:*:flex-1'>
           <Multiselect
             options={roleOptions}
             value={selectedRoles}
@@ -69,5 +69,3 @@ const Filters = ({ isShow, params, setParams }) => {
     </div>
   )
 }
-
-export default Filters

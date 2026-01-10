@@ -1,4 +1,4 @@
-const formatNumber = (value, locale = 'en', options = {}) => {
+export const formatNumber = (value, locale = 'en', options = {}) => {
   if (value === undefined) {
     return 'NaN'
   }
@@ -9,5 +9,3 @@ const formatNumber = (value, locale = 'en', options = {}) => {
 
   return new Intl.NumberFormat(locale, options).format(value)
 }
-
-export { formatNumber }

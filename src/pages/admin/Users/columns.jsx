@@ -1,9 +1,8 @@
 import { StatusBadge } from '@/components/badges'
+import { RoleIcon } from '@/components/icons'
 import { getFullName } from '@/lib/format/user'
 
-import RoleIcon from './RoleIcon'
-
-const getAccessibleColumns = (t, formatDate) => [
+export const getAccessibleColumns = (t, formatDate) => [
   {
     accessorKey: 'id',
     header: t('table.users.id'),
@@ -41,5 +40,3 @@ const getAccessibleColumns = (t, formatDate) => [
     cell: info => formatDate(info.getValue())
   }
 ]
-
-export { getAccessibleColumns }

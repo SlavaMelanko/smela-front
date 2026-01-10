@@ -9,7 +9,7 @@ import {
   UserStatus
 } from '@/lib/types'
 
-const RootRedirect = () => {
+export const RootRedirect = () => {
   const { isFetching, isAuthenticated, user, isError } = useCurrentUser()
 
   if (isError) {
@@ -50,5 +50,3 @@ const RootRedirect = () => {
 
   return <Navigate to='/login' replace />
 }
-
-export default RootRedirect
