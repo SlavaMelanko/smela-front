@@ -1,4 +1,4 @@
-import { localStorage as storage } from '../localStorage'
+import { localStorage } from '../localStorage'
 
 describe('localStorage', () => {
   let mockLocalStorage
@@ -31,15 +31,15 @@ describe('localStorage', () => {
     it('should return value from localStorage', () => {
       window.localStorage.setItem('test-key', 'test-value')
 
-      expect(storage.get('test-key')).toBe('test-value')
+      expect(localStorage.get('test-key')).toBe('test-value')
     })
 
     it('should return null fallback for non-existent key', () => {
-      expect(storage.get('non-existent-key')).toBe(null)
+      expect(localStorage.get('non-existent-key')).toBe(null)
     })
 
     it('should return custom fallback for non-existent key', () => {
-      expect(storage.get('non-existent-key', 'default')).toBe('default')
+      expect(localStorage.get('non-existent-key', 'default')).toBe('default')
     })
 
     it('should return custom fallback when localStorage throws error', () => {
@@ -49,7 +49,7 @@ describe('localStorage', () => {
         throw new Error('localStorage error')
       })
 
-      expect(storage.get('test-key', 'fallback')).toBe('fallback')
+      expect(localStorage.get('test-key', 'fallback')).toBe('fallback')
 
       window.localStorage.getItem = originalGetItem
     })
@@ -57,7 +57,7 @@ describe('localStorage', () => {
 
   describe('set', () => {
     it('should store value in localStorage', () => {
-      storage.set('test-key', 'test-value')
+      localStorage.set('test-key', 'test-value')
 
       expect(window.localStorage.getItem('test-key')).toBe('test-value')
     })
@@ -69,7 +69,7 @@ describe('localStorage', () => {
         throw new Error('Quota exceeded')
       })
 
-      expect(() => storage.set('test-key', 'test-value')).not.toThrow()
+      expect(() => localStorage.set('test-key', 'test-value')).not.toThrow()
 
       window.localStorage.setItem = originalSetItem
     })
@@ -79,7 +79,7 @@ describe('localStorage', () => {
     it('should remove value from localStorage', () => {
       window.localStorage.setItem('test-key', 'test-value')
 
-      storage.remove('test-key')
+      localStorage.remove('test-key')
 
       expect(window.localStorage.getItem('test-key')).toBe(null)
     })
@@ -91,7 +91,7 @@ describe('localStorage', () => {
         throw new Error('localStorage error')
       })
 
-      expect(() => storage.remove('test-key')).not.toThrow()
+      expect(() => localStorage.remove('test-key')).not.toThrow()
 
       window.localStorage.removeItem = originalRemoveItem
     })
@@ -103,7 +103,7 @@ describe('localStorage', () => {
       window.localStorage.setItem('key2', 'value2')
       window.localStorage.setItem('key3', 'value3')
 
-      storage.clear()
+      localStorage.clear()
 
       expect(window.localStorage.getItem('key1')).toBe(null)
       expect(window.localStorage.getItem('key2')).toBe(null)
@@ -117,7 +117,7 @@ describe('localStorage', () => {
         throw new Error('localStorage error')
       })
 
-      expect(() => storage.clear()).not.toThrow()
+      expect(() => localStorage.clear()).not.toThrow()
 
       window.localStorage.clear = originalClear
     })
