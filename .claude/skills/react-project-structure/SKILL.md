@@ -23,31 +23,38 @@ description:
 
 ## Folder vs Flat Decision
 
-| Condition               | Structure                              | Example                                  |
-| ----------------------- | -------------------------------------- | ---------------------------------------- |
-| Single `.jsx` file only | Flat in grouping folder                | `prompts/LoginPrompt.jsx`                |
-| 2+ related files        | Folder-per-component                   | `DataTable/` with hooks, sub-components  |
-| Tests                   | Shared `__tests__/` in grouping folder | `prompts/__tests__/LoginPrompt.test.jsx` |
+| Condition               | Structure                                    | Example                                     |
+| ----------------------- | -------------------------------------------- | ------------------------------------------- |
+| Single `.jsx` file only | Flat in grouping folder OR standalone folder | `prompts/LoginPrompt.jsx` or `Header/`      |
+| 2+ related files        | Folder-per-component                         | `DataTable/` with hooks, sub-components     |
+| Tests                   | `__tests__/` in component or grouping folder | `Header/__tests__/` or `prompts/__tests__/` |
+| Stories (single)        | PascalCase matching component name           | `Header/Header.stories.jsx`                 |
+| Stories (group)         | lowercase matching folder name               | `prompts/prompts.stories.jsx`               |
 
 ## Internal Folder Naming
 
-| Location            | Internal folder | Purpose                                     |
-| ------------------- | --------------- | ------------------------------------------- |
-| `src/components/*/` | `elements/`     | Small atomic primitives (Label, Error)      |
-| `src/pages/*/`      | `components/`   | Larger page-specific pieces (forms, tables) |
+| Location            | Internal folder     | Purpose                                     |
+| ------------------- | ------------------- | ------------------------------------------- |
+| `src/components/*/` | `elements/`         | Small atomic primitives (Label, Error)      |
+| `src/components/*/` | `assets/` or domain | Static resources (flags/, icons/)           |
+| `src/pages/*/`      | `components/`       | Larger page-specific pieces (forms, tables) |
 
 ## Directory Structure
 
 ```zsh
 src/
 ├── components/          # Shared/reusable components
+│   ├── Header/          # Standalone component (PascalCase at top level OK)
+│   │   ├── index.js
+│   │   ├── Header.jsx
+│   │   ├── elements/
+│   │   └── __tests__/   # Tests can live in component folder
 │   ├── prompts/         # Grouping folder (flat structure)
 │   │   ├── index.js
 │   │   ├── LoginPrompt.jsx
 │   │   ├── SignupPrompt.jsx
 │   │   ├── elements/    # Internal primitives
-│   │   │   └── Prompt.jsx
-│   │   └── __tests__/
+│   │   └── __tests__/   # Or in grouping folder for multiple components
 │   ├── dialogs/
 │   │   ├── PricingSliderDialog/  # Complex → folder-per-component
 │   │   │   ├── index.js
@@ -55,18 +62,29 @@ src/
 │   │   │   ├── hooks/
 │   │   │   └── elements/
 │   │   └── ConfirmDialog.jsx    # Simple → flat
+│   ├── pricing/         # Mixed: flat files + nested folders OK
+│   │   ├── index.js
+│   │   ├── CustomPricingCard.jsx
+│   │   ├── StandardPricingCard.jsx
+│   │   ├── PricingSlider/       # Complex component gets folder
+│   │   └── elements/
+│   ├── LanguageDropdown/
+│   │   ├── index.js
+│   │   ├── LanguageDropdown.jsx
+│   │   ├── flags/       # Domain-specific assets folder
+│   │   └── elements/
 │   ├── form/            # Form utilities pattern
 │   │   ├── index.js
 │   │   ├── FormController.jsx
 │   │   ├── FormField.jsx
-│   │   ├── elements/    # Shared internal primitives
+│   │   ├── elements/    # Shared primitives
 │   │   └── containers/  # Layout utilities (not layouts/)
-│   ├── ui/              # shadcn/ui primitives ONLY
-│   └── Copyright/       # Top-level component (no grouping)
+│   └── ui/              # shadcn/ui primitives ONLY
 ├── layouts/
 ├── pages/
 │   └── admin/Users/
-│       ├── index.jsx
+│       ├── index.js
+│       ├── UsersPage.jsx
 │       └── components/  # Page-specific pieces
 └── hooks/               # Shared hooks
 ```

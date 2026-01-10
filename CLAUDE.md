@@ -18,6 +18,7 @@ maintenance, and simple UX.
 - **React Hook Form** - Performant forms with easy validation
 - **Yup** - Schema validation
 - **Tailwind CSS v4** - Utility-first CSS framework with shadcn/ui components
+- **Storybook** - Component development and documentation
 - **i18n** - Internationalization (English/Ukrainian)
 - **Jest** - Unit testing framework
 - **Playwright** - E2E testing framework
@@ -53,10 +54,8 @@ All pnpm scripts are defined in `package.json`. Key workflows:
 
 ### Component Structure
 
-Components are organized in `/src/components/` with each component having:
-
-- `index.jsx` - Component implementation with Tailwind CSS classes
-- Component stories for Storybook when applicable
+See `.claude/skills/react-project-structure/SKILL.md` for detailed conventions
+on file organization, naming, barrel exports, and folder structure.
 
 ### State Management
 
@@ -65,15 +64,26 @@ The app uses React Context API for global state:
 - **ThemeContext** - Dark/light theme switching
 - **LocaleContext** - i18n language switching (EN/UK)
 - **ModalContext** - Global modal management
-- **NotificationContext** - Toast notifications
+- **ToastContext** - Global toast notifications (available everywhere)
+- **NotificationContext** - User notifications (authenticated users only, in
+  `UserLayout`)
 
 ### Routing Architecture
 
-Routes are defined in `/src/routes/` with three protection levels:
+Routes are defined in `/src/routes/router.jsx` with layout-based organization:
 
-- **Protected routes** - Require authentication (user dashboard)
-- **Public routes** - Accessible without auth (login, pricing)
-- **Legal routes** - Privacy policy and terms
+| Layout         | Guard          | Routes                                       |
+| -------------- | -------------- | -------------------------------------------- |
+| `PublicLayout` | None           | `/` (redirect), `/pricing`                   |
+| `AuthLayout`   | `PublicRoute`  | `/login`, `/signup`, `/reset-password`, etc. |
+| `LegalLayout`  | None           | `/terms`, `/privacy`                         |
+| `UserLayout`   | `PrivateRoute` | `/home` (user), `/admin/*` (admin)           |
+| `ErrorLayout`  | None           | `/errors/*`, `*` (404)                       |
+
+Route guards:
+
+- **PublicRoute** - Redirects authenticated users away from auth pages
+- **PrivateRoute** - Requires authentication + valid status (`requireStatuses`)
 
 ### API Integration
 
@@ -127,8 +137,8 @@ Translation files (`public/locales/*.json`) follow entity-based organization:
 
 1. **Path aliases**: Use `@/` for `src/` and `@components` for `src/components`
 2. **Component imports**: Always import from component folders, not files
-3. **Styling**: Tailwind CSS utilities with shadcn/ui components in
-   `/src/components/ui/`
+3. **Styling**: See `.claude/skills/tailwind-shadcn/SKILL.md` for Tailwind CSS
+   and shadcn/ui conventions
 4. **i18n keys**: Keep translations "short, clear, and easy to understand"
 5. **ESLint compliance**: No console.log (use console.warn/error), prefer const
 6. **Control flow formatting**: Always use curly braces with `if` statements on
