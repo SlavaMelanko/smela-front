@@ -1,8 +1,8 @@
 import useLocale from '@/hooks/useLocale'
 
-import ColumnVisibilityDropdown from './ColumnVisibilityDropdown'
-import FilterToggle from './FilterToggle'
-import SearchInput from './SearchInput'
+import { ColumnVisibilityDropdown } from './ColumnVisibilityDropdown'
+import { FilterToggle } from './FilterToggle'
+import { SearchInput } from './SearchInput'
 
 export const Toolbar = ({
   columns,

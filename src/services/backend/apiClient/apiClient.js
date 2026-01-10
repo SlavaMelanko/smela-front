@@ -7,7 +7,7 @@ import { REFRESH_TOKEN_PATH } from '../paths'
 import { createError } from './error'
 import TokenRefreshManager from './tokenRefreshManager'
 
-class ApiClient {
+export class ApiClient {
   #baseUrl
   #defaultHeaders
   #httpClient
@@ -136,5 +136,3 @@ class ApiClient {
     }, this.#timeout)
   }
 }
-
-export { ApiClient }

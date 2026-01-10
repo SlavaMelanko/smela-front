@@ -1,9 +1,7 @@
-const FieldName = {
+export const FieldName = {
   EMAIL: 'email'
 }
 
-const getDefaultValues = email => ({
+export const getDefaultValues = email => ({
   [FieldName.EMAIL]: email || ''
 })
-
-export { FieldName, getDefaultValues }

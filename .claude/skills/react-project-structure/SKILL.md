@@ -16,6 +16,7 @@ description:
 | ------------- | -------------------------------------------------------------- |
 | Folder naming | `lowercase` = grouping folder, `PascalCase` = component folder |
 | Exports       | Named exports only (except `ui/`)                              |
+| Export style  | Inline `export const` for components; bottom exports for `index.js` and `ui/` |
 | Functions     | Arrow functions (except `ui/`)                                 |
 | Imports       | Use `index.js` barrel files                                    |
 | File naming   | `ComponentName.jsx` (not just `index.jsx`)                     |
@@ -106,6 +107,14 @@ src/
 ```
 
 ## File Patterns
+
+### Export Style
+
+| File type          | Style           | Example                                   |
+| ------------------ | --------------- | ----------------------------------------- |
+| Component `.jsx`   | Inline export   | `export const Button = () => { ... }`     |
+| Barrel `index.js`  | Bottom re-export| `export { Button } from './Button'`       |
+| `ui/` components   | Bottom default  | `export default function Button() { ... }`|
 
 ### index.js (barrel)
 

@@ -37,7 +37,8 @@ All pnpm scripts are defined in `package.json`. Key workflows:
 - Unit tests: `ut` (all tests), `ut:cov` (with coverage)
 - E2E tests: `e2e` (headless), `e2e:ui` (interactive mode)
 - Run single test: `pnpm run ut -- path/to/test.spec.js`
-- E2E tests require pre-registered admin and user accounts
+- E2E tests require running backend, database, and pre-registered admin/user
+  accounts
 
 ### Code Quality
 

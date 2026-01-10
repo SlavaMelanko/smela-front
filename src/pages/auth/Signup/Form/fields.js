@@ -1,15 +1,13 @@
-const FieldName = {
+export const FieldName = {
   FIRST_NAME: 'firstName',
   LAST_NAME: 'lastName',
   EMAIL: 'email',
   PASSWORD: 'password'
 }
 
-const getDefaultValues = () => ({
+export const getDefaultValues = () => ({
   [FieldName.FIRST_NAME]: '',
   [FieldName.LAST_NAME]: '',
   [FieldName.EMAIL]: '',
   [FieldName.PASSWORD]: ''
 })
-
-export { FieldName, getDefaultValues }
