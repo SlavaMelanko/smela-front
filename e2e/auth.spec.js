@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 import fs from 'fs'
 
-import { HttpStatus } from '../src/lib/httpStatus'
+import { HttpStatus } from '../src/lib/net'
 import { Role, UserStatus } from '../src/lib/types'
 import {
   LOGIN_PATH,
