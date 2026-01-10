@@ -5,7 +5,7 @@ import { Badge, Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import FeatureList from './FeatureList'
-import PlanSummary from './Summary'
+import PlanSummary from './PlanSummary'
 
 const PricingSlider = ({ discount, onComplete }) => {
   const { t } = useLocale()
