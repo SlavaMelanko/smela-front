@@ -1,2 +1,2 @@
-export { default as accessTokenStorage } from './accessTokenStorage'
-export { default as localStorage } from './localStorage'
+export { accessTokenStorage } from './accessTokenStorage'
+export { localStorage } from './localStorage'

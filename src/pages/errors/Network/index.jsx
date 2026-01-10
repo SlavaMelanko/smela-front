@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import useLocale from '@/hooks/useLocale'
 import useUrlParams from '@/hooks/useUrlParams'
-import { NetworkErrorType } from '@/lib/networkMonitor'
+import { NetworkErrorType } from '@/lib/net'
 
 import {
   Action,

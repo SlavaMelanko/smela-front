@@ -21,6 +21,7 @@
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,md,yml,yaml,css}'",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
+    "check": "pnpm run format && pnpm run lint && pnpm run ut",
     "stories": "storybook dev -p 6006",
     "stories:build": "storybook build"
   },

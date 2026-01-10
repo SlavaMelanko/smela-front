@@ -1,5 +1,5 @@
 // Cross-references: public/locales/*.json
-const UserStatus = {
+export const UserStatus = {
   NEW: 'new',
   VERIFIED: 'verified',
   TRIAL: 'trial',
@@ -27,7 +27,7 @@ const statusToBgColor = {
   [UserStatus.PENDING]: 'bg-amber-500'
 }
 
-export const getStatusBgColor = status =>
+export const getUserStatusBackgroundColor = status =>
   statusToBgColor[status] ?? 'bg-muted-foreground'
 
 const statusToTextColor = {
@@ -40,7 +40,5 @@ const statusToTextColor = {
   [UserStatus.PENDING]: 'text-amber-500'
 }
 
-export const getStatusTextColor = status =>
+export const getUserStatusTextColor = status =>
   statusToTextColor[status] ?? 'text-muted-foreground'
-
-export default UserStatus

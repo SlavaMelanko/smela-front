@@ -1,6 +1,6 @@
-import storage from './localStorage'
+import { localStorage as storage } from '../localStorage'
 
-describe('storage', () => {
+describe('localStorage', () => {
   let mockLocalStorage
 
   beforeEach(() => {
@@ -29,7 +29,7 @@ describe('storage', () => {
 
   describe('get', () => {
     it('should return value from localStorage', () => {
-      localStorage.setItem('test-key', 'test-value')
+      window.localStorage.setItem('test-key', 'test-value')
 
       expect(storage.get('test-key')).toBe('test-value')
     })
@@ -43,15 +43,15 @@ describe('storage', () => {
     })
 
     it('should return custom fallback when localStorage throws error', () => {
-      const originalGetItem = localStorage.getItem
+      const originalGetItem = window.localStorage.getItem
 
-      localStorage.getItem = jest.fn(() => {
+      window.localStorage.getItem = jest.fn(() => {
         throw new Error('localStorage error')
       })
 
       expect(storage.get('test-key', 'fallback')).toBe('fallback')
 
-      localStorage.getItem = originalGetItem
+      window.localStorage.getItem = originalGetItem
     })
   })
 
@@ -59,67 +59,67 @@ describe('storage', () => {
     it('should store value in localStorage', () => {
       storage.set('test-key', 'test-value')
 
-      expect(localStorage.getItem('test-key')).toBe('test-value')
+      expect(window.localStorage.getItem('test-key')).toBe('test-value')
     })
 
     it('should handle localStorage errors silently', () => {
-      const originalSetItem = localStorage.setItem
+      const originalSetItem = window.localStorage.setItem
 
-      localStorage.setItem = jest.fn(() => {
+      window.localStorage.setItem = jest.fn(() => {
         throw new Error('Quota exceeded')
       })
 
       expect(() => storage.set('test-key', 'test-value')).not.toThrow()
 
-      localStorage.setItem = originalSetItem
+      window.localStorage.setItem = originalSetItem
     })
   })
 
   describe('remove', () => {
     it('should remove value from localStorage', () => {
-      localStorage.setItem('test-key', 'test-value')
+      window.localStorage.setItem('test-key', 'test-value')
 
       storage.remove('test-key')
 
-      expect(localStorage.getItem('test-key')).toBe(null)
+      expect(window.localStorage.getItem('test-key')).toBe(null)
     })
 
     it('should handle localStorage errors silently', () => {
-      const originalRemoveItem = localStorage.removeItem
+      const originalRemoveItem = window.localStorage.removeItem
 
-      localStorage.removeItem = jest.fn(() => {
+      window.localStorage.removeItem = jest.fn(() => {
         throw new Error('localStorage error')
       })
 
       expect(() => storage.remove('test-key')).not.toThrow()
 
-      localStorage.removeItem = originalRemoveItem
+      window.localStorage.removeItem = originalRemoveItem
     })
   })
 
   describe('clear', () => {
     it('should clear all values from localStorage', () => {
-      localStorage.setItem('key1', 'value1')
-      localStorage.setItem('key2', 'value2')
-      localStorage.setItem('key3', 'value3')
+      window.localStorage.setItem('key1', 'value1')
+      window.localStorage.setItem('key2', 'value2')
+      window.localStorage.setItem('key3', 'value3')
 
       storage.clear()
 
-      expect(localStorage.getItem('key1')).toBe(null)
-      expect(localStorage.getItem('key2')).toBe(null)
-      expect(localStorage.getItem('key3')).toBe(null)
+      expect(window.localStorage.getItem('key1')).toBe(null)
+      expect(window.localStorage.getItem('key2')).toBe(null)
+      expect(window.localStorage.getItem('key3')).toBe(null)
     })
 
     it('should handle localStorage errors silently', () => {
-      const originalClear = localStorage.clear
+      const originalClear = window.localStorage.clear
 
-      localStorage.clear = jest.fn(() => {
+      window.localStorage.clear = jest.fn(() => {
         throw new Error('localStorage error')
       })
 
       expect(() => storage.clear()).not.toThrow()
 
-      localStorage.clear = originalClear
+      window.localStorage.clear = originalClear
     })
   })
 })

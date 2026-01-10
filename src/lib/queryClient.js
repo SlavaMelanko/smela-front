@@ -1,7 +1,6 @@
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query'
 
-import { HttpStatus } from '@/lib/httpStatus'
-import { getNetworkErrorType, isNetworkError } from '@/lib/networkMonitor'
+import { getNetworkErrorType, HttpStatus, isNetworkError } from '@/lib/net'
 import { withQuery } from '@/lib/url'
 import { captureError } from '@/services/errorTracker'
 

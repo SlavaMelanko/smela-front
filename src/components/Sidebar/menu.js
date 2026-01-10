@@ -7,7 +7,7 @@ import {
   Users
 } from 'lucide-react'
 
-import Role from '@/lib/types/user/role'
+import { Role } from '@/lib/types'
 
 export const userMenuItems = [
   {

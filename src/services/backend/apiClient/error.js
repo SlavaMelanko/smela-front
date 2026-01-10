@@ -1,4 +1,4 @@
-import { HttpStatus } from '@/lib/httpStatus'
+import { HttpStatus } from '@/lib/net'
 
 const createError = async response => {
   let errorData = {}

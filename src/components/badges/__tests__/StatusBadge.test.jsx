@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { UserStatus } from '@/lib/types'
-import { getStatusTextColor } from '@/lib/types/user/status'
+import { getUserStatusTextColor, UserStatus } from '@/lib/types'
 
 import { StatusBadge } from '../StatusBadge'
 
@@ -23,7 +22,9 @@ describe('StatusBadge', () => {
     status => {
       render(<StatusBadge status={status} />)
 
-      expect(screen.getByText(status)).toHaveClass(getStatusTextColor(status))
+      expect(screen.getByText(status)).toHaveClass(
+        getUserStatusTextColor(status)
+      )
     }
   )
 

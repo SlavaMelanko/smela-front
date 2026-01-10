@@ -1,6 +1,8 @@
-import { getStatusTextColor } from '@/lib/types/user/status'
+import { getUserStatusTextColor } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 export const StatusBadge = ({ status }) => (
-  <span className={cn('capitalize', getStatusTextColor(status))}>{status}</span>
+  <span className={cn('capitalize', getUserStatusTextColor(status))}>
+    {status}
+  </span>
 )

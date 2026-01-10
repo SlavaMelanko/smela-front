@@ -2,7 +2,7 @@ import {
   getNetworkErrorType,
   isNetworkError,
   NetworkErrorType
-} from './networkMonitor.js'
+} from '../networkMonitor'
 
 describe('network-monitor', () => {
   beforeEach(() => {
