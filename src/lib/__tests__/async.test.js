@@ -1,4 +1,4 @@
-import { withTimeout } from './async'
+import { withTimeout } from '../async'
 
 describe('withTimeout', () => {
   beforeEach(() => {

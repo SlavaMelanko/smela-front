@@ -1,5 +1,5 @@
 import { Dialog, dialogContentVariants } from '@/components/ui/dialog'
-import { Role, UserStatus } from '@/lib/types/user'
+import { Role, UserStatus } from '@/lib/types'
 
 import { PricingSliderDialog, ProfileDialog } from '.'
 

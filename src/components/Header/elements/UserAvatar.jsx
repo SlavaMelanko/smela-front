@@ -1,9 +1,9 @@
 import { Avatar, AvatarFallback, AvatarStatus } from '@/components/ui'
-import { getStatusBgColor } from '@/lib/types/user/status'
+import { getUserStatusBackgroundColor } from '@/lib/types'
 
 export const UserAvatar = ({ firstName, status }) => (
   <Avatar className='size-6 overflow-visible'>
     <AvatarFallback className='text-lg'>{firstName?.[0] || '?'}</AvatarFallback>
-    {status && <AvatarStatus color={getStatusBgColor(status)} />}
+    {status && <AvatarStatus color={getUserStatusBackgroundColor(status)} />}
   </Avatar>
 )

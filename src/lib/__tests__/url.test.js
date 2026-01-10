@@ -1,4 +1,4 @@
-import { toQueryStr, withQuery } from './url'
+import { toQueryStr, withQuery } from '../url'
 
 describe('toQueryStr', () => {
   it('serializes false and empty string', () => {

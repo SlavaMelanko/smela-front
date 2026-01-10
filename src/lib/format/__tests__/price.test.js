@@ -1,4 +1,4 @@
-import { formatPrice } from './price'
+import { formatPrice } from '../price'
 
 describe('formatPrice', () => {
   it('formats USD in en locale', () => {

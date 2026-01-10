@@ -1,6 +1,6 @@
 import { withTimeout } from '@/lib/async'
 import env from '@/lib/env'
-import { HttpStatus } from '@/lib/httpStatus'
+import { HttpStatus } from '@/lib/net'
 import { accessTokenStorage } from '@/lib/storage'
 
 import { REFRESH_TOKEN_PATH } from '../paths'

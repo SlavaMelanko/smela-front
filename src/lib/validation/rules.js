@@ -8,11 +8,11 @@ import {
 
 const requiredStr = errorMessage => yup.string().trim().required(errorMessage)
 
-const firstName = requiredStr('firstName.error.required')
+export const firstName = requiredStr('firstName.error.required')
   .min(NameConstraint.MIN_LENGTH, 'firstName.error.min')
   .max(NameConstraint.MAX_LENGTH, 'firstName.error.max')
 
-const lastName = {
+export const lastName = {
   required: requiredStr('lastName.error.required')
     .min(NameConstraint.MIN_LENGTH, 'lastName.error.min')
     .max(NameConstraint.MAX_LENGTH, 'lastName.error.max'),
@@ -26,16 +26,16 @@ const lastName = {
     .max(NameConstraint.MAX_LENGTH, 'lastName.error.max')
 }
 
-const email = {
+export const email = {
   new: requiredStr('email.error.required').matches(
     EmailConstraint.STANDARD,
     'email.error.format'
   )
 }
 
-const captcha = requiredStr('captcha.error')
+export const captcha = requiredStr('captcha.error')
 
-const password = {
+export const password = {
   new: requiredStr('password.error.required')
     .min(PasswordConstraint.MIN_LENGTH, 'password.error.min')
     .matches(PasswordConstraint.STRONG, {
@@ -43,5 +43,3 @@ const password = {
       excludeEmptyString: true
     })
 }
-
-export { captcha, email, firstName, lastName, password }
