@@ -1,7 +1,6 @@
 import { StatusBadge } from '@/components/badges'
+import { RoleIcon } from '@/components/icons'
 import { getFullName } from '@/lib/format/user'
-
-import RoleIcon from './RoleIcon'
 
 const getAccessibleColumns = (t, formatDate) => [
   {
