@@ -26,8 +26,7 @@ import TermsPage from '@/pages/legal/Terms'
 import PricingPage from '@/pages/public/Pricing'
 
 import ErrorBoundary from './ErrorBoundary'
-import ProtectedRoute from './ProtectedRoute'
-import PublicRoute from './PublicRoute'
+import { PrivateRoute, PublicRoute } from './guards'
 
 const HomePage = lazy(() => import('@/pages/user/Home'))
 const AdminDashboardPage = lazy(() => import('@/pages/admin/Dashboard'))
@@ -84,9 +83,9 @@ const router = sentryCreateBrowserRouter([
   },
   {
     element: (
-      <ProtectedRoute requireStatuses={userActiveStatuses}>
+      <PrivateRoute requireStatuses={userActiveStatuses}>
         <UserLayout />
-      </ProtectedRoute>
+      </PrivateRoute>
     ),
     errorElement: <ErrorBoundary />,
     children: [
@@ -99,9 +98,9 @@ const router = sentryCreateBrowserRouter([
   {
     path: '/admin',
     element: (
-      <ProtectedRoute requireStatuses={adminActiveStatuses}>
+      <PrivateRoute requireStatuses={adminActiveStatuses}>
         <UserLayout />
-      </ProtectedRoute>
+      </PrivateRoute>
     ),
     errorElement: <ErrorBoundary />,
     children: [

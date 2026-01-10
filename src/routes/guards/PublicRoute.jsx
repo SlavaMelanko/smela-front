@@ -4,7 +4,7 @@ import { Spinner } from '@/components/Spinner'
 import { useCurrentUser } from '@/hooks/useAuth'
 import { userActiveStatuses } from '@/lib/types'
 
-const PublicRoute = ({ children }) => {
+export const PublicRoute = ({ children }) => {
   const { isFetching, isAuthenticated, user } = useCurrentUser()
 
   if (isFetching) {
@@ -17,5 +17,3 @@ const PublicRoute = ({ children }) => {
 
   return children
 }
-
-export default PublicRoute
