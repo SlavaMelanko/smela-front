@@ -5,14 +5,8 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import useLocale from '@/hooks/useLocale'
 import { captureMessage } from '@/services/errorTracker'
 
-import {
-  Action,
-  Container,
-  Content,
-  Description,
-  Icon,
-  Title
-} from '../components'
+import { Action, Description, Icon, Title } from '../components'
+import { Container, Content } from '../containers'
 
 export const NotFoundErrorPage = () => {
   const { t } = useLocale()
