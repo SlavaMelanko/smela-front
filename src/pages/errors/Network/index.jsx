@@ -14,7 +14,7 @@ import {
   Title
 } from '../components'
 
-const Network = () => {
+export const NetworkErrorPage = () => {
   const { t } = useLocale()
   const navigate = useNavigate()
   const { errorType } = useUrlParams(['errorType'])
@@ -32,5 +32,3 @@ const Network = () => {
     </Container>
   )
 }
-
-export default Network

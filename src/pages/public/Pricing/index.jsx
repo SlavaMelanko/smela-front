@@ -9,7 +9,7 @@ const TabId = Object.freeze({
   ENTERPRISE: 'enterprise'
 })
 
-const Pricing = () => {
+export const PricingPage = () => {
   const { t } = useLocale({ keyPrefix: 'offer' })
 
   return (
@@ -46,5 +46,3 @@ const Pricing = () => {
     </div>
   )
 }
-
-export default Pricing

@@ -13,7 +13,7 @@ import { toTranslationKey } from '@/services/catch'
 
 import LoginForm from './Form'
 
-const Login = () => {
+export const LoginPage = () => {
   const { t } = useLocale()
   const navigate = useNavigate()
   const { mutate: logInWithEmail, isPending: isEmailPending } = useLogin()
@@ -85,5 +85,3 @@ const Login = () => {
     </>
   )
 }
-
-export default Login

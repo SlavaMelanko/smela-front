@@ -6,7 +6,7 @@ import { NetworkErrorType } from '@/lib/net'
 import { renderWithProviders } from '@/tests'
 import en from '$/locales/en.json'
 
-import NetworkErrorPage from '../index'
+import { NetworkErrorPage } from '../index'
 
 jest.mock('@/hooks/useUrlParams')
 

@@ -7,7 +7,7 @@ import useUrlParams from '@/hooks/useUrlParams'
 import useVerifyEmailOnce from '@/hooks/useVerifyEmailOnce'
 import { toTranslationKey } from '@/services/catch'
 
-const VerifyEmail = () => {
+export const VerifyEmailPage = () => {
   const { t } = useLocale()
   const { showErrorToast, showSuccessToast } = useToast()
   const navigate = useNavigate()
@@ -29,5 +29,3 @@ const VerifyEmail = () => {
 
   return <Spinner />
 }
-
-export default VerifyEmail

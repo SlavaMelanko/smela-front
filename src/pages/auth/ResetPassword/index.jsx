@@ -12,7 +12,7 @@ import useUrlParams from '@/hooks/useUrlParams'
 import EmailForm from './EmailForm'
 import PasswordForm from './PasswordForm'
 
-const ResetPassword = () => {
+export const ResetPasswordPage = () => {
   const { t, locale } = useLocale()
   const { theme } = useTheme()
   const { showSuccessToast, showErrorToast } = useToast()
@@ -93,5 +93,3 @@ const ResetPassword = () => {
     </>
   )
 }
-
-export default ResetPassword

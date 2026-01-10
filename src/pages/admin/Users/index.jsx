@@ -20,7 +20,7 @@ import Filters from './Filters'
 import useDebouncedSearch from './hooks/useDebouncedSearch'
 import useUsersTableParams from './hooks/useUsersTableParams'
 
-const UsersTable = () => {
+export const UsersPage = () => {
   const { t, formatDate } = useLocale()
   const { openModal } = useModal()
 
@@ -130,5 +130,3 @@ const UsersTable = () => {
     </div>
   )
 }
-
-export default UsersTable

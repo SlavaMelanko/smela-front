@@ -17,7 +17,7 @@ import { toTranslationKey } from '@/services/catch'
 
 import SignupForm from './Form'
 
-const Signup = () => {
+export const SignupPage = () => {
   const { t, locale } = useLocale()
   const { theme } = useTheme()
   const navigate = useNavigate()
@@ -98,5 +98,3 @@ const Signup = () => {
     </>
   )
 }
-
-export default Signup

@@ -5,7 +5,7 @@ import { captureMessage } from '@/services/errorTracker'
 import { renderWithProviders } from '@/tests'
 import en from '$/locales/en.json'
 
-import NotFoundErrorPage from '../index'
+import { NotFoundErrorPage } from '../index'
 
 describe('NotFoundErrorPage', () => {
   beforeEach(() => {
