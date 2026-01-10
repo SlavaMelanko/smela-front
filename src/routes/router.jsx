@@ -1,7 +1,6 @@
 import { wrapCreateBrowserRouterV6 } from '@sentry/react'
 import { createBrowserRouter } from 'react-router-dom'
 
-import RootRedirect from '@/components/RootRedirect'
 import {
   AuthLayout,
   ErrorLayout,
@@ -29,6 +28,7 @@ import { HomePage } from '@/pages/user'
 
 import ErrorBoundary from './ErrorBoundary'
 import { PrivateRoute, PublicRoute } from './guards'
+import { RootRedirect } from './RootRedirect'
 
 const sentryCreateBrowserRouter = wrapCreateBrowserRouterV6(createBrowserRouter)
 
