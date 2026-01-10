@@ -1,3 +1,1 @@
-const Terms = () => <div>TODO:Terms</div>
-
-export default Terms
+export const TermsPage = () => <div>TODO: Terms</div>

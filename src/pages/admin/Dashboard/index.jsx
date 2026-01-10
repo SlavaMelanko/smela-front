@@ -1,3 +1,1 @@
-const Dashboard = () => <div>TODO: Admin Dashboard</div>
-
-export default Dashboard
+export const DashboardPage = () => <div>TODO: Admin Dashboard</div>

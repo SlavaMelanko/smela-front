@@ -11,7 +11,7 @@ import { toTranslationKey } from '@/services/catch'
 
 import EmailConfirmationForm from './Form'
 
-const EmailConfirmation = () => {
+export const EmailConfirmationPage = () => {
   const { t, locale } = useLocale()
   const { theme } = useTheme()
   const location = useLocation()
@@ -77,5 +77,3 @@ const EmailConfirmation = () => {
     </>
   )
 }
-
-export default EmailConfirmation

@@ -14,7 +14,7 @@ import {
   Title
 } from '../components'
 
-const NotFound = () => {
+export const NotFoundErrorPage = () => {
   const { t } = useLocale()
   const navigate = useNavigate()
   const location = useLocation()
@@ -34,5 +34,3 @@ const NotFound = () => {
     </Container>
   )
 }
-
-export default NotFound

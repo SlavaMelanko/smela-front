@@ -1,3 +1,1 @@
-const PrivacyPolicy = () => <div>TODO: Privacy Policy</div>
-
-export default PrivacyPolicy
+export const PrivacyPage = () => <div>TODO: Privacy Policy</div>

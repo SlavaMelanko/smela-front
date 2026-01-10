@@ -12,7 +12,7 @@ import {
   Title
 } from '../components'
 
-const General = () => {
+export const GeneralErrorPage = () => {
   const { t } = useLocale()
   const navigate = useNavigate()
 
@@ -27,5 +27,3 @@ const General = () => {
     </Container>
   )
 }
-
-export default General

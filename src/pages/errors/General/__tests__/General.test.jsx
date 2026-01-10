@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { renderWithProviders } from '@/tests'
 import en from '$/locales/en.json'
 
-import GeneralErrorPage from '../index'
+import { GeneralErrorPage } from '../index'
 
 describe('GeneralErrorPage', () => {
   beforeEach(() => {

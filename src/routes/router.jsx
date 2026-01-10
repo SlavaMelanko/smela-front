@@ -1,5 +1,4 @@
 import { wrapCreateBrowserRouterV6 } from '@sentry/react'
-import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
 import RootRedirect from '@/components/RootRedirect'
@@ -11,26 +10,25 @@ import {
   UserLayout
 } from '@/layouts'
 import { adminActiveStatuses, userActiveStatuses } from '@/lib/types'
-import EmailConfirmationPage from '@/pages/auth/EmailConfirmation'
-import LoginPage from '@/pages/auth/Login'
-import ResetPasswordPage from '@/pages/auth/ResetPassword'
-import SignupPage from '@/pages/auth/Signup'
-import VerifyEmailPage from '@/pages/auth/VerifyEmail'
+import { DashboardPage, UsersPage } from '@/pages/admin'
+import {
+  EmailConfirmationPage,
+  LoginPage,
+  ResetPasswordPage,
+  SignupPage,
+  VerifyEmailPage
+} from '@/pages/auth'
 import {
   GeneralErrorPage,
   NetworkErrorPage,
   NotFoundErrorPage
 } from '@/pages/errors'
-import PrivacyPolicyPage from '@/pages/legal/Privacy'
-import TermsPage from '@/pages/legal/Terms'
-import PricingPage from '@/pages/public/Pricing'
+import { PrivacyPage, TermsPage } from '@/pages/legal'
+import { PricingPage } from '@/pages/public'
+import { HomePage } from '@/pages/user'
 
 import ErrorBoundary from './ErrorBoundary'
 import { PrivateRoute, PublicRoute } from './guards'
-
-const HomePage = lazy(() => import('@/pages/user/Home'))
-const AdminDashboardPage = lazy(() => import('@/pages/admin/Dashboard'))
-const AdminUsersPage = lazy(() => import('@/pages/admin/Users'))
 
 const sentryCreateBrowserRouter = wrapCreateBrowserRouterV6(createBrowserRouter)
 
@@ -51,26 +49,11 @@ const router = sentryCreateBrowserRouter([
     ),
     errorElement: <ErrorBoundary />,
     children: [
-      {
-        path: 'login',
-        element: <LoginPage />
-      },
-      {
-        path: 'signup',
-        element: <SignupPage />
-      },
-      {
-        path: 'reset-password',
-        element: <ResetPasswordPage />
-      },
-      {
-        path: 'email-confirmation',
-        element: <EmailConfirmationPage />
-      },
-      {
-        path: 'verify-email',
-        element: <VerifyEmailPage />
-      }
+      { path: 'login', element: <LoginPage /> },
+      { path: 'signup', element: <SignupPage /> },
+      { path: 'reset-password', element: <ResetPasswordPage /> },
+      { path: 'email-confirmation', element: <EmailConfirmationPage /> },
+      { path: 'verify-email', element: <VerifyEmailPage /> }
     ]
   },
   {
@@ -78,7 +61,7 @@ const router = sentryCreateBrowserRouter([
     errorElement: <ErrorBoundary />,
     children: [
       { path: 'terms', element: <TermsPage /> },
-      { path: 'privacy', element: <PrivacyPolicyPage /> }
+      { path: 'privacy', element: <PrivacyPage /> }
     ]
   },
   {
@@ -88,12 +71,7 @@ const router = sentryCreateBrowserRouter([
       </PrivateRoute>
     ),
     errorElement: <ErrorBoundary />,
-    children: [
-      {
-        path: 'home',
-        element: <HomePage />
-      }
-    ]
+    children: [{ path: 'home', element: <HomePage /> }]
   },
   {
     path: '/admin',
@@ -104,14 +82,8 @@ const router = sentryCreateBrowserRouter([
     ),
     errorElement: <ErrorBoundary />,
     children: [
-      {
-        path: 'dashboard',
-        element: <AdminDashboardPage />
-      },
-      {
-        path: 'users',
-        element: <AdminUsersPage />
-      }
+      { path: 'dashboard', element: <DashboardPage /> },
+      { path: 'users', element: <UsersPage /> }
     ]
   },
   {
