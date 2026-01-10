@@ -5,14 +5,8 @@ import useLocale from '@/hooks/useLocale'
 import useUrlParams from '@/hooks/useUrlParams'
 import { NetworkErrorType } from '@/lib/net'
 
-import {
-  Action,
-  Container,
-  Content,
-  Description,
-  Icon,
-  Title
-} from '../components'
+import { Action, Description, Icon, Title } from '../components'
+import { Container, Content } from '../containers'
 
 export const NetworkErrorPage = () => {
   const { t } = useLocale()

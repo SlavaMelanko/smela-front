@@ -3,14 +3,8 @@ import { useNavigate } from 'react-router-dom'
 
 import useLocale from '@/hooks/useLocale'
 
-import {
-  Action,
-  Container,
-  Content,
-  Description,
-  Icon,
-  Title
-} from '../components'
+import { Action, Description, Icon, Title } from '../components'
+import { Container, Content } from '../containers'
 
 export const GeneralErrorPage = () => {
   const { t } = useLocale()
