@@ -8,7 +8,7 @@ import { SidebarInset, SidebarProvider } from '@/components/ui'
 import { NotificationProvider } from '@/contexts/NotificationContext'
 import useSidebarMenu from '@/hooks/useSidebarMenu'
 
-const UserLayout = () => {
+export const UserLayout = () => {
   const { items } = useSidebarMenu()
 
   return (
@@ -30,5 +30,3 @@ const UserLayout = () => {
     </NotificationProvider>
   )
 }
-
-export default UserLayout

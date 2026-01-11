@@ -8,7 +8,7 @@ import { ThemeToggle } from '@/components/ThemeToggle'
 
 import { CenteredPage, PageContent, TopRightControls } from './containers'
 
-const ErrorLayout = () => (
+export const ErrorLayout = () => (
   <CenteredPage>
     <TopRightControls>
       <ThemeToggle />
@@ -28,5 +28,3 @@ const ErrorLayout = () => (
     </PageContent>
   </CenteredPage>
 )
-
-export default ErrorLayout

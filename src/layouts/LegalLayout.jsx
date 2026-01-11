@@ -9,7 +9,7 @@ import { ThemeToggle } from '@/components/ThemeToggle'
 
 import { CenteredPage, PageContent, TopRightControls } from './containers'
 
-const LegalLayout = () => (
+export const LegalLayout = () => (
   <CenteredPage>
     <TopRightControls>
       <ThemeToggle />
@@ -33,5 +33,3 @@ const LegalLayout = () => (
     </PageContent>
   </CenteredPage>
 )
-
-export default LegalLayout
