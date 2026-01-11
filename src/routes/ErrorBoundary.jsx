@@ -3,7 +3,7 @@ import { useNavigate, useRouteError } from 'react-router-dom'
 
 import { captureError } from '@/services/errorTracker'
 
-const ErrorBoundary = () => {
+export const ErrorBoundary = () => {
   const error = useRouteError()
   const navigate = useNavigate()
 
@@ -15,5 +15,3 @@ const ErrorBoundary = () => {
 
   return null
 }
-
-export default ErrorBoundary

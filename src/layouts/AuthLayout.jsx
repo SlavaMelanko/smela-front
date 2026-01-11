@@ -9,7 +9,7 @@ import { ThemeToggle } from '@/components/ThemeToggle'
 
 import { CenteredPage, PageContent, TopRightControls } from './containers'
 
-const AuthLayout = () => (
+export const AuthLayout = () => (
   <CenteredPage>
     <TopRightControls>
       <ThemeToggle />
@@ -33,5 +33,3 @@ const AuthLayout = () => (
     </PageContent>
   </CenteredPage>
 )
-
-export default AuthLayout

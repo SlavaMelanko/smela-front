@@ -1,3 +1,1 @@
-import { renderWithProviders } from './utils'
-
-export { renderWithProviders }
+export { renderWithProviders } from './utils'

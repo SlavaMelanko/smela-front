@@ -26,13 +26,13 @@ import { PrivacyPage, TermsPage } from '@/pages/legal'
 import { PricingPage } from '@/pages/public'
 import { HomePage } from '@/pages/user'
 
-import ErrorBoundary from './ErrorBoundary'
+import { ErrorBoundary } from './ErrorBoundary'
 import { PrivateRoute, PublicRoute } from './guards'
 import { RootRedirect } from './RootRedirect'
 
 const sentryCreateBrowserRouter = wrapCreateBrowserRouterV6(createBrowserRouter)
 
-const router = sentryCreateBrowserRouter([
+export const router = sentryCreateBrowserRouter([
   {
     element: <PublicLayout />,
     errorElement: <ErrorBoundary />,
@@ -100,5 +100,3 @@ const router = sentryCreateBrowserRouter([
     children: [{ path: '*', element: <NotFoundErrorPage /> }]
   }
 ])
-
-export default router
