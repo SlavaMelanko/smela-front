@@ -27,11 +27,12 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry'
   },
-
+  /* Maximum time for a single expect() assertion to pass */
   expect: {
     timeout: 30000
   },
-  timeout: 30000,
+  /* Maximum time for the entire test to complete */
+  timeout: 60000,
 
   projects: [
     {

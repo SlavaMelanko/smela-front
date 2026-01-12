@@ -13,7 +13,7 @@
     "token/expired": "Invalid or expired link.",
     "token/not-found": "Invalid or expired link.",
     "token/type-mismatch": "Invalid or expired link.",
-    "validation/error": "Please check your input and try again."
+    "validation/error": "Invalid request."
   },
   "captcha": {
     "error": "Security verification failed. Please try again."
@@ -26,7 +26,7 @@
     "confirmation": {
       "cta": "Send again",
       "description": {
-        "end": "Just click it to finish signing up.",
+        "end": "Check your inbox and click the link to finish signing up.",
         "start": "We've sent a confirmation link to"
       },
       "success": "Confirmation email sent again.",
