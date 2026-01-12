@@ -13,7 +13,7 @@
     "token/expired": "Invalid or expired link.",
     "token/not-found": "Invalid or expired link.",
     "token/type-mismatch": "Invalid or expired link.",
-    "validation/error": "Please check your input and try again."
+    "validation/error": "Invalid request."
   },
   "captcha": {
     "error": "Security verification failed. Please try again."
