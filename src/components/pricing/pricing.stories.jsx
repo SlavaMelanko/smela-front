@@ -54,8 +54,8 @@ export const AllCards = {
           unit: 'GB'
         }}
         totalPrice={{
-          original: 75,
-          final: discount > 0 ? applyDiscount(75, discount) : undefined
+          original: 50,
+          final: applyDiscount(50, discount)
         }}
         features={[
           {
