@@ -138,7 +138,7 @@ const StandardCards = () => {
   ]
 
   return (
-    <div className='grid grid-cols-1 justify-items-center gap-6 md:grid-cols-2 lg:flex lg:justify-center lg:gap-6'>
+    <div className='grid grid-cols-1 justify-items-center gap-8 px-8 md:grid-cols-2 md:px-0 lg:flex lg:justify-center lg:gap-6'>
       {plans.map(plan =>
         plan.customPricing ? (
           <CustomPricingCard key={plan.id} {...plan} />
