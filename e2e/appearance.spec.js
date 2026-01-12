@@ -25,6 +25,11 @@ test.describe('Appearance', () => {
     const savedTheme = await page.evaluate(() => localStorage.getItem('theme'))
 
     expect(savedTheme).toBe('dark')
+
+    // Verify theme persists after page reload
+    await page.reload()
+    await expect(html).toHaveClass(/dark/)
+    await expect(html).not.toHaveClass(/light/)
   })
 
   test('language dropdown: switches from English to Ukrainian', async ({
@@ -56,5 +61,9 @@ test.describe('Appearance', () => {
     )
 
     expect(savedLocale).toBe('uk')
+
+    // Verify locale persists after page reload
+    await page.reload()
+    await expect(html).toHaveAttribute('lang', 'uk')
   })
 })

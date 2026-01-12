@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test'
-import fs from 'fs'
 
 import { HttpStatus } from '../src/lib/net'
 import { Role, UserStatus } from '../src/lib/types'
@@ -16,11 +15,12 @@ import { auth } from '../src/tests/data'
 import {
   emailConfig,
   EmailService,
+  loadTranslations,
   waitForApiCall,
   waitForApiCalls
 } from './helpers'
 
-const t = JSON.parse(fs.readFileSync('./public/locales/en.json', 'utf-8'))
+const t = loadTranslations()
 
 const emailService = new EmailService()
 

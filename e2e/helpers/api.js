@@ -23,7 +23,7 @@ export const waitForApiCall = async (page, options, timeout = 30000) => {
 
             matches = matches && (await validateRequest(body))
           } catch (error) {
-            console.error('Request validation failed:', error)
+            console.error(`Request validation failed for ${path}:`, error)
             matches = false
           }
         }
@@ -34,7 +34,7 @@ export const waitForApiCall = async (page, options, timeout = 30000) => {
 
             matches = matches && (await validateResponse(body))
           } catch (error) {
-            console.error('Response validation failed:', error)
+            console.error(`Response validation failed for ${path}:`, error)
             matches = false
           }
         }
