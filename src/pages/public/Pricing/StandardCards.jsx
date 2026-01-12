@@ -72,7 +72,7 @@ const StandardCards = () => {
         }
       ],
       redirectPath: '/signup',
-      hasDiscount: true
+      discountPercent: 50
     },
     {
       id: 'max',
@@ -109,7 +109,7 @@ const StandardCards = () => {
         }
       ],
       redirectPath: '/signup',
-      hasDiscount: true
+      discountPercent: 50
     },
     {
       id: 'custom',
@@ -133,8 +133,7 @@ const StandardCards = () => {
           ),
           size: 'lg'
         })
-      },
-      hasDiscount: false
+      }
     }
   ]
 

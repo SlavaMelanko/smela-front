@@ -13,11 +13,21 @@ export default {
         <Story />
       </div>
     )
-  ]
+  ],
+  argTypes: {
+    discount: {
+      control: { type: 'range', min: 0, max: 100, step: 10 }
+    }
+  },
+  args: {
+    discount: 50
+  }
 }
 
+const applyDiscount = (price, discount) => price * (1 - discount / 100)
+
 export const AllCards = {
-  render: () => (
+  render: ({ discount }) => (
     <div className='flex gap-6'>
       {/* Free plan - $0, no discount */}
       <StandardPricingCard
@@ -34,12 +44,19 @@ export const AllCards = {
         redirectPath='/signup'
       />
 
-      {/* Pro plan - 50% discount */}
+      {/* Pro plan - with discount */}
       <StandardPricingCard
         title='Pro'
         bandwidth={{ value: 10, unit: 'GB' }}
-        pricePerUnit={{ original: 7.5, final: 3.75, unit: 'GB' }}
-        totalPrice={{ original: 75, final: 37.5 }}
+        pricePerUnit={{
+          original: 7.5,
+          final: applyDiscount(7.5, discount),
+          unit: 'GB'
+        }}
+        totalPrice={{
+          original: 75,
+          final: discount > 0 ? applyDiscount(75, discount) : undefined
+        }}
         features={[
           {
             icon: <Mail className='size-6 text-blue-500' />,
@@ -55,7 +72,7 @@ export const AllCards = {
           }
         ]}
         redirectPath='/signup'
-        hasDiscount
+        discountPercent={discount}
       />
 
       {/* Custom pricing card */}
@@ -71,9 +88,9 @@ export const AllCards = {
 }
 
 export const Slider = {
-  render: () => (
-    <div className='w-164'>
-      <PricingSlider discount={50} onComplete={noop} />
+  render: ({ discount }) => (
+    <div className='w-full max-w-md'>
+      <PricingSlider discount={discount} onComplete={noop} />
     </div>
   )
 }
