@@ -72,7 +72,7 @@ const StandardCards = () => {
         }
       ],
       redirectPath: '/signup',
-      hasDiscount: true
+      discountPercent: 50
     },
     {
       id: 'max',
@@ -109,7 +109,7 @@ const StandardCards = () => {
         }
       ],
       redirectPath: '/signup',
-      hasDiscount: true
+      discountPercent: 50
     },
     {
       id: 'custom',
@@ -133,13 +133,12 @@ const StandardCards = () => {
           ),
           size: 'lg'
         })
-      },
-      hasDiscount: false
+      }
     }
   ]
 
   return (
-    <div className='grid grid-cols-1 justify-items-center gap-6 md:grid-cols-2 lg:flex lg:justify-center lg:gap-6'>
+    <div className='grid grid-cols-1 justify-items-center gap-8 px-4 md:grid-cols-2 md:px-0 lg:flex lg:justify-center lg:gap-6'>
       {plans.map(plan =>
         plan.customPricing ? (
           <CustomPricingCard key={plan.id} {...plan} />

@@ -16,7 +16,7 @@ export const PublicLayout = () => (
     </TopRightControls>
 
     <PageContent className='max-w-7xl'>
-      <main>
+      <main className='mt-16 md:mt-0'>
         <Suspense fallback={<Spinner />}>
           <Outlet />
         </Suspense>
