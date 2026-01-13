@@ -1,7 +1,12 @@
 import { useForm } from 'react-hook-form'
 
-import { FormField, FormFields, FormRoot } from '@/components/form'
-import { Button, Input } from '@/components/ui'
+import {
+  FormField,
+  FormFields,
+  FormRoot,
+  SubmitButton
+} from '@/components/form'
+import { Input } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
@@ -30,11 +35,9 @@ export const EmailForm = ({ isLoading, onSubmit }) => {
         </FormField>
       </FormFields>
 
-      <Button type='submit' disabled={isSubmitting || isLoading}>
-        {isSubmitting || isLoading
-          ? t('processing')
-          : t('password.reset.request.cta')}
-      </Button>
+      <SubmitButton isLoading={isSubmitting || isLoading}>
+        {t('password.reset.request.cta')}
+      </SubmitButton>
     </FormRoot>
   )
 }

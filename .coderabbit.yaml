@@ -3,14 +3,8 @@
 language: 'en-US'
 
 tone_instructions: >
-  Be direct and concise. Focus on actual bugs, performance issues, and React 19
-  best practices. Skip trivial style comments that ESLint/Prettier catch. This
-  is an early-stage product - prioritize pragmatic solutions over perfection.
-
-  DO NOT suggest: - JSDoc comments (only comment genuinely complex logic) -
-  PropTypes (we intentionally don't use them) - Component.defaultProps (use
-  inline defaults like `{ prop = default }`) - Converting to TypeScript - Barrel
-  files or index.js re-exports - Adding explicit return types to functions
+  Be direct. Focus on bugs, perf, React 19 best practices. Skip style issues
+  (ESLint/Prettier). No JSDoc, PropTypes, defaultProps, TS conversion, barrels.
 
 reviews:
   profile: 'chill'
