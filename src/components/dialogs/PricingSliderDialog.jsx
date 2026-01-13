@@ -8,7 +8,7 @@ export const PricingSliderDialog = ({ onComplete, onClose }) => {
   return (
     <>
       <DialogHeader onClose={onClose}>
-        <DialogTitle>{t('offer.custom.title')}</DialogTitle>
+        <DialogTitle>{t('pricing.custom.title')}</DialogTitle>
       </DialogHeader>
       <DialogBody scrollable={false}>
         <PricingSlider onComplete={onComplete} />

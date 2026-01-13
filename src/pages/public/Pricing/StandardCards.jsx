@@ -13,7 +13,7 @@ import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 
 const StandardCards = () => {
-  const { t } = useLocale({ keyPrefix: 'offer' })
+  const { t } = useLocale({ keyPrefix: 'pricing' })
   const { openModal } = useModal()
   const navigate = useNavigate()
 

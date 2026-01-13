@@ -32,7 +32,7 @@ const PlanSummary = ({ value, discount }) => {
   return (
     <div className='flex w-full flex-col gap-2'>
       <SummaryItem
-        label={t('offer.summary.selected')}
+        label={t('pricing.summary.selected')}
         value={
           <Bandwidth
             value={formatNumber(value)}
@@ -42,7 +42,7 @@ const PlanSummary = ({ value, discount }) => {
         }
       />
       <SummaryItem
-        label={t('offer.summary.price')}
+        label={t('pricing.summary.price')}
         value={
           <PricePerUnit
             original={formatPrice(pricePerGB)}
@@ -52,7 +52,7 @@ const PlanSummary = ({ value, discount }) => {
         }
       />
       <SummaryItem
-        label={t('offer.summary.total')}
+        label={t('pricing.summary.total')}
         value={
           <TotalPrice
             original={formatPrice(totalPrice)}

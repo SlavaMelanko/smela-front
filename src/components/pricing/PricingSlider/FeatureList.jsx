@@ -12,23 +12,23 @@ import useLocale from '@/hooks/useLocale'
 const featureMap = {
   emailSupport: {
     icon: <Mail className='size-6 text-blue-500' />,
-    text: 'offer.features.emailSupport'
+    text: 'pricing.features.emailSupport'
   },
   cancelAnytime: {
     icon: <CalendarX className='size-6 text-orange-500' />,
-    text: 'offer.features.cancelAnytime'
+    text: 'pricing.features.cancelAnytime'
   },
   rollover: {
     icon: <RefreshCw className='size-6 text-pink-500' />,
-    text: 'offer.features.rollover'
+    text: 'pricing.features.rollover'
   },
   premiumSupport: {
     icon: <MessageCircle className='size-6 text-blue-500' />,
-    text: 'offer.features.premiumSupport'
+    text: 'pricing.features.premiumSupport'
   },
   dedicatedManager: {
     icon: <UserPlus className='size-6 text-green-500' />,
-    text: 'offer.features.dedicatedManager'
+    text: 'pricing.features.dedicatedManager'
   }
 }
 
@@ -65,7 +65,7 @@ const FeatureList = ({ value }) => {
   return (
     <div className='flex w-full flex-wrap items-center justify-between gap-4'>
       <div className='mr-auto whitespace-nowrap text-muted-foreground'>
-        {t('offer.summary.includedFeatures')}
+        {t('pricing.summary.includedFeatures')}
       </div>
       <ul className='m-0 flex list-none flex-wrap justify-end gap-4 p-0'>
         {features.map(({ icon, text }) => (

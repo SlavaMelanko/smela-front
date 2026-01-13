@@ -10,7 +10,7 @@ const TabId = Object.freeze({
   ENTERPRISE: 'enterprise'
 })
 
-const PricingTabContent = props => (
+const TabContent = props => (
   <TabsContent
     className='flex min-h-115 items-center justify-center rounded-lg bg-background px-4'
     {...props}
@@ -18,7 +18,7 @@ const PricingTabContent = props => (
 )
 
 export const PricingPage = () => {
-  const { t } = useLocale({ keyPrefix: 'offer' })
+  const { t } = useLocale({ keyPrefix: 'pricing' })
 
   return (
     <div className='flex flex-col gap-8'>
@@ -34,12 +34,12 @@ export const PricingPage = () => {
             {t('type.enterprise')}
           </TabsTrigger>
         </TabsList>
-        <PricingTabContent value={TabId.STANDARD}>
+        <TabContent value={TabId.STANDARD}>
           <StandardCards />
-        </PricingTabContent>
-        <PricingTabContent value={TabId.ENTERPRISE}>
+        </TabContent>
+        <TabContent value={TabId.ENTERPRISE}>
           <EnterpriseTab />
-        </PricingTabContent>
+        </TabContent>
       </Tabs>
 
       <PricingFaq />

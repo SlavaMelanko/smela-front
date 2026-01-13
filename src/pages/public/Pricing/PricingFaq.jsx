@@ -7,7 +7,7 @@ import {
 import useLocale from '@/hooks/useLocale'
 
 export const PricingFaq = () => {
-  const { t } = useLocale({ keyPrefix: 'offer.faq' })
+  const { t } = useLocale({ keyPrefix: 'pricing.faq' })
   const items = t('items', { returnObjects: true })
 
   return (
