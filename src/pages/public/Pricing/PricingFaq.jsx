@@ -2,8 +2,7 @@ import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger,
-  Separator
+  AccordionTrigger
 } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
@@ -20,7 +19,6 @@ export const PricingFaq = () => {
       <Accordion className='mx-auto max-w-2xl'>
         {items.map((item, index) => (
           <AccordionItem key={index} value={`item-${index}`}>
-            {index > 0 && <Separator />}
             <AccordionTrigger>{item.question}</AccordionTrigger>
             <AccordionContent>{item.answer}</AccordionContent>
           </AccordionItem>

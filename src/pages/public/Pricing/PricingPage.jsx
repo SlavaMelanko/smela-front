@@ -10,6 +10,13 @@ const TabId = Object.freeze({
   ENTERPRISE: 'enterprise'
 })
 
+const PricingTabContent = props => (
+  <TabsContent
+    className='flex min-h-115 items-center justify-center rounded-lg bg-background px-4'
+    {...props}
+  />
+)
+
 export const PricingPage = () => {
   const { t } = useLocale({ keyPrefix: 'offer' })
 
@@ -27,18 +34,12 @@ export const PricingPage = () => {
             {t('type.enterprise')}
           </TabsTrigger>
         </TabsList>
-        <TabsContent
-          value={TabId.STANDARD}
-          className='flex min-h-115 items-center justify-center rounded-lg bg-background px-4'
-        >
+        <PricingTabContent value={TabId.STANDARD}>
           <StandardCards />
-        </TabsContent>
-        <TabsContent
-          value={TabId.ENTERPRISE}
-          className='flex min-h-115 items-center justify-center rounded-lg bg-background px-4'
-        >
+        </PricingTabContent>
+        <PricingTabContent value={TabId.ENTERPRISE}>
           <EnterpriseTab />
-        </TabsContent>
+        </PricingTabContent>
       </Tabs>
 
       <PricingFaq />
