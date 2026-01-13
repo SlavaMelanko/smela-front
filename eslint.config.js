@@ -99,7 +99,11 @@ export default [
   },
   {
     // Jest
-    files: ['**/*.test.{js,jsx}', 'src/tests/jest.setup.js'],
+    files: [
+      '**/*.test.{js,jsx}',
+      '**/*.spec.{js,jsx}',
+      'src/tests/jest.setup.js'
+    ],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
