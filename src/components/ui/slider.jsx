@@ -16,12 +16,12 @@ const Slider = forwardRef(
       max={max}
       step={step}
       className={cn(
-        'relative w-full touch-none data-[dragging]:cursor-grabbing',
+        'relative w-full touch-none data-dragging:cursor-grabbing',
         className
       )}
       {...props}
     >
-      <SliderPrimitive.Control className='relative flex h-5 w-full items-center data-[dragging]:cursor-grabbing'>
+      <SliderPrimitive.Control className='relative flex h-5 w-full items-center data-dragging:cursor-grabbing'>
         <SliderPrimitive.Track className='relative h-1 w-full grow overflow-hidden rounded-full bg-border'>
           <SliderPrimitive.Indicator className='absolute h-full bg-primary' />
         </SliderPrimitive.Track>
