@@ -13,7 +13,7 @@ import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 
 const StandardCards = () => {
-  const { t } = useLocale({ keyPrefix: 'offer' })
+  const { t } = useLocale({ keyPrefix: 'pricing' })
   const { openModal } = useModal()
   const navigate = useNavigate()
 
@@ -138,7 +138,7 @@ const StandardCards = () => {
   ]
 
   return (
-    <div className='grid grid-cols-1 justify-items-center gap-8 px-4 md:grid-cols-2 md:px-0 lg:flex lg:justify-center lg:gap-6'>
+    <div className='grid grid-cols-1 justify-items-center gap-8 md:grid-cols-2 lg:flex lg:justify-center'>
       {plans.map(plan =>
         plan.customPricing ? (
           <CustomPricingCard key={plan.id} {...plan} />

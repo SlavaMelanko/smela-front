@@ -15,7 +15,7 @@ const PricingSlider = ({ discount, onComplete }) => {
     <div className='flex flex-col items-center gap-4'>
       {discount && (
         <Badge variant='discount'>
-          {t('offer.discount.label', { percent: discount })}
+          {t('pricing.discount.label', { percent: discount })}
         </Badge>
       )}
 
@@ -34,7 +34,7 @@ const PricingSlider = ({ discount, onComplete }) => {
       </div>
 
       <Button className='w-full' onClick={onComplete}>
-        {t('offer.cta')}
+        {t('pricing.cta')}
       </Button>
     </div>
   )

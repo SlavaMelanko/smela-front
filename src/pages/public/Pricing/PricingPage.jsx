@@ -2,6 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import EnterpriseTab from './EnterpriseTab'
+import { PricingFaq } from './PricingFaq'
 import StandardCards from './StandardCards'
 
 const TabId = Object.freeze({
@@ -9,40 +10,39 @@ const TabId = Object.freeze({
   ENTERPRISE: 'enterprise'
 })
 
+const TabContent = props => (
+  <TabsContent
+    className='flex min-h-115 items-center justify-center rounded-lg bg-background px-4'
+    {...props}
+  />
+)
+
 export const PricingPage = () => {
-  const { t } = useLocale({ keyPrefix: 'offer' })
+  const { t } = useLocale({ keyPrefix: 'pricing' })
 
   return (
-    <div>
-      <h1 className='mb-4 text-center text-4xl font-bold text-foreground'>
-        {t('title')}
-      </h1>
-      <p className='mb-8 text-center text-lg text-muted-foreground'>
-        {t('subtitle')}
-      </p>
+    <div className='flex flex-col gap-8'>
+      <div className='flex flex-col items-center gap-4 text-center md:gap-5 lg:gap-6'>
+        <h1 className='text-4xl font-bold text-foreground'>{t('title')}</h1>
+        <p className='text-lg text-muted-foreground'>{t('subtitle')}</p>
+      </div>
 
-      <Tabs defaultValue={TabId.STANDARD} className='gap-6 items-center'>
+      <Tabs defaultValue={TabId.STANDARD} className='items-center gap-8'>
         <TabsList>
           <TabsTrigger value={TabId.STANDARD}>{t('type.standard')}</TabsTrigger>
           <TabsTrigger value={TabId.ENTERPRISE}>
             {t('type.enterprise')}
           </TabsTrigger>
         </TabsList>
-        <TabsContent value={TabId.STANDARD}>
-          <div className='flex min-h-[460px] items-center justify-center rounded-lg bg-background'>
-            <StandardCards />
-          </div>
-        </TabsContent>
-        <TabsContent value={TabId.ENTERPRISE}>
-          <div className='flex min-h-[460px] items-center justify-center rounded-lg bg-background'>
-            <EnterpriseTab />
-          </div>
-        </TabsContent>
+        <TabContent value={TabId.STANDARD}>
+          <StandardCards />
+        </TabContent>
+        <TabContent value={TabId.ENTERPRISE}>
+          <EnterpriseTab />
+        </TabContent>
       </Tabs>
 
-      <p className='mt-10 text-center text-sm text-muted-foreground'>
-        {t('note')}
-      </p>
+      <PricingFaq />
     </div>
   )
 }

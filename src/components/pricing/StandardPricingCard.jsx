@@ -31,7 +31,7 @@ const StandardPricingCard = ({
     <div className='relative flex h-[460px] w-full flex-col rounded-lg border bg-card p-4 shadow-sm transition-shadow hover:border-primary hover:shadow-lg'>
       {discountPercent > 0 && (
         <Badge variant='discount' className='absolute -top-4 -right-3'>
-          {t('offer.discount.label', { percent: discountPercent })}
+          {t('pricing.discount.label', { percent: discountPercent })}
         </Badge>
       )}
 
@@ -66,7 +66,7 @@ const StandardPricingCard = ({
         className='mt-auto w-full uppercase'
         onClick={() => navigate(redirectPath)}
       >
-        {t('offer.cta')}
+        {t('pricing.cta')}
       </Button>
     </div>
   )
