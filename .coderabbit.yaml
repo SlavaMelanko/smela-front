@@ -1,22 +1,19 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 
-language: "en-US"
+language: 'en-US'
 
 tone_instructions: >
-  Be direct and concise. Focus on actual bugs, performance issues, 
-  and React 19 best practices. Skip trivial style comments that ESLint/Prettier catch.
-  This is an early-stage product - prioritize pragmatic solutions over perfection.
-  
-  DO NOT suggest:
-  - JSDoc comments (only comment genuinely complex logic)
-  - PropTypes (we intentionally don't use them)
-  - Component.defaultProps (use inline defaults like `{ prop = default }`)
-  - Converting to TypeScript
-  - Barrel files or index.js re-exports
-  - Adding explicit return types to functions
+  Be direct and concise. Focus on actual bugs, performance issues, and React 19
+  best practices. Skip trivial style comments that ESLint/Prettier catch. This
+  is an early-stage product - prioritize pragmatic solutions over perfection.
+
+  DO NOT suggest: - JSDoc comments (only comment genuinely complex logic) -
+  PropTypes (we intentionally don't use them) - Component.defaultProps (use
+  inline defaults like `{ prop = default }`) - Converting to TypeScript - Barrel
+  files or index.js re-exports - Adding explicit return types to functions
 
 reviews:
-  profile: "chill"
+  profile: 'chill'
   high_level_summary: true
   high_level_summary_in_walkthrough: false
   poem: false
@@ -26,20 +23,20 @@ reviews:
 
   # Ignore generated/vendor files
   path_filters:
-    - "!dist/**"
-    - "!node_modules/**"
-    - "!pnpm-lock.yaml"
-    - "!coverage/**"
-    - "!**/*.min.js"
-    - "!**/*.min.css"
-    - "!public/locales/**"  # translation files - separate review process
-    - "!storybook-static/**"
-    - "!playwright-report/**"
-    - "!**/__tests__/**"  # unit tests - not worth reviewing
+    - '!dist/**'
+    - '!node_modules/**'
+    - '!pnpm-lock.yaml'
+    - '!coverage/**'
+    - '!**/*.min.js'
+    - '!**/*.min.css'
+    - '!public/locales/**' # translation files - separate review process
+    - '!storybook-static/**'
+    - '!playwright-report/**'
+    - '!**/__tests__/**' # unit tests - not worth reviewing
 
   path_instructions:
     # React components
-    - path: "src/components/**/*.{jsx,tsx}"
+    - path: 'src/components/**/*.{jsx,tsx}'
       instructions: |
         Review React 19 components for:
         - Proper hook usage (dependency arrays, cleanup in useEffect)
@@ -51,7 +48,7 @@ reviews:
         - Control flow: always use curly braces with if statements on new lines
 
     # Custom hooks
-    - path: "src/hooks/**/*.{js,ts}"
+    - path: 'src/hooks/**/*.{js,ts}'
       instructions: |
         Review custom hooks for:
         - Proper cleanup in useEffect
@@ -60,7 +57,7 @@ reviews:
         - Clear naming (use* prefix)
 
     # Routing configuration
-    - path: "src/routes/**/*.{js,jsx,ts,tsx}"
+    - path: 'src/routes/**/*.{js,jsx,ts,tsx}'
       instructions: |
         Review routing code for:
         - Route guard logic (PublicRoute, PrivateRoute with requireStatuses)
@@ -71,7 +68,7 @@ reviews:
         - RootRedirect logic for authenticated/unauthenticated users
 
     # Pages/routes
-    - path: "src/pages/**/*.{jsx,tsx}"
+    - path: 'src/pages/**/*.{jsx,tsx}'
       instructions: |
         Review page components for:
         - TanStack Query usage (loading/error states, proper query keys)
@@ -79,7 +76,7 @@ reviews:
         - Role-based access considerations (admin vs user)
 
     # Context providers
-    - path: "src/contexts/**/*.{jsx,tsx}"
+    - path: 'src/contexts/**/*.{jsx,tsx}'
       instructions: |
         Review Context API implementations for:
         - Proper memoization of context values
@@ -87,7 +84,7 @@ reviews:
         - Existing contexts: Theme, Locale, Modal, Toast, Notification
 
     # Backend service layer (HTTP calls)
-    - path: "src/services/backend/**/*.{js,ts}"
+    - path: 'src/services/backend/**/*.{js,ts}'
       instructions: |
         Review backend service functions for:
         - Proper error handling
@@ -96,7 +93,7 @@ reviews:
         - Base URL and endpoint consistency
 
     # Auth and admin hooks (TanStack Query)
-    - path: "src/hooks/use{Auth,Admin}*.{js,ts}"
+    - path: 'src/hooks/use{Auth,Admin}*.{js,ts}'
       instructions: |
         Review TanStack Query hooks for:
         - Proper query keys (unique, consistent)
@@ -106,7 +103,7 @@ reviews:
         - Cache invalidation patterns
 
     # Form handling
-    - path: "src/**/*Form*.{jsx,tsx}"
+    - path: 'src/**/*Form*.{jsx,tsx}'
       instructions: |
         Review forms for:
         - React Hook Form + Yup validation pattern
@@ -115,7 +112,7 @@ reviews:
         - i18n for validation messages
 
     # Utilities and lib
-    - path: "src/lib/**/*.{js,ts}"
+    - path: 'src/lib/**/*.{js,ts}'
       instructions: |
         Review utilities for:
         - Pure function patterns
@@ -124,7 +121,7 @@ reviews:
         - Prefer const over let
 
     # E2E tests
-    - path: "e2e/**/*.{js,ts}"
+    - path: 'e2e/**/*.{js,ts}'
       instructions: |
         Review Playwright E2E tests for:
         - Stable selectors (data-testid preferred)
@@ -132,7 +129,7 @@ reviews:
         - Test isolation
 
     # Storybook stories
-    - path: "**/*.stories.{js,jsx,ts,tsx}"
+    - path: '**/*.stories.{js,jsx,ts,tsx}'
       instructions: |
         Review Storybook stories for:
         - Comprehensive component states coverage
@@ -140,14 +137,14 @@ reviews:
         - Documentation quality
 
     # Configuration files
-    - path: "vite.config.{js,ts}"
+    - path: 'vite.config.{js,ts}'
       instructions: |
         Check for:
         - Path aliases matching tsconfig (@/, @components)
         - Build optimization settings
         - Env variable handling
 
-    - path: "tailwind.config.{js,ts}"
+    - path: 'tailwind.config.{js,ts}'
       instructions: |
         Check Tailwind v4 configuration for:
         - shadcn/ui compatibility
@@ -158,10 +155,10 @@ reviews:
     enabled: true
     drafts: false
     ignore_title_keywords:
-      - "WIP"
-      - "DO NOT MERGE"
-      - "[skip ci]"
-      - "[skip review]"
+      - 'WIP'
+      - 'DO NOT MERGE'
+      - '[skip ci]'
+      - '[skip review]'
 
   tools:
     biome:
@@ -177,18 +174,18 @@ reviews:
     languagetool:
       enabled: true
       enabled_only: false
-      level: "default"
+      level: 'default'
 
 chat:
   auto_reply: true
 
 knowledge_base:
   learnings:
-    scope: "local"
+    scope: 'local'
   code_guidelines:
     enabled: true
     filePatterns:
-      - "CLAUDE.md"
-      - ".claude/skills/**/*.md"
-      - "CONTRIBUTING.md"
-      - ".cursorrules"
+      - 'CLAUDE.md'
+      - '.claude/skills/**/*.md'
+      - 'CONTRIBUTING.md'
+      - '.cursorrules'
