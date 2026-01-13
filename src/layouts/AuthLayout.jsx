@@ -21,7 +21,7 @@ export const AuthLayout = () => (
         <Logo size='lg' />
       </header>
 
-      <main className='px-8'>
+      <main className='px-4 md:px-8 lg:px-12'>
         <Suspense fallback={<Spinner />}>
           <Outlet />
         </Suspense>
