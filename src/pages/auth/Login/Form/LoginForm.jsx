@@ -1,8 +1,13 @@
 import { useForm } from 'react-hook-form'
 
-import { FormField, FormFields, FormRoot } from '@/components/form'
+import {
+  FormField,
+  FormFields,
+  FormRoot,
+  SubmitButton
+} from '@/components/form'
 import { PasswordInput } from '@/components/inputs'
-import { Button, Input } from '@/components/ui'
+import { Input } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
@@ -38,9 +43,9 @@ export const LoginForm = ({ isLoading, onSubmit }) => {
         </FormField>
       </FormFields>
 
-      <Button type='submit' disabled={isSubmitting || isLoading}>
-        {isSubmitting || isLoading ? t('processing') : t('login.verb')}
-      </Button>
+      <SubmitButton isLoading={isSubmitting || isLoading}>
+        {t('login.verb')}
+      </SubmitButton>
     </FormRoot>
   )
 }

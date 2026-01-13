@@ -1,8 +1,12 @@
 import { useForm } from 'react-hook-form'
 
-import { FormField, FormFields, FormRoot } from '@/components/form'
+import {
+  FormField,
+  FormFields,
+  FormRoot,
+  SubmitButton
+} from '@/components/form'
 import { PasswordInput } from '@/components/inputs'
-import { Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
@@ -34,11 +38,9 @@ export const ResetPasswordForm = ({ isLoading, onSubmit }) => {
         </FormField>
       </FormFields>
 
-      <Button type='submit' disabled={isSubmitting || isLoading}>
-        {isSubmitting || isLoading
-          ? t('processing')
-          : t('password.reset.set.cta')}
-      </Button>
+      <SubmitButton isLoading={isSubmitting || isLoading}>
+        {t('password.reset.set.cta')}
+      </SubmitButton>
     </FormRoot>
   )
 }
