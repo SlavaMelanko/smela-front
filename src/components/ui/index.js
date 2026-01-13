@@ -1,3 +1,9 @@
+export {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from './accordion'
 export { Avatar, AvatarFallback, AvatarImage, AvatarStatus } from './avatar'
 export { Badge } from './badge'
 export { Button } from './button'

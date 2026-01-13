@@ -124,6 +124,15 @@
       "cta": "Contact us",
       "msg": "Haven’t found a plan that meets your needs? We can help."
     },
+    "faq": {
+      "items": [
+        {
+          "answer": "Yes, you can cancel or change your plan anytime. Changes take effect in the next billing period.",
+          "question": "Can I cancel or change my plan?"
+        }
+      ],
+      "title": "FAQ"
+    },
     "features": {
       "cancelAnytime": "Cancel your subscription at any time",
       "dedicatedManager": "Dedicated account manager for fast issue resolution",
@@ -132,7 +141,6 @@
       "premiumSupport": "24/7 premium support",
       "rollover": "Unused bandwidth rolls over to the next month"
     },
-    "note": "Not sure yet? You can cancel or change your plan anytime.",
     "plans": {
       "custom": "Custom",
       "enterprise": "Enterprise",
