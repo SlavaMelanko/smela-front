@@ -3,10 +3,10 @@
   "backend": {
     "auth/already-verified": "Invalid request. Please try logging in.",
     "auth/email-already-in-use": "Email is already taken.",
+    "auth/forbidden": "Access denied.",
     "auth/invalid-credentials": "Invalid email or password.",
     "auth/unauthorized": "Access denied. Please try logging in again.",
-    "auth/unverified-account": "Invalid email or password.",
-    "resource/not-found": "Access denied.",
+    "resource/not-found": "Resource not found.",
     "system/internal-error": "Something went wrong. Please try again later.",
     "token/already-used": "Invalid or expired link.",
     "token/deprecated": "Invalid or expired link.",
