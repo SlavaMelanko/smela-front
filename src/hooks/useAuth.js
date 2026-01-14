@@ -2,6 +2,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { accessTokenStorage } from '@/lib/storage'
 import { authService, userService } from '@/services/backend'
+import {
+  clearUser as clearErrorTrackerUser,
+  setUser as setErrorTrackerUser
+} from '@/services/errorTracker'
 
 export const authKeys = {
   all: () => ['auth'],
@@ -38,7 +42,11 @@ export const useLogin = () => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
-        queryClient.setQueryData(authKeys.user(), { user: data.user })
+        const user = data.user
+
+        queryClient.setQueryData(authKeys.user(), { user })
+
+        setErrorTrackerUser(user)
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
@@ -68,7 +76,11 @@ export const useUserSignupWithEmail = () => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
-        queryClient.setQueryData(authKeys.user(), { user: data.user })
+        const user = data.user
+
+        queryClient.setQueryData(authKeys.user(), { user })
+
+        setErrorTrackerUser(user)
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
@@ -101,29 +113,31 @@ export const useLogout = () => {
       accessTokenStorage.remove()
 
       queryClient.removeQueries({ queryKey: authKeys.user() })
+
+      clearErrorTrackerUser()
     }
   })
 }
 
-export const useVerifyEmail = ({ onSuccess, onError, onSettled }) => {
+export const useVerifyEmail = ({ onSettled }) => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: authService.verifyEmail,
-    onSuccess: (data, ...args) => {
+    onSuccess: data => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
-        queryClient.setQueryData(authKeys.user(), { user: data.user })
+        const user = data.user
+
+        queryClient.setQueryData(authKeys.user(), { user })
+
+        setErrorTrackerUser(user)
       } else {
         // No user in response, fetch from /me endpoint
         queryClient.invalidateQueries({ queryKey: authKeys.user() })
       }
-
-      // Call the original onSuccess callback if provided
-      onSuccess?.(data, ...args)
     },
-    onError,
     onSettled
   })
 }

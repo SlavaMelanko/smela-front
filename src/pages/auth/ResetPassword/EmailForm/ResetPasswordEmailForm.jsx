@@ -1,0 +1,43 @@
+import { useForm } from 'react-hook-form'
+
+import {
+  FormField,
+  FormFields,
+  FormRoot,
+  SubmitButton
+} from '@/components/form'
+import { Input } from '@/components/ui'
+import useLocale from '@/hooks/useLocale'
+
+import { FieldName, getDefaultValues } from './fields'
+import resolver from './resolver'
+
+export const EmailForm = ({ isLoading, onSubmit }) => {
+  const { t } = useLocale()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm({
+    resolver,
+    defaultValues: getDefaultValues()
+  })
+
+  return (
+    <FormRoot onSubmit={handleSubmit(data => onSubmit(data))}>
+      <FormFields>
+        <FormField name={FieldName.EMAIL} error={errors[FieldName.EMAIL]}>
+          <Input
+            placeholder={t('email.example')}
+            {...register(FieldName.EMAIL)}
+          />
+        </FormField>
+      </FormFields>
+
+      <SubmitButton isLoading={isSubmitting || isLoading}>
+        {t('password.reset.request.cta')}
+      </SubmitButton>
+    </FormRoot>
+  )
+}

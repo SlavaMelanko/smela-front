@@ -1,7 +1,6 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { localStorage } from '@/lib/storage'
-import toasts from '@/lib/toasts'
 
 const THEME_STORAGE_KEY = 'theme'
 
@@ -38,9 +37,6 @@ export const ThemeProvider = ({ children }) => {
 
   const toggleTheme = useCallback(() => {
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'))
-
-    // Clear toasts when theme is toggled to avoid visual glitches
-    toasts.clear()
   }, [])
 
   const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme])

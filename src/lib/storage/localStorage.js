@@ -1,7 +1,7 @@
-export default {
+export const localStorage = {
   get(key, fallback = null) {
     try {
-      const value = localStorage.getItem(key)
+      const value = window.localStorage.getItem(key)
 
       return value !== null ? value : fallback
     } catch {
@@ -11,7 +11,7 @@ export default {
 
   set(key, value) {
     try {
-      localStorage.setItem(key, value)
+      window.localStorage.setItem(key, value)
     } catch {
       // Fail silently (e.g., quota exceeded, private mode)
     }
@@ -19,7 +19,7 @@ export default {
 
   remove(key) {
     try {
-      localStorage.removeItem(key)
+      window.localStorage.removeItem(key)
     } catch {
       // Fail silently (e.g., quota exceeded, private mode)
     }
@@ -27,7 +27,7 @@ export default {
 
   clear() {
     try {
-      localStorage.clear()
+      window.localStorage.clear()
     } catch {
       // Fail silently (e.g., quota exceeded, private mode)
     }

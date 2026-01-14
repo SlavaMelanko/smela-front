@@ -1,12 +1,10 @@
-import localStorage from './localStorage'
+import { localStorage } from './localStorage'
 
 const ACCESS_TOKEN_KEY = 'access_token'
 
-export default {
+export const accessTokenStorage = {
   get() {
-    const token = localStorage.get(ACCESS_TOKEN_KEY)
-
-    return token
+    return localStorage.get(ACCESS_TOKEN_KEY)
   },
 
   set(value) {

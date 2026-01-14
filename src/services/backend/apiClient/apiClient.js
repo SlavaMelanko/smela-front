@@ -1,13 +1,13 @@
 import { withTimeout } from '@/lib/async'
 import env from '@/lib/env'
-import { HttpStatus } from '@/lib/httpStatus'
+import { HttpStatus } from '@/lib/net'
 import { accessTokenStorage } from '@/lib/storage'
 
 import { REFRESH_TOKEN_PATH } from '../paths'
 import { createError } from './error'
 import TokenRefreshManager from './tokenRefreshManager'
 
-class ApiClient {
+export class ApiClient {
   #baseUrl
   #defaultHeaders
   #httpClient
@@ -136,5 +136,3 @@ class ApiClient {
     }, this.#timeout)
   }
 }
-
-export { ApiClient }

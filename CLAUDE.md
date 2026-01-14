@@ -17,7 +17,8 @@ maintenance, and simple UX.
 - **React Router** - Declarative routing for React
 - **React Hook Form** - Performant forms with easy validation
 - **Yup** - Schema validation
-- **SCSS** - CSS preprocessor with BEM methodology
+- **Tailwind CSS v4** - Utility-first CSS framework with shadcn/ui components
+- **Storybook** - Component development and documentation
 - **i18n** - Internationalization (English/Ukrainian)
 - **Jest** - Unit testing framework
 - **Playwright** - E2E testing framework
@@ -36,11 +37,12 @@ All pnpm scripts are defined in `package.json`. Key workflows:
 - Unit tests: `ut` (all tests), `ut:cov` (with coverage)
 - E2E tests: `e2e` (headless), `e2e:ui` (interactive mode)
 - Run single test: `pnpm run ut -- path/to/test.spec.js`
-- E2E tests require pre-registered `jason@example.com` account
+- E2E tests require running backend, database, and pre-registered admin/user
+  accounts
 
 ### Code Quality
 
-- Linting: `lint`, `lint:fix`, `stylelint`, `stylelint:fix`
+- Linting: `lint`, `lint:fix`
 - Formatting: `format`
 - Pre-commit hooks automatically run ESLint and Prettier on staged files
 
@@ -53,11 +55,8 @@ All pnpm scripts are defined in `package.json`. Key workflows:
 
 ### Component Structure
 
-Components are organized in `/src/components/` with each component having:
-
-- `index.jsx` - Component implementation
-- `styles.scss` - SCSS styles using BEM methodology
-- Component stories for Storybook when applicable
+See `.claude/skills/react-project-structure/SKILL.md` for detailed conventions
+on file organization, naming, barrel exports, and folder structure.
 
 ### State Management
 
@@ -66,15 +65,26 @@ The app uses React Context API for global state:
 - **ThemeContext** - Dark/light theme switching
 - **LocaleContext** - i18n language switching (EN/UK)
 - **ModalContext** - Global modal management
-- **NotificationContext** - Toast notifications
+- **ToastContext** - Global toast notifications (available everywhere)
+- **NotificationContext** - User notifications (authenticated users only, in
+  `UserLayout`)
 
 ### Routing Architecture
 
-Routes are defined in `/src/routes/` with three protection levels:
+Routes are defined in `/src/routes/router.jsx` with layout-based organization:
 
-- **Protected routes** - Require authentication (user dashboard)
-- **Public routes** - Accessible without auth (login, pricing)
-- **Legal routes** - Privacy policy and terms
+| Layout         | Guard          | Routes                                       |
+| -------------- | -------------- | -------------------------------------------- |
+| `PublicLayout` | None           | `/` (redirect), `/pricing`                   |
+| `AuthLayout`   | `PublicRoute`  | `/login`, `/signup`, `/reset-password`, etc. |
+| `LegalLayout`  | None           | `/terms`, `/privacy`                         |
+| `UserLayout`   | `PrivateRoute` | `/home` (user), `/admin/*` (admin)           |
+| `ErrorLayout`  | None           | `/errors/*`, `*` (404)                       |
+
+Route guards:
+
+- **PublicRoute** - Redirects authenticated users away from auth pages
+- **PrivateRoute** - Requires authentication + valid status (`requireStatuses`)
 
 ### API Integration
 
@@ -102,12 +112,34 @@ const { register, handleSubmit } = useForm({ resolver })
 - **E2E tests** in `/e2e/` directory
 - Test utilities available in `/src/lib/tests/`
 
+### Locale File Structure
+
+Translation files (`public/locales/*.json`) follow entity-based organization:
+
+- **Entity cohesion**: Group related data together (e.g., `name` + `values`)
+- **Single source of truth**: Define labels once, reference with `$t()`
+- **No fragmentation**: Avoid separate objects like `filters.role` when
+  `role.name` exists
+
+```json
+// Entity pattern
+"role": {
+  "name": "Role",
+  "values": { "admin": "Admin", "user": "User" }
+}
+
+// Reference pattern (avoids duplication)
+"table": {
+  "users": { "role": "$t(role.name)" }
+}
+```
+
 ## Key Development Patterns
 
 1. **Path aliases**: Use `@/` for `src/` and `@components` for `src/components`
 2. **Component imports**: Always import from component folders, not files
-3. **SCSS organization**: Global styles in `/src/styles/`, component styles
-   co-located
+3. **Styling**: See `.claude/skills/tailwind-shadcn/SKILL.md` for Tailwind CSS
+   and shadcn/ui conventions
 4. **i18n keys**: Keep translations "short, clear, and easy to understand"
 5. **ESLint compliance**: No console.log (use console.warn/error), prefer const
 6. **Control flow formatting**: Always use curly braces with `if` statements on

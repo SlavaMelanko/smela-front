@@ -1,6 +1,6 @@
-import { HttpStatus } from '@/lib/httpStatus'
+import { HttpStatus } from '@/lib/net'
 
-const createError = async response => {
+export const createError = async response => {
   let errorData = {}
 
   if (!response.bodyUsed) {
@@ -21,5 +21,3 @@ const createError = async response => {
 
   return error
 }
-
-export { createError }

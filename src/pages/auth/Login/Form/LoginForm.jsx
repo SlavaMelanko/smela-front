@@ -1,0 +1,51 @@
+import { useForm } from 'react-hook-form'
+
+import {
+  FormField,
+  FormFields,
+  FormRoot,
+  SubmitButton
+} from '@/components/form'
+import { PasswordInput } from '@/components/inputs'
+import { Input } from '@/components/ui'
+import useLocale from '@/hooks/useLocale'
+
+import { FieldName, getDefaultValues } from './fields'
+import resolver from './resolver'
+
+export const LoginForm = ({ isLoading, onSubmit }) => {
+  const { t } = useLocale()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm({
+    resolver,
+    defaultValues: getDefaultValues()
+  })
+
+  return (
+    <FormRoot onSubmit={handleSubmit(data => onSubmit(data))}>
+      <FormFields>
+        <FormField name={FieldName.EMAIL} error={errors[FieldName.EMAIL]}>
+          <Input
+            placeholder={t('email.placeholder')}
+            {...register(FieldName.EMAIL)}
+          />
+        </FormField>
+
+        <FormField name={FieldName.PASSWORD} error={errors[FieldName.PASSWORD]}>
+          <PasswordInput
+            placeholder={t('password.placeholder.default')}
+            {...register(FieldName.PASSWORD)}
+          />
+        </FormField>
+      </FormFields>
+
+      <SubmitButton isLoading={isSubmitting || isLoading}>
+        {t('login.verb')}
+      </SubmitButton>
+    </FormRoot>
+  )
+}

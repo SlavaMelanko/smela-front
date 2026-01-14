@@ -99,7 +99,11 @@ export default [
   },
   {
     // Jest
-    files: ['**/*.test.{js,jsx}', 'src/tests/jest.setup.js'],
+    files: [
+      '**/*.test.{js,jsx}',
+      '**/*.spec.{js,jsx}',
+      'src/tests/jest.setup.js'
+    ],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -128,5 +132,12 @@ export default [
       }
     }
   },
-  ...storybook.configs['flat/recommended']
+  ...storybook.configs['flat/recommended'],
+  {
+    // shadcn/ui components export both components and variants
+    files: ['src/components/ui/**/*.{js,jsx}'],
+    rules: {
+      'react-refresh/only-export-components': 'off'
+    }
+  }
 ]

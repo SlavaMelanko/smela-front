@@ -17,8 +17,10 @@ const getRequiredEnv = key => {
 }
 
 const env = {
+  MODE: import.meta.env.MODE,
   CAPTCHA_SITE_KEY: getRequiredEnv('CAPTCHA_SITE_KEY'),
-  BE_BASE_URL: getRequiredEnv('BE_BASE_URL')
+  BE_BASE_URL: getRequiredEnv('BE_BASE_URL'),
+  SENTRY_DSN: getValue('SENTRY_DSN')
 }
 
 export default env

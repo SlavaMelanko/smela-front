@@ -13,7 +13,7 @@
     "token/expired": "Invalid or expired link.",
     "token/not-found": "Invalid or expired link.",
     "token/type-mismatch": "Invalid or expired link.",
-    "validation/error": "Please check your input and try again."
+    "validation/error": "Invalid request."
   },
   "captcha": {
     "error": "Security verification failed. Please try again."
@@ -25,7 +25,10 @@
   "email": {
     "confirmation": {
       "cta": "Send again",
-      "description": "We've sent a confirmation link to {{email}}. Just click it to finish signing up.",
+      "description": {
+        "end": "Check your inbox and click the link to finish signing up.",
+        "start": "We've sent a confirmation link to"
+      },
       "success": "Confirmation email sent again.",
       "title": "Confirmation email sent",
       "yourEmail": "your email"
@@ -52,6 +55,7 @@
       "message": "This is unexpected for us too. We'll take a closer look and handle it according to our current priorities. Thanks for your patience.",
       "title": "Oops! Something went wrong"
     },
+    "loading": "Failed to load data. Please try again.",
     "network": {
       "cta": "Try again",
       "message": {
@@ -94,6 +98,7 @@
     "label": "Last Name",
     "placeholder": "Your last name"
   },
+  "loading": "Loading...",
   "login": {
     "noun": "Login",
     "verb": "Log in"
@@ -104,51 +109,6 @@
   },
   "noNewNotifications": "No new notifications.",
   "notifications": "Notifications",
-  "offer": {
-    "cta": "Sign up now",
-    "custom": {
-      "cta": "Create plan",
-      "note": "Build your perfect plan. The more you use, the less you pay.",
-      "title": "Your plan"
-    },
-    "discount": {
-      "label": "-{{percent}}% Off",
-      "prefix": "Limited time offer"
-    },
-    "enterprise": {
-      "cta": "Contact us",
-      "msg": "Haven’t found a plan that meets your needs? We can help."
-    },
-    "features": {
-      "cancelAnytime": "Cancel your subscription at any time",
-      "dedicatedManager": "Dedicated account manager for fast issue resolution",
-      "emailSupport": "Support via email",
-      "oneTimePurchase": "One-time purchase, no subscription",
-      "rollover": "Unused bandwidth rolls over to the next month",
-      "slackSupport": "24/7 support on Slack"
-    },
-    "note": "Not sure yet? You can cancel or change your plan anytime.",
-    "plans": {
-      "basic": "Basic",
-      "custom": "Custom",
-      "enterprise": "Enterprise",
-      "entry": "Entry",
-      "starter": "Starter",
-      "trial": "Trial"
-    },
-    "subtitle": "Whether standard, custom, or enterprise — you decide.",
-    "summary": {
-      "includedFeatures": "Included features",
-      "price": "Price",
-      "selected": "Selected",
-      "total": "Total price"
-    },
-    "title": "Find your best plan",
-    "type": {
-      "enterprise": "Enterprise",
-      "standard": "Standard"
-    }
-  },
   "or": "or",
   "pagination": {
     "of": "of",
@@ -167,7 +127,7 @@
       "new": "New password"
     },
     "reset": {
-      "loginPrompt": "Remember your password?",
+      "rememberYourPassword": "Remember your password?",
       "request": {
         "cta": "Send instructions",
         "description": "Enter your email to receive password reset instructions.",
@@ -181,10 +141,94 @@
       }
     }
   },
+  "pricing": {
+    "cta": "Sign up now",
+    "custom": {
+      "cta": "Create plan",
+      "note": "Build your perfect plan. The more you use, the less you pay.",
+      "title": "Your plan"
+    },
+    "discount": {
+      "label": "-{{percent}}% Off"
+    },
+    "enterprise": {
+      "cta": "Contact us",
+      "msg": "Haven't found a plan that meets your needs? We can help."
+    },
+    "faq": {
+      "items": [
+        {
+          "answer": "Yes, you can cancel or change your plan anytime. Changes take effect in the next billing period.",
+          "question": "Can I cancel or change my plan?"
+        }
+      ],
+      "title": "FAQ"
+    },
+    "features": {
+      "cancelAnytime": "Cancel your subscription at any time",
+      "dedicatedManager": "Dedicated account manager for fast issue resolution",
+      "emailSupport": "Support via email",
+      "premiumSupport": "24/7 premium support",
+      "rollover": "Unused bandwidth rolls over to the next month"
+    },
+    "plans": {
+      "custom": "Custom",
+      "free": "Free",
+      "max": "Max",
+      "pro": "Pro"
+    },
+    "subtitle": "Whether standard, custom, or enterprise — you decide.",
+    "summary": {
+      "includedFeatures": "Included features",
+      "price": "Price",
+      "selected": "Selected",
+      "total": "Total price"
+    },
+    "title": "Find your best plan",
+    "type": {
+      "enterprise": "Enterprise",
+      "standard": "Standard"
+    }
+  },
   "processing": "Processing...",
   "profile": "Profile",
+  "role": {
+    "name": "Role",
+    "placeholder": "Select roles",
+    "values": {
+      "admin": "Admin",
+      "enterprise": "Enterprise",
+      "guest": "Guest",
+      "owner": "Owner",
+      "user": "User"
+    }
+  },
   "searchBy": "Search by name, email, etc...",
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "documentation": "Documentation",
+    "home": "Home",
+    "isp": "ISP",
+    "proxies": "Proxies",
+    "residential": "Residential",
+    "serpApi": "SERP API",
+    "settings": "Settings",
+    "users": "Users"
+  },
   "signUp": "Sign up",
+  "status": {
+    "name": "Status",
+    "placeholder": "Select statuses",
+    "values": {
+      "active": "Active",
+      "archived": "Archived",
+      "new": "New",
+      "pending": "Pending",
+      "suspended": "Suspended",
+      "trial": "Trial",
+      "verified": "Verified"
+    }
+  },
   "support": "Support",
   "table": {
     "column": "Column",
@@ -196,18 +240,18 @@
       "email": "Email",
       "id": "ID",
       "name": "Name",
-      "role": "Role",
-      "status": "Status"
+      "role": "$t(role.name)",
+      "status": "$t(status.name)"
     }
   },
   "termsAndPrivacy": {
+    "and": "and",
     "error": {
       "required": "You must accept the terms to continue."
     },
-    "middle": "and",
     "prefix": "By creating an account, you agree with our",
-    "privacyLink": "Privacy Policy",
-    "termsLink": "Terms"
+    "privacy": "Privacy Policy",
+    "terms": "Terms"
   },
   "unit": {
     "traffic": {

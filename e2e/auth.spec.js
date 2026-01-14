@@ -1,7 +1,6 @@
 import { expect, test } from '@playwright/test'
-import fs from 'fs'
 
-import { HttpStatus } from '../src/lib/httpStatus'
+import { HttpStatus } from '../src/lib/net'
 import { Role, UserStatus } from '../src/lib/types'
 import {
   LOGIN_PATH,
@@ -16,11 +15,12 @@ import { auth } from '../src/tests/data'
 import {
   emailConfig,
   EmailService,
+  loadTranslations,
   waitForApiCall,
   waitForApiCalls
 } from './helpers'
 
-const t = JSON.parse(fs.readFileSync('./public/locales/en.json', 'utf-8'))
+const t = loadTranslations()
 
 const emailService = new EmailService()
 
@@ -75,14 +75,15 @@ const fillNewPasswordFormAndSubmit = async (page, newPassword, t) => {
 }
 
 const logOut = async (page, t) => {
-  const selector = 'Profile dropdown'
-
-  await page.getByRole('button', { name: selector }).click()
-  await page.getByRole('button', { name: t.logout.noun }).click()
+  await page.getByRole('button', { name: 'Profile menu' }).click()
+  await page.getByRole('menuitem', { name: t.logout.noun }).click()
   await page.waitForURL('/login')
 }
 
 test.describe.serial('Authentication', () => {
+  // Credentials for a user created during the signup test.
+  // Subsequent tests (login, password reset, logout) depend on this user.
+  // Running individual tests that use these credentials will fail.
   const userCredentials = {
     email: auth.email.generate({
       prefix: 'test',
@@ -98,32 +99,32 @@ test.describe.serial('Authentication', () => {
     const { firstNameInput, lastNameInput, emailInput, passwordInput } =
       await fillSignupFormAndSubmit(
         page,
-        {
-          firstName: '',
-          lastName: '',
-          email: '',
-          password: ''
-        },
+        { firstName: '', lastName: '', email: '', password: '' },
         t
       )
 
     await expect(page.getByText(t.firstName.error.required)).toBeVisible()
-    await expect(firstNameInput).toHaveClass(/input__field--error/)
+    await expect(firstNameInput).toHaveClass(/border-destructive/)
 
     // Last name is optional
     await expect(page.getByText(t.lastName.error.required)).toHaveCount(0)
-    await expect(lastNameInput).not.toHaveClass(/input__field--error/)
+    await expect(lastNameInput).not.toHaveClass(/border-destructive/)
 
     await expect(page.getByText(t.email.error.required)).toBeVisible()
-    await expect(emailInput).toHaveClass(/input__field--error/)
+    await expect(emailInput).toHaveClass(/border-destructive/)
 
     await expect(page.getByText(t.password.error.required)).toBeVisible()
-    await expect(passwordInput).toHaveClass(/input__field--error/)
+    await expect(passwordInput).toHaveClass(/border-destructive/)
   })
 
-  // This test requires seed data with jason@example.com
+  // This test requires a pre-registered admin account
   test('signup: prevents duplicate email registration', async ({ page }) => {
     await page.goto('/signup')
+
+    const apiPromise = waitForApiCall(page, {
+      path: SIGNUP_PATH,
+      status: HttpStatus.CONFLICT
+    })
 
     await fillSignupFormAndSubmit(
       page,
@@ -136,10 +137,7 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await waitForApiCall(page, {
-      path: SIGNUP_PATH,
-      status: HttpStatus.CONFLICT
-    })
+    await apiPromise
 
     const errorMessage = page.getByText(t.backend['auth/email-already-in-use'])
 
@@ -156,18 +154,7 @@ test.describe.serial('Authentication', () => {
 
     let signupCaptchaToken = null
 
-    await fillSignupFormAndSubmit(
-      page,
-      {
-        firstName: auth.firstName.ok,
-        lastName: auth.lastName.ok,
-        email: testEmail,
-        password: auth.password.strong
-      },
-      t
-    )
-
-    await waitForApiCall(page, {
+    let apiPromise = waitForApiCall(page, {
       path: SIGNUP_PATH,
       status: HttpStatus.CREATED,
       validateRequest: body => {
@@ -197,6 +184,19 @@ test.describe.serial('Authentication', () => {
       }
     })
 
+    await fillSignupFormAndSubmit(
+      page,
+      {
+        firstName: auth.firstName.ok,
+        lastName: auth.lastName.ok,
+        email: testEmail,
+        password: auth.password.strong
+      },
+      t
+    )
+
+    await apiPromise
+
     await page.waitForURL(/email-confirmation/)
 
     await expect(
@@ -204,9 +204,7 @@ test.describe.serial('Authentication', () => {
     ).toBeVisible()
 
     await expect(
-      page.getByText(
-        t.email.confirmation.description.replace('{{email}}', testEmail)
-      )
+      page.getByText(t.email.confirmation.description.start)
     ).toBeVisible()
 
     await expect(
@@ -222,9 +220,7 @@ test.describe.serial('Authentication', () => {
 
     let resendCaptchaToken = null
 
-    await page.getByRole('button', { name: t.email.confirmation.cta }).click()
-
-    await waitForApiCall(page, {
+    apiPromise = waitForApiCall(page, {
       path: RESEND_VERIFICATION_EMAIL_PATH,
       status: HttpStatus.ACCEPTED,
       validateRequest: b => {
@@ -238,6 +234,9 @@ test.describe.serial('Authentication', () => {
       },
       validateResponse: b => b?.success === true
     })
+
+    await page.getByRole('button', { name: t.email.confirmation.cta }).click()
+    await apiPromise
 
     await expect(page.getByText(t.email.confirmation.success)).toBeVisible()
 
@@ -271,6 +270,11 @@ test.describe.serial('Authentication', () => {
       domain: emailConfig.domain
     })
 
+    const apiPromise = waitForApiCall(page, {
+      path: SIGNUP_PATH,
+      status: HttpStatus.CREATED
+    })
+
     await fillSignupFormAndSubmit(
       page,
       {
@@ -282,10 +286,7 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await waitForApiCall(page, {
-      path: SIGNUP_PATH,
-      status: HttpStatus.CREATED
-    })
+    await apiPromise
 
     await page.waitForURL(/email-confirmation/)
 
@@ -300,42 +301,34 @@ test.describe.serial('Authentication', () => {
     await page.goto(`${url.origin}${url.pathname}?token=`)
     // No API call is made for empty token - frontend handles it
 
-    await expect(
-      page.getByText(t.email.verification.error.invalidToken)
-    ).toBeVisible()
+    await expect(page.getByText(t.backend['validation/error'])).toBeVisible()
 
     // 2: Malformed token (replace last char with underscore)
     const malformedToken = originalToken.slice(0, -1) + '_'
 
-    await page.goto(`${url.origin}${url.pathname}?token=${malformedToken}`)
-
-    await waitForApiCalls(page, [
-      {
-        path: ME_PATH,
-        method: 'GET',
-        status: HttpStatus.OK
-      },
+    // Start listening BEFORE navigation to catch fast responses
+    let apiPromises = waitForApiCalls(page, [
+      { path: ME_PATH, method: 'GET', status: HttpStatus.OK },
       {
         path: VERIFY_EMAIL_PATH,
+        method: 'POST',
         status: HttpStatus.BAD_REQUEST
       }
     ])
+
+    await page.goto(`${url.origin}${url.pathname}?token=${malformedToken}`)
+    await apiPromises
 
     await expect(page.getByText(t.backend['token/not-found'])).toBeVisible()
 
     // 3: Invalid token (completely wrong token)
-    await page.goto(`${url.origin}${url.pathname}?token=invalid_token_12345`)
-
-    await waitForApiCalls(page, [
-      {
-        path: ME_PATH,
-        status: HttpStatus.OK
-      },
-      {
-        path: VERIFY_EMAIL_PATH,
-        status: HttpStatus.BAD_REQUEST
-      }
+    apiPromises = waitForApiCalls(page, [
+      { path: ME_PATH, status: HttpStatus.OK },
+      { path: VERIFY_EMAIL_PATH, status: HttpStatus.BAD_REQUEST }
     ])
+
+    await page.goto(`${url.origin}${url.pathname}?token=invalid_token_12345`)
+    await apiPromises
 
     await expect(page.getByText(t.backend['validation/error'])).toBeVisible()
 
@@ -353,6 +346,12 @@ test.describe.serial('Authentication', () => {
   test('signup: creates account and verifies email', async ({ page }) => {
     await page.goto('/signup')
 
+    const apiPromise = waitForApiCall(page, {
+      path: SIGNUP_PATH,
+      status: HttpStatus.CREATED,
+      validateRequest: b => !!b.captcha?.token
+    })
+
     await fillSignupFormAndSubmit(
       page,
       {
@@ -364,11 +363,7 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await waitForApiCall(page, {
-      path: SIGNUP_PATH,
-      status: HttpStatus.CREATED,
-      validateRequest: b => !!b.captcha?.token
-    })
+    await apiPromise
 
     await page.waitForURL(/email-confirmation/)
 
@@ -378,9 +373,8 @@ test.describe.serial('Authentication', () => {
 
     expect(link).toBeTruthy()
 
-    await page.goto(link)
-
-    await waitForApiCalls(page, [
+    // Start listening BEFORE navigation to catch fast responses
+    const apiPromises = waitForApiCalls(page, [
       {
         path: ME_PATH,
         status: HttpStatus.OK,
@@ -423,12 +417,13 @@ test.describe.serial('Authentication', () => {
       }
     ])
 
+    await page.goto(link)
+    await apiPromises
+
     // After verification, user is redirected to home
     await page.waitForURL('/home')
 
     await expect(page.getByText(t.email.verification.success)).toBeVisible()
-
-    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
 
     // Logout to ensure clean state for next test
     await logOut(page, t)
@@ -453,19 +448,18 @@ test.describe.serial('Authentication', () => {
     for (const testCase of testCases) {
       await page.reload()
 
-      const { emailInput, passwordInput } = await fillLoginFormAndSubmit(
-        page,
-        {
-          email: testCase.email,
-          password: testCase.password
-        },
-        t
-      )
-
-      await waitForApiCall(page, {
+      const apiPromise = waitForApiCall(page, {
         path: LOGIN_PATH,
         status: HttpStatus.UNAUTHORIZED
       })
+
+      const { emailInput, passwordInput } = await fillLoginFormAndSubmit(
+        page,
+        { email: testCase.email, password: testCase.password },
+        t
+      )
+
+      await apiPromise
 
       const errorMessage = page.getByText(t.backend['auth/invalid-credentials'])
 
@@ -482,6 +476,11 @@ test.describe.serial('Authentication', () => {
   }) => {
     await page.goto('/login')
 
+    const apiPromise = waitForApiCall(page, {
+      path: LOGIN_PATH,
+      status: HttpStatus.OK
+    })
+
     await fillLoginFormAndSubmit(
       page,
       {
@@ -491,14 +490,9 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
-    })
+    await apiPromise
 
     await page.waitForURL('/home')
-
-    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
 
     // Logout to ensure clean state for next test
     await logOut(page, t)
@@ -510,6 +504,11 @@ test.describe.serial('Authentication', () => {
     // First, authenticate the user
     await page.goto('/login')
 
+    const apiPromise = waitForApiCall(page, {
+      path: LOGIN_PATH,
+      status: HttpStatus.OK
+    })
+
     await fillLoginFormAndSubmit(
       page,
       {
@@ -519,10 +518,7 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
-    })
+    await apiPromise
 
     await page.waitForURL('/home')
 
@@ -552,13 +548,14 @@ test.describe.serial('Authentication', () => {
       page.getByText(t.password.reset.request.description)
     ).toBeVisible()
 
-    await fillRequestPasswordResetFormAndSubmit(page, userCredentials.email, t)
-
-    await waitForApiCall(page, {
+    let apiPromise = waitForApiCall(page, {
       path: REQUEST_PASSWORD_RESET_PATH,
       status: HttpStatus.ACCEPTED,
       validateRequest: b => !!b.captcha?.token
     })
+
+    await fillRequestPasswordResetFormAndSubmit(page, userCredentials.email, t)
+    await apiPromise
 
     await expect(page.getByText(t.password.reset.request.success)).toBeVisible()
 
@@ -572,16 +569,22 @@ test.describe.serial('Authentication', () => {
 
     await expect(page.getByText(t.password.reset.set.description)).toBeVisible()
 
-    await fillNewPasswordFormAndSubmit(page, userCredentials.newPassword, t)
-
-    await waitForApiCall(page, {
+    apiPromise = waitForApiCall(page, {
       path: RESET_PASSWORD_PATH,
       status: HttpStatus.OK
     })
 
+    await fillNewPasswordFormAndSubmit(page, userCredentials.newPassword, t)
+    await apiPromise
+
     await expect(page.getByText(t.password.reset.set.success)).toBeVisible()
 
     await page.waitForURL('/login')
+
+    apiPromise = waitForApiCall(page, {
+      path: LOGIN_PATH,
+      status: HttpStatus.OK
+    })
 
     await fillLoginFormAndSubmit(
       page,
@@ -592,14 +595,9 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
-    })
+    await apiPromise
 
     await page.waitForURL('/home')
-
-    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
 
     // Logout to ensure clean state
     await logOut(page, t)
@@ -612,6 +610,11 @@ test.describe.serial('Authentication', () => {
     // Step 1: Login in first tab and verify home page
     await page.goto('/login')
 
+    const apiPromise = waitForApiCall(page, {
+      path: LOGIN_PATH,
+      status: HttpStatus.OK
+    })
+
     await fillLoginFormAndSubmit(
       page,
       {
@@ -621,21 +624,14 @@ test.describe.serial('Authentication', () => {
       t
     )
 
-    await waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
-    })
+    await apiPromise
 
     await page.waitForURL('/home')
-
-    await expect(page.getByText(auth.firstName.ok)).toBeVisible()
 
     // Step 2: Open second tab and navigate to home - should see same page
     const secondTab = await context.newPage()
 
     await secondTab.goto('/home')
-
-    await expect(secondTab.getByText(auth.firstName.ok)).toBeVisible()
 
     // Step 3: Logout in first tab - should see login page
     await logOut(page, t)

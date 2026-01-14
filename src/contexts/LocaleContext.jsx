@@ -1,4 +1,4 @@
-import { createContext, useCallback, useMemo, useState } from 'react'
+import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 
 import i18n, { LOCALE_STORAGE_KEY } from '@/i18n'
 import { formatDate, formatNumber, formatPrice } from '@/lib/format'
@@ -10,6 +10,10 @@ export const LocaleProvider = ({ children }) => {
   // At this point, i18n is already initialized with the correct locale,
   // so we trust i18n.language as the single source of truth
   const [locale, setLocale] = useState(i18n.language)
+
+  useEffect(() => {
+    document.documentElement.lang = locale
+  }, [locale])
 
   const changeLocale = useCallback(locale => {
     setLocale(locale)

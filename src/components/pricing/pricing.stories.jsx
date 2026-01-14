@@ -1,138 +1,96 @@
-import { BrowserRouter } from 'react-router-dom'
+import { CalendarX, Mail, RefreshCw } from 'lucide-react'
 
-import {
-  CalendarXIcon,
-  CreditCardIcon,
-  MailIcon,
-  RefreshIcon,
-  SlackIcon,
-  UserPlusIcon
-} from '@/components/icons'
-import { LocaleProvider } from '@/contexts/LocaleContext'
+import { CustomPricingCard, PricingSlider, StandardPricingCard } from '.'
 
-import { CustomPricingCard, PricingSlider, StandardPricingCard } from './index'
+const noop = () => {}
 
-const meta = {
-  title: 'Pricing',
-  component: StandardPricingCard,
+export default {
+  title: 'Components/Pricing',
+  parameters: { layout: 'fullscreen' },
   decorators: [
     Story => (
-      <BrowserRouter>
-        <LocaleProvider>
-          <Story />
-        </LocaleProvider>
-      </BrowserRouter>
+      <div className='flex items-center justify-center w-full min-h-screen'>
+        <Story />
+      </div>
     )
-  ]
-}
-
-export default meta
-
-export const TrialPlanCard = {
+  ],
+  argTypes: {
+    discount: {
+      control: { type: 'range', min: 0, max: 100, step: 10 }
+    }
+  },
   args: {
-    title: 'Trial',
-    bandwidth: {
-      value: 1,
-      unit: 'GB'
-    },
-    pricePerUnit: {
-      original: 7.99,
-      final: 7.99,
-      unit: 'GB'
-    },
-    totalPrice: {
-      original: 7.99
-    },
-    features: [
-      {
-        icon: <MailIcon color='blue' />,
-        text: 'Email support included'
-      },
-      {
-        icon: <CreditCardIcon color='yellow' />,
-        text: 'One-time purchase'
-      }
-    ],
-    redirectPath: '/signup'
+    discount: 50
   }
 }
 
-export const BasicPlanCardWithDiscount = {
-  args: {
-    id: 'basic',
-    title: 'Basic',
-    bandwidth: {
-      value: 100,
-      unit: 'GB'
-    },
-    pricePerUnit: {
-      original: 4.99,
-      final: 2.49,
-      unit: 'GB'
-    },
-    totalPrice: {
-      original: 499.0,
-      final: 249.5
-    },
-    features: [
-      {
-        icon: <SlackIcon color='blue' />,
-        text: 'Slack support'
-      },
-      {
-        icon: <CalendarXIcon color='orange' />,
-        text: 'Cancel anytime'
-      },
-      {
-        icon: <RefreshIcon color='pink' />,
-        text: 'Unused bandwidth rolls over to the next month'
-      },
-      {
-        icon: <UserPlusIcon color='green' />,
-        text: 'Dedicated account manager'
-      }
-    ],
-    redirectPath: '/signup',
-    hasDiscount: true
-  }
-}
-
-export const CustomPlanCard = {
-  render: () => (
-    <CustomPricingCard
-      title='Custom'
-      totalPrice={{ original: 'Your plan' }}
-      customMessage='We’ll build a tailored plan based on your needs.'
-      buttonText='Contact us'
-      showModal={() => alert('Modal opened (mock)')}
-    />
-  )
-}
+const applyDiscount = (price, discount) => price * (1 - discount / 100)
 
 export const AllCards = {
-  render: () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        gap: '1rem',
-        alignItems: 'flex-start'
-      }}
-    >
-      <StandardPricingCard {...TrialPlanCard.args} />
-      <StandardPricingCard {...BasicPlanCardWithDiscount.args} />
-      <CustomPricingCard {...CustomPlanCard.render().props} />
+  render: ({ discount }) => (
+    <div className='flex gap-6'>
+      {/* Free plan - $0, no discount */}
+      <StandardPricingCard
+        title='Free'
+        bandwidth={{ value: 1, unit: 'GB' }}
+        pricePerUnit={{ original: 0, final: 0, unit: 'GB' }}
+        totalPrice={{ original: 0 }}
+        features={[
+          {
+            icon: <Mail className='size-6 text-blue-500' />,
+            text: 'Email Support'
+          }
+        ]}
+        redirectPath='/signup'
+      />
+
+      {/* Pro plan - with discount */}
+      <StandardPricingCard
+        title='Pro'
+        bandwidth={{ value: 10, unit: 'GB' }}
+        pricePerUnit={{
+          original: 7.5,
+          final: applyDiscount(7.5, discount),
+          unit: 'GB'
+        }}
+        totalPrice={{
+          original: 50,
+          final: applyDiscount(50, discount)
+        }}
+        features={[
+          {
+            icon: <Mail className='size-6 text-blue-500' />,
+            text: 'Email Support'
+          },
+          {
+            icon: <CalendarX className='size-6 text-orange-500' />,
+            text: 'Cancel Anytime'
+          },
+          {
+            icon: <RefreshCw className='size-6 text-pink-500' />,
+            text: 'Rollover Data'
+          }
+        ]}
+        redirectPath='/signup'
+        discountPercent={discount}
+      />
+
+      {/* Custom pricing card */}
+      <CustomPricingCard
+        title='Custom'
+        totalPrice={{ original: "Let's Talk" }}
+        customMessage='Contact us for enterprise pricing'
+        buttonText='GET STARTED'
+        showModal={noop}
+      />
     </div>
   )
 }
 
 export const Slider = {
-  name: 'Pricing Slider',
-  render: () => <PricingSlider onComplete={() => alert('Complete!')} />
-}
-
-export const PricingSliderWithDiscount = {
-  render: () => (
-    <PricingSlider discount={50} onComplete={() => alert('Complete!')} />
+  render: ({ discount }) => (
+    <div className='w-full max-w-md'>
+      <PricingSlider discount={discount} onComplete={noop} />
+    </div>
   )
 }

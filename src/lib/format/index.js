@@ -1,3 +1,4 @@
-export { formatDate } from './date'
+export { datePreset, formatDate } from './date'
 export { formatNumber } from './number'
 export { formatPrice } from './price'
+export { getFullName } from './user'
