@@ -3,10 +3,10 @@
   "backend": {
     "auth/already-verified": "Невірний запит. Спробуйте увійти в обліковий запис.",
     "auth/email-already-in-use": "Електронна адреса вже зайнята.",
+    "auth/forbidden": "Доступ заборонено.",
     "auth/invalid-credentials": "Невірна електронна адреса або пароль.",
     "auth/unauthorized": "Доступ заборонено. Увійдіть щоб продовжити.",
-    "auth/unverified-account": "Невірна електронна адреса або пароль.",
-    "resource/not-found": "Доступ заборонено.",
+    "resource/not-found": "Ресурс не знайдено.",
     "system/internal-error": "Щось пішло не так. Спробуйте пізніше.",
     "token/already-used": "Недійсне або прострочене посилання.",
     "token/deprecated": "Недійсне або прострочене посилання.",
