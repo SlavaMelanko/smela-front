@@ -11,10 +11,13 @@ const renderForm = (onSubmit = jest.fn()) => {
   renderWithProviders(<SignupForm onSubmit={onSubmit} />)
 
   return {
-    firstNameInput: screen.getByPlaceholderText(en.firstName.example),
-    lastNameInput: screen.getByPlaceholderText(en.lastName.example),
-    emailInput: screen.getByPlaceholderText(en.email.example),
-    passwordInput: screen.getByPlaceholderText(en.password.placeholder.masked),
+    firstNameInput: screen.getByLabelText(en.firstName.label, { exact: false }),
+    lastNameInput: screen.getByLabelText(en.lastName.label, { exact: false }),
+    emailInput: screen.getByLabelText(en.email.label, { exact: false }),
+    passwordInput: screen.getByLabelText(en.password.label.default, {
+      exact: false,
+      selector: 'input'
+    }),
     submitButton: screen.getByRole('button', { name: en.signUp })
   }
 }

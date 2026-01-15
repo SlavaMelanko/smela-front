@@ -28,13 +28,11 @@ export const ResetPasswordForm = ({ isLoading, onSubmit }) => {
     <FormRoot onSubmit={handleSubmit(data => onSubmit(data))}>
       <FormFields>
         <FormField
+          label={t('password.label.new')}
           name={FieldName.NEW_PASSWORD}
           error={errors[FieldName.NEW_PASSWORD]}
         >
-          <PasswordInput
-            placeholder={t('password.placeholder.new')}
-            {...register(FieldName.NEW_PASSWORD)}
-          />
+          <PasswordInput {...register(FieldName.NEW_PASSWORD)} />
         </FormField>
       </FormFields>
 

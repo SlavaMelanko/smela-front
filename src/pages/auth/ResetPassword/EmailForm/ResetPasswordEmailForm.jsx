@@ -27,11 +27,12 @@ export const EmailForm = ({ isLoading, onSubmit }) => {
   return (
     <FormRoot onSubmit={handleSubmit(data => onSubmit(data))}>
       <FormFields>
-        <FormField name={FieldName.EMAIL} error={errors[FieldName.EMAIL]}>
-          <Input
-            placeholder={t('email.example')}
-            {...register(FieldName.EMAIL)}
-          />
+        <FormField
+          label={t('email.label')}
+          name={FieldName.EMAIL}
+          error={errors[FieldName.EMAIL]}
+        >
+          <Input {...register(FieldName.EMAIL)} />
         </FormField>
       </FormFields>
 

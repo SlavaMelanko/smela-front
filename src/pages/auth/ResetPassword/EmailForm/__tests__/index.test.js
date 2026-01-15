@@ -11,7 +11,7 @@ const renderForm = (onSubmit = jest.fn()) => {
   renderWithProviders(<EmailForm onSubmit={onSubmit} />)
 
   return {
-    emailInput: screen.getByPlaceholderText(en.email.example),
+    emailInput: screen.getByLabelText(en.email.label, { exact: false }),
     submitButton: screen.getByRole('button', {
       name: en.password.reset.request.cta
     })
