@@ -45,7 +45,6 @@
       "format": "Enter a valid email.",
       "required": "Email is required."
     },
-    "example": "email@example.com",
     "label": "Email",
     "verification": {
       "error": {
@@ -90,7 +89,6 @@
       "min": "First name must be at least 2 characters.",
       "required": "First name is required."
     },
-    "example": "e.g. Jason",
     "label": "First Name"
   },
   "forgotYourPassword": "Forgot your password?",
@@ -100,7 +98,6 @@
       "min": "Last name must be at least 2 characters.",
       "required": "Last name is required."
     },
-    "example": "e.g. Statham",
     "label": "Last Name"
   },
   "loading": "Loading...",
