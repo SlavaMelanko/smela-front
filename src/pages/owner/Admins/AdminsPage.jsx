@@ -91,7 +91,7 @@ export const AdminsPage = () => {
       <div className='flex justify-end'>
         <Button variant='outline' onClick={handleInviteClick}>
           <Plus className='size-5' />
-          {t('admin.invite.title')}
+          <span className='hidden sm:inline'>{t('admin.invite.title')}</span>
         </Button>
       </div>
       <Table config={config} onRowClick={handleRowClick} />

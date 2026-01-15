@@ -6,7 +6,7 @@ import { Controller } from 'react-hook-form'
  * Use with: Switch, Checkbox
  *
  * @example
- * <FormInlineController
+ * <FormBoolController
  *   name="canView"
  *   label={t('permission.view')}
  *   control={control}
@@ -15,7 +15,7 @@ import { Controller } from 'react-hook-form'
  *   )}
  * />
  */
-export const FormInlineController = ({
+export const FormBoolController = ({
   name,
   label,
   control,

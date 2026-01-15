@@ -9,7 +9,7 @@ import { Error, FieldWrapper, InputWrapper, Label } from './elements'
  * Use with: Select, DatePicker, Multiselect
  *
  * For native inputs (Input, Textarea, Checkbox), use FormField with register().
- * For inline layout (Switch on same line as label), use FormInlineController.
+ * For inline layout (Switch on same line as label), use FormBoolController.
  *
  * @example
  * <FormController
