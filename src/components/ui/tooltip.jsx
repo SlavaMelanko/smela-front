@@ -24,10 +24,7 @@ function TooltipTrigger({ className, ...props }) {
   return (
     <TooltipPrimitive.Trigger
       data-slot='tooltip-trigger'
-      className={cn(
-        'flex cursor-help items-center justify-center rounded-full border-none bg-transparent p-1 transition-colors hover:bg-border',
-        className
-      )}
+      className={className}
       {...props}
     />
   )

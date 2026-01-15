@@ -1,4 +1,12 @@
 {
+  "admin": {
+    "invite": {
+      "cta": "Send invitation",
+      "error": "Failed to send invitation.",
+      "success": "Invitation sent successfully.",
+      "title": "Invite admin"
+    }
+  },
   "alreadyHaveAccount": "Already have an account?",
   "backend": {
     "auth/already-verified": "Invalid request. Please try logging in.",
@@ -37,7 +45,7 @@
       "format": "Enter a valid email.",
       "required": "Email is required."
     },
-    "example": "your@email.com",
+    "example": "email@example.com",
     "label": "Email",
     "placeholder": "Email",
     "verification": {

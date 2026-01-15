@@ -17,3 +17,4 @@ export const ADMIN_USERS_PATH = '/api/v1/admin/users'
 
 // Owner endpoints
 export const OWNER_ADMINS_PATH = '/api/v1/owner/admins'
+export const OWNER_ADMINS_INVITE_PATH = '/api/v1/owner/admins/invite'

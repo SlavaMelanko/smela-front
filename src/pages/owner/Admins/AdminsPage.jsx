@@ -3,12 +3,14 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
+import { Plus } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 
-import { ProfileDialog } from '@/components/dialogs'
+import { AdminInvitationDialog, ProfileDialog } from '@/components/dialogs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { Table } from '@/components/Table'
+import { Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 import { useAdmins } from '@/hooks/useOwner'
@@ -39,6 +41,12 @@ export const AdminsPage = () => {
     },
     [openModal]
   )
+
+  const handleInviteClick = useCallback(() => {
+    const close = openModal({
+      children: <AdminInvitationDialog onClose={() => close()} />
+    })
+  }, [openModal])
 
   const handlePageChange = page => {
     setParams({ page })
@@ -79,7 +87,13 @@ export const AdminsPage = () => {
   }
 
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col gap-4 md:gap-5'>
+      <div className='flex justify-end'>
+        <Button variant='outline' onClick={handleInviteClick}>
+          <Plus className='size-5' />
+          {t('admin.invite.title')}
+        </Button>
+      </div>
       <Table config={config} onRowClick={handleRowClick} />
       <div className='mt-2'>
         <Pagination
