@@ -1,4 +1,4 @@
-export { FormFields, FormRoot } from './containers'
+export { FormFields, FormGroup, FormRoot } from './containers'
 export { FormController } from './FormController'
 export { FormField } from './FormField'
 export { SubmitButton } from './SubmitButton'

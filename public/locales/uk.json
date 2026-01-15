@@ -141,6 +141,8 @@
       }
     }
   },
+  "permissions": "Права доступу",
+  "personalDetails": "Персональні дані",
   "pricing": {
     "cta": "Продовжити",
     "custom": {

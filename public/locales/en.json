@@ -141,6 +141,8 @@
       }
     }
   },
+  "permissions": "Permissions",
+  "personalDetails": "Personal Details",
   "pricing": {
     "cta": "Sign up now",
     "custom": {
