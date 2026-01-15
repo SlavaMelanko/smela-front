@@ -32,8 +32,9 @@ const fillSignupFormAndSubmit = async (
   const firstNameInput = page.getByLabel(t.firstName.label)
   const lastNameInput = page.getByLabel(t.lastName.label)
   const emailInput = page.getByLabel(t.email.label)
-  // Use specific locator to avoid matching the toggle visibility button
-  const passwordInput = page.locator('input[type="password"]')
+  const passwordInput = page
+    .getByLabel(t.password.label.default)
+    .locator('input')
   const signupButton = page.getByRole('button', { name: t.signUp })
 
   await firstNameInput.fill(firstName)
@@ -52,8 +53,10 @@ const fillSignupFormAndSubmit = async (
 }
 
 const fillLoginFormAndSubmit = async (page, { email, password }, t) => {
-  const emailInput = page.getByPlaceholder(t.email.placeholder)
-  const passwordInput = page.getByPlaceholder(t.password.placeholder.default)
+  const emailInput = page.getByLabel(t.email.label)
+  const passwordInput = page
+    .getByLabel(t.password.label.default)
+    .locator('input')
   const loginButton = page.getByRole('button', { name: t.login.verb })
 
   await emailInput.fill(email)
@@ -64,13 +67,13 @@ const fillLoginFormAndSubmit = async (page, { email, password }, t) => {
 }
 
 const fillRequestPasswordResetFormAndSubmit = async (page, email, t) => {
-  await page.getByPlaceholder(t.email.example).fill(email)
+  await page.getByLabel(t.email.label).fill(email)
 
   await page.getByRole('button', { name: t.password.reset.request.cta }).click()
 }
 
 const fillNewPasswordFormAndSubmit = async (page, newPassword, t) => {
-  await page.getByPlaceholder(t.password.placeholder.new).fill(newPassword)
+  await page.getByLabel(t.password.label.new).locator('input').fill(newPassword)
   await page.getByRole('button', { name: t.password.reset.set.cta }).click()
 }
 
