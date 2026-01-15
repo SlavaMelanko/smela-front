@@ -152,10 +152,27 @@ export const useRequestPasswordReset = () =>
     mutationFn: authService.requestPasswordReset
   })
 
-export const useResetPassword = () =>
-  useMutation({
-    mutationFn: authService.resetPassword
+export const useResetPassword = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: authService.resetPassword,
+    onSuccess: data => {
+      accessTokenStorage.set(data.accessToken)
+
+      if (data?.user) {
+        const user = data.user
+
+        queryClient.setQueryData(authKeys.user(), { user })
+
+        setErrorTrackerUser(user)
+      } else {
+        // No user in response, fetch from /me endpoint
+        queryClient.invalidateQueries({ queryKey: authKeys.user() })
+      }
+    }
   })
+}
 
 export const useUpdateUser = () => {
   const queryClient = useQueryClient()

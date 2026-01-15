@@ -541,7 +541,7 @@ test.describe.serial('Authentication', () => {
     await logOut(page, t)
   })
 
-  test('password reset: resets password and allows login', async ({ page }) => {
+  test('password reset: resets password and auto-login', async ({ page }) => {
     await page.goto('/reset-password')
 
     await expect(
@@ -579,24 +579,7 @@ test.describe.serial('Authentication', () => {
 
     await expect(page.getByText(t.password.reset.set.success)).toBeVisible()
 
-    await page.waitForURL('/login')
-
-    apiPromise = waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
-    })
-
-    await fillLoginFormAndSubmit(
-      page,
-      {
-        email: userCredentials.email,
-        password: userCredentials.newPassword
-      },
-      t
-    )
-
-    await apiPromise
-
+    // Auto-login redirects to home
     await page.waitForURL('/home')
 
     // Logout to ensure clean state

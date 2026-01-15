@@ -56,7 +56,7 @@ export const ResetPasswordPage = () => {
       {
         onSuccess: () => {
           showSuccessToast(t('password.reset.set.success'))
-          navigate('/login')
+          navigate('/')
         },
         onError: () => {
           showErrorToast(t('password.reset.set.error'))
