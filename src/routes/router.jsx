@@ -8,7 +8,7 @@ import {
   PublicLayout,
   UserLayout
 } from '@/layouts'
-import { adminActiveStatuses, userActiveStatuses } from '@/lib/types'
+import { adminActiveStatuses, Role, userActiveStatuses } from '@/lib/types'
 import { DashboardPage, UsersPage } from '@/pages/admin'
 import {
   EmailConfirmationPage,
@@ -23,6 +23,7 @@ import {
   NotFoundErrorPage
 } from '@/pages/errors'
 import { PrivacyPage, TermsPage } from '@/pages/legal'
+import { AdminsPage } from '@/pages/owner'
 import { PricingPage } from '@/pages/public'
 import { HomePage } from '@/pages/user'
 
@@ -76,7 +77,10 @@ export const router = sentryCreateBrowserRouter([
   {
     path: '/admin',
     element: (
-      <PrivateRoute requireStatuses={adminActiveStatuses}>
+      <PrivateRoute
+        requireStatuses={adminActiveStatuses}
+        requireRoles={[Role.ADMIN, Role.OWNER]}
+      >
         <UserLayout />
       </PrivateRoute>
     ),
@@ -85,6 +89,19 @@ export const router = sentryCreateBrowserRouter([
       { path: 'dashboard', element: <DashboardPage /> },
       { path: 'users', element: <UsersPage /> }
     ]
+  },
+  {
+    path: '/owner',
+    element: (
+      <PrivateRoute
+        requireStatuses={adminActiveStatuses}
+        requireRoles={[Role.OWNER]}
+      >
+        <UserLayout />
+      </PrivateRoute>
+    ),
+    errorElement: <ErrorBoundary />,
+    children: [{ path: 'admins', element: <AdminsPage /> }]
   },
   {
     path: 'errors',
