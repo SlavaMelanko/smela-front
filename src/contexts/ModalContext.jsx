@@ -22,7 +22,6 @@ export const ModalProvider = ({ children }) => {
       const modal = {
         id,
         size: 'md',
-        closeOnEsc: true,
         ...modalConfig
       }
 
@@ -84,13 +83,7 @@ export const ModalProvider = ({ children }) => {
         >
           <DialogPortal>
             <DialogBackdrop />
-            <DialogContent
-              size={modal.size}
-              className={modal.className}
-              onEscapeKeyDown={
-                modal.closeOnEsc ? undefined : e => e.preventDefault()
-              }
-            >
+            <DialogContent size={modal.size} className={modal.className}>
               {modal.children}
             </DialogContent>
           </DialogPortal>
