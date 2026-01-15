@@ -112,7 +112,7 @@ function DialogBody({ className, scrollable = true, ...props }) {
     <div
       data-slot='dialog-body'
       className={cn(
-        'flex-1 px-6 py-4',
+        'flex-1 rounded-b-lg bg-background px-6 py-4',
         scrollable && 'overflow-y-auto overscroll-contain',
         className
       )}

@@ -1,4 +1,12 @@
 {
+  "admin": {
+    "invite": {
+      "cta": "Send invitation",
+      "error": "Failed to send invitation.",
+      "success": "Invitation sent successfully.",
+      "title": "Invite admin"
+    }
+  },
   "alreadyHaveAccount": "Already have an account?",
   "backend": {
     "auth/already-verified": "Invalid request. Please try logging in.",
@@ -37,9 +45,7 @@
       "format": "Enter a valid email.",
       "required": "Email is required."
     },
-    "example": "your@email.com",
     "label": "Email",
-    "placeholder": "Email",
     "verification": {
       "error": {
         "general": "Email verification failed.",
@@ -83,9 +89,7 @@
       "min": "First name must be at least 2 characters.",
       "required": "First name is required."
     },
-    "example": "e.g. Jason",
-    "label": "First Name",
-    "placeholder": "Your first name"
+    "label": "First Name"
   },
   "forgotYourPassword": "Forgot your password?",
   "lastName": {
@@ -94,9 +98,7 @@
       "min": "Last name must be at least 2 characters.",
       "required": "Last name is required."
     },
-    "example": "e.g. Statham",
-    "label": "Last Name",
-    "placeholder": "Your last name"
+    "label": "Last Name"
   },
   "loading": "Loading...",
   "login": {
@@ -120,11 +122,9 @@
       "required": "Password is required.",
       "strong": "Use at least: 1 uppercase letter, 1 number, 1 symbol."
     },
-    "label": "Password",
-    "placeholder": {
+    "label": {
       "default": "Password",
-      "masked": "••••••••",
-      "new": "New password"
+      "new": "New Password"
     },
     "reset": {
       "rememberYourPassword": "Remember your password?",

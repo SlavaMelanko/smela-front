@@ -6,14 +6,13 @@ import {
   FormRoot,
   SubmitButton
 } from '@/components/form'
-import { PasswordInput } from '@/components/inputs'
 import { Input } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-export const SignupForm = ({ isLoading, onSubmit }) => {
+export const UserInvitationForm = ({ isLoading, submitLabel, onSubmit }) => {
   const { t } = useLocale()
 
   const {
@@ -52,18 +51,10 @@ export const SignupForm = ({ isLoading, onSubmit }) => {
         >
           <Input {...register(FieldName.EMAIL)} />
         </FormField>
-
-        <FormField
-          label={t('password.label.default')}
-          name={FieldName.PASSWORD}
-          error={errors[FieldName.PASSWORD]}
-        >
-          <PasswordInput {...register(FieldName.PASSWORD)} />
-        </FormField>
       </FormFields>
 
       <SubmitButton isLoading={isSubmitting || isLoading}>
-        {t('signUp')}
+        {submitLabel}
       </SubmitButton>
     </FormRoot>
   )

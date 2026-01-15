@@ -1,4 +1,9 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient
+} from '@tanstack/react-query'
 
 import { defaultOptions } from '@/components/Pagination'
 import { ownerService } from '@/services/backend'
@@ -27,5 +32,16 @@ export const useAdmins = (params = {}) => {
     }),
     placeholderData: keepPreviousData,
     ...ownerQueryOptions
+  })
+}
+
+export const useInviteAdmin = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ownerService.inviteAdmin,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ownerKeys.admins() })
+    }
   })
 }
