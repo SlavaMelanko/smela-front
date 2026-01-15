@@ -78,7 +78,7 @@ export const UsersPage = () => {
     manualPagination: true,
     pageCount: pagination.totalPages,
     columnResizeMode: 'onChange',
-    columnResizeDirection: 'ltl',
+    columnResizeDirection: 'ltr',
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),

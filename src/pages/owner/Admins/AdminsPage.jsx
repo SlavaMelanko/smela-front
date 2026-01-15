@@ -56,7 +56,7 @@ export const AdminsPage = () => {
     manualPagination: true,
     pageCount: pagination.totalPages,
     columnResizeMode: 'onChange',
-    columnResizeDirection: 'ltl',
+    columnResizeDirection: 'ltr',
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel()
