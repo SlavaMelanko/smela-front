@@ -8,7 +8,7 @@ import { ThemeToggle } from '@/components/ThemeToggle'
 
 import { CenteredPage, PageContent, TopRightControls } from './containers'
 
-export const ErrorLayout = () => (
+export const ErrorLayout = ({ children }) => (
   <CenteredPage>
     <TopRightControls>
       <ThemeToggle />
@@ -17,9 +17,7 @@ export const ErrorLayout = () => (
 
     <PageContent className='max-w-md'>
       <main className='px-8'>
-        <Suspense fallback={<Spinner />}>
-          <Outlet />
-        </Suspense>
+        <Suspense fallback={<Spinner />}>{children ?? <Outlet />}</Suspense>
       </main>
 
       <footer>

@@ -603,6 +603,44 @@ test.describe.serial('Authentication', () => {
     await logOut(page, t)
   })
 
+  test('authorization: shows 404 for unauthorized and unknown routes', async ({
+    page
+  }) => {
+    await page.goto('/login')
+
+    const apiPromise = waitForApiCall(page, {
+      path: LOGIN_PATH,
+      status: HttpStatus.OK
+    })
+
+    await fillLoginFormAndSubmit(
+      page,
+      {
+        email: userCredentials.email,
+        password: userCredentials.newPassword
+      },
+      t
+    )
+
+    await apiPromise
+
+    await page.waitForURL('/home')
+
+    const unauthorizedPaths = ['/unknown', '/admin/users', '/owner/admins']
+
+    for (const path of unauthorizedPaths) {
+      await page.goto(path)
+
+      await expect(page).toHaveURL(path)
+      await expect(page.getByTestId('not-found-error-page')).toBeVisible()
+
+      await page.getByRole('button', { name: t.error.notFound.cta }).click()
+      await page.waitForURL('/home')
+    }
+
+    await logOut(page, t)
+  })
+
   test('logout: syncs authentication state across tabs', async ({
     page,
     context

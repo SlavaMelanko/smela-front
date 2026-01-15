@@ -205,6 +205,7 @@
   },
   "searchBy": "Шукати за ім'ям, email, тощо...",
   "sidebar": {
+    "admins": "Адміни",
     "dashboard": "Адмін-панель",
     "documentation": "Документація",
     "home": "Головна",
