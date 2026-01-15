@@ -45,7 +45,7 @@ export const AdminsPage = () => {
   }
 
   const handleLimitChange = limit => {
-    setParams({ limit, page: null })
+    setParams({ limit }, { resetPage: true })
   }
 
   // eslint-disable-next-line react-hooks/incompatible-library
