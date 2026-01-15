@@ -32,10 +32,7 @@ export const UserInvitationForm = ({ isLoading, submitLabel, onSubmit }) => {
           name={FieldName.FIRST_NAME}
           error={errors[FieldName.FIRST_NAME]}
         >
-          <Input
-            placeholder={t('firstName.example')}
-            {...register(FieldName.FIRST_NAME)}
-          />
+          <Input {...register(FieldName.FIRST_NAME)} />
         </FormField>
 
         <FormField
@@ -44,10 +41,7 @@ export const UserInvitationForm = ({ isLoading, submitLabel, onSubmit }) => {
           error={errors[FieldName.LAST_NAME]}
           optional
         >
-          <Input
-            placeholder={t('lastName.example')}
-            {...register(FieldName.LAST_NAME)}
-          />
+          <Input {...register(FieldName.LAST_NAME)} />
         </FormField>
 
         <FormField
@@ -55,10 +49,7 @@ export const UserInvitationForm = ({ isLoading, submitLabel, onSubmit }) => {
           name={FieldName.EMAIL}
           error={errors[FieldName.EMAIL]}
         >
-          <Input
-            placeholder={t('email.example')}
-            {...register(FieldName.EMAIL)}
-          />
+          <Input {...register(FieldName.EMAIL)} />
         </FormField>
       </FormFields>
 
