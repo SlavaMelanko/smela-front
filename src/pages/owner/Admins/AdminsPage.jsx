@@ -12,15 +12,15 @@ import { Table } from '@/components/Table'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 import { useAdmins } from '@/hooks/useOwner'
+import useTableParams from '@/hooks/useTableParams'
 
 import { getAccessibleColumns } from './columns'
-import useAdminsTableParams from './hooks/useAdminsTableParams'
 
 export const AdminsPage = () => {
   const { t, formatDate } = useLocale()
   const { openModal } = useModal()
 
-  const { apiParams, setParams } = useAdminsTableParams()
+  const { apiParams, setParams } = useTableParams()
 
   const { data, isPending, isError } = useAdmins(apiParams)
   const { admins = [], pagination = defaultOptions } = data ?? {}

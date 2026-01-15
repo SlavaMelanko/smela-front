@@ -13,18 +13,18 @@ import { Table } from '@/components/Table'
 import { useUsers } from '@/hooks/useAdmin'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
+import useTableParams from '@/hooks/useTableParams'
 
 import { getAccessibleColumns } from './columns'
 import { Filters } from './Filters'
 import useDebouncedSearch from './hooks/useDebouncedSearch'
-import useUsersTableParams from './hooks/useUsersTableParams'
 import { Toolbar } from './Toolbar'
 
 export const UsersPage = () => {
   const { t, formatDate } = useLocale()
   const { openModal } = useModal()
 
-  const { params, apiParams, setParams } = useUsersTableParams()
+  const { params, apiParams, setParams } = useTableParams()
 
   const handleSearch = useCallback(
     value => setParams({ search: value || null }, { resetPage: true }),
