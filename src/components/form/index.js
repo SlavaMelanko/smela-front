@@ -1,5 +1,6 @@
 export { FormFields, FormGroup, FormRoot } from './containers'
 export { FormController } from './FormController'
 export { FormField } from './FormField'
+export { FormInlineController } from './FormInlineController'
 export { SubmitButton } from './SubmitButton'
 export { UserInvitationForm } from './UserInvitationForm'

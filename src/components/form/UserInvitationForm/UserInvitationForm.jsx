@@ -4,10 +4,11 @@ import {
   FormField,
   FormFields,
   FormGroup,
+  FormInlineController,
   FormRoot,
   SubmitButton
 } from '@/components/form'
-import { Input } from '@/components/ui'
+import { Input, Switch } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
@@ -18,6 +19,7 @@ export const UserInvitationForm = ({ isLoading, submitLabel, onSubmit }) => {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors, isSubmitting }
   } = useForm({
@@ -56,8 +58,41 @@ export const UserInvitationForm = ({ isLoading, submitLabel, onSubmit }) => {
         </FormFields>
       </FormGroup>
 
-      <FormGroup legend={t('permissions')}>
-        <FormFields></FormFields>
+      <FormGroup legend={t('permissions.name')}>
+        <FormFields>
+          <FormInlineController
+            name={FieldName.PERMISSIONS_VIEW}
+            label={t('permissions.values.view')}
+            control={control}
+            render={({ field }) => (
+              <Switch checked={field.value} onCheckedChange={field.onChange} />
+            )}
+          />
+          <FormInlineController
+            name={FieldName.PERMISSIONS_CREATE}
+            label={t('permissions.values.create')}
+            control={control}
+            render={({ field }) => (
+              <Switch checked={field.value} onCheckedChange={field.onChange} />
+            )}
+          />
+          <FormInlineController
+            name={FieldName.PERMISSIONS_EDIT}
+            label={t('permissions.values.edit')}
+            control={control}
+            render={({ field }) => (
+              <Switch checked={field.value} onCheckedChange={field.onChange} />
+            )}
+          />
+          <FormInlineController
+            name={FieldName.PERMISSIONS_DELETE}
+            label={t('permissions.values.delete')}
+            control={control}
+            render={({ field }) => (
+              <Switch checked={field.value} onCheckedChange={field.onChange} />
+            )}
+          />
+        </FormFields>
       </FormGroup>
 
       <SubmitButton isLoading={isSubmitting || isLoading}>

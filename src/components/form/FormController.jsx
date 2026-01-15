@@ -6,9 +6,10 @@ import { Error, FieldWrapper, InputWrapper, Label } from './elements'
 
 /**
  * Form field wrapper for controlled components using Controller.
- * Use with: Select, Switch, DatePicker, Multiselect
+ * Use with: Select, DatePicker, Multiselect
  *
  * For native inputs (Input, Textarea, Checkbox), use FormField with register().
+ * For inline layout (Switch on same line as label), use FormInlineController.
  *
  * @example
  * <FormController
