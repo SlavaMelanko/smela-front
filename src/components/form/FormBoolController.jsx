@@ -1,3 +1,4 @@
+import { cloneElement } from 'react'
 import { Controller } from 'react-hook-form'
 
 /**
@@ -29,7 +30,11 @@ export const FormBoolController = ({
       control={control}
       defaultValue={defaultValue}
       rules={rules}
-      render={({ field }) => render({ field })}
+      render={({ field }) => {
+        const element = render({ field })
+
+        return cloneElement(element, { id: name })
+      }}
     />
     {label && <label htmlFor={name}>{label}</label>}
   </div>

@@ -18,12 +18,7 @@ import { Error, FieldWrapper, InputWrapper, Label } from './elements'
 export const FormField = ({ name, label, optional, children, error }) => {
   const { t } = useLocale()
 
-  const wrappedChild = cloneElement(children, {
-    ...children.props,
-    name,
-    id: name,
-    error
-  })
+  const wrappedChild = cloneElement(children, { id: name, name, error })
 
   return (
     <FieldWrapper hasError={!!error}>
