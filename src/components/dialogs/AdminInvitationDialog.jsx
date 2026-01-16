@@ -13,7 +13,7 @@ export const AdminInvitationDialog = ({ onClose }) => {
   const onSubmit = data => {
     inviteAdmin(data, {
       onSuccess: () => {
-        showSuccessToast(t('admin.invite.success'))
+        showSuccessToast(t('invitation.send.admin.success'))
         onClose()
       },
       onError: err => {
@@ -25,12 +25,12 @@ export const AdminInvitationDialog = ({ onClose }) => {
   return (
     <>
       <DialogHeader onClose={onClose}>
-        <DialogTitle>{t('admin.invite.title')}</DialogTitle>
+        <DialogTitle>{t('invitation.send.admin.title')}</DialogTitle>
       </DialogHeader>
       <DialogBody>
         <UserInvitationForm
           isLoading={isPending}
-          submitLabel={t('admin.invite.cta')}
+          submitLabel={t('invitation.send.admin.cta')}
           onSubmit={onSubmit}
         />
       </DialogBody>

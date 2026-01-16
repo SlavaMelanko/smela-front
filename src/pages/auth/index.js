@@ -1,3 +1,4 @@
+export { AcceptInvitePage } from './AcceptInvite'
 export { EmailConfirmationPage } from './EmailConfirmation'
 export { LoginPage } from './Login'
 export { ResetPasswordPage } from './ResetPassword'

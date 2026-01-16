@@ -92,10 +92,12 @@ export const AdminsPage = () => {
         <Button
           variant='outline'
           onClick={handleInviteClick}
-          aria-label={t('admin.invite.title')}
+          aria-label={t('invitation.send.admin.title')}
         >
           <Plus className='size-5' />
-          <span className='hidden sm:inline'>{t('admin.invite.title')}</span>
+          <span className='hidden sm:inline'>
+            {t('invitation.send.admin.title')}
+          </span>
         </Button>
       </div>
       <Table config={config} onRowClick={handleRowClick} />

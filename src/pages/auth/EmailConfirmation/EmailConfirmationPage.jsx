@@ -51,7 +51,7 @@ export const EmailConfirmationPage = () => {
     <>
       <div className='flex flex-col gap-8'>
         <div className='flex flex-col gap-4 text-center'>
-          <h1 className='text-xl font-semibold text-foreground'>
+          <h1 className='text-2xl font-semibold text-foreground'>
             {t('email.confirmation.title')}
           </h1>
 
