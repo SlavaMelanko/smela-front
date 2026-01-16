@@ -10,7 +10,7 @@ import {
   VERIFY_EMAIL_PATH
 } from './paths'
 
-const authService = {
+export const authApi = {
   signUp(data) {
     return apiClient.post(SIGNUP_PATH, data)
   },
@@ -43,5 +43,3 @@ const authService = {
     return apiClient.post(LOGOUT_PATH)
   }
 }
-
-export default authService

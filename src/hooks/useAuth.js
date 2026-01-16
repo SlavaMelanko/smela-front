@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { accessTokenStorage } from '@/lib/storage'
-import { authService, userService } from '@/services/backend'
+import { authApi, userApi } from '@/services/backend'
 import {
   clearUser as clearErrorTrackerUser,
   setUser as setErrorTrackerUser
@@ -17,7 +17,7 @@ export const useCurrentUser = () => {
 
   const query = useQuery({
     queryKey: authKeys.user(),
-    queryFn: userService.getCurrentUser,
+    queryFn: userApi.getCurrentUser,
     select: data => data.user,
     enabled: hasAccessToken
   })
@@ -37,7 +37,7 @@ export const useLogin = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: authService.logIn,
+    mutationFn: authApi.logIn,
     onSuccess: data => {
       accessTokenStorage.set(data.accessToken)
 
@@ -71,7 +71,7 @@ export const useUserSignupWithEmail = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: authService.signUp,
+    mutationFn: authApi.signUp,
     onSuccess: data => {
       accessTokenStorage.set(data.accessToken)
 
@@ -105,7 +105,7 @@ export const useLogout = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: authService.logOut,
+    mutationFn: authApi.logOut,
     meta: {
       invalidatesQueries: authKeys.all()
     },
@@ -123,7 +123,7 @@ export const useVerifyEmail = ({ onSettled }) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: authService.verifyEmail,
+    mutationFn: authApi.verifyEmail,
     onSuccess: data => {
       accessTokenStorage.set(data.accessToken)
 
@@ -144,19 +144,19 @@ export const useVerifyEmail = ({ onSettled }) => {
 
 export const useResendVerificationEmail = () =>
   useMutation({
-    mutationFn: authService.resendVerificationEmail
+    mutationFn: authApi.resendVerificationEmail
   })
 
 export const useRequestPasswordReset = () =>
   useMutation({
-    mutationFn: authService.requestPasswordReset
+    mutationFn: authApi.requestPasswordReset
   })
 
 export const useResetPassword = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: authService.resetPassword,
+    mutationFn: authApi.resetPassword,
     onSuccess: data => {
       accessTokenStorage.set(data.accessToken)
 
@@ -178,7 +178,7 @@ export const useAcceptInvite = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: authService.acceptInvite,
+    mutationFn: authApi.acceptInvite,
     onSuccess: data => {
       accessTokenStorage.set(data.accessToken)
 
@@ -199,7 +199,7 @@ export const useUpdateUser = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: userService.updateUser,
+    mutationFn: userApi.updateUser,
     onMutate: async newUserData => {
       // Cancel any in-flight queries for the user
       await queryClient.cancelQueries({ queryKey: authKeys.user() })
