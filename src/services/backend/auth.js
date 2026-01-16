@@ -1,5 +1,6 @@
 import apiClient from './apiClient'
 import {
+  ACCEPT_INVITE_PATH,
   LOGIN_PATH,
   LOGOUT_PATH,
   REQUEST_PASSWORD_RESET_PATH,
@@ -32,6 +33,10 @@ const authService = {
 
   resetPassword(data) {
     return apiClient.post(RESET_PASSWORD_PATH, data)
+  },
+
+  acceptInvite(data) {
+    return apiClient.post(ACCEPT_INVITE_PATH, data)
   },
 
   logOut() {

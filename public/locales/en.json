@@ -1,12 +1,4 @@
 {
-  "admin": {
-    "invite": {
-      "cta": "Send invitation",
-      "error": "Failed to send invitation.",
-      "success": "Invitation sent successfully.",
-      "title": "Invite admin"
-    }
-  },
   "alreadyHaveAccount": "Already have an account?",
   "backend": {
     "auth/already-verified": "Invalid request. Please try logging in.",
@@ -92,6 +84,23 @@
     "label": "First name"
   },
   "forgotYourPassword": "Forgot your password?",
+  "invitation": {
+    "accept": {
+      "cta": "Join",
+      "description": "Set your password to join the team.",
+      "error": "Failed to accept invitation. The link may have expired.",
+      "success": "Welcome! Your account is ready.",
+      "title": "You're invited to {{companyName}}"
+    },
+    "send": {
+      "admin": {
+        "cta": "Send invitation",
+        "error": "Failed to send invitation.",
+        "success": "Invitation sent successfully.",
+        "title": "Invite admin"
+      }
+    }
+  },
   "lastName": {
     "error": {
       "max": "Last name can’t be longer than 50 characters.",

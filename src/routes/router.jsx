@@ -11,6 +11,7 @@ import {
 import { adminActiveStatuses, Role, userActiveStatuses } from '@/lib/types'
 import { DashboardPage, UsersPage } from '@/pages/admin'
 import {
+  AcceptInvitePage,
   EmailConfirmationPage,
   LoginPage,
   ResetPasswordPage,
@@ -53,6 +54,7 @@ export const router = sentryCreateBrowserRouter([
       { path: 'login', element: <LoginPage /> },
       { path: 'signup', element: <SignupPage /> },
       { path: 'reset-password', element: <ResetPasswordPage /> },
+      { path: 'accept-invite', element: <AcceptInvitePage /> },
       { path: 'email-confirmation', element: <EmailConfirmationPage /> },
       { path: 'verify-email', element: <VerifyEmailPage /> }
     ]

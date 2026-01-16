@@ -174,6 +174,27 @@ export const useResetPassword = () => {
   })
 }
 
+export const useAcceptInvite = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: authService.acceptInvite,
+    onSuccess: data => {
+      accessTokenStorage.set(data.accessToken)
+
+      if (data?.user) {
+        const user = data.user
+
+        queryClient.setQueryData(authKeys.user(), { user })
+
+        setErrorTrackerUser(user)
+      } else {
+        queryClient.invalidateQueries({ queryKey: authKeys.user() })
+      }
+    }
+  })
+}
+
 export const useUpdateUser = () => {
   const queryClient = useQueryClient()
 
