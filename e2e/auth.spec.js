@@ -32,9 +32,9 @@ const fillSignupFormAndSubmit = async (
   const firstNameInput = page.getByLabel(t.firstName.label)
   const lastNameInput = page.getByLabel(t.lastName.label)
   const emailInput = page.getByLabel(t.email.label)
-  const passwordInput = page
-    .getByLabel(t.password.label.default)
-    .locator('input')
+  const passwordInput = page.getByRole('textbox', {
+    name: t.password.label.default
+  })
   const signupButton = page.getByRole('button', { name: t.signUp })
 
   await firstNameInput.fill(firstName)
@@ -54,9 +54,9 @@ const fillSignupFormAndSubmit = async (
 
 const fillLoginFormAndSubmit = async (page, { email, password }, t) => {
   const emailInput = page.getByLabel(t.email.label)
-  const passwordInput = page
-    .getByLabel(t.password.label.default)
-    .locator('input')
+  const passwordInput = page.getByRole('textbox', {
+    name: t.password.label.default
+  })
   const loginButton = page.getByRole('button', { name: t.login.verb })
 
   await emailInput.fill(email)
@@ -73,7 +73,10 @@ const fillRequestPasswordResetFormAndSubmit = async (page, email, t) => {
 }
 
 const fillNewPasswordFormAndSubmit = async (page, newPassword, t) => {
-  await page.getByLabel(t.password.label.new).locator('input').fill(newPassword)
+  await page
+    .getByRole('textbox', { name: t.password.label.new })
+    .fill(newPassword)
+
   await page.getByRole('button', { name: t.password.reset.set.cta }).click()
 }
 

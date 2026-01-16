@@ -89,9 +89,13 @@ export const AdminsPage = () => {
   return (
     <div className='flex flex-col gap-4 md:gap-5'>
       <div className='flex justify-end'>
-        <Button variant='outline' onClick={handleInviteClick}>
+        <Button
+          variant='outline'
+          onClick={handleInviteClick}
+          aria-label={t('admin.invite.title')}
+        >
           <Plus className='size-5' />
-          {t('admin.invite.title')}
+          <span className='hidden sm:inline'>{t('admin.invite.title')}</span>
         </Button>
       </div>
       <Table config={config} onRowClick={handleRowClick} />

@@ -89,7 +89,7 @@
       "min": "First name must be at least 2 characters.",
       "required": "First name is required."
     },
-    "label": "First Name"
+    "label": "First name"
   },
   "forgotYourPassword": "Forgot your password?",
   "lastName": {
@@ -98,7 +98,7 @@
       "min": "Last name must be at least 2 characters.",
       "required": "Last name is required."
     },
-    "label": "Last Name"
+    "label": "Last name"
   },
   "loading": "Loading...",
   "login": {
@@ -124,7 +124,7 @@
     },
     "label": {
       "default": "Password",
-      "new": "New Password"
+      "new": "New password"
     },
     "reset": {
       "rememberYourPassword": "Remember your password?",
@@ -141,6 +141,16 @@
       }
     }
   },
+  "permissions": {
+    "name": "Permissions",
+    "values": {
+      "create": "Create",
+      "delete": "Delete",
+      "edit": "Edit",
+      "view": "View"
+    }
+  },
+  "personalDetails": "Personal details",
   "pricing": {
     "cta": "Sign up now",
     "custom": {

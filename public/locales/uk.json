@@ -141,6 +141,16 @@
       }
     }
   },
+  "permissions": {
+    "name": "Права доступу",
+    "values": {
+      "create": "Створення",
+      "delete": "Видалення",
+      "edit": "Редагування",
+      "view": "Перегляд"
+    }
+  },
+  "personalDetails": "Персональні дані",
   "pricing": {
     "cta": "Продовжити",
     "custom": {
