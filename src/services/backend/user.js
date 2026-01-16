@@ -1,7 +1,7 @@
 import apiClient from './apiClient'
 import { ME_PATH } from './paths'
 
-const userService = {
+export const userApi = {
   getCurrentUser() {
     return apiClient.get(ME_PATH)
   },
@@ -10,5 +10,3 @@ const userService = {
     return apiClient.post(ME_PATH, data)
   }
 }
-
-export default userService

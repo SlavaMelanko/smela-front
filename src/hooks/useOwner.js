@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-query'
 
 import { defaultOptions } from '@/components/Pagination'
-import { ownerService } from '@/services/backend'
+import { ownerApi } from '@/services/backend'
 
 export const ownerKeys = {
   all: () => ['owner'],
@@ -25,7 +25,7 @@ const ownerQueryOptions = {
 export const useAdmins = (params = {}) => {
   return useQuery({
     queryKey: ownerKeys.adminsList(params),
-    queryFn: () => ownerService.getAdmins(params),
+    queryFn: () => ownerApi.getAdmins(params),
     select: data => ({
       admins: data?.admins ?? [],
       pagination: data?.pagination ?? defaultOptions
@@ -39,7 +39,7 @@ export const useInviteAdmin = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ownerService.inviteAdmin,
+    mutationFn: ownerApi.inviteAdmin,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ownerKeys.admins() })
     }
