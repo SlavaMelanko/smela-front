@@ -9,6 +9,7 @@ import useTheme from '@/hooks/useTheme'
 import useToast from '@/hooks/useToast'
 import useUrlParams from '@/hooks/useUrlParams'
 
+import { Description, Header, Root, Title } from '../containers'
 import { EmailForm } from './EmailForm'
 import { ResetPasswordForm } from './PasswordForm'
 
@@ -67,12 +68,15 @@ export const ResetPasswordPage = () => {
 
   return (
     <>
-      <div className='flex flex-col gap-8'>
-        <p className='text-base text-center text-muted-foreground'>
-          {isRequest
-            ? t('password.reset.request.description')
-            : t('password.reset.set.description')}
-        </p>
+      <Root>
+        <Header>
+          <Title>{t('password.reset.title')}</Title>
+          <Description>
+            {isRequest
+              ? t('password.reset.request.description')
+              : t('password.reset.set.description')}
+          </Description>
+        </Header>
 
         {isRequest ? (
           <EmailForm
@@ -87,7 +91,7 @@ export const ResetPasswordPage = () => {
         )}
 
         <LoginPrompt question={t('password.reset.rememberYourPassword')} />
-      </div>
+      </Root>
 
       <InvisibleReCaptcha ref={captchaRef} />
     </>

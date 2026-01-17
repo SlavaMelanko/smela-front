@@ -11,6 +11,7 @@ import useLocale from '@/hooks/useLocale'
 import useToast from '@/hooks/useToast'
 import { toTranslationKey } from '@/services/catch'
 
+import { Root } from '../containers'
 import { LoginForm } from './Form'
 
 export const LoginPage = () => {
@@ -57,7 +58,7 @@ export const LoginPage = () => {
 
   return (
     <>
-      <div className='flex flex-col gap-8'>
+      <Root>
         <div className='flex flex-col gap-2'>
           <LoginForm isLoading={isEmailPending} onSubmit={handleLogin} />
 
@@ -79,7 +80,7 @@ export const LoginPage = () => {
         <SignupPrompt />
 
         <ForgotYourPasswordPrompt />
-      </div>
+      </Root>
 
       <InvisibleReCaptcha ref={captchaRef} />
     </>

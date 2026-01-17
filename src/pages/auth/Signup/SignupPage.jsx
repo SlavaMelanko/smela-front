@@ -15,6 +15,7 @@ import useTheme from '@/hooks/useTheme'
 import useToast from '@/hooks/useToast'
 import { toTranslationKey } from '@/services/catch'
 
+import { Root } from '../containers'
 import { SignupForm } from './Form'
 
 export const SignupPage = () => {
@@ -65,7 +66,7 @@ export const SignupPage = () => {
 
   return (
     <>
-      <div className='flex flex-col gap-8'>
+      <Root>
         <div className='flex flex-col gap-2'>
           <SignupForm
             isLoading={isEmailPending}
@@ -92,7 +93,7 @@ export const SignupPage = () => {
         </div>
 
         <LoginPrompt question={t('alreadyHaveAccount')} />
-      </div>
+      </Root>
 
       <InvisibleReCaptcha ref={captchaRef} />
     </>
