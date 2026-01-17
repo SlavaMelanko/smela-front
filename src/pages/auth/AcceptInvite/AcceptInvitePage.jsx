@@ -7,7 +7,8 @@ import useToast from '@/hooks/useToast'
 import useUrlParams from '@/hooks/useUrlParams'
 import { toTranslationKey } from '@/services/catch'
 
-import { AuthDescription, AuthHeader, AuthRoot, AuthTitle } from '../containers'
+import { Description, Title } from '../components'
+import { AuthHeader, AuthRoot } from '../containers'
 import { AcceptInviteForm } from './PasswordForm'
 
 export const AcceptInvitePage = () => {
@@ -45,10 +46,10 @@ export const AcceptInvitePage = () => {
   return (
     <AuthRoot>
       <AuthHeader>
-        <AuthTitle>
+        <Title>
           {t('invitation.accept.title', { companyName: t('companyName') })}
-        </AuthTitle>
-        <AuthDescription>{t('invitation.accept.description')}</AuthDescription>
+        </Title>
+        <Description>{t('invitation.accept.description')}</Description>
       </AuthHeader>
 
       <AcceptInviteForm isLoading={isPending} onSubmit={handleSubmit} />

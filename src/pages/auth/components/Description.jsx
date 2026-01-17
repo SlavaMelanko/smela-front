@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 
-export const AuthDescription = ({ children, className }) => {
+export const Description = ({ children, className }) => {
   return (
     <p className={cn('text-base text-muted-foreground', className)}>
       {children}
