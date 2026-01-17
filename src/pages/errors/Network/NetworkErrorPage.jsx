@@ -6,7 +6,7 @@ import useUrlParams from '@/hooks/useUrlParams'
 import { NetworkErrorType } from '@/lib/net'
 
 import { Action, Description, Icon, Title } from '../components'
-import { Content, Root } from '../containers'
+import { ErrorContent, ErrorRoot } from '../containers'
 
 export const NetworkErrorPage = () => {
   const { t } = useLocale()
@@ -14,15 +14,15 @@ export const NetworkErrorPage = () => {
   const { errorType } = useUrlParams(['errorType'])
 
   return (
-    <Root data-testid='network-error-page'>
+    <ErrorRoot data-testid='network-error-page'>
       <Icon as={CloudAlert} />
-      <Content>
+      <ErrorContent>
         <Title>{t('error.network.title')}</Title>
         <Description>
           {t(`error.network.message.${errorType || NetworkErrorType.UNKNOWN}`)}
         </Description>
-      </Content>
+      </ErrorContent>
       <Action onClick={() => navigate(-1)}>{t('error.network.cta')}</Action>
-    </Root>
+    </ErrorRoot>
   )
 }

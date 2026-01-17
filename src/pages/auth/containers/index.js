@@ -1,4 +1,4 @@
-export { Description } from './Description'
-export { Header } from './Header'
-export { Root } from './Root'
-export { Title } from './Title'
+export { AuthDescription } from './AuthDescription'
+export { AuthHeader } from './AuthHeader'
+export { AuthRoot } from './AuthRoot'
+export { AuthTitle } from './AuthTitle'

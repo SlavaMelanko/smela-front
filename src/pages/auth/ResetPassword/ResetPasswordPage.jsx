@@ -9,7 +9,7 @@ import useTheme from '@/hooks/useTheme'
 import useToast from '@/hooks/useToast'
 import useUrlParams from '@/hooks/useUrlParams'
 
-import { Description, Header, Root, Title } from '../containers'
+import { AuthDescription, AuthHeader, AuthRoot, AuthTitle } from '../containers'
 import { EmailForm } from './EmailForm'
 import { ResetPasswordForm } from './PasswordForm'
 
@@ -68,15 +68,15 @@ export const ResetPasswordPage = () => {
 
   return (
     <>
-      <Root>
-        <Header>
-          <Title>{t('password.reset.title')}</Title>
-          <Description>
+      <AuthRoot>
+        <AuthHeader>
+          <AuthTitle>{t('password.reset.title')}</AuthTitle>
+          <AuthDescription>
             {isRequest
               ? t('password.reset.request.description')
               : t('password.reset.set.description')}
-          </Description>
-        </Header>
+          </AuthDescription>
+        </AuthHeader>
 
         {isRequest ? (
           <EmailForm
@@ -91,7 +91,7 @@ export const ResetPasswordPage = () => {
         )}
 
         <LoginPrompt question={t('password.reset.rememberYourPassword')} />
-      </Root>
+      </AuthRoot>
 
       <InvisibleReCaptcha ref={captchaRef} />
     </>
