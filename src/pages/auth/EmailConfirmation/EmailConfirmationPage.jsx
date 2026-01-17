@@ -9,6 +9,8 @@ import useTheme from '@/hooks/useTheme'
 import useToast from '@/hooks/useToast'
 import { toTranslationKey } from '@/services/catch'
 
+import { Description, Title } from '../components'
+import { AuthHeader, AuthRoot } from '../containers'
 import { EmailConfirmationForm } from './Form'
 
 export const EmailConfirmationPage = () => {
@@ -49,13 +51,10 @@ export const EmailConfirmationPage = () => {
 
   return (
     <>
-      <div className='flex flex-col gap-8'>
-        <div className='flex flex-col gap-4 text-center'>
-          <h1 className='text-2xl font-semibold text-foreground'>
-            {t('email.confirmation.title')}
-          </h1>
-
-          <p className='text-base text-muted-foreground'>
+      <AuthRoot>
+        <AuthHeader>
+          <Title>{t('email.confirmation.title')}</Title>
+          <Description>
             {t('email.confirmation.description.start')}{' '}
             {email ? (
               <EmailLink email={email} />
@@ -63,15 +62,15 @@ export const EmailConfirmationPage = () => {
               t('email.confirmation.yourEmail')
             )}
             . {t('email.confirmation.description.end')}
-          </p>
-        </div>
+          </Description>
+        </AuthHeader>
 
         <EmailConfirmationForm
           isLoading={isPending}
           email={email}
           onSubmit={handleSubmit}
         />
-      </div>
+      </AuthRoot>
 
       <InvisibleReCaptcha ref={captchaRef} />
     </>

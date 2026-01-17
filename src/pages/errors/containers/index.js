@@ -1,2 +1,2 @@
-export { Container } from './Container'
-export { Content } from './Content'
+export { ErrorContent } from './ErrorContent'
+export { ErrorRoot } from './ErrorRoot'

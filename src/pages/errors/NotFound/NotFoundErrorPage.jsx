@@ -6,7 +6,7 @@ import useLocale from '@/hooks/useLocale'
 import { captureMessage } from '@/services/errorTracker'
 
 import { Action, Description, Icon, Title } from '../components'
-import { Container, Content } from '../containers'
+import { ErrorContent, ErrorRoot } from '../containers'
 
 export const NotFoundErrorPage = () => {
   const { t } = useLocale()
@@ -18,13 +18,13 @@ export const NotFoundErrorPage = () => {
   }, [location.pathname, location.search])
 
   return (
-    <Container data-testid='not-found-error-page'>
+    <ErrorRoot data-testid='not-found-error-page'>
       <Icon as={SearchX} />
-      <Content>
+      <ErrorContent>
         <Title>{t('error.notFound.title')}</Title>
         <Description>{t('error.notFound.message')}</Description>
-      </Content>
+      </ErrorContent>
       <Action onClick={() => navigate('/')}>{t('error.notFound.cta')}</Action>
-    </Container>
+    </ErrorRoot>
   )
 }
