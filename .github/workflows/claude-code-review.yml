@@ -57,7 +57,6 @@ jobs:
             5. Test coverage: We aim for 60-80% coverage, not 100%. In real development with limited team size (might be solo dev), we focus on minimum testable solution. Prefer a few tests covering normal flow plus a few edge cases. When issues arise, we add unit tests to prevent regression. We can focus on comprehensive testing later if needed.
 
             Format your feedback:
-              - Start with implementation strengths (if any)
               - Group issues by priority:
                 * **Critical**: Bugs, security vulnerabilities, breaking changes — must fix
                 * **Medium**: Important improvements to address
