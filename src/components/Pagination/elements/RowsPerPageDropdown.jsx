@@ -1,5 +1,4 @@
-import { ChevronDown } from 'lucide-react'
-
+import { ChevronIcon } from '@/components/icons'
 import {
   Button,
   DropdownMenu,
@@ -22,7 +21,7 @@ export const RowsPerPageDropdown = ({
       render={<Button variant='ghost' className='h-11 px-3' />}
     >
       {value}
-      <ChevronDown className='size-4 transition-transform duration-300 group-aria-expanded/button:rotate-180' />
+      <ChevronIcon className='group-aria-expanded/button:rotate-180' />
     </DropdownMenuTrigger>
 
     <DropdownMenuContent align='start' className='min-w-0'>
