@@ -108,7 +108,7 @@ export const AdminsPage = () => {
 
   return (
     <div className='flex flex-col gap-4 md:gap-5'>
-      <div className='flex max-h-11 items-center gap-4'>
+      <div className='flex min-h-11 items-center gap-4'>
         <SearchInput
           className='flex-1'
           placeholder={t('searchBy')}
