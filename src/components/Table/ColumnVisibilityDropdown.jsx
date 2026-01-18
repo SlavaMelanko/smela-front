@@ -1,5 +1,6 @@
-import { ChevronDown, SlidersVertical } from 'lucide-react'
+import { SlidersVertical } from 'lucide-react'
 
+import { ChevronIcon } from '@/components/icons'
 import {
   Button,
   DropdownMenu,
@@ -17,7 +18,7 @@ export const ColumnVisibilityDropdown = ({ className, label, columns }) => (
     >
       <SlidersVertical className='size-4' />
       <span className='hidden sm:inline'>{label}</span>
-      <ChevronDown className='hidden size-4 transition-transform duration-300 group-aria-expanded/button:rotate-180 sm:block' />
+      <ChevronIcon className='hidden group-aria-expanded/button:rotate-180 sm:block' />
     </DropdownMenuTrigger>
 
     <DropdownMenuContent align='end' className='min-w-(--anchor-width)'>

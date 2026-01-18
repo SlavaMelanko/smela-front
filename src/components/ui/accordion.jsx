@@ -1,6 +1,6 @@
 import { Accordion as AccordionPrimitive } from '@base-ui/react/accordion'
-import { ChevronDownIcon } from 'lucide-react'
 
+import { ChevronIcon } from '@/components/icons'
 import { cn } from '@/lib/utils'
 
 function Accordion({ className, ...props }) {
@@ -35,9 +35,9 @@ function AccordionTrigger({ className, children, ...props }) {
         {...props}
       >
         {children}
-        <ChevronDownIcon
+        <ChevronIcon
           data-slot='accordion-trigger-icon'
-          className='shrink-0 transition-transform duration-300 group-aria-expanded/accordion-trigger:rotate-180'
+          className='group-aria-expanded/accordion-trigger:rotate-180'
         />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>

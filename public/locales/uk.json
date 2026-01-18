@@ -122,8 +122,8 @@
   "notifications": "Сповіщення",
   "or": "або",
   "pagination": {
-    "of": "з",
-    "rowsPerPage": "Рядків на сторінку:"
+    "limit": "Ліміт:",
+    "of": "з"
   },
   "password": {
     "error": {

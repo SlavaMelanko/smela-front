@@ -9,15 +9,15 @@ import { useCallback, useMemo, useState } from 'react'
 import { ProfileDialog } from '@/components/dialogs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
-import { Table } from '@/components/Table'
+import { Table } from '@/components/table'
 import { useUsers } from '@/hooks/useAdmin'
+import useDebouncedSearch from '@/hooks/useDebouncedSearch'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 import useTableParams from '@/hooks/useTableParams'
 
 import { getAccessibleColumns } from './columns'
 import { Filters } from './Filters'
-import useDebouncedSearch from './hooks/useDebouncedSearch'
 import { Toolbar } from './Toolbar'
 
 export const UsersPage = () => {

@@ -1,8 +1,8 @@
-import { ChevronDown, ExternalLink } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { Copyright } from '@/components/Copyright'
-import { Logo } from '@/components/icons'
+import { ChevronIcon, Logo } from '@/components/icons'
 import {
   Badge,
   Collapsible,
@@ -20,7 +20,8 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarMenuSubButton,
-  SidebarMenuSubItem
+  SidebarMenuSubItem,
+  useSidebar
 } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
@@ -36,6 +37,7 @@ export const Sidebar = ({ items }) => {
   const { t } = useLocale()
   const { pathname } = useLocation()
   const navigate = useNavigate()
+  const { setOpenMobile } = useSidebar()
 
   const isActive = url => pathname === url || pathname.startsWith(`${url}/`)
 
@@ -45,6 +47,8 @@ export const Sidebar = ({ items }) => {
     } else {
       navigate(item.url)
     }
+
+    setOpenMobile(false)
   }
 
   return (
@@ -67,7 +71,7 @@ export const Sidebar = ({ items }) => {
                       <SidebarMenuButton render={<CollapsibleTrigger />}>
                         {item.icon && <item.icon />}
                         <span>{t(item.title)}</span>
-                        <ChevronDown className='ml-auto shrink-0 transition-transform duration-300 group-data-open/collapsible:rotate-180' />
+                        <ChevronIcon className='ml-auto group-data-open/collapsible:rotate-180' />
                       </SidebarMenuButton>
                       <CollapsibleContent>
                         <SidebarMenuSub>
@@ -75,7 +79,10 @@ export const Sidebar = ({ items }) => {
                             <SidebarMenuSubItem key={subItem.title}>
                               <SidebarMenuSubButton
                                 isActive={isActive(subItem.url)}
-                                onClick={() => navigate(subItem.url)}
+                                onClick={() => {
+                                  navigate(subItem.url)
+                                  setOpenMobile(false)
+                                }}
                               >
                                 <ActiveIndicator
                                   isActive={isActive(subItem.url)}

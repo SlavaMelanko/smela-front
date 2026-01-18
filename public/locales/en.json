@@ -122,8 +122,8 @@
   "notifications": "Notifications",
   "or": "or",
   "pagination": {
-    "of": "of",
-    "rowsPerPage": "Rows per page:"
+    "limit": "Limit:",
+    "of": "of"
   },
   "password": {
     "error": {

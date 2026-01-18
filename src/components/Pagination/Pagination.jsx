@@ -1,8 +1,7 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-
-import { Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
+import { NextButton } from './elements/NextButton'
+import { PrevButton } from './elements/PrevButton'
 import { RowsPerPageDropdown } from './elements/RowsPerPageDropdown'
 import { defaultOptions, limitOptions } from './options'
 
@@ -37,9 +36,9 @@ export const Pagination = ({
   }
 
   return (
-    <div className='flex h-11 items-center justify-end gap-6 text-muted-foreground'>
-      <div className='flex items-center gap-2'>
-        <span>{t('pagination.rowsPerPage')}</span>
+    <div className='flex h-11 items-center justify-end gap-4 text-muted-foreground md:gap-6'>
+      <div className='flex items-center gap-1 md:gap-2'>
+        <span>{t('pagination.limit')}</span>
         <RowsPerPageDropdown
           value={limit}
           options={limitOptions}
@@ -50,24 +49,8 @@ export const Pagination = ({
         {start} - {end} {t('pagination.of')} {total}
       </p>
       <div className='flex items-center gap-2'>
-        <Button
-          variant='ghost'
-          size='icon'
-          className='size-11'
-          onClick={handlePrevPage}
-          disabled={!canGoBack}
-        >
-          <ChevronLeft className='size-4' />
-        </Button>
-        <Button
-          variant='ghost'
-          size='icon'
-          className='size-11'
-          onClick={handleNextPage}
-          disabled={!canGoForward}
-        >
-          <ChevronRight className='size-4' />
-        </Button>
+        <PrevButton onClick={handlePrevPage} disabled={!canGoBack} />
+        <NextButton onClick={handleNextPage} disabled={!canGoForward} />
       </div>
     </div>
   )

@@ -1,5 +1,6 @@
-import { ChevronDown, Filter } from 'lucide-react'
+import { Filter } from 'lucide-react'
 
+import { ChevronIcon } from '@/components/icons'
 import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
@@ -13,7 +14,7 @@ export const FilterToggle = ({ className, label, isActive, onToggle }) => {
     >
       <Filter className='size-4' />
       <span className='hidden sm:inline'>{label}</span>
-      <ChevronDown className='hidden size-4 transition-transform duration-300 group-aria-expanded/button:rotate-180 sm:block' />
+      <ChevronIcon className='hidden group-aria-expanded/button:rotate-180 sm:block' />
     </Button>
   )
 }
