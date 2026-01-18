@@ -9,6 +9,7 @@ export const NextButton = ({ onClick, disabled }) => (
     className='size-11'
     onClick={onClick}
     disabled={disabled}
+    aria-label='Next page'
   >
     <ChevronRight className='size-4' />
   </Button>

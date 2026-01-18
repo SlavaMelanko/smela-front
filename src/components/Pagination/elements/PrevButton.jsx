@@ -9,6 +9,7 @@ export const PrevButton = ({ onClick, disabled }) => (
     className='size-11'
     onClick={onClick}
     disabled={disabled}
+    aria-label='Previous page'
   >
     <ChevronLeft className='size-4' />
   </Button>
