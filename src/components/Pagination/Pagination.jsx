@@ -36,8 +36,8 @@ export const Pagination = ({
   }
 
   return (
-    <div className='flex h-11 items-center justify-end gap-6 text-muted-foreground'>
-      <div className='flex items-center gap-2'>
+    <div className='flex h-11 items-center justify-end gap-4 text-muted-foreground md:gap-6'>
+      <div className='flex items-center gap-1 md:gap-2'>
         <span>{t('pagination.limit')}</span>
         <RowsPerPageDropdown
           value={limit}
