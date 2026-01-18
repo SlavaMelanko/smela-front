@@ -7,10 +7,12 @@ import { Plus } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 
 import { AdminInvitationDialog, ProfileDialog } from '@/components/dialogs'
+import { SearchInput } from '@/components/inputs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
 import { Button } from '@/components/ui'
+import useDebouncedSearch from '@/hooks/useDebouncedSearch'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 import { useAdmins } from '@/hooks/useOwner'
@@ -22,7 +24,16 @@ export const AdminsPage = () => {
   const { t, formatDate } = useLocale()
   const { openModal } = useModal()
 
-  const { apiParams, setParams } = useTableParams()
+  const { params, apiParams, setParams } = useTableParams()
+
+  const handleSearch = useCallback(
+    value => setParams({ search: value || null }, { resetPage: true }),
+    [setParams]
+  )
+  const { searchValue, setSearchValue } = useDebouncedSearch(
+    params.search,
+    handleSearch
+  )
 
   const { data, isPending, isError } = useAdmins(apiParams)
   const { admins = [], pagination = defaultOptions } = data ?? {}
@@ -97,7 +108,13 @@ export const AdminsPage = () => {
 
   return (
     <div className='flex flex-col gap-4 md:gap-5'>
-      <div className='flex justify-end gap-4'>
+      <div className='flex max-h-11 items-center gap-4'>
+        <SearchInput
+          className='flex-1'
+          placeholder={t('searchBy')}
+          value={searchValue}
+          onChange={setSearchValue}
+        />
         <ColumnVisibilityDropdown
           label={t('table.column_plural')}
           columns={availableColumns}
