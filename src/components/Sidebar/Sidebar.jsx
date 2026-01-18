@@ -20,7 +20,8 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarMenuSubButton,
-  SidebarMenuSubItem
+  SidebarMenuSubItem,
+  useSidebar
 } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
@@ -36,6 +37,7 @@ export const Sidebar = ({ items }) => {
   const { t } = useLocale()
   const { pathname } = useLocation()
   const navigate = useNavigate()
+  const { setOpenMobile } = useSidebar()
 
   const isActive = url => pathname === url || pathname.startsWith(`${url}/`)
 
@@ -45,6 +47,8 @@ export const Sidebar = ({ items }) => {
     } else {
       navigate(item.url)
     }
+
+    setOpenMobile(false)
   }
 
   return (
@@ -75,7 +79,10 @@ export const Sidebar = ({ items }) => {
                             <SidebarMenuSubItem key={subItem.title}>
                               <SidebarMenuSubButton
                                 isActive={isActive(subItem.url)}
-                                onClick={() => navigate(subItem.url)}
+                                onClick={() => {
+                                  navigate(subItem.url)
+                                  setOpenMobile(false)
+                                }}
                               >
                                 <ActiveIndicator
                                   isActive={isActive(subItem.url)}
