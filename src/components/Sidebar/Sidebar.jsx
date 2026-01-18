@@ -24,6 +24,8 @@ import {
 } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
+import { ActiveIndicator } from './ActiveIndicator'
+
 const formatBadge = count => {
   const num = Number(count)
 
@@ -75,6 +77,10 @@ export const Sidebar = ({ items }) => {
                                 isActive={isActive(subItem.url)}
                                 onClick={() => navigate(subItem.url)}
                               >
+                                <ActiveIndicator
+                                  isActive={isActive(subItem.url)}
+                                  className='h-3/4'
+                                />
                                 <span>{t(subItem.title)}</span>
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
@@ -89,6 +95,10 @@ export const Sidebar = ({ items }) => {
                       isActive={isActive(item.url)}
                       onClick={() => handleClick(item)}
                     >
+                      <ActiveIndicator
+                        isActive={isActive(item.url)}
+                        className='h-full'
+                      />
                       {item.icon && <item.icon />}
                       <span>{t(item.title)}</span>
                       {item.external && <ExternalLink />}
