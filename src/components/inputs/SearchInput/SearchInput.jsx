@@ -12,10 +12,10 @@ export const SearchInput = ({
   <div className={cn('w-full', className)}>
     <Input
       id='search'
-      name='userSearch'
+      name='search'
       placeholder={placeholder}
       autoComplete='on'
-      aria-label='Search users'
+      aria-label='Search'
       value={value}
       onChange={e => onChange?.(e.target.value)}
       leftIcon={<Search className='size-4' />}
