@@ -1,6 +1,6 @@
+import { ColumnVisibilityDropdown } from '@/components/Table'
 import useLocale from '@/hooks/useLocale'
 
-import { ColumnVisibilityDropdown } from './ColumnVisibilityDropdown'
 import { FilterToggle } from './FilterToggle'
 import { SearchInput } from './SearchInput'
 

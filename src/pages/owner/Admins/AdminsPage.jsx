@@ -9,7 +9,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { AdminInvitationDialog, ProfileDialog } from '@/components/dialogs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
-import { Table } from '@/components/Table'
+import { ColumnVisibilityDropdown, Table } from '@/components/Table'
 import { Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
@@ -31,6 +31,7 @@ export const AdminsPage = () => {
     () => getAccessibleColumns(t, formatDate),
     [t, formatDate]
   )
+  const [columnVisibility, setColumnVisibility] = useState({})
   const [sorting, setSorting] = useState([])
 
   const handleRowClick = useCallback(
@@ -60,15 +61,23 @@ export const AdminsPage = () => {
   const config = useReactTable({
     data: admins,
     columns,
-    state: { sorting },
+    state: { sorting, columnVisibility },
     manualPagination: true,
     pageCount: pagination.totalPages,
     columnResizeMode: 'onChange',
     columnResizeDirection: 'ltr',
+    onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel()
   })
+
+  const availableColumns = config.getAllLeafColumns().map(column => ({
+    id: column.id,
+    label: t(`table.users.${column.id}`),
+    getIsVisible: () => column.getIsVisible(),
+    toggleVisibility: () => column.toggleVisibility()
+  }))
 
   if (isPending) {
     return (
@@ -88,7 +97,11 @@ export const AdminsPage = () => {
 
   return (
     <div className='flex flex-col gap-4 md:gap-5'>
-      <div className='flex justify-end'>
+      <div className='flex justify-end gap-4'>
+        <ColumnVisibilityDropdown
+          label={t('table.column_plural')}
+          columns={availableColumns}
+        />
         <Button
           variant='outline'
           onClick={handleInviteClick}
