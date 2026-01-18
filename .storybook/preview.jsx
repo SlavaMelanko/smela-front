@@ -69,15 +69,17 @@ const preview = {
         i18n.changeLanguage(locale)
       }
 
-      // use key to force re-render when locale & theme changes
+      const initialPath = context.parameters?.initialPath || '/'
+
       return (
-        <MemoryRouter>
+        <MemoryRouter initialEntries={[initialPath]}>
           <ThemeProvider>
             <LocaleProvider>
               <NotificationProvider>
                 <ModalProvider>
                   {/* SidebarProvider is extra for Storybook only */}
                   <SidebarProvider>
+                    {/* Use key to force re-render when locale & theme changes */}
                     <Story key={`${locale}-${theme}`} />
                   </SidebarProvider>
                 </ModalProvider>
