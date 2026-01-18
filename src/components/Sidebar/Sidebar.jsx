@@ -97,7 +97,7 @@ export const Sidebar = ({ items }) => {
                     >
                       <ActiveIndicator
                         isActive={isActive(item.url)}
-                        className='h-full'
+                        className='h-3/5'
                       />
                       {item.icon && <item.icon />}
                       <span>{t(item.title)}</span>
