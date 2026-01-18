@@ -67,7 +67,7 @@ export const Sidebar = ({ items }) => {
                       <SidebarMenuButton render={<CollapsibleTrigger />}>
                         {item.icon && <item.icon />}
                         <span>{t(item.title)}</span>
-                        <ChevronDown className='ml-auto shrink-0 transition-transform group-data-[state=open]/collapsible:rotate-180' />
+                        <ChevronDown className='ml-auto shrink-0 transition-transform duration-300 group-data-open/collapsible:rotate-180' />
                       </SidebarMenuButton>
                       <CollapsibleContent>
                         <SidebarMenuSub>
