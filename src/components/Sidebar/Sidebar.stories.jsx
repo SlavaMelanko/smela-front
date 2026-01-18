@@ -12,7 +12,8 @@ export default {
   title: 'Components/Sidebar',
   component: Sidebar,
   parameters: {
-    layout: 'fullscreen'
+    layout: 'fullscreen',
+    initialPath: '/proxies/residential'
   },
   decorators: [
     Story => (
