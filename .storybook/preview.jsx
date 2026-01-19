@@ -27,7 +27,7 @@ const preview = {
   globalTypes: {
     theme: {
       name: 'Theme',
-      defaultValue: 'light',
+      defaultValue: 'dark',
       toolbar: {
         icon: 'contrast',
         title: 'Theme',
@@ -59,11 +59,6 @@ const preview = {
     (Story, context) => {
       const { theme, locale } = context.globals
 
-      const isDark = theme === 'dark'
-
-      // toggle `dark` class on <html>
-      document.documentElement.classList.toggle('dark', isDark)
-
       // Set i18n language
       if (locale) {
         i18n.changeLanguage(locale)
@@ -73,14 +68,13 @@ const preview = {
 
       return (
         <MemoryRouter initialEntries={[initialPath]}>
-          <ThemeProvider>
-            <LocaleProvider>
+          {/* Key forces ThemeProvider remount when toolbar theme changes */}
+          <ThemeProvider key={theme} initialTheme={theme}>
+            <LocaleProvider key={locale}>
               <NotificationProvider>
                 <ModalProvider>
-                  {/* SidebarProvider is extra for Storybook only */}
                   <SidebarProvider>
-                    {/* Use key to force re-render when locale & theme changes */}
-                    <Story key={`${locale}-${theme}`} />
+                    <Story />
                   </SidebarProvider>
                 </ModalProvider>
               </NotificationProvider>

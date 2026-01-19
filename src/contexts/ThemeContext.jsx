@@ -20,8 +20,8 @@ const getInitialTheme = () => {
   return prefersDark ? 'dark' : 'light'
 }
 
-export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(getInitialTheme)
+export const ThemeProvider = ({ children, initialTheme }) => {
+  const [theme, setTheme] = useState(() => initialTheme ?? getInitialTheme())
 
   useEffect(() => {
     localStorage.set(THEME_STORAGE_KEY, theme)
