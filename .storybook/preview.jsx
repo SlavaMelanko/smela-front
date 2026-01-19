@@ -77,10 +77,8 @@ const preview = {
             <LocaleProvider>
               <NotificationProvider>
                 <ModalProvider>
-                  {/* SidebarProvider is extra for Storybook only */}
                   <SidebarProvider>
-                    {/* Use key to force re-render when locale & theme changes */}
-                    <Story key={`${locale}-${theme}`} />
+                    <Story />
                   </SidebarProvider>
                 </ModalProvider>
               </NotificationProvider>
