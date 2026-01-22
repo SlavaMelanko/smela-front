@@ -41,6 +41,12 @@ export const getAccessibleColumns = (t, formatDate) => {
       header: label('createdAt'),
       size: 140,
       cell: info => formatDate(info.getValue())
+    },
+    {
+      accessorKey: 'updatedAt',
+      header: label('updatedAt'),
+      size: 140,
+      cell: info => formatDate(info.getValue())
     }
   ]
 }

@@ -42,7 +42,10 @@ export const AdminsPage = () => {
     () => getAccessibleColumns(t, formatDate),
     [t, formatDate]
   )
-  const [columnVisibility, setColumnVisibility] = useState({})
+  const [columnVisibility, setColumnVisibility] = useState({
+    id: false,
+    updatedAt: false
+  })
   const [sorting, setSorting] = useState([])
 
   const handleRowClick = useCallback(

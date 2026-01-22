@@ -267,7 +267,8 @@
       "id": "#",
       "name": "Ім'я",
       "role": "$t(role.name)",
-      "status": "$t(status.name)"
+      "status": "$t(status.name)",
+      "updatedAt": "Оновлено"
     }
   },
   "termsAndPrivacy": {

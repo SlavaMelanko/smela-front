@@ -267,7 +267,8 @@
       "id": "ID",
       "name": "Name",
       "role": "$t(role.name)",
-      "status": "$t(status.name)"
+      "status": "$t(status.name)",
+      "updatedAt": "Updated At"
     }
   },
   "termsAndPrivacy": {
