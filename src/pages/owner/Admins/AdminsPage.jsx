@@ -111,7 +111,7 @@ export const AdminsPage = () => {
       <div className='flex min-h-11 items-center gap-4'>
         <SearchInput
           className='flex-1'
-          placeholder={t('searchBy')}
+          placeholder={t('searchBy.users')}
           value={searchValue}
           onChange={setSearchValue}
         />
@@ -122,12 +122,10 @@ export const AdminsPage = () => {
         <Button
           variant='outline'
           onClick={handleInviteClick}
-          aria-label={t('invitation.send.admin.title')}
+          aria-label={t('invite')}
         >
           <Plus className='size-5' />
-          <span className='hidden sm:inline'>
-            {t('invitation.send.admin.title')}
-          </span>
+          <span className='hidden sm:inline'>{t('invite')}</span>
         </Button>
       </div>
       <Table config={config} onRowClick={handleRowClick} />

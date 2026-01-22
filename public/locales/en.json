@@ -101,6 +101,7 @@
       }
     }
   },
+  "invite": "Invite",
   "lastName": {
     "error": {
       "max": "Last name can’t be longer than 50 characters.",
@@ -223,7 +224,10 @@
       "user": "User"
     }
   },
-  "searchBy": "Search by ID, name, email, etc...",
+  "searchBy": {
+    "companies": "Search by ID, name, website...",
+    "users": "Search by ID, name, email..."
+  },
   "sidebar": {
     "admins": "Admins",
     "companies": "Companies",
