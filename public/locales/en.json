@@ -22,6 +22,7 @@
   "companyName": "SMELA",
   "continueWithGoogle": "Continue with Google",
   "copyright": "© {{year}} {{companyName}}",
+  "createdAt": "Created At",
   "doNotHaveAccount": "Don't have an account?",
   "email": {
     "confirmation": {
@@ -261,22 +262,22 @@
     "column": "Column",
     "column_plural": "Columns",
     "companies": {
-      "createdAt": "Created At",
+      "createdAt": "$t(createdAt)",
       "id": "ID",
       "name": "Name",
-      "updatedAt": "Updated At",
+      "updatedAt": "$t(updatedAt)",
       "website": "Website"
     },
     "filter": "Filter",
     "filter_plural": "Filters",
     "users": {
-      "createdAt": "Created At",
+      "createdAt": "$t(createdAt)",
       "email": "Email",
       "id": "ID",
       "name": "Name",
       "role": "$t(role.name)",
       "status": "$t(status.name)",
-      "updatedAt": "Updated At"
+      "updatedAt": "$t(updatedAt)"
     }
   },
   "termsAndPrivacy": {
@@ -295,5 +296,6 @@
       "mb": "MB",
       "tb": "TB"
     }
-  }
+  },
+  "updatedAt": "Updated At"
 }

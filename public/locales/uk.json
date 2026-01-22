@@ -22,6 +22,7 @@
   "companyName": "SMELA",
   "continueWithGoogle": "Продовжити з Google",
   "copyright": "© {{year}} {{companyName}}",
+  "createdAt": "Створено",
   "doNotHaveAccount": "Новенький тут?",
   "email": {
     "confirmation": {
@@ -261,22 +262,22 @@
     "column": "Колонка",
     "column_plural": "Колонки",
     "companies": {
-      "createdAt": "Створено",
+      "createdAt": "$t(createdAt)",
       "id": "#",
       "name": "Назва",
-      "updatedAt": "Оновлено",
+      "updatedAt": "$t(updatedAt)",
       "website": "Сайт"
     },
     "filter": "Фільтр",
     "filter_plural": "Фільтри",
     "users": {
-      "createdAt": "Створено",
+      "createdAt": "$t(createdAt)",
       "email": "Email",
       "id": "#",
       "name": "Ім'я",
       "role": "$t(role.name)",
       "status": "$t(status.name)",
-      "updatedAt": "Оновлено"
+      "updatedAt": "$t(updatedAt)"
     }
   },
   "termsAndPrivacy": {
@@ -295,5 +296,6 @@
       "mb": "МБ",
       "tb": "ТБ"
     }
-  }
+  },
+  "updatedAt": "Оновлено"
 }
