@@ -263,7 +263,7 @@
     "column_plural": "Колонки",
     "companies": {
       "createdAt": "$t(createdAt)",
-      "id": "#",
+      "id": "ID",
       "name": "Назва",
       "updatedAt": "$t(updatedAt)",
       "website": "Сайт"
@@ -273,7 +273,7 @@
     "users": {
       "createdAt": "$t(createdAt)",
       "email": "Email",
-      "id": "#",
+      "id": "ID",
       "name": "Ім'я",
       "role": "$t(role.name)",
       "status": "$t(status.name)",
