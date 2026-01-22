@@ -9,7 +9,7 @@ import {
   UserLayout
 } from '@/layouts'
 import { adminActiveStatuses, Role, userActiveStatuses } from '@/lib/types'
-import { DashboardPage, UsersPage } from '@/pages/admin'
+import { CompaniesPage, DashboardPage, UsersPage } from '@/pages/admin'
 import {
   AcceptInvitePage,
   EmailConfirmationPage,
@@ -92,7 +92,8 @@ export const router = sentryCreateBrowserRouter([
     errorElement: <ErrorBoundary />,
     children: [
       { path: 'dashboard', element: <DashboardPage /> },
-      { path: 'users', element: <UsersPage /> }
+      { path: 'users', element: <UsersPage /> },
+      { path: 'companies', element: <CompaniesPage /> }
     ]
   },
   {

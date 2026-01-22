@@ -226,6 +226,7 @@
   "searchBy": "Search by name, email, etc...",
   "sidebar": {
     "admins": "Admins",
+    "companies": "Companies",
     "dashboard": "Dashboard",
     "documentation": "Documentation",
     "home": "Home",
