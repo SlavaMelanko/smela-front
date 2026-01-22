@@ -1,4 +1,5 @@
 {
+  "add": "Додати",
   "alreadyHaveAccount": "Вже свій?",
   "backend": {
     "auth/already-verified": "Невірний запит. Спробуйте увійти в обліковий запис.",
@@ -259,6 +260,13 @@
   "table": {
     "column": "Колонка",
     "column_plural": "Колонки",
+    "companies": {
+      "createdAt": "Створено",
+      "id": "#",
+      "name": "Назва",
+      "updatedAt": "Оновлено",
+      "website": "Сайт"
+    },
     "filter": "Фільтр",
     "filter_plural": "Фільтри",
     "users": {

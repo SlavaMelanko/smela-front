@@ -1,4 +1,5 @@
 {
+  "add": "Add",
   "alreadyHaveAccount": "Already have an account?",
   "backend": {
     "auth/already-verified": "Invalid request. Please try logging in.",
@@ -259,6 +260,13 @@
   "table": {
     "column": "Column",
     "column_plural": "Columns",
+    "companies": {
+      "createdAt": "Created At",
+      "id": "ID",
+      "name": "Name",
+      "updatedAt": "Updated At",
+      "website": "Website"
+    },
     "filter": "Filter",
     "filter_plural": "Filters",
     "users": {
