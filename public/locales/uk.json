@@ -223,7 +223,7 @@
       "user": "Користувач"
     }
   },
-  "searchBy": "Шукати за ім'ям, email, тощо...",
+  "searchBy": "Шукати за ID, ім'ям, email, тощо...",
   "sidebar": {
     "admins": "Адміни",
     "companies": "Компанії",

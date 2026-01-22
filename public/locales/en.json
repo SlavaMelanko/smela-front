@@ -223,7 +223,7 @@
       "user": "User"
     }
   },
-  "searchBy": "Search by name, email, etc...",
+  "searchBy": "Search by ID, name, email, etc...",
   "sidebar": {
     "admins": "Admins",
     "companies": "Companies",
