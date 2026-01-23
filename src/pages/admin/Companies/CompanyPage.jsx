@@ -1,6 +1,7 @@
 import { ChevronLeft } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 
+import { CompanyBadge } from '@/components/badges'
 import { TextSeparator } from '@/components/Separator'
 import { Spinner } from '@/components/Spinner'
 import { Button } from '@/components/ui'
@@ -37,6 +38,7 @@ export const CompanyPage = () => {
           {t('back')}
         </Button>
       </div>
+      <CompanyBadge name={company.name} website={company.website} />
       <TextSeparator text={t('details')} />
       <CompanyDetailsForm
         company={company}
