@@ -7,7 +7,7 @@ import { Button } from '@/components/ui'
 import { useCompany, useUpdateCompany } from '@/hooks/useAdmin'
 import useLocale from '@/hooks/useLocale'
 
-import { DetailsForm } from './DetailsForm'
+import { CompanyDetailsForm } from './CompanyDetailsForm'
 
 export const CompanyPage = () => {
   const { id } = useParams()
@@ -38,7 +38,7 @@ export const CompanyPage = () => {
         </Button>
       </div>
       <TextSeparator text={t('details')} />
-      <DetailsForm
+      <CompanyDetailsForm
         company={company}
         isLoading={isPending}
         onSubmit={handleSubmit}
