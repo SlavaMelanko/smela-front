@@ -1,16 +1,6 @@
 import { createResolver, rules } from '@/lib/validation'
 
-export const FieldName = {
-  NAME: 'name',
-  WEBSITE: 'website',
-  DESCRIPTION: 'description'
-}
-
-export const getDefaultValues = () => ({
-  [FieldName.NAME]: '',
-  [FieldName.WEBSITE]: '',
-  [FieldName.DESCRIPTION]: ''
-})
+import { FieldName } from './fields'
 
 const makeSchema = () => ({
   [FieldName.NAME]: rules.companyName({
@@ -22,4 +12,6 @@ const makeSchema = () => ({
   [FieldName.DESCRIPTION]: rules.description('company.description.error.max')
 })
 
-export const resolver = createResolver(makeSchema())
+const resolver = createResolver(makeSchema())
+
+export default resolver

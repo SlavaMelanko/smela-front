@@ -5,9 +5,10 @@ import { FormField, FormFields, FormRoot, FormRow } from '@/components/form'
 import { Input, Textarea } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-import { FieldName, getDefaultValues, resolver } from './companyFields'
+import { FieldName, getDefaultValues } from './fields'
+import resolver from './resolver'
 
-export const CompanyDetailsForm = ({ company, isLoading, onSubmit }) => {
+export const DetailsForm = ({ company, isLoading, onSubmit }) => {
   const { t } = useLocale()
 
   const {
