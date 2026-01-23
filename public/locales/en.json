@@ -255,6 +255,7 @@
       "user": "User"
     }
   },
+  "save": "Save",
   "searchBy": {
     "companies": "Search by ID, name, website...",
     "users": "Search by ID, name, email..."

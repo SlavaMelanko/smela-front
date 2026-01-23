@@ -84,12 +84,12 @@ export const useCreateCompany = () => {
   })
 }
 
-export const useUpdateCompany = () => {
+export const useUpdateCompany = id => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, data }) => adminApi.updateCompany(id, data),
-    onSuccess: (_, { id }) => {
+    mutationFn: data => adminApi.updateCompany(id, data),
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: adminKeys.companies() })
       queryClient.invalidateQueries({ queryKey: adminKeys.companyDetail(id) })
     }

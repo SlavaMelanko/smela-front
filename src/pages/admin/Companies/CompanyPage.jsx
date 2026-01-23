@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { TextSeparator } from '@/components/Separator'
 import { Spinner } from '@/components/Spinner'
 import { Button } from '@/components/ui'
-import { useCompany } from '@/hooks/useAdmin'
+import { useCompany, useUpdateCompany } from '@/hooks/useAdmin'
 import useLocale from '@/hooks/useLocale'
 
 import { DetailsForm } from './DetailsForm'
@@ -15,10 +15,10 @@ export const CompanyPage = () => {
   const { t } = useLocale()
 
   const { data: company, isPending, isError } = useCompany(id)
+  const { mutate: updateCompany } = useUpdateCompany(id)
 
   const handleSubmit = data => {
-    // TODO: implement update
-    console.warn('Submit:', data)
+    updateCompany(data)
   }
 
   if (isPending) {

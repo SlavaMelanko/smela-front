@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { FormField, FormFields, FormRoot, FormRow } from '@/components/form'
-import { Input, Textarea } from '@/components/ui'
+import { Button, Input, Textarea } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
@@ -15,7 +15,7 @@ export const DetailsForm = ({ company, isLoading, onSubmit }) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
+    formState: { errors, isDirty }
   } = useForm({
     resolver,
     defaultValues: getDefaultValues()
@@ -65,6 +65,12 @@ export const DetailsForm = ({ company, isLoading, onSubmit }) => {
         >
           <Textarea {...register(FieldName.DESCRIPTION)} />
         </FormField>
+
+        <div className='flex justify-end'>
+          <Button type='submit' disabled={!isDirty}>
+            {t('save')}
+          </Button>
+        </div>
       </FormFields>
     </FormRoot>
   )
