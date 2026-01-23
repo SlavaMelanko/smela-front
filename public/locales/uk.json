@@ -41,7 +41,7 @@
       "label": "Назва"
     },
     "tabs": {
-      "details": "Деталі",
+      "info": "Інфо",
       "team": {
         "label": "Команда",
         "withCount": "Команда ({{count}})"

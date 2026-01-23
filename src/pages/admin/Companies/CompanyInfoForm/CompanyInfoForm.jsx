@@ -16,7 +16,7 @@ import { datePreset } from '@/lib/format'
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-export const CompanyDetailsForm = ({
+export const CompanyInfoForm = ({
   company,
   isLoading,
   isSubmitting,

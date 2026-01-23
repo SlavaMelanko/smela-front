@@ -41,7 +41,7 @@
       "label": "Name"
     },
     "tabs": {
-      "details": "Details",
+      "info": "Info",
       "team": {
         "label": "Team",
         "withCount": "Team ({{count}})"

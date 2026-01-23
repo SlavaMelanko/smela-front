@@ -15,11 +15,11 @@ import useLocale from '@/hooks/useLocale'
 import useToast from '@/hooks/useToast'
 import { toTranslationKey } from '@/services/catch'
 
-import { CompanyDetailsForm } from './CompanyDetailsForm'
+import { CompanyInfoForm } from './CompanyInfoForm'
 import { CompanyTeam } from './CompanyTeam'
 
 const CompanyTab = {
-  DETAILS: 'details',
+  INFO: 'info',
   TEAM: 'team'
 }
 
@@ -66,14 +66,14 @@ export const CompanyPage = () => {
         </Button>
       </div>
       <CompanyBadge name={company.name} website={company.website} />
-      <Tabs defaultValue={CompanyTab.DETAILS}>
+      <Tabs defaultValue={CompanyTab.INFO}>
         <TabsList variant='line' className='border-0'>
           <TabsTrigger
-            value={CompanyTab.DETAILS}
+            value={CompanyTab.INFO}
             className='after:bg-primary after:rounded-full'
           >
             <Building2 className='size-4' />
-            {t('company.tabs.details')}
+            {t('company.tabs.info')}
           </TabsTrigger>
           <TabsTrigger
             value={CompanyTab.TEAM}
@@ -83,8 +83,8 @@ export const CompanyPage = () => {
             {teamLabel}
           </TabsTrigger>
         </TabsList>
-        <TabsContent value={CompanyTab.DETAILS}>
-          <CompanyDetailsForm
+        <TabsContent value={CompanyTab.INFO}>
+          <CompanyInfoForm
             company={company}
             isLoading={isPending}
             isSubmitting={isUpdating}
