@@ -52,10 +52,22 @@ export const CompanyPage = () => {
   }
 
   const teamCount = company.members?.length ?? 0
-  const teamLabel =
-    teamCount > 0
-      ? t('company.tabs.team.withCount', { count: teamCount })
-      : t('company.tabs.team.label')
+
+  const tabs = [
+    {
+      value: CompanyTab.INFO,
+      icon: Building2,
+      label: () => t('company.tabs.info')
+    },
+    {
+      value: CompanyTab.TEAM,
+      icon: Users,
+      label: () =>
+        teamCount > 0
+          ? t('company.tabs.team.withCount', { count: teamCount })
+          : t('company.tabs.team.label')
+    }
+  ]
 
   return (
     <div className='flex flex-col gap-4'>
@@ -68,20 +80,16 @@ export const CompanyPage = () => {
       <CompanyBadge name={company.name} website={company.website} />
       <Tabs defaultValue={CompanyTab.INFO}>
         <TabsList variant='line' className='border-0'>
-          <TabsTrigger
-            value={CompanyTab.INFO}
-            className='after:bg-primary after:rounded-full'
-          >
-            <Building2 className='size-4' />
-            {t('company.tabs.info')}
-          </TabsTrigger>
-          <TabsTrigger
-            value={CompanyTab.TEAM}
-            className='after:bg-primary after:rounded-full'
-          >
-            <Users className='size-4' />
-            {teamLabel}
-          </TabsTrigger>
+          {tabs.map(({ value, icon: Icon, label }) => (
+            <TabsTrigger
+              key={value}
+              value={value}
+              className='after:bg-primary after:rounded-full'
+            >
+              <Icon className='size-4' />
+              {label()}
+            </TabsTrigger>
+          ))}
         </TabsList>
         <TabsContent value={CompanyTab.INFO}>
           <CompanyInfoForm
