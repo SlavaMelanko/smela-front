@@ -69,10 +69,14 @@ export const CompanyDetailsForm = ({ company, isLoading, onSubmit }) => {
 
         <FormRow>
           <FormField label={t('createdAt')} optional>
-            <p>{formatDate(company.createdAt, datePreset.short)}</p>
+            <p className='text-base'>
+              {formatDate(company.createdAt, datePreset.short)}
+            </p>
           </FormField>
           <FormField label={t('updatedAt')} optional>
-            <p>{formatDate(company.updatedAt, datePreset.short)}</p>
+            <p className='text-base'>
+              {formatDate(company.updatedAt, datePreset.short)}
+            </p>
           </FormField>
         </FormRow>
 

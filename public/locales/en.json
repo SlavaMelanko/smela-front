@@ -40,6 +40,13 @@
       },
       "label": "Name"
     },
+    "tabs": {
+      "details": "Details",
+      "members": {
+        "label": "Members",
+        "withCount": "Members ({{count}})"
+      }
+    },
     "website": {
       "error": {
         "format": "Enter a valid URL."

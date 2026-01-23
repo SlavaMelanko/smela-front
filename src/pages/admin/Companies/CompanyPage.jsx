@@ -2,9 +2,14 @@ import { ChevronLeft } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { CompanyBadge } from '@/components/badges'
-import { TextSeparator } from '@/components/Separator'
 import { Spinner } from '@/components/Spinner'
-import { Button } from '@/components/ui'
+import {
+  Button,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger
+} from '@/components/ui'
 import { useCompany, useUpdateCompany } from '@/hooks/useAdmin'
 import useLocale from '@/hooks/useLocale'
 
@@ -30,6 +35,12 @@ export const CompanyPage = () => {
     return <p>{t('error.loading')}</p>
   }
 
+  const membersCount = company.members?.length ?? 0
+  const membersLabel =
+    membersCount > 0
+      ? t('company.tabs.members.withCount', { count: membersCount })
+      : t('company.tabs.members.label')
+
   return (
     <div className='flex flex-col gap-4'>
       <div className='flex'>
@@ -39,12 +50,30 @@ export const CompanyPage = () => {
         </Button>
       </div>
       <CompanyBadge name={company.name} website={company.website} />
-      <TextSeparator text={t('details')} />
-      <CompanyDetailsForm
-        company={company}
-        isLoading={isPending}
-        onSubmit={handleSubmit}
-      />
+      <Tabs defaultValue='details'>
+        <TabsList variant='line' className='border-0'>
+          <TabsTrigger
+            value='details'
+            className='after:bg-primary after:rounded-full'
+          >
+            {t('company.tabs.details')}
+          </TabsTrigger>
+          <TabsTrigger
+            value='members'
+            className='after:bg-primary after:rounded-full'
+          >
+            {membersLabel}
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value='details'>
+          <CompanyDetailsForm
+            company={company}
+            isLoading={isPending}
+            onSubmit={handleSubmit}
+          />
+        </TabsContent>
+        <TabsContent value='members'>{/* Members content */}</TabsContent>
+      </Tabs>
     </div>
   )
 }

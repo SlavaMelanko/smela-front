@@ -40,6 +40,13 @@
       },
       "label": "Назва"
     },
+    "tabs": {
+      "details": "Деталі",
+      "members": {
+        "label": "Учасники",
+        "withCount": "Учасники ({{count}})"
+      }
+    },
     "website": {
       "error": {
         "format": "Введіть правильну URL-адресу."
