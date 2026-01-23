@@ -16,10 +16,11 @@ import useToast from '@/hooks/useToast'
 import { toTranslationKey } from '@/services/catch'
 
 import { CompanyDetailsForm } from './CompanyDetailsForm'
+import { CompanyTeam } from './CompanyTeam'
 
 const CompanyTab = {
   DETAILS: 'details',
-  MEMBERS: 'members'
+  TEAM: 'team'
 }
 
 export const CompanyPage = () => {
@@ -50,11 +51,11 @@ export const CompanyPage = () => {
     return <p>{t('error.loading')}</p>
   }
 
-  const membersCount = company.members?.length ?? 0
-  const membersLabel =
-    membersCount > 0
-      ? t('company.tabs.members.withCount', { count: membersCount })
-      : t('company.tabs.members.label')
+  const teamCount = company.members?.length ?? 0
+  const teamLabel =
+    teamCount > 0
+      ? t('company.tabs.team.withCount', { count: teamCount })
+      : t('company.tabs.team.label')
 
   return (
     <div className='flex flex-col gap-4'>
@@ -75,11 +76,11 @@ export const CompanyPage = () => {
             {t('company.tabs.details')}
           </TabsTrigger>
           <TabsTrigger
-            value={CompanyTab.MEMBERS}
+            value={CompanyTab.TEAM}
             className='after:bg-primary after:rounded-full'
           >
             <Users className='size-4' />
-            {membersLabel}
+            {teamLabel}
           </TabsTrigger>
         </TabsList>
         <TabsContent value={CompanyTab.DETAILS}>
@@ -90,7 +91,9 @@ export const CompanyPage = () => {
             onSubmit={handleSubmit}
           />
         </TabsContent>
-        <TabsContent value='members'>{/* Members content */}</TabsContent>
+        <TabsContent value={CompanyTab.TEAM}>
+          <CompanyTeam members={company.members ?? []} />
+        </TabsContent>
       </Tabs>
     </div>
   )

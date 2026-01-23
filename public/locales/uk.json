@@ -42,10 +42,13 @@
     },
     "tabs": {
       "details": "Деталі",
-      "members": {
-        "label": "Учасники",
-        "withCount": "Учасники ({{count}})"
+      "team": {
+        "label": "Команда",
+        "withCount": "Команда ({{count}})"
       }
+    },
+    "team": {
+      "empty": "Учасників команди поки немає."
     },
     "update": {
       "success": "Успішно оновлено."
@@ -310,6 +313,15 @@
     },
     "filter": "Фільтр",
     "filter_plural": "Фільтри",
+    "team": {
+      "email": "Email",
+      "id": "ID",
+      "invitedBy": "Запросив",
+      "joinedAt": "Приєднався",
+      "name": "Ім'я",
+      "position": "Посада",
+      "status": "$t(status.name)"
+    },
     "users": {
       "createdAt": "$t(createdAt)",
       "email": "Email",

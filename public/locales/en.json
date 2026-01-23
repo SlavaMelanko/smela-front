@@ -42,10 +42,13 @@
     },
     "tabs": {
       "details": "Details",
-      "members": {
-        "label": "Members",
-        "withCount": "Members ({{count}})"
+      "team": {
+        "label": "Team",
+        "withCount": "Team ({{count}})"
       }
+    },
+    "team": {
+      "empty": "No team members yet."
     },
     "update": {
       "success": "Updated successfully."
@@ -310,6 +313,15 @@
     },
     "filter": "Filter",
     "filter_plural": "Filters",
+    "team": {
+      "email": "Email",
+      "id": "ID",
+      "invitedBy": "Invited By",
+      "joinedAt": "Joined At",
+      "name": "Name",
+      "position": "Position",
+      "status": "$t(status.name)"
+    },
     "users": {
       "createdAt": "$t(createdAt)",
       "email": "Email",
