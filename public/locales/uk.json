@@ -19,6 +19,28 @@
   "captcha": {
     "error": "Помилка перевірки безпеки. Спробуйте ще раз."
   },
+  "company": {
+    "add": {
+      "cta": "Створити",
+      "success": "Компанію створено.",
+      "title": "Додати компанію"
+    },
+    "description": {
+      "label": "Опис"
+    },
+    "name": {
+      "error": {
+        "required": "Назва компанії обовʼязкова."
+      },
+      "label": "Назва"
+    },
+    "website": {
+      "error": {
+        "format": "Введіть правильну URL-адресу."
+      },
+      "label": "Вебсайт"
+    }
+  },
   "companyName": "SMELA",
   "continueWithGoogle": "Продовжити з Google",
   "copyright": "© {{year}} {{companyName}}",

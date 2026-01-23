@@ -6,6 +6,7 @@ import {
 import { Plus } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 
+import { CompanyAddDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
@@ -14,12 +15,14 @@ import { Button } from '@/components/ui'
 import { useCompanies } from '@/hooks/useAdmin'
 import useDebouncedSearch from '@/hooks/useDebouncedSearch'
 import useLocale from '@/hooks/useLocale'
+import useModal from '@/hooks/useModal'
 import useTableParams from '@/hooks/useTableParams'
 
 import { getAccessibleColumns } from './columns'
 
 export const CompaniesPage = () => {
   const { t, formatDate } = useLocale()
+  const { openModal } = useModal()
 
   const { params, apiParams, setParams } = useTableParams()
 
@@ -51,9 +54,10 @@ export const CompaniesPage = () => {
   }, [])
 
   const handleAddClick = useCallback(() => {
-    // TODO: Open add company dialog
-    console.warn('Add company clicked')
-  }, [])
+    const close = openModal({
+      children: <CompanyAddDialog onClose={() => close()} />
+    })
+  }, [openModal])
 
   const handlePageChange = page => {
     setParams({ page })

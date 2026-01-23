@@ -19,6 +19,28 @@
   "captcha": {
     "error": "Security verification failed. Please try again."
   },
+  "company": {
+    "add": {
+      "cta": "Create",
+      "success": "Company created.",
+      "title": "Add Company"
+    },
+    "description": {
+      "label": "Description"
+    },
+    "name": {
+      "error": {
+        "required": "Company name is required."
+      },
+      "label": "Name"
+    },
+    "website": {
+      "error": {
+        "format": "Enter a valid URL."
+      },
+      "label": "Website"
+    }
+  },
   "companyName": "SMELA",
   "continueWithGoogle": "Continue with Google",
   "copyright": "© {{year}} {{companyName}}",
