@@ -1,17 +1,17 @@
 import { UserInvitationForm } from '@/components/form'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
+import { useInviteCompanyMember } from '@/hooks/useAdmin'
 import useLocale from '@/hooks/useLocale'
-import { useInviteAdmin } from '@/hooks/useOwner'
 import useToast from '@/hooks/useToast'
 import { toTranslationKey } from '@/services/catch'
 
-export const AdminInvitationDialog = ({ onClose }) => {
+export const MemberInvitationDialog = ({ companyId, onClose }) => {
   const { t } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
-  const { mutate: inviteAdmin, isPending } = useInviteAdmin()
+  const { mutate: inviteMember, isPending } = useInviteCompanyMember(companyId)
 
   const onSubmit = data => {
-    inviteAdmin(data, {
+    inviteMember(data, {
       onSuccess: () => {
         showSuccessToast(t('invitation.send.success'))
         onClose()
@@ -25,7 +25,7 @@ export const AdminInvitationDialog = ({ onClose }) => {
   return (
     <>
       <DialogHeader onClose={onClose}>
-        <DialogTitle>{t('invitation.send.title.admin')}</DialogTitle>
+        <DialogTitle>{t('invitation.send.title.member')}</DialogTitle>
       </DialogHeader>
       <DialogBody>
         <UserInvitationForm

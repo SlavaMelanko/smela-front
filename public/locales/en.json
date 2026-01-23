@@ -137,11 +137,11 @@
       "title": "You're invited to {{companyName}}"
     },
     "send": {
-      "admin": {
-        "cta": "Send invitation",
-        "error": "Failed to send invitation.",
-        "success": "Invitation sent successfully.",
-        "title": "Invite admin"
+      "cta": "Send invitation",
+      "success": "Invitation sent successfully.",
+      "title": {
+        "admin": "Invite admin",
+        "member": "Invite member"
       }
     }
   },

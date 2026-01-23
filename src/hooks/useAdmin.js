@@ -106,3 +106,16 @@ export const useDeleteCompany = () => {
     }
   })
 }
+
+export const useInviteCompanyMember = companyId => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: data => adminApi.inviteCompanyMember(companyId, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: adminKeys.companyDetail(companyId)
+      })
+    }
+  })
+}

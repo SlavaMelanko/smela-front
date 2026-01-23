@@ -1,4 +1,5 @@
 export { AdminInvitationDialog } from './AdminInvitationDialog'
 export { CompanyAddDialog } from './CompanyAddDialog'
+export { MemberInvitationDialog } from './MemberInvitationDialog'
 export { PricingSliderDialog } from './PricingSliderDialog'
 export { ProfileDialog } from './ProfileDialog'

@@ -92,7 +92,7 @@ export const CompanyPage = () => {
           />
         </TabsContent>
         <TabsContent value={CompanyTab.TEAM}>
-          <CompanyTeam members={company.members ?? []} />
+          <CompanyTeam companyId={id} members={company.members ?? []} />
         </TabsContent>
       </Tabs>
     </div>

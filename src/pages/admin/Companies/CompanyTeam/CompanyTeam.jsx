@@ -1,15 +1,16 @@
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { Users } from 'lucide-react'
+import { Plus, Users } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 
-import { ProfileDialog } from '@/components/dialogs'
+import { MemberInvitationDialog, ProfileDialog } from '@/components/dialogs'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
+import { Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 
 import { getColumns } from './columns'
 
-export const CompanyTeam = ({ members }) => {
+export const CompanyTeam = ({ companyId, members }) => {
   const { t, formatDate } = useLocale()
   const { openModal } = useModal()
 
@@ -28,6 +29,14 @@ export const CompanyTeam = ({ members }) => {
     [openModal]
   )
 
+  const handleInviteClick = useCallback(() => {
+    const close = openModal({
+      children: (
+        <MemberInvitationDialog companyId={companyId} onClose={() => close()} />
+      )
+    })
+  }, [companyId, openModal])
+
   // eslint-disable-next-line react-hooks/incompatible-library
   const config = useReactTable({
     data: members,
@@ -39,9 +48,13 @@ export const CompanyTeam = ({ members }) => {
 
   if (members.length === 0) {
     return (
-      <div className='flex flex-col items-center justify-center gap-2 py-12 text-muted-foreground'>
+      <div className='flex flex-col items-center justify-center gap-4 py-12 text-muted-foreground'>
         <Users className='size-10 stroke-1' />
         <p>{t('company.team.empty')}</p>
+        <Button variant='outline' onClick={handleInviteClick}>
+          <Plus className='size-5' />
+          {t('invite')}
+        </Button>
       </div>
     )
   }
@@ -55,11 +68,19 @@ export const CompanyTeam = ({ members }) => {
 
   return (
     <div className='flex flex-col gap-4'>
-      <div className='flex justify-end'>
+      <div className='flex justify-end gap-4'>
         <ColumnVisibilityDropdown
           label={t('table.column_plural')}
           columns={availableColumns}
         />
+        <Button
+          variant='outline'
+          onClick={handleInviteClick}
+          aria-label={t('invite')}
+        >
+          <Plus className='size-5' />
+          <span className='hidden sm:inline'>{t('invite')}</span>
+        </Button>
       </div>
       <Table config={config} onRowClick={handleRowClick} />
     </div>
