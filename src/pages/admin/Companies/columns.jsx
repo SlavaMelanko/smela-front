@@ -4,30 +4,25 @@ export const getAccessibleColumns = (t, formatDate) => {
   return [
     {
       accessorKey: 'id',
-      header: label('id'),
-      size: 60
+      header: label('id')
     },
     {
       accessorKey: 'name',
       header: label('name'),
-      sortingFn: 'alphanumeric',
-      size: 180
+      sortingFn: 'alphanumeric'
     },
     {
       accessorKey: 'website',
-      header: label('website'),
-      size: 200
+      header: label('website')
     },
     {
       accessorKey: 'createdAt',
       header: label('createdAt'),
-      size: 140,
       cell: info => formatDate(info.getValue())
     },
     {
       accessorKey: 'updatedAt',
       header: label('updatedAt'),
-      size: 140,
       cell: info => formatDate(info.getValue())
     }
   ]
