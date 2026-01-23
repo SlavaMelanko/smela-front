@@ -24,7 +24,7 @@ export const CompanyPage = () => {
   const { showSuccessToast, showErrorToast } = useToast()
 
   const { data: company, isPending, isError } = useCompany(id)
-  const { mutate: updateCompany } = useUpdateCompany(id)
+  const { mutate: updateCompany, isPending: isUpdating } = useUpdateCompany(id)
 
   const handleSubmit = data => {
     updateCompany(data, {
@@ -79,6 +79,7 @@ export const CompanyPage = () => {
           <CompanyDetailsForm
             company={company}
             isLoading={isPending}
+            isSubmitting={isUpdating}
             onSubmit={handleSubmit}
           />
         </TabsContent>

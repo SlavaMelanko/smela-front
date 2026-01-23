@@ -1,15 +1,27 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { FormField, FormFields, FormRoot, FormRow } from '@/components/form'
-import { Button, Input, Textarea } from '@/components/ui'
+import {
+  FormField,
+  FormFields,
+  FormRoot,
+  FormRow,
+  SubmitButton
+} from '@/components/form'
+import { Spinner } from '@/components/Spinner'
+import { Input, Textarea } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 import { datePreset } from '@/lib/format'
 
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-export const CompanyDetailsForm = ({ company, isLoading, onSubmit }) => {
+export const CompanyDetailsForm = ({
+  company,
+  isLoading,
+  isSubmitting,
+  onSubmit
+}) => {
   const { t, formatDate } = useLocale()
 
   const {
@@ -33,7 +45,7 @@ export const CompanyDetailsForm = ({ company, isLoading, onSubmit }) => {
   }, [company, reset])
 
   if (isLoading) {
-    return null
+    return <Spinner />
   }
 
   return (
@@ -81,9 +93,9 @@ export const CompanyDetailsForm = ({ company, isLoading, onSubmit }) => {
         </FormRow>
 
         <div className='flex justify-end'>
-          <Button type='submit' disabled={!isDirty}>
+          <SubmitButton isLoading={isSubmitting} disabled={!isDirty}>
             {t('save')}
-          </Button>
+          </SubmitButton>
         </div>
       </FormFields>
     </FormRoot>
