@@ -4,12 +4,13 @@ import { useForm } from 'react-hook-form'
 import { FormField, FormFields, FormRoot, FormRow } from '@/components/form'
 import { Button, Input, Textarea } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
+import { datePreset } from '@/lib/format'
 
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
 export const CompanyDetailsForm = ({ company, isLoading, onSubmit }) => {
-  const { t } = useLocale()
+  const { t, formatDate } = useLocale()
 
   const {
     register,
@@ -38,7 +39,7 @@ export const CompanyDetailsForm = ({ company, isLoading, onSubmit }) => {
   return (
     <FormRoot onSubmit={handleSubmit(onSubmit)}>
       <FormFields>
-        <FormRow className='grid-cols-1 md:grid-cols-2'>
+        <FormRow>
           <FormField
             label={t('company.name.label')}
             name={FieldName.NAME}
@@ -65,6 +66,15 @@ export const CompanyDetailsForm = ({ company, isLoading, onSubmit }) => {
         >
           <Textarea {...register(FieldName.DESCRIPTION)} />
         </FormField>
+
+        <FormRow>
+          <FormField label={t('createdAt')} optional>
+            <p>{formatDate(company.createdAt, datePreset.short)}</p>
+          </FormField>
+          <FormField label={t('updatedAt')} optional>
+            <p>{formatDate(company.updatedAt, datePreset.short)}</p>
+          </FormField>
+        </FormRow>
 
         <div className='flex justify-end'>
           <Button type='submit' disabled={!isDirty}>
