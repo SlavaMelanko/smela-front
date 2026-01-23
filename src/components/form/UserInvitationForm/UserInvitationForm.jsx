@@ -15,7 +15,7 @@ import useLocale from '@/hooks/useLocale'
 import { FieldName, getDefaultValues } from './fields'
 import resolver from './resolver'
 
-export const UserInvitationForm = ({ isLoading, submitLabel, onSubmit }) => {
+export const UserInvitationForm = ({ isLoading, onSubmit }) => {
   const { t } = useLocale()
 
   const {
@@ -113,7 +113,7 @@ export const UserInvitationForm = ({ isLoading, submitLabel, onSubmit }) => {
       </FormGroup>
 
       <SubmitButton isLoading={isSubmitting || isLoading}>
-        {submitLabel}
+        {t('invitation.send.cta')}
       </SubmitButton>
     </FormRoot>
   )

@@ -28,11 +28,7 @@ export const MemberInvitationDialog = ({ companyId, onClose }) => {
         <DialogTitle>{t('invitation.send.title.member')}</DialogTitle>
       </DialogHeader>
       <DialogBody>
-        <UserInvitationForm
-          isLoading={isPending}
-          submitLabel={t('invitation.send.cta')}
-          onSubmit={onSubmit}
-        />
+        <UserInvitationForm isLoading={isPending} onSubmit={onSubmit} />
       </DialogBody>
     </>
   )

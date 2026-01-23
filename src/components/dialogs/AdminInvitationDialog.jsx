@@ -28,11 +28,7 @@ export const AdminInvitationDialog = ({ onClose }) => {
         <DialogTitle>{t('invitation.send.title.admin')}</DialogTitle>
       </DialogHeader>
       <DialogBody>
-        <UserInvitationForm
-          isLoading={isPending}
-          submitLabel={t('invitation.send.cta')}
-          onSubmit={onSubmit}
-        />
+        <UserInvitationForm isLoading={isPending} onSubmit={onSubmit} />
       </DialogBody>
     </>
   )
