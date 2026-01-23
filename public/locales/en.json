@@ -1,6 +1,7 @@
 {
   "add": "Add",
   "alreadyHaveAccount": "Already have an account?",
+  "back": "Back",
   "backend": {
     "auth/already-verified": "Invalid request. Please try logging in.",
     "auth/email-already-in-use": "Email is already taken.",
@@ -50,6 +51,7 @@
   "continueWithGoogle": "Continue with Google",
   "copyright": "© {{year}} {{companyName}}",
   "createdAt": "Created At",
+  "details": "Details",
   "doNotHaveAccount": "Don't have an account?",
   "email": {
     "confirmation": {

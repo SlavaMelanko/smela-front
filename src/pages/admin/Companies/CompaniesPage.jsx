@@ -5,6 +5,7 @@ import {
 } from '@tanstack/react-table'
 import { Plus } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { CompanyAddDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
@@ -21,6 +22,7 @@ import useTableParams from '@/hooks/useTableParams'
 import { getAccessibleColumns } from './columns'
 
 export const CompaniesPage = () => {
+  const navigate = useNavigate()
   const { t, formatDate } = useLocale()
   const { openModal } = useModal()
 
@@ -48,10 +50,10 @@ export const CompaniesPage = () => {
   })
   const [sorting, setSorting] = useState([])
 
-  const handleRowClick = useCallback(company => {
-    // TODO: Open company detail dialog
-    console.warn('Company clicked:', company)
-  }, [])
+  const handleRowClick = useCallback(
+    company => navigate(`/admin/companies/${company.id}`),
+    [navigate]
+  )
 
   const handleAddClick = useCallback(() => {
     const close = openModal({

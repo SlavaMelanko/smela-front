@@ -66,6 +66,7 @@ export const useCompany = (id, options = {}) => {
   return useQuery({
     queryKey: adminKeys.companyDetail(id),
     queryFn: () => adminApi.getCompanyById(id),
+    select: data => data?.company,
     enabled: !!id,
     ...adminQueryOptions,
     ...options

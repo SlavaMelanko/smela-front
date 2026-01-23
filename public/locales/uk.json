@@ -1,6 +1,7 @@
 {
   "add": "Додати",
   "alreadyHaveAccount": "Вже свій?",
+  "back": "Назад",
   "backend": {
     "auth/already-verified": "Невірний запит. Спробуйте увійти в обліковий запис.",
     "auth/email-already-in-use": "Електронна адреса вже зайнята.",
@@ -50,6 +51,7 @@
   "continueWithGoogle": "Продовжити з Google",
   "copyright": "© {{year}} {{companyName}}",
   "createdAt": "Створено",
+  "details": "Деталі",
   "doNotHaveAccount": "Новенький тут?",
   "email": {
     "confirmation": {
