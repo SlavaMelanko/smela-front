@@ -1,4 +1,4 @@
-import { ChevronLeft, Info, Users } from 'lucide-react'
+import { Building2, ChevronLeft, Users } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { CompanyBadge } from '@/components/badges'
@@ -71,7 +71,7 @@ export const CompanyPage = () => {
             value={CompanyTab.DETAILS}
             className='after:bg-primary after:rounded-full'
           >
-            <Info className='size-4' />
+            <Building2 className='size-4' />
             {t('company.tabs.details')}
           </TabsTrigger>
           <TabsTrigger
