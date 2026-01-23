@@ -15,6 +15,7 @@ const makeSchema = () => ({
     .string()
     .trim()
     .transform(value => (value === '' ? undefined : value))
+    .max(500, 'company.description.error.max')
 })
 
 const resolver = createResolver(makeSchema())

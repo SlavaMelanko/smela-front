@@ -6,7 +6,7 @@ import {
   FormRoot,
   SubmitButton
 } from '@/components/form'
-import { Input } from '@/components/ui'
+import { Input, Textarea } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues } from './fields'
@@ -50,7 +50,7 @@ export const CompanyAddForm = ({ isLoading, submitLabel, onSubmit }) => {
           error={errors[FieldName.DESCRIPTION]}
           optional
         >
-          <Input {...register(FieldName.DESCRIPTION)} />
+          <Textarea {...register(FieldName.DESCRIPTION)} />
         </FormField>
       </FormFields>
 

@@ -26,6 +26,9 @@
       "title": "Add Company"
     },
     "description": {
+      "error": {
+        "max": "Description can't exceed 500 characters."
+      },
       "label": "Description"
     },
     "name": {
