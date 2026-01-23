@@ -11,6 +11,7 @@ import {
   TabsTrigger
 } from '@/components/ui'
 import { useCompany, useUpdateCompany } from '@/hooks/useAdmin'
+import useHashTab from '@/hooks/useHashTab'
 import useLocale from '@/hooks/useLocale'
 import useToast from '@/hooks/useToast'
 import { toTranslationKey } from '@/services/catch'
@@ -28,6 +29,10 @@ export const CompanyPage = () => {
   const navigate = useNavigate()
   const { t } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
+  const [activeTab, setActiveTab] = useHashTab(
+    Object.values(CompanyTab),
+    CompanyTab.INFO
+  )
 
   const { data: company, isPending, isError } = useCompany(id)
   const { mutate: updateCompany, isPending: isUpdating } = useUpdateCompany(id)
@@ -78,7 +83,7 @@ export const CompanyPage = () => {
         </Button>
       </div>
       <CompanyBadge name={company.name} website={company.website} />
-      <Tabs defaultValue={CompanyTab.INFO}>
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList variant='line' className='border-0'>
           {tabs.map(({ value, icon: Icon, label }) => (
             <TabsTrigger
