@@ -47,6 +47,9 @@
         "withCount": "Учасники ({{count}})"
       }
     },
+    "update": {
+      "success": "Успішно оновлено."
+    },
     "website": {
       "error": {
         "format": "Введіть правильну URL-адресу."

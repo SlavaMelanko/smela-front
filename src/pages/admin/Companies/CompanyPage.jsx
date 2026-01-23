@@ -12,6 +12,8 @@ import {
 } from '@/components/ui'
 import { useCompany, useUpdateCompany } from '@/hooks/useAdmin'
 import useLocale from '@/hooks/useLocale'
+import useToast from '@/hooks/useToast'
+import { toTranslationKey } from '@/services/catch'
 
 import { CompanyDetailsForm } from './CompanyDetailsForm'
 
@@ -19,12 +21,20 @@ export const CompanyPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const { t } = useLocale()
+  const { showSuccessToast, showErrorToast } = useToast()
 
   const { data: company, isPending, isError } = useCompany(id)
   const { mutate: updateCompany } = useUpdateCompany(id)
 
   const handleSubmit = data => {
-    updateCompany(data)
+    updateCompany(data, {
+      onSuccess: () => {
+        showSuccessToast(t('company.update.success'))
+      },
+      onError: err => {
+        showErrorToast(t(toTranslationKey(err)))
+      }
+    })
   }
 
   if (isPending) {

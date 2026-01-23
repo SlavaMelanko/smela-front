@@ -47,6 +47,9 @@
         "withCount": "Members ({{count}})"
       }
     },
+    "update": {
+      "success": "Updated successfully."
+    },
     "website": {
       "error": {
         "format": "Enter a valid URL."
