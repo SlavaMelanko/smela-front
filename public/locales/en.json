@@ -33,6 +33,8 @@
     },
     "name": {
       "error": {
+        "max": "Company name can't exceed 100 characters.",
+        "min": "Company name must be at least 2 characters.",
         "required": "Company name is required."
       },
       "label": "Name"

@@ -1,21 +1,15 @@
-import * as yup from 'yup'
-
-import { createResolver } from '@/lib/validation'
+import { createResolver, rules } from '@/lib/validation'
 
 import { FieldName } from './fields'
 
 const makeSchema = () => ({
-  [FieldName.NAME]: yup.string().trim().required('company.name.error.required'),
-  [FieldName.WEBSITE]: yup
-    .string()
-    .trim()
-    .transform(value => (value === '' ? undefined : value))
-    .url('company.website.error.format'),
-  [FieldName.DESCRIPTION]: yup
-    .string()
-    .trim()
-    .transform(value => (value === '' ? undefined : value))
-    .max(500, 'company.description.error.max')
+  [FieldName.NAME]: rules.companyName({
+    required: 'company.name.error.required',
+    min: 'company.name.error.min',
+    max: 'company.name.error.max'
+  }),
+  [FieldName.WEBSITE]: rules.url('company.website.error.format'),
+  [FieldName.DESCRIPTION]: rules.description('company.description.error.max')
 })
 
 const resolver = createResolver(makeSchema())
