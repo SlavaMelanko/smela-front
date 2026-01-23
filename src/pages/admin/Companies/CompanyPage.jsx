@@ -17,6 +17,11 @@ import { toTranslationKey } from '@/services/catch'
 
 import { CompanyDetailsForm } from './CompanyDetailsForm'
 
+const CompanyTab = {
+  DETAILS: 'details',
+  MEMBERS: 'members'
+}
+
 export const CompanyPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -60,22 +65,22 @@ export const CompanyPage = () => {
         </Button>
       </div>
       <CompanyBadge name={company.name} website={company.website} />
-      <Tabs defaultValue='details'>
+      <Tabs defaultValue={CompanyTab.DETAILS}>
         <TabsList variant='line' className='border-0'>
           <TabsTrigger
-            value='details'
+            value={CompanyTab.DETAILS}
             className='after:bg-primary after:rounded-full'
           >
             {t('company.tabs.details')}
           </TabsTrigger>
           <TabsTrigger
-            value='members'
+            value={CompanyTab.MEMBERS}
             className='after:bg-primary after:rounded-full'
           >
             {membersLabel}
           </TabsTrigger>
         </TabsList>
-        <TabsContent value='details'>
+        <TabsContent value={CompanyTab.DETAILS}>
           <CompanyDetailsForm
             company={company}
             isLoading={isPending}
