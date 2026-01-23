@@ -66,3 +66,7 @@ export const companyName = errors =>
 
 export const description = errorMessage =>
   optionalStr().max(DescriptionConstraint.MAX_LENGTH, errorMessage)
+
+export const position = optionalStr()
+  .min(NameConstraint.MIN_LENGTH, 'position.error.min')
+  .max(NameConstraint.MAX_LENGTH, 'position.error.max')

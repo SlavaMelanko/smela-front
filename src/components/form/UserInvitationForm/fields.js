@@ -2,6 +2,7 @@ export const FieldName = {
   FIRST_NAME: 'firstName',
   LAST_NAME: 'lastName',
   EMAIL: 'email',
+  POSITION: 'position',
   PERMISSIONS_VIEW: 'permissions.view',
   PERMISSIONS_CREATE: 'permissions.create',
   PERMISSIONS_EDIT: 'permissions.edit',
@@ -12,6 +13,7 @@ export const getDefaultValues = () => ({
   [FieldName.FIRST_NAME]: '',
   [FieldName.LAST_NAME]: '',
   [FieldName.EMAIL]: '',
+  [FieldName.POSITION]: '',
   permissions: {
     view: true,
     create: true,

@@ -56,6 +56,15 @@ export const UserInvitationForm = ({ isLoading, onSubmit }) => {
           >
             <Input {...register(FieldName.EMAIL)} />
           </FormField>
+
+          <FormField
+            label={t('position.label')}
+            name={FieldName.POSITION}
+            error={errors[FieldName.POSITION]}
+            optional
+          >
+            <Input {...register(FieldName.POSITION)} />
+          </FormField>
         </FormFields>
       </FormGroup>
 
