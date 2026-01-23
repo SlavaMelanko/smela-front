@@ -1,4 +1,4 @@
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, Info, Users } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { CompanyBadge } from '@/components/badges'
@@ -71,12 +71,14 @@ export const CompanyPage = () => {
             value={CompanyTab.DETAILS}
             className='after:bg-primary after:rounded-full'
           >
+            <Info className='size-4' />
             {t('company.tabs.details')}
           </TabsTrigger>
           <TabsTrigger
             value={CompanyTab.MEMBERS}
             className='after:bg-primary after:rounded-full'
           >
+            <Users className='size-4' />
             {membersLabel}
           </TabsTrigger>
         </TabsList>
