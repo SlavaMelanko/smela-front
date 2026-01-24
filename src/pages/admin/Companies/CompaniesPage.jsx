@@ -92,19 +92,11 @@ export const CompaniesPage = () => {
   }))
 
   if (isPending) {
-    return (
-      <div className='flex flex-col gap-2'>
-        <Spinner text={t('loading')} />
-      </div>
-    )
+    return <Spinner />
   }
 
   if (isError) {
-    return (
-      <div className='flex flex-col gap-2'>
-        <p>{t('error.loading')}</p>
-      </div>
-    )
+    return <p>{t('error.loading')}</p>
   }
 
   return (
