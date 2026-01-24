@@ -10,8 +10,7 @@ import { PasswordInput } from '@/components/inputs'
 import { Input } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-import { FieldName, getDefaultValues } from './fields'
-import resolver from './resolver'
+import { FieldName, getDefaultValues, resolver } from './schema'
 
 export const LoginForm = ({ isLoading, onSubmit }) => {
   const { t } = useLocale()

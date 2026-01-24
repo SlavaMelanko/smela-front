@@ -9,8 +9,7 @@ import {
 import { PasswordInput } from '@/components/inputs'
 import useLocale from '@/hooks/useLocale'
 
-import { FieldName, getDefaultValues } from './fields'
-import resolver from './resolver'
+import { FieldName, getDefaultValues, resolver } from './schema'
 
 export const AcceptInviteForm = ({ isLoading, onSubmit }) => {
   const { t } = useLocale()

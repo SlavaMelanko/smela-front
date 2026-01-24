@@ -9,8 +9,7 @@ import {
 import { Input, Textarea } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-import { FieldName, getDefaultValues } from './fields'
-import resolver from './resolver'
+import { FieldName, getDefaultValues, resolver } from './schema'
 
 export const CompanyAddForm = ({ isLoading, submitLabel, onSubmit }) => {
   const { t } = useLocale()

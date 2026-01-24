@@ -13,8 +13,7 @@ import { Input, Textarea } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 import { datePreset } from '@/lib/format'
 
-import { FieldName, getDefaultValues } from './fields'
-import resolver from './resolver'
+import { FieldName, getDefaultValues, getValues, resolver } from './schema'
 
 export const CompanyInfoForm = ({
   company,
@@ -36,11 +35,7 @@ export const CompanyInfoForm = ({
 
   useEffect(() => {
     if (company) {
-      reset({
-        [FieldName.NAME]: company.name ?? '',
-        [FieldName.WEBSITE]: company.website ?? '',
-        [FieldName.DESCRIPTION]: company.description ?? ''
-      })
+      reset(getValues(company))
     }
   }, [company, reset])
 

@@ -50,16 +50,16 @@ export const CompaniesPage = () => {
   })
   const [sorting, setSorting] = useState([])
 
-  const handleRowClick = useCallback(
-    company => navigate(`/admin/companies/${company.id}`),
-    [navigate]
-  )
-
   const handleAddClick = useCallback(() => {
     const close = openModal({
       children: <CompanyAddDialog onClose={() => close()} />
     })
   }, [openModal])
+
+  const handleRowClick = useCallback(
+    company => navigate(`/admin/companies/${company.id}`),
+    [navigate]
+  )
 
   const handlePageChange = page => {
     setParams({ page })
