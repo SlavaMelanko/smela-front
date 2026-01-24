@@ -1,3 +1,4 @@
-export { CompaniesPage, CompanyPage } from './Companies'
+export { CompaniesPage } from './Companies'
+export { CompanyPage } from './Company'
 export { DashboardPage } from './Dashboard'
 export { UsersPage } from './Users'
