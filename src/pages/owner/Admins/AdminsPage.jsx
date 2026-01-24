@@ -3,15 +3,15 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { Plus } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 
+import { Error, Info } from '@/components/alerts'
+import { AddButton } from '@/components/buttons'
 import { AdminInvitationDialog, ProfileDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
-import { Button } from '@/components/ui'
 import useDebouncedSearch from '@/hooks/useDebouncedSearch'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
@@ -22,6 +22,10 @@ import { getAccessibleColumns } from './columns'
 
 const coreRowModel = getCoreRowModel()
 const sortedRowModel = getSortedRowModel()
+
+const Toolbar = ({ children }) => (
+  <div className='flex min-h-11 items-center gap-4'>{children}</div>
+)
 
 export const AdminsPage = () => {
   const { t, formatDate } = useLocale()
@@ -40,6 +44,7 @@ export const AdminsPage = () => {
 
   const { data, isPending, isError } = useAdmins(apiParams)
   const { admins = [], pagination = defaultOptions } = data ?? {}
+  const isEmpty = !isPending && admins.length === 0
 
   const columns = useMemo(
     () => getAccessibleColumns(t, formatDate),
@@ -51,6 +56,12 @@ export const AdminsPage = () => {
   })
   const [sorting, setSorting] = useState([])
 
+  const handleInviteClick = useCallback(() => {
+    const close = openModal({
+      children: <AdminInvitationDialog onClose={() => close()} />
+    })
+  }, [openModal])
+
   const handleRowClick = useCallback(
     admin => {
       const close = openModal({
@@ -60,12 +71,6 @@ export const AdminsPage = () => {
     [openModal]
   )
 
-  const handleInviteClick = useCallback(() => {
-    const close = openModal({
-      children: <AdminInvitationDialog onClose={() => close()} />
-    })
-  }, [openModal])
-
   const handlePageChange = page => {
     setParams({ page })
   }
@@ -74,6 +79,8 @@ export const AdminsPage = () => {
     setParams({ limit }, { resetPage: true })
   }
 
+  // TanStack Table uses interior mutability which is incompatible with React Compiler's memoization.
+  // See: https://react.dev/reference/eslint-plugin-react-hooks/lints/incompatible-library
   // eslint-disable-next-line react-hooks/incompatible-library
   const config = useReactTable({
     data: admins,
@@ -97,24 +104,28 @@ export const AdminsPage = () => {
   }))
 
   if (isPending) {
-    return (
-      <div className='flex flex-col gap-2'>
-        <Spinner text={t('loading')} />
-      </div>
-    )
+    return <Spinner />
   }
 
   if (isError) {
+    return <Error text={t('error.loading')} />
+  }
+
+  if (isEmpty) {
     return (
-      <div className='flex flex-col gap-2'>
-        <p>{t('error.loading')}</p>
-      </div>
+      <Info text={t('empty.admins')}>
+        <AddButton
+          label={t('invite')}
+          onClick={handleInviteClick}
+          hideTextOnMobile={false}
+        />
+      </Info>
     )
   }
 
   return (
     <div className='flex flex-col gap-4 md:gap-5'>
-      <div className='flex min-h-11 items-center gap-4'>
+      <Toolbar>
         <SearchInput
           className='flex-1'
           placeholder={t('searchBy.users')}
@@ -125,23 +136,15 @@ export const AdminsPage = () => {
           label={t('table.column_plural')}
           columns={availableColumns}
         />
-        <Button
-          variant='outline'
-          onClick={handleInviteClick}
-          aria-label={t('invite')}
-        >
-          <Plus className='size-5' />
-          <span className='hidden sm:inline'>{t('invite')}</span>
-        </Button>
-      </div>
+        <AddButton label={t('invite')} onClick={handleInviteClick} />
+      </Toolbar>
+
       <Table config={config} onRowClick={handleRowClick} />
-      <div className='mt-2'>
-        <Pagination
-          pagination={pagination}
-          onPageChange={handlePageChange}
-          onLimitChange={handleLimitChange}
-        />
-      </div>
+      <Pagination
+        pagination={pagination}
+        onPageChange={handlePageChange}
+        onLimitChange={handleLimitChange}
+      />
     </div>
   )
 }

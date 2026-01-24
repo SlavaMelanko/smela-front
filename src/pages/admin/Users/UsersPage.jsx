@@ -6,6 +6,7 @@ import {
 } from '@tanstack/react-table'
 import { useCallback, useMemo, useState } from 'react'
 
+import { Error } from '@/components/alerts'
 import { ProfileDialog } from '@/components/dialogs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
@@ -101,19 +102,11 @@ export const UsersPage = () => {
   }))
 
   if (isPending) {
-    return (
-      <div className='flex flex-col gap-2'>
-        <Spinner text={t('loading')} />
-      </div>
-    )
+    return <Spinner />
   }
 
   if (isError) {
-    return (
-      <div className='flex flex-col gap-2'>
-        <p>{t('error.loading')}</p>
-      </div>
-    )
+    return <Error text={t('error.loading')} />
   }
 
   return (
@@ -125,15 +118,15 @@ export const UsersPage = () => {
         searchValue={searchValue}
         onSearchChange={setSearchValue}
       />
+
       <Filters isShow={showFilters} params={params} setParams={setParams} />
+
       <Table config={config} onRowClick={handleRowClick} />
-      <div className='mt-2'>
-        <Pagination
-          pagination={pagination}
-          onPageChange={handlePageChange}
-          onLimitChange={handleLimitChange}
-        />
-      </div>
+      <Pagination
+        pagination={pagination}
+        onPageChange={handlePageChange}
+        onLimitChange={handleLimitChange}
+      />
     </div>
   )
 }

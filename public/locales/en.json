@@ -92,6 +92,7 @@
     }
   },
   "empty": {
+    "admins": "No admins yet.",
     "companies": "No companies yet."
   },
   "error": {
