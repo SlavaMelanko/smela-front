@@ -10,6 +10,9 @@ import { Role, UserStatus } from '@/lib/types'
 
 import { Table } from '.'
 
+const coreRowModel = getCoreRowModel()
+const sortedRowModel = getSortedRowModel()
+
 export default {
   title: 'Components/Table',
   component: Table,
@@ -82,8 +85,8 @@ const InteractiveTable = ({ data, onRowClick }) => {
     state: { sorting },
     onSortingChange: setSorting,
     columnResizeMode: 'onChange',
-    getCoreRowModel,
-    getSortedRowModel
+    getCoreRowModel: coreRowModel,
+    getSortedRowModel: sortedRowModel
   })
 
   return <Table config={config} onRowClick={onRowClick} />

@@ -10,6 +10,8 @@ import useModal from '@/hooks/useModal'
 
 import { getColumns } from './columns'
 
+const coreRowModel = getCoreRowModel()
+
 const Toolbar = ({ children }) => (
   <div className='flex min-h-11 justify-end gap-4'>{children}</div>
 )
@@ -49,7 +51,7 @@ export const CompanyTeam = ({ companyId, members }) => {
     columns,
     state: { columnVisibility },
     onColumnVisibilityChange: setColumnVisibility,
-    getCoreRowModel
+    getCoreRowModel: coreRowModel
   })
 
   if (isEmpty) {

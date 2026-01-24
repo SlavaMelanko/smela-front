@@ -20,6 +20,10 @@ import { getAccessibleColumns } from './columns'
 import { Filters } from './Filters'
 import { Toolbar } from './Toolbar'
 
+const coreRowModel = getCoreRowModel()
+const filteredRowModel = getFilteredRowModel()
+const sortedRowModel = getSortedRowModel()
+
 export const UsersPage = () => {
   const { t, formatDate } = useLocale()
   const { openModal } = useModal()
@@ -84,9 +88,9 @@ export const UsersPage = () => {
     columnResizeDirection: 'ltr',
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
-    getCoreRowModel,
-    getFilteredRowModel,
-    getSortedRowModel
+    getCoreRowModel: coreRowModel,
+    getFilteredRowModel: filteredRowModel,
+    getSortedRowModel: sortedRowModel
   })
 
   const availableColumns = config.getAllLeafColumns().map(column => ({

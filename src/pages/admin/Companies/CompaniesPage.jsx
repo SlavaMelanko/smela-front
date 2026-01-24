@@ -21,6 +21,9 @@ import useTableParams from '@/hooks/useTableParams'
 
 import { getAccessibleColumns } from './columns'
 
+const coreRowModel = getCoreRowModel()
+const sortedRowModel = getSortedRowModel()
+
 const Toolbar = ({ children }) => (
   <div className='flex min-h-11 items-center gap-4'>{children}</div>
 )
@@ -85,8 +88,8 @@ export const CompaniesPage = () => {
     columnResizeDirection: 'ltr',
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
-    getCoreRowModel,
-    getSortedRowModel
+    getCoreRowModel: coreRowModel,
+    getSortedRowModel: sortedRowModel
   })
 
   const availableColumns = config.getAllLeafColumns().map(column => ({

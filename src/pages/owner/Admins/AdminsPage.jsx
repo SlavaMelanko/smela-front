@@ -20,6 +20,9 @@ import useTableParams from '@/hooks/useTableParams'
 
 import { getAccessibleColumns } from './columns'
 
+const coreRowModel = getCoreRowModel()
+const sortedRowModel = getSortedRowModel()
+
 export const AdminsPage = () => {
   const { t, formatDate } = useLocale()
   const { openModal } = useModal()
@@ -82,8 +85,8 @@ export const AdminsPage = () => {
     columnResizeDirection: 'ltr',
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
-    getCoreRowModel,
-    getSortedRowModel
+    getCoreRowModel: coreRowModel,
+    getSortedRowModel: sortedRowModel
   })
 
   const availableColumns = config.getAllLeafColumns().map(column => ({
