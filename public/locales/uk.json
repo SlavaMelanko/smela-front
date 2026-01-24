@@ -1,5 +1,7 @@
 {
+  "add": "Додати",
   "alreadyHaveAccount": "Вже свій?",
+  "back": "Назад",
   "backend": {
     "auth/already-verified": "Невірний запит. Спробуйте увійти в обліковий запис.",
     "auth/email-already-in-use": "Електронна адреса вже зайнята.",
@@ -18,9 +20,51 @@
   "captcha": {
     "error": "Помилка перевірки безпеки. Спробуйте ще раз."
   },
+  "company": {
+    "add": {
+      "cta": "Створити",
+      "success": "Компанію створено.",
+      "title": "Додати компанію"
+    },
+    "description": {
+      "error": {
+        "max": "Опис не може перевищувати 500 символів."
+      },
+      "label": "Опис"
+    },
+    "name": {
+      "error": {
+        "max": "Назва компанії не може перевищувати 100 символів.",
+        "min": "Назва компанії має містити щонайменше 2 символи.",
+        "required": "Назва компанії обовʼязкова."
+      },
+      "label": "Назва"
+    },
+    "tabs": {
+      "info": "Інфо",
+      "team": {
+        "label": "Команда",
+        "withCount": "Команда ({{count}})"
+      }
+    },
+    "team": {
+      "empty": "Учасників команди поки немає."
+    },
+    "update": {
+      "success": "Успішно оновлено."
+    },
+    "website": {
+      "error": {
+        "format": "Введіть правильну URL-адресу."
+      },
+      "label": "Вебсайт"
+    }
+  },
   "companyName": "SMELA",
   "continueWithGoogle": "Продовжити з Google",
   "copyright": "© {{year}} {{companyName}}",
+  "createdAt": "Створено",
+  "details": "Деталі",
   "doNotHaveAccount": "Новенький тут?",
   "email": {
     "confirmation": {
@@ -47,13 +91,17 @@
       "success": "Електронна пошта підтверджена успішно."
     }
   },
+  "empty": {
+    "admins": "Адмінів поки немає.",
+    "companies": "Компаній поки немає."
+  },
   "error": {
     "general": {
       "cta": "На головну",
       "message": "Для нас це також несподіванка. Ми детальніше розберемося та вирішимо цю проблему згідно наших пріоритетів. Дякуємо за розуміння.",
       "title": "Ой! Щось пішло не так"
     },
-    "loading": "Не вдалося завантажити дані. Спробуйте ще раз.",
+    "loading": "Не вдалося завантажити дані. Спробуйте пізніше.",
     "network": {
       "cta": "Спробувати ще раз",
       "message": {
@@ -93,14 +141,15 @@
       "title": "Вас запрошено до {{companyName}}"
     },
     "send": {
-      "admin": {
-        "cta": "Надіслати запрошення",
-        "error": "Не вдалося надіслати запрошення.",
-        "success": "Запрошення успішно надіслано.",
-        "title": "Додати адміна"
+      "cta": "Надіслати запрошення",
+      "success": "Запрошення успішно надіслано.",
+      "title": {
+        "admin": "Запросити адміна",
+        "member": "Запросити учасника"
       }
     }
   },
+  "invite": "Запросити",
   "lastName": {
     "error": {
       "max": "Прізвище не може бути довше 50 символів.",
@@ -161,6 +210,13 @@
     }
   },
   "personalDetails": "Персональні дані",
+  "position": {
+    "error": {
+      "max": "Посада не може бути довшою за 50 символів.",
+      "min": "Посада повинна містити щонайменше 2 символи."
+    },
+    "label": "Посада"
+  },
   "pricing": {
     "cta": "Продовжити",
     "custom": {
@@ -223,9 +279,14 @@
       "user": "Користувач"
     }
   },
-  "searchBy": "Шукати за ім'ям, email, тощо...",
+  "save": "Зберегти",
+  "searchBy": {
+    "companies": "Шукати за ID, назвою, сайтом...",
+    "users": "Шукати за ID, ім'ям, email..."
+  },
   "sidebar": {
     "admins": "Адміни",
+    "companies": "Компанії",
     "dashboard": "Адмін-панель",
     "documentation": "Документація",
     "home": "Головна",
@@ -254,15 +315,32 @@
   "table": {
     "column": "Колонка",
     "column_plural": "Колонки",
+    "companies": {
+      "createdAt": "$t(createdAt)",
+      "id": "ID",
+      "name": "Назва",
+      "updatedAt": "$t(updatedAt)",
+      "website": "Сайт"
+    },
     "filter": "Фільтр",
     "filter_plural": "Фільтри",
-    "users": {
-      "createdAt": "Створено",
+    "team": {
       "email": "Email",
-      "id": "#",
+      "id": "ID",
+      "invitedBy": "Запросив",
+      "joinedAt": "Приєднався",
+      "name": "Ім'я",
+      "position": "Посада",
+      "status": "$t(status.name)"
+    },
+    "users": {
+      "createdAt": "$t(createdAt)",
+      "email": "Email",
+      "id": "ID",
       "name": "Ім'я",
       "role": "$t(role.name)",
-      "status": "$t(status.name)"
+      "status": "$t(status.name)",
+      "updatedAt": "$t(updatedAt)"
     }
   },
   "termsAndPrivacy": {
@@ -281,5 +359,6 @@
       "mb": "МБ",
       "tb": "ТБ"
     }
-  }
+  },
+  "updatedAt": "Оновлено"
 }

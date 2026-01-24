@@ -1,5 +1,7 @@
 {
+  "add": "Add",
   "alreadyHaveAccount": "Already have an account?",
+  "back": "Back",
   "backend": {
     "auth/already-verified": "Invalid request. Please try logging in.",
     "auth/email-already-in-use": "Email is already taken.",
@@ -18,9 +20,51 @@
   "captcha": {
     "error": "Security verification failed. Please try again."
   },
+  "company": {
+    "add": {
+      "cta": "Create",
+      "success": "Company created.",
+      "title": "Add Company"
+    },
+    "description": {
+      "error": {
+        "max": "Description can't exceed 500 characters."
+      },
+      "label": "Description"
+    },
+    "name": {
+      "error": {
+        "max": "Company name can't exceed 100 characters.",
+        "min": "Company name must be at least 2 characters.",
+        "required": "Company name is required."
+      },
+      "label": "Name"
+    },
+    "tabs": {
+      "info": "Info",
+      "team": {
+        "label": "Team",
+        "withCount": "Team ({{count}})"
+      }
+    },
+    "team": {
+      "empty": "No team members yet."
+    },
+    "update": {
+      "success": "Updated successfully."
+    },
+    "website": {
+      "error": {
+        "format": "Enter a valid URL."
+      },
+      "label": "Website"
+    }
+  },
   "companyName": "SMELA",
   "continueWithGoogle": "Continue with Google",
   "copyright": "© {{year}} {{companyName}}",
+  "createdAt": "Created At",
+  "details": "Details",
   "doNotHaveAccount": "Don't have an account?",
   "email": {
     "confirmation": {
@@ -47,13 +91,17 @@
       "success": "Email verified successfully."
     }
   },
+  "empty": {
+    "admins": "No admins yet.",
+    "companies": "No companies yet."
+  },
   "error": {
     "general": {
       "cta": "Go home",
       "message": "This is unexpected for us too. We'll take a closer look and handle it according to our current priorities. Thanks for your patience.",
       "title": "Oops! Something went wrong"
     },
-    "loading": "Failed to load data. Please try again.",
+    "loading": "Failed to load data. Please try again later.",
     "network": {
       "cta": "Try again",
       "message": {
@@ -93,14 +141,15 @@
       "title": "You're invited to {{companyName}}"
     },
     "send": {
-      "admin": {
-        "cta": "Send invitation",
-        "error": "Failed to send invitation.",
-        "success": "Invitation sent successfully.",
-        "title": "Invite admin"
+      "cta": "Send invitation",
+      "success": "Invitation sent successfully.",
+      "title": {
+        "admin": "Invite admin",
+        "member": "Invite member"
       }
     }
   },
+  "invite": "Invite",
   "lastName": {
     "error": {
       "max": "Last name can’t be longer than 50 characters.",
@@ -161,6 +210,13 @@
     }
   },
   "personalDetails": "Personal details",
+  "position": {
+    "error": {
+      "max": "Position can't be longer than 50 characters.",
+      "min": "Position must be at least 2 characters."
+    },
+    "label": "Position"
+  },
   "pricing": {
     "cta": "Sign up now",
     "custom": {
@@ -223,9 +279,14 @@
       "user": "User"
     }
   },
-  "searchBy": "Search by name, email, etc...",
+  "save": "Save",
+  "searchBy": {
+    "companies": "Search by ID, name, website...",
+    "users": "Search by ID, name, email..."
+  },
   "sidebar": {
     "admins": "Admins",
+    "companies": "Companies",
     "dashboard": "Dashboard",
     "documentation": "Documentation",
     "home": "Home",
@@ -254,15 +315,32 @@
   "table": {
     "column": "Column",
     "column_plural": "Columns",
+    "companies": {
+      "createdAt": "$t(createdAt)",
+      "id": "ID",
+      "name": "Name",
+      "updatedAt": "$t(updatedAt)",
+      "website": "Website"
+    },
     "filter": "Filter",
     "filter_plural": "Filters",
+    "team": {
+      "email": "Email",
+      "id": "ID",
+      "invitedBy": "Invited By",
+      "joinedAt": "Joined At",
+      "name": "Name",
+      "position": "Position",
+      "status": "$t(status.name)"
+    },
     "users": {
-      "createdAt": "Created At",
+      "createdAt": "$t(createdAt)",
       "email": "Email",
       "id": "ID",
       "name": "Name",
       "role": "$t(role.name)",
-      "status": "$t(status.name)"
+      "status": "$t(status.name)",
+      "updatedAt": "$t(updatedAt)"
     }
   },
   "termsAndPrivacy": {
@@ -281,5 +359,6 @@
       "mb": "MB",
       "tb": "TB"
     }
-  }
+  },
+  "updatedAt": "Updated At"
 }

@@ -1,5 +1,6 @@
 import {
   BookOpen,
+  Building2,
   Home,
   LayoutDashboard,
   MapPinCheckInside,
@@ -50,6 +51,11 @@ export const adminMenuItems = [
     icon: Users
   },
   {
+    title: 'sidebar.companies',
+    url: '/admin/companies',
+    icon: Building2
+  },
+  {
     title: 'sidebar.settings',
     url: '/settings',
     icon: Settings
@@ -66,6 +72,11 @@ export const ownerMenuItems = [
     title: 'sidebar.users',
     url: '/admin/users',
     icon: Users
+  },
+  {
+    title: 'sidebar.companies',
+    url: '/admin/companies',
+    icon: Building2
   },
   {
     title: 'sidebar.admins',

@@ -1,4 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui'
+import useHashTab from '@/hooks/useHashTab'
 import useLocale from '@/hooks/useLocale'
 
 import EnterpriseTab from './EnterpriseTab'
@@ -19,6 +20,10 @@ const TabContent = props => (
 
 export const PricingPage = () => {
   const { t } = useLocale({ keyPrefix: 'pricing' })
+  const [activeTab, setActiveTab] = useHashTab(
+    Object.values(TabId),
+    TabId.STANDARD
+  )
 
   return (
     <div className='flex flex-col gap-8'>
@@ -27,7 +32,11 @@ export const PricingPage = () => {
         <p className='text-lg text-muted-foreground'>{t('subtitle')}</p>
       </div>
 
-      <Tabs defaultValue={TabId.STANDARD} className='items-center gap-8'>
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className='items-center gap-8'
+      >
         <TabsList>
           <TabsTrigger value={TabId.STANDARD}>{t('type.standard')}</TabsTrigger>
           <TabsTrigger value={TabId.ENTERPRISE}>

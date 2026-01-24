@@ -1,3 +1,4 @@
+export { CompanyAddForm } from './CompanyAddForm'
 export { FormFields, FormGroup, FormRoot, FormRow } from './containers'
 export { FormBoolController } from './FormBoolController'
 export { FormController } from './FormController'

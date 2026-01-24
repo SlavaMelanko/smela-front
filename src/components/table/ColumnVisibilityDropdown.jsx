@@ -10,11 +10,16 @@ import {
 } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-export const ColumnVisibilityDropdown = ({ className, label, columns }) => (
-  <DropdownMenu>
+export const ColumnVisibilityDropdown = ({
+  className,
+  disabled,
+  label,
+  columns
+}) => (
+  <DropdownMenu disabled={disabled}>
     <DropdownMenuTrigger
       className={cn(className)}
-      render={<Button variant='outline' />}
+      render={<Button variant='outline' disabled={disabled} />}
     >
       <SlidersVertical className='size-4' />
       <span className='hidden sm:inline'>{label}</span>

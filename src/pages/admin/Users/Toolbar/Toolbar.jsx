@@ -17,7 +17,7 @@ export const Toolbar = ({
     <div className='flex max-h-11 items-center gap-4'>
       <SearchInput
         className='flex-1'
-        placeholder={t('searchBy')}
+        placeholder={t('searchBy.users')}
         value={searchValue}
         onChange={onSearchChange}
       />
