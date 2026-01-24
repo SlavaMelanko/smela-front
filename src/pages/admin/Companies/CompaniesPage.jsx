@@ -7,6 +7,7 @@ import { Plus } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { Error, Info } from '@/components/alerts'
 import { CompanyAddDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
@@ -39,6 +40,7 @@ export const CompaniesPage = () => {
 
   const { data, isPending, isError } = useCompanies(apiParams)
   const { companies = [], pagination = defaultOptions } = data ?? {}
+  const isEmpty = !isPending && companies.length === 0
 
   const columns = useMemo(
     () => getAccessibleColumns(t, formatDate),
@@ -96,7 +98,7 @@ export const CompaniesPage = () => {
   }
 
   if (isError) {
-    return <p>{t('error.loading')}</p>
+    return <Error text={t('error.loading')} />
   }
 
   return (
@@ -107,10 +109,12 @@ export const CompaniesPage = () => {
           placeholder={t('searchBy.companies')}
           value={searchValue}
           onChange={setSearchValue}
+          disabled={isPending || isEmpty}
         />
         <ColumnVisibilityDropdown
           label={t('table.column_plural')}
           columns={availableColumns}
+          disabled={isEmpty}
         />
         <Button
           variant='outline'
@@ -121,14 +125,18 @@ export const CompaniesPage = () => {
           <span className='hidden sm:inline'>{t('add')}</span>
         </Button>
       </div>
-      <Table config={config} onRowClick={handleRowClick} />
-      <div className='mt-2'>
-        <Pagination
-          pagination={pagination}
-          onPageChange={handlePageChange}
-          onLimitChange={handleLimitChange}
-        />
-      </div>
+      {isEmpty ? (
+        <Info text={t('empty')} />
+      ) : (
+        <>
+          <Table config={config} onRowClick={handleRowClick} />
+          <Pagination
+            pagination={pagination}
+            onPageChange={handlePageChange}
+            onLimitChange={handleLimitChange}
+          />
+        </>
+      )}
     </div>
   )
 }

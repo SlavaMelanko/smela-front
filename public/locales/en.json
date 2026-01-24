@@ -91,6 +91,7 @@
       "success": "Email verified successfully."
     }
   },
+  "empty": "No data yet.",
   "error": {
     "general": {
       "cta": "Go home",

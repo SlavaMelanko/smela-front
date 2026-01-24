@@ -7,7 +7,8 @@ export const SearchInput = ({
   className = '',
   placeholder = '',
   value = '',
-  onChange
+  onChange,
+  ...props
 }) => (
   <div className={cn('w-full', className)}>
     <Input
@@ -19,6 +20,7 @@ export const SearchInput = ({
       value={value}
       onChange={e => onChange?.(e.target.value)}
       leftIcon={<Search className='size-4' />}
+      {...props}
     />
   </div>
 )
