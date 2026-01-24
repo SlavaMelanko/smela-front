@@ -7,38 +7,32 @@ export const getAccessibleColumns = (t, formatDate) => {
   return [
     {
       accessorKey: 'id',
-      header: label('id'),
-      size: 60
+      header: label('id')
     },
     {
       accessorKey: 'name',
       header: label('name'),
       accessorFn: row => getFullName(row),
       cell: info => getFullName(info.row.original),
-      sortingFn: 'alphanumeric',
-      size: 180
+      sortingFn: 'alphanumeric'
     },
     {
       accessorKey: 'email',
-      header: label('email'),
-      size: 220
+      header: label('email')
     },
     {
       accessorKey: 'status',
       header: label('status'),
-      size: 100,
       cell: info => <StatusBadge status={info.getValue()} />
     },
     {
       accessorKey: 'createdAt',
       header: label('createdAt'),
-      size: 140,
       cell: info => formatDate(info.getValue())
     },
     {
       accessorKey: 'updatedAt',
       header: label('updatedAt'),
-      size: 140,
       cell: info => formatDate(info.getValue())
     }
   ]
