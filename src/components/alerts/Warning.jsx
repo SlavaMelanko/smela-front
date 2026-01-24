@@ -7,19 +7,14 @@ const variants = {
   text: 'text-amber-500'
 }
 
-function Warning({ text, className, children }) {
-  return (
-    <div
-      className={cn(
-        'flex flex-col items-center justify-center gap-4',
-        className
-      )}
-    >
-      <TriangleAlertIcon className={cn('size-8', variants.icon)} />
-      <p className={cn('text-base', variants.text)}>{text}</p>
-      {children}
-    </div>
-  )
-}
+const Warning = ({ text, className, children }) => (
+  <div
+    className={cn('flex flex-col items-center justify-center gap-4', className)}
+  >
+    <TriangleAlertIcon className={cn('size-8', variants.icon)} />
+    <p className={cn('text-base', variants.text)}>{text}</p>
+    {children}
+  </div>
+)
 
 export { Warning }

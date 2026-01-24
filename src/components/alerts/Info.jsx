@@ -7,19 +7,14 @@ const variants = {
   text: 'text-foreground'
 }
 
-function Info({ text, className, children }) {
-  return (
-    <div
-      className={cn(
-        'flex flex-col items-center justify-center gap-4',
-        className
-      )}
-    >
-      <InfoIcon className={cn('size-8', variants.icon)} />
-      <p className={cn('text-base', variants.text)}>{text}</p>
-      {children}
-    </div>
-  )
-}
+const Info = ({ text, className, children }) => (
+  <div
+    className={cn('flex flex-col items-center justify-center gap-4', className)}
+  >
+    <InfoIcon className={cn('size-8', variants.icon)} />
+    <p className={cn('text-base', variants.text)}>{text}</p>
+    {children}
+  </div>
+)
 
 export { Info }

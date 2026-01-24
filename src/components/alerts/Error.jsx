@@ -10,7 +10,7 @@ const variants = {
   text: 'text-destructive'
 }
 
-function Error({ text, className, children }) {
+const Error = ({ text, className, children }) => {
   const navigate = useNavigate()
   const { t } = useLocale()
 
