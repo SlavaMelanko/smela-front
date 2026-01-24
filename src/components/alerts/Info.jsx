@@ -1,12 +1,13 @@
 import { InfoIcon } from 'lucide-react'
 
-import { Alert, AlertDescription } from '@/components/ui'
+import { Alert, AlertAction, AlertDescription } from '@/components/ui'
 
-function Info({ text, className }) {
+function Info({ text, className, children }) {
   return (
     <Alert variant='info' className={className}>
       <InfoIcon />
       <AlertDescription>{text}</AlertDescription>
+      {children && <AlertAction>{children}</AlertAction>}
     </Alert>
   )
 }

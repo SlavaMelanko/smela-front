@@ -3,17 +3,16 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { Plus } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { Error, Info } from '@/components/alerts'
+import { AddButton } from '@/components/buttons'
 import { CompanyAddDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
-import { Button } from '@/components/ui'
 import { useCompanies } from '@/hooks/useAdmin'
 import useDebouncedSearch from '@/hooks/useDebouncedSearch'
 import useLocale from '@/hooks/useLocale'
@@ -21,6 +20,10 @@ import useModal from '@/hooks/useModal'
 import useTableParams from '@/hooks/useTableParams'
 
 import { getAccessibleColumns } from './columns'
+
+const Toolbar = ({ children }) => (
+  <div className='flex min-h-11 items-center gap-4'>{children}</div>
+)
 
 export const CompaniesPage = () => {
   const navigate = useNavigate()
@@ -101,42 +104,43 @@ export const CompaniesPage = () => {
     return <Error text={t('error.loading')} />
   }
 
+  if (isEmpty) {
+    return (
+      <div className='flex items-center gap-4 md:gap-5'>
+        <Info text={t('empty.companies')} />
+        <AddButton
+          label={t('add')}
+          onClick={handleAddClick}
+          hideTextOnMobile={false}
+        />
+      </div>
+    )
+  }
+
   return (
     <div className='flex flex-col gap-4 md:gap-5'>
-      <div className='flex min-h-11 items-center gap-4'>
+      <Toolbar>
         <SearchInput
           className='flex-1'
           placeholder={t('searchBy.companies')}
           value={searchValue}
           onChange={setSearchValue}
-          disabled={isPending || isEmpty}
+          disabled={isPending}
         />
         <ColumnVisibilityDropdown
           label={t('table.column_plural')}
           columns={availableColumns}
-          disabled={isEmpty}
+          disabled={isPending}
         />
-        <Button
-          variant='outline'
-          onClick={handleAddClick}
-          aria-label={t('add')}
-        >
-          <Plus className='size-5' />
-          <span className='hidden sm:inline'>{t('add')}</span>
-        </Button>
-      </div>
-      {isEmpty ? (
-        <Info text={t('empty')} />
-      ) : (
-        <>
-          <Table config={config} onRowClick={handleRowClick} />
-          <Pagination
-            pagination={pagination}
-            onPageChange={handlePageChange}
-            onLimitChange={handleLimitChange}
-          />
-        </>
-      )}
+        <AddButton label={t('add')} onClick={handleAddClick} />
+      </Toolbar>
+
+      <Table config={config} onRowClick={handleRowClick} />
+      <Pagination
+        pagination={pagination}
+        onPageChange={handlePageChange}
+        onLimitChange={handleLimitChange}
+      />
     </div>
   )
 }

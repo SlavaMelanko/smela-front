@@ -1,12 +1,13 @@
 import { TriangleAlertIcon } from 'lucide-react'
 
-import { Alert, AlertDescription } from '@/components/ui'
+import { Alert, AlertAction, AlertDescription } from '@/components/ui'
 
-function Warning({ text, className }) {
+function Warning({ text, className, children }) {
   return (
     <Alert variant='warning' className={className}>
       <TriangleAlertIcon />
       <AlertDescription>{text}</AlertDescription>
+      {children && <AlertAction>{children}</AlertAction>}
     </Alert>
   )
 }

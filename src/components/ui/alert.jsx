@@ -58,4 +58,14 @@ function AlertDescription({ className, ...props }) {
   )
 }
 
-export { Alert, AlertDescription, AlertTitle, alertVariants }
+function AlertAction({ className, ...props }) {
+  return (
+    <div
+      data-slot='alert-action'
+      className={cn('col-start-2 mt-2', className)}
+      {...props}
+    />
+  )
+}
+
+export { Alert, AlertAction, AlertDescription, AlertTitle, alertVariants }
