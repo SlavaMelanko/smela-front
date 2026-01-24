@@ -82,8 +82,8 @@ export const AdminsPage = () => {
     columnResizeDirection: 'ltr',
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel()
+    getCoreRowModel,
+    getSortedRowModel
   })
 
   const availableColumns = config.getAllLeafColumns().map(column => ({

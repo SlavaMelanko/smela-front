@@ -84,9 +84,9 @@ export const UsersPage = () => {
     columnResizeDirection: 'ltr',
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getSortedRowModel: getSortedRowModel()
+    getCoreRowModel,
+    getFilteredRowModel,
+    getSortedRowModel
   })
 
   const availableColumns = config.getAllLeafColumns().map(column => ({

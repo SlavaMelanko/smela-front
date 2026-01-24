@@ -82,8 +82,8 @@ const InteractiveTable = ({ data, onRowClick }) => {
     state: { sorting },
     onSortingChange: setSorting,
     columnResizeMode: 'onChange',
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel()
+    getCoreRowModel,
+    getSortedRowModel
   })
 
   return <Table config={config} onRowClick={onRowClick} />

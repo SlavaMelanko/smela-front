@@ -49,7 +49,7 @@ export const CompanyTeam = ({ companyId, members }) => {
     columns,
     state: { columnVisibility },
     onColumnVisibilityChange: setColumnVisibility,
-    getCoreRowModel: getCoreRowModel()
+    getCoreRowModel
   })
 
   if (isEmpty) {
