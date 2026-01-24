@@ -106,14 +106,13 @@ export const CompaniesPage = () => {
 
   if (isEmpty) {
     return (
-      <div className='flex items-center gap-4 md:gap-5'>
-        <Info text={t('empty.companies')} />
+      <Info text={t('empty.companies')}>
         <AddButton
           label={t('add')}
           onClick={handleAddClick}
           hideTextOnMobile={false}
         />
-      </div>
+      </Info>
     )
   }
 

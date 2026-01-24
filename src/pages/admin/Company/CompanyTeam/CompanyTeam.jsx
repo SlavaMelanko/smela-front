@@ -1,7 +1,7 @@
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { Users } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 
+import { Info } from '@/components/alerts'
 import { AddButton } from '@/components/buttons'
 import { MemberInvitationDialog, ProfileDialog } from '@/components/dialogs'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
@@ -54,15 +54,13 @@ export const CompanyTeam = ({ companyId, members }) => {
 
   if (isEmpty) {
     return (
-      <div className='flex flex-col items-center justify-center gap-4 py-12 text-muted-foreground'>
-        <Users className='size-10 stroke-1' />
-        <p>{t('company.team.empty')}</p>
+      <Info text={t('company.team.empty')}>
         <AddButton
           label={t('invite')}
           onClick={handleInviteClick}
           hideTextOnMobile={false}
         />
-      </div>
+      </Info>
     )
   }
 

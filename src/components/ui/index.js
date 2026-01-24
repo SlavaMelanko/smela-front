@@ -4,7 +4,6 @@ export {
   AccordionItem,
   AccordionTrigger
 } from './accordion'
-export { Alert, AlertAction, AlertDescription, AlertTitle } from './alert'
 export { Avatar, AvatarFallback, AvatarImage, AvatarStatus } from './avatar'
 export { Badge } from './badge'
 export { Button } from './button'

@@ -1,14 +1,24 @@
 import { InfoIcon } from 'lucide-react'
 
-import { Alert, AlertAction, AlertDescription } from '@/components/ui'
+import { cn } from '@/lib/utils'
+
+const variants = {
+  icon: 'text-foreground',
+  text: 'text-foreground'
+}
 
 function Info({ text, className, children }) {
   return (
-    <Alert variant='info' className={className}>
-      <InfoIcon />
-      <AlertDescription>{text}</AlertDescription>
-      {children && <AlertAction>{children}</AlertAction>}
-    </Alert>
+    <div
+      className={cn(
+        'flex flex-col items-center justify-center gap-4',
+        className
+      )}
+    >
+      <InfoIcon className={cn('size-8', variants.icon)} />
+      <p className={cn('text-base', variants.text)}>{text}</p>
+      {children}
+    </div>
   )
 }
 
