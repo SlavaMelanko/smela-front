@@ -1,14 +1,18 @@
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { Plus, Users } from 'lucide-react'
+import { Users } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 
+import { AddButton } from '@/components/buttons'
 import { MemberInvitationDialog, ProfileDialog } from '@/components/dialogs'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
-import { Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 
 import { getColumns } from './columns'
+
+const Toolbar = ({ children }) => (
+  <div className='flex min-h-11 justify-end gap-4'>{children}</div>
+)
 
 export const CompanyTeam = ({ companyId, members }) => {
   const { t, formatDate } = useLocale()
@@ -19,6 +23,8 @@ export const CompanyTeam = ({ companyId, members }) => {
     id: false,
     invitedBy: false
   })
+
+  const isEmpty = members.length === 0
 
   const handleRowClick = useCallback(
     member => {
@@ -46,15 +52,16 @@ export const CompanyTeam = ({ companyId, members }) => {
     getCoreRowModel: getCoreRowModel()
   })
 
-  if (members.length === 0) {
+  if (isEmpty) {
     return (
       <div className='flex flex-col items-center justify-center gap-4 py-12 text-muted-foreground'>
         <Users className='size-10 stroke-1' />
         <p>{t('company.team.empty')}</p>
-        <Button variant='outline' onClick={handleInviteClick}>
-          <Plus className='size-5' />
-          {t('invite')}
-        </Button>
+        <AddButton
+          label={t('invite')}
+          onClick={handleInviteClick}
+          hideTextOnMobile={false}
+        />
       </div>
     )
   }
@@ -68,20 +75,14 @@ export const CompanyTeam = ({ companyId, members }) => {
 
   return (
     <div className='flex flex-col gap-4'>
-      <div className='flex justify-end gap-4'>
+      <Toolbar>
         <ColumnVisibilityDropdown
           label={t('table.column_plural')}
           columns={availableColumns}
         />
-        <Button
-          variant='outline'
-          onClick={handleInviteClick}
-          aria-label={t('invite')}
-        >
-          <Plus className='size-5' />
-          <span className='hidden sm:inline'>{t('invite')}</span>
-        </Button>
-      </div>
+        <AddButton label={t('invite')} onClick={handleInviteClick} />
+      </Toolbar>
+
       <Table config={config} onRowClick={handleRowClick} />
     </div>
   )

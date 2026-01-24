@@ -8,19 +8,13 @@ import {
   FormRow,
   SubmitButton
 } from '@/components/form'
-import { Spinner } from '@/components/Spinner'
 import { Input, Textarea } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 import { datePreset } from '@/lib/format'
 
 import { FieldName, getDefaultValues, getValues, resolver } from './schema'
 
-export const CompanyInfoForm = ({
-  company,
-  isLoading,
-  isSubmitting,
-  onSubmit
-}) => {
+export const CompanyInfoForm = ({ company, isSubmitting, onSubmit }) => {
   const { t, formatDate } = useLocale()
 
   const {
@@ -38,10 +32,6 @@ export const CompanyInfoForm = ({
       reset(getValues(company))
     }
   }, [company, reset])
-
-  if (isLoading) {
-    return <Spinner />
-  }
 
   return (
     <FormRoot onSubmit={handleSubmit(onSubmit)}>

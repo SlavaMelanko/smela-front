@@ -100,7 +100,6 @@ export const CompanyPage = () => {
         <TabsContent value={CompanyTab.INFO}>
           <CompanyInfoForm
             company={company}
-            isLoading={isPending}
             isSubmitting={isUpdating}
             onSubmit={handleSubmit}
           />
