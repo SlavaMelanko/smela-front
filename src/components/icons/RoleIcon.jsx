@@ -1,13 +1,11 @@
-import { Building2, Crown, Shield, User, UserX } from 'lucide-react'
+import { Crown, Shield, User } from 'lucide-react'
 
 import { Role } from '@/lib/types'
 
 const iconMap = {
   [Role.USER]: User,
-  [Role.ENTERPRISE]: Building2,
   [Role.ADMIN]: Shield,
-  [Role.OWNER]: Crown,
-  [Role.GUEST]: UserX
+  [Role.OWNER]: Crown
 }
 
 export const RoleIcon = ({ role, className = 'size-5' }) => {

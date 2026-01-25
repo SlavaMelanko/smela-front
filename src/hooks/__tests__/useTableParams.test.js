@@ -45,7 +45,7 @@ describe('useTableParams', () => {
 
   it('parses all params from URL (Users table scenario)', () => {
     mockSearchParams = new URLSearchParams(
-      'search=john&roles=user,enterprise&statuses=active,pending&page=2&limit=50'
+      'search=john&roles=user,admin&statuses=active,pending&page=2&limit=50'
     )
 
     useSearchParams.mockReturnValue([mockSearchParams, mockSetSearchParams])
@@ -54,7 +54,7 @@ describe('useTableParams', () => {
 
     expect(result.current.params).toEqual({
       search: 'john',
-      roles: ['user', 'enterprise'],
+      roles: ['user', 'admin'],
       statuses: ['active', 'pending'],
       page: 2,
       limit: 50
@@ -62,7 +62,7 @@ describe('useTableParams', () => {
 
     expect(result.current.apiParams).toEqual({
       search: 'john',
-      roles: 'user,enterprise',
+      roles: 'user,admin',
       statuses: 'active,pending',
       page: 2,
       limit: 50

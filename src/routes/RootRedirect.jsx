@@ -34,7 +34,7 @@ export const RootRedirect = () => {
 
   if (
     isAuthenticated &&
-    (role === Role.USER || role === Role.ENTERPRISE) &&
+    role === Role.USER &&
     userActiveStatuses.includes(status)
   ) {
     return <Navigate to='/home' replace />
