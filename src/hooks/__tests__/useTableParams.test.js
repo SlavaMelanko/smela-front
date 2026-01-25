@@ -31,7 +31,6 @@ describe('useTableParams', () => {
 
     expect(result.current.params).toEqual({
       search: '',
-      roles: [],
       statuses: [],
       page: 1,
       limit: Limit.SM
@@ -45,7 +44,7 @@ describe('useTableParams', () => {
 
   it('parses all params from URL (Users table scenario)', () => {
     mockSearchParams = new URLSearchParams(
-      'search=john&roles=user,admin&statuses=active,pending&page=2&limit=50'
+      'search=john&statuses=active,pending&page=2&limit=50'
     )
 
     useSearchParams.mockReturnValue([mockSearchParams, mockSetSearchParams])
@@ -54,7 +53,6 @@ describe('useTableParams', () => {
 
     expect(result.current.params).toEqual({
       search: 'john',
-      roles: ['user', 'admin'],
       statuses: ['active', 'pending'],
       page: 2,
       limit: 50
@@ -62,7 +60,6 @@ describe('useTableParams', () => {
 
     expect(result.current.apiParams).toEqual({
       search: 'john',
-      roles: 'user,admin',
       statuses: 'active,pending',
       page: 2,
       limit: 50
@@ -81,30 +78,30 @@ describe('useTableParams', () => {
   })
 
   it('resets page when resetPage option is true (filter change)', () => {
-    mockSearchParams = new URLSearchParams('page=5&roles=admin')
+    mockSearchParams = new URLSearchParams('page=5&statuses=active')
     useSearchParams.mockReturnValue([mockSearchParams, mockSetSearchParams])
 
     const { result } = renderHook(() => useTableParams())
 
     act(() => {
-      result.current.setParams({ roles: ['user'] }, { resetPage: true })
+      result.current.setParams({ statuses: ['pending'] }, { resetPage: true })
     })
 
     expect(mockSearchParams.get('page')).toBeNull()
-    expect(mockSearchParams.get('roles')).toBe('user')
+    expect(mockSearchParams.get('statuses')).toBe('pending')
   })
 
   it('removes empty values from URL', () => {
-    mockSearchParams = new URLSearchParams('search=test&roles=admin')
+    mockSearchParams = new URLSearchParams('search=test&statuses=active')
     useSearchParams.mockReturnValue([mockSearchParams, mockSetSearchParams])
 
     const { result } = renderHook(() => useTableParams())
 
     act(() => {
-      result.current.setParams({ search: '', roles: [] })
+      result.current.setParams({ search: '', statuses: [] })
     })
 
     expect(mockSearchParams.get('search')).toBeNull()
-    expect(mockSearchParams.get('roles')).toBeNull()
+    expect(mockSearchParams.get('statuses')).toBeNull()
   })
 })

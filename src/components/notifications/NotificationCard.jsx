@@ -28,7 +28,7 @@ export const NotificationCard = ({
     <CardHeader>
       <div className='flex items-center gap-3'>
         {iconMap[type]}
-        <CardTitle className='text-base'>{title}</CardTitle>
+        <CardTitle className='text-lg'>{title}</CardTitle>
       </div>
       <CardAction>
         <Button
@@ -42,7 +42,7 @@ export const NotificationCard = ({
         </Button>
       </CardAction>
     </CardHeader>
-    <CardDescription className='text-sm'>{message}</CardDescription>
+    <CardDescription>{message}</CardDescription>
     <CardFooter>
       <Button variant='outline' className='w-full' onClick={onAction}>
         {buttonText}

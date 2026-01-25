@@ -4,7 +4,7 @@ export const Label = ({ htmlFor, children, optional, className }) => (
   <label
     htmlFor={htmlFor}
     className={cn(
-      'block cursor-pointer text-base font-medium leading-normal text-foreground',
+      'block cursor-pointer text-base leading-normal text-muted-foreground',
       className
     )}
   >
