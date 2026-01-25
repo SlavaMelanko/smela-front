@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils'
 export const TableHeader = ({ config }) => (
   <TableHeaderRoot>
     {config.getHeaderGroups().map(headerGroup => (
-      <TableRow key={headerGroup.id} className='hover:bg-transparent'>
+      <TableRow key={headerGroup.id} className='border hover:bg-transparent'>
         {headerGroup.headers.map(header => {
           const isSorted = header.column.getIsSorted()
 
