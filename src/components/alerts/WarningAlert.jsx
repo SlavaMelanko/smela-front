@@ -7,7 +7,7 @@ const variants = {
   text: 'text-amber-500'
 }
 
-const Warning = ({ text, className, children }) => (
+const WarningAlert = ({ text, className, children }) => (
   <div
     className={cn('flex flex-col items-center justify-center gap-4', className)}
   >
@@ -17,4 +17,4 @@ const Warning = ({ text, className, children }) => (
   </div>
 )
 
-export { Warning }
+export { WarningAlert }

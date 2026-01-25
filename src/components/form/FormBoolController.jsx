@@ -1,6 +1,8 @@
 import { cloneElement } from 'react'
 import { Controller } from 'react-hook-form'
 
+import { Label } from './elements'
+
 /**
  * Inline form field wrapper for controlled components.
  * Places the control and label on the same horizontal line.
@@ -36,6 +38,10 @@ export const FormBoolController = ({
         return cloneElement(element, { id: name })
       }}
     />
-    {label && <label htmlFor={name}>{label}</label>}
+    {label && (
+      <Label htmlFor={name} optional>
+        {label}
+      </Label>
+    )}
   </div>
 )

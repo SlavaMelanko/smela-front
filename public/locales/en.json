@@ -91,10 +91,6 @@
       "success": "Email verified successfully."
     }
   },
-  "empty": {
-    "admins": "No admins yet.",
-    "companies": "No companies yet."
-  },
   "error": {
     "general": {
       "cta": "Go home",

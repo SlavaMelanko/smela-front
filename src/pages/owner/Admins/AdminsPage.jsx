@@ -5,7 +5,7 @@ import {
 } from '@tanstack/react-table'
 import { useCallback, useMemo, useState } from 'react'
 
-import { Error } from '@/components/alerts'
+import { ErrorAlert } from '@/components/alerts'
 import { AddButton } from '@/components/buttons'
 import { AdminInvitationDialog, ProfileDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
@@ -107,7 +107,7 @@ export const AdminsPage = () => {
   }
 
   if (isError) {
-    return <Error text={t('error.loading')} />
+    return <ErrorAlert text={t('error.loading')} />
   }
 
   return (

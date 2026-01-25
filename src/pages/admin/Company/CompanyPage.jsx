@@ -1,7 +1,7 @@
 import { Building2, ChevronLeft, Users } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { Error } from '@/components/alerts'
+import { ErrorAlert } from '@/components/alerts'
 import { CompanyBadge } from '@/components/badges'
 import { Spinner } from '@/components/Spinner'
 import {
@@ -54,7 +54,7 @@ export const CompanyPage = () => {
   }
 
   if (isError) {
-    return <Error text={t('error.loading')} />
+    return <ErrorAlert text={t('error.loading')} />
   }
 
   const teamCount = company.members?.length ?? 0
