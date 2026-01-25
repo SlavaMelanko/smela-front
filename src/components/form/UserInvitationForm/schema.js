@@ -30,3 +30,11 @@ export const resolver = createResolver({
   [FieldName.EMAIL]: rules.email.new,
   [FieldName.POSITION]: rules.position
 })
+
+export const defaultConfig = {
+  [FieldName.FIRST_NAME]: true,
+  [FieldName.LAST_NAME]: true,
+  [FieldName.EMAIL]: true,
+  [FieldName.POSITION]: true,
+  permissions: true
+}

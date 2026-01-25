@@ -5,7 +5,7 @@ import {
 } from '@tanstack/react-table'
 import { useCallback, useMemo, useState } from 'react'
 
-import { Error, Info } from '@/components/alerts'
+import { Error } from '@/components/alerts'
 import { AddButton } from '@/components/buttons'
 import { AdminInvitationDialog, ProfileDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
@@ -44,7 +44,6 @@ export const AdminsPage = () => {
 
   const { data, isPending, isError } = useAdmins(apiParams)
   const { admins = [], pagination = defaultOptions } = data ?? {}
-  const isEmpty = !isPending && admins.length === 0
 
   const columns = useMemo(
     () => getAccessibleColumns(t, formatDate),
@@ -109,18 +108,6 @@ export const AdminsPage = () => {
 
   if (isError) {
     return <Error text={t('error.loading')} />
-  }
-
-  if (isEmpty) {
-    return (
-      <Info text={t('empty.admins')}>
-        <AddButton
-          label={t('invite')}
-          onClick={handleInviteClick}
-          hideTextOnMobile={false}
-        />
-      </Info>
-    )
   }
 
   return (
