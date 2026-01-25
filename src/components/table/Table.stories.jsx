@@ -48,7 +48,7 @@ const sampleUsers = [
     id: 4,
     name: 'Alice Brown',
     email: 'alice.brown@example.com',
-    role: Role.ENTERPRISE,
+    role: Role.USER,
     status: UserStatus.TRIAL
   },
   {
