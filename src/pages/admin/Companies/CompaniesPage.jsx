@@ -6,7 +6,7 @@ import {
 import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { Error, Info } from '@/components/alerts'
+import { Error } from '@/components/alerts'
 import { AddButton } from '@/components/buttons'
 import { CompanyAddDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
@@ -46,7 +46,6 @@ export const CompaniesPage = () => {
 
   const { data, isPending, isError } = useCompanies(apiParams)
   const { companies = [], pagination = defaultOptions } = data ?? {}
-  const isEmpty = !isPending && companies.length === 0
 
   const columns = useMemo(
     () => getAccessibleColumns(t, formatDate),
@@ -107,18 +106,6 @@ export const CompaniesPage = () => {
 
   if (isError) {
     return <Error text={t('error.loading')} />
-  }
-
-  if (isEmpty) {
-    return (
-      <Info text={t('empty.companies')}>
-        <AddButton
-          label={t('add')}
-          onClick={handleAddClick}
-          hideTextOnMobile={false}
-        />
-      </Info>
-    )
   }
 
   return (

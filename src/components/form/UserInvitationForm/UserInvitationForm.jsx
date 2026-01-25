@@ -12,10 +12,15 @@ import {
 import { Input, Switch } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-import { FieldName, getDefaultValues, resolver } from './schema'
+import { defaultConfig, FieldName, getDefaultValues, resolver } from './schema'
 
-export const UserInvitationForm = ({ isLoading, onSubmit }) => {
+export const UserInvitationForm = ({
+  isLoading,
+  onSubmit,
+  customConfig = {}
+}) => {
   const { t } = useLocale()
+  const config = { ...defaultConfig, ...customConfig }
 
   const {
     register,
@@ -27,8 +32,20 @@ export const UserInvitationForm = ({ isLoading, onSubmit }) => {
     defaultValues: getDefaultValues()
   })
 
+  const handleFormSubmit = data => {
+    const result = { ...data }
+
+    Object.entries(config).forEach(([key, visible]) => {
+      if (!visible) {
+        delete result[key]
+      }
+    })
+
+    return onSubmit(result)
+  }
+
   return (
-    <FormRoot onSubmit={handleSubmit(data => onSubmit(data))}>
+    <FormRoot onSubmit={handleSubmit(handleFormSubmit)}>
       <FormGroup legend={t('personalDetails')}>
         <FormFields>
           <FormField
@@ -56,14 +73,16 @@ export const UserInvitationForm = ({ isLoading, onSubmit }) => {
             <Input {...register(FieldName.EMAIL)} />
           </FormField>
 
-          <FormField
-            label={t('position.label')}
-            name={FieldName.POSITION}
-            error={errors[FieldName.POSITION]}
-            optional
-          >
-            <Input {...register(FieldName.POSITION)} />
-          </FormField>
+          {config[FieldName.POSITION] && (
+            <FormField
+              label={t('position.label')}
+              name={FieldName.POSITION}
+              error={errors[FieldName.POSITION]}
+              optional
+            >
+              <Input {...register(FieldName.POSITION)} />
+            </FormField>
+          )}
         </FormFields>
       </FormGroup>
 
