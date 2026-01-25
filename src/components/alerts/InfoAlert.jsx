@@ -7,7 +7,7 @@ const variants = {
   text: 'text-foreground'
 }
 
-const Info = ({ text, className, children }) => (
+const InfoAlert = ({ text, className, children }) => (
   <div
     className={cn('flex flex-col items-center justify-center gap-4', className)}
   >
@@ -17,4 +17,4 @@ const Info = ({ text, className, children }) => (
   </div>
 )
 
-export { Info }
+export { InfoAlert }

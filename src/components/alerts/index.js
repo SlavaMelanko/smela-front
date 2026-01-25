@@ -1,3 +1,3 @@
-export { Error } from './Error'
-export { Info } from './Info'
-export { Warning } from './Warning'
+export { ErrorAlert } from './ErrorAlert'
+export { InfoAlert } from './InfoAlert'
+export { WarningAlert } from './WarningAlert'

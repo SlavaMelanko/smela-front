@@ -6,7 +6,7 @@ import {
 import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { Error } from '@/components/alerts'
+import { ErrorAlert } from '@/components/alerts'
 import { AddButton } from '@/components/buttons'
 import { CompanyAddDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
@@ -105,7 +105,7 @@ export const CompaniesPage = () => {
   }
 
   if (isError) {
-    return <Error text={t('error.loading')} />
+    return <ErrorAlert text={t('error.loading')} />
   }
 
   return (

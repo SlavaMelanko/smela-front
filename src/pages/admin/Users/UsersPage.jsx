@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-table'
 import { useCallback, useMemo, useState } from 'react'
 
-import { Error } from '@/components/alerts'
+import { ErrorAlert } from '@/components/alerts'
 import { ProfileDialog } from '@/components/dialogs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
@@ -106,7 +106,7 @@ export const UsersPage = () => {
   }
 
   if (isError) {
-    return <Error text={t('error.loading')} />
+    return <ErrorAlert text={t('error.loading')} />
   }
 
   return (
