@@ -28,7 +28,6 @@ const useTableParams = () => {
   // Read: parse URL into structured state
   const params = {
     search: searchParams.get('search') || '',
-    roles: parseArrayParam(searchParams.get('roles')),
     statuses: parseArrayParam(searchParams.get('statuses')),
     page: parsePage(searchParams.get('page')),
     limit: parseLimit(searchParams.get('limit'))
@@ -68,7 +67,6 @@ const useTableParams = () => {
   // API params: transform for backend consumption
   const apiParams = {
     ...(params.search && { search: params.search }),
-    ...(params.roles.length && { roles: params.roles.join(',') }),
     ...(params.statuses.length && { statuses: params.statuses.join(',') }),
     page: params.page,
     limit: params.limit

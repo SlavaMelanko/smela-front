@@ -264,15 +264,6 @@
   },
   "processing": "В процесі...",
   "profile": "Профіль",
-  "role": {
-    "name": "Роль",
-    "placeholder": "Виберіть ролі",
-    "values": {
-      "admin": "Адмін",
-      "owner": "Власник",
-      "user": "Користувач"
-    }
-  },
   "save": "Зберегти",
   "searchBy": {
     "companies": "Шукати за ID, назвою, сайтом...",
@@ -332,7 +323,6 @@
       "email": "Email",
       "id": "ID",
       "name": "Ім'я",
-      "role": "$t(role.name)",
       "status": "$t(status.name)",
       "updatedAt": "$t(updatedAt)"
     }

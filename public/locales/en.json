@@ -264,15 +264,6 @@
   },
   "processing": "Processing...",
   "profile": "Profile",
-  "role": {
-    "name": "Role",
-    "placeholder": "Select roles",
-    "values": {
-      "admin": "Admin",
-      "owner": "Owner",
-      "user": "User"
-    }
-  },
   "save": "Save",
   "searchBy": {
     "companies": "Search by ID, name, website...",
@@ -332,7 +323,6 @@
       "email": "Email",
       "id": "ID",
       "name": "Name",
-      "role": "$t(role.name)",
       "status": "$t(status.name)",
       "updatedAt": "$t(updatedAt)"
     }
