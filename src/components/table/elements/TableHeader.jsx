@@ -21,7 +21,7 @@ export const TableHeader = ({ config }) => (
               colSpan={header.colSpan}
               style={{ width: header.getSize?.() ?? 'auto' }}
               aria-sort={isSorted || 'none'}
-              className='relative cursor-pointer select-none bg-muted/50 text-center transition-colors hover:bg-muted'
+              className='relative cursor-pointer select-none bg-muted/50 text-center text-muted-foreground transition-colors hover:bg-muted'
               onClick={header.column.getToggleSortingHandler?.()}
             >
               <span className='inline-flex items-center gap-1'>

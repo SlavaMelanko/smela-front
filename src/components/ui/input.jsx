@@ -5,7 +5,7 @@ import { forwardRef } from 'react'
 import { cn } from '@/lib/utils'
 
 const inputVariants = cva(
-  'h-11 w-full rounded-md border border-border bg-background px-4 text-base outline-none placeholder:text-muted-foreground focus-visible:ring-[1px] focus-visible:ring-ring/50 focus-visible:border-ring disabled:pointer-events-none disabled:opacity-50',
+  'h-11 w-full rounded-md border border-border bg-background px-4 text-base outline-none placeholder:text-muted-foreground placeholder:font-light focus-visible:ring-[1px] focus-visible:ring-ring/50 focus-visible:border-ring disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       state: {

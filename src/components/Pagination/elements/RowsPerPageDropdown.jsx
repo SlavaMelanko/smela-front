@@ -18,7 +18,7 @@ export const RowsPerPageDropdown = ({
   <DropdownMenu>
     <DropdownMenuTrigger
       className={cn(className)}
-      render={<Button variant='ghost' className='h-11 px-3' />}
+      render={<Button variant='ghost' className='h-11 px-3 font-normal' />}
     >
       {value}
       <ChevronIcon className='group-aria-expanded/button:rotate-180' />
