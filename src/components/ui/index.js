@@ -33,6 +33,13 @@ export {
   CommandShortcut
 } from './command'
 export {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuTrigger
+} from './context-menu'
+export {
   Dialog,
   DialogBackdrop,
   DialogBody,

@@ -3,6 +3,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
+import { MailIcon, PencilIcon } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 
 import { ErrorAlert } from '@/components/alerts'
@@ -15,8 +16,11 @@ import { ColumnVisibilityDropdown, Table } from '@/components/table'
 import useDebouncedSearch from '@/hooks/useDebouncedSearch'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
-import { useAdmins } from '@/hooks/useOwner'
+import { useAdmins, useResendAdminInvitation } from '@/hooks/useOwner'
 import useTableParams from '@/hooks/useTableParams'
+import useToast from '@/hooks/useToast'
+import { UserStatus } from '@/lib/types'
+import { toTranslationKey } from '@/services/catch'
 
 import { getAccessibleColumns } from './columns'
 
@@ -30,6 +34,9 @@ const Toolbar = ({ children }) => (
 export const AdminsPage = () => {
   const { t, formatDate } = useLocale()
   const { openModal } = useModal()
+  const { showSuccessToast, showErrorToast } = useToast()
+  const { mutate: resendInvitation, isPending: isResending } =
+    useResendAdminInvitation()
 
   const { params, apiParams, setParams } = useTableParams()
 
@@ -68,6 +75,34 @@ export const AdminsPage = () => {
       })
     },
     [openModal]
+  )
+
+  const handleResendInvitation = useCallback(
+    admin => {
+      resendInvitation(admin.id, {
+        onSuccess: () => showSuccessToast(t('invitation.resend.success')),
+        onError: err => showErrorToast(t(toTranslationKey(err)))
+      })
+    },
+    [resendInvitation, showSuccessToast, showErrorToast, t]
+  )
+
+  const contextMenu = useMemo(
+    () => [
+      {
+        icon: PencilIcon,
+        label: t('contextMenu.edit'),
+        onClick: handleRowClick
+      },
+      {
+        icon: MailIcon,
+        label: t('contextMenu.resendInvitation'),
+        onClick: handleResendInvitation,
+        isVisible: admin => admin.status === UserStatus.PENDING,
+        disabled: isResending
+      }
+    ],
+    [t, handleRowClick, handleResendInvitation, isResending]
   )
 
   const handlePageChange = page => {
@@ -126,7 +161,11 @@ export const AdminsPage = () => {
         <AddButton label={t('invite')} onClick={handleInviteClick} />
       </Toolbar>
 
-      <Table config={config} onRowClick={handleRowClick} />
+      <Table
+        config={config}
+        onRowClick={handleRowClick}
+        contextMenu={contextMenu}
+      />
       <Pagination
         pagination={pagination}
         onPageChange={handlePageChange}
