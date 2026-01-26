@@ -25,6 +25,13 @@ export const extractResetPasswordLink = text => {
   return match ? match[0] : null
 }
 
+export const extractAcceptInviteLink = text => {
+  const regex = /https?:\/\/[^ \n]+\/accept-invite\?token=[^ \n]+/i
+  const match = text.match(regex)
+
+  return match ? match[0] : null
+}
+
 export const hashEmail = email => {
   // Use HTML content as the unique identifier.
   // HTML is more likely to contain unique timestamps or IDs.
@@ -125,6 +132,25 @@ export class EmailService {
 
     if (!link) {
       throw new Error('Reset password link not found in email.')
+    }
+
+    return {
+      link,
+      text: email.text,
+      html: email.html,
+      subject: email.subject
+    }
+  }
+
+  async waitForInvitationEmail(
+    emailAddress,
+    subject = "You're invited to SMELA-DEV"
+  ) {
+    const email = await this.#waitForEmail(emailAddress, subject)
+    const link = extractAcceptInviteLink(email.text)
+
+    if (!link) {
+      throw new Error('Accept invitation link not found in email.')
     }
 
     return {
