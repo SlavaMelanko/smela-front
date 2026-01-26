@@ -21,8 +21,8 @@ const t = loadTranslations()
 const emailService = new EmailService()
 
 const ownerCredentials = {
-  email: 'slava.owner@smela.com',
-  password: 'Passw0rd!'
+  email: process.env.VITE_E2E_OWNER_EMAIL,
+  password: process.env.VITE_E2E_OWNER_PASSWORD
 }
 
 const fillLoginFormAndSubmit = async (page, { email, password }) => {
@@ -43,6 +43,16 @@ const logOut = async page => {
   await page.waitForURL('/login')
 }
 
+const fillInvitationFormAndSubmit = async (
+  page,
+  { firstName, lastName, email }
+) => {
+  await page.getByLabel(t.firstName.label).fill(firstName)
+  await page.getByLabel(t.lastName.label).fill(lastName)
+  await page.getByLabel(t.email.label).fill(email)
+  await page.getByRole('button', { name: t.invitation.send.cta }).click()
+}
+
 const fillAcceptInviteFormAndSubmit = async (page, password) => {
   const passwordInput = page.getByRole('textbox', {
     name: t.password.label.default
@@ -53,7 +63,7 @@ const fillAcceptInviteFormAndSubmit = async (page, password) => {
 }
 
 test.describe.serial('Owner Admin Invitation', () => {
-  const invitedAdmin = {
+  const newAdmin = {
     firstName: 'InvitedAdmin',
     lastName: 'Test',
     email: auth.email.generate({
@@ -90,18 +100,12 @@ test.describe.serial('Owner Admin Invitation', () => {
       page.getByRole('heading', { name: t.invitation.send.title.admin })
     ).toBeVisible()
 
-    // Fill invitation form
-    await page.getByLabel(t.firstName.label).fill(invitedAdmin.firstName)
-    await page.getByLabel(t.lastName.label).fill(invitedAdmin.lastName)
-    await page.getByLabel(t.email.label).fill(invitedAdmin.email)
-
-    // Submit invitation
     const apiPromises = waitForApiCalls(page, [
       { path: OWNER_ADMINS_INVITE_PATH, status: HttpStatus.CREATED },
       { path: OWNER_ADMINS_PATH, status: HttpStatus.OK }
     ])
 
-    await page.getByRole('button', { name: t.invitation.send.cta }).click()
+    await fillInvitationFormAndSubmit(page, newAdmin)
     await apiPromises
 
     // Verify success toast
@@ -109,7 +113,7 @@ test.describe.serial('Owner Admin Invitation', () => {
 
     // Verify admin appears in table with Pending status
     const adminRow = page.getByRole('row', {
-      name: new RegExp(invitedAdmin.email)
+      name: new RegExp(newAdmin.email)
     })
 
     await expect(adminRow).toBeVisible()
@@ -119,9 +123,7 @@ test.describe.serial('Owner Admin Invitation', () => {
   })
 
   test('invited admin accepts invitation via email link', async ({ page }) => {
-    const { link } = await emailService.waitForInvitationEmail(
-      invitedAdmin.email
-    )
+    const { link } = await emailService.waitForInvitationEmail(newAdmin.email)
 
     expect(link).toContain('/accept-invite?token=')
 
@@ -139,14 +141,13 @@ test.describe.serial('Owner Admin Invitation', () => {
       status: HttpStatus.OK
     })
 
-    await fillAcceptInviteFormAndSubmit(page, invitedAdmin.password)
+    await fillAcceptInviteFormAndSubmit(page, newAdmin.password)
     await apiPromise
 
     // Verify success toast
     await expect(page.getByText(t.invitation.accept.success)).toBeVisible()
 
-    // After accepting, user is redirected to home/dashboard
-    await page.waitForURL(/\/(home|admin)/)
+    await page.waitForURL('/admin/dashboard')
 
     await logOut(page)
   })
@@ -172,7 +173,7 @@ test.describe.serial('Owner Admin Invitation', () => {
 
     // Find the invited admin row and verify status is Active
     const adminRow = page.getByRole('row', {
-      name: new RegExp(invitedAdmin.email)
+      name: new RegExp(newAdmin.email)
     })
 
     await expect(adminRow).toBeVisible()

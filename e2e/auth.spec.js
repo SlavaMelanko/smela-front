@@ -137,7 +137,7 @@ test.describe.serial('Authentication', () => {
       {
         firstName: auth.firstName.ok,
         lastName: auth.lastName.ok,
-        email: auth.email.admin,
+        email: process.env.VITE_E2E_ADMIN_EMAIL,
         password: auth.password.strong
       },
       t

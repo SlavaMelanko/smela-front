@@ -2,7 +2,8 @@
 import { defineConfig, devices } from '@playwright/test'
 import { loadEnv } from 'vite'
 
-// Read environment variables from .env.test file.
+// NODE_ENV=test is set in package.json scripts.
+// Vite's loadEnv loads VITE_* variables from .env.test file.
 Object.assign(process.env, loadEnv('test', './', 'VITE_'))
 
 /**

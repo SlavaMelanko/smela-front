@@ -2,8 +2,10 @@
 
 ## ⚠️ Prerequisites
 
-Before running the tests, make sure pre-registered accounts are seeded into the
-database.
+Before running the tests:
+
+1. Seed pre-registered accounts into the database
+2. Configure `VITE_E2E_*` credentials in `.env.test` (see `.env.example`)
 
 ## 📦 Setup
 
