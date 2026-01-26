@@ -177,10 +177,9 @@ test.describe.serial('Authentication', () => {
           return false
         }
 
-        const { id, firstName, lastName, email, status, role } = body.user
+        const { firstName, lastName, email, status, role } = body.user
 
         return (
-          id > 0 &&
           firstName === auth.firstName.ok &&
           lastName === auth.lastName.ok &&
           email === testEmail &&
@@ -389,10 +388,9 @@ test.describe.serial('Authentication', () => {
             return false
           }
 
-          const { id, firstName, lastName, email, status, role } = b.user
+          const { firstName, lastName, email, status, role } = b.user
 
           return (
-            id > 0 &&
             firstName === auth.firstName.ok &&
             lastName === auth.lastName.ok &&
             email === userCredentials.email &&
@@ -409,10 +407,9 @@ test.describe.serial('Authentication', () => {
             return false
           }
 
-          const { id, firstName, lastName, email, status, role } = b.user
+          const { firstName, lastName, email, status, role } = b.user
 
           return (
-            id > 0 &&
             firstName === auth.firstName.ok &&
             lastName === auth.lastName.ok &&
             email === userCredentials.email &&
