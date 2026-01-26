@@ -14,7 +14,7 @@ import {
   loadTranslations,
   waitForApiCall,
   waitForApiCalls
-} from './helpers'
+} from './utils'
 
 const t = loadTranslations()
 

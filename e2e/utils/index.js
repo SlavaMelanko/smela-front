@@ -1,3 +1,3 @@
 export * from './api'
-export * from './email-service'
+export * from './emailService'
 export * from './translations'
