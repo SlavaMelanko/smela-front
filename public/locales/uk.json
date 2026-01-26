@@ -61,6 +61,10 @@
     }
   },
   "companyName": "SMELA",
+  "contextMenu": {
+    "edit": "Редагувати",
+    "resendInvitation": "Надіслати запрошення повторно"
+  },
   "continueWithGoogle": "Продовжити з Google",
   "copyright": "© {{year}} {{companyName}}",
   "createdAt": "Створено",

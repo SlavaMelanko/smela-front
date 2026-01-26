@@ -3,6 +3,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
+import { PencilIcon } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -68,6 +69,17 @@ export const CompaniesPage = () => {
     [navigate]
   )
 
+  const contextMenu = useMemo(
+    () => [
+      {
+        icon: PencilIcon,
+        labelKey: 'contextMenu.edit',
+        onClick: handleRowClick
+      }
+    ],
+    [handleRowClick]
+  )
+
   const handlePageChange = page => {
     setParams({ page })
   }
@@ -126,7 +138,11 @@ export const CompaniesPage = () => {
         <AddButton label={t('add')} onClick={handleAddClick} />
       </Toolbar>
 
-      <Table config={config} onRowClick={handleRowClick} />
+      <Table
+        config={config}
+        onRowClick={handleRowClick}
+        contextMenu={contextMenu}
+      />
       <Pagination
         pagination={pagination}
         onPageChange={handlePageChange}

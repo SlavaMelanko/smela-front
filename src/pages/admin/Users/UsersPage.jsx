@@ -4,6 +4,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
+import { PencilIcon } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 
 import { ErrorAlert } from '@/components/alerts'
@@ -65,6 +66,17 @@ export const UsersPage = () => {
     [openModal]
   )
 
+  const contextMenu = useMemo(
+    () => [
+      {
+        icon: PencilIcon,
+        labelKey: 'contextMenu.edit',
+        onClick: handleRowClick
+      }
+    ],
+    [handleRowClick]
+  )
+
   const handlePageChange = page => {
     setParams({ page })
   }
@@ -121,7 +133,11 @@ export const UsersPage = () => {
 
       <Filters isShow={showFilters} params={params} setParams={setParams} />
 
-      <Table config={config} onRowClick={handleRowClick} />
+      <Table
+        config={config}
+        onRowClick={handleRowClick}
+        contextMenu={contextMenu}
+      />
       <Pagination
         pagination={pagination}
         onPageChange={handlePageChange}

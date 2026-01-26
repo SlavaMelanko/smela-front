@@ -61,6 +61,10 @@
     }
   },
   "companyName": "SMELA",
+  "contextMenu": {
+    "edit": "Edit",
+    "resendInvitation": "Resend invitation"
+  },
   "continueWithGoogle": "Continue with Google",
   "copyright": "© {{year}} {{companyName}}",
   "createdAt": "Created At",

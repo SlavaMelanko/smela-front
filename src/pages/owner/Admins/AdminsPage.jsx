@@ -3,6 +3,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
+import { MailIcon, PencilIcon } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 
 import { ErrorAlert } from '@/components/alerts'
@@ -17,6 +18,7 @@ import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 import { useAdmins } from '@/hooks/useOwner'
 import useTableParams from '@/hooks/useTableParams'
+import { UserStatus } from '@/lib/types'
 
 import { getAccessibleColumns } from './columns'
 
@@ -68,6 +70,26 @@ export const AdminsPage = () => {
       })
     },
     [openModal]
+  )
+
+  const contextMenu = useMemo(
+    () => [
+      {
+        icon: PencilIcon,
+        labelKey: 'contextMenu.edit',
+        onClick: handleRowClick
+      },
+      {
+        icon: MailIcon,
+        labelKey: 'contextMenu.resendInvitation',
+        onClick: admin => {
+          // TODO: Integrate with backend when endpoint is ready
+          console.warn('Resend invitation for:', admin.email)
+        },
+        isVisible: admin => admin.status === UserStatus.PENDING
+      }
+    ],
+    [handleRowClick]
   )
 
   const handlePageChange = page => {
@@ -126,7 +148,11 @@ export const AdminsPage = () => {
         <AddButton label={t('invite')} onClick={handleInviteClick} />
       </Toolbar>
 
-      <Table config={config} onRowClick={handleRowClick} />
+      <Table
+        config={config}
+        onRowClick={handleRowClick}
+        contextMenu={contextMenu}
+      />
       <Pagination
         pagination={pagination}
         onPageChange={handlePageChange}
