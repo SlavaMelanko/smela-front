@@ -70,11 +70,11 @@ export const UsersPage = () => {
     () => [
       {
         icon: PencilIcon,
-        labelKey: 'contextMenu.edit',
+        label: t('contextMenu.edit'),
         onClick: handleRowClick
       }
     ],
-    [handleRowClick]
+    [t, handleRowClick]
   )
 
   const handlePageChange = page => {

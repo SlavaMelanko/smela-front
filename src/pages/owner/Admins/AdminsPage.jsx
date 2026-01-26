@@ -90,17 +90,17 @@ export const AdminsPage = () => {
     () => [
       {
         icon: PencilIcon,
-        labelKey: 'contextMenu.edit',
+        label: t('contextMenu.edit'),
         onClick: handleRowClick
       },
       {
         icon: MailIcon,
-        labelKey: 'contextMenu.resendInvitation',
+        label: t('contextMenu.resendInvitation'),
         onClick: handleResendInvitation,
         isVisible: admin => admin.status === UserStatus.PENDING
       }
     ],
-    [handleRowClick, handleResendInvitation]
+    [t, handleRowClick, handleResendInvitation]
   )
 
   const handlePageChange = page => {

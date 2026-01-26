@@ -9,7 +9,6 @@ import {
   TableCell,
   TableRow
 } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
 
 const RowCells = ({ row }) =>
@@ -20,8 +19,6 @@ const RowCells = ({ row }) =>
   ))
 
 const TableRowContent = ({ row, onRowClick, contextMenu }) => {
-  const { t } = useLocale()
-
   const visibleItems = contextMenu?.filter(
     item => item.isVisible?.(row.original) ?? true
   )
@@ -47,11 +44,11 @@ const TableRowContent = ({ row, onRowClick, contextMenu }) => {
       <ContextMenuContent>
         {visibleItems.map(item => (
           <ContextMenuItem
-            key={item.labelKey}
+            key={item.label}
             onClick={() => item.onClick(row.original)}
           >
             {item.icon && <item.icon className='size-4' />}
-            {t(item.labelKey)}
+            {item.label}
           </ContextMenuItem>
         ))}
       </ContextMenuContent>
