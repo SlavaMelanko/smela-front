@@ -45,3 +45,9 @@ export const useInviteAdmin = () => {
     }
   })
 }
+
+export const useResendAdminInvitation = () => {
+  return useMutation({
+    mutationFn: ownerApi.resendAdminInvitation
+  })
+}

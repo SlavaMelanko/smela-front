@@ -21,3 +21,5 @@ export const ADMIN_COMPANIES_INVITE_PATH = '/api/v1/admin/companies/:id/invite'
 // Owner endpoints
 export const OWNER_ADMINS_PATH = '/api/v1/owner/admins'
 export const OWNER_ADMINS_INVITE_PATH = '/api/v1/owner/admins/invite'
+export const OWNER_ADMINS_RESEND_INVITATION_PATH =
+  '/api/v1/owner/admins/:id/resend-invitation'

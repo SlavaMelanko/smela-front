@@ -16,9 +16,11 @@ import { ColumnVisibilityDropdown, Table } from '@/components/table'
 import useDebouncedSearch from '@/hooks/useDebouncedSearch'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
-import { useAdmins } from '@/hooks/useOwner'
+import { useAdmins, useResendAdminInvitation } from '@/hooks/useOwner'
 import useTableParams from '@/hooks/useTableParams'
+import useToast from '@/hooks/useToast'
 import { UserStatus } from '@/lib/types'
+import { toTranslationKey } from '@/services/catch'
 
 import { getAccessibleColumns } from './columns'
 
@@ -32,6 +34,8 @@ const Toolbar = ({ children }) => (
 export const AdminsPage = () => {
   const { t, formatDate } = useLocale()
   const { openModal } = useModal()
+  const { showSuccessToast, showErrorToast } = useToast()
+  const { mutate: resendInvitation } = useResendAdminInvitation()
 
   const { params, apiParams, setParams } = useTableParams()
 
@@ -72,6 +76,16 @@ export const AdminsPage = () => {
     [openModal]
   )
 
+  const handleResendInvitation = useCallback(
+    admin => {
+      resendInvitation(admin.id, {
+        onSuccess: () => showSuccessToast(t('invitation.resend.success')),
+        onError: err => showErrorToast(t(toTranslationKey(err)))
+      })
+    },
+    [resendInvitation, showSuccessToast, showErrorToast, t]
+  )
+
   const contextMenu = useMemo(
     () => [
       {
@@ -82,14 +96,11 @@ export const AdminsPage = () => {
       {
         icon: MailIcon,
         labelKey: 'contextMenu.resendInvitation',
-        onClick: admin => {
-          // TODO: Integrate with backend when endpoint is ready
-          console.warn('Resend invitation for:', admin.email)
-        },
+        onClick: handleResendInvitation,
         isVisible: admin => admin.status === UserStatus.PENDING
       }
     ],
-    [handleRowClick]
+    [handleRowClick, handleResendInvitation]
   )
 
   const handlePageChange = page => {

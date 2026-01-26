@@ -8,6 +8,7 @@
     "auth/forbidden": "Access denied.",
     "auth/invalid-credentials": "Invalid email or password.",
     "auth/unauthorized": "Access denied. Please try logging in again.",
+    "request/bad": "Invalid request.",
     "resource/not-found": "Resource not found.",
     "system/internal-error": "Something went wrong. Please try again later.",
     "token/already-used": "Invalid or expired link.",
@@ -139,6 +140,9 @@
       "error": "Failed to accept invitation. The link may have expired.",
       "success": "Welcome! Your account is ready.",
       "title": "You're invited to {{companyName}}"
+    },
+    "resend": {
+      "success": "Invitation resent."
     },
     "send": {
       "cta": "Send invitation",
