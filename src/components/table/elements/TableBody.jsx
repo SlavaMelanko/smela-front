@@ -45,6 +45,7 @@ const TableRowContent = ({ row, onRowClick, contextMenu }) => {
         {visibleItems.map(item => (
           <ContextMenuItem
             key={item.label}
+            disabled={item.disabled}
             onClick={() => item.onClick(row.original)}
           >
             {item.icon && <item.icon className='size-4' />}

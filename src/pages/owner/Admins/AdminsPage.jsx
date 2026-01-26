@@ -35,7 +35,8 @@ export const AdminsPage = () => {
   const { t, formatDate } = useLocale()
   const { openModal } = useModal()
   const { showSuccessToast, showErrorToast } = useToast()
-  const { mutate: resendInvitation } = useResendAdminInvitation()
+  const { mutate: resendInvitation, isPending: isResending } =
+    useResendAdminInvitation()
 
   const { params, apiParams, setParams } = useTableParams()
 
@@ -97,10 +98,11 @@ export const AdminsPage = () => {
         icon: MailIcon,
         label: t('contextMenu.resendInvitation'),
         onClick: handleResendInvitation,
-        isVisible: admin => admin.status === UserStatus.PENDING
+        isVisible: admin => admin.status === UserStatus.PENDING,
+        disabled: isResending
       }
     ],
-    [t, handleRowClick, handleResendInvitation]
+    [t, handleRowClick, handleResendInvitation, isResending]
   )
 
   const handlePageChange = page => {
