@@ -136,7 +136,9 @@ export class EmailService {
 
   async waitForInvitationEmail(
     emailAddress,
-    subject = "You're invited to SMELA-DEV"
+    // subject parameter does a substring match, so it will match any email
+    // with a subject like "You're invited to ACME Corp".
+    subject = "You're invited to"
   ) {
     const email = await this.#waitForEmail(emailAddress, subject)
     const link = extractAcceptInviteLink(email.text)
