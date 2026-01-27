@@ -16,7 +16,7 @@ const sortedRowModel = getSortedRowModel()
 export default {
   title: 'Components/Table',
   component: Table,
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'centered' },
   argTypes: {
     onRowClick: { action: 'rowClicked' }
   }

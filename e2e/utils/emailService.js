@@ -9,21 +9,20 @@ export const emailConfig = {
   domain: `${process.env.VITE_MAILISK_NAMESPACE}.mailisk.net`
 }
 
-export const extractVerificationLink = text => {
-  // Match URLs like http://localhost:5173/verify-email?token=xxx
-  const regex = /https?:\/\/[^ \n]+\/verify-email\?token=[^ \n]+/i
+const extractLink = (text, regex) => {
   const match = text.match(regex)
 
   return match ? match[0] : null
 }
 
-export const extractResetPasswordLink = text => {
-  // Match URLs like http://localhost:5173/reset-password?token=xxx.
-  const regex = /https?:\/\/[^ \n]+\/reset-password\?token=[^ \n]+/i
-  const match = text.match(regex)
+export const extractVerificationLink = text =>
+  extractLink(text, /https?:\/\/[^ \n]+\/verify-email\?token=[^ \n]+/i)
 
-  return match ? match[0] : null
-}
+export const extractResetPasswordLink = text =>
+  extractLink(text, /https?:\/\/[^ \n]+\/reset-password\?token=[^ \n]+/i)
+
+export const extractAcceptInviteLink = text =>
+  extractLink(text, /https?:\/\/[^ \n]+\/accept-invite\?token=[^ \n]+/i)
 
 export const hashEmail = email => {
   // Use HTML content as the unique identifier.
@@ -125,6 +124,27 @@ export class EmailService {
 
     if (!link) {
       throw new Error('Reset password link not found in email.')
+    }
+
+    return {
+      link,
+      text: email.text,
+      html: email.html,
+      subject: email.subject
+    }
+  }
+
+  async waitForInvitationEmail(
+    emailAddress,
+    // subject parameter does a substring match, so it will match any email
+    // with a subject like "You're invited to ACME Corp".
+    subject = "You're invited to"
+  ) {
+    const email = await this.#waitForEmail(emailAddress, subject)
+    const link = extractAcceptInviteLink(email.text)
+
+    if (!link) {
+      throw new Error('Accept invitation link not found in email.')
     }
 
     return {

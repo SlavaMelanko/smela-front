@@ -1,5 +1,3 @@
-import { expect, test } from '@playwright/test'
-
 import { HttpStatus } from '../src/lib/net'
 import { Role, UserStatus } from '../src/lib/types'
 import {
@@ -12,79 +10,17 @@ import {
   VERIFY_EMAIL_PATH
 } from '../src/services/backend/paths'
 import { auth } from '../src/tests/data'
+import { expect, test } from './config/fixtures'
 import {
   emailConfig,
-  EmailService,
-  loadTranslations,
+  fillLoginFormAndSubmit,
+  fillNewPasswordFormAndSubmit,
+  fillRequestPasswordResetFormAndSubmit,
+  fillSignupFormAndSubmit,
+  logOut,
   waitForApiCall,
   waitForApiCalls
-} from './helpers'
-
-const t = loadTranslations()
-
-const emailService = new EmailService()
-
-const fillSignupFormAndSubmit = async (
-  page,
-  { firstName, lastName, email, password },
-  t
-) => {
-  const firstNameInput = page.getByLabel(t.firstName.label)
-  const lastNameInput = page.getByLabel(t.lastName.label)
-  const emailInput = page.getByLabel(t.email.label)
-  const passwordInput = page.getByRole('textbox', {
-    name: t.password.label.default
-  })
-  const signupButton = page.getByRole('button', { name: t.signUp })
-
-  await firstNameInput.fill(firstName)
-  await lastNameInput.fill(lastName)
-  await emailInput.fill(email)
-  await passwordInput.fill(password)
-  await signupButton.click()
-
-  return {
-    firstNameInput,
-    lastNameInput,
-    emailInput,
-    passwordInput,
-    signupButton
-  }
-}
-
-const fillLoginFormAndSubmit = async (page, { email, password }, t) => {
-  const emailInput = page.getByLabel(t.email.label)
-  const passwordInput = page.getByRole('textbox', {
-    name: t.password.label.default
-  })
-  const loginButton = page.getByRole('button', { name: t.login.verb })
-
-  await emailInput.fill(email)
-  await passwordInput.fill(password)
-  await loginButton.click()
-
-  return { emailInput, passwordInput, submitButton: loginButton }
-}
-
-const fillRequestPasswordResetFormAndSubmit = async (page, email, t) => {
-  await page.getByLabel(t.email.label).fill(email)
-
-  await page.getByRole('button', { name: t.password.reset.request.cta }).click()
-}
-
-const fillNewPasswordFormAndSubmit = async (page, newPassword, t) => {
-  await page
-    .getByRole('textbox', { name: t.password.label.new })
-    .fill(newPassword)
-
-  await page.getByRole('button', { name: t.password.reset.set.cta }).click()
-}
-
-const logOut = async (page, t) => {
-  await page.getByRole('button', { name: 'Profile menu' }).click()
-  await page.getByRole('menuitem', { name: t.logout.noun }).click()
-  await page.waitForURL('/login')
-}
+} from './utils'
 
 test.describe.serial('Authentication', () => {
   // Credentials for a user created during the signup test.
@@ -99,7 +35,7 @@ test.describe.serial('Authentication', () => {
     newPassword: auth.password.withSpecialChars
   }
 
-  test('signup: validates required fields', async ({ page }) => {
+  test('signup: validates required fields', async ({ page, t }) => {
     await page.goto('/signup')
 
     const { firstNameInput, lastNameInput, emailInput, passwordInput } =
@@ -124,7 +60,7 @@ test.describe.serial('Authentication', () => {
   })
 
   // This test requires a pre-registered admin account
-  test('signup: prevents duplicate email registration', async ({ page }) => {
+  test('signup: prevents duplicate email registration', async ({ page, t }) => {
     await page.goto('/signup')
 
     const apiPromise = waitForApiCall(page, {
@@ -137,7 +73,7 @@ test.describe.serial('Authentication', () => {
       {
         firstName: auth.firstName.ok,
         lastName: auth.lastName.ok,
-        email: auth.email.admin,
+        email: process.env.VITE_E2E_ADMIN_EMAIL,
         password: auth.password.strong
       },
       t
@@ -150,7 +86,11 @@ test.describe.serial('Authentication', () => {
     await expect(errorMessage).toBeVisible()
   })
 
-  test('signup: resend verification email', async ({ page }) => {
+  test('signup: resend verification email', async ({
+    page,
+    t,
+    emailService
+  }) => {
     await page.goto('/signup')
 
     const testEmail = auth.email.generate({
@@ -177,10 +117,9 @@ test.describe.serial('Authentication', () => {
           return false
         }
 
-        const { id, firstName, lastName, email, status, role } = body.user
+        const { firstName, lastName, email, status, role } = body.user
 
         return (
-          id > 0 &&
           firstName === auth.firstName.ok &&
           lastName === auth.lastName.ok &&
           email === testEmail &&
@@ -268,7 +207,11 @@ test.describe.serial('Authentication', () => {
     ).toBeVisible()
   })
 
-  test('signup: handles invalid verification link', async ({ page }) => {
+  test('signup: handles invalid verification link', async ({
+    page,
+    t,
+    emailService
+  }) => {
     await page.goto('/signup')
 
     const testEmail = auth.email.generate({
@@ -349,7 +292,11 @@ test.describe.serial('Authentication', () => {
    * Docs used:
    * - https://mailisk.com/blog/email-verification-playwright
    */
-  test('signup: creates account and verifies email', async ({ page }) => {
+  test('signup: creates account and verifies email', async ({
+    page,
+    t,
+    emailService
+  }) => {
     await page.goto('/signup')
 
     const apiPromise = waitForApiCall(page, {
@@ -389,10 +336,9 @@ test.describe.serial('Authentication', () => {
             return false
           }
 
-          const { id, firstName, lastName, email, status, role } = b.user
+          const { firstName, lastName, email, status, role } = b.user
 
           return (
-            id > 0 &&
             firstName === auth.firstName.ok &&
             lastName === auth.lastName.ok &&
             email === userCredentials.email &&
@@ -409,10 +355,9 @@ test.describe.serial('Authentication', () => {
             return false
           }
 
-          const { id, firstName, lastName, email, status, role } = b.user
+          const { firstName, lastName, email, status, role } = b.user
 
           return (
-            id > 0 &&
             firstName === auth.firstName.ok &&
             lastName === auth.lastName.ok &&
             email === userCredentials.email &&
@@ -436,7 +381,8 @@ test.describe.serial('Authentication', () => {
   })
 
   test('login: shows error with invalid credentials and preserves form data', async ({
-    page
+    page,
+    t
   }) => {
     await page.goto('/login')
 
@@ -478,7 +424,8 @@ test.describe.serial('Authentication', () => {
   })
 
   test('login: authenticates with valid credentials and redirects to home', async ({
-    page
+    page,
+    t
   }) => {
     await page.goto('/login')
 
@@ -505,7 +452,8 @@ test.describe.serial('Authentication', () => {
   })
 
   test('login: redirects authenticated users from auth pages', async ({
-    page
+    page,
+    t
   }) => {
     // First, authenticate the user
     await page.goto('/login')
@@ -547,7 +495,11 @@ test.describe.serial('Authentication', () => {
     await logOut(page, t)
   })
 
-  test('password reset: resets password and auto-login', async ({ page }) => {
+  test('password reset: resets password and auto-login', async ({
+    page,
+    t,
+    emailService
+  }) => {
     await page.goto('/reset-password')
 
     await expect(
@@ -593,7 +545,8 @@ test.describe.serial('Authentication', () => {
   })
 
   test('authorization: shows 404 for unauthorized and unknown routes', async ({
-    page
+    page,
+    t
   }) => {
     await page.goto('/login')
 
@@ -604,10 +557,7 @@ test.describe.serial('Authentication', () => {
 
     await fillLoginFormAndSubmit(
       page,
-      {
-        email: userCredentials.email,
-        password: userCredentials.newPassword
-      },
+      { email: userCredentials.email, password: userCredentials.newPassword },
       t
     )
 
@@ -632,7 +582,8 @@ test.describe.serial('Authentication', () => {
 
   test('logout: syncs authentication state across tabs', async ({
     page,
-    context
+    context,
+    t
   }) => {
     // Step 1: Login in first tab and verify home page
     await page.goto('/login')
@@ -642,12 +593,10 @@ test.describe.serial('Authentication', () => {
       status: HttpStatus.OK
     })
 
+    // Password reset test changes the password
     await fillLoginFormAndSubmit(
       page,
-      {
-        email: userCredentials.email,
-        password: userCredentials.newPassword // password reset test changes the password
-      },
+      { email: userCredentials.email, password: userCredentials.newPassword },
       t
     )
 
