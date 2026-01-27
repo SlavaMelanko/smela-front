@@ -1,17 +1,15 @@
-// @ts-check
 import { defineConfig, devices } from '@playwright/test'
-import { loadEnv } from 'vite'
 
-// NODE_ENV=test is set in package.json scripts.
-// Vite's loadEnv loads VITE_* variables from .env.test file.
-Object.assign(process.env, loadEnv('test', './', 'VITE_'))
+import { loadTestEnv } from './e2e/config/globalSetup'
+
+loadTestEnv()
 
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
   testDir: './e2e',
-  globalSetup: './e2e/config/global-setup.js',
+  globalSetup: './e2e/config/globalSetup.js',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -41,29 +39,23 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        // Default locale for this project - can be overridden by TEST_LOCALE env var
         locale: 'en-US'
       }
-    }
-
-    // Example: Ukrainian language tests
-    // {
-    //   name: 'chromium-uk',
-    //   use: {
-    //     ...devices['Desktop Chrome'],
-    //     locale: 'uk-UA'
-    //   }
-    // }
-
+    },
     // {
     //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] }
-    // }
-
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] }
-    // }
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //     locale: 'uk-UA'
+    //   }
+    // },
+    {
+      name: 'webkit',
+      use: {
+        ...devices['Desktop Safari'],
+        locale: 'uk-UA'
+      }
+    }
 
     /* Test against mobile viewports. */
     // {
