@@ -26,14 +26,14 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         locale: 'en-US'
       }
-    },
-    {
-      name: 'webkit',
-      use: {
-        ...devices['Desktop Safari'],
-        locale: 'uk-UA'
-      }
     }
+    //{
+    //  name: 'webkit',
+    //  use: {
+    //    ...devices['Desktop Safari'],
+    //    locale: 'uk-UA'
+    //  }
+    //}
   ],
 
   webServer: {
