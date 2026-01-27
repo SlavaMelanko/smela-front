@@ -11,7 +11,11 @@ import { auth } from '../src/tests/data'
 import {
   emailConfig,
   EmailService,
+  fillAcceptInviteFormAndSubmit,
+  fillInvitationFormAndSubmit,
+  fillLoginFormAndSubmit,
   loadTranslations,
+  logOut,
   waitForApiCall,
   waitForApiCalls
 } from './utils'
@@ -23,43 +27,6 @@ const emailService = new EmailService()
 const ownerCredentials = {
   email: process.env.VITE_E2E_OWNER_EMAIL,
   password: process.env.VITE_E2E_OWNER_PASSWORD
-}
-
-const fillLoginFormAndSubmit = async (page, { email, password }) => {
-  const emailInput = page.getByLabel(t.email.label)
-  const passwordInput = page.getByRole('textbox', {
-    name: t.password.label.default
-  })
-  const loginButton = page.getByRole('button', { name: t.login.verb })
-
-  await emailInput.fill(email)
-  await passwordInput.fill(password)
-  await loginButton.click()
-}
-
-const logOut = async page => {
-  await page.getByRole('button', { name: 'Profile menu' }).click()
-  await page.getByRole('menuitem', { name: t.logout.noun }).click()
-  await page.waitForURL('/login')
-}
-
-const fillInvitationFormAndSubmit = async (
-  page,
-  { firstName, lastName, email }
-) => {
-  await page.getByLabel(t.firstName.label).fill(firstName)
-  await page.getByLabel(t.lastName.label).fill(lastName)
-  await page.getByLabel(t.email.label).fill(email)
-  await page.getByRole('button', { name: t.invitation.send.cta }).click()
-}
-
-const fillAcceptInviteFormAndSubmit = async (page, password) => {
-  const passwordInput = page.getByRole('textbox', {
-    name: t.password.label.default
-  })
-
-  await passwordInput.fill(password)
-  await page.getByRole('button', { name: t.invitation.accept.cta }).click()
 }
 
 test.describe.serial('Owner Admin Invitation', () => {
@@ -81,7 +48,7 @@ test.describe.serial('Owner Admin Invitation', () => {
       status: HttpStatus.OK
     })
 
-    await fillLoginFormAndSubmit(page, ownerCredentials)
+    await fillLoginFormAndSubmit(page, ownerCredentials, t)
     await apiPromise
 
     apiPromise = waitForApiCall(page, {
@@ -105,7 +72,7 @@ test.describe.serial('Owner Admin Invitation', () => {
       { path: OWNER_ADMINS_PATH, status: HttpStatus.OK }
     ])
 
-    await fillInvitationFormAndSubmit(page, newAdmin)
+    await fillInvitationFormAndSubmit(page, newAdmin, t)
     await apiPromises
 
     // Verify success toast
@@ -119,7 +86,7 @@ test.describe.serial('Owner Admin Invitation', () => {
     await expect(adminRow).toBeVisible()
     await expect(adminRow.getByText(t.status.values.pending)).toBeVisible()
 
-    await logOut(page)
+    await logOut(page, t)
   })
 
   test('invited admin accepts invitation via email link', async ({ page }) => {
@@ -141,7 +108,7 @@ test.describe.serial('Owner Admin Invitation', () => {
       status: HttpStatus.OK
     })
 
-    await fillAcceptInviteFormAndSubmit(page, newAdmin.password)
+    await fillAcceptInviteFormAndSubmit(page, newAdmin.password, t)
     await apiPromise
 
     // Verify success toast
@@ -149,7 +116,7 @@ test.describe.serial('Owner Admin Invitation', () => {
 
     await page.waitForURL('/admin/dashboard')
 
-    await logOut(page)
+    await logOut(page, t)
   })
 
   test('owner verifies admin status changed to active', async ({ page }) => {
@@ -160,7 +127,7 @@ test.describe.serial('Owner Admin Invitation', () => {
       status: HttpStatus.OK
     })
 
-    await fillLoginFormAndSubmit(page, ownerCredentials)
+    await fillLoginFormAndSubmit(page, ownerCredentials, t)
     await apiPromise
 
     apiPromise = waitForApiCall(page, {
@@ -179,6 +146,6 @@ test.describe.serial('Owner Admin Invitation', () => {
     await expect(adminRow).toBeVisible()
     await expect(adminRow.getByText(t.status.values.active)).toBeVisible()
 
-    await logOut(page)
+    await logOut(page, t)
   })
 })
