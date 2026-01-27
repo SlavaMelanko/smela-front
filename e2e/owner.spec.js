@@ -1,5 +1,3 @@
-import { expect, test } from '@playwright/test'
-
 import { HttpStatus } from '../src/lib/net'
 import {
   ACCEPT_INVITE_PATH,
@@ -8,21 +6,16 @@ import {
   OWNER_ADMINS_PATH
 } from '../src/services/backend/paths'
 import { auth } from '../src/tests/data'
+import { expect, test } from './config/fixtures'
 import {
   emailConfig,
-  EmailService,
   fillAcceptInviteFormAndSubmit,
   fillInvitationFormAndSubmit,
   fillLoginFormAndSubmit,
-  loadTranslations,
   logOut,
   waitForApiCall,
   waitForApiCalls
 } from './utils'
-
-const t = loadTranslations()
-
-const emailService = new EmailService()
 
 const ownerCredentials = {
   email: process.env.VITE_E2E_OWNER_EMAIL,
@@ -40,7 +33,7 @@ test.describe.serial('Owner Admin Invitation', () => {
     password: auth.password.strong
   }
 
-  test('owner invites admin via modal form', async ({ page }) => {
+  test('owner invites admin via modal form', async ({ page, t }) => {
     await page.goto('/login')
 
     let apiPromise = waitForApiCall(page, {
@@ -89,7 +82,11 @@ test.describe.serial('Owner Admin Invitation', () => {
     await logOut(page, t)
   })
 
-  test('invited admin accepts invitation via email link', async ({ page }) => {
+  test('invited admin accepts invitation via email link', async ({
+    page,
+    t,
+    emailService
+  }) => {
     const { link } = await emailService.waitForInvitationEmail(newAdmin.email)
 
     expect(link).toContain('/accept-invite?token=')
@@ -119,7 +116,7 @@ test.describe.serial('Owner Admin Invitation', () => {
     await logOut(page, t)
   })
 
-  test('owner verifies admin status changed to active', async ({ page }) => {
+  test('owner verifies admin status changed to active', async ({ page, t }) => {
     await page.goto('/login')
 
     let apiPromise = waitForApiCall(page, {

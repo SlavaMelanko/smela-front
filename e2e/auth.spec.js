@@ -1,5 +1,3 @@
-import { expect, test } from '@playwright/test'
-
 import { HttpStatus } from '../src/lib/net'
 import { Role, UserStatus } from '../src/lib/types'
 import {
@@ -12,22 +10,17 @@ import {
   VERIFY_EMAIL_PATH
 } from '../src/services/backend/paths'
 import { auth } from '../src/tests/data'
+import { expect, test } from './config/fixtures'
 import {
   emailConfig,
-  EmailService,
   fillLoginFormAndSubmit,
   fillNewPasswordFormAndSubmit,
   fillRequestPasswordResetFormAndSubmit,
   fillSignupFormAndSubmit,
-  loadTranslations,
   logOut,
   waitForApiCall,
   waitForApiCalls
 } from './utils'
-
-const t = loadTranslations()
-
-const emailService = new EmailService()
 
 test.describe.serial('Authentication', () => {
   // Credentials for a user created during the signup test.
@@ -42,7 +35,7 @@ test.describe.serial('Authentication', () => {
     newPassword: auth.password.withSpecialChars
   }
 
-  test('signup: validates required fields', async ({ page }) => {
+  test('signup: validates required fields', async ({ page, t }) => {
     await page.goto('/signup')
 
     const { firstNameInput, lastNameInput, emailInput, passwordInput } =
@@ -67,7 +60,7 @@ test.describe.serial('Authentication', () => {
   })
 
   // This test requires a pre-registered admin account
-  test('signup: prevents duplicate email registration', async ({ page }) => {
+  test('signup: prevents duplicate email registration', async ({ page, t }) => {
     await page.goto('/signup')
 
     const apiPromise = waitForApiCall(page, {
@@ -93,7 +86,11 @@ test.describe.serial('Authentication', () => {
     await expect(errorMessage).toBeVisible()
   })
 
-  test('signup: resend verification email', async ({ page }) => {
+  test('signup: resend verification email', async ({
+    page,
+    t,
+    emailService
+  }) => {
     await page.goto('/signup')
 
     const testEmail = auth.email.generate({
@@ -210,7 +207,11 @@ test.describe.serial('Authentication', () => {
     ).toBeVisible()
   })
 
-  test('signup: handles invalid verification link', async ({ page }) => {
+  test('signup: handles invalid verification link', async ({
+    page,
+    t,
+    emailService
+  }) => {
     await page.goto('/signup')
 
     const testEmail = auth.email.generate({
@@ -291,7 +292,11 @@ test.describe.serial('Authentication', () => {
    * Docs used:
    * - https://mailisk.com/blog/email-verification-playwright
    */
-  test('signup: creates account and verifies email', async ({ page }) => {
+  test('signup: creates account and verifies email', async ({
+    page,
+    t,
+    emailService
+  }) => {
     await page.goto('/signup')
 
     const apiPromise = waitForApiCall(page, {
@@ -376,7 +381,8 @@ test.describe.serial('Authentication', () => {
   })
 
   test('login: shows error with invalid credentials and preserves form data', async ({
-    page
+    page,
+    t
   }) => {
     await page.goto('/login')
 
@@ -418,7 +424,8 @@ test.describe.serial('Authentication', () => {
   })
 
   test('login: authenticates with valid credentials and redirects to home', async ({
-    page
+    page,
+    t
   }) => {
     await page.goto('/login')
 
@@ -445,7 +452,8 @@ test.describe.serial('Authentication', () => {
   })
 
   test('login: redirects authenticated users from auth pages', async ({
-    page
+    page,
+    t
   }) => {
     // First, authenticate the user
     await page.goto('/login')
@@ -487,7 +495,11 @@ test.describe.serial('Authentication', () => {
     await logOut(page, t)
   })
 
-  test('password reset: resets password and auto-login', async ({ page }) => {
+  test('password reset: resets password and auto-login', async ({
+    page,
+    t,
+    emailService
+  }) => {
     await page.goto('/reset-password')
 
     await expect(
@@ -533,7 +545,8 @@ test.describe.serial('Authentication', () => {
   })
 
   test('authorization: shows 404 for unauthorized and unknown routes', async ({
-    page
+    page,
+    t
   }) => {
     await page.goto('/login')
 
@@ -569,7 +582,8 @@ test.describe.serial('Authentication', () => {
 
   test('logout: syncs authentication state across tabs', async ({
     page,
-    context
+    context,
+    t
   }) => {
     // Step 1: Login in first tab and verify home page
     await page.goto('/login')
