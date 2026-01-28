@@ -72,4 +72,45 @@ describe('useDebouncedSearch', () => {
 
     expect(onSearch).not.toHaveBeenCalled()
   })
+
+  it('does not overwrite user input when URL updates from our own onSearch', () => {
+    const onSearch = jest.fn()
+    const { result, rerender } = renderHook(
+      ({ urlValue }) => useDebouncedSearch(urlValue, onSearch),
+      { initialProps: { urlValue: '' } }
+    )
+
+    // User types 'q', debounce fires, onSearch('q') updates URL
+    act(() => {
+      result.current.setSearchValue('q')
+    })
+
+    expect(onSearch).toHaveBeenCalledWith('q')
+
+    // URL updates to 'q' from our own onSearch call — should NOT reset input
+    rerender({ urlValue: 'q' })
+    expect(result.current.searchValue).toBe('q')
+
+    // User continues typing, now 'qw'
+    act(() => {
+      result.current.setSearchValue('qw')
+    })
+
+    // URL still at 'q' but input is 'qw' — input should remain 'qw'
+    expect(result.current.searchValue).toBe('qw')
+  })
+
+  it('syncs from URL on external changes like browser back/forward', () => {
+    const onSearch = jest.fn()
+    const { result, rerender } = renderHook(
+      ({ urlValue }) => useDebouncedSearch(urlValue, onSearch),
+      { initialProps: { urlValue: 'initial' } }
+    )
+
+    // Simulate browser back/forward changing URL to something unexpected
+    rerender({ urlValue: 'external-navigation' })
+
+    // Should sync because this is an external change
+    expect(result.current.searchValue).toBe('external-navigation')
+  })
 })
