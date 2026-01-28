@@ -128,12 +128,10 @@ export const CompaniesPage = () => {
           placeholder={t('searchBy.companies')}
           value={searchValue}
           onChange={setSearchValue}
-          disabled={isPending}
         />
         <ColumnVisibilityDropdown
           label={t('table.column_plural')}
           columns={availableColumns}
-          disabled={isPending}
         />
         <AddButton label={t('add')} onClick={handleAddClick} />
       </Toolbar>
