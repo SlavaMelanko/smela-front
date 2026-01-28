@@ -10,11 +10,13 @@ const useDebouncedSearch = (urlValue, onSearch) => {
 
   // Update URL using onSearch when debounced value changes
   useEffect(() => {
-    if (debouncedValue !== urlValue) {
+    // Only trigger onSearch when debouncing has settled (debouncedValue === instantValue)
+    // to prevent stale values from overwriting external URL changes (browser back/forward)
+    if (debouncedValue !== urlValue && debouncedValue === instantValue) {
       expectedUrlRef.current = debouncedValue
       onSearch(debouncedValue)
     }
-  }, [debouncedValue, urlValue, onSearch])
+  }, [debouncedValue, urlValue, instantValue, onSearch])
 
   // Sync from URL only for external changes (browser back/forward)
   useEffect(() => {
