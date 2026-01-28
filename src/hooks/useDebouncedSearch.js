@@ -1,21 +1,28 @@
 import { useDebouncedValue } from '@tanstack/react-pacer'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const useDebouncedSearch = (urlValue, onSearch) => {
-  // Local state for instant input feedback
   const [instantValue, setInstantValue] = useState(urlValue)
-  const [debouncedValue] = useDebouncedValue(instantValue, { wait: 300 })
+  const [debouncedValue] = useDebouncedValue(instantValue, { wait: 500 })
 
-  // Sync debounced value to URL
+  // Track the URL value we expect from our own onSearch calls
+  const expectedUrlRef = useRef(urlValue)
+
+  // Update URL using onSearch when debounced value changes
   useEffect(() => {
     if (debouncedValue !== urlValue) {
+      expectedUrlRef.current = debouncedValue
       onSearch(debouncedValue)
     }
   }, [debouncedValue, urlValue, onSearch])
 
-  // Keep local state in sync when URL changes externally, e.g. browser back/forward
+  // Sync from URL only for external changes (browser back/forward)
   useEffect(() => {
-    setInstantValue(urlValue)
+    if (urlValue !== expectedUrlRef.current) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing external state (URL) is valid
+      setInstantValue(urlValue)
+      expectedUrlRef.current = urlValue
+    }
   }, [urlValue])
 
   return { searchValue: instantValue, setSearchValue: setInstantValue }
