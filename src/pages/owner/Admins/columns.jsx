@@ -1,7 +1,7 @@
 import { StatusBadge } from '@/components/badges'
 import { getFullName } from '@/lib/format/user'
 
-export const getAccessibleColumns = (t, formatDate) => {
+export const getColumns = (t, formatDate) => {
   const label = key => t(`table.users.${key}`)
 
   return [
@@ -26,6 +26,18 @@ export const getAccessibleColumns = (t, formatDate) => {
       cell: info => <StatusBadge status={info.getValue()} />
     },
     {
+      accessorKey: 'invitedBy',
+      header: label('invitedBy'),
+      accessorFn: row => row.invite?.inviterName,
+      cell: info => info.getValue() || ''
+    },
+    {
+      accessorKey: 'invitedAt',
+      header: label('invitedAt'),
+      accessorFn: row => row.invite?.invitedAt,
+      cell: info => (info.getValue() ? formatDate(info.getValue()) : '')
+    },
+    {
       accessorKey: 'createdAt',
       header: label('createdAt'),
       cell: info => formatDate(info.getValue())
@@ -36,4 +48,10 @@ export const getAccessibleColumns = (t, formatDate) => {
       cell: info => formatDate(info.getValue())
     }
   ]
+}
+
+export const defaultHiddenColumns = {
+  id: false,
+  invitedAt: false,
+  updatedAt: false
 }

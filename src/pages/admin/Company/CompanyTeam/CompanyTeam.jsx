@@ -8,7 +8,7 @@ import { ColumnVisibilityDropdown, Table } from '@/components/table'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 
-import { getColumns } from './columns'
+import { defaultHiddenColumns, getColumns } from './columns'
 
 const coreRowModel = getCoreRowModel()
 
@@ -21,10 +21,7 @@ export const CompanyTeam = ({ companyId, members }) => {
   const { openModal } = useModal()
 
   const columns = useMemo(() => getColumns(t, formatDate), [t, formatDate])
-  const [columnVisibility, setColumnVisibility] = useState({
-    id: false,
-    invitedBy: false
-  })
+  const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
 
   const isEmpty = members.length === 0
 

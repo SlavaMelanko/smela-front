@@ -22,7 +22,7 @@ import useToast from '@/hooks/useToast'
 import { UserStatus } from '@/lib/types'
 import { toTranslationKey } from '@/services/catch'
 
-import { getAccessibleColumns } from './columns'
+import { defaultHiddenColumns, getColumns } from './columns'
 
 const coreRowModel = getCoreRowModel()
 const sortedRowModel = getSortedRowModel()
@@ -52,14 +52,8 @@ export const AdminsPage = () => {
   const { data, isPending, isError } = useAdmins(apiParams)
   const { admins = [], pagination = defaultOptions } = data ?? {}
 
-  const columns = useMemo(
-    () => getAccessibleColumns(t, formatDate),
-    [t, formatDate]
-  )
-  const [columnVisibility, setColumnVisibility] = useState({
-    id: false,
-    updatedAt: false
-  })
+  const columns = useMemo(() => getColumns(t, formatDate), [t, formatDate])
+  const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
   const [sorting, setSorting] = useState([])
 
   const handleInviteClick = useCallback(() => {

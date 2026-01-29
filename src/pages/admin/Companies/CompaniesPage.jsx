@@ -20,7 +20,7 @@ import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 import useTableParams from '@/hooks/useTableParams'
 
-import { getAccessibleColumns } from './columns'
+import { defaultHiddenColumns, getColumns } from './columns'
 
 const coreRowModel = getCoreRowModel()
 const sortedRowModel = getSortedRowModel()
@@ -48,14 +48,8 @@ export const CompaniesPage = () => {
   const { data, isPending, isError } = useCompanies(apiParams)
   const { companies = [], pagination = defaultOptions } = data ?? {}
 
-  const columns = useMemo(
-    () => getAccessibleColumns(t, formatDate),
-    [t, formatDate]
-  )
-  const [columnVisibility, setColumnVisibility] = useState({
-    id: false,
-    updatedAt: false
-  })
+  const columns = useMemo(() => getColumns(t, formatDate), [t, formatDate])
+  const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
   const [sorting, setSorting] = useState([])
 
   const handleAddClick = useCallback(() => {

@@ -1,4 +1,4 @@
-export const getAccessibleColumns = (t, formatDate) => {
+export const getColumns = (t, formatDate) => {
   const label = key => t(`table.companies.${key}`)
 
   return [
@@ -26,4 +26,9 @@ export const getAccessibleColumns = (t, formatDate) => {
       cell: info => formatDate(info.getValue())
     }
   ]
+}
+
+export const defaultHiddenColumns = {
+  id: false,
+  updatedAt: false
 }
