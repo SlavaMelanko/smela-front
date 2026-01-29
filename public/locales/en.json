@@ -327,9 +327,11 @@
       "status": "$t(status.name)"
     },
     "users": {
+      "assignedAt": "Assigned At",
       "createdAt": "$t(createdAt)",
       "email": "Email",
       "id": "ID",
+      "invitedBy": "Invited By",
       "name": "Name",
       "status": "$t(status.name)",
       "updatedAt": "$t(updatedAt)"

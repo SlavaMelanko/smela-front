@@ -26,6 +26,18 @@ export const getAccessibleColumns = (t, formatDate) => {
       cell: info => <StatusBadge status={info.getValue()} />
     },
     {
+      accessorKey: 'invitedBy',
+      header: label('invitedBy'),
+      accessorFn: row => getFullName(row.inviter),
+      cell: info => info.getValue() || ''
+    },
+    {
+      accessorKey: 'assignedAt',
+      header: label('assignedAt'),
+      accessorFn: row => row.inviter?.assignedAt,
+      cell: info => (info.getValue() ? formatDate(info.getValue()) : '')
+    },
+    {
       accessorKey: 'createdAt',
       header: label('createdAt'),
       cell: info => formatDate(info.getValue())
