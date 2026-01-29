@@ -40,3 +40,8 @@ export const getColumns = (t, formatDate) => {
     }
   ]
 }
+
+export const defaultHiddenColumns = {
+  id: false,
+  invitedBy: false
+}

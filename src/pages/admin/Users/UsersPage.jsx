@@ -18,7 +18,7 @@ import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 import useTableParams from '@/hooks/useTableParams'
 
-import { getAccessibleColumns } from './columns'
+import { defaultHiddenColumns, getColumns } from './columns'
 import { Filters } from './Filters'
 import { Toolbar } from './Toolbar'
 
@@ -44,14 +44,8 @@ export const UsersPage = () => {
   const { data, isPending, isError } = useUsers(apiParams)
   const { users = [], pagination = defaultOptions } = data ?? {}
 
-  const columns = useMemo(
-    () => getAccessibleColumns(t, formatDate),
-    [t, formatDate]
-  )
-  const [columnVisibility, setColumnVisibility] = useState({
-    id: false,
-    updatedAt: false
-  })
+  const columns = useMemo(() => getColumns(t, formatDate), [t, formatDate])
+  const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
   const [sorting, setSorting] = useState([])
   const [showFilters, setShowFilters] = useState(false)
 
