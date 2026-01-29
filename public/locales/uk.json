@@ -154,6 +154,8 @@
     }
   },
   "invite": "Запросити",
+  "invitedAt": "Запрошено",
+  "invitedBy": "Запросив",
   "lastName": {
     "error": {
       "max": "Прізвище не може бути довше 50 символів.",
@@ -320,7 +322,7 @@
     "team": {
       "email": "Email",
       "id": "ID",
-      "invitedBy": "Запросив",
+      "invitedBy": "$t(invitedBy)",
       "joinedAt": "Приєднався",
       "name": "Ім'я",
       "position": "Посада",
@@ -330,8 +332,8 @@
       "createdAt": "$t(createdAt)",
       "email": "Email",
       "id": "ID",
-      "invitedAt": "Запрошено",
-      "invitedBy": "Запросив",
+      "invitedAt": "$t(invitedAt)",
+      "invitedBy": "$t(invitedBy)",
       "name": "Ім'я",
       "status": "$t(status.name)",
       "updatedAt": "$t(updatedAt)"

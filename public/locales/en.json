@@ -154,6 +154,8 @@
     }
   },
   "invite": "Invite",
+  "invitedAt": "Invited at",
+  "invitedBy": "Invited by",
   "lastName": {
     "error": {
       "max": "Last name can’t be longer than 50 characters.",
@@ -320,7 +322,7 @@
     "team": {
       "email": "Email",
       "id": "ID",
-      "invitedBy": "Invited by",
+      "invitedBy": "$t(invitedBy)",
       "joinedAt": "Joined at",
       "name": "Name",
       "position": "Position",
@@ -330,8 +332,8 @@
       "createdAt": "$t(createdAt)",
       "email": "Email",
       "id": "ID",
-      "invitedAt": "Invited at",
-      "invitedBy": "Invited by",
+      "invitedAt": "$t(invitedAt)",
+      "invitedBy": "$t(invitedBy)",
       "name": "Name",
       "status": "$t(status.name)",
       "updatedAt": "$t(updatedAt)"
