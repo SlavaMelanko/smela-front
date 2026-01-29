@@ -327,10 +327,10 @@
       "status": "$t(status.name)"
     },
     "users": {
-      "assignedAt": "Запрошено",
       "createdAt": "$t(createdAt)",
       "email": "Email",
       "id": "ID",
+      "invitedAt": "Запрошено",
       "invitedBy": "Запросив",
       "name": "Ім'я",
       "status": "$t(status.name)",

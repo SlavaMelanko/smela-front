@@ -68,7 +68,7 @@
   },
   "continueWithGoogle": "Continue with Google",
   "copyright": "© {{year}} {{companyName}}",
-  "createdAt": "Created At",
+  "createdAt": "Created at",
   "details": "Details",
   "doNotHaveAccount": "Don't have an account?",
   "email": {
@@ -320,18 +320,18 @@
     "team": {
       "email": "Email",
       "id": "ID",
-      "invitedBy": "Invited By",
-      "joinedAt": "Joined At",
+      "invitedBy": "Invited by",
+      "joinedAt": "Joined at",
       "name": "Name",
       "position": "Position",
       "status": "$t(status.name)"
     },
     "users": {
-      "assignedAt": "Assigned At",
       "createdAt": "$t(createdAt)",
       "email": "Email",
       "id": "ID",
-      "invitedBy": "Invited By",
+      "invitedAt": "Invited at",
+      "invitedBy": "Invited by",
       "name": "Name",
       "status": "$t(status.name)",
       "updatedAt": "$t(updatedAt)"
@@ -354,5 +354,5 @@
       "tb": "TB"
     }
   },
-  "updatedAt": "Updated At"
+  "updatedAt": "Updated at"
 }

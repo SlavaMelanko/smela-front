@@ -58,7 +58,7 @@ export const AdminsPage = () => {
   )
   const [columnVisibility, setColumnVisibility] = useState({
     id: false,
-    assignedAt: false,
+    invitedAt: false,
     updatedAt: false
   })
   const [sorting, setSorting] = useState([])

@@ -28,13 +28,13 @@ export const getAccessibleColumns = (t, formatDate) => {
     {
       accessorKey: 'invitedBy',
       header: label('invitedBy'),
-      accessorFn: row => getFullName(row.inviter),
+      accessorFn: row => row.invite?.inviterName,
       cell: info => info.getValue() || ''
     },
     {
-      accessorKey: 'assignedAt',
-      header: label('assignedAt'),
-      accessorFn: row => row.inviter?.assignedAt,
+      accessorKey: 'invitedAt',
+      header: label('invitedAt'),
+      accessorFn: row => row.invite?.invitedAt,
       cell: info => (info.getValue() ? formatDate(info.getValue()) : '')
     },
     {
