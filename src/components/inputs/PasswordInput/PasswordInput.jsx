@@ -40,7 +40,7 @@ export const PasswordInput = forwardRef(
             aria-label={toggleAriaLabel || toggleLabel}
             disabled={disabled && props.readOnly !== true}
           >
-            <Icon className='size-6 text-muted-foreground' />
+            <Icon className='size-6 stroke-1 text-muted-foreground' />
           </button>
         }
       />

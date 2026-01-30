@@ -9,7 +9,8 @@ React SPA with a solid, well-designed architecture for a smooth user experience.
 
 ## 📋 Prerequisites
 
-- Node.js (v20 or higher)
+- [Node.js](https://nodejs.org) (v20 or higher)
+- [pnpm](https://pnpm.io/installation)
 
 ## 🛠️ Build and Run
 
