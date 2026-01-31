@@ -15,7 +15,7 @@ export default defineConfig({
   reporter: 'html',
   use: {
     baseURL: process.env.VITE_FE_BASE_URL || 'http://localhost:5173',
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    screenshot: 'only-on-failure',
     trace: 'on-first-retry'
   },
 
