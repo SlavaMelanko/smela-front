@@ -12,15 +12,13 @@ import {
 import { auth } from '../src/tests/data'
 import { expect, test } from './config/fixtures'
 import {
-  emailConfig,
   fillLoginFormAndSubmit,
   fillNewPasswordFormAndSubmit,
   fillRequestPasswordResetFormAndSubmit,
   fillSignupFormAndSubmit,
-  logOut,
-  waitForApiCall,
-  waitForApiCalls
-} from './utils'
+  logOut
+} from './scenarios'
+import { emailConfig, waitForApiCall, waitForApiCalls } from './utils'
 
 /**
  * Serial tests - User lifecycle flow

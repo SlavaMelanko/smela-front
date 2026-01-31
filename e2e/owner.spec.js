@@ -8,21 +8,19 @@ import {
 import { auth } from '../src/tests/data'
 import { expect, test } from './config/fixtures'
 import {
-  emailConfig,
   fillAcceptInviteFormAndSubmit,
   fillInvitationFormAndSubmit,
   fillLoginFormAndSubmit,
-  logOut,
-  waitForApiCall,
-  waitForApiCalls
-} from './utils'
+  logOut
+} from './scenarios'
+import { emailConfig, waitForApiCall, waitForApiCalls } from './utils'
 
 const ownerCredentials = {
   email: process.env.VITE_E2E_OWNER_EMAIL,
   password: process.env.VITE_E2E_OWNER_PASSWORD
 }
 
-test.describe.serial('Owner Admin Invitation', () => {
+test.describe.serial('Owner: Admin Invitation', () => {
   const newAdmin = {
     firstName: 'InvitedAdmin',
     lastName: 'Test',
