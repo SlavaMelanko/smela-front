@@ -74,7 +74,7 @@ Load detailed guidance based on context:
 
 - Use `waitForTimeout()` (use proper waits)
 - Rely on CSS class selectors (brittle)
-- Share state between tests
+- Share mutable state between tests
 - Ignore flaky tests
 - Use `first()`, `nth()` without good reason
 - Over-abstract with heavy page object classes
