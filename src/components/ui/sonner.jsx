@@ -19,6 +19,7 @@ const Toaster = ({ theme = 'system', ...props }) => {
         error: <OctagonXIcon className='size-4 text-red-500' />,
         loading: <Loader2Icon className='size-4 animate-spin' />
       }}
+      offset={{ top: 60, right: 32 }}
       style={{
         '--normal-bg': 'var(--popover)',
         '--normal-text': 'var(--popover-foreground)',
