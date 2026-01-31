@@ -28,3 +28,7 @@ Or run tests in interactive UI mode:
 ```bash
 pnpm run e2e:ui
 ```
+
+## 📚 References
+
+- [Email verification with Playwright](https://mailisk.com/blog/email-verification-playwright)
