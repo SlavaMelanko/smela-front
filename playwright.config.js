@@ -10,7 +10,6 @@ loadTestEnv()
 export default defineConfig({
   testDir: './e2e',
   globalSetup: './e2e/config/globalSetup.js',
-  fullyParallel: true,
   forbidOnly: !!process.env.CI,
   reporter: 'html',
   use: {
