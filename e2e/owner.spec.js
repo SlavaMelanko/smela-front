@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker'
+
 import { HttpStatus } from '../src/lib/net'
 import {
   ACCEPT_INVITE_PATH,
@@ -19,11 +21,14 @@ const ownerCredentials = {
 }
 
 test.describe.serial('Owner: Admin Invitation', () => {
+  const firstName = faker.person.firstName()
+  const lastName = faker.person.lastName()
+
   const newAdmin = {
-    firstName: 'InvitedAdmin',
-    lastName: 'Test',
+    firstName,
+    lastName,
     email: auth.email.generate({
-      prefix: 'invited-admin',
+      prefix: firstName,
       domain: emailConfig.domain
     }),
     password: auth.password.strong

@@ -60,6 +60,7 @@
     "@babel/preset-env": "^7.28.6",
     "@babel/preset-react": "^7.28.5",
     "@eslint/js": "^9.39.1",
+    "@faker-js/faker": "^10.2.0",
     "@hookform/devtools": "^4.4.0",
     "@playwright/test": "^1.56.1",
     "@sentry/vite-plugin": "^4.6.1",

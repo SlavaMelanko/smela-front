@@ -41,7 +41,7 @@ export const auth = {
     generate: (options = {}) => {
       const { prefix, suffix = Date.now(), domain = 'example.com' } = options
 
-      return `${prefix}.${suffix}@${domain}`
+      return `${prefix}.${suffix}@${domain}`.toLowerCase()
     }
   },
   password: {
