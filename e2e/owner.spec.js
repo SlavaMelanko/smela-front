@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker'
+
 import { HttpStatus } from '../src/lib/net'
 import {
   ACCEPT_INVITE_PATH,
@@ -11,7 +13,7 @@ import {
   fillInvitationFormAndSubmit,
   logOut
 } from './scenarios'
-import { emailConfig, waitForApiCall, waitForApiCalls } from './utils'
+import { generateEmail, waitForApiCall, waitForApiCalls } from './utils'
 
 const ownerCredentials = {
   email: process.env.VITE_E2E_OWNER_EMAIL,
@@ -19,13 +21,13 @@ const ownerCredentials = {
 }
 
 test.describe.serial('Owner: Admin Invitation', () => {
+  const firstName = faker.person.firstName()
+  const lastName = faker.person.lastName()
+
   const newAdmin = {
-    firstName: 'InvitedAdmin',
-    lastName: 'Test',
-    email: auth.email.generate({
-      prefix: 'invited-admin',
-      domain: emailConfig.domain
-    }),
+    firstName,
+    lastName,
+    email: generateEmail({ prefix: firstName }),
     password: auth.password.strong
   }
 
@@ -128,5 +130,56 @@ test.describe.serial('Owner: Admin Invitation', () => {
     await expect(adminRow.getByText(t.status.values.active)).toBeVisible()
 
     await logOut(page, t)
+  })
+})
+
+test.describe('Owner: Admins Page Error Handling', () => {
+  test('displays error alert when admins API fails', async ({
+    page,
+    t,
+    login
+  }) => {
+    await login(ownerCredentials)
+
+    await page.route(`**${OWNER_ADMINS_PATH}*`, route =>
+      route.fulfill({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          error: 'Internal Server Error',
+          code: 'server/internal'
+        })
+      })
+    )
+
+    await page.goto('/owner/admins')
+
+    await expect(page.getByText(t.error.loading)).toBeVisible()
+    await expect(page.getByRole('button', { name: t.back })).toBeVisible()
+  })
+
+  test('displays empty table when no admins exist', async ({
+    page,
+    t,
+    login
+  }) => {
+    await login(ownerCredentials)
+
+    await page.route(`**${OWNER_ADMINS_PATH}*`, route =>
+      route.fulfill({
+        status: HttpStatus.OK,
+        contentType: 'application/json',
+        body: JSON.stringify({ data: [], total: 0 })
+      })
+    )
+
+    await page.goto('/owner/admins')
+
+    // Verify table header is visible but no data rows exist
+    await expect(
+      page.getByRole('columnheader', { name: t.table.users.name })
+    ).toBeVisible()
+
+    await expect(page.getByRole('cell')).toHaveCount(0)
   })
 })

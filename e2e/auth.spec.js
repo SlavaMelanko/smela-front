@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker'
+
 import { HttpStatus } from '../src/lib/net'
 import { Role, UserStatus } from '../src/lib/types'
 import {
@@ -18,7 +20,7 @@ import {
   fillSignupFormAndSubmit,
   logOut
 } from './scenarios'
-import { emailConfig, waitForApiCall, waitForApiCalls } from './utils'
+import { generateEmail, waitForApiCall, waitForApiCalls } from './utils'
 
 /**
  * Serial tests - User lifecycle flow
@@ -28,11 +30,13 @@ import { emailConfig, waitForApiCall, waitForApiCalls } from './utils'
 test.describe.serial('Authentication: User Lifecycle', () => {
   // Credentials for a user created during the signup test.
   // Subsequent tests (login, password reset) depend on this user.
-  const userCredentials = {
-    email: auth.email.generate({
-      prefix: 'test',
-      domain: emailConfig.domain
-    }),
+  const firstName = faker.person.firstName()
+  const lastName = faker.person.lastName()
+
+  const user = {
+    firstName,
+    lastName,
+    email: generateEmail({ prefix: firstName }),
     initialPassword: auth.password.strong,
     newPassword: auth.password.withSpecialChars
   }
@@ -53,10 +57,10 @@ test.describe.serial('Authentication: User Lifecycle', () => {
     await fillSignupFormAndSubmit(
       page,
       {
-        firstName: auth.firstName.ok,
-        lastName: auth.lastName.ok,
-        email: userCredentials.email,
-        password: userCredentials.initialPassword
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        password: user.initialPassword
       },
       t
     )
@@ -65,9 +69,7 @@ test.describe.serial('Authentication: User Lifecycle', () => {
 
     await page.waitForURL(/email-confirmation/)
 
-    const { link } = await emailService.waitForVerificationEmail(
-      userCredentials.email
-    )
+    const { link } = await emailService.waitForVerificationEmail(user.email)
 
     expect(link).toBeTruthy()
 
@@ -81,12 +83,12 @@ test.describe.serial('Authentication: User Lifecycle', () => {
             return false
           }
 
-          const { firstName, lastName, email, status, role } = b.user
+          const { firstName: fn, lastName: ln, email, status, role } = b.user
 
           return (
-            firstName === auth.firstName.ok &&
-            lastName === auth.lastName.ok &&
-            email === userCredentials.email &&
+            fn === user.firstName &&
+            ln === user.lastName &&
+            email === user.email &&
             status === UserStatus.NEW &&
             role === Role.USER
           )
@@ -100,12 +102,12 @@ test.describe.serial('Authentication: User Lifecycle', () => {
             return false
           }
 
-          const { firstName, lastName, email, status, role } = b.user
+          const { firstName: fn, lastName: ln, email, status, role } = b.user
 
           return (
-            firstName === auth.firstName.ok &&
-            lastName === auth.lastName.ok &&
-            email === userCredentials.email &&
+            fn === user.firstName &&
+            ln === user.lastName &&
+            email === user.email &&
             status === UserStatus.VERIFIED &&
             role === Role.USER
           )
@@ -131,8 +133,8 @@ test.describe.serial('Authentication: User Lifecycle', () => {
     login
   }) => {
     await login({
-      email: userCredentials.email,
-      password: userCredentials.initialPassword
+      email: user.email,
+      password: user.initialPassword
     })
 
     await page.waitForURL('/home')
@@ -158,14 +160,12 @@ test.describe.serial('Authentication: User Lifecycle', () => {
       validateRequest: b => !!b.captcha?.token
     })
 
-    await fillRequestPasswordResetFormAndSubmit(page, userCredentials.email, t)
+    await fillRequestPasswordResetFormAndSubmit(page, user.email, t)
     await apiPromise
 
     await expect(page.getByText(t.password.reset.request.success)).toBeVisible()
 
-    const { link } = await emailService.waitForResetPasswordEmail(
-      userCredentials.email
-    )
+    const { link } = await emailService.waitForResetPasswordEmail(user.email)
 
     expect(link).toBeTruthy()
 
@@ -178,7 +178,7 @@ test.describe.serial('Authentication: User Lifecycle', () => {
       status: HttpStatus.OK
     })
 
-    await fillNewPasswordFormAndSubmit(page, userCredentials.newPassword, t)
+    await fillNewPasswordFormAndSubmit(page, user.newPassword, t)
     await apiPromise
 
     await expect(page.getByText(t.password.reset.set.success)).toBeVisible()
@@ -236,8 +236,8 @@ test.describe('Authentication: General', () => {
     await fillSignupFormAndSubmit(
       page,
       {
-        firstName: auth.firstName.ok,
-        lastName: auth.lastName.ok,
+        firstName: faker.person.firstName(),
+        lastName: faker.person.lastName(),
         email: process.env.VITE_E2E_ADMIN_EMAIL,
         password: auth.password.strong
       },
@@ -258,10 +258,9 @@ test.describe('Authentication: General', () => {
   }) => {
     await page.goto('/signup')
 
-    const testEmail = auth.email.generate({
-      prefix: 'resend-test',
-      domain: emailConfig.domain
-    })
+    const firstName = faker.person.firstName()
+    const lastName = faker.person.lastName()
+    const testEmail = generateEmail({ prefix: firstName })
 
     let signupCaptchaToken = null
 
@@ -282,11 +281,11 @@ test.describe('Authentication: General', () => {
           return false
         }
 
-        const { firstName, lastName, email, status, role } = body.user
+        const { firstName: fn, lastName: ln, email, status, role } = body.user
 
         return (
-          firstName === auth.firstName.ok &&
-          lastName === auth.lastName.ok &&
+          fn === firstName &&
+          ln === lastName &&
           email === testEmail &&
           status === UserStatus.NEW &&
           role === Role.USER
@@ -297,8 +296,8 @@ test.describe('Authentication: General', () => {
     await fillSignupFormAndSubmit(
       page,
       {
-        firstName: auth.firstName.ok,
-        lastName: auth.lastName.ok,
+        firstName,
+        lastName,
         email: testEmail,
         password: auth.password.strong
       },
@@ -379,10 +378,9 @@ test.describe('Authentication: General', () => {
   }) => {
     await page.goto('/signup')
 
-    const testEmail = auth.email.generate({
-      prefix: 'invalid-link-test',
-      domain: emailConfig.domain
-    })
+    const firstName = faker.person.firstName()
+    const lastName = faker.person.lastName()
+    const testEmail = generateEmail({ prefix: firstName })
 
     const apiPromise = waitForApiCall(page, {
       path: SIGNUP_PATH,
@@ -392,8 +390,8 @@ test.describe('Authentication: General', () => {
     await fillSignupFormAndSubmit(
       page,
       {
-        firstName: auth.firstName.ok,
-        lastName: auth.lastName.ok,
+        firstName,
+        lastName,
         email: testEmail,
         password: auth.password.strong
       },

@@ -38,6 +38,7 @@ export default defineConfig({
   webServer: {
     command: 'pnpm run dev',
     url: process.env.VITE_FE_BASE_URL || 'http://localhost:5173',
-    timeout: 30000
+    timeout: 30000,
+    reuseExistingServer: !process.env.CI
   }
 })

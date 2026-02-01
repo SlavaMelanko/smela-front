@@ -9,19 +9,23 @@ export const emailConfig = {
   domain: `${process.env.VITE_MAILISK_NAMESPACE}.mailisk.net`
 }
 
+export const generateEmail = ({ prefix, suffix = Date.now() } = {}) => {
+  return `${prefix}.${suffix}@${emailConfig.domain}`.toLowerCase()
+}
+
 const extractLink = (text, regex) => {
   const match = text.match(regex)
 
   return match ? match[0] : null
 }
 
-export const extractVerificationLink = text =>
+const extractVerificationLink = text =>
   extractLink(text, /https?:\/\/[^ \n]+\/verify-email\?token=[^ \n]+/i)
 
-export const extractResetPasswordLink = text =>
+const extractResetPasswordLink = text =>
   extractLink(text, /https?:\/\/[^ \n]+\/reset-password\?token=[^ \n]+/i)
 
-export const extractAcceptInviteLink = text =>
+const extractAcceptInviteLink = text =>
   extractLink(text, /https?:\/\/[^ \n]+\/accept-invite\?token=[^ \n]+/i)
 
 export const hashEmail = email => {
