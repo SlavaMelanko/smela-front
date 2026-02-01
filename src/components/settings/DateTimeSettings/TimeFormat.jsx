@@ -15,7 +15,6 @@ const timeFormats = [
 export const TimeFormat = ({ value, onChange }) => {
   const { t } = useTranslation()
   const { formatTime } = useLocale()
-  const now = new Date()
 
   return (
     <SettingsSection>
@@ -27,7 +26,7 @@ export const TimeFormat = ({ value, onChange }) => {
             selected={value === option.value}
             onClick={() => onChange(option.value)}
             label={t(`format.time.values.${option.value}`)}
-            description={formatTime(now, option.hour12)}
+            description={formatTime(new Date(), option.hour12)}
           />
         ))}
       </SettingsOptions>

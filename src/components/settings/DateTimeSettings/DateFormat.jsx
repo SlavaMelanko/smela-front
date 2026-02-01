@@ -11,7 +11,6 @@ import { SettingsOption } from '../SettingsOption'
 export const DateFormat = ({ value, onChange }) => {
   const { t } = useTranslation()
   const { formatDate } = useLocale()
-  const now = new Date()
 
   return (
     <SettingsSection>
@@ -23,7 +22,7 @@ export const DateFormat = ({ value, onChange }) => {
             selected={value === key}
             onClick={() => onChange(key)}
             label={t(`format.date.values.${key}`)}
-            description={formatDate(now, options)}
+            description={formatDate(new Date(), options)}
           />
         ))}
       </SettingsOptions>
