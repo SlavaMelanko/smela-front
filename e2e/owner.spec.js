@@ -13,7 +13,7 @@ import {
   fillInvitationFormAndSubmit,
   logOut
 } from './scenarios'
-import { emailConfig, waitForApiCall, waitForApiCalls } from './utils'
+import { generateEmail, waitForApiCall, waitForApiCalls } from './utils'
 
 const ownerCredentials = {
   email: process.env.VITE_E2E_OWNER_EMAIL,
@@ -27,10 +27,7 @@ test.describe.serial('Owner: Admin Invitation', () => {
   const newAdmin = {
     firstName,
     lastName,
-    email: auth.email.generate({
-      prefix: firstName,
-      domain: emailConfig.domain
-    }),
+    email: generateEmail({ prefix: firstName }),
     password: auth.password.strong
   }
 
