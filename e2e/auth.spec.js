@@ -127,25 +127,13 @@ test.describe.serial('Authentication: User Lifecycle', () => {
 
   test('login: authenticates with valid credentials and redirects to home', async ({
     page,
-    t
+    t,
+    login
   }) => {
-    await page.goto('/login')
-
-    const apiPromise = waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
+    await login({
+      email: userCredentials.email,
+      password: userCredentials.initialPassword
     })
-
-    await fillLoginFormAndSubmit(
-      page,
-      {
-        email: userCredentials.email,
-        password: userCredentials.initialPassword
-      },
-      t
-    )
-
-    await apiPromise
 
     await page.waitForURL('/home')
 
@@ -227,7 +215,6 @@ test.describe('Authentication: General', () => {
     await expect(page.getByText(t.firstName.error.required)).toBeVisible()
     await expect(firstNameInput).toHaveClass(/border-destructive/)
 
-    // Last name is optional
     await expect(page.getByText(t.lastName.error.required)).toHaveCount(0)
     await expect(lastNameInput).not.toHaveClass(/border-destructive/)
 
@@ -238,7 +225,6 @@ test.describe('Authentication: General', () => {
     await expect(passwordInput).toHaveClass(/border-destructive/)
   })
 
-  // This test requires a pre-registered admin account
   test('signup: prevents duplicate email registration', async ({ page, t }) => {
     await page.goto('/signup')
 
@@ -512,26 +498,10 @@ test.describe('Authentication: General', () => {
 
   test('login: redirects authenticated users from auth pages', async ({
     page,
-    t
+    t,
+    login
   }) => {
-    // First, authenticate the user
-    await page.goto('/login')
-
-    const apiPromise = waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
-    })
-
-    await fillLoginFormAndSubmit(
-      page,
-      {
-        email: seededUser.email,
-        password: seededUser.password
-      },
-      t
-    )
-
-    await apiPromise
+    await login(seededUser)
 
     await page.waitForURL('/home')
 
@@ -556,22 +526,10 @@ test.describe('Authentication: General', () => {
 
   test('authorization: shows 404 for unauthorized and unknown routes', async ({
     page,
-    t
+    t,
+    login
   }) => {
-    await page.goto('/login')
-
-    const apiPromise = waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
-    })
-
-    await fillLoginFormAndSubmit(
-      page,
-      { email: seededUser.email, password: seededUser.password },
-      t
-    )
-
-    await apiPromise
+    await login(seededUser)
 
     await page.waitForURL('/home')
 
@@ -593,23 +551,10 @@ test.describe('Authentication: General', () => {
   test('logout: syncs authentication state across tabs', async ({
     page,
     context,
-    t
+    t,
+    login
   }) => {
-    // Step 1: Login in first tab and verify home page
-    await page.goto('/login')
-
-    const apiPromise = waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
-    })
-
-    await fillLoginFormAndSubmit(
-      page,
-      { email: seededUser.email, password: seededUser.password },
-      t
-    )
-
-    await apiPromise
+    await login(seededUser)
 
     await page.waitForURL('/home')
 

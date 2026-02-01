@@ -1,7 +1,6 @@
 import { HttpStatus } from '../src/lib/net'
 import {
   ACCEPT_INVITE_PATH,
-  LOGIN_PATH,
   OWNER_ADMINS_INVITE_PATH,
   OWNER_ADMINS_PATH
 } from '../src/services/backend/paths'
@@ -10,7 +9,6 @@ import { expect, test } from './config/fixtures'
 import {
   fillAcceptInviteFormAndSubmit,
   fillInvitationFormAndSubmit,
-  fillLoginFormAndSubmit,
   logOut
 } from './scenarios'
 import { emailConfig, waitForApiCall, waitForApiCalls } from './utils'
@@ -31,18 +29,10 @@ test.describe.serial('Owner: Admin Invitation', () => {
     password: auth.password.strong
   }
 
-  test('owner invites admin via modal form', async ({ page, t }) => {
-    await page.goto('/login')
+  test('owner invites admin via modal form', async ({ page, t, login }) => {
+    await login(ownerCredentials)
 
-    let apiPromise = waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
-    })
-
-    await fillLoginFormAndSubmit(page, ownerCredentials, t)
-    await apiPromise
-
-    apiPromise = waitForApiCall(page, {
+    const apiPromise = waitForApiCall(page, {
       path: OWNER_ADMINS_PATH,
       status: HttpStatus.OK
     })
@@ -114,18 +104,14 @@ test.describe.serial('Owner: Admin Invitation', () => {
     await logOut(page, t)
   })
 
-  test('owner verifies admin status changed to active', async ({ page, t }) => {
-    await page.goto('/login')
+  test('owner verifies admin status changed to active', async ({
+    page,
+    t,
+    login
+  }) => {
+    await login(ownerCredentials)
 
-    let apiPromise = waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
-    })
-
-    await fillLoginFormAndSubmit(page, ownerCredentials, t)
-    await apiPromise
-
-    apiPromise = waitForApiCall(page, {
+    const apiPromise = waitForApiCall(page, {
       path: OWNER_ADMINS_PATH,
       status: HttpStatus.OK
     })
