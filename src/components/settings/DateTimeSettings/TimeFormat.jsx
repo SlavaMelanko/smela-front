@@ -1,4 +1,5 @@
 import { Clock } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 import useLocale from '@/hooks/useLocale'
 
@@ -7,24 +8,25 @@ import { SettingsLabel } from '../SettingsLabel'
 import { SettingsOption } from '../SettingsOption'
 
 const timeFormats = [
-  { value: '12', label: '12-hour', hour12: true },
-  { value: '24', label: '24-hour', hour12: false }
+  { value: '12', hour12: true },
+  { value: '24', hour12: false }
 ]
 
 export const TimeFormat = ({ value, onChange }) => {
+  const { t } = useTranslation()
   const { formatTime } = useLocale()
   const now = new Date()
 
   return (
     <SettingsSection>
-      <SettingsLabel icon={Clock}>Time format</SettingsLabel>
+      <SettingsLabel icon={Clock}>{t('format.time.name')}</SettingsLabel>
       <SettingsOptions>
         {timeFormats.map(option => (
           <SettingsOption
             key={option.value}
             selected={value === option.value}
             onClick={() => onChange(option.value)}
-            label={option.label}
+            label={t(`format.time.values.${option.value}`)}
             description={formatTime(now, option.hour12)}
           />
         ))}

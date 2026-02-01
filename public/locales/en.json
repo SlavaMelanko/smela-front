@@ -133,6 +133,23 @@
     "label": "First name"
   },
   "forgotYourPassword": "Forgot your password?",
+  "format": {
+    "date": {
+      "name": "Date format",
+      "values": {
+        "long": "Long",
+        "numeric": "Numeric",
+        "short": "Short"
+      }
+    },
+    "time": {
+      "name": "Time format",
+      "values": {
+        "12": "12-hour",
+        "24": "24-hour"
+      }
+    }
+  },
   "invitation": {
     "accept": {
       "cta": "Join",
