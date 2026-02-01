@@ -1,7 +1,7 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 
 import i18n, { LOCALE_STORAGE_KEY } from '@/i18n'
-import { formatDate, formatNumber, formatPrice } from '@/lib/format'
+import { formatDate, formatNumber, formatPrice, formatTime } from '@/lib/format'
 import { localStorage } from '@/lib/storage'
 
 const LocaleContext = createContext()
@@ -30,7 +30,8 @@ export const LocaleProvider = ({ children }) => {
         `${formatNumber(value, locale, options)} ${unit}`,
       formatPrice: (value, currency, options) =>
         formatPrice(value, locale, currency, options),
-      formatDate: (date, options) => formatDate(date, locale, options)
+      formatDate: (date, options) => formatDate(date, locale, options),
+      formatTime: (date, hour12) => formatTime(date, locale, hour12)
     }),
     [locale, changeLocale]
   )
