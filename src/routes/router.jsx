@@ -13,6 +13,7 @@ import {
   CompaniesPage,
   CompanyPage,
   DashboardPage,
+  SettingsPage as AdminSettingsPage,
   UsersPage
 } from '@/pages/admin'
 import {
@@ -31,7 +32,7 @@ import {
 import { PrivacyPage, TermsPage } from '@/pages/legal'
 import { AdminsPage } from '@/pages/owner'
 import { PricingPage } from '@/pages/public'
-import { HomePage } from '@/pages/user'
+import { HomePage, SettingsPage as UserSettingsPage } from '@/pages/user'
 
 import { ErrorBoundary } from './ErrorBoundary'
 import { PrivateRoute, PublicRoute } from './guards'
@@ -82,7 +83,10 @@ export const router = sentryCreateBrowserRouter([
       </PrivateRoute>
     ),
     errorElement: <ErrorBoundary />,
-    children: [{ path: 'home', element: <HomePage /> }]
+    children: [
+      { path: 'home', element: <HomePage /> },
+      { path: 'settings', element: <UserSettingsPage /> }
+    ]
   },
   {
     path: '/admin',
@@ -99,7 +103,8 @@ export const router = sentryCreateBrowserRouter([
       { path: 'dashboard', element: <DashboardPage /> },
       { path: 'users', element: <UsersPage /> },
       { path: 'companies', element: <CompaniesPage /> },
-      { path: 'companies/:id', element: <CompanyPage /> }
+      { path: 'companies/:id', element: <CompanyPage /> },
+      { path: 'settings', element: <AdminSettingsPage /> }
     ]
   },
   {
