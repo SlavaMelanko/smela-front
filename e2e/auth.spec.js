@@ -12,20 +12,22 @@ import {
 import { auth } from '../src/tests/data'
 import { expect, test } from './config/fixtures'
 import {
-  emailConfig,
   fillLoginFormAndSubmit,
   fillNewPasswordFormAndSubmit,
   fillRequestPasswordResetFormAndSubmit,
   fillSignupFormAndSubmit,
-  logOut,
-  waitForApiCall,
-  waitForApiCalls
-} from './utils'
+  logOut
+} from './scenarios'
+import { emailConfig, waitForApiCall, waitForApiCalls } from './utils'
 
-test.describe.serial('Authentication', () => {
+/**
+ * Serial tests - User lifecycle flow
+ * These tests must run in order: signup creates a user, login uses initial password,
+ * password reset changes the password.
+ */
+test.describe.serial('Authentication: User Lifecycle', () => {
   // Credentials for a user created during the signup test.
-  // Subsequent tests (login, password reset, logout) depend on this user.
-  // Running individual tests that use these credentials will fail.
+  // Subsequent tests (login, password reset) depend on this user.
   const userCredentials = {
     email: auth.email.generate({
       prefix: 'test',
@@ -33,6 +35,171 @@ test.describe.serial('Authentication', () => {
     }),
     initialPassword: auth.password.strong,
     newPassword: auth.password.withSpecialChars
+  }
+
+  test('signup: creates account and verifies email', async ({
+    page,
+    t,
+    emailService
+  }) => {
+    await page.goto('/signup')
+
+    const apiPromise = waitForApiCall(page, {
+      path: SIGNUP_PATH,
+      status: HttpStatus.CREATED,
+      validateRequest: b => !!b.captcha?.token
+    })
+
+    await fillSignupFormAndSubmit(
+      page,
+      {
+        firstName: auth.firstName.ok,
+        lastName: auth.lastName.ok,
+        email: userCredentials.email,
+        password: userCredentials.initialPassword
+      },
+      t
+    )
+
+    await apiPromise
+
+    await page.waitForURL(/email-confirmation/)
+
+    const { link } = await emailService.waitForVerificationEmail(
+      userCredentials.email
+    )
+
+    expect(link).toBeTruthy()
+
+    // Start listening BEFORE navigation to catch fast responses
+    const apiPromises = waitForApiCalls(page, [
+      {
+        path: ME_PATH,
+        status: HttpStatus.OK,
+        validateResponse: b => {
+          if (!b.user) {
+            return false
+          }
+
+          const { firstName, lastName, email, status, role } = b.user
+
+          return (
+            firstName === auth.firstName.ok &&
+            lastName === auth.lastName.ok &&
+            email === userCredentials.email &&
+            status === UserStatus.NEW &&
+            role === Role.USER
+          )
+        }
+      },
+      {
+        path: VERIFY_EMAIL_PATH,
+        status: HttpStatus.OK,
+        validateResponse: b => {
+          if (!b.user || !b.accessToken) {
+            return false
+          }
+
+          const { firstName, lastName, email, status, role } = b.user
+
+          return (
+            firstName === auth.firstName.ok &&
+            lastName === auth.lastName.ok &&
+            email === userCredentials.email &&
+            status === UserStatus.VERIFIED &&
+            role === Role.USER
+          )
+        }
+      }
+    ])
+
+    await page.goto(link)
+    await apiPromises
+
+    // After verification, user is redirected to home
+    await page.waitForURL('/home')
+
+    await expect(page.getByText(t.email.verification.success)).toBeVisible()
+
+    // Logout to ensure clean state for next test
+    await logOut(page, t)
+  })
+
+  test('login: authenticates with valid credentials and redirects to home', async ({
+    page,
+    t,
+    login
+  }) => {
+    await login({
+      email: userCredentials.email,
+      password: userCredentials.initialPassword
+    })
+
+    await page.waitForURL('/home')
+
+    // Logout to ensure clean state for next test
+    await logOut(page, t)
+  })
+
+  test('password reset: resets password and auto-login', async ({
+    page,
+    t,
+    emailService
+  }) => {
+    await page.goto('/reset-password')
+
+    await expect(
+      page.getByText(t.password.reset.request.description)
+    ).toBeVisible()
+
+    let apiPromise = waitForApiCall(page, {
+      path: REQUEST_PASSWORD_RESET_PATH,
+      status: HttpStatus.ACCEPTED,
+      validateRequest: b => !!b.captcha?.token
+    })
+
+    await fillRequestPasswordResetFormAndSubmit(page, userCredentials.email, t)
+    await apiPromise
+
+    await expect(page.getByText(t.password.reset.request.success)).toBeVisible()
+
+    const { link } = await emailService.waitForResetPasswordEmail(
+      userCredentials.email
+    )
+
+    expect(link).toBeTruthy()
+
+    await page.goto(link)
+
+    await expect(page.getByText(t.password.reset.set.description)).toBeVisible()
+
+    apiPromise = waitForApiCall(page, {
+      path: RESET_PASSWORD_PATH,
+      status: HttpStatus.OK
+    })
+
+    await fillNewPasswordFormAndSubmit(page, userCredentials.newPassword, t)
+    await apiPromise
+
+    await expect(page.getByText(t.password.reset.set.success)).toBeVisible()
+
+    // Auto-login redirects to home
+    await page.waitForURL('/home')
+
+    // Logout to ensure clean state
+    await logOut(page, t)
+  })
+})
+
+/**
+ * Parallel tests - General authentication tests
+ * These tests use pre-seeded user credentials and can run independently.
+ */
+test.describe('Authentication: General', () => {
+  // Pre-seeded user credentials from environment variables
+  const seededUser = {
+    email: process.env.VITE_E2E_USER_EMAIL,
+    password: process.env.VITE_E2E_USER_PASSWORD
   }
 
   test('signup: validates required fields', async ({ page, t }) => {
@@ -48,7 +215,6 @@ test.describe.serial('Authentication', () => {
     await expect(page.getByText(t.firstName.error.required)).toBeVisible()
     await expect(firstNameInput).toHaveClass(/border-destructive/)
 
-    // Last name is optional
     await expect(page.getByText(t.lastName.error.required)).toHaveCount(0)
     await expect(lastNameInput).not.toHaveClass(/border-destructive/)
 
@@ -59,7 +225,6 @@ test.describe.serial('Authentication', () => {
     await expect(passwordInput).toHaveClass(/border-destructive/)
   })
 
-  // This test requires a pre-registered admin account
   test('signup: prevents duplicate email registration', async ({ page, t }) => {
     await page.goto('/signup')
 
@@ -288,98 +453,6 @@ test.describe.serial('Authentication', () => {
     ).toBeVisible()
   })
 
-  /**
-   * Docs used:
-   * - https://mailisk.com/blog/email-verification-playwright
-   */
-  test('signup: creates account and verifies email', async ({
-    page,
-    t,
-    emailService
-  }) => {
-    await page.goto('/signup')
-
-    const apiPromise = waitForApiCall(page, {
-      path: SIGNUP_PATH,
-      status: HttpStatus.CREATED,
-      validateRequest: b => !!b.captcha?.token
-    })
-
-    await fillSignupFormAndSubmit(
-      page,
-      {
-        firstName: auth.firstName.ok,
-        lastName: auth.lastName.ok,
-        email: userCredentials.email,
-        password: userCredentials.initialPassword
-      },
-      t
-    )
-
-    await apiPromise
-
-    await page.waitForURL(/email-confirmation/)
-
-    const { link } = await emailService.waitForVerificationEmail(
-      userCredentials.email
-    )
-
-    expect(link).toBeTruthy()
-
-    // Start listening BEFORE navigation to catch fast responses
-    const apiPromises = waitForApiCalls(page, [
-      {
-        path: ME_PATH,
-        status: HttpStatus.OK,
-        validateResponse: b => {
-          if (!b.user) {
-            return false
-          }
-
-          const { firstName, lastName, email, status, role } = b.user
-
-          return (
-            firstName === auth.firstName.ok &&
-            lastName === auth.lastName.ok &&
-            email === userCredentials.email &&
-            status === UserStatus.NEW &&
-            role === Role.USER
-          )
-        }
-      },
-      {
-        path: VERIFY_EMAIL_PATH,
-        status: HttpStatus.OK,
-        validateResponse: b => {
-          if (!b.user || !b.accessToken) {
-            return false
-          }
-
-          const { firstName, lastName, email, status, role } = b.user
-
-          return (
-            firstName === auth.firstName.ok &&
-            lastName === auth.lastName.ok &&
-            email === userCredentials.email &&
-            status === UserStatus.VERIFIED &&
-            role === Role.USER
-          )
-        }
-      }
-    ])
-
-    await page.goto(link)
-    await apiPromises
-
-    // After verification, user is redirected to home
-    await page.waitForURL('/home')
-
-    await expect(page.getByText(t.email.verification.success)).toBeVisible()
-
-    // Logout to ensure clean state for next test
-    await logOut(page, t)
-  })
-
   test('login: shows error with invalid credentials and preserves form data', async ({
     page,
     t
@@ -388,7 +461,7 @@ test.describe.serial('Authentication', () => {
 
     const testCases = [
       {
-        email: userCredentials.email,
+        email: seededUser.email,
         password: auth.password.mismatch
       },
       {
@@ -423,56 +496,12 @@ test.describe.serial('Authentication', () => {
     }
   })
 
-  test('login: authenticates with valid credentials and redirects to home', async ({
-    page,
-    t
-  }) => {
-    await page.goto('/login')
-
-    const apiPromise = waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
-    })
-
-    await fillLoginFormAndSubmit(
-      page,
-      {
-        email: userCredentials.email,
-        password: userCredentials.initialPassword
-      },
-      t
-    )
-
-    await apiPromise
-
-    await page.waitForURL('/home')
-
-    // Logout to ensure clean state for next test
-    await logOut(page, t)
-  })
-
   test('login: redirects authenticated users from auth pages', async ({
     page,
-    t
+    t,
+    login
   }) => {
-    // First, authenticate the user
-    await page.goto('/login')
-
-    const apiPromise = waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
-    })
-
-    await fillLoginFormAndSubmit(
-      page,
-      {
-        email: userCredentials.email,
-        password: userCredentials.initialPassword
-      },
-      t
-    )
-
-    await apiPromise
+    await login(seededUser)
 
     await page.waitForURL('/home')
 
@@ -495,73 +524,12 @@ test.describe.serial('Authentication', () => {
     await logOut(page, t)
   })
 
-  test('password reset: resets password and auto-login', async ({
-    page,
-    t,
-    emailService
-  }) => {
-    await page.goto('/reset-password')
-
-    await expect(
-      page.getByText(t.password.reset.request.description)
-    ).toBeVisible()
-
-    let apiPromise = waitForApiCall(page, {
-      path: REQUEST_PASSWORD_RESET_PATH,
-      status: HttpStatus.ACCEPTED,
-      validateRequest: b => !!b.captcha?.token
-    })
-
-    await fillRequestPasswordResetFormAndSubmit(page, userCredentials.email, t)
-    await apiPromise
-
-    await expect(page.getByText(t.password.reset.request.success)).toBeVisible()
-
-    const { link } = await emailService.waitForResetPasswordEmail(
-      userCredentials.email
-    )
-
-    expect(link).toBeTruthy()
-
-    await page.goto(link)
-
-    await expect(page.getByText(t.password.reset.set.description)).toBeVisible()
-
-    apiPromise = waitForApiCall(page, {
-      path: RESET_PASSWORD_PATH,
-      status: HttpStatus.OK
-    })
-
-    await fillNewPasswordFormAndSubmit(page, userCredentials.newPassword, t)
-    await apiPromise
-
-    await expect(page.getByText(t.password.reset.set.success)).toBeVisible()
-
-    // Auto-login redirects to home
-    await page.waitForURL('/home')
-
-    // Logout to ensure clean state
-    await logOut(page, t)
-  })
-
   test('authorization: shows 404 for unauthorized and unknown routes', async ({
     page,
-    t
+    t,
+    login
   }) => {
-    await page.goto('/login')
-
-    const apiPromise = waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
-    })
-
-    await fillLoginFormAndSubmit(
-      page,
-      { email: userCredentials.email, password: userCredentials.newPassword },
-      t
-    )
-
-    await apiPromise
+    await login(seededUser)
 
     await page.waitForURL('/home')
 
@@ -583,24 +551,10 @@ test.describe.serial('Authentication', () => {
   test('logout: syncs authentication state across tabs', async ({
     page,
     context,
-    t
+    t,
+    login
   }) => {
-    // Step 1: Login in first tab and verify home page
-    await page.goto('/login')
-
-    const apiPromise = waitForApiCall(page, {
-      path: LOGIN_PATH,
-      status: HttpStatus.OK
-    })
-
-    // Password reset test changes the password
-    await fillLoginFormAndSubmit(
-      page,
-      { email: userCredentials.email, password: userCredentials.newPassword },
-      t
-    )
-
-    await apiPromise
+    await login(seededUser)
 
     await page.waitForURL('/home')
 
