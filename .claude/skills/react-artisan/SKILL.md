@@ -30,10 +30,16 @@ Reference these guidelines when:
 
 ## Rules
 
+- Arrow Function Components — use `const Component = () => {}` instead of
+  `function Component() {}`
 - [Composition Over Configuration](references/composition-over-configuration.md)
   — use small primitives instead of prop-heavy god components
+- [Context as Provider](references/context-as-provider.md) — render `<Context>`
+  directly instead of `<Context.Provider>` (React 19+)
 - [Ref as Prop](references/ref-as-prop.md) — pass `ref` as a regular prop
   instead of using `forwardRef` (React 19+)
+- [You Might Not Need an Effect](references/you-might-not-need-an-effect.md) —
+  avoid unnecessary Effects for derived state, event handlers, and state resets
 
 Each rule file contains:
 
