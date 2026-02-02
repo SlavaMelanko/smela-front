@@ -32,6 +32,10 @@ Reference these guidelines when:
 
 - Arrow Function Components — use `const Component = () => {}` instead of
   `function Component() {}`
+- Don't Use Index as Key — use stable unique IDs (`id`, `uuid`) to preserve
+  state and avoid reconciliation bugs
+- Inline Exports — use `export const Component` instead of collecting exports at
+  the bottom of the file
 - [Composition Over Configuration](references/composition-over-configuration.md)
   — use small primitives instead of prop-heavy god components
 - [Context as Provider](references/context-as-provider.md) — render `<Context>`
@@ -48,3 +52,5 @@ Each rule file contains:
 - Correct code example with explanation
 - Usage examples
 - Additional context and references
+
+Remember: React is about composition. Build small, combine thoughtfully.
