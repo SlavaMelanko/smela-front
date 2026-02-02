@@ -32,6 +32,8 @@ Reference these guidelines when:
 
 - [Composition Over Configuration](references/composition-over-configuration.md)
   — use small primitives instead of prop-heavy god components
+- [Ref as Prop](references/ref-as-prop.md) — pass `ref` as a regular prop
+  instead of using `forwardRef` (React 19+)
 
 Each rule file contains:
 

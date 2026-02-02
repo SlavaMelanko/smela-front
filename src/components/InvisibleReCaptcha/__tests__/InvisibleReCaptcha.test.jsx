@@ -10,16 +10,14 @@ jest.unmock('@/components/InvisibleReCaptcha')
 jest.mock('react-google-recaptcha', () => {
   const React = jest.requireActual('react')
 
-  const MockReCAPTCHA = React.forwardRef((_, ref) => {
+  function MockReCAPTCHA({ ref }) {
     React.useImperativeHandle(ref, () => ({
       executeAsync: mockExecuteAsync,
       reset: mockReset
     }))
 
     return null
-  })
-
-  MockReCAPTCHA.displayName = 'MockReCAPTCHA'
+  }
 
   return { __esModule: true, default: MockReCAPTCHA }
 })

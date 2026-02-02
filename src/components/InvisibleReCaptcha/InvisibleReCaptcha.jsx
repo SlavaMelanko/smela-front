@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef } from 'react'
+import { useImperativeHandle, useRef } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 
 import useLocale from '@/hooks/useLocale'
@@ -6,7 +6,7 @@ import useTheme from '@/hooks/useTheme'
 import { withTimeout } from '@/lib/async'
 import env from '@/lib/env'
 
-export const InvisibleReCaptcha = forwardRef((props, ref) => {
+export function InvisibleReCaptcha({ ref, ...props }) {
   const { theme } = useTheme()
   const { locale } = useLocale()
   const recaptchaRef = useRef(null)
@@ -51,6 +51,4 @@ export const InvisibleReCaptcha = forwardRef((props, ref) => {
       {...props}
     />
   )
-})
-
-InvisibleReCaptcha.displayName = 'InvisibleReCaptcha'
+}

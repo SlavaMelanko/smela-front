@@ -1,13 +1,18 @@
 import { Slider as SliderPrimitive } from '@base-ui/react/slider'
-import { forwardRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
-const Slider = forwardRef(
-  (
-    { className, value, onValueChange, min = 0, max = 100, step = 1, ...props },
-    ref
-  ) => (
+function Slider({
+  ref,
+  className,
+  value,
+  onValueChange,
+  min = 0,
+  max = 100,
+  step = 1,
+  ...props
+}) {
+  return (
     <SliderPrimitive.Root
       ref={ref}
       value={value}
@@ -29,8 +34,6 @@ const Slider = forwardRef(
       </SliderPrimitive.Control>
     </SliderPrimitive.Root>
   )
-)
-
-Slider.displayName = 'Slider'
+}
 
 export { Slider }
