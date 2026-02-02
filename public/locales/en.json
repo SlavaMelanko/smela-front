@@ -296,6 +296,10 @@
     "companies": "Search by ID, name, website...",
     "users": "Search by ID, name, email..."
   },
+  "settings": {
+    "description": "Your app-wide preferences",
+    "title": "Settings"
+  },
   "sidebar": {
     "admins": "Admins",
     "companies": "Companies",
