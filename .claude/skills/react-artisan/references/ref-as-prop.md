@@ -28,7 +28,7 @@ React 19 treats `ref` as a regular prop. Destructure it alongside other props.
 
 ```jsx
 // ✅ Prefer: ref is just another prop (from src/components/ui/input.jsx)
-function Input({
+const Input = ({
   ref,
   type = 'text',
   autoComplete = 'off',
@@ -37,7 +37,7 @@ function Input({
   rightIcon,
   error,
   ...props
-}) {
+}) => {
   const state = error ? 'error' : 'default'
 
   return (
@@ -84,7 +84,7 @@ InvisibleReCaptcha.displayName = 'InvisibleReCaptcha'
 // ✅ Prefer: ref as prop (from src/components/InvisibleReCaptcha)
 import { useImperativeHandle, useRef } from 'react'
 
-export function InvisibleReCaptcha({ ref, ...props }) {
+export const InvisibleReCaptcha = ({ ref, ...props }) => {
   const recaptchaRef = useRef(null)
 
   useImperativeHandle(ref, () => ({

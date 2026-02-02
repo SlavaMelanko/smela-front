@@ -9,7 +9,7 @@ simplifies the provider syntax — the context itself is the provider.
 // ❌ Avoid: verbose .Provider syntax (deprecated in React 19)
 const ThemeContext = createContext('light')
 
-function ThemeProvider({ children }) {
+const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState('light')
   const value = useMemo(() => ({ theme, setTheme }), [theme])
 
@@ -31,7 +31,7 @@ Use the context directly as a JSX element with a `value` prop.
 // ✅ Prefer: context as provider (React 19)
 const ThemeContext = createContext('light')
 
-function ThemeProvider({ children }) {
+const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState('light')
   const value = useMemo(() => ({ theme, setTheme }), [theme])
 
