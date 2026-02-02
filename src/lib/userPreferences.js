@@ -48,18 +48,19 @@ const getDefaultTimeFormat = locale => {
 }
 
 export const loadFormatPreferences = locale => {
-  const stored = localStorage.get(Key.FORMAT)
   const defaults = {
     date: 'numeric',
     time: getDefaultTimeFormat(locale)
   }
 
-  return stored ? { ...defaults, ...JSON.parse(stored) } : defaults
+  try {
+    const stored = localStorage.get(Key.FORMAT)
+
+    return stored ? { ...defaults, ...JSON.parse(stored) } : defaults
+  } catch {
+    return defaults
+  }
 }
 
 export const storeFormatPreferences = value =>
   localStorage.set(Key.FORMAT, JSON.stringify(value))
-
-export const resetPreferences = () => {
-  Object.values(Key).forEach(key => localStorage.remove(key))
-}
