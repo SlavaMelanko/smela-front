@@ -1,6 +1,6 @@
 import { localStorage } from '@/lib/storage'
 
-export const Key = {
+const Key = {
   THEME: 'theme',
   LOCALE: 'locale',
   FORMAT: 'locale_format'
