@@ -31,7 +31,7 @@ Reference these guidelines when:
 ## Rules
 
 - Arrow Function Components — use `const Component = () => {}` instead of
-  `function Component() {}`
+  `function Component() {}` (exception: `src/components/ui/` shadcn components)
 - Don't Use Index as Key — use stable unique IDs (`id`, `uuid`) to preserve
   state and avoid reconciliation bugs
 - Inline Exports — use `export const Component` instead of collecting exports at
