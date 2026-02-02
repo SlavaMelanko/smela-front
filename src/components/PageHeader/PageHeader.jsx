@@ -3,27 +3,27 @@ import { Globe } from 'lucide-react'
 import { Link } from '@/components/links'
 import { EmailLink } from '@/components/links/EmailLink'
 
-const PageHeader = ({ children }) => (
+export const PageHeader = ({ children }) => (
   <div className='flex items-center gap-3'>{children}</div>
 )
 
-const PageHeaderIcon = ({ icon: Icon }) => (
+export const PageHeaderIcon = ({ icon: Icon }) => (
   <div className='flex size-10 items-center justify-center'>
     <Icon className='size-8 text-primary' />
   </div>
 )
 
-const PageHeaderContent = ({ children }) => <div>{children}</div>
+export const PageHeaderContent = ({ children }) => <div>{children}</div>
 
-const PageHeaderTitle = ({ children }) => (
+export const PageHeaderTitle = ({ children }) => (
   <p className='text-2xl font-semibold'>{children}</p>
 )
 
-const PageHeaderDescription = ({ children }) => (
+export const PageHeaderDescription = ({ children }) => (
   <p className='text-sm text-muted-foreground'>{children}</p>
 )
 
-const PageHeaderWebsite = ({ url }) => {
+export const PageHeaderWebsite = ({ url }) => {
   if (!url) {
     return null
   }
@@ -42,20 +42,10 @@ const PageHeaderWebsite = ({ url }) => {
   )
 }
 
-const PageHeaderEmail = ({ email }) => {
+export const PageHeaderEmail = ({ email }) => {
   if (!email) {
     return null
   }
 
   return <EmailLink email={email} size='sm' underline='none' />
-}
-
-export {
-  PageHeader,
-  PageHeaderContent,
-  PageHeaderDescription,
-  PageHeaderEmail,
-  PageHeaderIcon,
-  PageHeaderTitle,
-  PageHeaderWebsite
 }
