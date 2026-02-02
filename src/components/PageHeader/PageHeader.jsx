@@ -23,22 +23,32 @@ const PageHeaderDescription = ({ children }) => (
   <p className='text-sm text-muted-foreground'>{children}</p>
 )
 
-const PageHeaderWebsite = ({ url }) => (
-  <Link
-    to={url}
-    size='sm'
-    underline='none'
-    openInNewTab
-    className='inline-flex items-center gap-1'
-  >
-    <Globe className='size-3.5' />
-    <span>{url}</span>
-  </Link>
-)
+const PageHeaderWebsite = ({ url }) => {
+  if (!url) {
+    return null
+  }
 
-const PageHeaderEmail = ({ email }) => (
-  <EmailLink email={email} size='sm' underline='none' />
-)
+  return (
+    <Link
+      to={url}
+      size='sm'
+      underline='none'
+      openInNewTab
+      className='inline-flex items-center gap-1'
+    >
+      <Globe className='size-3.5' />
+      <span>{url}</span>
+    </Link>
+  )
+}
+
+const PageHeaderEmail = ({ email }) => {
+  if (!email) {
+    return null
+  }
+
+  return <EmailLink email={email} size='sm' underline='none' />
+}
 
 export {
   PageHeader,
