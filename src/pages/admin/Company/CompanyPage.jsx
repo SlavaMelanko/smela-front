@@ -2,7 +2,7 @@ import { Building2, ChevronLeft, Users } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { ErrorAlert } from '@/components/alerts'
-import { CompanyBadge } from '@/components/badges'
+import { CompanyPageHeader } from '@/components/PageHeader'
 import { Spinner } from '@/components/Spinner'
 import {
   Button,
@@ -83,7 +83,7 @@ export const CompanyPage = () => {
           {t('back')}
         </Button>
       </div>
-      <CompanyBadge name={company.name} website={company.website} />
+      <CompanyPageHeader name={company.name} website={company.website} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList variant='line' className='border-0'>
           {tabs.map(({ value, icon: Icon, label }) => (
