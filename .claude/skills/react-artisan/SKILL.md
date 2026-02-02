@@ -30,5 +30,5 @@ Reference these guidelines when:
 
 ## Rules
 
-1. [Composition Over Configuration](references/01-composition-over-configuration.md)
-   — use small primitives instead of prop-heavy god components
+- [Composition Over Configuration](references/composition-over-configuration.md)
+  — use small primitives instead of prop-heavy god components

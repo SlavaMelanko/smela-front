@@ -1,4 +1,4 @@
-# N. Rule Title
+# Rule Title
 
 **Bold statement of the rule.** Brief explanation of why it matters.
 

@@ -1,4 +1,4 @@
-# 1. Composition Over Configuration
+# Composition Over Configuration
 
 **Never build "god components" with many conditional props.** They violate SOLID
 principles and become maintenance nightmares.
