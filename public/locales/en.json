@@ -137,7 +137,7 @@
     "date": {
       "name": "Date format",
       "values": {
-        "long": "Full",
+        "full": "Full",
         "numeric": "Numeric",
         "short": "Short"
       }

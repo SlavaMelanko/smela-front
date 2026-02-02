@@ -4,7 +4,7 @@ export const datePreset = {
     month: 'short',
     day: 'numeric'
   },
-  long: {
+  full: {
     weekday: 'long',
     year: 'numeric',
     month: 'long',

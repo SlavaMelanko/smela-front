@@ -24,8 +24,8 @@ describe('formatDate', () => {
   it.each([
     ['en', 'Friday, July 4, 2025'],
     ['uk', /4 липня 2025/]
-  ])('formats date with long preset in %s locale', (locale, expected) => {
-    expect(formatDate(testDate, locale, datePreset.long)).toMatch(expected)
+  ])('formats date with full preset in %s locale', (locale, expected) => {
+    expect(formatDate(testDate, locale, datePreset.full)).toMatch(expected)
   })
 
   it('formats date with custom options', () => {
