@@ -9,6 +9,7 @@ const Key = {
 //
 // Theme
 //
+
 export const loadTheme = () => {
   const stored = localStorage.get(Key.THEME)
 
@@ -36,10 +37,14 @@ export const loadLocale = () => localStorage.get(Key.LOCALE) ?? DEFAULT_LOCALE
 export const storeLocale = value => localStorage.set(Key.LOCALE, value)
 
 const getDefaultTimeFormat = locale => {
-  // Most European and Asian locales use 24-hour format
-  const use24Hour = ['uk', 'de', 'fr', 'es', 'it', 'pl', 'ru', 'ja', 'zh', 'ko']
+  const parts = new Intl.DateTimeFormat(locale, {
+    hour: 'numeric'
+  }).formatToParts(new Date(2026, 0, 1, 13, 0))
 
-  return use24Hour.includes(locale) ? '24' : '12'
+  const hourPart = parts.find(p => p.type === 'hour')
+
+  // If 13:00 displays as "1", it's 12-hour format
+  return hourPart?.value === '1' ? '12' : '24'
 }
 
 export const loadFormatPreferences = locale => {
