@@ -10,7 +10,6 @@ import {
 } from '@/components/form'
 import { Input, Textarea } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
-import { datePreset } from '@/lib/format'
 
 import { FieldName, getDefaultValues, getValues, resolver } from './schema'
 
@@ -66,14 +65,10 @@ export const CompanyInfoForm = ({ company, isSubmitting, onSubmit }) => {
 
         <FormRow>
           <FormField label={t('createdAt')} optional>
-            <p className='text-base'>
-              {formatDate(company.createdAt, datePreset.short)}
-            </p>
+            <p className='text-base'>{formatDate(company.createdAt)}</p>
           </FormField>
           <FormField label={t('updatedAt')} optional>
-            <p className='text-base'>
-              {formatDate(company.updatedAt, datePreset.short)}
-            </p>
+            <p className='text-base'>{formatDate(company.updatedAt)}</p>
           </FormField>
         </FormRow>
 
