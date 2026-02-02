@@ -17,9 +17,8 @@ export const loadTheme = () => {
     return stored
   }
 
-  const prefersDark = window.matchMedia?.(
-    '(prefers-color-scheme: dark)'
-  ).matches
+  const prefersDark =
+    window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false
 
   return prefersDark ? 'dark' : 'light'
 }
@@ -37,14 +36,10 @@ export const loadLocale = () => localStorage.get(Key.LOCALE) ?? DEFAULT_LOCALE
 export const storeLocale = value => localStorage.set(Key.LOCALE, value)
 
 const getDefaultTimeFormat = locale => {
-  const parts = new Intl.DateTimeFormat(locale, {
-    hour: 'numeric'
-  }).formatToParts(new Date(2026, 0, 1, 13, 0))
+  const resolved = new Intl.DateTimeFormat(locale).resolvedOptions()
 
-  const hourPart = parts.find(p => p.type === 'hour')
-
-  // If 13:00 displays as "1", it's 12-hour format
-  return hourPart?.value === '1' ? '12' : '24'
+  // h12/h11 = 12-hour, h23/h24 = 24-hour
+  return resolved.hourCycle?.startsWith('h1') ? '12' : '24'
 }
 
 export const loadFormatPreferences = locale => {
