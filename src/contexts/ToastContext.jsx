@@ -15,10 +15,10 @@ export const ToastProvider = ({ children }) => {
   )
 
   return (
-    <ToastContext.Provider value={value}>
+    <ToastContext value={value}>
       {children}
       <Toaster />
-    </ToastContext.Provider>
+    </ToastContext>
   )
 }
 

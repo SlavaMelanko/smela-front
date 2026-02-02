@@ -63,13 +63,13 @@ export const NotificationProvider = ({ children }) => {
   )
 
   return (
-    <NotificationContext.Provider value={value}>
+    <NotificationContext value={value}>
       {children}
       <NotificationPanel
         open={isNotificationPanelOpen}
         onOpenChange={setIsNotificationPanelOpen}
       />
-    </NotificationContext.Provider>
+    </NotificationContext>
   )
 }
 
