@@ -57,7 +57,7 @@ test.describe('Appearance', () => {
 
     // Verify localStorage persistence
     const savedLocale = await page.evaluate(() =>
-      localStorage.getItem('preferred_locale')
+      localStorage.getItem('locale')
     )
 
     expect(savedLocale).toBe('uk')

@@ -10,7 +10,7 @@ import { initReactI18next } from 'react-i18next'
 
 import { localStorage } from '@/lib/storage'
 
-export const LOCALE_STORAGE_KEY = 'preferred_locale'
+export const LOCALE_STORAGE_KEY = 'locale'
 
 i18n
   .use(HttpBackend)
