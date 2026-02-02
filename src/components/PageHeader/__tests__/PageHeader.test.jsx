@@ -20,9 +20,11 @@ describe('PageHeader', () => {
   })
 
   it('SettingsPageHeader renders title and description', () => {
-    renderWithProviders(<SettingsPageHeader />)
+    renderWithProviders(
+      <SettingsPageHeader title='Settings' description='Your preferences' />
+    )
 
     expect(screen.getByText('Settings')).toBeInTheDocument()
-    expect(screen.getByText('Your app-wide preferences')).toBeInTheDocument()
+    expect(screen.getByText('Your preferences')).toBeInTheDocument()
   })
 })
