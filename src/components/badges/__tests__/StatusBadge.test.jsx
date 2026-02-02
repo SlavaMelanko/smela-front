@@ -1,36 +1,36 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 
 import { getUserStatusTextColor, UserStatus } from '@/lib/types'
+import { renderWithProviders } from '@/tests'
 
 import { StatusBadge } from '../StatusBadge'
 
 describe('StatusBadge', () => {
-  it('renders status text', () => {
-    render(<StatusBadge status={UserStatus.ACTIVE} />)
+  it('renders translated status text', () => {
+    renderWithProviders(<StatusBadge status={UserStatus.ACTIVE} />)
 
-    expect(screen.getByText(UserStatus.ACTIVE)).toBeInTheDocument()
+    expect(screen.getByText('Active')).toBeInTheDocument()
   })
 
-  it('applies capitalize class', () => {
-    render(<StatusBadge status={UserStatus.ACTIVE} />)
+  it.each([
+    [UserStatus.ACTIVE, 'Active'],
+    [UserStatus.ARCHIVED, 'Archived'],
+    [UserStatus.NEW, 'New'],
+    [UserStatus.PENDING, 'Pending'],
+    [UserStatus.SUSPENDED, 'Suspended'],
+    [UserStatus.TRIAL, 'Trial'],
+    [UserStatus.VERIFIED, 'Verified']
+  ])('applies correct color for %s status', (status, label) => {
+    renderWithProviders(<StatusBadge status={status} />)
 
-    expect(screen.getByText(UserStatus.ACTIVE)).toHaveClass('capitalize')
+    expect(screen.getByText(label)).toHaveClass(getUserStatusTextColor(status))
   })
 
-  it.each(Object.values(UserStatus))(
-    'applies correct color for %s status',
-    status => {
-      render(<StatusBadge status={status} />)
+  it('renders translation key for unknown status', () => {
+    renderWithProviders(<StatusBadge status='unknown' />)
 
-      expect(screen.getByText(status)).toHaveClass(
-        getUserStatusTextColor(status)
-      )
-    }
-  )
-
-  it('applies fallback color for unknown status', () => {
-    render(<StatusBadge status='unknown' />)
-
-    expect(screen.getByText('unknown')).toHaveClass('text-muted-foreground')
+    expect(screen.getByText('status.values.unknown')).toHaveClass(
+      'text-muted-foreground'
+    )
   })
 })

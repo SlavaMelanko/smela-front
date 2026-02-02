@@ -57,7 +57,7 @@ export const adminMenuItems = [
   },
   {
     title: 'sidebar.settings',
-    url: '/settings',
+    url: '/admin/settings',
     icon: Settings
   }
 ]
@@ -85,7 +85,7 @@ export const ownerMenuItems = [
   },
   {
     title: 'sidebar.settings',
-    url: '/settings',
+    url: '/admin/settings',
     icon: Settings
   }
 ]

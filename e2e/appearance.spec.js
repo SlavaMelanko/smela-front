@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test'
 
+import { Key } from '../src/lib/userPreferences'
+
 test.describe('Appearance', () => {
   test('theme toggle: switches from light to dark on login page', async ({
     page
@@ -57,7 +59,7 @@ test.describe('Appearance', () => {
 
     // Verify localStorage persistence
     const savedLocale = await page.evaluate(() =>
-      localStorage.getItem('preferred_locale')
+      localStorage.getItem(Key.LOCALE)
     )
 
     expect(savedLocale).toBe('uk')

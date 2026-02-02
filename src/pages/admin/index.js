@@ -1,4 +1,5 @@
 export { CompaniesPage } from './Companies'
 export { CompanyPage } from './Company'
 export { DashboardPage } from './Dashboard'
+export { SettingsPage } from './Settings'
 export { UsersPage } from './Users'
