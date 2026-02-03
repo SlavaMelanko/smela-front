@@ -6,7 +6,7 @@ simplifies the provider syntax — the context itself is the provider.
 ## The Problem
 
 ```jsx
-// ❌ Avoid: verbose .Provider syntax (deprecated in React 19)
+// ❌ Avoid: verbose .Provider syntax (legacy in React 19)
 const ThemeContext = createContext('light')
 
 const ThemeProvider = ({ children }) => {
@@ -20,8 +20,8 @@ const ThemeProvider = ({ children }) => {
 **Why this fails:**
 
 - **Verbosity** — `.Provider` adds noise without semantic benefit
-- **Future deprecation** — React will deprecate `<Context.Provider>` in future
-  versions
+- **Legacy pattern** — React 19 marks `<Context.Provider>` as legacy; it will be
+  deprecated in a future major version
 
 ## The Solution
 
