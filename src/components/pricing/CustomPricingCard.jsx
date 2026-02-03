@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-const CustomPricingCard = ({
+export const CustomPricingCard = ({
   title,
   totalPrice,
   customMessage,
@@ -41,5 +41,3 @@ const CustomPricingCard = ({
     </div>
   )
 }
-
-export default CustomPricingCard

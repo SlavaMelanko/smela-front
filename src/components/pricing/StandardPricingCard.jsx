@@ -9,7 +9,7 @@ const translateUnit = (unit, t) => {
   return t(`unit.traffic.${unit.toLowerCase()}`)
 }
 
-const StandardPricingCard = ({
+export const StandardPricingCard = ({
   title,
   bandwidth,
   pricePerUnit,
@@ -64,5 +64,3 @@ const StandardPricingCard = ({
     </div>
   )
 }
-
-export default StandardPricingCard

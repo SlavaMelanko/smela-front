@@ -10,7 +10,7 @@ const variants = {
   text: 'text-destructive'
 }
 
-const ErrorAlert = ({ text, className, children }) => {
+export const ErrorAlert = ({ text, className, children }) => {
   const navigate = useNavigate()
   const { t } = useLocale()
 
@@ -32,5 +32,3 @@ const ErrorAlert = ({ text, className, children }) => {
     </div>
   )
 }
-
-export { ErrorAlert }

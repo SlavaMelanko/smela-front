@@ -34,8 +34,8 @@ Reference these guidelines when:
   `function Component() {}` (exception: `src/components/ui/` shadcn components)
 - Don't Use Index as Key — use stable unique IDs (`id`, `uuid`) to preserve
   state and avoid reconciliation bugs
-- Inline Exports — use `export const Component` instead of collecting exports at
-  the bottom of the file
+- [Inline Exports](references/inline-exports.md) — use `export const Component`
+  instead of collecting exports at the bottom of the file
 - [Composition Over Configuration](references/composition-over-configuration.md)
   — use small primitives instead of prop-heavy god components
 - [Context as Provider](references/context-as-provider.md) — render `<Context>`
