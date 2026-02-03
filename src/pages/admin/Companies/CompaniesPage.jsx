@@ -106,12 +106,12 @@ export const CompaniesPage = () => {
     toggleVisibility: () => column.toggleVisibility()
   }))
 
-  if (isPending) {
-    return <Spinner />
-  }
-
   if (isError) {
     return <ErrorAlert text={t('error.loading')} />
+  }
+
+  if (isPending && !data) {
+    return <Spinner />
   }
 
   return (
