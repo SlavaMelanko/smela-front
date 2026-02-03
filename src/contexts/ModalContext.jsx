@@ -68,7 +68,7 @@ export const ModalProvider = ({ children }) => {
   )
 
   return (
-    <ModalContext.Provider value={value}>
+    <ModalContext value={value}>
       {children}
 
       {modals.map(modal => (
@@ -89,7 +89,7 @@ export const ModalProvider = ({ children }) => {
           </DialogPortal>
         </Dialog>
       ))}
-    </ModalContext.Provider>
+    </ModalContext>
   )
 }
 

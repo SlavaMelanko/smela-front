@@ -92,7 +92,7 @@ export function MultiSelect({
   }, [])
 
   return (
-    <MultiSelectContext.Provider
+    <MultiSelectContext
       value={{
         open,
         setOpen,
@@ -106,7 +106,7 @@ export function MultiSelect({
       <Popover open={open} onOpenChange={setOpen} modal={true}>
         {children}
       </Popover>
-    </MultiSelectContext.Provider>
+    </MultiSelectContext>
   )
 }
 

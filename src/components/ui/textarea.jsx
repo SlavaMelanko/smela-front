@@ -1,5 +1,4 @@
 import { cva } from 'class-variance-authority'
-import { forwardRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -19,7 +18,7 @@ const textareaVariants = cva(
   }
 )
 
-const Textarea = forwardRef(({ className, rows = 3, error, ...props }, ref) => {
+function Textarea({ ref, className, rows = 3, error, ...props }) {
   const state = error ? 'error' : 'default'
 
   return (
@@ -30,8 +29,6 @@ const Textarea = forwardRef(({ className, rows = 3, error, ...props }, ref) => {
       {...props}
     />
   )
-})
-
-Textarea.displayName = 'Textarea'
+}
 
 export { Textarea, textareaVariants }

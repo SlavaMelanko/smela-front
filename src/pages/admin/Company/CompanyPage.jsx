@@ -49,12 +49,12 @@ export const CompanyPage = () => {
     })
   }
 
-  if (isPending) {
-    return <Spinner />
-  }
-
   if (isError) {
     return <ErrorAlert text={t('error.loading')} />
+  }
+
+  if (isPending && !company) {
+    return <Spinner />
   }
 
   const teamCount = company.members?.length ?? 0

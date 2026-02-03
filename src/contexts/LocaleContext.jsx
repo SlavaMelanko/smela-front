@@ -63,9 +63,7 @@ export const LocaleProvider = ({ children }) => {
     [locale, changeLocale, formatPreferences, changeFormatPreference]
   )
 
-  return (
-    <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>
-  )
+  return <LocaleContext value={value}>{children}</LocaleContext>
 }
 
 export default LocaleContext

@@ -1,6 +1,5 @@
 import { Input as InputPrimitive } from '@base-ui/react/input'
 import { cva } from 'class-variance-authority'
-import { forwardRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
@@ -32,42 +31,36 @@ const IconWrapper = ({ position, children }) =>
     </div>
   ) : null
 
-const Input = forwardRef(
-  (
-    {
-      type = 'text',
-      autoComplete = 'off',
-      className,
-      leftIcon,
-      rightIcon,
-      error,
-      ...props
-    },
-    ref
-  ) => {
-    const state = error ? 'error' : 'default'
+function Input({
+  ref,
+  type = 'text',
+  autoComplete = 'off',
+  className,
+  leftIcon,
+  rightIcon,
+  error,
+  ...props
+}) {
+  const state = error ? 'error' : 'default'
 
-    return (
-      <div className='relative'>
-        <IconWrapper position='left'>{leftIcon}</IconWrapper>
-        <InputPrimitive
-          ref={ref}
-          type={type}
-          autoComplete={autoComplete}
-          className={cn(
-            inputVariants({ state }),
-            leftIcon && 'pl-10',
-            rightIcon && 'pr-10',
-            className
-          )}
-          {...props}
-        />
-        <IconWrapper position='right'>{rightIcon}</IconWrapper>
-      </div>
-    )
-  }
-)
-
-Input.displayName = 'Input'
+  return (
+    <div className='relative'>
+      <IconWrapper position='left'>{leftIcon}</IconWrapper>
+      <InputPrimitive
+        ref={ref}
+        type={type}
+        autoComplete={autoComplete}
+        className={cn(
+          inputVariants({ state }),
+          leftIcon && 'pl-10',
+          rightIcon && 'pr-10',
+          className
+        )}
+        {...props}
+      />
+      <IconWrapper position='right'>{rightIcon}</IconWrapper>
+    </div>
+  )
+}
 
 export { Input, inputVariants }
