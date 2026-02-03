@@ -1,12 +1,12 @@
 ---
-name: react-project-structure
+name: react-files-and-folders-manager
 description:
   File and folder organization conventions for React + Vite + shadcn/ui
   projects. Use when creating new components, organizing files, deciding folder
   structure, naming files/folders, or reviewing project organization.
 ---
 
-# React Project Structure Guidelines
+# React Files and Folders Manager
 
 ## Core Conventions
 
