@@ -44,6 +44,8 @@ Reference these guidelines when:
   instead of using `forwardRef` (React 19+)
 - [You Might Not Need an Effect](references/you-might-not-need-an-effect.md) —
   avoid unnecessary Effects for derived state, event handlers, and state resets
+- [Loading State Patterns](references/loading-state-patterns.md) — show loading
+  indicators only when there's no cached data to display
 
 Each rule file contains:
 
