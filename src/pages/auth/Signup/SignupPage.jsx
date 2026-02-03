@@ -15,7 +15,7 @@ import useTheme from '@/hooks/useTheme'
 import useToast from '@/hooks/useToast'
 import { toTranslationKey } from '@/services/catch'
 
-import { AuthRoot } from '../containers'
+import { AuthRoot } from '../Auth'
 import { SignupForm } from './Form'
 
 export const SignupPage = () => {

@@ -3,9 +3,7 @@ name: react-project-structure
 description:
   File and folder organization conventions for React + Vite + shadcn/ui
   projects. Use when creating new components, organizing files, deciding folder
-  structure, naming files/folders, or reviewing project organization. Covers
-  folder-per-component vs flat structure, naming conventions, barrel exports,
-  internal elements, and form patterns.
+  structure, naming files/folders, or reviewing project organization.
 ---
 
 # React Project Structure Guidelines
@@ -15,154 +13,74 @@ description:
 | Convention    | Rule                                                           |
 | ------------- | -------------------------------------------------------------- |
 | Folder naming | `lowercase` = grouping folder, `PascalCase` = component folder |
-| Exports       | Named exports only (except `ui/`)                              |
-| Export style  | Inline `export const` for components; bottom exports for `index.js` and `ui/` |
-| Functions     | Arrow functions (except `ui/`)                                 |
-| Imports       | Use `index.js` barrel files                                    |
 | File naming   | `ComponentName.jsx` (not just `index.jsx`)                     |
-| Suffixes      | Keep descriptive suffixes (`LoginPrompt`, `ConfirmDialog`)     |
+| Exports       | Named exports with `export const` (except `ui/`)               |
+| Barrel files  | `index.js` re-exports public components only                   |
+| Functions     | Arrow functions (except `ui/`)                                 |
 
-## Folder vs Flat Decision
+## Flat Structure
 
-| Condition               | Structure                                    | Example                                     |
-| ----------------------- | -------------------------------------------- | ------------------------------------------- |
-| Single `.jsx` file only | Flat in grouping folder OR standalone folder | `prompts/LoginPrompt.jsx` or `Header/`      |
-| 2+ related files        | Folder-per-component                         | `DataTable/` with hooks, sub-components     |
-| Tests                   | `__tests__/` in component or grouping folder | `Header/__tests__/` or `prompts/__tests__/` |
-| Stories (single)        | PascalCase matching component name           | `Header/Header.stories.jsx`                 |
-| Stories (group)         | lowercase matching folder name               | `prompts/prompts.stories.jsx`               |
+Keep folders flat.
 
-## Internal Folder Naming
+- **Single file** → flat in grouping folder: `prompts/LoginPrompt.jsx`
+- **2+ related files** → folder-per-component: `DataTable/` with hooks
+- **Tests** → `__tests__/` in component or grouping folder
+- **Stories** → `ComponentName.stories.jsx` or `foldername.stories.jsx`
 
-| Location            | Internal folder     | Purpose                                     |
-| ------------------- | ------------------- | ------------------------------------------- |
-| `src/components/*/` | `elements/`         | Small atomic primitives (Label, Error)      |
-| `src/components/*/` | `assets/` or domain | Static resources (flags/, icons/)           |
-| `src/pages/*/`      | `components/`       | Shared pieces used by 2+ sibling pages      |
-| `src/pages/*/`      | `containers/`       | Shared layout utilities for sibling pages   |
+## Building Blocks Pattern
 
-**Important**: Only create `components/` or `containers/` folders in pages when
-helpers are shared by multiple sibling pages. For single-page helpers, keep
-files flat in the page folder.
+When a grouping folder needs shared primitives, create `<FolderName>.jsx`:
+
+| Folder      | File           | Contains                                       |
+| ----------- | -------------- | ---------------------------------------------- |
+| `form/`     | `Form.jsx`     | FormRoot, FormFields, FormLabel, FormError     |
+| `settings/` | `Settings.jsx` | SettingsSection, SettingsLabel, SettingsOption |
+| `pricing/`  | `Pricing.jsx`  | Bandwidth, Feature, PricePerUnit, TotalPrice   |
+
+Order components top-to-bottom: containers → primitives.
+
+```jsx
+// form/Form.jsx
+export const FormRoot = ({ children, className, ...props }) => (
+  <form className={cn('flex flex-col gap-8', className)} {...props}>
+    {children}
+  </form>
+)
+
+export const FormLabel = ({ htmlFor, children, optional }) => (
+  <label htmlFor={htmlFor}>
+    {children}
+    {!optional && <span className='ml-1 text-destructive'>*</span>}
+  </label>
+)
+```
 
 ## Directory Structure
 
-```zsh
+```txt
 src/
-├── components/          # Shared/reusable components
-│   ├── Header/          # Standalone component (PascalCase at top level OK)
+├── components/
+│   ├── Header/              # PascalCase = standalone component
 │   │   ├── index.js
 │   │   ├── Header.jsx
-│   │   ├── elements/
-│   │   └── __tests__/   # Tests can live in component folder
-│   ├── prompts/         # Grouping folder (flat structure)
+│   │   └── ProfileDropdown.jsx
+│   ├── settings/            # lowercase = grouping folder
 │   │   ├── index.js
-│   │   ├── LoginPrompt.jsx
-│   │   ├── SignupPrompt.jsx
-│   │   ├── elements/    # Internal primitives
-│   │   └── __tests__/   # Or in grouping folder for multiple components
-│   ├── dialogs/
-│   │   ├── PricingSliderDialog/  # Complex → folder-per-component
-│   │   │   ├── index.js
-│   │   │   ├── PricingSliderDialog.jsx
-│   │   │   ├── hooks/
-│   │   │   └── elements/
-│   │   └── ConfirmDialog.jsx    # Simple → flat
-│   ├── pricing/         # Mixed: flat files + nested folders OK
-│   │   ├── index.js
-│   │   ├── CustomPricingCard.jsx
-│   │   ├── StandardPricingCard.jsx
-│   │   ├── PricingSlider/       # Complex component gets folder
-│   │   └── elements/
+│   │   ├── Settings.jsx     # Building blocks
+│   │   └── DateTimeSettings/
 │   ├── LanguageDropdown/
-│   │   ├── index.js
 │   │   ├── LanguageDropdown.jsx
-│   │   ├── flags/       # Domain-specific assets folder
-│   │   └── elements/
-│   ├── form/            # Form utilities pattern
-│   │   ├── index.js
-│   │   ├── FormController.jsx
-│   │   ├── FormField.jsx
-│   │   ├── elements/    # Shared primitives
-│   │   └── containers/  # Layout utilities (not layouts/)
-│   └── ui/              # shadcn/ui primitives ONLY
+│   │   └── flags/           # Domain-specific assets
+│   └── ui/                  # shadcn/ui ONLY
 ├── layouts/
 ├── pages/
-│   ├── admin/Users/
-│   │   ├── index.js
-│   │   ├── UsersPage.jsx
-│   │   └── Toolbar/     # Single-page helper → flat in page folder
-│   ├── errors/          # Multiple pages sharing helpers
+│   ├── errors/
 │   │   ├── General/
-│   │   ├── Network/
 │   │   ├── NotFound/
-│   │   ├── components/  # Shared by all error pages
-│   │   └── containers/  # Shared layout utilities
-│   └── public/Pricing/
-│       ├── index.js
-│       ├── PricingPage.jsx
-│       ├── EnterpriseTab.jsx   # Single-page helpers → flat
-│       └── StandardCards.jsx
-└── hooks/               # Shared hooks
+│   │   └── Error.jsx        # Building blocks for sibling pages
+│   └── admin/Users/
+└── hooks/
 ```
-
-## File Patterns
-
-### Export Style
-
-| File type          | Style           | Example                                   |
-| ------------------ | --------------- | ----------------------------------------- |
-| Component `.jsx`   | Inline export   | `export const Button = () => { ... }`     |
-| Barrel `index.js`  | Bottom re-export| `export { Button } from './Button'`       |
-| `ui/` components   | Bottom default  | `export default function Button() { ... }`|
-
-### index.js (barrel)
-
-```js
-export { ComponentName } from './ComponentName'
-```
-
-### ComponentName.jsx
-
-```jsx
-export const ComponentName = ({ ...props }) => {
-  return (/* ... */)
-}
-```
-
-### When to Extract vs Inline
-
-| Condition                    | Action                 |
-| ---------------------------- | ---------------------- |
-| Few lines, single-file usage | Inline in same file    |
-| Used by 2+ sibling files     | Extract to `elements/` |
-| Complex logic                | Extract to `elements/` |
-
-### Inline Helpers Example
-
-```jsx
-// ProfileDialog.jsx
-const Row = ({ children }) => (
-  <div className='flex items-center gap-2'>{children}</div>
-)
-
-export const ProfileDialog = ({ profile }) => {
-  /* ... */
-}
-```
-
-## Form Utilities Pattern
-
-```zsh
-form/
-├── index.js              # Exports: FormController, FormField, FormRoot, FormFields
-├── FormController.jsx    # Wrapper for controlled inputs (Select, Switch)
-├── FormField.jsx         # Wrapper for native inputs (Input, Textarea)
-├── elements/             # Shared primitives (Error, Label, FieldWrapper)
-└── containers/           # Layout utilities (FormRoot, FormFields)
-```
-
-Use `containers/` (not `layouts/`) to avoid confusion with page layouts.
 
 ## src/components/ui/ Rules
 
@@ -170,12 +88,3 @@ Use `containers/` (not `layouts/`) to avoid confusion with page layouts.
 - Install via `npx shadcn@latest add <component>`
 - Uses regular functions + default exports (shadcn convention)
 - Custom wrappers go in `src/components/`, not `ui/`
-
-## Import Examples
-
-```jsx
-import { LoginPrompt, SignupPrompt } from '@/components/prompts'
-import { PricingSliderDialog } from '@/components/dialogs'
-import { Button, Card } from '@/components/ui'
-import { FormController, FormRoot } from '@/components/form'
-```

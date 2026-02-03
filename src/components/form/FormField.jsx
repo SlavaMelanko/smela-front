@@ -2,7 +2,12 @@ import { cloneElement } from 'react'
 
 import useLocale from '@/hooks/useLocale'
 
-import { Error, FieldWrapper, InputWrapper, Label } from './elements'
+import {
+  FormError,
+  FormFieldWrapper,
+  FormInputWrapper,
+  FormLabel
+} from './Form'
 
 /**
  * Form field wrapper for native inputs using register().
@@ -21,15 +26,15 @@ export const FormField = ({ name, label, optional, children, error }) => {
   const wrappedChild = cloneElement(children, { id: name, name, error })
 
   return (
-    <FieldWrapper hasError={!!error}>
+    <FormFieldWrapper hasError={!!error}>
       {label && (
-        <Label htmlFor={name} optional={optional}>
+        <FormLabel htmlFor={name} optional={optional}>
           {label}
-        </Label>
+        </FormLabel>
       )}
-      <InputWrapper>{wrappedChild}</InputWrapper>
+      <FormInputWrapper>{wrappedChild}</FormInputWrapper>
       {/* Always rendered for smooth enter/exit CSS transitions */}
-      <Error message={error?.message ? t(error.message) : null} />
-    </FieldWrapper>
+      <FormError message={error?.message ? t(error.message) : null} />
+    </FormFieldWrapper>
   )
 }

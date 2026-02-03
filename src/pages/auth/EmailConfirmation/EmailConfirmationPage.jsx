@@ -9,8 +9,7 @@ import useTheme from '@/hooks/useTheme'
 import useToast from '@/hooks/useToast'
 import { toTranslationKey } from '@/services/catch'
 
-import { Description, Title } from '../components'
-import { AuthHeader, AuthRoot } from '../containers'
+import { AuthDescription, AuthHeader, AuthRoot, AuthTitle } from '../Auth'
 import { EmailConfirmationForm } from './Form'
 
 export const EmailConfirmationPage = () => {
@@ -53,8 +52,8 @@ export const EmailConfirmationPage = () => {
     <>
       <AuthRoot>
         <AuthHeader>
-          <Title>{t('email.confirmation.title')}</Title>
-          <Description>
+          <AuthTitle>{t('email.confirmation.title')}</AuthTitle>
+          <AuthDescription>
             {t('email.confirmation.description.start')}{' '}
             {email ? (
               <EmailLink email={email} />
@@ -62,7 +61,7 @@ export const EmailConfirmationPage = () => {
               t('email.confirmation.yourEmail')
             )}
             . {t('email.confirmation.description.end')}
-          </Description>
+          </AuthDescription>
         </AuthHeader>
 
         <EmailConfirmationForm

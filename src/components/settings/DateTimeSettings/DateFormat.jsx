@@ -4,9 +4,12 @@ import { useTranslation } from 'react-i18next'
 import useLocale from '@/hooks/useLocale'
 import { datePreset } from '@/lib/format/date'
 
-import { SettingsOptions, SettingsSection } from '../containers'
-import { SettingsLabel } from '../SettingsLabel'
-import { SettingsOption } from '../SettingsOption'
+import {
+  SettingsLabel,
+  SettingsOption,
+  SettingsOptions,
+  SettingsSection
+} from '../Settings'
 
 export const DateFormat = ({ value, onChange }) => {
   const { t } = useTranslation()

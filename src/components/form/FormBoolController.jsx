@@ -1,7 +1,7 @@
 import { cloneElement } from 'react'
 import { Controller } from 'react-hook-form'
 
-import { Label } from './elements'
+import { FormLabel } from './Form'
 
 /**
  * Inline form field wrapper for controlled components.
@@ -39,9 +39,9 @@ export const FormBoolController = ({
       }}
     />
     {label && (
-      <Label htmlFor={name} optional>
+      <FormLabel htmlFor={name} optional>
         {label}
-      </Label>
+      </FormLabel>
     )}
   </div>
 )

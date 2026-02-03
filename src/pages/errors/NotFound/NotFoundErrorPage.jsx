@@ -5,8 +5,14 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import useLocale from '@/hooks/useLocale'
 import { captureMessage } from '@/services/errorTracker'
 
-import { Action, Description, Icon, Title } from '../components'
-import { ErrorContent, ErrorRoot } from '../containers'
+import {
+  ErrorButton,
+  ErrorContent,
+  ErrorDescription,
+  ErrorIcon,
+  ErrorRoot,
+  ErrorTitle
+} from '../Error'
 
 export const NotFoundErrorPage = () => {
   const { t } = useLocale()
@@ -19,12 +25,14 @@ export const NotFoundErrorPage = () => {
 
   return (
     <ErrorRoot data-testid='not-found-error-page'>
-      <Icon as={SearchX} />
+      <ErrorIcon as={SearchX} />
       <ErrorContent>
-        <Title>{t('error.notFound.title')}</Title>
-        <Description>{t('error.notFound.message')}</Description>
+        <ErrorTitle>{t('error.notFound.title')}</ErrorTitle>
+        <ErrorDescription>{t('error.notFound.message')}</ErrorDescription>
       </ErrorContent>
-      <Action onClick={() => navigate('/')}>{t('error.notFound.cta')}</Action>
+      <ErrorButton onClick={() => navigate('/')}>
+        {t('error.notFound.cta')}
+      </ErrorButton>
     </ErrorRoot>
   )
 }

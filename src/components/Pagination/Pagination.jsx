@@ -1,9 +1,8 @@
 import useLocale from '@/hooks/useLocale'
 
-import { NextButton } from './elements/NextButton'
-import { PrevButton } from './elements/PrevButton'
-import { RowsPerPageDropdown } from './elements/RowsPerPageDropdown'
 import { defaultOptions, limitOptions } from './options'
+import { NextButton, PrevButton } from './PaginationButtons'
+import { RowsPerPageDropdown } from './RowsPerPageDropdown'
 
 export const Pagination = ({
   pagination = defaultOptions,

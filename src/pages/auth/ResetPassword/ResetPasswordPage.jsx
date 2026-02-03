@@ -9,8 +9,7 @@ import useTheme from '@/hooks/useTheme'
 import useToast from '@/hooks/useToast'
 import useUrlParams from '@/hooks/useUrlParams'
 
-import { Description, Title } from '../components'
-import { AuthHeader, AuthRoot } from '../containers'
+import { AuthDescription, AuthHeader, AuthRoot, AuthTitle } from '../Auth'
 import { EmailForm } from './EmailForm'
 import { ResetPasswordForm } from './PasswordForm'
 
@@ -71,12 +70,12 @@ export const ResetPasswordPage = () => {
     <>
       <AuthRoot>
         <AuthHeader>
-          <Title>{t('password.reset.title')}</Title>
-          <Description>
+          <AuthTitle>{t('password.reset.title')}</AuthTitle>
+          <AuthDescription>
             {isRequest
               ? t('password.reset.request.description')
               : t('password.reset.set.description')}
-          </Description>
+          </AuthDescription>
         </AuthHeader>
 
         {isRequest ? (

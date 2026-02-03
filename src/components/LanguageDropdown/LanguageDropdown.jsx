@@ -8,8 +8,12 @@ import {
 } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-import { Flag } from './elements'
+import flags from './flags'
 import { languages } from './languages'
+
+const Flag = ({ code, className }) => (
+  <img className={className} src={flags[code]} alt={code} />
+)
 
 export const LanguageDropdown = () => {
   const { locale, changeLocale } = useLocale()
