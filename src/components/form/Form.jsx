@@ -17,9 +17,13 @@ export const FormGroup = ({ children, className, legend }) => (
   </fieldset>
 )
 
-export const FormRow = ({ children, className }) => (
+export const FormRow = ({ children, className, forceColumns = false }) => (
   <div
-    className={cn('grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2', className)}
+    className={cn(
+      'grid gap-x-6 gap-y-4',
+      forceColumns ? 'grid-cols-2' : 'grid-cols-1 md:grid-cols-2',
+      className
+    )}
   >
     {children}
   </div>

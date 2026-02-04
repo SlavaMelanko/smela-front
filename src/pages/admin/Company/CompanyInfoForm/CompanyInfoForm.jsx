@@ -63,7 +63,7 @@ export const CompanyInfoForm = ({ company, isSubmitting, onSubmit }) => {
           <Textarea {...register(FieldName.DESCRIPTION)} />
         </FormField>
 
-        <FormRow>
+        <FormRow forceColumns>
           <FormField label={t('createdAt')} optional>
             <p className='text-base'>{formatDate(company.createdAt)}</p>
           </FormField>

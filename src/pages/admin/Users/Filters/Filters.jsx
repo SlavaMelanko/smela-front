@@ -29,7 +29,7 @@ export const Filters = ({ isShow, params, setParams }) => {
     <div
       className={cn(
         'grid grid-rows-[0fr] rounded-md border border-transparent bg-background transition-all duration-300',
-        isShow && 'grid-rows-[1fr] border-border'
+        isShow && 'mt-4 grid-rows-[1fr] border-border md:mt-6 lg:mt-8' // margin matches PageContent gap
       )}
     >
       <div className='overflow-hidden'>

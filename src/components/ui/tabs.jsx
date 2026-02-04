@@ -9,7 +9,7 @@ function Tabs({ className, orientation = 'horizontal', ...props }) {
       data-slot='tabs'
       data-orientation={orientation}
       className={cn(
-        'gap-2 group/tabs flex data-[orientation=horizontal]:flex-col',
+        'gap-4 md:gap-5 lg:gap-6 group/tabs flex data-[orientation=horizontal]:flex-col',
         className
       )}
       {...props}
@@ -69,4 +69,21 @@ function TabsContent({ className, ...props }) {
   )
 }
 
-export { Tabs, TabsContent, TabsList, tabsListVariants, TabsTrigger }
+function TabsLine({ tabs }) {
+  return (
+    <TabsList variant='line' className='border-0'>
+      {tabs.map(({ value, icon: Icon, label }) => (
+        <TabsTrigger
+          key={value}
+          value={value}
+          className='after:bg-primary after:rounded-full'
+        >
+          <Icon className='size-4' />
+          {label()}
+        </TabsTrigger>
+      ))}
+    </TabsList>
+  )
+}
+
+export { Tabs, TabsContent, TabsLine, TabsList, tabsListVariants, TabsTrigger }

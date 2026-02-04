@@ -20,7 +20,7 @@ export const UserLayout = () => {
             <Header />
           </header>
 
-          <main className='flex flex-col flex-1 overflow-auto p-4 md:p-6 lg:mx-auto lg:max-w-7xl lg:w-full'>
+          <main className='flex flex-col flex-1 overflow-auto p-4 md:p-6 lg:p-8 lg:mx-auto lg:max-w-7xl lg:w-full'>
             <Suspense fallback={<Spinner />}>
               <Outlet />
             </Suspense>

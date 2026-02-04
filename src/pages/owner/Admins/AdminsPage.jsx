@@ -20,6 +20,7 @@ import { useAdmins, useResendAdminInvitation } from '@/hooks/useOwner'
 import useTableParams from '@/hooks/useTableParams'
 import useToast from '@/hooks/useToast'
 import { UserStatus } from '@/lib/types'
+import { PageContent } from '@/pages/Page'
 
 import { defaultHiddenColumns, getColumns } from './columns'
 
@@ -143,7 +144,7 @@ export const AdminsPage = () => {
   }
 
   return (
-    <div className='flex flex-col gap-4 md:gap-5'>
+    <PageContent>
       <Toolbar>
         <SearchInput
           className='flex-1'
@@ -168,6 +169,6 @@ export const AdminsPage = () => {
         onPageChange={handlePageChange}
         onLimitChange={handleLimitChange}
       />
-    </div>
+    </PageContent>
   )
 }

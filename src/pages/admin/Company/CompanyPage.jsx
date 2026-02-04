@@ -4,17 +4,12 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { CompanyPageHeader } from '@/components/PageHeader'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
-import {
-  Button,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger
-} from '@/components/ui'
+import { Button, Tabs, TabsContent, TabsLine } from '@/components/ui'
 import { useCompany, useUpdateCompany } from '@/hooks/useAdmin'
 import useHashTab from '@/hooks/useHashTab'
 import useLocale from '@/hooks/useLocale'
 import useToast from '@/hooks/useToast'
+import { PageContent } from '@/pages/Page'
 
 import { CompanyInfoForm } from './CompanyInfoForm'
 import { CompanyTeam } from './CompanyTeam'
@@ -75,7 +70,7 @@ export const CompanyPage = () => {
   ]
 
   return (
-    <div className='flex flex-col gap-4'>
+    <PageContent>
       <div className='flex'>
         <Button variant='ghost' onClick={() => navigate('/admin/companies')}>
           <ChevronLeft className='size-4' />
@@ -84,18 +79,7 @@ export const CompanyPage = () => {
       </div>
       <CompanyPageHeader name={company.name} website={company.website} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList variant='line' className='border-0'>
-          {tabs.map(({ value, icon: Icon, label }) => (
-            <TabsTrigger
-              key={value}
-              value={value}
-              className='after:bg-primary after:rounded-full'
-            >
-              <Icon className='size-4' />
-              {label()}
-            </TabsTrigger>
-          ))}
-        </TabsList>
+        <TabsLine tabs={tabs} />
         <TabsContent value={CompanyTab.INFO}>
           <CompanyInfoForm
             company={company}
@@ -107,6 +91,6 @@ export const CompanyPage = () => {
           <CompanyTeam companyId={id} members={company.members ?? []} />
         </TabsContent>
       </Tabs>
-    </div>
+    </PageContent>
   )
 }
