@@ -49,7 +49,7 @@ export const AdminsPage = () => {
     handleSearch
   )
 
-  const { data, isPending, isError } = useAdmins(apiParams)
+  const { data, isPending, isError, refetch } = useAdmins(apiParams)
   const { admins = [], pagination = defaultOptions } = data ?? {}
 
   const columns = useMemo(() => getColumns(t, formatDate), [t, formatDate])
@@ -132,7 +132,7 @@ export const AdminsPage = () => {
   }))
 
   if (isError) {
-    return <ErrorState text={t('error.loading')} />
+    return <ErrorState text={t('error.loading')} onRetry={refetch} />
   }
 
   if (isPending && !data) {

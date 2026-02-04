@@ -45,7 +45,7 @@ export const CompaniesPage = () => {
     handleSearch
   )
 
-  const { data, isPending, isError } = useCompanies(apiParams)
+  const { data, isPending, isError, refetch } = useCompanies(apiParams)
   const { companies = [], pagination = defaultOptions } = data ?? {}
 
   const columns = useMemo(() => getColumns(t, formatDate), [t, formatDate])
@@ -107,7 +107,7 @@ export const CompaniesPage = () => {
   }))
 
   if (isError) {
-    return <ErrorState text={t('error.loading')} />
+    return <ErrorState text={t('error.loading')} onRetry={refetch} />
   }
 
   if (isPending && !data) {

@@ -41,7 +41,7 @@ export const UsersPage = () => {
     handleSearch
   )
 
-  const { data, isPending, isError } = useUsers(apiParams)
+  const { data, isPending, isError, refetch } = useUsers(apiParams)
   const { users = [], pagination = defaultOptions } = data ?? {}
 
   const columns = useMemo(() => getColumns(t, formatDate), [t, formatDate])
@@ -108,7 +108,7 @@ export const UsersPage = () => {
   }))
 
   if (isError) {
-    return <ErrorState text={t('error.loading')} />
+    return <ErrorState text={t('error.loading')} onRetry={refetch} />
   }
 
   if (isPending && !data) {
