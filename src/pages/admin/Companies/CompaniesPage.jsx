@@ -19,6 +19,7 @@ import useDebouncedSearch from '@/hooks/useDebouncedSearch'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 import useTableParams from '@/hooks/useTableParams'
+import { PageContent } from '@/pages/Page'
 
 import { defaultHiddenColumns, getColumns } from './columns'
 
@@ -115,7 +116,7 @@ export const CompaniesPage = () => {
   }
 
   return (
-    <div className='flex flex-col gap-4 md:gap-5'>
+    <PageContent>
       <Toolbar>
         <SearchInput
           className='flex-1'
@@ -140,6 +141,6 @@ export const CompaniesPage = () => {
         onPageChange={handlePageChange}
         onLimitChange={handleLimitChange}
       />
-    </div>
+    </PageContent>
   )
 }

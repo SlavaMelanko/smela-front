@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui'
 import useHashTab from '@/hooks/useHashTab'
 import useLocale from '@/hooks/useLocale'
+import { PageContent } from '@/pages/Page'
 
 import EnterpriseTab from './EnterpriseTab'
 import { PricingFaq } from './PricingFaq'
@@ -26,7 +27,7 @@ export const PricingPage = () => {
   )
 
   return (
-    <div className='flex flex-col gap-8'>
+    <PageContent>
       <div className='flex flex-col items-center gap-4 text-center md:gap-5 lg:gap-6'>
         <h1 className='text-4xl font-bold text-foreground'>{t('title')}</h1>
         <p className='text-lg text-muted-foreground'>{t('subtitle')}</p>
@@ -52,6 +53,6 @@ export const PricingPage = () => {
       </Tabs>
 
       <PricingFaq />
-    </div>
+    </PageContent>
   )
 }

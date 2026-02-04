@@ -138,7 +138,7 @@ export {
   TableHeader,
   TableRow
 } from './table'
-export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs'
+export { Tabs, TabsContent, TabsLine, TabsList, TabsTrigger } from './tabs'
 export { Textarea } from './textarea'
 export {
   Tooltip,

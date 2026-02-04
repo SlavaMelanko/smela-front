@@ -17,6 +17,7 @@ import useDebouncedSearch from '@/hooks/useDebouncedSearch'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 import useTableParams from '@/hooks/useTableParams'
+import { PageContent } from '@/pages/Page'
 
 import { defaultHiddenColumns, getColumns } from './columns'
 import { Filters } from './Filters'
@@ -116,16 +117,18 @@ export const UsersPage = () => {
   }
 
   return (
-    <div className='flex flex-col gap-2'>
-      <Toolbar
-        columns={availableColumns}
-        showFilters={showFilters}
-        onToggleFilters={toggleFilters}
-        searchValue={searchValue}
-        onSearchChange={setSearchValue}
-      />
-
-      <Filters isShow={showFilters} params={params} setParams={setParams} />
+    <PageContent>
+      {/* Wrapper prevents PageContent gap when Filters is collapsed */}
+      <div>
+        <Toolbar
+          columns={availableColumns}
+          showFilters={showFilters}
+          onToggleFilters={toggleFilters}
+          searchValue={searchValue}
+          onSearchChange={setSearchValue}
+        />
+        <Filters isShow={showFilters} params={params} setParams={setParams} />
+      </div>
 
       <Table
         config={config}
@@ -137,6 +140,6 @@ export const UsersPage = () => {
         onPageChange={handlePageChange}
         onLimitChange={handleLimitChange}
       />
-    </div>
+    </PageContent>
   )
 }
