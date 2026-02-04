@@ -11,9 +11,15 @@ import useLocale from '@/hooks/useLocale'
 import flags from './flags'
 import { languages } from './languages'
 
-const Flag = ({ code, className }) => (
-  <img className={className} src={flags[code]} alt={code} />
-)
+const Flag = ({ code, className }) => {
+  const src = flags[code]
+
+  if (!src) {
+    return null
+  }
+
+  return <img className={className} src={src} alt={code} />
+}
 
 export const LanguageDropdown = () => {
   const { locale, changeLocale } = useLocale()

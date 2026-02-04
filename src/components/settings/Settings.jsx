@@ -16,8 +16,17 @@ export const SettingsLabel = ({ icon: Icon, children }) => (
   </div>
 )
 
-export const SettingsOptions = ({ children }) => (
-  <div role='radiogroup' className='flex flex-wrap gap-2 lg:gap-4'>
+export const SettingsOptions = ({
+  children,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledby
+}) => (
+  <div
+    role='radiogroup'
+    aria-label={ariaLabel}
+    aria-labelledby={ariaLabelledby}
+    className='flex flex-wrap gap-2 lg:gap-4'
+  >
     {children}
   </div>
 )

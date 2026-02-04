@@ -14,6 +14,14 @@ jest.mock('@/hooks/useLocale', () => ({
   default: jest.fn()
 }))
 
+jest.mock('../flags', () => ({
+  __esModule: true,
+  default: {
+    us: '/mock-us-flag.svg',
+    ua: '/mock-ua-flag.svg'
+  }
+}))
+
 describe('LanguageDropdown', () => {
   beforeEach(() => {
     mockChangeLocale.mockClear()

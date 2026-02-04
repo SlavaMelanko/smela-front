@@ -18,7 +18,9 @@ export const FormGroup = ({ children, className, legend }) => (
 )
 
 export const FormRow = ({ children, className }) => (
-  <div className={cn('grid grid-cols-2 gap-x-6 gap-y-4', className)}>
+  <div
+    className={cn('grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2', className)}
+  >
     {children}
   </div>
 )
@@ -36,7 +38,14 @@ export const FormLabel = ({ htmlFor, children, optional, className }) => (
     )}
   >
     {children}
-    {!optional && <span className='ml-1 text-destructive'>*</span>}
+    {!optional && (
+      <>
+        <span aria-hidden='true' className='ml-1 text-destructive'>
+          *
+        </span>
+        <span className='sr-only'>required</span>
+      </>
+    )}
   </label>
 )
 
