@@ -102,7 +102,6 @@
       "message": "This is unexpected for us too. We'll take a closer look and handle it according to our current priorities. Thanks for your patience.",
       "title": "Oops! Something went wrong"
     },
-    "loading": "Failed to load data. Please try again later.",
     "network": {
       "cta": "Try again",
       "message": {

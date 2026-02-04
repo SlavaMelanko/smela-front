@@ -35,7 +35,7 @@ export const CompanyPage = () => {
     CompanyTab.INFO
   )
 
-  const { data: company, isPending, isError, refetch } = useCompany(id)
+  const { data: company, isPending, isError, error, refetch } = useCompany(id)
   const { mutate: updateCompany, isPending: isUpdating } = useUpdateCompany(id)
 
   const handleSubmit = data => {
@@ -50,7 +50,7 @@ export const CompanyPage = () => {
   }
 
   if (isError) {
-    return <ErrorState text={t('error.loading')} onRetry={refetch} />
+    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
   }
 
   if (isPending && !company) {

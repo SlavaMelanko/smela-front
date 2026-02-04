@@ -19,6 +19,7 @@ import useDebouncedSearch from '@/hooks/useDebouncedSearch'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 import useTableParams from '@/hooks/useTableParams'
+import { toTranslationKey } from '@/services/catch'
 
 import { defaultHiddenColumns, getColumns } from './columns'
 
@@ -45,7 +46,7 @@ export const CompaniesPage = () => {
     handleSearch
   )
 
-  const { data, isPending, isError, refetch } = useCompanies(apiParams)
+  const { data, isPending, isError, error, refetch } = useCompanies(apiParams)
   const { companies = [], pagination = defaultOptions } = data ?? {}
 
   const columns = useMemo(() => getColumns(t, formatDate), [t, formatDate])
@@ -107,7 +108,7 @@ export const CompaniesPage = () => {
   }))
 
   if (isError) {
-    return <ErrorState text={t('error.loading')} onRetry={refetch} />
+    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
   }
 
   if (isPending && !data) {

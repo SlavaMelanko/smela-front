@@ -146,15 +146,18 @@ test.describe('Owner: Admins Page Error Handling', () => {
         status: HttpStatus.INTERNAL_SERVER_ERROR,
         contentType: 'application/json',
         body: JSON.stringify({
-          error: 'Internal Server Error',
-          code: 'server/internal'
+          name: 'AppError',
+          code: 'system/internal-error'
         })
       })
     )
 
     await page.goto('/owner/admins')
 
-    await expect(page.getByText(t.error.loading)).toBeVisible()
+    await expect(
+      page.getByText(t.backend['system/internal-error'])
+    ).toBeVisible()
+
     await expect(page.getByRole('button', { name: t.back })).toBeVisible()
   })
 

@@ -8,13 +8,13 @@ UI flashes during background refetches when cached data is already available.
 ```jsx
 // ❌ Avoid: spinner on every pending state
 const UsersPage = () => {
-  const { data, isPending, isError, refetch } = useQuery({
+  const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: ['users'],
     queryFn: fetchUsers
   })
 
   if (isError) {
-    return <ErrorState text={t('error.loading')} onRetry={refetch} />
+    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
   }
 
   if (isPending) {
@@ -42,13 +42,13 @@ indicator.
 ```jsx
 // ✅ Prefer: only show spinner when no cached data exists
 const UsersPage = () => {
-  const { data, isPending, isError, refetch } = useQuery({
+  const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: ['users'],
     queryFn: fetchUsers
   })
 
   if (isError) {
-    return <ErrorState text={t('error.loading')} onRetry={refetch} />
+    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
   }
 
   if (isPending && !data) {
@@ -90,6 +90,7 @@ const CompanyPage = () => {
     data: company,
     isPending,
     isError,
+    error,
     refetch
   } = useQuery({
     queryKey: ['company', companyId],
@@ -97,7 +98,7 @@ const CompanyPage = () => {
   })
 
   if (isError) {
-    return <ErrorState text={t('error.loading')} onRetry={refetch} />
+    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
   }
 
   if (isPending && !company) {
