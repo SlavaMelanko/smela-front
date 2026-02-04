@@ -8,7 +8,7 @@ import {
 
 import useLocale from '@/hooks/useLocale'
 
-import { Feature } from '../elements'
+import { Feature } from '../Pricing'
 
 const featureMap = {
   emailSupport: {
