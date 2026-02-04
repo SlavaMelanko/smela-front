@@ -1,5 +1,4 @@
 import { Clock } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
 
 import useLocale from '@/hooks/useLocale'
 
@@ -16,8 +15,7 @@ const timeFormats = [
 ]
 
 export const TimeFormat = ({ value, onChange }) => {
-  const { t } = useTranslation()
-  const { formatTime } = useLocale()
+  const { t, formatTime } = useLocale()
 
   return (
     <SettingsSection>

@@ -1,5 +1,4 @@
 import { Calendar } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
 
 import useLocale from '@/hooks/useLocale'
 import { datePreset } from '@/lib/format/date'
@@ -12,8 +11,7 @@ import {
 } from '../Settings'
 
 export const DateFormat = ({ value, onChange }) => {
-  const { t } = useTranslation()
-  const { formatDate } = useLocale()
+  const { t, formatDate } = useLocale()
 
   return (
     <SettingsSection>

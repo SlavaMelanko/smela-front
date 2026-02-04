@@ -17,7 +17,9 @@ export const SettingsLabel = ({ icon: Icon, children }) => (
 )
 
 export const SettingsOptions = ({ children }) => (
-  <div className='flex flex-wrap gap-2 lg:gap-4'>{children}</div>
+  <div role='radiogroup' className='flex flex-wrap gap-2 lg:gap-4'>
+    {children}
+  </div>
 )
 
 export const SettingsOption = ({ selected, onClick, label, description }) => {

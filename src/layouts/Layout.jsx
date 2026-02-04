@@ -11,7 +11,7 @@ export const LayoutContent = ({ children, className }) => (
 )
 
 export const LayoutTopRightControls = ({ children }) => (
-  <div className='absolute z-4 top-4 right-4 md:top-8 md:right-8 flex gap-4'>
+  <div className='absolute top-4 right-4 z-10 flex gap-4 md:top-8 md:right-8'>
     {children}
   </div>
 )

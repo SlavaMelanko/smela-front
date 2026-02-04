@@ -1,10 +1,9 @@
-import { useTranslation } from 'react-i18next'
-
+import useLocale from '@/hooks/useLocale'
 import { getUserStatusTextColor } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 export const StatusBadge = ({ status }) => {
-  const { t } = useTranslation()
+  const { t } = useLocale()
 
   if (!status) {
     return null
