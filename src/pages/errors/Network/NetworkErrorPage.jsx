@@ -5,8 +5,14 @@ import useLocale from '@/hooks/useLocale'
 import useUrlParams from '@/hooks/useUrlParams'
 import { NetworkErrorType } from '@/lib/net'
 
-import { Action, Description, Icon, Title } from '../components'
-import { ErrorContent, ErrorRoot } from '../containers'
+import {
+  ErrorButton,
+  ErrorContent,
+  ErrorDescription,
+  ErrorIcon,
+  ErrorRoot,
+  ErrorTitle
+} from '../Error'
 
 export const NetworkErrorPage = () => {
   const { t } = useLocale()
@@ -15,14 +21,16 @@ export const NetworkErrorPage = () => {
 
   return (
     <ErrorRoot data-testid='network-error-page'>
-      <Icon as={CloudAlert} />
+      <ErrorIcon as={CloudAlert} />
       <ErrorContent>
-        <Title>{t('error.network.title')}</Title>
-        <Description>
+        <ErrorTitle>{t('error.network.title')}</ErrorTitle>
+        <ErrorDescription>
           {t(`error.network.message.${errorType || NetworkErrorType.UNKNOWN}`)}
-        </Description>
+        </ErrorDescription>
       </ErrorContent>
-      <Action onClick={() => navigate(-1)}>{t('error.network.cta')}</Action>
+      <ErrorButton onClick={() => navigate(-1)}>
+        {t('error.network.cta')}
+      </ErrorButton>
     </ErrorRoot>
   )
 }

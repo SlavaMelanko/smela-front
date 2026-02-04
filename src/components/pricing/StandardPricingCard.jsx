@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { Badge, Button } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 
-import { Bandwidth, Feature, PricePerUnit, TotalPrice } from './elements'
+import { Bandwidth, Feature, PricePerUnit, TotalPrice } from './Pricing'
 
 const translateUnit = (unit, t) => {
   return t(`unit.traffic.${unit.toLowerCase()}`)
 }
 
-const StandardPricingCard = ({
+export const StandardPricingCard = ({
   title,
   bandwidth,
   pricePerUnit,
@@ -64,5 +64,3 @@ const StandardPricingCard = ({
     </div>
   )
 }
-
-export default StandardPricingCard

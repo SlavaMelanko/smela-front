@@ -3,6 +3,34 @@ import { useId } from 'react'
 
 import { cn } from '@/lib/utils'
 
+export const SettingsSection = ({ children }) => (
+  <section className='flex flex-col gap-4'>{children}</section>
+)
+
+export const SettingsLabel = ({ icon: Icon, children }) => (
+  <div className='flex items-center gap-2'>
+    <Icon className='size-4 text-muted-foreground' />
+    <span className='text-base leading-normal text-muted-foreground'>
+      {children}
+    </span>
+  </div>
+)
+
+export const SettingsOptions = ({
+  children,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledby
+}) => (
+  <div
+    role='radiogroup'
+    aria-label={ariaLabel}
+    aria-labelledby={ariaLabelledby}
+    className='flex flex-wrap gap-2 lg:gap-4'
+  >
+    {children}
+  </div>
+)
+
 export const SettingsOption = ({ selected, onClick, label, description }) => {
   const id = useId()
   const descId = `${id}-desc`

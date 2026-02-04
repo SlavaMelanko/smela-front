@@ -7,16 +7,16 @@ import { LanguageDropdown } from '@/components/LanguageDropdown'
 import { Spinner } from '@/components/Spinner'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
-import { CenteredPage, PageContent, TopRightControls } from './containers'
+import { LayoutContent, LayoutRoot, LayoutTopRightControls } from './Layout'
 
 export const LegalLayout = () => (
-  <CenteredPage>
-    <TopRightControls>
+  <LayoutRoot>
+    <LayoutTopRightControls>
       <ThemeToggle />
       <LanguageDropdown />
-    </TopRightControls>
+    </LayoutTopRightControls>
 
-    <PageContent className='grow max-w-5xl'>
+    <LayoutContent className='grow max-w-5xl'>
       <header className='flex items-center justify-center text-foreground'>
         <Logo size='lg' />
       </header>
@@ -30,6 +30,6 @@ export const LegalLayout = () => (
       <footer>
         <Copyright />
       </footer>
-    </PageContent>
-  </CenteredPage>
+    </LayoutContent>
+  </LayoutRoot>
 )

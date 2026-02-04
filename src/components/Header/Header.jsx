@@ -6,7 +6,7 @@ import { SidebarTrigger } from '@/components/ui'
 import { useCurrentUser } from '@/hooks/useAuth'
 import useNotifications from '@/hooks/useNotifications'
 
-import { UserProfileDropdown } from './elements'
+import { UserProfileDropdown } from './UserProfileDropdown'
 
 export const Header = () => {
   const { user } = useCurrentUser()

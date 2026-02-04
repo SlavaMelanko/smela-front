@@ -1,1 +1,1 @@
-export { default } from './PricingSlider'
+export { PricingSlider } from './PricingSlider'

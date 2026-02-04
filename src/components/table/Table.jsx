@@ -1,6 +1,7 @@
 import { Table as TableRoot } from '@/components/ui'
 
-import { TableBody, TableHeader } from './elements'
+import { TableBody } from './TableBody'
+import { TableHeader } from './TableHeader'
 
 export const Table = ({ config, onRowClick, contextMenu }) => (
   <div className='overflow-hidden rounded-md'>

@@ -7,16 +7,16 @@ import { LanguageDropdown } from '@/components/LanguageDropdown'
 import { Spinner } from '@/components/Spinner'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
-import { CenteredPage, PageContent, TopRightControls } from './containers'
+import { LayoutContent, LayoutRoot, LayoutTopRightControls } from './Layout'
 
 export const AuthLayout = () => (
-  <CenteredPage>
-    <TopRightControls>
+  <LayoutRoot>
+    <LayoutTopRightControls>
       <ThemeToggle />
       <LanguageDropdown />
-    </TopRightControls>
+    </LayoutTopRightControls>
 
-    <PageContent className='max-w-md'>
+    <LayoutContent className='max-w-md'>
       <header className='flex items-center justify-center text-foreground'>
         <Logo size='lg' />
       </header>
@@ -30,6 +30,6 @@ export const AuthLayout = () => (
       <footer>
         <Copyright />
       </footer>
-    </PageContent>
-  </CenteredPage>
+    </LayoutContent>
+  </LayoutRoot>
 )
