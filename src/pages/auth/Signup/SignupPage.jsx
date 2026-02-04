@@ -13,13 +13,12 @@ import useCaptcha from '@/hooks/useCaptcha'
 import useLocale from '@/hooks/useLocale'
 import useTheme from '@/hooks/useTheme'
 import useToast from '@/hooks/useToast'
-import { toTranslationKey } from '@/services/catch'
 
 import { AuthRoot } from '../Auth'
 import { SignupForm } from './Form'
 
 export const SignupPage = () => {
-  const { t, locale } = useLocale()
+  const { t, te, locale } = useLocale()
   const { theme } = useTheme()
   const navigate = useNavigate()
   const { showErrorToast } = useToast()
@@ -46,8 +45,8 @@ export const SignupPage = () => {
         onSuccess: () => {
           navigate('/email-confirmation', { state: { email: data.email } })
         },
-        onError: err => {
-          showErrorToast(t(toTranslationKey(err)))
+        onError: error => {
+          showErrorToast(te(error))
         }
       }
     )
@@ -58,8 +57,8 @@ export const SignupPage = () => {
       onSuccess: () => {
         navigate('/')
       },
-      onError: err => {
-        showErrorToast(t(toTranslationKey(err)))
+      onError: error => {
+        showErrorToast(te(error))
       }
     })
   }

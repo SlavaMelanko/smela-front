@@ -17,7 +17,6 @@ import useDebouncedSearch from '@/hooks/useDebouncedSearch'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 import useTableParams from '@/hooks/useTableParams'
-import { toTranslationKey } from '@/services/catch'
 
 import { defaultHiddenColumns, getColumns } from './columns'
 import { Filters } from './Filters'
@@ -28,7 +27,7 @@ const filteredRowModel = getFilteredRowModel()
 const sortedRowModel = getSortedRowModel()
 
 export const UsersPage = () => {
-  const { t, formatDate } = useLocale()
+  const { t, te, formatDate } = useLocale()
   const { openModal } = useModal()
 
   const { params, apiParams, setParams } = useTableParams()
@@ -109,7 +108,7 @@ export const UsersPage = () => {
   }))
 
   if (isError) {
-    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
+    return <ErrorState text={te(error)} onRetry={refetch} />
   }
 
   if (isPending && !data) {

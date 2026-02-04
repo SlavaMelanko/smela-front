@@ -20,7 +20,6 @@ import { useAdmins, useResendAdminInvitation } from '@/hooks/useOwner'
 import useTableParams from '@/hooks/useTableParams'
 import useToast from '@/hooks/useToast'
 import { UserStatus } from '@/lib/types'
-import { toTranslationKey } from '@/services/catch'
 
 import { defaultHiddenColumns, getColumns } from './columns'
 
@@ -32,7 +31,7 @@ const Toolbar = ({ children }) => (
 )
 
 export const AdminsPage = () => {
-  const { t, formatDate } = useLocale()
+  const { t, te, formatDate } = useLocale()
   const { openModal } = useModal()
   const { showSuccessToast, showErrorToast } = useToast()
   const { mutate: resendInvitation, isPending: isResending } =
@@ -74,11 +73,15 @@ export const AdminsPage = () => {
   const handleResendInvitation = useCallback(
     admin => {
       resendInvitation(admin.id, {
-        onSuccess: () => showSuccessToast(t('invitation.resend.success')),
-        onError: err => showErrorToast(t(toTranslationKey(err)))
+        onSuccess: () => {
+          showSuccessToast(t('invitation.resend.success'))
+        },
+        onError: error => {
+          showErrorToast(te(error))
+        }
       })
     },
-    [resendInvitation, showSuccessToast, showErrorToast, t]
+    [resendInvitation, showSuccessToast, showErrorToast, t, te]
   )
 
   const contextMenu = useMemo(
@@ -132,7 +135,7 @@ export const AdminsPage = () => {
   }))
 
   if (isError) {
-    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
+    return <ErrorState text={te(error)} onRetry={refetch} />
   }
 
   if (isPending && !data) {

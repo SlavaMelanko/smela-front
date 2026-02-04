@@ -3,10 +3,9 @@ import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
 import { useCreateCompany } from '@/hooks/useAdmin'
 import useLocale from '@/hooks/useLocale'
 import useToast from '@/hooks/useToast'
-import { toTranslationKey } from '@/services/catch'
 
 export const CompanyAddDialog = ({ onClose }) => {
-  const { t } = useLocale()
+  const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
   const { mutate: createCompany, isPending } = useCreateCompany()
 
@@ -16,8 +15,8 @@ export const CompanyAddDialog = ({ onClose }) => {
         showSuccessToast(t('company.add.success'))
         onClose()
       },
-      onError: err => {
-        showErrorToast(t(toTranslationKey(err)))
+      onError: error => {
+        showErrorToast(te(error))
       }
     })
   }

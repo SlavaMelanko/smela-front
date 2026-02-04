@@ -5,13 +5,12 @@ import { useAcceptInvite } from '@/hooks/useAuth'
 import useLocale from '@/hooks/useLocale'
 import useToast from '@/hooks/useToast'
 import useUrlParams from '@/hooks/useUrlParams'
-import { toTranslationKey } from '@/services/catch'
 
 import { AuthDescription, AuthHeader, AuthRoot, AuthTitle } from '../Auth'
 import { AcceptInviteForm } from './PasswordForm'
 
 export const AcceptInvitePage = () => {
-  const { t } = useLocale()
+  const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
   const navigate = useNavigate()
   const { token } = useUrlParams(['token'])
@@ -32,7 +31,7 @@ export const AcceptInvitePage = () => {
           navigate('/')
         },
         onError: error => {
-          showErrorToast(t(toTranslationKey(error)))
+          showErrorToast(te(error))
         }
       }
     )

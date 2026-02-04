@@ -9,13 +9,12 @@ import { useLogin, useLoginWithGoogle } from '@/hooks/useAuth'
 import useCaptcha from '@/hooks/useCaptcha'
 import useLocale from '@/hooks/useLocale'
 import useToast from '@/hooks/useToast'
-import { toTranslationKey } from '@/services/catch'
 
 import { AuthRoot } from '../Auth'
 import { LoginForm } from './Form'
 
 export const LoginPage = () => {
-  const { t } = useLocale()
+  const { t, te } = useLocale()
   const navigate = useNavigate()
   const { mutate: logInWithEmail, isPending: isEmailPending } = useLogin()
   const { mutate: logInWithGoogle, isPending: isGooglePending } =
@@ -38,8 +37,8 @@ export const LoginPage = () => {
         onSuccess: () => {
           navigate('/')
         },
-        onError: err => {
-          showErrorToast(t(toTranslationKey(err)))
+        onError: error => {
+          showErrorToast(te(error))
         }
       }
     )
@@ -50,8 +49,8 @@ export const LoginPage = () => {
       onSuccess: () => {
         navigate('/')
       },
-      onError: err => {
-        showErrorToast(t(toTranslationKey(err)))
+      onError: error => {
+        showErrorToast(te(error))
       }
     })
   }

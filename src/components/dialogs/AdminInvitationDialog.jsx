@@ -3,10 +3,9 @@ import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
 import useLocale from '@/hooks/useLocale'
 import { useInviteAdmin } from '@/hooks/useOwner'
 import useToast from '@/hooks/useToast'
-import { toTranslationKey } from '@/services/catch'
 
 export const AdminInvitationDialog = ({ onClose }) => {
-  const { t } = useLocale()
+  const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
   const { mutate: inviteAdmin, isPending } = useInviteAdmin()
 
@@ -16,8 +15,8 @@ export const AdminInvitationDialog = ({ onClose }) => {
         showSuccessToast(t('invitation.send.success'))
         onClose()
       },
-      onError: err => {
-        showErrorToast(t(toTranslationKey(err)))
+      onError: error => {
+        showErrorToast(te(error))
       }
     })
   }

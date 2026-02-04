@@ -19,7 +19,6 @@ import useDebouncedSearch from '@/hooks/useDebouncedSearch'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 import useTableParams from '@/hooks/useTableParams'
-import { toTranslationKey } from '@/services/catch'
 
 import { defaultHiddenColumns, getColumns } from './columns'
 
@@ -32,7 +31,7 @@ const Toolbar = ({ children }) => (
 
 export const CompaniesPage = () => {
   const navigate = useNavigate()
-  const { t, formatDate } = useLocale()
+  const { t, te, formatDate } = useLocale()
   const { openModal } = useModal()
 
   const { params, apiParams, setParams } = useTableParams()
@@ -108,7 +107,7 @@ export const CompaniesPage = () => {
   }))
 
   if (isError) {
-    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
+    return <ErrorState text={te(error)} onRetry={refetch} />
   }
 
   if (isPending && !data) {
