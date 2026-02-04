@@ -6,12 +6,12 @@ import {
 import { MailIcon, PencilIcon } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 
-import { ErrorAlert } from '@/components/alerts'
 import { AddButton } from '@/components/buttons'
 import { AdminInvitationDialog, ProfileDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
+import { ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
 import useDebouncedSearch from '@/hooks/useDebouncedSearch'
 import useLocale from '@/hooks/useLocale'
@@ -49,7 +49,7 @@ export const AdminsPage = () => {
     handleSearch
   )
 
-  const { data, isPending, isError } = useAdmins(apiParams)
+  const { data, isPending, isError, error, refetch } = useAdmins(apiParams)
   const { admins = [], pagination = defaultOptions } = data ?? {}
 
   const columns = useMemo(() => getColumns(t, formatDate), [t, formatDate])
@@ -132,7 +132,7 @@ export const AdminsPage = () => {
   }))
 
   if (isError) {
-    return <ErrorAlert text={t('error.loading')} />
+    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
   }
 
   if (isPending && !data) {

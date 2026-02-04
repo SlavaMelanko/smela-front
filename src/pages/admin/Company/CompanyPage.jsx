@@ -1,9 +1,9 @@
 import { Building2, ChevronLeft, Users } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { ErrorAlert } from '@/components/alerts'
 import { CompanyPageHeader } from '@/components/PageHeader'
 import { Spinner } from '@/components/Spinner'
+import { ErrorState } from '@/components/states'
 import {
   Button,
   Tabs,
@@ -35,7 +35,7 @@ export const CompanyPage = () => {
     CompanyTab.INFO
   )
 
-  const { data: company, isPending, isError } = useCompany(id)
+  const { data: company, isPending, isError, error, refetch } = useCompany(id)
   const { mutate: updateCompany, isPending: isUpdating } = useUpdateCompany(id)
 
   const handleSubmit = data => {
@@ -50,7 +50,7 @@ export const CompanyPage = () => {
   }
 
   if (isError) {
-    return <ErrorAlert text={t('error.loading')} />
+    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
   }
 
   if (isPending && !company) {
@@ -79,7 +79,7 @@ export const CompanyPage = () => {
     <div className='flex flex-col gap-4'>
       <div className='flex'>
         <Button variant='ghost' onClick={() => navigate('/admin/companies')}>
-          <ChevronLeft className='size-5' />
+          <ChevronLeft className='size-4' />
           {t('back')}
         </Button>
       </div>

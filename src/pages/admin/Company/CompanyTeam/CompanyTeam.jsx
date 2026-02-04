@@ -1,9 +1,9 @@
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import { useCallback, useMemo, useState } from 'react'
 
-import { InfoAlert } from '@/components/alerts'
 import { AddButton } from '@/components/buttons'
 import { MemberInvitationDialog, ProfileDialog } from '@/components/dialogs'
+import { EmptyState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
@@ -55,13 +55,13 @@ export const CompanyTeam = ({ companyId, members }) => {
 
   if (isEmpty) {
     return (
-      <InfoAlert text={t('company.team.empty')}>
+      <EmptyState text={t('company.team.empty')}>
         <AddButton
           label={t('invite')}
           onClick={handleInviteClick}
           hideTextOnMobile={false}
         />
-      </InfoAlert>
+      </EmptyState>
     )
   }
 

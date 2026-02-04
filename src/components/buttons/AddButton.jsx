@@ -10,7 +10,7 @@ export const AddButton = ({
   className
 }) => (
   <Button onClick={onClick} aria-label={label} className={className}>
-    <Plus className='size-5' />
+    <Plus className='size-4' />
     <span className={cn(hideTextOnMobile && 'hidden sm:inline')}>{label}</span>
   </Button>
 )

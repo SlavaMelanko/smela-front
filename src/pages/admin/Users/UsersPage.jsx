@@ -7,16 +7,17 @@ import {
 import { PencilIcon } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 
-import { ErrorAlert } from '@/components/alerts'
 import { ProfileDialog } from '@/components/dialogs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
+import { ErrorState } from '@/components/states'
 import { Table } from '@/components/table'
 import { useUsers } from '@/hooks/useAdmin'
 import useDebouncedSearch from '@/hooks/useDebouncedSearch'
 import useLocale from '@/hooks/useLocale'
 import useModal from '@/hooks/useModal'
 import useTableParams from '@/hooks/useTableParams'
+import { toTranslationKey } from '@/services/catch'
 
 import { defaultHiddenColumns, getColumns } from './columns'
 import { Filters } from './Filters'
@@ -41,7 +42,7 @@ export const UsersPage = () => {
     handleSearch
   )
 
-  const { data, isPending, isError } = useUsers(apiParams)
+  const { data, isPending, isError, error, refetch } = useUsers(apiParams)
   const { users = [], pagination = defaultOptions } = data ?? {}
 
   const columns = useMemo(() => getColumns(t, formatDate), [t, formatDate])
@@ -108,7 +109,7 @@ export const UsersPage = () => {
   }))
 
   if (isError) {
-    return <ErrorAlert text={t('error.loading')} />
+    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
   }
 
   if (isPending && !data) {
