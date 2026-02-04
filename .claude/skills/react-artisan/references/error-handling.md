@@ -70,6 +70,9 @@ Use four error levels, each with a dedicated component:
 // User can retry the action
 const { mutate } = useMutation({
   mutationFn: updateProfile,
+  onSuccess: () => {
+    toast.success(t('profile.updateSuccess'))
+  },
   onError: () => {
     toast.error(t('profile.updateFailed'))
   }
@@ -80,6 +83,7 @@ const { mutate } = useMutation({
 
 ```jsx
 // Page renders but data section shows error with retry
+// Loading state omitted for brevity — see loading-state-patterns.md
 const UserDashboard = () => {
   const { data, error, refetch } = useQuery({
     queryKey: ['dashboard'],

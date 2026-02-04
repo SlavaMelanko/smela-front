@@ -42,9 +42,14 @@ const SubmitButton = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async () => {
-    setIsSubmitting(true)
-    await saveData()
-    setIsSubmitting(false)
+    try {
+      setIsSubmitting(true)
+      await saveData()
+    } catch (error) {
+      toast.error(t('save.failed'))
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
