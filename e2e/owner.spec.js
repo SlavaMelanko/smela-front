@@ -134,7 +134,7 @@ test.describe.serial('Owner: Admin Invitation', () => {
 })
 
 test.describe('Owner: Admins Page Error Handling', () => {
-  test('displays error alert when admins API fails', async ({
+  test('displays error state when admins API fails', async ({
     page,
     t,
     login
@@ -158,7 +158,7 @@ test.describe('Owner: Admins Page Error Handling', () => {
       page.getByText(t.backend['system/internal-error'])
     ).toBeVisible()
 
-    await expect(page.getByRole('button', { name: t.back })).toBeVisible()
+    await expect(page.getByRole('button', { name: t.tryAgain })).toBeVisible()
   })
 
   test('displays empty table when no admins exist', async ({
