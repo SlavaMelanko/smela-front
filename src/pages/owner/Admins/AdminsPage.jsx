@@ -73,8 +73,12 @@ export const AdminsPage = () => {
   const handleResendInvitation = useCallback(
     admin => {
       resendInvitation(admin.id, {
-        onSuccess: () => showSuccessToast(t('invitation.resend.success')),
-        onError: error => showErrorToast(te(error))
+        onSuccess: () => {
+          showSuccessToast(t('invitation.resend.success'))
+        },
+        onError: error => {
+          showErrorToast(te(error))
+        }
       })
     },
     [resendInvitation, showSuccessToast, showErrorToast, t, te]
