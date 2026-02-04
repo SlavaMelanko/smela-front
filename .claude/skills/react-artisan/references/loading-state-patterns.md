@@ -14,7 +14,7 @@ const UsersPage = () => {
   })
 
   if (isError) {
-    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
+    return <ErrorState text={te(error)} onRetry={refetch} />
   }
 
   if (isPending) {
@@ -48,7 +48,7 @@ const UsersPage = () => {
   })
 
   if (isError) {
-    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
+    return <ErrorState text={te(error)} onRetry={refetch} />
   }
 
   if (isPending && !data) {
@@ -98,7 +98,7 @@ const CompanyPage = () => {
   })
 
   if (isError) {
-    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
+    return <ErrorState text={te(error)} onRetry={refetch} />
   }
 
   if (isPending && !company) {

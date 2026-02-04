@@ -7,13 +7,12 @@ import useCaptcha from '@/hooks/useCaptcha'
 import useLocale from '@/hooks/useLocale'
 import useTheme from '@/hooks/useTheme'
 import useToast from '@/hooks/useToast'
-import { toTranslationKey } from '@/services/catch'
 
 import { AuthDescription, AuthHeader, AuthRoot, AuthTitle } from '../Auth'
 import { EmailConfirmationForm } from './Form'
 
 export const EmailConfirmationPage = () => {
-  const { t, locale } = useLocale()
+  const { t, te, locale } = useLocale()
   const { theme } = useTheme()
   const location = useLocation()
   const { mutate: resendVerificationEmail, isPending } =
@@ -41,8 +40,8 @@ export const EmailConfirmationPage = () => {
         onSuccess: () => {
           showSuccessToast(t('email.confirmation.success'))
         },
-        onError: err => {
-          showErrorToast(t(toTranslationKey(err)))
+        onError: error => {
+          showErrorToast(te(error))
         }
       }
     )

@@ -129,7 +129,7 @@ test('flaky test', async ({ page }) => {
 // Console output
 test('debug test', async ({ page }) => {
   page.on('console', msg => console.log(msg.text()))
-  page.on('pageerror', err => console.log(err.message))
+  page.on('pageerror', error => console.log(error.message))
 })
 
 // Screenshot on step

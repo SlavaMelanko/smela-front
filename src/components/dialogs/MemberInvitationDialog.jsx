@@ -3,10 +3,9 @@ import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
 import { useInviteCompanyMember } from '@/hooks/useAdmin'
 import useLocale from '@/hooks/useLocale'
 import useToast from '@/hooks/useToast'
-import { toTranslationKey } from '@/services/catch'
 
 export const MemberInvitationDialog = ({ companyId, onClose }) => {
-  const { t } = useLocale()
+  const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
   const { mutate: inviteMember, isPending } = useInviteCompanyMember(companyId)
 
@@ -16,8 +15,8 @@ export const MemberInvitationDialog = ({ companyId, onClose }) => {
         showSuccessToast(t('invitation.send.success'))
         onClose()
       },
-      onError: err => {
-        showErrorToast(t(toTranslationKey(err)))
+      onError: error => {
+        showErrorToast(te(error))
       }
     })
   }

@@ -15,7 +15,6 @@ import { useCompany, useUpdateCompany } from '@/hooks/useAdmin'
 import useHashTab from '@/hooks/useHashTab'
 import useLocale from '@/hooks/useLocale'
 import useToast from '@/hooks/useToast'
-import { toTranslationKey } from '@/services/catch'
 
 import { CompanyInfoForm } from './CompanyInfoForm'
 import { CompanyTeam } from './CompanyTeam'
@@ -28,7 +27,7 @@ const CompanyTab = {
 export const CompanyPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { t } = useLocale()
+  const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
   const [activeTab, setActiveTab] = useHashTab(
     Object.values(CompanyTab),
@@ -43,14 +42,14 @@ export const CompanyPage = () => {
       onSuccess: () => {
         showSuccessToast(t('company.update.success'))
       },
-      onError: err => {
-        showErrorToast(t(toTranslationKey(err)))
+      onError: error => {
+        showErrorToast(te(error))
       }
     })
   }
 
   if (isError) {
-    return <ErrorState text={t(toTranslationKey(error))} onRetry={refetch} />
+    return <ErrorState text={te(error)} onRetry={refetch} />
   }
 
   if (isPending && !company) {
