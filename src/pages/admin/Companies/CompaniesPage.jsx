@@ -7,12 +7,12 @@ import { PencilIcon } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { ErrorAlert } from '@/components/alerts'
 import { AddButton } from '@/components/buttons'
 import { CompanyAddDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
+import { ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
 import { useCompanies } from '@/hooks/useAdmin'
 import useDebouncedSearch from '@/hooks/useDebouncedSearch'
@@ -107,7 +107,7 @@ export const CompaniesPage = () => {
   }))
 
   if (isError) {
-    return <ErrorAlert text={t('error.loading')} />
+    return <ErrorState text={t('error.loading')} />
   }
 
   if (isPending && !data) {

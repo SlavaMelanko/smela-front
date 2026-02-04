@@ -7,10 +7,10 @@ import {
 import { PencilIcon } from 'lucide-react'
 import { useCallback, useMemo, useState } from 'react'
 
-import { ErrorAlert } from '@/components/alerts'
 import { ProfileDialog } from '@/components/dialogs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
+import { ErrorState } from '@/components/states'
 import { Table } from '@/components/table'
 import { useUsers } from '@/hooks/useAdmin'
 import useDebouncedSearch from '@/hooks/useDebouncedSearch'
@@ -108,7 +108,7 @@ export const UsersPage = () => {
   }))
 
   if (isError) {
-    return <ErrorAlert text={t('error.loading')} />
+    return <ErrorState text={t('error.loading')} />
   }
 
   if (isPending && !data) {

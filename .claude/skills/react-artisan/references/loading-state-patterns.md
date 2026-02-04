@@ -14,7 +14,7 @@ const UsersPage = () => {
   })
 
   if (isError) {
-    return <ErrorAlert text={t('error.loading')} />
+    return <ErrorState text={t('error.loading')} />
   }
 
   if (isPending) {
@@ -48,7 +48,7 @@ const UsersPage = () => {
   })
 
   if (isError) {
-    return <ErrorAlert text={t('error.loading')} />
+    return <ErrorState text={t('error.loading')} />
   }
 
   if (isPending && !data) {
@@ -96,7 +96,7 @@ const CompanyPage = () => {
   })
 
   if (isError) {
-    return <ErrorAlert text={t('error.loading')} />
+    return <ErrorState text={t('error.loading')} />
   }
 
   if (isPending && !company) {
