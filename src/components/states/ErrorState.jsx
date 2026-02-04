@@ -16,11 +16,11 @@ const RetryButton = ({ onClick }) => {
   )
 }
 
-export const ErrorState = ({ text, className, onRetry }) => {
+export const ErrorState = ({ text, className, centered = true, onRetry }) => {
   const handleRetry = onRetry ?? (() => window.location.reload())
 
   return (
-    <StateRoot className={className}>
+    <StateRoot className={className} centered={centered}>
       <StateIcon icon={AlertCircle} className='text-destructive' />
       <StateTitle className='text-destructive'>{text}</StateTitle>
       <RetryButton onClick={handleRetry} />

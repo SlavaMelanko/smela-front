@@ -1,8 +1,12 @@
 import { cn } from '@/lib/utils'
 
-export const StateRoot = ({ children, className }) => (
+export const StateRoot = ({ children, className, centered }) => (
   <div
-    className={cn('flex flex-col items-center justify-center gap-4', className)}
+    className={cn(
+      'flex flex-col items-center justify-center gap-4',
+      centered && 'min-h-[50vh]',
+      className
+    )}
   >
     {children}
   </div>
