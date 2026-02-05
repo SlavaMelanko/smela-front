@@ -5,13 +5,14 @@ code in this repository.
 
 ## Project Overview
 
-This is a frontend application built with React 19, Vite, and TanStack Query.
-The project uses a custom backend API and emphasizes clear architecture, easy
-maintenance, and simple UX.
+This is a frontend application built with React 19, Vite, React Compiler, and
+TanStack Query. The project uses a custom backend API and emphasizes clear
+architecture, easy maintenance, and simple UX.
 
 ## Technology Stack
 
 - **React 19** - UI library for building user interfaces
+- **React Compiler** - Automatic memoization, no manual useMemo/useCallback
 - **Vite** - Next-generation frontend build tool
 - **TanStack Query** - Powerful data synchronization for React
 - **React Router** - Declarative routing for React
@@ -42,9 +43,8 @@ All pnpm scripts are defined in `package.json`. Key workflows:
 
 ### Code Quality
 
-- Linting: `lint`, `lint:fix`
+- Linting: `lint`
 - Formatting: `format`
-- Pre-commit hooks automatically run ESLint and Prettier on staged files
 
 ### Storybook
 
@@ -136,12 +136,13 @@ Translation files (`public/locales/*.json`) follow entity-based organization:
 
 ## Key Development Patterns
 
-1. **Path aliases**: Use `@/` for `src/` and `@components` for `src/components`
+1. **Path aliases**: Use `@/` for `src/` (e.g., `@/components`, `@/hooks`)
 2. **Component imports**: Always import from component folders, not files
-3. **Styling**: See `.claude/skills/tailwind-shadcn/SKILL.md` for Tailwind CSS
+3. **React patterns**: See `.claude/skills/react-artisan/SKILL.md` for React
+   coding conventions, component design, and hooks
+4. **Styling**: See `.claude/skills/tailwind-shadcn/SKILL.md` for Tailwind CSS
    and shadcn/ui conventions
-4. **i18n keys**: Keep translations "short, clear, and easy to understand"
-5. **ESLint compliance**: No console.log (use console.warn/error), prefer const
+5. **i18n keys**: Keep translations "short, clear, and easy to understand"
 6. **Control flow formatting**: Always use curly braces with `if` statements on
    new lines (no single-line `if (ok) return`)
 7. **Git hooks**: Pre-commit runs ESLint and Prettier on staged files
