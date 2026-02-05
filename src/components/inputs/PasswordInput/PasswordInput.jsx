@@ -3,17 +3,17 @@ import { useState } from 'react'
 
 import { Input } from '@/components/ui'
 
-export function PasswordInput({
+export const PasswordInput = ({
   ref,
   defaultVisible = false,
   toggleAriaLabel = 'Toggle password visibility',
   onVisibilityChange,
   disabled,
   ...props
-}) {
+}) => {
   const [showPassword, setShowPassword] = useState(defaultVisible)
 
-  const handleToggle = () => {
+  const toggleVisibility = () => {
     const newVisibility = !showPassword
 
     setShowPassword(newVisibility)
@@ -32,7 +32,7 @@ export function PasswordInput({
       rightIcon={
         <button
           type='button'
-          onClick={handleToggle}
+          onClick={toggleVisibility}
           className='flex h-full cursor-pointer items-center border-none bg-transparent p-0'
           aria-label={toggleAriaLabel || toggleLabel}
           disabled={disabled && props.readOnly !== true}

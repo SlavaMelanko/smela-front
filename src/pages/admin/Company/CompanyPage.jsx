@@ -32,7 +32,7 @@ export const CompanyPage = () => {
   const { data: company, isPending, isError, error, refetch } = useCompany(id)
   const { mutate: updateCompany, isPending: isUpdating } = useUpdateCompany(id)
 
-  const handleSubmit = data => {
+  const submit = data => {
     updateCompany(data, {
       onSuccess: () => {
         showSuccessToast(t('company.update.success'))
@@ -84,7 +84,7 @@ export const CompanyPage = () => {
           <CompanyInfoForm
             company={company}
             isSubmitting={isUpdating}
-            onSubmit={handleSubmit}
+            onSubmit={submit}
           />
         </TabsContent>
         <TabsContent value={CompanyTab.TEAM}>

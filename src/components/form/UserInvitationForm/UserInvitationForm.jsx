@@ -32,7 +32,7 @@ export const UserInvitationForm = ({
     defaultValues: getDefaultValues()
   })
 
-  const handleFormSubmit = data => {
+  const submit = data => {
     const result = { ...data }
 
     Object.entries(config).forEach(([key, visible]) => {
@@ -45,7 +45,7 @@ export const UserInvitationForm = ({
   }
 
   return (
-    <FormRoot onSubmit={handleSubmit(handleFormSubmit)}>
+    <FormRoot onSubmit={handleSubmit(submit)}>
       <FormGroup legend={t('personalDetails')}>
         <FormFields>
           <FormField

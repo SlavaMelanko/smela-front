@@ -41,7 +41,7 @@ export const Sidebar = ({ items }) => {
 
   const isActive = url => pathname === url || pathname.startsWith(`${url}/`)
 
-  const handleClick = item => {
+  const navigateTo = item => {
     if (item.external) {
       window.open(item.url, '_blank', 'noopener,noreferrer')
     } else {
@@ -100,7 +100,7 @@ export const Sidebar = ({ items }) => {
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       isActive={isActive(item.url)}
-                      onClick={() => handleClick(item)}
+                      onClick={() => navigateTo(item)}
                     >
                       <ActiveIndicator
                         isActive={isActive(item.url)}

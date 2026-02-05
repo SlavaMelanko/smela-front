@@ -18,7 +18,7 @@ export const Multiselect = ({
   const selectedValues = value.map(v => v.value)
 
   // Convert string[] back to { label, value }[] for parent
-  const handleChange = vals => {
+  const changeValue = vals => {
     const selectedOptions = options.filter(opt => vals.includes(opt.value))
 
     onChange(selectedOptions)
@@ -27,7 +27,7 @@ export const Multiselect = ({
   return (
     <MultiSelect
       value={selectedValues}
-      onValueChange={handleChange}
+      onValueChange={changeValue}
       disabled={disabled}
     >
       <MultiSelectTrigger className={className}>
