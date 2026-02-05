@@ -4,7 +4,7 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 import { PencilIcon } from 'lucide-react'
-import { useCallback, useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { AddButton } from '@/components/buttons'
@@ -37,10 +37,8 @@ export const CompaniesPage = () => {
 
   const { params, apiParams, setParams } = useTableParams()
 
-  const handleSearch = useCallback(
-    value => setParams({ search: value || null }, { resetPage: true }),
-    [setParams]
-  )
+  const handleSearch = value =>
+    setParams({ search: value || null }, { resetPage: true })
   const { searchValue, setSearchValue } = useDebouncedSearch(
     params.search,
     handleSearch
@@ -49,31 +47,25 @@ export const CompaniesPage = () => {
   const { data, isPending, isError, error, refetch } = useCompanies(apiParams)
   const { companies = [], pagination = defaultOptions } = data ?? {}
 
-  const columns = useMemo(() => getColumns(t, formatDate), [t, formatDate])
+  const columns = getColumns(t, formatDate)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
   const [sorting, setSorting] = useState([])
 
-  const handleAddClick = useCallback(() => {
+  const handleAddClick = () => {
     const close = openModal({
       children: <CompanyAddDialog onClose={() => close()} />
     })
-  }, [openModal])
+  }
 
-  const handleRowClick = useCallback(
-    company => navigate(`/admin/companies/${company.id}`),
-    [navigate]
-  )
+  const handleRowClick = company => navigate(`/admin/companies/${company.id}`)
 
-  const contextMenu = useMemo(
-    () => [
-      {
-        icon: PencilIcon,
-        label: t('contextMenu.edit'),
-        onClick: handleRowClick
-      }
-    ],
-    [t, handleRowClick]
-  )
+  const contextMenu = [
+    {
+      icon: PencilIcon,
+      label: t('contextMenu.edit'),
+      onClick: handleRowClick
+    }
+  ]
 
   const handlePageChange = page => {
     setParams({ page })

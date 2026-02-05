@@ -1,6 +1,6 @@
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 import tailwindcss from '@tailwindcss/vite'
-import react from '@vitejs/plugin-react-swc'
+import react from '@vitejs/plugin-react'
 import path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 import webpackStatsPlugin from 'rollup-plugin-webpack-stats'
@@ -36,7 +36,11 @@ export default defineConfig({
     __SENTRY_DEBUG__: false
   },
   plugins: [
-    react(),
+    react({
+      babel: {
+        plugins: ['babel-plugin-react-compiler']
+      }
+    }),
     tailwindcss(),
     process.env.ANALYZE_BUNDLE &&
       visualizer({

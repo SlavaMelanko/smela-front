@@ -1,5 +1,5 @@
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { useCallback, useMemo, useState } from 'react'
+import { useState } from 'react'
 
 import { AddButton } from '@/components/buttons'
 import { MemberInvitationDialog, ProfileDialog } from '@/components/dialogs'
@@ -20,27 +20,24 @@ export const CompanyTeam = ({ companyId, members }) => {
   const { t, formatDate } = useLocale()
   const { openModal } = useModal()
 
-  const columns = useMemo(() => getColumns(t, formatDate), [t, formatDate])
+  const columns = getColumns(t, formatDate)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
 
   const isEmpty = members.length === 0
 
-  const handleRowClick = useCallback(
-    member => {
-      const close = openModal({
-        children: <ProfileDialog profile={member} onClose={() => close()} />
-      })
-    },
-    [openModal]
-  )
+  const handleRowClick = member => {
+    const close = openModal({
+      children: <ProfileDialog profile={member} onClose={() => close()} />
+    })
+  }
 
-  const handleInviteClick = useCallback(() => {
+  const handleInviteClick = () => {
     const close = openModal({
       children: (
         <MemberInvitationDialog companyId={companyId} onClose={() => close()} />
       )
     })
-  }, [companyId, openModal])
+  }
 
   // TanStack Table uses interior mutability which is incompatible with React Compiler's memoization.
   // See: https://react.dev/reference/eslint-plugin-react-hooks/lints/incompatible-library

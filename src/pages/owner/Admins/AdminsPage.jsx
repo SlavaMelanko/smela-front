@@ -4,7 +4,7 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 import { MailIcon, PencilIcon } from 'lucide-react'
-import { useCallback, useMemo, useState } from 'react'
+import { useState } from 'react'
 
 import { AddButton } from '@/components/buttons'
 import { AdminInvitationDialog, ProfileDialog } from '@/components/dialogs'
@@ -40,10 +40,8 @@ export const AdminsPage = () => {
 
   const { params, apiParams, setParams } = useTableParams()
 
-  const handleSearch = useCallback(
-    value => setParams({ search: value || null }, { resetPage: true }),
-    [setParams]
-  )
+  const handleSearch = value =>
+    setParams({ search: value || null }, { resetPage: true })
   const { searchValue, setSearchValue } = useDebouncedSearch(
     params.search,
     handleSearch
@@ -52,56 +50,47 @@ export const AdminsPage = () => {
   const { data, isPending, isError, error, refetch } = useAdmins(apiParams)
   const { admins = [], pagination = defaultOptions } = data ?? {}
 
-  const columns = useMemo(() => getColumns(t, formatDate), [t, formatDate])
+  const columns = getColumns(t, formatDate)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
   const [sorting, setSorting] = useState([])
 
-  const handleInviteClick = useCallback(() => {
+  const handleInviteClick = () => {
     const close = openModal({
       children: <AdminInvitationDialog onClose={() => close()} />
     })
-  }, [openModal])
+  }
 
-  const handleRowClick = useCallback(
-    admin => {
-      const close = openModal({
-        children: <ProfileDialog profile={admin} onClose={() => close()} />
-      })
-    },
-    [openModal]
-  )
+  const handleRowClick = admin => {
+    const close = openModal({
+      children: <ProfileDialog profile={admin} onClose={() => close()} />
+    })
+  }
 
-  const handleResendInvitation = useCallback(
-    admin => {
-      resendInvitation(admin.id, {
-        onSuccess: () => {
-          showSuccessToast(t('invitation.resend.success'))
-        },
-        onError: error => {
-          showErrorToast(te(error))
-        }
-      })
-    },
-    [resendInvitation, showSuccessToast, showErrorToast, t, te]
-  )
-
-  const contextMenu = useMemo(
-    () => [
-      {
-        icon: PencilIcon,
-        label: t('contextMenu.edit'),
-        onClick: handleRowClick
+  const handleResendInvitation = admin => {
+    resendInvitation(admin.id, {
+      onSuccess: () => {
+        showSuccessToast(t('invitation.resend.success'))
       },
-      {
-        icon: MailIcon,
-        label: t('contextMenu.resendInvitation'),
-        onClick: handleResendInvitation,
-        isVisible: admin => admin.status === UserStatus.PENDING,
-        disabled: isResending
+      onError: error => {
+        showErrorToast(te(error))
       }
-    ],
-    [t, handleRowClick, handleResendInvitation, isResending]
-  )
+    })
+  }
+
+  const contextMenu = [
+    {
+      icon: PencilIcon,
+      label: t('contextMenu.edit'),
+      onClick: handleRowClick
+    },
+    {
+      icon: MailIcon,
+      label: t('contextMenu.resendInvitation'),
+      onClick: handleResendInvitation,
+      isVisible: admin => admin.status === UserStatus.PENDING,
+      disabled: isResending
+    }
+  ]
 
   const handlePageChange = page => {
     setParams({ page })
