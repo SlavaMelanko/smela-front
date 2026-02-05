@@ -1,9 +1,7 @@
-import { memo } from 'react'
-
 import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-const PresetValue = memo(({ value, label, isActive, onSelect }) => (
+const PresetValue = ({ value, label, isActive, onSelect }) => (
   <Button
     variant='ghost'
     size='sm'
@@ -15,11 +13,9 @@ const PresetValue = memo(({ value, label, isActive, onSelect }) => (
   >
     {label}
   </Button>
-))
+)
 
-PresetValue.displayName = 'PresetValue'
-
-export const PresetValues = memo(({ values, activeValue, onSelect }) => {
+export const PresetValues = ({ values, activeValue, onSelect }) => {
   if (!values?.length) {
     return null
   }
@@ -37,6 +33,4 @@ export const PresetValues = memo(({ values, activeValue, onSelect }) => {
       ))}
     </div>
   )
-})
-
-PresetValues.displayName = 'PresetValues'
+}

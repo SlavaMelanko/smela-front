@@ -30,14 +30,29 @@ Reference these guidelines when:
 
 ## Rules
 
+Rules are ordered by frequency of use: universal patterns first, then everyday
+conventions, then situational patterns. When adding new rules, place them in the
+appropriate category.
+
+### Universal (affects all code)
+
+- [React Compiler Memoization](references/react-compiler-memoization.md) — let
+  the compiler handle `memo`, `useMemo`, and `useCallback` (~90% of cases); keep
+  manual memoization only in contexts and vendor code
+
+### Everyday (most files)
+
 - Arrow Function Components — use `const Component = () => {}` instead of
   `function Component() {}` (exception: `src/components/ui/` shadcn components)
-- Don't Use Index as Key — use stable unique IDs (`id`, `uuid`) to preserve
-  state and avoid reconciliation bugs
 - [Inline Exports](references/inline-exports.md) — use `export const Component`
   instead of collecting exports at the bottom of the file
+- Don't Use Index as Key — use stable unique IDs (`id`, `uuid`) to preserve
+  state and avoid reconciliation bugs
 - [Composition Over Configuration](references/composition-over-configuration.md)
   — use small primitives instead of prop-heavy god components
+
+### Situational (specific scenarios)
+
 - [Context as Provider](references/context-as-provider.md) — render `<Context>`
   directly instead of `<Context.Provider>` (React 19+)
 - [Ref as Prop](references/ref-as-prop.md) — pass `ref` as a regular prop

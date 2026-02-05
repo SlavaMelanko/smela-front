@@ -1,5 +1,3 @@
-import { useMemo } from 'react'
-
 import useLocale from '@/hooks/useLocale'
 
 import { PresetValues } from './PresetValues'
@@ -19,22 +17,14 @@ export const Slider = ({
 }) => {
   const { formatNumberWithUnit } = useLocale()
 
-  const tickLabels = useMemo(
-    () =>
-      generateTicks(min, max, tickCount).map(val =>
-        formatNumberWithUnit(val, unit)
-      ),
-    [min, max, tickCount, unit, formatNumberWithUnit]
+  const tickLabels = generateTicks(min, max, tickCount).map(val =>
+    formatNumberWithUnit(val, unit)
   )
 
-  const presetLabels = useMemo(
-    () =>
-      presetValues?.map(val => ({
-        value: val,
-        label: formatNumberWithUnit(val, unit)
-      })),
-    [presetValues, unit, formatNumberWithUnit]
-  )
+  const presetLabels = presetValues?.map(val => ({
+    value: val,
+    label: formatNumberWithUnit(val, unit)
+  }))
 
   return (
     <div className='w-full'>

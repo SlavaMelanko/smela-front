@@ -1,6 +1,4 @@
-import { memo } from 'react'
-
-export const Range = memo(({ tickLabels }) => {
+export const Range = ({ tickLabels }) => {
   if (!tickLabels?.length) {
     return null
   }
@@ -14,6 +12,4 @@ export const Range = memo(({ tickLabels }) => {
       ))}
     </div>
   )
-})
-
-Range.displayName = 'Range'
+}
