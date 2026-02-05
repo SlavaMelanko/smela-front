@@ -97,6 +97,7 @@ Key principles:
 ### DO
 
 - Use translation keys for all user-facing text
+- Pick user-friendly and warm translations (approachable tone)
 - Handle pluralization with i18next plural syntax
 - Use `Intl` APIs for date/number formatting
 - Plan for RTL support from the start
