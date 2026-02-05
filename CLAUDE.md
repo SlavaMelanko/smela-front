@@ -112,28 +112,6 @@ const { register, handleSubmit } = useForm({ resolver })
 - **E2E tests** in `/e2e/` directory
 - Test utilities available in `/src/lib/tests/`
 
-### Locale File Structure
-
-Translation files (`public/locales/*.json`) follow entity-based organization:
-
-- **Entity cohesion**: Group related data together (e.g., `name` + `values`)
-- **Single source of truth**: Define labels once, reference with `$t()`
-- **No fragmentation**: Avoid separate objects like `filters.role` when
-  `role.name` exists
-
-```json
-// Entity pattern
-"role": {
-  "name": "Role",
-  "values": { "admin": "Admin", "user": "User" }
-}
-
-// Reference pattern (avoids duplication)
-"table": {
-  "users": { "role": "$t(role.name)" }
-}
-```
-
 ## Key Development Patterns
 
 1. **Path aliases**: Use `@/` for `src/` (e.g., `@/components`, `@/hooks`)
@@ -142,7 +120,8 @@ Translation files (`public/locales/*.json`) follow entity-based organization:
    coding conventions, component design, and hooks
 4. **Styling**: See `.claude/skills/tailwind-shadcn/SKILL.md` for Tailwind CSS
    and shadcn/ui conventions
-5. **i18n keys**: Keep translations "short, clear, and easy to understand"
+5. **i18n**: See `.claude/skills/i18n-localization/SKILL.md` for translation
+   patterns, locale file structure, and best practices
 6. **Control flow formatting**: Always use curly braces with `if` statements on
    new lines (no single-line `if (ok) return`)
 7. **Git hooks**: Pre-commit runs ESLint and Prettier on staged files
