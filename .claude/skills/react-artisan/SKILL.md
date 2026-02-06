@@ -51,8 +51,7 @@ appropriate category.
 - [Composition Over Configuration](references/composition-over-configuration.md)
   — use small primitives instead of prop-heavy god components
 - [Callback Naming](references/callback-naming.md) — name callbacks by action
-  (`submit`, `toggleVisibility`, `changePage`), not `handle*`; exception: keep
-  `handle*` for TanStack Query mutation wrappers with `onSuccess`/`onError`
+  (`submit`, `toggleVisibility`, `changePage`), not `handle\*
 
 ### Situational (specific scenarios)
 
