@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 
-import useDebouncedSearch from '../useDebouncedSearch'
+import { useDebouncedSearch } from '../useDebouncedSearch'
 
 jest.mock('@tanstack/react-pacer', () => ({
   useDebouncedValue: value => [value]

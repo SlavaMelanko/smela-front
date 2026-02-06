@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import useTheme from '@/hooks/useTheme'
+import { useTheme } from '@/hooks/useTheme'
 import { renderWithProviders } from '@/tests'
 
 import { ThemeToggle } from '../ThemeToggle'
@@ -9,8 +9,7 @@ import { ThemeToggle } from '../ThemeToggle'
 const mockToggleTheme = jest.fn()
 
 jest.mock('@/hooks/useTheme', () => ({
-  __esModule: true,
-  default: jest.fn()
+  useTheme: jest.fn()
 }))
 
 describe('ThemeToggle', () => {

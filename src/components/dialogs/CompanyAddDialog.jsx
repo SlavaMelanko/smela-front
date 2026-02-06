@@ -1,8 +1,8 @@
 import { CompanyAddForm } from '@/components/form'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
 import { useCreateCompany } from '@/hooks/useAdmin'
-import useLocale from '@/hooks/useLocale'
-import useToast from '@/hooks/useToast'
+import { useLocale } from '@/hooks/useLocale'
+import { useToast } from '@/hooks/useToast'
 
 export const CompanyAddDialog = ({ onClose }) => {
   const { t, te } = useLocale()

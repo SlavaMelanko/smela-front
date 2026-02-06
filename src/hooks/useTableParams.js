@@ -22,7 +22,7 @@ const parseLimit = limitStr => {
   return isValidLimit(limit) ? limit : Limit.SM
 }
 
-const useTableParams = () => {
+export const useTableParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   // Read: parse URL into structured state
@@ -74,5 +74,3 @@ const useTableParams = () => {
 
   return { params, apiParams, setParams }
 }
-
-export default useTableParams

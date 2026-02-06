@@ -7,7 +7,7 @@ import {
   SubmitButton
 } from '@/components/form'
 import { Input, Textarea } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues, resolver } from './schema'
 

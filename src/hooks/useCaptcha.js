@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-const useCaptcha = () => {
+export const useCaptcha = () => {
   const captchaRef = useRef(null)
 
   const getCaptchaToken = async () => {
@@ -21,5 +21,3 @@ const useCaptcha = () => {
 
   return { captchaRef, getCaptchaToken }
 }
-
-export default useCaptcha

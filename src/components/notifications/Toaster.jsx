@@ -1,5 +1,5 @@
 import { Toaster as SonnerToaster } from '@/components/ui'
-import useTheme from '@/hooks/useTheme'
+import { useTheme } from '@/hooks/useTheme'
 
 export const Toaster = () => {
   const { theme } = useTheme()

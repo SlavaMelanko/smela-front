@@ -4,7 +4,7 @@ import { NotificationToggle } from '@/components/notifications'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { SidebarTrigger } from '@/components/ui'
 import { useCurrentUser } from '@/hooks/useAuth'
-import useNotifications from '@/hooks/useNotifications'
+import { useNotifications } from '@/hooks/useNotifications'
 
 import { UserProfileDropdown } from './UserProfileDropdown'
 

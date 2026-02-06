@@ -23,7 +23,7 @@ description: |
 Use `t()` for all user-facing strings:
 
 ```jsx
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
 const MyComponent = () => {
   const { t } = useLocale()

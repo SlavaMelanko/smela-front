@@ -5,8 +5,8 @@ import { AddButton } from '@/components/buttons'
 import { MemberInvitationDialog, ProfileDialog } from '@/components/dialogs'
 import { EmptyState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
-import useLocale from '@/hooks/useLocale'
-import useModal from '@/hooks/useModal'
+import { useLocale } from '@/hooks/useLocale'
+import { useModal } from '@/hooks/useModal'
 
 import { defaultHiddenColumns, getColumns } from './columns'
 

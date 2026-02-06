@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { PricingSliderDialog } from '@/components/dialogs'
 import { CustomPricingCard, StandardPricingCard } from '@/components/pricing'
-import useLocale from '@/hooks/useLocale'
-import useModal from '@/hooks/useModal'
+import { useLocale } from '@/hooks/useLocale'
+import { useModal } from '@/hooks/useModal'
 
 const StandardCards = () => {
   const { t } = useLocale({ keyPrefix: 'pricing' })

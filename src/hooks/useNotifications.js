@@ -2,7 +2,7 @@ import { useContext } from 'react'
 
 import NotificationContext from '@/contexts/NotificationContext'
 
-const useNotifications = () => {
+export const useNotifications = () => {
   const context = useContext(NotificationContext)
 
   if (!context) {
@@ -11,5 +11,3 @@ const useNotifications = () => {
 
   return context
 }
-
-export default useNotifications

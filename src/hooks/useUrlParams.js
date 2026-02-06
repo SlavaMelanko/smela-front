@@ -14,7 +14,7 @@ const stringToBoolean = str => {
   return str
 }
 
-const useUrlParams = (keys = [], options = {}) => {
+export const useUrlParams = (keys = [], options = {}) => {
   const [params] = useSearchParams()
   const { parseNumbers = false, parseBooleans = false } = options
 
@@ -32,5 +32,3 @@ const useUrlParams = (keys = [], options = {}) => {
     })
   )
 }
-
-export default useUrlParams

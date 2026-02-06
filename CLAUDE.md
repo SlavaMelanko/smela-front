@@ -96,16 +96,6 @@ custom backend API:
   synchronization
 - **Mutations** - Optimistic updates and error handling for data modifications
 
-### Form Handling
-
-Forms use React Hook Form with Yup validation:
-
-```javascript
-// Forms follow this pattern:
-const resolver = yupResolver(schema)
-const { register, handleSubmit } = useForm({ resolver })
-```
-
 ### Testing Strategy
 
 - **Unit tests** in `__tests__` folders near components

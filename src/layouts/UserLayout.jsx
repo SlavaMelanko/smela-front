@@ -6,7 +6,7 @@ import { Sidebar } from '@/components/Sidebar'
 import { Spinner } from '@/components/Spinner'
 import { SidebarInset, SidebarProvider } from '@/components/ui'
 import { NotificationProvider } from '@/contexts/NotificationContext'
-import useSidebarMenu from '@/hooks/useSidebarMenu'
+import { useSidebarMenu } from '@/hooks/useSidebarMenu'
 
 export const UserLayout = () => {
   const { items } = useSidebarMenu()

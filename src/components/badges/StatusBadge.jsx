@@ -1,4 +1,4 @@
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 import { getUserStatusTextColor } from '@/lib/types'
 import { cn } from '@/lib/utils'
 

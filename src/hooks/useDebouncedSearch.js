@@ -1,7 +1,7 @@
 import { useDebouncedValue } from '@tanstack/react-pacer'
 import { useEffect, useRef, useState } from 'react'
 
-const useDebouncedSearch = (urlValue, onSearch) => {
+export const useDebouncedSearch = (urlValue, onSearch) => {
   const [instantValue, setInstantValue] = useState(urlValue)
   const [debouncedValue] = useDebouncedValue(instantValue, { wait: 500 })
 
@@ -29,5 +29,3 @@ const useDebouncedSearch = (urlValue, onSearch) => {
 
   return { searchValue: instantValue, setSearchValue: setInstantValue }
 }
-
-export default useDebouncedSearch

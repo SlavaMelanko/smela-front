@@ -1,4 +1,4 @@
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
 import { Bandwidth, PricePerUnit, TotalPrice } from '../Pricing'
 

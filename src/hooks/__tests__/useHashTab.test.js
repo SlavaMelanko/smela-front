@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 
-import useHashTab from '../useHashTab'
+import { useHashTab } from '../useHashTab'
 
 const mockNavigate = jest.fn()
 let mockLocation = { pathname: '/test', search: '', hash: '' }

@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 
-const useHashTab = (validValues, defaultValue) => {
+export const useHashTab = (validValues, defaultValue) => {
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -20,5 +20,3 @@ const useHashTab = (validValues, defaultValue) => {
 
   return [value, setValue]
 }
-
-export default useHashTab
