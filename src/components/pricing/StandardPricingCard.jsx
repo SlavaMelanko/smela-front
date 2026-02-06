@@ -22,7 +22,7 @@ export const StandardPricingCard = ({
   const navigate = useNavigate()
 
   return (
-    <div className='relative flex h-[460px] w-full flex-col rounded-lg border bg-card p-4 shadow-sm transition-shadow hover:border-primary hover:shadow-lg'>
+    <div className='relative flex min-h-[460px] w-full flex-col rounded-lg border bg-card p-4 shadow-sm transition-shadow hover:border-primary hover:shadow-lg sm:h-[460px]'>
       {discountPercent > 0 && (
         <Badge variant='discount' className='absolute -top-4 -right-3'>
           {t('pricing.discount.label', { percent: discountPercent })}
