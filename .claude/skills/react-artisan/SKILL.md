@@ -50,6 +50,8 @@ appropriate category.
   state and avoid reconciliation bugs
 - [Composition Over Configuration](references/composition-over-configuration.md)
   — use small primitives instead of prop-heavy god components
+- [Callback Naming](references/callback-naming.md) — name callbacks by action
+  (`submit`, `toggleVisibility`, `changePage`), not `handle\*
 
 ### Situational (specific scenarios)
 

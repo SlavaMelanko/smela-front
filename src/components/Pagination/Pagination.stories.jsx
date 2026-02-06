@@ -23,11 +23,11 @@ export default {
 const InteractivePagination = ({ initialPagination }) => {
   const [pagination, setPagination] = useState(initialPagination)
 
-  const handlePageChange = page => {
+  const changePage = page => {
     setPagination(prev => ({ ...prev, page }))
   }
 
-  const handleLimitChange = limit => {
+  const changeLimit = limit => {
     const totalPages = Math.ceil(pagination.total / limit)
     const page = Math.min(pagination.page, totalPages) || 1
 
@@ -37,8 +37,8 @@ const InteractivePagination = ({ initialPagination }) => {
   return (
     <Pagination
       pagination={pagination}
-      onPageChange={handlePageChange}
-      onLimitChange={handleLimitChange}
+      onPageChange={changePage}
+      onLimitChange={changeLimit}
     />
   )
 }

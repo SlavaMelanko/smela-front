@@ -51,27 +51,27 @@ export const CompaniesPage = () => {
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
   const [sorting, setSorting] = useState([])
 
-  const handleAddClick = () => {
+  const openCreateCompanyDialog = () => {
     const close = openModal({
       children: <CompanyAddDialog onClose={() => close()} />
     })
   }
 
-  const handleRowClick = company => navigate(`/admin/companies/${company.id}`)
+  const viewCompany = company => navigate(`/admin/companies/${company.id}`)
 
   const contextMenu = [
     {
       icon: PencilIcon,
       label: t('contextMenu.edit'),
-      onClick: handleRowClick
+      onClick: viewCompany
     }
   ]
 
-  const handlePageChange = page => {
+  const changePage = page => {
     setParams({ page })
   }
 
-  const handleLimitChange = limit => {
+  const changeLimit = limit => {
     setParams({ limit }, { resetPage: true })
   }
 
@@ -120,18 +120,18 @@ export const CompaniesPage = () => {
           label={t('table.column_plural')}
           columns={availableColumns}
         />
-        <AddButton label={t('add')} onClick={handleAddClick} />
+        <AddButton label={t('add')} onClick={openCreateCompanyDialog} />
       </Toolbar>
 
       <Table
         config={config}
-        onRowClick={handleRowClick}
+        onRowClick={viewCompany}
         contextMenu={contextMenu}
       />
       <Pagination
         pagination={pagination}
-        onPageChange={handlePageChange}
-        onLimitChange={handleLimitChange}
+        onPageChange={changePage}
+        onLimitChange={changeLimit}
       />
     </PageContent>
   )

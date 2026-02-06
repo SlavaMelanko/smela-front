@@ -22,7 +22,7 @@ export const AcceptInvitePage = () => {
     }
   }, [token, navigate])
 
-  const handleSubmit = data => {
+  const handleAcceptInvite = data => {
     acceptInvite(
       { data: { token, password: data.newPassword } },
       {
@@ -50,7 +50,7 @@ export const AcceptInvitePage = () => {
         <AuthDescription>{t('invitation.accept.description')}</AuthDescription>
       </AuthHeader>
 
-      <AcceptInviteForm isLoading={isPending} onSubmit={handleSubmit} />
+      <AcceptInviteForm isLoading={isPending} onSubmit={handleAcceptInvite} />
     </AuthRoot>
   )
 }

@@ -23,7 +23,7 @@ export const EmailConfirmationPage = () => {
 
   const email = location.state?.email || user?.email
 
-  const handleSubmit = async data => {
+  const handleResendVerificationEmail = async data => {
     const token = await getCaptchaToken()
 
     if (!token) {
@@ -66,7 +66,7 @@ export const EmailConfirmationPage = () => {
         <EmailConfirmationForm
           isLoading={isPending}
           email={email}
-          onSubmit={handleSubmit}
+          onSubmit={handleResendVerificationEmail}
         />
       </AuthRoot>
 

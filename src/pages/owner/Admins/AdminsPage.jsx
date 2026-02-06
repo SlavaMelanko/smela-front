@@ -54,13 +54,13 @@ export const AdminsPage = () => {
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
   const [sorting, setSorting] = useState([])
 
-  const handleInviteClick = () => {
+  const openInvitationDialog = () => {
     const close = openModal({
       children: <AdminInvitationDialog onClose={() => close()} />
     })
   }
 
-  const handleRowClick = admin => {
+  const openAdminProfile = admin => {
     const close = openModal({
       children: <ProfileDialog profile={admin} onClose={() => close()} />
     })
@@ -81,7 +81,7 @@ export const AdminsPage = () => {
     {
       icon: PencilIcon,
       label: t('contextMenu.edit'),
-      onClick: handleRowClick
+      onClick: openAdminProfile
     },
     {
       icon: MailIcon,
@@ -92,11 +92,11 @@ export const AdminsPage = () => {
     }
   ]
 
-  const handlePageChange = page => {
+  const changePage = page => {
     setParams({ page })
   }
 
-  const handleLimitChange = limit => {
+  const changeLimit = limit => {
     setParams({ limit }, { resetPage: true })
   }
 
@@ -145,18 +145,18 @@ export const AdminsPage = () => {
           label={t('table.column_plural')}
           columns={availableColumns}
         />
-        <AddButton label={t('invite')} onClick={handleInviteClick} />
+        <AddButton label={t('invite')} onClick={openInvitationDialog} />
       </Toolbar>
 
       <Table
         config={config}
-        onRowClick={handleRowClick}
+        onRowClick={openAdminProfile}
         contextMenu={contextMenu}
       />
       <Pagination
         pagination={pagination}
-        onPageChange={handlePageChange}
-        onLimitChange={handleLimitChange}
+        onPageChange={changePage}
+        onLimitChange={changeLimit}
       />
     </PageContent>
   )

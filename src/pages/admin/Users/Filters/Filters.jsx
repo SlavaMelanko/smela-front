@@ -15,7 +15,7 @@ export const Filters = ({ isShow, params, setParams }) => {
     params.statuses.includes(opt.value)
   )
 
-  const handleStatusChange = selected => {
+  const changeStatus = selected => {
     setParams({ statuses: selected.map(s => s.value) }, { resetPage: true })
   }
 
@@ -31,7 +31,7 @@ export const Filters = ({ isShow, params, setParams }) => {
           <Multiselect
             options={statusOptions}
             value={selectedStatuses}
-            onChange={handleStatusChange}
+            onChange={changeStatus}
             placeholder={t('status.placeholder')}
           />
         </div>

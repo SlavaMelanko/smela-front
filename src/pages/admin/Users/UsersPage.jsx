@@ -50,7 +50,7 @@ export const UsersPage = () => {
 
   const toggleFilters = () => setShowFilters(prev => !prev)
 
-  const handleRowClick = user => {
+  const openUserProfile = user => {
     const close = openModal({
       children: <ProfileDialog profile={user} onClose={() => close()} />
     })
@@ -60,15 +60,15 @@ export const UsersPage = () => {
     {
       icon: PencilIcon,
       label: t('contextMenu.edit'),
-      onClick: handleRowClick
+      onClick: openUserProfile
     }
   ]
 
-  const handlePageChange = page => {
+  const changePage = page => {
     setParams({ page })
   }
 
-  const handleLimitChange = limit => {
+  const changeLimit = limit => {
     setParams({ limit }, { resetPage: true })
   }
 
@@ -124,13 +124,13 @@ export const UsersPage = () => {
 
       <Table
         config={config}
-        onRowClick={handleRowClick}
+        onRowClick={openUserProfile}
         contextMenu={contextMenu}
       />
       <Pagination
         pagination={pagination}
-        onPageChange={handlePageChange}
-        onLimitChange={handleLimitChange}
+        onPageChange={changePage}
+        onLimitChange={changeLimit}
       />
     </PageContent>
   )

@@ -25,13 +25,13 @@ export const CompanyTeam = ({ companyId, members }) => {
 
   const isEmpty = members.length === 0
 
-  const handleRowClick = member => {
+  const openUserProfile = member => {
     const close = openModal({
       children: <ProfileDialog profile={member} onClose={() => close()} />
     })
   }
 
-  const handleInviteClick = () => {
+  const openInvitationDialog = () => {
     const close = openModal({
       children: (
         <MemberInvitationDialog companyId={companyId} onClose={() => close()} />
@@ -55,7 +55,7 @@ export const CompanyTeam = ({ companyId, members }) => {
       <EmptyState text={t('company.team.empty')}>
         <AddButton
           label={t('invite')}
-          onClick={handleInviteClick}
+          onClick={openInvitationDialog}
           hideTextOnMobile={false}
         />
       </EmptyState>
@@ -76,10 +76,10 @@ export const CompanyTeam = ({ companyId, members }) => {
           label={t('table.column_plural')}
           columns={availableColumns}
         />
-        <AddButton label={t('invite')} onClick={handleInviteClick} />
+        <AddButton label={t('invite')} onClick={openInvitationDialog} />
       </Toolbar>
 
-      <Table config={config} onRowClick={handleRowClick} />
+      <Table config={config} onRowClick={openUserProfile} />
     </div>
   )
 }

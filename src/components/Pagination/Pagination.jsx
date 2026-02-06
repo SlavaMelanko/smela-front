@@ -18,19 +18,19 @@ export const Pagination = ({
   const canGoBack = page > 1
   const canGoForward = page < totalPages
 
-  const handlePrevPage = () => {
+  const goToPrevPage = () => {
     if (canGoBack) {
       onPageChange?.(page - 1)
     }
   }
 
-  const handleNextPage = () => {
+  const goToNextPage = () => {
     if (canGoForward) {
       onPageChange?.(page + 1)
     }
   }
 
-  const handleLimitChange = value => {
+  const changeLimit = value => {
     onLimitChange?.(Number(value))
   }
 
@@ -41,15 +41,15 @@ export const Pagination = ({
         <RowsPerPageDropdown
           value={limit}
           options={limitOptions}
-          onChange={handleLimitChange}
+          onChange={changeLimit}
         />
       </div>
       <p>
         {start} - {end} {t('pagination.of')} {total}
       </p>
       <div className='flex items-center gap-2'>
-        <PrevButton onClick={handlePrevPage} disabled={!canGoBack} />
-        <NextButton onClick={handleNextPage} disabled={!canGoForward} />
+        <PrevButton onClick={goToPrevPage} disabled={!canGoBack} />
+        <NextButton onClick={goToNextPage} disabled={!canGoForward} />
       </div>
     </div>
   )
