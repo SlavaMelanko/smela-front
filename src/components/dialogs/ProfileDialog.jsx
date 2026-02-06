@@ -1,7 +1,7 @@
 import { StatusBadge } from '@/components/badges'
 import { EmailLink } from '@/components/links'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
 const Row = ({ children }) => (
   <div className='flex items-center gap-2 text-foreground'>{children}</div>

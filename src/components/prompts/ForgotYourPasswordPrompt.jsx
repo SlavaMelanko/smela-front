@@ -1,5 +1,5 @@
 import { Link } from '@/components/links'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
 import { Prompt } from './Prompt'
 

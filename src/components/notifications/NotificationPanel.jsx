@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
-import useNotifications from '@/hooks/useNotifications'
+import { useLocale } from '@/hooks/useLocale'
+import { useNotifications } from '@/hooks/useNotifications'
 
 import { NotificationCard } from './NotificationCard'
 

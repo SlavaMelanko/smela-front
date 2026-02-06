@@ -8,7 +8,7 @@ import {
 } from '@/components/form'
 import { PasswordInput } from '@/components/inputs'
 import { Input } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues, resolver } from './schema'
 

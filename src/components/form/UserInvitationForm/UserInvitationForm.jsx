@@ -10,7 +10,7 @@ import {
   SubmitButton
 } from '@/components/form'
 import { Input, Switch } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
 import { defaultConfig, FieldName, getDefaultValues, resolver } from './schema'
 

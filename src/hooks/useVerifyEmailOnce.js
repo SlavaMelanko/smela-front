@@ -8,7 +8,7 @@ import { useVerifyEmail } from './useAuth'
  * Note: onSuccess is intentionally omitted. Use onSettled to show toasts
  * before navigation to prevent them from being lost during unmount.
  */
-const useVerifyEmailOnce = (token, { onSettled }) => {
+export const useVerifyEmailOnce = (token, { onSettled }) => {
   const { mutate: verifyEmail } = useVerifyEmail({ onSettled })
   const hasVerified = useRef(false)
 
@@ -22,5 +22,3 @@ const useVerifyEmailOnce = (token, { onSettled }) => {
     verifyEmail({ data: { token } }, { onSettled })
   }, [token, verifyEmail, onSettled])
 }
-
-export default useVerifyEmailOnce

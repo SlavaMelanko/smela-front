@@ -23,7 +23,7 @@ import {
   SidebarMenuSubItem,
   useSidebar
 } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
 import { ActiveIndicator } from './ActiveIndicator'
 

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { ProfileDialog } from '@/components/dialogs'
 import { useLogout } from '@/hooks/useAuth'
-import useModal from '@/hooks/useModal'
+import { useModal } from '@/hooks/useModal'
 
 import { ProfileDropdown } from './ProfileDropdown'
 

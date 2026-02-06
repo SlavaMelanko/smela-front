@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import useUrlParams from '@/hooks/useUrlParams'
+import { useUrlParams } from '@/hooks/useUrlParams'
 import { NetworkErrorType } from '@/lib/net'
 import { renderWithProviders } from '@/tests'
 import en from '$/locales/en.json'

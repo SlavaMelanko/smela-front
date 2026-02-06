@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import LocaleContext from '@/contexts/LocaleContext'
 import { toTranslationKey } from '@/services/catch'
 
-const useLocale = (options = {}) => {
+export const useLocale = (options = {}) => {
   const context = useContext(LocaleContext)
   const { t } = useTranslation(undefined, options)
 
@@ -20,5 +20,3 @@ const useLocale = (options = {}) => {
 
   return { ...context, t, te }
 }
-
-export default useLocale

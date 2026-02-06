@@ -2,9 +2,9 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useAcceptInvite } from '@/hooks/useAuth'
-import useLocale from '@/hooks/useLocale'
-import useToast from '@/hooks/useToast'
-import useUrlParams from '@/hooks/useUrlParams'
+import { useLocale } from '@/hooks/useLocale'
+import { useToast } from '@/hooks/useToast'
+import { useUrlParams } from '@/hooks/useUrlParams'
 
 import { AuthDescription, AuthHeader, AuthRoot, AuthTitle } from '../Auth'
 import { AcceptInviteForm } from './PasswordForm'

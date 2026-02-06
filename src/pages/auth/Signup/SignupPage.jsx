@@ -9,10 +9,10 @@ import {
   useUserSignupWithEmail,
   useUserSignupWithGoogle
 } from '@/hooks/useAuth'
-import useCaptcha from '@/hooks/useCaptcha'
-import useLocale from '@/hooks/useLocale'
-import useTheme from '@/hooks/useTheme'
-import useToast from '@/hooks/useToast'
+import { useCaptcha } from '@/hooks/useCaptcha'
+import { useLocale } from '@/hooks/useLocale'
+import { useTheme } from '@/hooks/useTheme'
+import { useToast } from '@/hooks/useToast'
 
 import { AuthRoot } from '../Auth'
 import { SignupForm } from './Form'

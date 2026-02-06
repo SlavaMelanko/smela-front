@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
 
 import { Spinner } from '@/components/Spinner'
-import useHasAccess from '@/hooks/useHasAccess'
+import { useHasAccess } from '@/hooks/useHasAccess'
 import { ErrorLayout } from '@/layouts'
 import { NotFoundErrorPage } from '@/pages/errors'
 

@@ -1,8 +1,8 @@
 import { UserInvitationForm } from '@/components/form'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
 import { useInviteCompanyMember } from '@/hooks/useAdmin'
-import useLocale from '@/hooks/useLocale'
-import useToast from '@/hooks/useToast'
+import { useLocale } from '@/hooks/useLocale'
+import { useToast } from '@/hooks/useToast'
 
 export const MemberInvitationDialog = ({ companyId, onClose }) => {
   const { t, te } = useLocale()

@@ -1,4 +1,4 @@
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
 
 const currentYear = new Date().getFullYear()

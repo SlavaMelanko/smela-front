@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 
 import { Limit } from '@/components/Pagination'
 
-import useTableParams from '../useTableParams'
+import { useTableParams } from '../useTableParams'
 
 jest.mock('react-router-dom', () => ({
   useSearchParams: jest.fn()

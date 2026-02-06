@@ -1,5 +1,5 @@
 import { Button, Spinner } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
 export const SubmitButton = ({ isLoading, disabled, children }) => {
   const { t } = useLocale()

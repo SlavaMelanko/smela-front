@@ -1,7 +1,7 @@
 import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 import { renderWithProviders } from '@/tests'
 
 import { LanguageDropdown } from '../LanguageDropdown'
@@ -10,8 +10,7 @@ import { languages } from '../languages'
 const mockChangeLocale = jest.fn()
 
 jest.mock('@/hooks/useLocale', () => ({
-  __esModule: true,
-  default: jest.fn()
+  useLocale: jest.fn()
 }))
 
 jest.mock('../flags', () => ({

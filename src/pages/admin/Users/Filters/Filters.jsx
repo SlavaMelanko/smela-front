@@ -1,5 +1,5 @@
 import { Multiselect } from '@/components/inputs'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 import { UserStatus } from '@/lib/types'
 import { cn } from '@/lib/utils'
 

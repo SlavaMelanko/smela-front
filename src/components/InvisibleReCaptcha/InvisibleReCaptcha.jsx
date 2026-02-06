@@ -1,8 +1,8 @@
 import { useImperativeHandle, useRef } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 
-import useLocale from '@/hooks/useLocale'
-import useTheme from '@/hooks/useTheme'
+import { useLocale } from '@/hooks/useLocale'
+import { useTheme } from '@/hooks/useTheme'
 import { withTimeout } from '@/lib/async'
 import env from '@/lib/env'
 

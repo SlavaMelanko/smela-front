@@ -29,13 +29,11 @@ jest.mock('@/lib/async', () => ({
 }))
 
 jest.mock('@/hooks/useTheme', () => ({
-  __esModule: true,
-  default: () => ({ theme: 'dark' })
+  useTheme: () => ({ theme: 'dark' })
 }))
 
 jest.mock('@/hooks/useLocale', () => ({
-  __esModule: true,
-  default: () => ({ locale: 'uk' })
+  useLocale: () => ({ locale: 'uk' })
 }))
 
 import { InvisibleReCaptcha } from '../InvisibleReCaptcha'
