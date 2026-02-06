@@ -28,10 +28,10 @@ export const LocaleProvider = ({ children }) => {
     document.documentElement.lang = locale
   }, [locale])
 
-  const changeLocale = useCallback(locale => {
-    setLocale(locale)
-    i18n.changeLanguage(locale)
-    storeLocale(locale)
+  const changeLocale = useCallback(newLocale => {
+    setLocale(newLocale)
+    i18n.changeLanguage(newLocale)
+    storeLocale(newLocale)
   }, [])
 
   const changeFormatPreference = useCallback((key, value) => {
