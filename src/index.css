@@ -129,14 +129,17 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--color-border);
+    outline-color: oklch(from var(--color-ring) l c h / 50%);
   }
 
   body {
-    @apply font-sans bg-background text-foreground;
+    font-family: var(--font-sans);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
   }
 
   html {
-    @apply font-sans;
+    font-family: var(--font-sans);
   }
 }
