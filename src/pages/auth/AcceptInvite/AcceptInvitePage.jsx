@@ -5,6 +5,7 @@ import { useAcceptInvite } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
 import { useToast } from '@/hooks/useToast'
 import { useUrlParams } from '@/hooks/useUrlParams'
+import env from '@/lib/env'
 
 import { AuthDescription, AuthHeader, AuthRoot, AuthTitle } from '../Auth'
 import { AcceptInviteForm } from './PasswordForm'
@@ -45,7 +46,7 @@ export const AcceptInvitePage = () => {
     <AuthRoot>
       <AuthHeader>
         <AuthTitle>
-          {t('invitation.accept.title', { companyName: t('companyName') })}
+          {t('invitation.accept.title', { companyName: env.APP_NAME })}
         </AuthTitle>
         <AuthDescription>{t('invitation.accept.description')}</AuthDescription>
       </AuthHeader>

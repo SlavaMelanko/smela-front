@@ -1,4 +1,5 @@
 import { useLocale } from '@/hooks/useLocale'
+import env from '@/lib/env'
 import { cn } from '@/lib/utils'
 
 const currentYear = new Date().getFullYear()
@@ -13,7 +14,7 @@ export const Copyright = ({ className }) => {
         className
       )}
     >
-      {t('copyright', { year: currentYear, companyName: t('companyName') })}
+      {t('copyright', { year: currentYear, companyName: env.APP_NAME })}
     </div>
   )
 }
