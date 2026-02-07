@@ -3,7 +3,7 @@ export const NameConstraint = {
   MAX_LENGTH: 50
 }
 
-export const CompanyNameConstraint = {
+export const TeamNameConstraint = {
   MIN_LENGTH: 2,
   MAX_LENGTH: 100
 }

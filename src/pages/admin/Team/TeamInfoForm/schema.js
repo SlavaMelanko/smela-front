@@ -19,11 +19,11 @@ export const getValues = ({ name, website, description }) => ({
 })
 
 export const resolver = createResolver({
-  [FieldName.NAME]: rules.companyName({
-    required: 'company.name.error.required',
-    min: 'company.name.error.min',
-    max: 'company.name.error.max'
+  [FieldName.NAME]: rules.teamName({
+    required: 'team.name.error.required',
+    min: 'team.name.error.min',
+    max: 'team.name.error.max'
   }),
-  [FieldName.WEBSITE]: rules.url('company.website.error.format'),
-  [FieldName.DESCRIPTION]: rules.description('company.description.error.max')
+  [FieldName.WEBSITE]: rules.url('team.website.error.format'),
+  [FieldName.DESCRIPTION]: rules.description('team.description.error.max')
 })

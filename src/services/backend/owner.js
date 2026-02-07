@@ -4,7 +4,7 @@ import apiClient from './apiClient'
 import {
   OWNER_ADMINS_INVITE_PATH,
   OWNER_ADMINS_PATH,
-  OWNER_ADMINS_RESEND_INVITATION_PATH
+  OWNER_ADMINS_RESEND_INVITE_PATH
 } from './paths'
 
 export const ownerApi = {
@@ -17,8 +17,6 @@ export const ownerApi = {
   },
 
   resendAdminInvitation(id) {
-    return apiClient.post(
-      OWNER_ADMINS_RESEND_INVITATION_PATH.replace(':id', id)
-    )
+    return apiClient.post(OWNER_ADMINS_RESEND_INVITE_PATH.replace(':id', id))
   }
 }

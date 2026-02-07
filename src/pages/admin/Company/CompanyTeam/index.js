@@ -1,1 +1,0 @@
-export { CompanyTeam } from './CompanyTeam'

@@ -1,18 +1,18 @@
-import { CompanyAddForm } from '@/components/form'
+import { TeamAddForm } from '@/components/form'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
-import { useCreateCompany } from '@/hooks/useAdmin'
+import { useCreateTeam } from '@/hooks/useAdmin'
 import { useLocale } from '@/hooks/useLocale'
 import { useToast } from '@/hooks/useToast'
 
-export const CompanyAddDialog = ({ onClose }) => {
+export const TeamAddDialog = ({ onClose }) => {
   const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
-  const { mutate: createCompany, isPending } = useCreateCompany()
+  const { mutate: createTeam, isPending } = useCreateTeam()
 
   const onSubmit = data => {
-    createCompany(data, {
+    createTeam(data, {
       onSuccess: () => {
-        showSuccessToast(t('company.add.success'))
+        showSuccessToast(t('team.add.success'))
         onClose()
       },
       onError: error => {
@@ -24,12 +24,12 @@ export const CompanyAddDialog = ({ onClose }) => {
   return (
     <>
       <DialogHeader onClose={onClose}>
-        <DialogTitle>{t('company.add.title')}</DialogTitle>
+        <DialogTitle>{t('team.add.title')}</DialogTitle>
       </DialogHeader>
       <DialogBody>
-        <CompanyAddForm
+        <TeamAddForm
           isLoading={isPending}
-          submitLabel={t('company.add.cta')}
+          submitLabel={t('team.add.cta')}
           onSubmit={onSubmit}
         />
       </DialogBody>

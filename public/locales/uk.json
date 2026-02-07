@@ -21,46 +21,6 @@
   "captcha": {
     "error": "Помилка перевірки безпеки. Спробуйте ще раз."
   },
-  "company": {
-    "add": {
-      "cta": "Створити",
-      "success": "Компанію створено.",
-      "title": "Додати компанію"
-    },
-    "description": {
-      "error": {
-        "max": "Опис не може перевищувати 500 символів."
-      },
-      "label": "Опис"
-    },
-    "name": {
-      "error": {
-        "max": "Назва компанії не може перевищувати 100 символів.",
-        "min": "Назва компанії має містити щонайменше 2 символи.",
-        "required": "Назва компанії обовʼязкова."
-      },
-      "label": "Назва"
-    },
-    "tabs": {
-      "info": "Інфо",
-      "team": {
-        "label": "Команда",
-        "withCount": "Команда ({{count}})"
-      }
-    },
-    "team": {
-      "empty": "Учасників команди поки немає."
-    },
-    "update": {
-      "success": "Дані успішно оновлено."
-    },
-    "website": {
-      "error": {
-        "format": "Введіть правильну URL-адресу."
-      },
-      "label": "Вебсайт"
-    }
-  },
   "contextMenu": {
     "edit": "Редагувати",
     "resendInvitation": "Надіслати запрошення повторно"
@@ -124,9 +84,9 @@
   },
   "firstName": {
     "error": {
-      "max": "Ім’я не може бути довше 50 символів.",
-      "min": "Ім’я має містити щонайменше 2 символи.",
-      "required": "Ім’я обовʼязкове."
+      "max": "Ім'я не може бути довше 50 символів.",
+      "min": "Ім'я має містити щонайменше 2 символи.",
+      "required": "Ім'я обовʼязкове."
     },
     "label": "Ім'я"
   },
@@ -292,7 +252,7 @@
   "profile": "Профіль",
   "save": "Зберегти",
   "searchBy": {
-    "companies": "Шукати за ID, назвою, сайтом...",
+    "teams": "Шукати за ID, назвою, сайтом...",
     "users": "Шукати за ID, ім'ям, email..."
   },
   "settings": {
@@ -301,7 +261,6 @@
   },
   "sidebar": {
     "admins": "Адміни",
-    "companies": "Компанії",
     "dashboard": "Адмін-панель",
     "documentation": "Документація",
     "home": "Головна",
@@ -310,6 +269,7 @@
     "residential": "Резидентні",
     "serpApi": "SERP API",
     "settings": "Налаштування",
+    "teams": "Команди",
     "users": "Користувачі"
   },
   "signUp": "Зареєструватися",
@@ -330,16 +290,9 @@
   "table": {
     "column": "Колонка",
     "column_plural": "Колонки",
-    "companies": {
-      "createdAt": "$t(createdAt)",
-      "id": "ID",
-      "name": "Назва",
-      "updatedAt": "$t(updatedAt)",
-      "website": "Сайт"
-    },
     "filter": "Фільтр",
     "filter_plural": "Фільтри",
-    "team": {
+    "members": {
       "email": "Email",
       "id": "ID",
       "invitedBy": "$t(invitedBy)",
@@ -347,6 +300,13 @@
       "name": "Ім'я",
       "position": "Посада",
       "status": "$t(status.name)"
+    },
+    "teams": {
+      "createdAt": "$t(createdAt)",
+      "id": "ID",
+      "name": "Назва",
+      "updatedAt": "$t(updatedAt)",
+      "website": "Сайт"
     },
     "users": {
       "createdAt": "$t(createdAt)",
@@ -357,6 +317,46 @@
       "name": "Ім'я",
       "status": "$t(status.name)",
       "updatedAt": "$t(updatedAt)"
+    }
+  },
+  "team": {
+    "add": {
+      "cta": "Створити",
+      "success": "Команду створено.",
+      "title": "Додати команду"
+    },
+    "description": {
+      "error": {
+        "max": "Опис не може перевищувати 500 символів."
+      },
+      "label": "Опис"
+    },
+    "members": {
+      "empty": "Учасників команди поки немає."
+    },
+    "name": {
+      "error": {
+        "max": "Назва команди не може перевищувати 100 символів.",
+        "min": "Назва команди має містити щонайменше 2 символи.",
+        "required": "Назва команди обовʼязкова."
+      },
+      "label": "Назва"
+    },
+    "tabs": {
+      "info": "Інфо",
+      "members": {
+        "label": "Учасники",
+        "withCount": "Учасники ({{count}})"
+      }
+    },
+    "update": {
+      "success": "Дані успішно оновлено."
+    },
+    "website": {
+      "error": {
+        "format": "Введіть правильну URL-адресу."
+      },
+      "label": "Вебсайт"
     }
   },
   "termsAndPrivacy": {

@@ -2,8 +2,9 @@ import { withQuery } from '@/lib/url'
 
 import apiClient from './apiClient'
 import {
-  ADMIN_COMPANIES_INVITE_PATH,
-  ADMIN_COMPANIES_PATH,
+  ADMIN_TEAMS_INVITES_PATH,
+  ADMIN_TEAMS_PATH,
+  ADMIN_TEAMS_RESEND_INVITE_PATH,
   ADMIN_USERS_PATH
 } from './paths'
 
@@ -16,29 +17,38 @@ export const adminApi = {
     return apiClient.get(`${ADMIN_USERS_PATH}/${id}`)
   },
 
-  getCompanies(params) {
-    return apiClient.get(withQuery(ADMIN_COMPANIES_PATH, params))
+  getTeams(params) {
+    return apiClient.get(withQuery(ADMIN_TEAMS_PATH, params))
   },
 
-  getCompanyById(id) {
-    return apiClient.get(`${ADMIN_COMPANIES_PATH}/${id}`)
+  getTeamById(id) {
+    return apiClient.get(`${ADMIN_TEAMS_PATH}/${id}`)
   },
 
-  createCompany(data) {
-    return apiClient.post(ADMIN_COMPANIES_PATH, data)
+  createTeam(data) {
+    return apiClient.post(ADMIN_TEAMS_PATH, data)
   },
 
-  updateCompany(id, data) {
-    return apiClient.patch(`${ADMIN_COMPANIES_PATH}/${id}`, data)
+  updateTeam(id, data) {
+    return apiClient.patch(`${ADMIN_TEAMS_PATH}/${id}`, data)
   },
 
-  deleteCompany(id) {
-    return apiClient.delete(`${ADMIN_COMPANIES_PATH}/${id}`)
+  deleteTeam(id) {
+    return apiClient.delete(`${ADMIN_TEAMS_PATH}/${id}`)
   },
 
-  inviteCompanyMember(companyId, data) {
-    const url = ADMIN_COMPANIES_INVITE_PATH.replace(':id', companyId)
+  inviteTeamMember(teamId, data) {
+    const url = ADMIN_TEAMS_INVITES_PATH.replace(':id', teamId)
 
     return apiClient.post(url, data)
+  },
+
+  resendTeamInvite(teamId, memberId) {
+    const url = ADMIN_TEAMS_RESEND_INVITE_PATH.replace(':id', teamId).replace(
+      ':memberId',
+      memberId
+    )
+
+    return apiClient.post(url)
   }
 }

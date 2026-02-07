@@ -85,7 +85,7 @@ describe('useHashTab', () => {
 
   it('preserves both pathname and search when setting new hash', () => {
     mockLocation = {
-      pathname: '/admin/companies',
+      pathname: '/admin/teams',
       search: '?filter=active',
       hash: '#tab1'
     }
@@ -97,7 +97,7 @@ describe('useHashTab', () => {
     })
 
     expect(mockNavigate).toHaveBeenCalledWith(
-      { pathname: '/admin/companies', search: '?filter=active', hash: '#tab3' },
+      { pathname: '/admin/teams', search: '?filter=active', hash: '#tab3' },
       { replace: true }
     )
   })

@@ -51,8 +51,8 @@ export const adminMenuItems = [
     icon: Users
   },
   {
-    title: 'sidebar.companies',
-    url: '/admin/companies',
+    title: 'sidebar.teams',
+    url: '/admin/teams',
     icon: Building2
   },
   {
@@ -74,8 +74,8 @@ export const ownerMenuItems = [
     icon: Users
   },
   {
-    title: 'sidebar.companies',
-    url: '/admin/companies',
+    title: 'sidebar.teams',
+    url: '/admin/teams',
     icon: Building2
   },
   {

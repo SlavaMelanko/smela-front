@@ -1,7 +1,7 @@
-export { CompanyAddForm } from './CompanyAddForm'
 export { FormFields, FormGroup, FormRoot, FormRow } from './Form'
 export { FormBoolController } from './FormBoolController'
 export { FormController } from './FormController'
 export { FormField } from './FormField'
 export { SubmitButton } from './SubmitButton'
+export { TeamAddForm } from './TeamAddForm'
 export { UserInvitationForm } from './UserInvitationForm'

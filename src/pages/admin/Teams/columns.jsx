@@ -1,5 +1,5 @@
 export const getColumns = (t, formatDate) => {
-  const label = key => t(`table.companies.${key}`)
+  const label = key => t(`table.teams.${key}`)
 
   return [
     {

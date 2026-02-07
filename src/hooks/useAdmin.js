@@ -13,9 +13,9 @@ export const adminKeys = {
   users: () => [...adminKeys.all(), 'users'],
   usersList: params => [...adminKeys.users(), 'list', params],
   userDetail: id => [...adminKeys.users(), 'detail', id],
-  companies: () => [...adminKeys.all(), 'companies'],
-  companiesList: params => [...adminKeys.companies(), 'list', params],
-  companyDetail: id => [...adminKeys.companies(), 'detail', id]
+  teams: () => [...adminKeys.all(), 'teams'],
+  teamsList: params => [...adminKeys.teams(), 'list', params],
+  teamDetail: id => [...adminKeys.teams(), 'detail', id]
 }
 
 // Admin queries need fresh data — new registrations or user updates
@@ -49,12 +49,12 @@ export const useUser = (id, options = {}) => {
   })
 }
 
-export const useCompanies = (params = {}) => {
+export const useTeams = (params = {}) => {
   return useQuery({
-    queryKey: adminKeys.companiesList(params),
-    queryFn: () => adminApi.getCompanies(params),
+    queryKey: adminKeys.teamsList(params),
+    queryFn: () => adminApi.getTeams(params),
     select: data => ({
-      companies: data?.companies ?? [],
+      teams: data?.teams ?? [],
       pagination: data?.pagination ?? defaultOptions
     }),
     placeholderData: keepPreviousData,
@@ -62,59 +62,72 @@ export const useCompanies = (params = {}) => {
   })
 }
 
-export const useCompany = (id, options = {}) => {
+export const useTeam = (id, options = {}) => {
   return useQuery({
-    queryKey: adminKeys.companyDetail(id),
-    queryFn: () => adminApi.getCompanyById(id),
-    select: data => data?.company,
+    queryKey: adminKeys.teamDetail(id),
+    queryFn: () => adminApi.getTeamById(id),
+    select: data => data?.team,
     enabled: !!id,
     ...adminQueryOptions,
     ...options
   })
 }
 
-export const useCreateCompany = () => {
+export const useCreateTeam = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: data => adminApi.createCompany(data),
+    mutationFn: data => adminApi.createTeam(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: adminKeys.companies() })
+      queryClient.invalidateQueries({ queryKey: adminKeys.teams() })
     }
   })
 }
 
-export const useUpdateCompany = id => {
+export const useUpdateTeam = id => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: data => adminApi.updateCompany(id, data),
+    mutationFn: data => adminApi.updateTeam(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: adminKeys.companies() })
-      queryClient.invalidateQueries({ queryKey: adminKeys.companyDetail(id) })
+      queryClient.invalidateQueries({ queryKey: adminKeys.teams() })
+      queryClient.invalidateQueries({ queryKey: adminKeys.teamDetail(id) })
     }
   })
 }
 
-export const useDeleteCompany = () => {
+export const useDeleteTeam = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: id => adminApi.deleteCompany(id),
+    mutationFn: id => adminApi.deleteTeam(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: adminKeys.companies() })
+      queryClient.invalidateQueries({ queryKey: adminKeys.teams() })
     }
   })
 }
 
-export const useInviteCompanyMember = companyId => {
+export const useInviteTeamMember = teamId => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: data => adminApi.inviteCompanyMember(companyId, data),
+    mutationFn: data => adminApi.inviteTeamMember(teamId, data),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: adminKeys.companyDetail(companyId)
+        queryKey: adminKeys.teamDetail(teamId)
+      })
+    }
+  })
+}
+
+export const useResendTeamInvite = teamId => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: memberId => adminApi.resendTeamInvite(teamId, memberId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: adminKeys.teamDetail(teamId)
       })
     }
   })

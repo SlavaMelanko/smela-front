@@ -1,41 +1,41 @@
 import { Building2, ChevronLeft, Users } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { CompanyPageHeader } from '@/components/PageHeader'
+import { TeamPageHeader } from '@/components/PageHeader'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { Button, Tabs, TabsContent, TabsLine } from '@/components/ui'
-import { useCompany, useUpdateCompany } from '@/hooks/useAdmin'
+import { useTeam, useUpdateTeam } from '@/hooks/useAdmin'
 import { useHashTab } from '@/hooks/useHashTab'
 import { useLocale } from '@/hooks/useLocale'
 import { useToast } from '@/hooks/useToast'
 import { PageContent } from '@/pages/Page'
 
-import { CompanyInfoForm } from './CompanyInfoForm'
-import { CompanyTeam } from './CompanyTeam'
+import { Members } from './Members'
+import { TeamInfoForm } from './TeamInfoForm'
 
-const CompanyTab = {
+const TeamTab = {
   INFO: 'info',
-  TEAM: 'team'
+  MEMBERS: 'members'
 }
 
-export const CompanyPage = () => {
+export const TeamPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
   const [activeTab, setActiveTab] = useHashTab(
-    Object.values(CompanyTab),
-    CompanyTab.INFO
+    Object.values(TeamTab),
+    TeamTab.INFO
   )
 
-  const { data: company, isPending, isError, error, refetch } = useCompany(id)
-  const { mutate: updateCompany, isPending: isUpdating } = useUpdateCompany(id)
+  const { data: team, isPending, isError, error, refetch } = useTeam(id)
+  const { mutate: updateTeam, isPending: isUpdating } = useUpdateTeam(id)
 
   const submit = data => {
-    updateCompany(data, {
+    updateTeam(data, {
       onSuccess: () => {
-        showSuccessToast(t('company.update.success'))
+        showSuccessToast(t('team.update.success'))
       },
       onError: error => {
         showErrorToast(te(error))
@@ -47,48 +47,48 @@ export const CompanyPage = () => {
     return <ErrorState text={te(error)} onRetry={refetch} />
   }
 
-  if (isPending && !company) {
+  if (isPending && !team) {
     return <Spinner />
   }
 
-  const teamCount = company.members?.length ?? 0
+  const membersCount = team.members?.length ?? 0
 
   const tabs = [
     {
-      value: CompanyTab.INFO,
+      value: TeamTab.INFO,
       icon: Building2,
-      label: () => t('company.tabs.info')
+      label: () => t('team.tabs.info')
     },
     {
-      value: CompanyTab.TEAM,
+      value: TeamTab.MEMBERS,
       icon: Users,
       label: () =>
-        teamCount > 0
-          ? t('company.tabs.team.withCount', { count: teamCount })
-          : t('company.tabs.team.label')
+        membersCount > 0
+          ? t('team.tabs.members.withCount', { count: membersCount })
+          : t('team.tabs.members.label')
     }
   ]
 
   return (
     <PageContent>
       <div className='flex'>
-        <Button variant='ghost' onClick={() => navigate('/admin/companies')}>
+        <Button variant='ghost' onClick={() => navigate('/admin/teams')}>
           <ChevronLeft className='size-4' />
           {t('back')}
         </Button>
       </div>
-      <CompanyPageHeader name={company.name} website={company.website} />
+      <TeamPageHeader name={team.name} website={team.website} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsLine tabs={tabs} />
-        <TabsContent value={CompanyTab.INFO}>
-          <CompanyInfoForm
-            company={company}
+        <TabsContent value={TeamTab.INFO}>
+          <TeamInfoForm
+            team={team}
             isSubmitting={isUpdating}
             onSubmit={submit}
           />
         </TabsContent>
-        <TabsContent value={CompanyTab.TEAM}>
-          <CompanyTeam companyId={id} members={company.members ?? []} />
+        <TabsContent value={TeamTab.MEMBERS}>
+          <Members teamId={id} members={team.members ?? []} />
         </TabsContent>
       </Tabs>
     </PageContent>

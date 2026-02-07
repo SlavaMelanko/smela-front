@@ -2,13 +2,13 @@ import { screen } from '@testing-library/react'
 
 import { renderWithProviders } from '@/tests'
 
-import { CompanyPageHeader } from '../CompanyPageHeader'
 import { SettingsPageHeader } from '../SettingsPageHeader'
+import { TeamPageHeader } from '../TeamPageHeader'
 
 describe('PageHeader', () => {
-  it('CompanyPageHeader renders name and website link', () => {
+  it('TeamPageHeader renders name and website link', () => {
     renderWithProviders(
-      <CompanyPageHeader name='Acme Corp' website='https://acme.com' />
+      <TeamPageHeader name='Acme Corp' website='https://acme.com' />
     )
 
     expect(screen.getByText('Acme Corp')).toBeInTheDocument()
