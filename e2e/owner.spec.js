@@ -86,7 +86,10 @@ test.describe.serial('Owner: Admin Invitation', () => {
     // Verify page title
     await expect(
       page.getByText(
-        t.invitation.accept.title.replace('{{companyName}}', t.companyName)
+        t.invitation.accept.title.replace(
+          '{{companyName}}',
+          process.env.VITE_APP_NAME
+        )
       )
     ).toBeVisible()
 

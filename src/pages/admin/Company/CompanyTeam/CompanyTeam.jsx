@@ -1,7 +1,7 @@
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import { useState } from 'react'
 
-import { AddButton } from '@/components/buttons'
+import { InviteButton } from '@/components/buttons'
 import { MemberInvitationDialog, ProfileDialog } from '@/components/dialogs'
 import { EmptyState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
@@ -53,7 +53,7 @@ export const CompanyTeam = ({ companyId, members }) => {
   if (isEmpty) {
     return (
       <EmptyState text={t('company.team.empty')}>
-        <AddButton
+        <InviteButton
           label={t('invite')}
           onClick={openInvitationDialog}
           hideTextOnMobile={false}
@@ -76,7 +76,7 @@ export const CompanyTeam = ({ companyId, members }) => {
           label={t('table.column_plural')}
           columns={availableColumns}
         />
-        <AddButton label={t('invite')} onClick={openInvitationDialog} />
+        <InviteButton label={t('invite')} onClick={openInvitationDialog} />
       </Toolbar>
 
       <Table config={config} onRowClick={openUserProfile} />

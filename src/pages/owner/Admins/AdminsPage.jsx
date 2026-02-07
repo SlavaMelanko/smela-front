@@ -6,7 +6,7 @@ import {
 import { MailIcon, PencilIcon } from 'lucide-react'
 import { useState } from 'react'
 
-import { AddButton } from '@/components/buttons'
+import { InviteButton } from '@/components/buttons'
 import { AdminInvitationDialog, ProfileDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
@@ -145,7 +145,7 @@ export const AdminsPage = () => {
           label={t('table.column_plural')}
           columns={availableColumns}
         />
-        <AddButton label={t('invite')} onClick={openInvitationDialog} />
+        <InviteButton label={t('invite')} onClick={openInvitationDialog} />
       </Toolbar>
 
       <Table
