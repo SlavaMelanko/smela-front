@@ -4,30 +4,30 @@ import userEvent from '@testing-library/user-event'
 import { renderWithProviders } from '@/tests'
 import en from '$/locales/en.json'
 
-import { CompanyAddForm } from '..'
+import { TeamAddForm } from '..'
 
 const renderForm = (onSubmit = jest.fn()) => {
   renderWithProviders(
-    <CompanyAddForm
+    <TeamAddForm
       isLoading={false}
-      submitLabel={en.company.add.cta}
+      submitLabel={en.team.add.cta}
       onSubmit={onSubmit}
     />
   )
 
   return {
-    nameInput: screen.getByLabelText(en.company.name.label, { exact: false }),
-    websiteInput: screen.getByLabelText(en.company.website.label, {
+    nameInput: screen.getByLabelText(en.team.name.label, { exact: false }),
+    websiteInput: screen.getByLabelText(en.team.website.label, {
       exact: false
     }),
-    descriptionInput: screen.getByLabelText(en.company.description.label, {
+    descriptionInput: screen.getByLabelText(en.team.description.label, {
       exact: false
     }),
-    submitButton: screen.getByRole('button', { name: en.company.add.cta })
+    submitButton: screen.getByRole('button', { name: en.team.add.cta })
   }
 }
 
-describe('CompanyAddForm', () => {
+describe('TeamAddForm', () => {
   let user
 
   beforeEach(() => {
@@ -40,9 +40,7 @@ describe('CompanyAddForm', () => {
     await user.click(submitButton)
 
     await waitFor(() => {
-      expect(
-        screen.getByText(en.company.name.error.required)
-      ).toBeInTheDocument()
+      expect(screen.getByText(en.team.name.error.required)).toBeInTheDocument()
     })
   })
 
@@ -53,7 +51,7 @@ describe('CompanyAddForm', () => {
     await user.click(submitButton)
 
     await waitFor(() => {
-      expect(screen.getByText(en.company.name.error.min)).toBeInTheDocument()
+      expect(screen.getByText(en.team.name.error.min)).toBeInTheDocument()
     })
   })
 
@@ -64,20 +62,20 @@ describe('CompanyAddForm', () => {
     await user.click(submitButton)
 
     await waitFor(() => {
-      expect(screen.getByText(en.company.name.error.max)).toBeInTheDocument()
+      expect(screen.getByText(en.team.name.error.max)).toBeInTheDocument()
     })
   })
 
   it('shows max length error when description exceeds 500 characters', async () => {
     const { nameInput, descriptionInput, submitButton } = renderForm()
 
-    await user.type(nameInput, 'Valid Company')
+    await user.type(nameInput, 'Valid Team')
     await user.type(descriptionInput, 'A'.repeat(501))
     await user.click(submitButton)
 
     await waitFor(() => {
       expect(
-        screen.getByText(en.company.description.error.max)
+        screen.getByText(en.team.description.error.max)
       ).toBeInTheDocument()
     })
   })
@@ -85,14 +83,12 @@ describe('CompanyAddForm', () => {
   it('shows format error when website URL is invalid', async () => {
     const { nameInput, websiteInput, submitButton } = renderForm()
 
-    await user.type(nameInput, 'Valid Company')
+    await user.type(nameInput, 'Valid Team')
     await user.type(websiteInput, 'not-a-valid-url')
     await user.click(submitButton)
 
     await waitFor(() => {
-      expect(
-        screen.getByText(en.company.website.error.format)
-      ).toBeInTheDocument()
+      expect(screen.getByText(en.team.website.error.format)).toBeInTheDocument()
     })
   })
 })

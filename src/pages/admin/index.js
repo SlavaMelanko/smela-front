@@ -1,5 +1,5 @@
-export { CompaniesPage } from './Companies'
-export { CompanyPage } from './Company'
 export { DashboardPage } from './Dashboard'
 export { SettingsPage } from './Settings'
+export { TeamPage } from './Team'
+export { TeamsPage } from './Teams'
 export { UsersPage } from './Users'

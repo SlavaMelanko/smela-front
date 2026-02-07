@@ -13,7 +13,7 @@ import { useLocale } from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues, getValues, resolver } from './schema'
 
-export const CompanyInfoForm = ({ company, isSubmitting, onSubmit }) => {
+export const TeamInfoForm = ({ team, isSubmitting, onSubmit }) => {
   const { t, formatDate } = useLocale()
 
   const {
@@ -27,17 +27,17 @@ export const CompanyInfoForm = ({ company, isSubmitting, onSubmit }) => {
   })
 
   useEffect(() => {
-    if (company) {
-      reset(getValues(company))
+    if (team) {
+      reset(getValues(team))
     }
-  }, [company, reset])
+  }, [team, reset])
 
   return (
     <FormRoot onSubmit={handleSubmit(onSubmit)}>
       <FormFields>
         <FormRow>
           <FormField
-            label={t('company.name.label')}
+            label={t('team.name.label')}
             name={FieldName.NAME}
             error={errors[FieldName.NAME]}
           >
@@ -45,7 +45,7 @@ export const CompanyInfoForm = ({ company, isSubmitting, onSubmit }) => {
           </FormField>
 
           <FormField
-            label={t('company.website.label')}
+            label={t('team.website.label')}
             name={FieldName.WEBSITE}
             error={errors[FieldName.WEBSITE]}
             optional
@@ -55,7 +55,7 @@ export const CompanyInfoForm = ({ company, isSubmitting, onSubmit }) => {
         </FormRow>
 
         <FormField
-          label={t('company.description.label')}
+          label={t('team.description.label')}
           name={FieldName.DESCRIPTION}
           error={errors[FieldName.DESCRIPTION]}
           optional
@@ -65,10 +65,10 @@ export const CompanyInfoForm = ({ company, isSubmitting, onSubmit }) => {
 
         <FormRow forceColumns>
           <FormField label={t('createdAt')} optional>
-            <p className='text-base'>{formatDate(company.createdAt)}</p>
+            <p className='text-base'>{formatDate(team.createdAt)}</p>
           </FormField>
           <FormField label={t('updatedAt')} optional>
-            <p className='text-base'>{formatDate(company.updatedAt)}</p>
+            <p className='text-base'>{formatDate(team.updatedAt)}</p>
           </FormField>
         </FormRow>
 

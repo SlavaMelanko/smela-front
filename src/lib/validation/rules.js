@@ -1,11 +1,11 @@
 import * as yup from 'yup'
 
 import {
-  CompanyNameConstraint,
   DescriptionConstraint,
   EmailConstraint,
   NameConstraint,
-  PasswordConstraint
+  PasswordConstraint,
+  TeamNameConstraint
 } from './constants'
 
 const requiredStr = errorMessage => yup.string().trim().required(errorMessage)
@@ -59,10 +59,10 @@ export const url = errorMessage =>
     .transform(value => (value === '' ? undefined : value))
     .url(errorMessage)
 
-export const companyName = errors =>
+export const teamName = errors =>
   requiredStr(errors.required)
-    .min(CompanyNameConstraint.MIN_LENGTH, errors.min)
-    .max(CompanyNameConstraint.MAX_LENGTH, errors.max)
+    .min(TeamNameConstraint.MIN_LENGTH, errors.min)
+    .max(TeamNameConstraint.MAX_LENGTH, errors.max)
 
 export const description = errorMessage =>
   optionalStr().max(DescriptionConstraint.MAX_LENGTH, errorMessage)

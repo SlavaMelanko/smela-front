@@ -21,46 +21,6 @@
   "captcha": {
     "error": "Security verification failed. Please try again."
   },
-  "company": {
-    "add": {
-      "cta": "Create",
-      "success": "Company created.",
-      "title": "Add Company"
-    },
-    "description": {
-      "error": {
-        "max": "Description can't exceed 500 characters."
-      },
-      "label": "Description"
-    },
-    "name": {
-      "error": {
-        "max": "Company name can't exceed 100 characters.",
-        "min": "Company name must be at least 2 characters.",
-        "required": "Company name is required."
-      },
-      "label": "Name"
-    },
-    "tabs": {
-      "info": "Info",
-      "team": {
-        "label": "Team",
-        "withCount": "Team ({{count}})"
-      }
-    },
-    "team": {
-      "empty": "No team members yet."
-    },
-    "update": {
-      "success": "Data updated successfully."
-    },
-    "website": {
-      "error": {
-        "format": "Enter a valid URL."
-      },
-      "label": "Website"
-    }
-  },
   "contextMenu": {
     "edit": "Edit",
     "resendInvitation": "Resend invitation"
@@ -124,7 +84,7 @@
   },
   "firstName": {
     "error": {
-      "max": "First name can’t be longer than 50 characters.",
+      "max": "First name can't be longer than 50 characters.",
       "min": "First name must be at least 2 characters.",
       "required": "First name is required."
     },
@@ -155,7 +115,7 @@
       "description": "Set your password to join the team.",
       "error": "Failed to accept invitation. The link may have expired.",
       "success": "Welcome! Your account is ready.",
-      "title": "You're invited to {{companyName}}"
+      "title": "You're invited to {{teamName}}"
     },
     "resend": {
       "success": "Invitation resent."
@@ -174,7 +134,7 @@
   "invitedBy": "Invited by",
   "lastName": {
     "error": {
-      "max": "Last name can’t be longer than 50 characters.",
+      "max": "Last name can't be longer than 50 characters.",
       "min": "Last name must be at least 2 characters.",
       "required": "Last name is required."
     },
@@ -292,7 +252,7 @@
   "profile": "Profile",
   "save": "Save",
   "searchBy": {
-    "companies": "Search by ID, name, website...",
+    "teams": "Search by ID, name, website...",
     "users": "Search by ID, name, email..."
   },
   "settings": {
@@ -301,7 +261,6 @@
   },
   "sidebar": {
     "admins": "Admins",
-    "companies": "Companies",
     "dashboard": "Dashboard",
     "documentation": "Documentation",
     "home": "Home",
@@ -310,6 +269,7 @@
     "residential": "Residential",
     "serpApi": "SERP API",
     "settings": "Settings",
+    "teams": "Teams",
     "users": "Users"
   },
   "signUp": "Sign up",
@@ -330,16 +290,9 @@
   "table": {
     "column": "Column",
     "column_plural": "Columns",
-    "companies": {
-      "createdAt": "$t(createdAt)",
-      "id": "ID",
-      "name": "Name",
-      "updatedAt": "$t(updatedAt)",
-      "website": "Website"
-    },
     "filter": "Filter",
     "filter_plural": "Filters",
-    "team": {
+    "members": {
       "email": "Email",
       "id": "ID",
       "invitedBy": "$t(invitedBy)",
@@ -347,6 +300,13 @@
       "name": "Name",
       "position": "Position",
       "status": "$t(status.name)"
+    },
+    "teams": {
+      "createdAt": "$t(createdAt)",
+      "id": "ID",
+      "name": "Name",
+      "updatedAt": "$t(updatedAt)",
+      "website": "Website"
     },
     "users": {
       "createdAt": "$t(createdAt)",
@@ -357,6 +317,46 @@
       "name": "Name",
       "status": "$t(status.name)",
       "updatedAt": "$t(updatedAt)"
+    }
+  },
+  "team": {
+    "add": {
+      "cta": "Create",
+      "success": "Team created.",
+      "title": "Add Team"
+    },
+    "description": {
+      "error": {
+        "max": "Description can't exceed 500 characters."
+      },
+      "label": "Description"
+    },
+    "members": {
+      "empty": "No team members yet."
+    },
+    "name": {
+      "error": {
+        "max": "Team name can't exceed 100 characters.",
+        "min": "Team name must be at least 2 characters.",
+        "required": "Team name is required."
+      },
+      "label": "Name"
+    },
+    "tabs": {
+      "info": "Info",
+      "members": {
+        "label": "Members",
+        "withCount": "Members ({{count}})"
+      }
+    },
+    "update": {
+      "success": "Data updated successfully."
+    },
+    "website": {
+      "error": {
+        "format": "Enter a valid URL."
+      },
+      "label": "Website"
     }
   },
   "termsAndPrivacy": {

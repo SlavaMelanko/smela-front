@@ -8,7 +8,7 @@ import {
   PageHeaderWebsite
 } from './PageHeader'
 
-export const CompanyPageHeader = ({ name, website }) => (
+export const TeamPageHeader = ({ name, website }) => (
   <PageHeader>
     <PageHeaderIcon icon={Building2} />
     <PageHeaderContent>

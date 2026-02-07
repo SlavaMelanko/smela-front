@@ -1,13 +1,13 @@
 import { UserInvitationForm } from '@/components/form'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
-import { useInviteCompanyMember } from '@/hooks/useAdmin'
+import { useInviteTeamMember } from '@/hooks/useAdmin'
 import { useLocale } from '@/hooks/useLocale'
 import { useToast } from '@/hooks/useToast'
 
-export const MemberInvitationDialog = ({ companyId, onClose }) => {
+export const MemberInvitationDialog = ({ teamId, onClose }) => {
   const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
-  const { mutate: inviteMember, isPending } = useInviteCompanyMember(companyId)
+  const { mutate: inviteMember, isPending } = useInviteTeamMember(teamId)
 
   const onSubmit = data => {
     inviteMember(data, {

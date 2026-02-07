@@ -87,7 +87,7 @@ test.describe.serial('Owner: Admin Invitation', () => {
     await expect(
       page.getByText(
         t.invitation.accept.title.replace(
-          '{{companyName}}',
+          '{{teamName}}',
           process.env.VITE_APP_NAME
         )
       )

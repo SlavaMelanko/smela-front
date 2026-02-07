@@ -16,7 +16,7 @@ const Toolbar = ({ children }) => (
   <div className='flex min-h-11 justify-end gap-4'>{children}</div>
 )
 
-export const CompanyTeam = ({ companyId, members }) => {
+export const Members = ({ teamId, members }) => {
   const { t, formatDate } = useLocale()
   const { openModal } = useModal()
 
@@ -34,7 +34,7 @@ export const CompanyTeam = ({ companyId, members }) => {
   const openInvitationDialog = () => {
     const close = openModal({
       children: (
-        <MemberInvitationDialog companyId={companyId} onClose={() => close()} />
+        <MemberInvitationDialog teamId={teamId} onClose={() => close()} />
       )
     })
   }
@@ -52,7 +52,7 @@ export const CompanyTeam = ({ companyId, members }) => {
 
   if (isEmpty) {
     return (
-      <EmptyState text={t('company.team.empty')}>
+      <EmptyState text={t('team.members.empty')}>
         <InviteButton
           label={t('invite')}
           onClick={openInvitationDialog}
@@ -64,7 +64,7 @@ export const CompanyTeam = ({ companyId, members }) => {
 
   const availableColumns = config.getAllLeafColumns().map(column => ({
     id: column.id,
-    label: t(`table.team.${column.id}`),
+    label: t(`table.members.${column.id}`),
     getIsVisible: () => column.getIsVisible(),
     toggleVisibility: () => column.toggleVisibility()
   }))

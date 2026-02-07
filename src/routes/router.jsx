@@ -10,10 +10,10 @@ import {
 } from '@/layouts'
 import { adminActiveStatuses, Role, userActiveStatuses } from '@/lib/types'
 import {
-  CompaniesPage,
-  CompanyPage,
   DashboardPage,
   SettingsPage as AdminSettingsPage,
+  TeamPage,
+  TeamsPage,
   UsersPage
 } from '@/pages/admin'
 import {
@@ -102,8 +102,8 @@ export const router = sentryCreateBrowserRouter([
     children: [
       { path: 'dashboard', element: <DashboardPage /> },
       { path: 'users', element: <UsersPage /> },
-      { path: 'companies', element: <CompaniesPage /> },
-      { path: 'companies/:id', element: <CompanyPage /> },
+      { path: 'teams', element: <TeamsPage /> },
+      { path: 'teams/:id', element: <TeamPage /> },
       { path: 'settings', element: <AdminSettingsPage /> }
     ]
   },

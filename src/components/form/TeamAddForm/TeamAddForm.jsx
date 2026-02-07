@@ -11,7 +11,7 @@ import { useLocale } from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues, resolver } from './schema'
 
-export const CompanyAddForm = ({ isLoading, submitLabel, onSubmit }) => {
+export const TeamAddForm = ({ isLoading, submitLabel, onSubmit }) => {
   const { t } = useLocale()
 
   const {
@@ -27,7 +27,7 @@ export const CompanyAddForm = ({ isLoading, submitLabel, onSubmit }) => {
     <FormRoot onSubmit={handleSubmit(data => onSubmit(data))}>
       <FormFields>
         <FormField
-          label={t('company.name.label')}
+          label={t('team.name.label')}
           name={FieldName.NAME}
           error={errors[FieldName.NAME]}
         >
@@ -35,7 +35,7 @@ export const CompanyAddForm = ({ isLoading, submitLabel, onSubmit }) => {
         </FormField>
 
         <FormField
-          label={t('company.website.label')}
+          label={t('team.website.label')}
           name={FieldName.WEBSITE}
           error={errors[FieldName.WEBSITE]}
           optional
@@ -44,7 +44,7 @@ export const CompanyAddForm = ({ isLoading, submitLabel, onSubmit }) => {
         </FormField>
 
         <FormField
-          label={t('company.description.label')}
+          label={t('team.description.label')}
           name={FieldName.DESCRIPTION}
           error={errors[FieldName.DESCRIPTION]}
           optional

@@ -8,13 +8,13 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { AddButton } from '@/components/buttons'
-import { CompanyAddDialog } from '@/components/dialogs'
+import { TeamAddDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
-import { useCompanies } from '@/hooks/useAdmin'
+import { useTeams } from '@/hooks/useAdmin'
 import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useLocale } from '@/hooks/useLocale'
 import { useModal } from '@/hooks/useModal'
@@ -30,7 +30,7 @@ const Toolbar = ({ children }) => (
   <div className='flex min-h-11 items-center gap-4'>{children}</div>
 )
 
-export const CompaniesPage = () => {
+export const TeamsPage = () => {
   const navigate = useNavigate()
   const { t, te, formatDate } = useLocale()
   const { openModal } = useModal()
@@ -44,26 +44,26 @@ export const CompaniesPage = () => {
     handleSearch
   )
 
-  const { data, isPending, isError, error, refetch } = useCompanies(apiParams)
-  const { companies = [], pagination = defaultOptions } = data ?? {}
+  const { data, isPending, isError, error, refetch } = useTeams(apiParams)
+  const { teams = [], pagination = defaultOptions } = data ?? {}
 
   const columns = getColumns(t, formatDate)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
   const [sorting, setSorting] = useState([])
 
-  const openCreateCompanyDialog = () => {
+  const openCreateTeamDialog = () => {
     const close = openModal({
-      children: <CompanyAddDialog onClose={() => close()} />
+      children: <TeamAddDialog onClose={() => close()} />
     })
   }
 
-  const viewCompany = company => navigate(`/admin/companies/${company.id}`)
+  const viewTeam = team => navigate(`/admin/teams/${team.id}`)
 
   const contextMenu = [
     {
       icon: PencilIcon,
       label: t('contextMenu.edit'),
-      onClick: viewCompany
+      onClick: viewTeam
     }
   ]
 
@@ -79,7 +79,7 @@ export const CompaniesPage = () => {
   // See: https://react.dev/reference/eslint-plugin-react-hooks/lints/incompatible-library
   // eslint-disable-next-line react-hooks/incompatible-library
   const config = useReactTable({
-    data: companies,
+    data: teams,
     columns,
     state: { sorting, columnVisibility },
     manualPagination: true,
@@ -94,7 +94,7 @@ export const CompaniesPage = () => {
 
   const availableColumns = config.getAllLeafColumns().map(column => ({
     id: column.id,
-    label: t(`table.companies.${column.id}`),
+    label: t(`table.teams.${column.id}`),
     getIsVisible: () => column.getIsVisible(),
     toggleVisibility: () => column.toggleVisibility()
   }))
@@ -112,7 +112,7 @@ export const CompaniesPage = () => {
       <Toolbar>
         <SearchInput
           className='flex-1'
-          placeholder={t('searchBy.companies')}
+          placeholder={t('searchBy.teams')}
           value={searchValue}
           onChange={setSearchValue}
         />
@@ -120,14 +120,10 @@ export const CompaniesPage = () => {
           label={t('table.column_plural')}
           columns={availableColumns}
         />
-        <AddButton label={t('add')} onClick={openCreateCompanyDialog} />
+        <AddButton label={t('add')} onClick={openCreateTeamDialog} />
       </Toolbar>
 
-      <Table
-        config={config}
-        onRowClick={viewCompany}
-        contextMenu={contextMenu}
-      />
+      <Table config={config} onRowClick={viewTeam} contextMenu={contextMenu} />
       <Pagination
         pagination={pagination}
         onPageChange={changePage}
