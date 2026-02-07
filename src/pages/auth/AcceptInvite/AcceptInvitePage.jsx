@@ -46,7 +46,7 @@ export const AcceptInvitePage = () => {
     <AuthRoot>
       <AuthHeader>
         <AuthTitle>
-          {t('invitation.accept.title', { companyName: env.APP_NAME })}
+          {t('invitation.accept.title', { teamName: env.APP_NAME })}
         </AuthTitle>
         <AuthDescription>{t('invitation.accept.description')}</AuthDescription>
       </AuthHeader>
