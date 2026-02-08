@@ -85,27 +85,27 @@ a retry after failure), showing the error is more informative than a spinner.
 
 ```jsx
 // When data is destructured to a named variable, use that name
-const CompanyPage = () => {
+const TeamPage = () => {
   const {
-    data: company,
+    data: team,
     isPending,
     isError,
     error,
     refetch
   } = useQuery({
-    queryKey: ['company', companyId],
-    queryFn: () => fetchCompany(companyId)
+    queryKey: ['team', teamId],
+    queryFn: () => fetchTeam(teamId)
   })
 
   if (isError) {
     return <ErrorState text={te(error)} onRetry={refetch} />
   }
 
-  if (isPending && !company) {
+  if (isPending && !team) {
     return <Spinner />
   }
 
-  return <CompanyDetails company={company} />
+  return <TeamDetails team={team} />
 }
 ```
 

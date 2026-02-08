@@ -7,7 +7,7 @@ principles and become maintenance nightmares.
 
 ```jsx
 // ❌ Avoid: monolithic component with inline markup and conditionals
-export const CompanyPageHeader = ({
+export const TeamPageHeader = ({
   name,
   website,
   description,
@@ -99,8 +99,8 @@ export const PageHeaderEmail = ({ email }) => {
 ## Usage: Compose What You Need
 
 ```jsx
-// Company page — uses website
-export const CompanyPageHeader = ({ name, website }) => (
+// Team page — uses website
+export const TeamPageHeader = ({ name, website }) => (
   <PageHeader>
     <PageHeaderIcon icon={Building2} />
     <PageHeaderContent>
