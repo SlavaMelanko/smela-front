@@ -1,7 +1,7 @@
 import apiClient from './apiClient'
 import {
-  INVITE_ACCEPT_PATH,
-  INVITE_CHECK_PATH,
+  ACCEPT_INVITE_PATH,
+  CHECK_INVITE_PATH,
   LOGIN_PATH,
   LOGOUT_PATH,
   REQUEST_PASSWORD_RESET_PATH,
@@ -38,12 +38,12 @@ export const authApi = {
 
   checkInvite(token) {
     return apiClient.get(
-      `${INVITE_CHECK_PATH}?token=${encodeURIComponent(token)}`
+      `${CHECK_INVITE_PATH}?token=${encodeURIComponent(token)}`
     )
   },
 
   acceptInvite(data) {
-    return apiClient.post(INVITE_ACCEPT_PATH, data)
+    return apiClient.post(ACCEPT_INVITE_PATH, data)
   },
 
   logOut() {
