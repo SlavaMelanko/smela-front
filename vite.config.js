@@ -16,6 +16,14 @@ const __dirname = path.dirname(__filename)
 const isProdOrStage =
   process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging'
 
+// TanStack Table uses interior mutability: it modifies config objects in place
+// while keeping the same reference. React Compiler assumes immutable props and
+// memoizes based on reference equality, so these mutations go undetected.
+// Excluding table components forces React to re-render them normally.
+const reactCompilerOptions = {
+  sources: filename => !filename.includes('src/components/table/')
+}
+
 export default defineConfig({
   build: {
     sourcemap: isProdOrStage ? 'hidden' : true,
@@ -38,21 +46,7 @@ export default defineConfig({
   plugins: [
     react({
       babel: {
-        plugins: [
-          [
-            'babel-plugin-react-compiler',
-            {
-              sources: filename => {
-                // Exclude Table components due to TanStack Table's interior mutability
-                if (filename.includes('src/components/table/')) {
-                  return false
-                }
-
-                return true
-              }
-            }
-          ]
-        ]
+        plugins: [['babel-plugin-react-compiler', reactCompilerOptions]]
       }
     }),
     tailwindcss(),
