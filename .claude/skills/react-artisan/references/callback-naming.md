@@ -10,7 +10,7 @@
 const handleClick = () => navigate('/')
 const handleToggle = () => setVisible(!visible)
 const handlePageChange = page => setParams({ page })
-const handleSubmit = data => updateCompany(data)
+const handleSubmit = data => updateTeam(data)
 ```
 
 **Why this fails:**
@@ -29,7 +29,7 @@ Name functions by the action they perform.
 const navigateHome = () => navigate('/')
 const toggleVisibility = () => setVisible(!visible)
 const changePage = page => setParams({ page })
-const submit = data => updateCompany(data)
+const submit = data => updateTeam(data)
 ```
 
 ### Exception: TanStack Query Mutation Wrappers
@@ -61,7 +61,7 @@ This exception exists because mutation wrappers orchestrate side effects and the
 
 | Pattern | Name Style | Example |
 | --- | --- | --- |
-| Navigation | `navigateTo*` | `navigateHome`, `navigateToCompany` |
+| Navigation | `navigateTo*` | `navigateHome`, `navigateToTeam` |
 | Toggle state | `toggle*` | `toggleVisibility`, `toggleFilters` |
 | Open dialog/modal | `open*` | `openUserProfile`, `openInviteDialog` |
 | Form submission | `submit` | `submit` |
