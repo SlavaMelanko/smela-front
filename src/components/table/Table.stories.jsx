@@ -76,8 +76,6 @@ const columns = [
 const InteractiveTable = ({ data, onRowClick }) => {
   const [sorting, setSorting] = useState([])
 
-  // TanStack Table uses interior mutability which is incompatible with React Compiler's memoization.
-  // See: https://react.dev/reference/eslint-plugin-react-hooks/lints/incompatible-library
   // eslint-disable-next-line react-hooks/incompatible-library
   const config = useReactTable({
     data,
