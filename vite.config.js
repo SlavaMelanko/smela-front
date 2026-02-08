@@ -38,7 +38,21 @@ export default defineConfig({
   plugins: [
     react({
       babel: {
-        plugins: ['babel-plugin-react-compiler']
+        plugins: [
+          [
+            'babel-plugin-react-compiler',
+            {
+              sources: filename => {
+                // Exclude Table components due to TanStack Table's interior mutability
+                if (filename.includes('src/components/table/')) {
+                  return false
+                }
+
+                return true
+              }
+            }
+          ]
+        ]
       }
     }),
     tailwindcss(),
