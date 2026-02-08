@@ -117,7 +117,8 @@
       "description": "Set your password to join the team.",
       "error": "Failed to accept invitation. The link may have expired.",
       "success": "Welcome! Your account is ready.",
-      "title": "You're invited to {{teamName}}"
+      "title": "You're invited to",
+      "validating": "Validating invitation..."
     },
     "resend": {
       "success": "Invitation resent."

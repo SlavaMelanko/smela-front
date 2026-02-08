@@ -6,9 +6,13 @@ import { useAcceptInvite, useCheckInvite } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
 import { useToast } from '@/hooks/useToast'
 import { useUrlParams } from '@/hooks/useUrlParams'
+import env from '@/lib/env'
 
 import { AuthDescription, AuthHeader, AuthRoot, AuthTitle } from '../Auth'
 import { AcceptInviteForm } from './PasswordForm'
+
+const formatTeamName = name =>
+  name.length > 10 ? <span className='block'>{name}</span> : ` ${name}`
 
 export const AcceptInvitePage = () => {
   const { t, te } = useLocale()
@@ -51,14 +55,15 @@ export const AcceptInvitePage = () => {
   }
 
   if (isChecking) {
-    return <Spinner />
+    return <Spinner text={t('invitation.accept.validating')} />
   }
 
   return (
     <AuthRoot>
       <AuthHeader>
         <AuthTitle>
-          {t('invitation.accept.title', { teamName: data?.teamName })}
+          {t('invitation.accept.title')}
+          {formatTeamName(data.teamName || env.APP_NAME)}
         </AuthTitle>
         <AuthDescription>{t('invitation.accept.description')}</AuthDescription>
       </AuthHeader>
