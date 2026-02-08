@@ -3,7 +3,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { PencilIcon } from 'lucide-react'
+import { Users } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -61,8 +61,8 @@ export const TeamsPage = () => {
 
   const contextMenu = [
     {
-      icon: PencilIcon,
-      label: t('contextMenu.edit'),
+      icon: Users,
+      label: t('contextMenu.open'),
       onClick: viewTeam
     }
   ]

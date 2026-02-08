@@ -4,6 +4,10 @@ import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
   ContextMenuTrigger,
   TableBody as TableBodyRoot,
   TableCell,
@@ -17,6 +21,55 @@ const RowCells = ({ row }) =>
       {flexRender(cell.column.columnDef.cell, cell.getContext())}
     </TableCell>
   ))
+
+const MenuItem = ({ item, row }) => {
+  if (item.items) {
+    const visibleSubitems = item.items.filter(
+      subitem => subitem.isVisible?.(row.original) ?? true
+    )
+
+    if (!visibleSubitems.length) {
+      return null
+    }
+
+    return (
+      <ContextMenuSub>
+        <ContextMenuSubTrigger className='gap-2'>
+          {item.icon && <item.icon className='size-4' />}
+          {item.label}
+        </ContextMenuSubTrigger>
+        <ContextMenuSubContent>
+          {visibleSubitems.map((subitem, index) => (
+            <div key={subitem.label}>
+              {subitem.variant === 'destructive' && index > 0 && (
+                <ContextMenuSeparator />
+              )}
+              <ContextMenuItem
+                variant={subitem.variant}
+                disabled={subitem.disabled}
+                onClick={() => subitem.onClick(row.original)}
+              >
+                {subitem.icon && <subitem.icon className='size-4' />}
+                {subitem.label}
+              </ContextMenuItem>
+            </div>
+          ))}
+        </ContextMenuSubContent>
+      </ContextMenuSub>
+    )
+  }
+
+  return (
+    <ContextMenuItem
+      variant={item.variant}
+      disabled={item.disabled}
+      onClick={() => item.onClick(row.original)}
+    >
+      {item.icon && <item.icon className='size-4' />}
+      {item.label}
+    </ContextMenuItem>
+  )
+}
 
 const TableRowContent = ({ row, onRowClick, contextMenu }) => {
   const visibleItems = contextMenu?.filter(
@@ -43,14 +96,7 @@ const TableRowContent = ({ row, onRowClick, contextMenu }) => {
       </ContextMenuTrigger>
       <ContextMenuContent>
         {visibleItems.map(item => (
-          <ContextMenuItem
-            key={item.label}
-            disabled={item.disabled}
-            onClick={() => item.onClick(row.original)}
-          >
-            {item.icon && <item.icon className='size-4' />}
-            {item.label}
-          </ContextMenuItem>
+          <MenuItem key={item.label} item={item} row={row} />
         ))}
       </ContextMenuContent>
     </ContextMenu>

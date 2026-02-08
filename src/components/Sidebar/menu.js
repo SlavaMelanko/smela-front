@@ -1,11 +1,11 @@
 import {
   BookOpen,
-  Building2,
   Home,
   LayoutDashboard,
   MapPinCheckInside,
   Settings,
   ShieldCheck,
+  User,
   Users
 } from 'lucide-react'
 
@@ -48,12 +48,12 @@ export const adminMenuItems = [
   {
     title: 'sidebar.users',
     url: '/admin/users',
-    icon: Users
+    icon: User
   },
   {
     title: 'sidebar.teams',
     url: '/admin/teams',
-    icon: Building2
+    icon: Users
   },
   {
     title: 'sidebar.settings',
@@ -71,12 +71,12 @@ export const ownerMenuItems = [
   {
     title: 'sidebar.users',
     url: '/admin/users',
-    icon: Users
+    icon: User
   },
   {
     title: 'sidebar.teams',
     url: '/admin/teams',
-    icon: Building2
+    icon: Users
   },
   {
     title: 'sidebar.admins',

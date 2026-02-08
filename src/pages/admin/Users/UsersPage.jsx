@@ -4,7 +4,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { PencilIcon } from 'lucide-react'
+import { User } from 'lucide-react'
 import { useState } from 'react'
 
 import { ProfileDialog } from '@/components/dialogs'
@@ -58,8 +58,8 @@ export const UsersPage = () => {
 
   const contextMenu = [
     {
-      icon: PencilIcon,
-      label: t('contextMenu.edit'),
+      icon: User,
+      label: t('contextMenu.open'),
       onClick: openUserProfile
     }
   ]

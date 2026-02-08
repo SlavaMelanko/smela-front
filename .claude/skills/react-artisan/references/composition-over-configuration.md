@@ -16,7 +16,7 @@ export const TeamPageHeader = ({
 }) => (
   <div className='flex items-center gap-3'>
     <div className='flex size-10 items-center justify-center'>
-      <Building2 className='size-8 text-primary' />
+      <Users className='size-8 text-primary' />
     </div>
     <div>
       <p className='text-2xl font-semibold'>{name}</p>
@@ -102,7 +102,7 @@ export const PageHeaderEmail = ({ email }) => {
 // Team page — uses website
 export const TeamPageHeader = ({ name, website }) => (
   <PageHeader>
-    <PageHeaderIcon icon={Building2} />
+    <PageHeaderIcon icon={Users} />
     <PageHeaderContent>
       <PageHeaderTitle>{name}</PageHeaderTitle>
       <PageHeaderWebsite url={website} />

@@ -1,4 +1,4 @@
-import { Building2, ChevronLeft, Users } from 'lucide-react'
+import { ChevronLeft, Info, Users } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { TeamPageHeader } from '@/components/PageHeader'
@@ -56,7 +56,7 @@ export const TeamPage = () => {
   const tabs = [
     {
       value: TeamTab.INFO,
-      icon: Building2,
+      icon: Info,
       label: () => t('team.tabs.info')
     },
     {
