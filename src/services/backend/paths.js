@@ -6,7 +6,8 @@ export const RESEND_VERIFICATION_EMAIL_PATH =
   '/api/v1/auth/resend-verification-email'
 export const REQUEST_PASSWORD_RESET_PATH = '/api/v1/auth/request-password-reset'
 export const RESET_PASSWORD_PATH = '/api/v1/auth/reset-password'
-export const ACCEPT_INVITE_PATH = '/api/v1/auth/accept-invite'
+export const INVITE_CHECK_PATH = '/api/v1/auth/invite/check'
+export const INVITE_ACCEPT_PATH = '/api/v1/auth/invite/accept'
 export const REFRESH_TOKEN_PATH = '/api/v1/auth/refresh-token'
 export const LOGOUT_PATH = '/api/v1/auth/logout'
 
