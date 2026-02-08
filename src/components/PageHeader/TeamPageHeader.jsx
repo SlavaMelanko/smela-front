@@ -1,4 +1,4 @@
-import { Building2 } from 'lucide-react'
+import { Users } from 'lucide-react'
 
 import {
   PageHeader,
@@ -10,7 +10,7 @@ import {
 
 export const TeamPageHeader = ({ name, website }) => (
   <PageHeader>
-    <PageHeaderIcon icon={Building2} />
+    <PageHeaderIcon icon={Users} />
     <PageHeaderContent>
       <PageHeaderTitle>{name}</PageHeaderTitle>
       <PageHeaderWebsite url={website} />

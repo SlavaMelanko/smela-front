@@ -22,8 +22,10 @@
     "error": "Помилка перевірки безпеки. Спробуйте ще раз."
   },
   "contextMenu": {
-    "edit": "Редагувати",
-    "resendInvitation": "Надіслати запрошення повторно"
+    "cancel": "Скасувати",
+    "invitation": "Запрошення",
+    "open": "Відкрити",
+    "resend": "Надіслати повторно"
   },
   "continueWithGoogle": "Продовжити з Google",
   "copyright": "© {{year}} {{companyName}}",

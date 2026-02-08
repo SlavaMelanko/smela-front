@@ -22,8 +22,10 @@
     "error": "Security verification failed. Please try again."
   },
   "contextMenu": {
-    "edit": "Edit",
-    "resendInvitation": "Resend invitation"
+    "cancel": "Cancel",
+    "invitation": "Invitation",
+    "open": "Open",
+    "resend": "Resend"
   },
   "continueWithGoogle": "Continue with Google",
   "copyright": "© {{year}} {{companyName}}",

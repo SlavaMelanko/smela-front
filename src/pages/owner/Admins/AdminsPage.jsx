@@ -3,7 +3,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { MailIcon, PencilIcon } from 'lucide-react'
+import { MailIcon, Send, User, X } from 'lucide-react'
 import { useState } from 'react'
 
 import { InviteButton } from '@/components/buttons'
@@ -77,18 +77,34 @@ export const AdminsPage = () => {
     })
   }
 
+  const handleCancelInvitation = () => {
+    // TODO: Implement cancel invitation
+  }
+
   const contextMenu = [
     {
-      icon: PencilIcon,
-      label: t('contextMenu.edit'),
+      icon: User,
+      label: t('contextMenu.open'),
       onClick: openAdminProfile
     },
     {
       icon: MailIcon,
-      label: t('contextMenu.resendInvitation'),
-      onClick: handleResendInvitation,
+      label: t('contextMenu.invitation'),
       isVisible: admin => admin.status === UserStatus.PENDING,
-      disabled: isResending
+      items: [
+        {
+          icon: Send,
+          label: t('contextMenu.resend'),
+          onClick: handleResendInvitation,
+          disabled: isResending
+        },
+        {
+          icon: X,
+          label: t('contextMenu.cancel'),
+          onClick: handleCancelInvitation,
+          variant: 'destructive'
+        }
+      ]
     }
   ]
 
