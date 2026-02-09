@@ -182,7 +182,8 @@ export const useCheckInvite = token =>
     select: response => response.data,
     enabled: !!token,
     retry: false,
-    staleTime: Infinity
+    staleTime: Infinity,
+    gcTime: 0
   })
 
 export const useAcceptInvite = () => {

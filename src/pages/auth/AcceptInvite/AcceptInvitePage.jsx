@@ -54,7 +54,7 @@ export const AcceptInvitePage = () => {
     return null
   }
 
-  if (isChecking) {
+  if (isChecking && !data) {
     return <Spinner text={t('invitation.accept.validating')} />
   }
 
