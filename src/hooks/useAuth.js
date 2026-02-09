@@ -9,7 +9,8 @@ import {
 
 export const authKeys = {
   all: () => ['auth'],
-  user: () => [...authKeys.all(), 'user']
+  user: () => [...authKeys.all(), 'user'],
+  invitation: token => [...authKeys.all(), 'invitation', token]
 }
 
 export const useCurrentUser = () => {
@@ -173,6 +174,17 @@ export const useResetPassword = () => {
     }
   })
 }
+
+export const useCheckInvite = token =>
+  useQuery({
+    queryKey: authKeys.invitation(token),
+    queryFn: () => authApi.checkInvite(token),
+    select: response => response.data,
+    enabled: !!token,
+    retry: false,
+    staleTime: Infinity,
+    gcTime: 0
+  })
 
 export const useAcceptInvite = () => {
   const queryClient = useQueryClient()

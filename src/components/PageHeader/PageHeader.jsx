@@ -16,7 +16,7 @@ export const PageHeaderIcon = ({ icon: Icon }) => (
 export const PageHeaderContent = ({ children }) => <div>{children}</div>
 
 export const PageHeaderTitle = ({ children }) => (
-  <p className='text-2xl font-semibold'>{children}</p>
+  <h1 className='text-2xl font-semibold'>{children}</h1>
 )
 
 export const PageHeaderDescription = ({ children }) => (

@@ -1,5 +1,6 @@
-export * from './invitation'
+export * from './invite'
 export * from './login'
 export * from './logout'
 export * from './password-reset'
 export * from './signup'
+export * from './team'
