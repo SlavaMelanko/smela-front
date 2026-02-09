@@ -6,7 +6,7 @@ export const fillInviteFormAndSubmit = async (
   await page.getByLabel(t.firstName.label).fill(firstName)
   await page.getByLabel(t.lastName.label).fill(lastName)
   await page.getByLabel(t.email.label).fill(email)
-  await page.getByRole('button', { name: t.invitation.send.cta }).click()
+  await page.getByRole('button', { name: t.invite.send.cta }).click()
 }
 
 export const fillAcceptInviteFormAndSubmit = async (page, password, t) => {
@@ -15,5 +15,5 @@ export const fillAcceptInviteFormAndSubmit = async (page, password, t) => {
   })
 
   await passwordInput.fill(password)
-  await page.getByRole('button', { name: t.invitation.accept.cta }).click()
+  await page.getByRole('button', { name: t.invite.accept.cta }).click()
 }

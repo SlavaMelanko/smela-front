@@ -12,7 +12,7 @@ export const MemberInvitationDialog = ({ teamId, onClose }) => {
   const onSubmit = data => {
     inviteMember(data, {
       onSuccess: () => {
-        showSuccessToast(t('invitation.send.success'))
+        showSuccessToast(t('invite.send.success'))
         onClose()
       },
       onError: error => {
@@ -24,7 +24,7 @@ export const MemberInvitationDialog = ({ teamId, onClose }) => {
   return (
     <>
       <DialogHeader onClose={onClose}>
-        <DialogTitle>{t('invitation.send.title.member')}</DialogTitle>
+        <DialogTitle>{t('invite.send.title.member')}</DialogTitle>
       </DialogHeader>
       <DialogBody>
         <UserInvitationForm isLoading={isPending} onSubmit={onSubmit} />

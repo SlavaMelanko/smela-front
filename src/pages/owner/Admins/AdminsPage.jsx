@@ -69,7 +69,7 @@ export const AdminsPage = () => {
   const handleResendInvitation = admin => {
     resendInvitation(admin.id, {
       onSuccess: () => {
-        showSuccessToast(t('invitation.resend.success'))
+        showSuccessToast(t('invite.resend.success'))
       },
       onError: error => {
         showErrorToast(te(error))
@@ -89,7 +89,7 @@ export const AdminsPage = () => {
     },
     {
       icon: MailIcon,
-      label: t('contextMenu.invitation'),
+      label: t('contextMenu.invite'),
       isVisible: admin => admin.status === UserStatus.PENDING,
       items: [
         {
@@ -159,7 +159,7 @@ export const AdminsPage = () => {
           label={t('table.column_plural')}
           columns={availableColumns}
         />
-        <InviteButton label={t('invite')} onClick={openInvitationDialog} />
+        <InviteButton label={t('invite.cta')} onClick={openInvitationDialog} />
       </Toolbar>
 
       <Table

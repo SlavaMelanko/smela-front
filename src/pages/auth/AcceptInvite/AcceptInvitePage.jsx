@@ -40,7 +40,7 @@ export const AcceptInvitePage = () => {
       { data: { token, password: data.newPassword } },
       {
         onSuccess: () => {
-          showSuccessToast(t('invitation.accept.success'))
+          showSuccessToast(t('invite.accept.success'))
           navigate('/')
         },
         onError: err => {
@@ -55,17 +55,17 @@ export const AcceptInvitePage = () => {
   }
 
   if (isChecking && !data) {
-    return <Spinner text={t('invitation.accept.validating')} />
+    return <Spinner text={t('invite.accept.validating')} />
   }
 
   return (
     <AuthRoot>
       <AuthHeader>
         <AuthTitle>
-          {t('invitation.accept.title')}
+          {t('invite.accept.title')}
           {formatTeamName(data.teamName || env.APP_NAME)}
         </AuthTitle>
-        <AuthDescription>{t('invitation.accept.description')}</AuthDescription>
+        <AuthDescription>{t('invite.accept.description')}</AuthDescription>
       </AuthHeader>
 
       <AcceptInviteForm isLoading={isPending} onSubmit={handleAcceptInvite} />

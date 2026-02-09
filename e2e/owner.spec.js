@@ -43,11 +43,11 @@ test.describe.serial('Owner: Admin Invitation', () => {
     await apiPromise
 
     // Click Invite button to open modal
-    await page.getByRole('button', { name: t.invite }).click()
+    await page.getByRole('button', { name: t.invite.cta }).click()
 
     // Verify modal is visible
     await expect(
-      page.getByRole('heading', { name: t.invitation.send.title.admin })
+      page.getByRole('heading', { name: t.invite.send.title.admin })
     ).toBeVisible()
 
     const apiPromises = waitForApiCalls(page, [
@@ -59,7 +59,7 @@ test.describe.serial('Owner: Admin Invitation', () => {
     await apiPromises
 
     // Verify success toast
-    await expect(page.getByText(t.invitation.send.success)).toBeVisible()
+    await expect(page.getByText(t.invite.send.success)).toBeVisible()
 
     // Verify admin appears in table with Pending status
     const adminRow = page.getByRole('row', {
@@ -86,10 +86,7 @@ test.describe.serial('Owner: Admin Invitation', () => {
     // Verify page title
     await expect(
       page.getByText(
-        t.invitation.accept.title.replace(
-          '{{teamName}}',
-          process.env.VITE_APP_NAME
-        )
+        t.invite.accept.title.replace('{{teamName}}', process.env.VITE_APP_NAME)
       )
     ).toBeVisible()
 
@@ -102,7 +99,7 @@ test.describe.serial('Owner: Admin Invitation', () => {
     await apiPromise
 
     // Verify success toast
-    await expect(page.getByText(t.invitation.accept.success)).toBeVisible()
+    await expect(page.getByText(t.invite.accept.success)).toBeVisible()
 
     await page.waitForURL('/admin/dashboard')
 

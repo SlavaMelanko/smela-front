@@ -52,7 +52,7 @@ export const Members = ({ teamId, members }) => {
     return (
       <EmptyState text={t('team.members.empty')}>
         <InviteButton
-          label={t('invite')}
+          label={t('invite.cta')}
           onClick={openInvitationDialog}
           hideTextOnMobile={false}
         />
@@ -74,7 +74,7 @@ export const Members = ({ teamId, members }) => {
           label={t('table.column_plural')}
           columns={availableColumns}
         />
-        <InviteButton label={t('invite')} onClick={openInvitationDialog} />
+        <InviteButton label={t('invite.cta')} onClick={openInvitationDialog} />
       </Toolbar>
 
       <Table config={config} onRowClick={openUserProfile} />

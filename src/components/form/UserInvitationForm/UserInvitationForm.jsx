@@ -140,7 +140,7 @@ export const UserInvitationForm = ({
       </FormGroup>
 
       <SubmitButton isLoading={isSubmitting || isLoading}>
-        {t('invitation.send.cta')}
+        {t('invite.send.cta')}
       </SubmitButton>
     </FormRoot>
   )
