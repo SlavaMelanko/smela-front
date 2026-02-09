@@ -145,3 +145,58 @@ test.describe.serial('Admin: Teams Management', () => {
     await logOut(page, t)
   })
 })
+
+test.describe('Admin: Teams Edge Cases', () => {
+  const adminCredentials = {
+    email: process.env.VITE_E2E_ADMIN_EMAIL,
+    password: process.env.VITE_E2E_ADMIN_PASSWORD
+  }
+
+  test('shows empty table when no teams exist', async ({ page, t, login }) => {
+    await login(adminCredentials)
+
+    // Intercept API and return empty teams array
+    await page.route(`**${ADMIN_TEAMS_PATH}*`, route => {
+      route.fulfill({
+        status: HttpStatus.OK,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          teams: [],
+          pagination: { page: 1, limit: 10, total: 0, totalPages: 0 }
+        })
+      })
+    })
+
+    await page.goto('/admin/teams')
+
+    // Verify table header is visible but no data rows
+    await expect(page.getByRole('table')).toBeVisible()
+    await expect(page.getByRole('row')).toHaveCount(1) // only header row
+
+    await logOut(page, t)
+  })
+
+  test('shows error state on server error', async ({ page, t, login }) => {
+    await login(adminCredentials)
+
+    // Intercept API and return 500 error
+    await page.route(`**${ADMIN_TEAMS_PATH}*`, route => {
+      route.fulfill({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        contentType: 'application/json',
+        body: JSON.stringify({ code: 'system/internal-error' })
+      })
+    })
+
+    await page.goto('/admin/teams')
+
+    // Verify error state
+    await expect(
+      page.getByText(t.backend['system/internal-error'])
+    ).toBeVisible()
+
+    await expect(page.getByRole('button', { name: t.tryAgain })).toBeVisible()
+
+    await logOut(page, t)
+  })
+})
