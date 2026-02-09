@@ -1,4 +1,4 @@
-export const fillInvitationFormAndSubmit = async (
+export const fillInviteFormAndSubmit = async (
   page,
   { firstName, lastName, email },
   t

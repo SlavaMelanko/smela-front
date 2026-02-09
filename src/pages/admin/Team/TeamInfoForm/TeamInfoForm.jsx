@@ -1,3 +1,6 @@
+// React Compiler breaks RHF's proxy-based isDirty subscription
+'use no memo'
+
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
