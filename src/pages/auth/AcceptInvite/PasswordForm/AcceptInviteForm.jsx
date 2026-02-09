@@ -36,7 +36,7 @@ export const AcceptInviteForm = ({ isLoading, onSubmit }) => {
       </FormFields>
 
       <SubmitButton isLoading={isSubmitting || isLoading}>
-        {t('invitation.accept.cta')}
+        {t('invite.accept.cta')}
       </SubmitButton>
     </FormRoot>
   )

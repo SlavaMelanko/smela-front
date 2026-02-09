@@ -20,7 +20,7 @@ const renderForm = ({ onSubmit = jest.fn(), customConfig } = {}) => {
     lastNameInput: screen.getByLabelText(en.lastName.label, { exact: false }),
     emailInput: screen.getByLabelText(en.email.label, { exact: false }),
     positionInput: screen.queryByLabelText(en.position.label, { exact: false }),
-    submitButton: screen.getByRole('button', { name: en.invitation.send.cta })
+    submitButton: screen.getByRole('button', { name: en.invite.send.cta })
   }
 }
 

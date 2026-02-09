@@ -140,7 +140,7 @@ test.describe.serial('Admin: Teams Management', () => {
 
     // Verify empty state
     await expect(page.getByText(t.team.members.empty)).toBeVisible()
-    await expect(page.getByRole('button', { name: t.invite })).toBeVisible()
+    await expect(page.getByRole('button', { name: t.invite.cta })).toBeVisible()
 
     await logOut(page, t)
   })

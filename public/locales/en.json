@@ -34,7 +34,7 @@
   },
   "contextMenu": {
     "cancel": "Cancel",
-    "invitation": "Invitation",
+    "invite": "Invitation",
     "open": "Open",
     "resend": "Resend"
   },
@@ -65,7 +65,7 @@
         "invalidToken": "Invalid token."
       },
       "loading": "Verifying email...",
-      "success": "Email verified successfully."
+      "success": "Email verified."
     }
   },
   "error": {
@@ -122,7 +122,7 @@
     }
   },
   "general": "General",
-  "invitation": {
+  "invite": {
     "accept": {
       "cta": "Join",
       "description": "Set your password to join the team.",
@@ -131,19 +131,19 @@
       "title": "You're invited to",
       "validating": "Validating invitation..."
     },
+    "cta": "Invite",
     "resend": {
       "success": "Invitation resent."
     },
     "send": {
       "cta": "Send invitation",
-      "success": "Invitation sent successfully.",
+      "success": "Invitation sent.",
       "title": {
         "admin": "Invite admin",
         "member": "Invite member"
       }
     }
   },
-  "invite": "Invite",
   "invitedAt": "Invited at",
   "invitedBy": "Invited by",
   "lastName": {
@@ -191,7 +191,7 @@
         "cta": "Set new password",
         "description": "Only one step left — create a new password.",
         "error": "Failed to reset password. Please try again.",
-        "success": "Your password has been reset successfully."
+        "success": "Password reset complete."
       },
       "title": "Reset password"
     }
@@ -364,7 +364,7 @@
       }
     },
     "update": {
-      "success": "Data updated successfully."
+      "success": "Data updated."
     },
     "website": {
       "error": {
