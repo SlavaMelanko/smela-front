@@ -35,7 +35,7 @@ export const EmailConfirmationPage = () => {
     const preferences = { locale, theme }
 
     resendVerificationEmail(
-      { data, captcha: { token }, preferences },
+      { ...data, captcha: { token }, preferences },
       {
         onSuccess: () => {
           showSuccessToast(t('email.confirmation.success'))

@@ -37,7 +37,7 @@ export const AcceptInvitePage = () => {
 
   const handleAcceptInvite = data => {
     acceptInvite(
-      { data: { token, password: data.newPassword } },
+      { token, password: data.newPassword },
       {
         onSuccess: () => {
           showSuccessToast(t('invite.accept.success'))

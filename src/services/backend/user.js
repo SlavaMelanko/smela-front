@@ -7,6 +7,6 @@ export const userApi = {
   },
 
   updateUser(data) {
-    return apiClient.post(ME_PATH, data)
+    return apiClient.patch(ME_PATH, data)
   }
 }

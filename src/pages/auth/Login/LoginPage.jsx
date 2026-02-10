@@ -32,7 +32,7 @@ export const LoginPage = () => {
     }
 
     logInWithEmail(
-      { data, captcha: { token } },
+      { ...data, captcha: { token } },
       {
         onSuccess: () => {
           navigate('/')

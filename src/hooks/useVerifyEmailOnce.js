@@ -19,6 +19,6 @@ export const useVerifyEmailOnce = (token, { onSettled }) => {
 
     hasVerified.current = true
 
-    verifyEmail({ data: { token } }, { onSettled })
+    verifyEmail({ token }, { onSettled })
   }, [token, verifyEmail, onSettled])
 }
