@@ -17,12 +17,11 @@ export const ME_PATH = '/api/v1/user/me'
 // Admin endpoints
 export const ADMIN_USERS_PATH = '/api/v1/admin/users'
 export const ADMIN_TEAMS_PATH = '/api/v1/admin/teams'
-export const ADMIN_TEAMS_INVITES_PATH = '/api/v1/admin/teams/:id/invites'
+export const ADMIN_TEAMS_MEMBERS_PATH = '/api/v1/admin/teams/:id/members'
 export const ADMIN_TEAMS_RESEND_INVITE_PATH =
-  '/api/v1/admin/teams/:id/invites/:memberId/resend'
+  '/api/v1/admin/teams/:id/members/:memberId/resend-invite'
 
 // Owner endpoints
 export const OWNER_ADMINS_PATH = '/api/v1/owner/admins'
-export const OWNER_ADMINS_INVITE_PATH = '/api/v1/owner/admins/invites'
 export const OWNER_ADMINS_RESEND_INVITE_PATH =
-  '/api/v1/owner/admins/invites/:id/resend'
+  '/api/v1/owner/admins/:id/resend-invite'

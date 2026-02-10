@@ -2,7 +2,7 @@ import { withQuery } from '@/lib/url'
 
 import apiClient from './apiClient'
 import {
-  ADMIN_TEAMS_INVITES_PATH,
+  ADMIN_TEAMS_MEMBERS_PATH,
   ADMIN_TEAMS_PATH,
   ADMIN_TEAMS_RESEND_INVITE_PATH,
   ADMIN_USERS_PATH
@@ -38,7 +38,7 @@ export const adminApi = {
   },
 
   inviteTeamMember(teamId, data) {
-    const url = ADMIN_TEAMS_INVITES_PATH.replace(':id', teamId)
+    const url = ADMIN_TEAMS_MEMBERS_PATH.replace(':id', teamId)
 
     return apiClient.post(url, data)
   },
