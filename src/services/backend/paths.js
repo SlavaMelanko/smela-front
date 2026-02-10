@@ -18,7 +18,7 @@ export const ME_PATH = '/api/v1/user/me'
 export const ADMIN_USERS_PATH = '/api/v1/admin/users'
 export const ADMIN_TEAMS_PATH = '/api/v1/admin/teams'
 export const ADMIN_TEAMS_MEMBERS_PATH = '/api/v1/admin/teams/:id/members'
-export const ADMIN_TEAMS_MEMBERS_RESEND_INVITE_PATH =
+export const ADMIN_TEAMS_RESEND_INVITE_PATH =
   '/api/v1/admin/teams/:id/members/:memberId/resend-invite'
 
 // Owner endpoints

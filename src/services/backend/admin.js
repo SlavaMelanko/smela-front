@@ -3,8 +3,8 @@ import { withQuery } from '@/lib/url'
 import apiClient from './apiClient'
 import {
   ADMIN_TEAMS_MEMBERS_PATH,
-  ADMIN_TEAMS_MEMBERS_RESEND_INVITE_PATH,
   ADMIN_TEAMS_PATH,
+  ADMIN_TEAMS_RESEND_INVITE_PATH,
   ADMIN_USERS_PATH
 } from './paths'
 
@@ -44,10 +44,10 @@ export const adminApi = {
   },
 
   resendTeamMemberInvite(teamId, memberId) {
-    const url = ADMIN_TEAMS_MEMBERS_RESEND_INVITE_PATH.replace(
-      ':id',
-      teamId
-    ).replace(':memberId', memberId)
+    const url = ADMIN_TEAMS_RESEND_INVITE_PATH.replace(':id', teamId).replace(
+      ':memberId',
+      memberId
+    )
 
     return apiClient.post(url)
   }
