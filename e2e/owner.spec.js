@@ -3,7 +3,6 @@ import { faker } from '@faker-js/faker'
 import { HttpStatus } from '../src/lib/net'
 import {
   ACCEPT_INVITE_PATH,
-  OWNER_ADMINS_INVITE_PATH,
   OWNER_ADMINS_PATH
 } from '../src/services/backend/paths'
 import { auth } from '../src/tests/data'
@@ -51,7 +50,7 @@ test.describe.serial('Owner: Admin Invitation', () => {
     ).toBeVisible()
 
     const apiPromises = waitForApiCalls(page, [
-      { path: OWNER_ADMINS_INVITE_PATH, status: HttpStatus.CREATED },
+      { path: OWNER_ADMINS_PATH, status: HttpStatus.CREATED },
       { path: OWNER_ADMINS_PATH, status: HttpStatus.OK }
     ])
 
