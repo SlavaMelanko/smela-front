@@ -39,7 +39,7 @@ export const ResetPasswordPage = () => {
     const preferences = { locale, theme }
 
     requestPasswordReset(
-      { data, captcha: { token }, preferences },
+      { ...data, captcha: { token }, preferences },
       {
         onSuccess: () => {
           showSuccessToast(t('password.reset.request.success'))
@@ -53,7 +53,7 @@ export const ResetPasswordPage = () => {
 
   const handleResetPassword = data => {
     resetPassword(
-      { data: { token: urlToken, password: data.newPassword } },
+      { token: urlToken, password: data.newPassword },
       {
         onSuccess: () => {
           showSuccessToast(t('password.reset.set.success'))

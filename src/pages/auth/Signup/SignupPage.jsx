@@ -40,7 +40,7 @@ export const SignupPage = () => {
     const preferences = { locale, theme }
 
     signUpWithEmail(
-      { data, captcha: { token }, preferences },
+      { ...data, captcha: { token }, preferences },
       {
         onSuccess: () => {
           navigate('/email-confirmation', { state: { email: data.email } })
