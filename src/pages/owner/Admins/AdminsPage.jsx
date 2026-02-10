@@ -7,7 +7,7 @@ import { MailIcon, Send, User, X } from 'lucide-react'
 import { useState } from 'react'
 
 import { InviteButton } from '@/components/buttons'
-import { AdminInvitationDialog, ProfileDialog } from '@/components/dialogs'
+import { CreateAdminDialog, ProfileDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
@@ -16,7 +16,7 @@ import { ColumnVisibilityDropdown, Table } from '@/components/table'
 import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useLocale } from '@/hooks/useLocale'
 import { useModal } from '@/hooks/useModal'
-import { useAdmins, useResendAdminInvitation } from '@/hooks/useOwner'
+import { useAdmins, useResendAdminInvite } from '@/hooks/useOwner'
 import { useTableParams } from '@/hooks/useTableParams'
 import { useToast } from '@/hooks/useToast'
 import { UserStatus } from '@/lib/types'
@@ -35,8 +35,8 @@ export const AdminsPage = () => {
   const { t, te, formatDate } = useLocale()
   const { openModal } = useModal()
   const { showSuccessToast, showErrorToast } = useToast()
-  const { mutate: resendInvitation, isPending: isResending } =
-    useResendAdminInvitation()
+  const { mutate: resendInvite, isPending: isResending } =
+    useResendAdminInvite()
 
   const { params, apiParams, setParams } = useTableParams()
 
@@ -54,9 +54,9 @@ export const AdminsPage = () => {
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
   const [sorting, setSorting] = useState([])
 
-  const openInvitationDialog = () => {
+  const openCreateAdminDialog = () => {
     const close = openModal({
-      children: <AdminInvitationDialog onClose={() => close()} />
+      children: <CreateAdminDialog onClose={() => close()} />
     })
   }
 
@@ -66,8 +66,8 @@ export const AdminsPage = () => {
     })
   }
 
-  const handleResendInvitation = admin => {
-    resendInvitation(admin.id, {
+  const handleResendInvite = admin => {
+    resendInvite(admin.id, {
       onSuccess: () => {
         showSuccessToast(t('invite.resend.success'))
       },
@@ -95,7 +95,7 @@ export const AdminsPage = () => {
         {
           icon: Send,
           label: t('contextMenu.resend'),
-          onClick: handleResendInvitation,
+          onClick: handleResendInvite,
           disabled: isResending
         },
         {
@@ -159,7 +159,7 @@ export const AdminsPage = () => {
           label={t('table.column_plural')}
           columns={availableColumns}
         />
-        <InviteButton label={t('invite.cta')} onClick={openInvitationDialog} />
+        <InviteButton label={t('invite.cta')} onClick={openCreateAdminDialog} />
       </Toolbar>
 
       <Table

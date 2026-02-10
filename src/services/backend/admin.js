@@ -37,13 +37,13 @@ export const adminApi = {
     return apiClient.delete(`${ADMIN_TEAMS_PATH}/${id}`)
   },
 
-  inviteTeamMember(teamId, data) {
+  createTeamMember(teamId, data) {
     const url = ADMIN_TEAMS_MEMBERS_PATH.replace(':id', teamId)
 
     return apiClient.post(url, data)
   },
 
-  resendTeamInvite(teamId, memberId) {
+  resendTeamMemberInvite(teamId, memberId) {
     const url = ADMIN_TEAMS_RESEND_INVITE_PATH.replace(':id', teamId).replace(
       ':memberId',
       memberId

@@ -8,11 +8,11 @@ export const ownerApi = {
     return apiClient.get(withQuery(OWNER_ADMINS_PATH, params))
   },
 
-  inviteAdmin(data) {
+  createAdmin(data) {
     return apiClient.post(OWNER_ADMINS_PATH, data)
   },
 
-  resendAdminInvitation(id) {
+  resendAdminInvite(id) {
     return apiClient.post(OWNER_ADMINS_RESEND_INVITE_PATH.replace(':id', id))
   }
 }

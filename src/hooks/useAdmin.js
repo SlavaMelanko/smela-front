@@ -107,11 +107,11 @@ export const useDeleteTeam = () => {
   })
 }
 
-export const useInviteTeamMember = teamId => {
+export const useCreateTeamMember = teamId => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: data => adminApi.inviteTeamMember(teamId, data),
+    mutationFn: data => adminApi.createTeamMember(teamId, data),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: adminKeys.teamDetail(teamId)
@@ -120,11 +120,11 @@ export const useInviteTeamMember = teamId => {
   })
 }
 
-export const useResendTeamInvite = teamId => {
+export const useResendTeamMemberInvite = teamId => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: memberId => adminApi.resendTeamInvite(teamId, memberId),
+    mutationFn: memberId => adminApi.resendTeamMemberInvite(teamId, memberId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: adminKeys.teamDetail(teamId)
