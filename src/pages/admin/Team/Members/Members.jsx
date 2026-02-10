@@ -2,7 +2,7 @@ import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import { useState } from 'react'
 
 import { InviteButton } from '@/components/buttons'
-import { MemberInvitationDialog, ProfileDialog } from '@/components/dialogs'
+import { CreateMemberDialog, ProfileDialog } from '@/components/dialogs'
 import { EmptyState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
 import { useLocale } from '@/hooks/useLocale'
@@ -31,11 +31,9 @@ export const Members = ({ teamId, members }) => {
     })
   }
 
-  const openInvitationDialog = () => {
+  const openCreateMemberDialog = () => {
     const close = openModal({
-      children: (
-        <MemberInvitationDialog teamId={teamId} onClose={() => close()} />
-      )
+      children: <CreateMemberDialog teamId={teamId} onClose={() => close()} />
     })
   }
 
@@ -53,7 +51,7 @@ export const Members = ({ teamId, members }) => {
       <EmptyState text={t('team.members.empty')}>
         <InviteButton
           label={t('invite.cta')}
-          onClick={openInvitationDialog}
+          onClick={openCreateMemberDialog}
           hideTextOnMobile={false}
         />
       </EmptyState>
@@ -74,7 +72,10 @@ export const Members = ({ teamId, members }) => {
           label={t('table.column_plural')}
           columns={availableColumns}
         />
-        <InviteButton label={t('invite.cta')} onClick={openInvitationDialog} />
+        <InviteButton
+          label={t('invite.cta')}
+          onClick={openCreateMemberDialog}
+        />
       </Toolbar>
 
       <Table config={config} onRowClick={openUserProfile} />

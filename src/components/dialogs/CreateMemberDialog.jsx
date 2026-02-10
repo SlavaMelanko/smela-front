@@ -1,16 +1,16 @@
 import { UserInvitationForm } from '@/components/form'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
+import { useCreateTeamMember } from '@/hooks/useAdmin'
 import { useLocale } from '@/hooks/useLocale'
-import { useInviteAdmin } from '@/hooks/useOwner'
 import { useToast } from '@/hooks/useToast'
 
-export const AdminInvitationDialog = ({ onClose }) => {
+export const CreateMemberDialog = ({ teamId, onClose }) => {
   const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
-  const { mutate: inviteAdmin, isPending } = useInviteAdmin()
+  const { mutate: createMember, isPending } = useCreateTeamMember(teamId)
 
   const onSubmit = data => {
-    inviteAdmin(data, {
+    createMember(data, {
       onSuccess: () => {
         showSuccessToast(t('invite.send.success'))
         onClose()
@@ -24,14 +24,10 @@ export const AdminInvitationDialog = ({ onClose }) => {
   return (
     <>
       <DialogHeader onClose={onClose}>
-        <DialogTitle>{t('invite.send.title.admin')}</DialogTitle>
+        <DialogTitle>{t('invite.send.title.member')}</DialogTitle>
       </DialogHeader>
       <DialogBody>
-        <UserInvitationForm
-          isLoading={isPending}
-          onSubmit={onSubmit}
-          customConfig={{ position: false }}
-        />
+        <UserInvitationForm isLoading={isPending} onSubmit={onSubmit} />
       </DialogBody>
     </>
   )

@@ -35,19 +35,19 @@ export const useAdmins = (params = {}) => {
   })
 }
 
-export const useInviteAdmin = () => {
+export const useCreateAdmin = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ownerApi.inviteAdmin,
+    mutationFn: ownerApi.createAdmin,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ownerKeys.admins() })
     }
   })
 }
 
-export const useResendAdminInvitation = () => {
+export const useResendAdminInvite = () => {
   return useMutation({
-    mutationFn: ownerApi.resendAdminInvitation
+    mutationFn: ownerApi.resendAdminInvite
   })
 }
