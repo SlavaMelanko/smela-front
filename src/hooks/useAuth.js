@@ -19,7 +19,6 @@ export const useCurrentUser = () => {
   const query = useQuery({
     queryKey: authKeys.user(),
     queryFn: userApi.getCurrentUser,
-    select: data => data.user,
     enabled: hasAccessToken
   })
 
@@ -29,8 +28,9 @@ export const useCurrentUser = () => {
     isError: hasAccessToken ? query.isError : false,
     error: query.error,
     isSuccess: hasAccessToken ? query.isSuccess : false,
-    user: query.data ?? null,
-    isAuthenticated: !!query.data
+    user: query.data?.user ?? null,
+    team: query.data?.team ?? null,
+    isAuthenticated: !!query.data?.user
   }
 }
 

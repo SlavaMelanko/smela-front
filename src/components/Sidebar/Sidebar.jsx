@@ -1,6 +1,7 @@
 import { ExternalLink } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
+import { TeamBadge } from '@/components/badges'
 import { Copyright } from '@/components/Copyright'
 import { ChevronIcon, Logo } from '@/components/icons'
 import {
@@ -33,7 +34,7 @@ const formatBadge = count => {
   return isNaN(num) || num <= 0 ? '0' : num > 9 ? '9+' : num
 }
 
-export const Sidebar = ({ items }) => {
+export const Sidebar = ({ items, team }) => {
   const { t } = useLocale()
   const { pathname } = useLocation()
   const navigate = useNavigate()
@@ -125,6 +126,7 @@ export const Sidebar = ({ items }) => {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
+        <TeamBadge team={team} />
         <Copyright />
       </SidebarFooter>
     </ShadcnSidebar>
