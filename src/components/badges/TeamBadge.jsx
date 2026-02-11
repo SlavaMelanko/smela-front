@@ -2,7 +2,7 @@ import { Globe, Users } from 'lucide-react'
 
 import { Link } from '@/components/links'
 
-const TeamBadgeContainer = ({ children }) => (
+const TeamBadgeRoot = ({ children }) => (
   <div className='flex items-center gap-2 rounded-lg border border-sidebar-border bg-sidebar-accent/50 px-2 py-4'>
     {children}
   </div>
@@ -49,12 +49,12 @@ export const TeamBadge = ({ team }) => {
   }
 
   return (
-    <TeamBadgeContainer>
+    <TeamBadgeRoot>
       <TeamBadgeIcon icon={Users} />
       <TeamBadgeContent>
         <TeamBadgeName>{team.name}</TeamBadgeName>
         <TeamBadgeWebsite url={team.website} />
       </TeamBadgeContent>
-    </TeamBadgeContainer>
+    </TeamBadgeRoot>
   )
 }
