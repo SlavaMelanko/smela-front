@@ -39,10 +39,6 @@ const TeamBadgePosition = ({ position }) => {
 export const TeamBadge = ({ team }) => {
   const { t } = useLocale()
 
-  if (!team) {
-    return null
-  }
-
   return (
     <TeamBadgeRoot>
       <TeamBadgeIcon icon={Users} />

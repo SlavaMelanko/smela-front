@@ -128,7 +128,7 @@ export const Sidebar = ({ items, team }) => {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <TeamBadge team={team} />
+        {team && <TeamBadge team={team} />}
         <Copyright />
       </SidebarFooter>
     </ShadcnSidebar>
