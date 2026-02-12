@@ -1,7 +1,7 @@
 {
   "name": "smela-front",
   "private": true,
-  "version": "2026.01.14",
+  "version": "2026.02.12",
   "type": "module",
   "scripts": {
     "prepare": "husky",
