@@ -71,7 +71,7 @@ export const Sidebar = ({ items, team }) => {
                     <SidebarMenuItem>
                       <SidebarMenuButton render={<CollapsibleTrigger />}>
                         {item.icon && <item.icon />}
-                        <span>{t(item.title)}</span>
+                        <span className='truncate'>{t(item.title)}</span>
                         <ChevronIcon className='ml-auto group-data-open/collapsible:rotate-180' />
                       </SidebarMenuButton>
                       <CollapsibleContent>
@@ -89,7 +89,9 @@ export const Sidebar = ({ items, team }) => {
                                   isActive={isActive(subItem.url)}
                                   className='h-3/4'
                                 />
-                                <span>{t(subItem.title)}</span>
+                                <span className='truncate'>
+                                  {t(subItem.title)}
+                                </span>
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
                           ))}
@@ -108,7 +110,7 @@ export const Sidebar = ({ items, team }) => {
                         className='h-3/5'
                       />
                       {item.icon && <item.icon />}
-                      <span>{t(item.title)}</span>
+                      <span className='truncate'>{t(item.title)}</span>
                       {item.external && <ExternalLink />}
                     </SidebarMenuButton>
                     {item.badge && (

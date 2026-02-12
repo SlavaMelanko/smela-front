@@ -8,7 +8,7 @@ const ReactQueryDevTools = import.meta.env.DEV
     )
   : () => null
 
-export const TanStackQueryDevTools = ({ position = 'bottom-left' }) => {
+export const TanStackQueryDevTools = ({ position = 'bottom-right' }) => {
   if (!import.meta.env.DEV) {
     return null
   }

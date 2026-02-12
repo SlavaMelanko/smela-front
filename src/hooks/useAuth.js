@@ -43,9 +43,9 @@ export const useLogin = () => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
-        const user = data.user
+        const { user, team } = data
 
-        queryClient.setQueryData(authKeys.user(), { user })
+        queryClient.setQueryData(authKeys.user(), { user, team })
 
         setErrorTrackerUser(user)
       } else {
@@ -77,9 +77,9 @@ export const useUserSignupWithEmail = () => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
-        const user = data.user
+        const { user, team } = data
 
-        queryClient.setQueryData(authKeys.user(), { user })
+        queryClient.setQueryData(authKeys.user(), { user, team })
 
         setErrorTrackerUser(user)
       } else {
@@ -129,9 +129,9 @@ export const useVerifyEmail = ({ onSettled }) => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
-        const user = data.user
+        const { user, team } = data
 
-        queryClient.setQueryData(authKeys.user(), { user })
+        queryClient.setQueryData(authKeys.user(), { user, team })
 
         setErrorTrackerUser(user)
       } else {
@@ -162,9 +162,9 @@ export const useResetPassword = () => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
-        const user = data.user
+        const { user, team } = data
 
-        queryClient.setQueryData(authKeys.user(), { user })
+        queryClient.setQueryData(authKeys.user(), { user, team })
 
         setErrorTrackerUser(user)
       } else {
@@ -195,9 +195,9 @@ export const useAcceptInvite = () => {
       accessTokenStorage.set(data.accessToken)
 
       if (data?.user) {
-        const user = data.user
+        const { user, team } = data
 
-        queryClient.setQueryData(authKeys.user(), { user })
+        queryClient.setQueryData(authKeys.user(), { user, team })
 
         setErrorTrackerUser(user)
       } else {

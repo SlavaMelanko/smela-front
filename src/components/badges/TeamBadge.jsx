@@ -1,6 +1,6 @@
-import { Globe, Users } from 'lucide-react'
+import { Users } from 'lucide-react'
 
-import { Link } from '@/components/links'
+import { useLocale } from '@/hooks/useLocale'
 
 const TeamBadgeRoot = ({ children }) => (
   <div className='flex items-center gap-2 rounded-lg border border-sidebar-border bg-sidebar-accent/50 px-2 py-4'>
@@ -24,26 +24,21 @@ const TeamBadgeName = ({ children }) => (
   </span>
 )
 
-const TeamBadgeWebsite = ({ url }) => {
-  if (!url) {
+const TeamBadgePosition = ({ position }) => {
+  if (!position) {
     return null
   }
 
   return (
-    <Link
-      to={url}
-      size='xs'
-      underline='none'
-      openInNewTab
-      className='flex items-center gap-1 truncate'
-    >
-      <Globe className='size-3 shrink-0' />
-      {url.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-    </Link>
+    <span className='truncate text-xs font-light text-muted-foreground'>
+      {position}
+    </span>
   )
 }
 
 export const TeamBadge = ({ team }) => {
+  const { t } = useLocale()
+
   if (!team) {
     return null
   }
@@ -53,7 +48,7 @@ export const TeamBadge = ({ team }) => {
       <TeamBadgeIcon icon={Users} />
       <TeamBadgeContent>
         <TeamBadgeName>{team.name}</TeamBadgeName>
-        <TeamBadgeWebsite url={team.website} />
+        <TeamBadgePosition position={team.position || t('position.default')} />
       </TeamBadgeContent>
     </TeamBadgeRoot>
   )
