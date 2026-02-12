@@ -10,7 +10,7 @@ const sizeMap = {
 export const Logo = ({ size = 'sm', className }) => {
   const navigate = useNavigate()
 
-  const handleClick = () => {
+  const navigateHome = () => {
     navigate('/')
   }
 
@@ -23,13 +23,13 @@ export const Logo = ({ size = 'sm', className }) => {
         'cursor-pointer rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
         className
       )}
-      onClick={handleClick}
+      onClick={navigateHome}
       role='button'
       tabIndex={0}
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
-          handleClick()
+          navigateHome()
         }
       }}
       aria-label='Navigate to home page'

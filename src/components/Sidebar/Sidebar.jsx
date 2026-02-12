@@ -1,8 +1,9 @@
-import { ChevronDown, ExternalLink } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
+import { TeamBadge } from '@/components/badges'
 import { Copyright } from '@/components/Copyright'
-import { Logo } from '@/components/icons'
+import { ChevronIcon, Logo } from '@/components/icons'
 import {
   Badge,
   Collapsible,
@@ -20,9 +21,12 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarMenuSubButton,
-  SidebarMenuSubItem
+  SidebarMenuSubItem,
+  useSidebar
 } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
+
+import { ActiveIndicator } from './ActiveIndicator'
 
 const formatBadge = count => {
   const num = Number(count)
@@ -30,19 +34,22 @@ const formatBadge = count => {
   return isNaN(num) || num <= 0 ? '0' : num > 9 ? '9+' : num
 }
 
-export const Sidebar = ({ items }) => {
+export const Sidebar = ({ items, team }) => {
   const { t } = useLocale()
   const { pathname } = useLocation()
   const navigate = useNavigate()
+  const { setOpenMobile } = useSidebar()
 
   const isActive = url => pathname === url || pathname.startsWith(`${url}/`)
 
-  const handleClick = item => {
+  const navigateTo = item => {
     if (item.external) {
       window.open(item.url, '_blank', 'noopener,noreferrer')
     } else {
       navigate(item.url)
     }
+
+    setOpenMobile(false)
   }
 
   return (
@@ -64,8 +71,8 @@ export const Sidebar = ({ items }) => {
                     <SidebarMenuItem>
                       <SidebarMenuButton render={<CollapsibleTrigger />}>
                         {item.icon && <item.icon />}
-                        <span>{t(item.title)}</span>
-                        <ChevronDown className='ml-auto shrink-0 transition-transform group-data-[state=open]/collapsible:rotate-180' />
+                        <span className='truncate'>{t(item.title)}</span>
+                        <ChevronIcon className='ml-auto group-data-open/collapsible:rotate-180' />
                       </SidebarMenuButton>
                       <CollapsibleContent>
                         <SidebarMenuSub>
@@ -73,9 +80,18 @@ export const Sidebar = ({ items }) => {
                             <SidebarMenuSubItem key={subItem.title}>
                               <SidebarMenuSubButton
                                 isActive={isActive(subItem.url)}
-                                onClick={() => navigate(subItem.url)}
+                                onClick={() => {
+                                  navigate(subItem.url)
+                                  setOpenMobile(false)
+                                }}
                               >
-                                <span>{t(subItem.title)}</span>
+                                <ActiveIndicator
+                                  isActive={isActive(subItem.url)}
+                                  className='h-3/4'
+                                />
+                                <span className='truncate'>
+                                  {t(subItem.title)}
+                                </span>
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
                           ))}
@@ -87,10 +103,14 @@ export const Sidebar = ({ items }) => {
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       isActive={isActive(item.url)}
-                      onClick={() => handleClick(item)}
+                      onClick={() => navigateTo(item)}
                     >
+                      <ActiveIndicator
+                        isActive={isActive(item.url)}
+                        className='h-3/5'
+                      />
                       {item.icon && <item.icon />}
-                      <span>{t(item.title)}</span>
+                      <span className='truncate'>{t(item.title)}</span>
                       {item.external && <ExternalLink />}
                     </SidebarMenuButton>
                     {item.badge && (
@@ -108,6 +128,7 @@ export const Sidebar = ({ items }) => {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
+        {team && <TeamBadge team={team} />}
         <Copyright />
       </SidebarFooter>
     </ShadcnSidebar>

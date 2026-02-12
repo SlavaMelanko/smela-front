@@ -1,44 +1,21 @@
-import { useMemo } from 'react'
-
 import { Multiselect } from '@/components/inputs'
-import useLocale from '@/hooks/useLocale'
-import { Role, UserStatus } from '@/lib/types'
+import { useLocale } from '@/hooks/useLocale'
+import { UserStatus } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 export const Filters = ({ isShow, params, setParams }) => {
   const { t } = useLocale()
 
-  const roleOptions = useMemo(
-    () =>
-      Object.values(Role).map(role => ({
-        label: t(`role.values.${role}`),
-        value: role
-      })),
-    [t]
-  )
-
-  const statusOptions = useMemo(
-    () =>
-      Object.values(UserStatus).map(status => ({
-        label: t(`status.values.${status}`),
-        value: status
-      })),
-    [t]
-  )
-
-  const selectedRoles = roleOptions.filter(opt =>
-    params.roles.includes(opt.value)
-  )
+  const statusOptions = Object.values(UserStatus).map(status => ({
+    label: t(`status.values.${status}`),
+    value: status
+  }))
 
   const selectedStatuses = statusOptions.filter(opt =>
     params.statuses.includes(opt.value)
   )
 
-  const handleRoleChange = selected => {
-    setParams({ roles: selected.map(s => s.value) }, { resetPage: true })
-  }
-
-  const handleStatusChange = selected => {
+  const changeStatus = selected => {
     setParams({ statuses: selected.map(s => s.value) }, { resetPage: true })
   }
 
@@ -46,22 +23,15 @@ export const Filters = ({ isShow, params, setParams }) => {
     <div
       className={cn(
         'grid grid-rows-[0fr] rounded-md border border-transparent bg-background transition-all duration-300',
-        isShow && 'grid-rows-[1fr] border-border'
+        isShow && 'mt-4 grid-rows-[1fr] border-border md:mt-6 lg:mt-8' // margin matches PageContent gap
       )}
     >
       <div className='overflow-hidden'>
         <div className='flex flex-col gap-6 p-4 md:flex-row md:*:min-w-48 md:*:flex-1'>
           <Multiselect
-            options={roleOptions}
-            value={selectedRoles}
-            onChange={handleRoleChange}
-            placeholder={t('role.placeholder')}
-          />
-
-          <Multiselect
             options={statusOptions}
             value={selectedStatuses}
-            onChange={handleStatusChange}
+            onChange={changeStatus}
             placeholder={t('status.placeholder')}
           />
         </div>

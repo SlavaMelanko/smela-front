@@ -1,14 +1,20 @@
 import { Controller } from 'react-hook-form'
 
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
-import { Error, FieldWrapper, InputWrapper, Label } from './elements'
+import {
+  FormError,
+  FormFieldWrapper,
+  FormInputWrapper,
+  FormLabel
+} from './Form'
 
 /**
  * Form field wrapper for controlled components using Controller.
- * Use with: Select, Switch, DatePicker, Multiselect
+ * Use with: Select, DatePicker, Multiselect
  *
  * For native inputs (Input, Textarea, Checkbox), use FormField with register().
+ * For inline layout (Switch on same line as label), use FormBoolController.
  *
  * @example
  * <FormController
@@ -34,13 +40,13 @@ export const FormController = ({
   const { t } = useLocale()
 
   return (
-    <FieldWrapper hasError={!!error}>
+    <FormFieldWrapper hasError={!!error}>
       {label && (
-        <Label htmlFor={name} optional={optional}>
+        <FormLabel htmlFor={name} optional={optional}>
           {label}
-        </Label>
+        </FormLabel>
       )}
-      <InputWrapper>
+      <FormInputWrapper>
         <Controller
           name={name}
           control={control}
@@ -48,9 +54,9 @@ export const FormController = ({
           rules={rules}
           render={({ field }) => render({ field, error })}
         />
-      </InputWrapper>
+      </FormInputWrapper>
       {/* Always rendered for smooth enter/exit CSS transitions */}
-      <Error message={error?.message ? t(error.message) : null} />
-    </FieldWrapper>
+      <FormError message={error?.message ? t(error.message) : null} />
+    </FormFieldWrapper>
   )
 }

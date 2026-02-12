@@ -1,31 +1,13 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 
-import { localStorage } from '@/lib/storage'
-
-const THEME_STORAGE_KEY = 'theme'
+import { loadTheme, storeTheme } from '@/lib/userPreferences'
 
 const ThemeContext = createContext()
 
-const getInitialTheme = () => {
-  const savedTheme = localStorage.get(THEME_STORAGE_KEY)
-
-  if (savedTheme) {
-    return savedTheme
-  }
-
-  const prefersDark = window.matchMedia?.(
-    '(prefers-color-scheme: dark)'
-  ).matches
-
-  return prefersDark ? 'dark' : 'light'
-}
-
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(getInitialTheme)
+  const [theme, setTheme] = useState(loadTheme)
 
   useEffect(() => {
-    localStorage.set(THEME_STORAGE_KEY, theme)
-
     const root = document.documentElement
 
     root.classList.remove('light', 'dark')
@@ -33,6 +15,8 @@ export const ThemeProvider = ({ children }) => {
 
     // Ensure browser-native UI (like form controls and scrollbars) match the theme
     root.style.colorScheme = theme
+
+    storeTheme(theme)
   }, [theme])
 
   const toggleTheme = useCallback(() => {
@@ -41,7 +25,7 @@ export const ThemeProvider = ({ children }) => {
 
   const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme])
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  return <ThemeContext value={value}>{children}</ThemeContext>
 }
 
 export default ThemeContext

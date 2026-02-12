@@ -1,14 +1,14 @@
-import { RoleBadge, StatusBadge } from '@/components/badges'
+import { StatusBadge } from '@/components/badges'
 import { EmailLink } from '@/components/links'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
 const Row = ({ children }) => (
   <div className='flex items-center gap-2 text-foreground'>{children}</div>
 )
 
 const Label = ({ children }) => (
-  <span className='font-medium text-muted-foreground'>{children}:</span>
+  <span className='text-muted-foreground'>{children}:</span>
 )
 
 export const ProfileDialog = ({ profile, onClose }) => {
@@ -19,7 +19,6 @@ export const ProfileDialog = ({ profile, onClose }) => {
     { label: t('firstName.label'), value: <span>{profile.firstName}</span> },
     { label: t('lastName.label'), value: <span>{profile.lastName}</span> },
     { label: t('email.label'), value: <EmailLink email={profile.email} /> },
-    { label: t('role.name'), value: <RoleBadge role={profile.role} /> },
     { label: t('status.name'), value: <StatusBadge status={profile.status} /> }
   ]
 

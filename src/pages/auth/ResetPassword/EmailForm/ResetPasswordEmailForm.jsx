@@ -7,10 +7,9 @@ import {
   SubmitButton
 } from '@/components/form'
 import { Input } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
-import { FieldName, getDefaultValues } from './fields'
-import resolver from './resolver'
+import { FieldName, getDefaultValues, resolver } from './schema'
 
 export const EmailForm = ({ isLoading, onSubmit }) => {
   const { t } = useLocale()
@@ -27,11 +26,12 @@ export const EmailForm = ({ isLoading, onSubmit }) => {
   return (
     <FormRoot onSubmit={handleSubmit(data => onSubmit(data))}>
       <FormFields>
-        <FormField name={FieldName.EMAIL} error={errors[FieldName.EMAIL]}>
-          <Input
-            placeholder={t('email.example')}
-            {...register(FieldName.EMAIL)}
-          />
+        <FormField
+          label={t('email.label')}
+          name={FieldName.EMAIL}
+          error={errors[FieldName.EMAIL]}
+        >
+          <Input {...register(FieldName.EMAIL)} />
         </FormField>
       </FormFields>
 

@@ -8,10 +8,9 @@ import {
 } from '@/components/form'
 import { PasswordInput } from '@/components/inputs'
 import { Input } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
-import { FieldName, getDefaultValues } from './fields'
-import resolver from './resolver'
+import { FieldName, getDefaultValues, resolver } from './schema'
 
 export const LoginForm = ({ isLoading, onSubmit }) => {
   const { t } = useLocale()
@@ -28,18 +27,20 @@ export const LoginForm = ({ isLoading, onSubmit }) => {
   return (
     <FormRoot onSubmit={handleSubmit(data => onSubmit(data))}>
       <FormFields>
-        <FormField name={FieldName.EMAIL} error={errors[FieldName.EMAIL]}>
-          <Input
-            placeholder={t('email.placeholder')}
-            {...register(FieldName.EMAIL)}
-          />
+        <FormField
+          label={t('email.label')}
+          name={FieldName.EMAIL}
+          error={errors[FieldName.EMAIL]}
+        >
+          <Input {...register(FieldName.EMAIL)} />
         </FormField>
 
-        <FormField name={FieldName.PASSWORD} error={errors[FieldName.PASSWORD]}>
-          <PasswordInput
-            placeholder={t('password.placeholder.default')}
-            {...register(FieldName.PASSWORD)}
-          />
+        <FormField
+          label={t('password.label.default')}
+          name={FieldName.PASSWORD}
+          error={errors[FieldName.PASSWORD]}
+        >
+          <PasswordInput {...register(FieldName.PASSWORD)} />
         </FormField>
       </FormFields>
 

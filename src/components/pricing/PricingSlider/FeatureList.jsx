@@ -6,8 +6,9 @@ import {
   UserPlus
 } from 'lucide-react'
 
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
+
+import { Feature } from '../Pricing'
 
 const featureMap = {
   emailSupport: {
@@ -70,10 +71,7 @@ const FeatureList = ({ value }) => {
       <ul className='m-0 flex list-none flex-wrap justify-end gap-4 p-0'>
         {features.map(({ icon, text }) => (
           <li key={text} className='flex items-center'>
-            <Tooltip>
-              <TooltipTrigger>{icon}</TooltipTrigger>
-              <TooltipContent>{t(text)}</TooltipContent>
-            </Tooltip>
+            <Feature icon={icon} text={t(text)} />
           </li>
         ))}
       </ul>

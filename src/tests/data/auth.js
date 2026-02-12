@@ -27,7 +27,6 @@ export const auth = {
   },
   email: {
     ok: 'example@example.com',
-    admin: 'slava.admin@smela.com',
     invalid: 'examp@',
     noAt: 'example.com',
     noDomain: 'example@',
@@ -38,12 +37,7 @@ export const auth = {
     specialChars: 'user+tag@example.com',
     subdomain: 'user@mail.example.com',
     numbers: 'user123@example.com',
-    empty: '',
-    generate: (options = {}) => {
-      const { prefix, suffix = Date.now(), domain = 'example.com' } = options
-
-      return `${prefix}.${suffix}@${domain}`
-    }
+    empty: ''
   },
   password: {
     strong: 'Password123!',

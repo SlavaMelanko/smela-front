@@ -6,15 +6,15 @@ import { ForgotYourPasswordPrompt, SignupPrompt } from '@/components/prompts'
 import { TextSeparator } from '@/components/Separator'
 import { Button } from '@/components/ui'
 import { useLogin, useLoginWithGoogle } from '@/hooks/useAuth'
-import useCaptcha from '@/hooks/useCaptcha'
-import useLocale from '@/hooks/useLocale'
-import useToast from '@/hooks/useToast'
-import { toTranslationKey } from '@/services/catch'
+import { useCaptcha } from '@/hooks/useCaptcha'
+import { useLocale } from '@/hooks/useLocale'
+import { useToast } from '@/hooks/useToast'
 
+import { AuthRoot } from '../Auth'
 import { LoginForm } from './Form'
 
 export const LoginPage = () => {
-  const { t } = useLocale()
+  const { t, te } = useLocale()
   const navigate = useNavigate()
   const { mutate: logInWithEmail, isPending: isEmailPending } = useLogin()
   const { mutate: logInWithGoogle, isPending: isGooglePending } =
@@ -32,13 +32,13 @@ export const LoginPage = () => {
     }
 
     logInWithEmail(
-      { data, captcha: { token } },
+      { ...data, captcha: { token } },
       {
         onSuccess: () => {
           navigate('/')
         },
-        onError: err => {
-          showErrorToast(t(toTranslationKey(err)))
+        onError: error => {
+          showErrorToast(te(error))
         }
       }
     )
@@ -49,15 +49,15 @@ export const LoginPage = () => {
       onSuccess: () => {
         navigate('/')
       },
-      onError: err => {
-        showErrorToast(t(toTranslationKey(err)))
+      onError: error => {
+        showErrorToast(te(error))
       }
     })
   }
 
   return (
     <>
-      <div className='flex flex-col gap-8'>
+      <AuthRoot>
         <div className='flex flex-col gap-2'>
           <LoginForm isLoading={isEmailPending} onSubmit={handleLogin} />
 
@@ -79,7 +79,7 @@ export const LoginPage = () => {
         <SignupPrompt />
 
         <ForgotYourPasswordPrompt />
-      </div>
+      </AuthRoot>
 
       <InvisibleReCaptcha ref={captchaRef} />
     </>

@@ -1,7 +1,7 @@
 import { Link } from '@/components/links'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
-import { Prompt } from './elements'
+import { Prompt } from './Prompt'
 
 export const SignupPrompt = ({ size = 'sm' }) => {
   const { t } = useLocale()

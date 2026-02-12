@@ -1,12 +1,20 @@
 import * as yup from 'yup'
 
 import {
+  DescriptionConstraint,
   EmailConstraint,
   NameConstraint,
-  PasswordConstraint
+  PasswordConstraint,
+  TeamNameConstraint
 } from './constants'
 
 const requiredStr = errorMessage => yup.string().trim().required(errorMessage)
+
+const optionalStr = () =>
+  yup
+    .string()
+    .trim()
+    .transform(value => (value === '' ? undefined : value))
 
 export const firstName = requiredStr('firstName.error.required')
   .min(NameConstraint.MIN_LENGTH, 'firstName.error.min')
@@ -43,3 +51,22 @@ export const password = {
       excludeEmptyString: true
     })
 }
+
+export const url = errorMessage =>
+  yup
+    .string()
+    .trim()
+    .transform(value => (value === '' ? undefined : value))
+    .url(errorMessage)
+
+export const teamName = errors =>
+  requiredStr(errors.required)
+    .min(TeamNameConstraint.MIN_LENGTH, errors.min)
+    .max(TeamNameConstraint.MAX_LENGTH, errors.max)
+
+export const description = errorMessage =>
+  optionalStr().max(DescriptionConstraint.MAX_LENGTH, errorMessage)
+
+export const position = optionalStr()
+  .min(NameConstraint.MIN_LENGTH, 'position.error.min')
+  .max(NameConstraint.MAX_LENGTH, 'position.error.max')

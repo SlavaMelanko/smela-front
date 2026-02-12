@@ -30,7 +30,7 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...reactPlugin.configs.recommended.rules,
-      ...reactHooks.configs.recommended.rules,
+      ...reactHooks.configs['recommended-latest'].rules,
       ...tanstackQuery.configs.recommended.rules,
 
       'react/react-in-jsx-scope': 'off',

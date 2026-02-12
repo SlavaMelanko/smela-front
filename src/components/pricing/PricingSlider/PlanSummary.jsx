@@ -1,6 +1,6 @@
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
-import { Bandwidth, PricePerUnit, TotalPrice } from '../elements'
+import { Bandwidth, PricePerUnit, TotalPrice } from '../Pricing'
 
 const getPricePerGB = bandwidth => {
   const price = 4 - ((bandwidth - 1) / 998) * 2

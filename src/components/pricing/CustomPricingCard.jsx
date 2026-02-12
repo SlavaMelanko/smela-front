@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-const CustomPricingCard = ({
+export const CustomPricingCard = ({
   title,
   totalPrice,
   customMessage,
@@ -12,7 +12,7 @@ const CustomPricingCard = ({
   return (
     <div
       className={cn(
-        'relative flex h-[460px] w-full flex-col rounded-lg border bg-card p-4 shadow-sm transition-shadow hover:border-primary hover:shadow-lg',
+        'relative flex min-h-[460px] w-full flex-col rounded-lg border bg-card p-4 shadow-sm transition-shadow hover:border-primary hover:shadow-lg sm:h-[460px]',
         className
       )}
     >
@@ -41,5 +41,3 @@ const CustomPricingCard = ({
     </div>
   )
 }
-
-export default CustomPricingCard

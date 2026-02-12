@@ -1,21 +1,15 @@
 import { useNavigate } from 'react-router-dom'
 
-import {
-  Badge,
-  Button,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger
-} from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { Badge, Button } from '@/components/ui'
+import { useLocale } from '@/hooks/useLocale'
 
-import { Bandwidth, PricePerUnit, TotalPrice } from './elements'
+import { Bandwidth, Feature, PricePerUnit, TotalPrice } from './Pricing'
 
 const translateUnit = (unit, t) => {
   return t(`unit.traffic.${unit.toLowerCase()}`)
 }
 
-const StandardPricingCard = ({
+export const StandardPricingCard = ({
   title,
   bandwidth,
   pricePerUnit,
@@ -28,7 +22,7 @@ const StandardPricingCard = ({
   const navigate = useNavigate()
 
   return (
-    <div className='relative flex h-[460px] w-full flex-col rounded-lg border bg-card p-4 shadow-sm transition-shadow hover:border-primary hover:shadow-lg'>
+    <div className='relative flex min-h-[460px] w-full flex-col rounded-lg border bg-card p-4 shadow-sm transition-shadow hover:border-primary hover:shadow-lg sm:h-[460px]'>
       {discountPercent > 0 && (
         <Badge variant='discount' className='absolute -top-4 -right-3'>
           {t('pricing.discount.label', { percent: discountPercent })}
@@ -53,14 +47,13 @@ const StandardPricingCard = ({
         final={formatPrice(totalPrice.final)}
       />
 
-      <div className='flex flex-1 flex-wrap items-center justify-center gap-6'>
+      <ul className='m-0 flex flex-1 list-none flex-wrap items-center justify-center gap-6 p-0'>
         {features.map((feature, index) => (
-          <Tooltip key={index}>
-            <TooltipTrigger>{feature.icon}</TooltipTrigger>
-            <TooltipContent>{feature.text}</TooltipContent>
-          </Tooltip>
+          <li key={index} className='flex items-center'>
+            <Feature icon={feature.icon} text={feature.text} />
+          </li>
         ))}
-      </div>
+      </ul>
 
       <Button
         className='mt-auto w-full uppercase'
@@ -71,5 +64,3 @@ const StandardPricingCard = ({
     </div>
   )
 }
-
-export default StandardPricingCard

@@ -8,10 +8,9 @@ import {
 } from '@/components/form'
 import { PasswordInput } from '@/components/inputs'
 import { Input } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
-import { FieldName, getDefaultValues } from './fields'
-import resolver from './resolver'
+import { FieldName, getDefaultValues, resolver } from './schema'
 
 export const SignupForm = ({ isLoading, onSubmit }) => {
   const { t } = useLocale()
@@ -33,10 +32,7 @@ export const SignupForm = ({ isLoading, onSubmit }) => {
           name={FieldName.FIRST_NAME}
           error={errors[FieldName.FIRST_NAME]}
         >
-          <Input
-            placeholder={t('firstName.example')}
-            {...register(FieldName.FIRST_NAME)}
-          />
+          <Input {...register(FieldName.FIRST_NAME)} />
         </FormField>
 
         <FormField
@@ -45,10 +41,7 @@ export const SignupForm = ({ isLoading, onSubmit }) => {
           error={errors[FieldName.LAST_NAME]}
           optional
         >
-          <Input
-            placeholder={t('lastName.example')}
-            {...register(FieldName.LAST_NAME)}
-          />
+          <Input {...register(FieldName.LAST_NAME)} />
         </FormField>
 
         <FormField
@@ -56,21 +49,15 @@ export const SignupForm = ({ isLoading, onSubmit }) => {
           name={FieldName.EMAIL}
           error={errors[FieldName.EMAIL]}
         >
-          <Input
-            placeholder={t('email.example')}
-            {...register(FieldName.EMAIL)}
-          />
+          <Input {...register(FieldName.EMAIL)} />
         </FormField>
 
         <FormField
-          label={t('password.label')}
+          label={t('password.label.default')}
           name={FieldName.PASSWORD}
           error={errors[FieldName.PASSWORD]}
         >
-          <PasswordInput
-            placeholder={t('password.placeholder.masked')}
-            {...register(FieldName.PASSWORD)}
-          />
+          <PasswordInput {...register(FieldName.PASSWORD)} />
         </FormField>
       </FormFields>
 

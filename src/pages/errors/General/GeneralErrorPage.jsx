@@ -1,23 +1,31 @@
 import { ServerCrash } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
-import { Action, Description, Icon, Title } from '../components'
-import { Container, Content } from '../containers'
+import {
+  ErrorButton,
+  ErrorContent,
+  ErrorDescription,
+  ErrorIcon,
+  ErrorRoot,
+  ErrorTitle
+} from '../Error'
 
 export const GeneralErrorPage = () => {
   const { t } = useLocale()
   const navigate = useNavigate()
 
   return (
-    <Container data-testid='general-error-page'>
-      <Icon as={ServerCrash} />
-      <Content>
-        <Title>{t('error.general.title')}</Title>
-        <Description>{t('error.general.message')}</Description>
-      </Content>
-      <Action onClick={() => navigate('/')}>{t('error.general.cta')}</Action>
-    </Container>
+    <ErrorRoot data-testid='general-error-page'>
+      <ErrorIcon as={ServerCrash} />
+      <ErrorContent>
+        <ErrorTitle>{t('error.general.title')}</ErrorTitle>
+        <ErrorDescription>{t('error.general.message')}</ErrorDescription>
+      </ErrorContent>
+      <ErrorButton onClick={() => navigate('/')}>
+        {t('error.general.cta')}
+      </ErrorButton>
+    </ErrorRoot>
   )
 }

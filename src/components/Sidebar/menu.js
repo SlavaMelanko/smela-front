@@ -4,6 +4,8 @@ import {
   LayoutDashboard,
   MapPinCheckInside,
   Settings,
+  ShieldCheck,
+  User,
   Users
 } from 'lucide-react'
 
@@ -46,19 +48,50 @@ export const adminMenuItems = [
   {
     title: 'sidebar.users',
     url: '/admin/users',
+    icon: User
+  },
+  {
+    title: 'sidebar.teams',
+    url: '/admin/teams',
     icon: Users
   },
   {
     title: 'sidebar.settings',
-    url: '/settings',
+    url: '/admin/settings',
+    icon: Settings
+  }
+]
+
+export const ownerMenuItems = [
+  {
+    title: 'sidebar.dashboard',
+    url: '/admin/dashboard',
+    icon: LayoutDashboard
+  },
+  {
+    title: 'sidebar.users',
+    url: '/admin/users',
+    icon: User
+  },
+  {
+    title: 'sidebar.teams',
+    url: '/admin/teams',
+    icon: Users
+  },
+  {
+    title: 'sidebar.admins',
+    url: '/owner/admins',
+    icon: ShieldCheck
+  },
+  {
+    title: 'sidebar.settings',
+    url: '/admin/settings',
     icon: Settings
   }
 ]
 
 export const menuByRole = {
   [Role.USER]: userMenuItems,
-  [Role.ENTERPRISE]: userMenuItems,
   [Role.ADMIN]: adminMenuItems,
-  [Role.OWNER]: adminMenuItems,
-  [Role.GUEST]: []
+  [Role.OWNER]: ownerMenuItems
 }

@@ -47,6 +47,14 @@ export class ApiClient {
     })
   }
 
+  patch(path, data, options = {}) {
+    return this.#doRequest(path, {
+      ...options,
+      method: 'PATCH',
+      body: JSON.stringify(data)
+    })
+  }
+
   delete(path, options = {}) {
     return this.#doRequest(path, {
       ...options,

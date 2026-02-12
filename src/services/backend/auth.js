@@ -1,5 +1,7 @@
 import apiClient from './apiClient'
 import {
+  ACCEPT_INVITE_PATH,
+  CHECK_INVITE_PATH,
   LOGIN_PATH,
   LOGOUT_PATH,
   REQUEST_PASSWORD_RESET_PATH,
@@ -9,7 +11,7 @@ import {
   VERIFY_EMAIL_PATH
 } from './paths'
 
-const authService = {
+export const authApi = {
   signUp(data) {
     return apiClient.post(SIGNUP_PATH, data)
   },
@@ -34,9 +36,17 @@ const authService = {
     return apiClient.post(RESET_PASSWORD_PATH, data)
   },
 
+  checkInvite(token) {
+    return apiClient.get(
+      `${CHECK_INVITE_PATH}?token=${encodeURIComponent(token)}`
+    )
+  },
+
+  acceptInvite(data) {
+    return apiClient.post(ACCEPT_INVITE_PATH, data)
+  },
+
   logOut() {
     return apiClient.post(LOGOUT_PATH)
   }
 }
-
-export default authService

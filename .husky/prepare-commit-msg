@@ -1,4 +1,10 @@
 #!/bin/sh
+
+# Adds 📦 emoji to commit messages when environment files change.
+# This is a visual indicator that a new Docker image will be built
+# (via .github/workflows/docker-ci.yml) with pre-installed packages
+# to speed up CI/CD builds.
+
 set -e
 
 COMMIT_MSG_FILE=$1
@@ -18,7 +24,7 @@ if [ -z "$STAGED_FILES" ]; then
 fi
 
 # Check for Docker CI-related changes
-HAS_DOCKER_CI_CHANGES=$(echo "$STAGED_FILES" | grep -E "^(Dockerfile\.ci|package-lock\.json|\.github/workflows/docker-ci\.yml)$" || true)
+HAS_DOCKER_CI_CHANGES=$(echo "$STAGED_FILES" | grep -E "^(Dockerfile\.ci|pnpm-lock\.yaml|\.npmrc|\.github/workflows/docker-ci\.yml)$" || true)
 
 # Add package emoji if any Docker CI files changed
 if [ -n "$HAS_DOCKER_CI_CHANGES" ]; then

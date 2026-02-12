@@ -13,7 +13,10 @@ const renderForm = (onSubmit = jest.fn(), isLoading = false) => {
   )
 
   return {
-    passwordInput: screen.getByPlaceholderText(en.password.placeholder.new),
+    passwordInput: screen.getByLabelText(en.password.label.new, {
+      exact: false,
+      selector: 'input'
+    }),
     submitButton: screen.getByRole('button', {
       name: isLoading ? en.processing : en.password.reset.set.cta
     })

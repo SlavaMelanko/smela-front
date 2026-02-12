@@ -3,6 +3,15 @@ export const NameConstraint = {
   MAX_LENGTH: 50
 }
 
+export const TeamNameConstraint = {
+  MIN_LENGTH: 2,
+  MAX_LENGTH: 100
+}
+
+export const DescriptionConstraint = {
+  MAX_LENGTH: 500
+}
+
 export const PasswordConstraint = {
   MIN_LENGTH: 8,
   // Requires at least one uppercase letter, one digit, and one special character

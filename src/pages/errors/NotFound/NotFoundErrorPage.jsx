@@ -2,11 +2,17 @@ import { SearchX } from 'lucide-react'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 import { captureMessage } from '@/services/errorTracker'
 
-import { Action, Description, Icon, Title } from '../components'
-import { Container, Content } from '../containers'
+import {
+  ErrorButton,
+  ErrorContent,
+  ErrorDescription,
+  ErrorIcon,
+  ErrorRoot,
+  ErrorTitle
+} from '../Error'
 
 export const NotFoundErrorPage = () => {
   const { t } = useLocale()
@@ -18,13 +24,15 @@ export const NotFoundErrorPage = () => {
   }, [location.pathname, location.search])
 
   return (
-    <Container data-testid='not-found-error-page'>
-      <Icon as={SearchX} />
-      <Content>
-        <Title>{t('error.notFound.title')}</Title>
-        <Description>{t('error.notFound.message')}</Description>
-      </Content>
-      <Action onClick={() => navigate('/')}>{t('error.notFound.cta')}</Action>
-    </Container>
+    <ErrorRoot data-testid='not-found-error-page'>
+      <ErrorIcon as={SearchX} />
+      <ErrorContent>
+        <ErrorTitle>{t('error.notFound.title')}</ErrorTitle>
+        <ErrorDescription>{t('error.notFound.message')}</ErrorDescription>
+      </ErrorContent>
+      <ErrorButton onClick={() => navigate('/')}>
+        {t('error.notFound.cta')}
+      </ErrorButton>
+    </ErrorRoot>
   )
 }

@@ -4,8 +4,8 @@ export const createError = async response => {
   let errorData = {}
 
   if (!response.bodyUsed) {
-    errorData = await response.json().catch(err => {
-      console.warn('Failed to parse error response:', err.message)
+    errorData = await response.json().catch(error => {
+      console.warn('Failed to parse error response:', error.message)
 
       return {}
     })

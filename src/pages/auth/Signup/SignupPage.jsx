@@ -9,16 +9,16 @@ import {
   useUserSignupWithEmail,
   useUserSignupWithGoogle
 } from '@/hooks/useAuth'
-import useCaptcha from '@/hooks/useCaptcha'
-import useLocale from '@/hooks/useLocale'
-import useTheme from '@/hooks/useTheme'
-import useToast from '@/hooks/useToast'
-import { toTranslationKey } from '@/services/catch'
+import { useCaptcha } from '@/hooks/useCaptcha'
+import { useLocale } from '@/hooks/useLocale'
+import { useTheme } from '@/hooks/useTheme'
+import { useToast } from '@/hooks/useToast'
 
+import { AuthRoot } from '../Auth'
 import { SignupForm } from './Form'
 
 export const SignupPage = () => {
-  const { t, locale } = useLocale()
+  const { t, te, locale } = useLocale()
   const { theme } = useTheme()
   const navigate = useNavigate()
   const { showErrorToast } = useToast()
@@ -40,13 +40,13 @@ export const SignupPage = () => {
     const preferences = { locale, theme }
 
     signUpWithEmail(
-      { data, captcha: { token }, preferences },
+      { ...data, captcha: { token }, preferences },
       {
         onSuccess: () => {
           navigate('/email-confirmation', { state: { email: data.email } })
         },
-        onError: err => {
-          showErrorToast(t(toTranslationKey(err)))
+        onError: error => {
+          showErrorToast(te(error))
         }
       }
     )
@@ -57,15 +57,15 @@ export const SignupPage = () => {
       onSuccess: () => {
         navigate('/')
       },
-      onError: err => {
-        showErrorToast(t(toTranslationKey(err)))
+      onError: error => {
+        showErrorToast(te(error))
       }
     })
   }
 
   return (
     <>
-      <div className='flex flex-col gap-8'>
+      <AuthRoot>
         <div className='flex flex-col gap-2'>
           <SignupForm
             isLoading={isEmailPending}
@@ -92,7 +92,7 @@ export const SignupPage = () => {
         </div>
 
         <LoginPrompt question={t('alreadyHaveAccount')} />
-      </div>
+      </AuthRoot>
 
       <InvisibleReCaptcha ref={captchaRef} />
     </>

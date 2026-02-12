@@ -1,10 +1,8 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useLocale } from '@/hooks/useLocale'
 
-import { Button } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
-
-import { RowsPerPageDropdown } from './elements/RowsPerPageDropdown'
 import { defaultOptions, limitOptions } from './options'
+import { NextButton, PrevButton } from './PaginationButtons'
+import { RowsPerPageDropdown } from './RowsPerPageDropdown'
 
 export const Pagination = ({
   pagination = defaultOptions,
@@ -20,54 +18,38 @@ export const Pagination = ({
   const canGoBack = page > 1
   const canGoForward = page < totalPages
 
-  const handlePrevPage = () => {
+  const goToPrevPage = () => {
     if (canGoBack) {
       onPageChange?.(page - 1)
     }
   }
 
-  const handleNextPage = () => {
+  const goToNextPage = () => {
     if (canGoForward) {
       onPageChange?.(page + 1)
     }
   }
 
-  const handleLimitChange = value => {
+  const changeLimit = value => {
     onLimitChange?.(Number(value))
   }
 
   return (
-    <div className='flex h-11 items-center justify-end gap-6 text-muted-foreground'>
-      <div className='flex items-center gap-2'>
-        <span>{t('pagination.rowsPerPage')}</span>
+    <div className='flex h-11 items-center justify-end gap-4 text-muted-foreground md:gap-6'>
+      <div className='flex items-center gap-1 md:gap-2'>
+        <span>{t('pagination.limit')}</span>
         <RowsPerPageDropdown
           value={limit}
           options={limitOptions}
-          onChange={handleLimitChange}
+          onChange={changeLimit}
         />
       </div>
       <p>
         {start} - {end} {t('pagination.of')} {total}
       </p>
       <div className='flex items-center gap-2'>
-        <Button
-          variant='ghost'
-          size='icon'
-          className='size-11'
-          onClick={handlePrevPage}
-          disabled={!canGoBack}
-        >
-          <ChevronLeft className='size-4' />
-        </Button>
-        <Button
-          variant='ghost'
-          size='icon'
-          className='size-11'
-          onClick={handleNextPage}
-          disabled={!canGoForward}
-        >
-          <ChevronRight className='size-4' />
-        </Button>
+        <PrevButton onClick={goToPrevPage} disabled={!canGoBack} />
+        <NextButton onClick={goToNextPage} disabled={!canGoForward} />
       </div>
     </div>
   )

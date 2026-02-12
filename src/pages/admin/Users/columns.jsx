@@ -1,42 +1,44 @@
 import { StatusBadge } from '@/components/badges'
-import { RoleIcon } from '@/components/icons'
 import { getFullName } from '@/lib/format/user'
 
-export const getAccessibleColumns = (t, formatDate) => [
-  {
-    accessorKey: 'id',
-    header: t('table.users.id'),
-    size: 60
-  },
-  {
-    accessorKey: 'role',
-    header: t('table.users.role'),
-    size: 60,
-    cell: info => <RoleIcon role={info.getValue()} />
-  },
-  {
-    accessorKey: 'name',
-    header: t('table.users.name'),
-    accessorFn: row => getFullName(row),
-    cell: info => getFullName(info.row.original),
-    sortingFn: 'alphanumeric',
-    size: 180
-  },
-  {
-    accessorKey: 'email',
-    header: t('table.users.email'),
-    size: 220
-  },
-  {
-    accessorKey: 'status',
-    header: t('table.users.status'),
-    size: 100,
-    cell: info => <StatusBadge status={info.getValue()} />
-  },
-  {
-    accessorKey: 'createdAt',
-    header: t('table.users.createdAt'),
-    size: 140,
-    cell: info => formatDate(info.getValue())
-  }
-]
+export const getColumns = (t, formatDate) => {
+  const label = key => t(`table.users.${key}`)
+
+  return [
+    {
+      accessorKey: 'id',
+      header: label('id')
+    },
+    {
+      accessorKey: 'name',
+      header: label('name'),
+      accessorFn: row => getFullName(row),
+      cell: info => getFullName(info.row.original),
+      sortingFn: 'alphanumeric'
+    },
+    {
+      accessorKey: 'email',
+      header: label('email')
+    },
+    {
+      accessorKey: 'status',
+      header: label('status'),
+      cell: info => <StatusBadge status={info.getValue()} />
+    },
+    {
+      accessorKey: 'createdAt',
+      header: label('createdAt'),
+      cell: info => formatDate(info.getValue())
+    },
+    {
+      accessorKey: 'updatedAt',
+      header: label('updatedAt'),
+      cell: info => formatDate(info.getValue())
+    }
+  ]
+}
+
+export const defaultHiddenColumns = {
+  id: false,
+  updatedAt: false
+}

@@ -2,12 +2,12 @@ import { useState } from 'react'
 
 import { Slider } from '@/components/inputs'
 import { Badge, Button } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
 import FeatureList from './FeatureList'
 import PlanSummary from './PlanSummary'
 
-const PricingSlider = ({ discount, onComplete }) => {
+export const PricingSlider = ({ discount, onComplete }) => {
   const { t } = useLocale()
   const [bandwidth, setBandwidth] = useState(1)
 
@@ -39,5 +39,3 @@ const PricingSlider = ({ discount, onComplete }) => {
     </div>
   )
 }
-
-export default PricingSlider

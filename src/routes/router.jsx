@@ -8,9 +8,16 @@ import {
   PublicLayout,
   UserLayout
 } from '@/layouts'
-import { adminActiveStatuses, userActiveStatuses } from '@/lib/types'
-import { DashboardPage, UsersPage } from '@/pages/admin'
+import { adminActiveStatuses, Role, userActiveStatuses } from '@/lib/types'
 import {
+  DashboardPage,
+  SettingsPage as AdminSettingsPage,
+  TeamPage,
+  TeamsPage,
+  UsersPage
+} from '@/pages/admin'
+import {
+  AcceptInvitePage,
   EmailConfirmationPage,
   LoginPage,
   ResetPasswordPage,
@@ -23,8 +30,9 @@ import {
   NotFoundErrorPage
 } from '@/pages/errors'
 import { PrivacyPage, TermsPage } from '@/pages/legal'
+import { AdminsPage } from '@/pages/owner'
 import { PricingPage } from '@/pages/public'
-import { HomePage } from '@/pages/user'
+import { HomePage, SettingsPage as UserSettingsPage } from '@/pages/user'
 
 import { ErrorBoundary } from './ErrorBoundary'
 import { PrivateRoute, PublicRoute } from './guards'
@@ -52,6 +60,7 @@ export const router = sentryCreateBrowserRouter([
       { path: 'login', element: <LoginPage /> },
       { path: 'signup', element: <SignupPage /> },
       { path: 'reset-password', element: <ResetPasswordPage /> },
+      { path: 'accept-invite', element: <AcceptInvitePage /> },
       { path: 'email-confirmation', element: <EmailConfirmationPage /> },
       { path: 'verify-email', element: <VerifyEmailPage /> }
     ]
@@ -66,25 +75,50 @@ export const router = sentryCreateBrowserRouter([
   },
   {
     element: (
-      <PrivateRoute requireStatuses={userActiveStatuses}>
+      <PrivateRoute
+        requireStatuses={userActiveStatuses}
+        requireRoles={[Role.USER]}
+      >
         <UserLayout />
       </PrivateRoute>
     ),
     errorElement: <ErrorBoundary />,
-    children: [{ path: 'home', element: <HomePage /> }]
+    children: [
+      { path: 'home', element: <HomePage /> },
+      { path: 'settings', element: <UserSettingsPage /> }
+    ]
   },
   {
     path: '/admin',
     element: (
-      <PrivateRoute requireStatuses={adminActiveStatuses}>
+      <PrivateRoute
+        requireStatuses={adminActiveStatuses}
+        requireRoles={[Role.ADMIN, Role.OWNER]}
+      >
         <UserLayout />
       </PrivateRoute>
     ),
     errorElement: <ErrorBoundary />,
     children: [
       { path: 'dashboard', element: <DashboardPage /> },
-      { path: 'users', element: <UsersPage /> }
+      { path: 'users', element: <UsersPage /> },
+      { path: 'teams', element: <TeamsPage /> },
+      { path: 'teams/:id', element: <TeamPage /> },
+      { path: 'settings', element: <AdminSettingsPage /> }
     ]
+  },
+  {
+    path: '/owner',
+    element: (
+      <PrivateRoute
+        requireStatuses={adminActiveStatuses}
+        requireRoles={[Role.OWNER]}
+      >
+        <UserLayout />
+      </PrivateRoute>
+    ),
+    errorElement: <ErrorBoundary />,
+    children: [{ path: 'admins', element: <AdminsPage /> }]
   },
   {
     path: 'errors',

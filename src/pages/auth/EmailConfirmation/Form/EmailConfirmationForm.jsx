@@ -1,10 +1,9 @@
 import { useForm } from 'react-hook-form'
 
 import { FormRoot, SubmitButton } from '@/components/form'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
-import { getDefaultValues } from './fields'
-import resolver from './resolver'
+import { getDefaultValues, resolver } from './schema'
 
 export const EmailConfirmationForm = ({ isLoading, email, onSubmit }) => {
   const { t } = useLocale()

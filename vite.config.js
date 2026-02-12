@@ -1,6 +1,6 @@
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 import tailwindcss from '@tailwindcss/vite'
-import react from '@vitejs/plugin-react-swc'
+import react from '@vitejs/plugin-react'
 import path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 import webpackStatsPlugin from 'rollup-plugin-webpack-stats'
@@ -15,6 +15,14 @@ const __dirname = path.dirname(__filename)
 
 const isProdOrStage =
   process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging'
+
+// TanStack Table uses interior mutability: it modifies config objects in place
+// while keeping the same reference. React Compiler assumes immutable props and
+// memoizes based on reference equality, so these mutations go undetected.
+// Excluding table components forces React to re-render them normally.
+const reactCompilerOptions = {
+  sources: filename => !filename.includes('src/components/table/')
+}
 
 export default defineConfig({
   build: {
@@ -36,7 +44,11 @@ export default defineConfig({
     __SENTRY_DEBUG__: false
   },
   plugins: [
-    react(),
+    react({
+      babel: {
+        plugins: [['babel-plugin-react-compiler', reactCompilerOptions]]
+      }
+    }),
     tailwindcss(),
     process.env.ANALYZE_BUNDLE &&
       visualizer({

@@ -1,3 +1,4 @@
-export { default as adminService } from './admin'
-export { default as authService } from './auth'
-export { default as userService } from './user'
+export { adminApi } from './admin'
+export { authApi } from './auth'
+export { ownerApi } from './owner'
+export { userApi } from './user'

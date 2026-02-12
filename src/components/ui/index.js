@@ -33,6 +33,16 @@ export {
   CommandShortcut
 } from './command'
 export {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuTrigger
+} from './context-menu'
+export {
   Dialog,
   DialogBackdrop,
   DialogBody,
@@ -120,6 +130,7 @@ export { Skeleton } from './skeleton'
 export { Slider } from './slider'
 export { Toaster } from './sonner'
 export { Spinner } from './spinner'
+export { Switch } from './switch'
 export {
   Table,
   TableBody,
@@ -130,7 +141,8 @@ export {
   TableHeader,
   TableRow
 } from './table'
-export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs'
+export { Tabs, TabsContent, TabsLine, TabsList, TabsTrigger } from './tabs'
+export { Textarea } from './textarea'
 export {
   Tooltip,
   TooltipContent,

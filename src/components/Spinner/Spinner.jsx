@@ -11,7 +11,7 @@ const sizeMap = {
 export const Spinner = ({ text, size = 'md', className, ...props }) => (
   <div
     className={cn(
-      'fixed inset-0 z-50 flex items-center justify-center',
+      'absolute inset-0 flex items-center justify-center',
       className
     )}
   >

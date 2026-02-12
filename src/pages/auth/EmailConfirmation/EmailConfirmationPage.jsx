@@ -3,16 +3,16 @@ import { useLocation } from 'react-router-dom'
 import { InvisibleReCaptcha } from '@/components/InvisibleReCaptcha'
 import { EmailLink } from '@/components/links'
 import { useCurrentUser, useResendVerificationEmail } from '@/hooks/useAuth'
-import useCaptcha from '@/hooks/useCaptcha'
-import useLocale from '@/hooks/useLocale'
-import useTheme from '@/hooks/useTheme'
-import useToast from '@/hooks/useToast'
-import { toTranslationKey } from '@/services/catch'
+import { useCaptcha } from '@/hooks/useCaptcha'
+import { useLocale } from '@/hooks/useLocale'
+import { useTheme } from '@/hooks/useTheme'
+import { useToast } from '@/hooks/useToast'
 
+import { AuthDescription, AuthHeader, AuthRoot, AuthTitle } from '../Auth'
 import { EmailConfirmationForm } from './Form'
 
 export const EmailConfirmationPage = () => {
-  const { t, locale } = useLocale()
+  const { t, te, locale } = useLocale()
   const { theme } = useTheme()
   const location = useLocation()
   const { mutate: resendVerificationEmail, isPending } =
@@ -23,7 +23,7 @@ export const EmailConfirmationPage = () => {
 
   const email = location.state?.email || user?.email
 
-  const handleSubmit = async data => {
+  const handleResendVerificationEmail = async data => {
     const token = await getCaptchaToken()
 
     if (!token) {
@@ -35,13 +35,13 @@ export const EmailConfirmationPage = () => {
     const preferences = { locale, theme }
 
     resendVerificationEmail(
-      { data, captcha: { token }, preferences },
+      { ...data, captcha: { token }, preferences },
       {
         onSuccess: () => {
           showSuccessToast(t('email.confirmation.success'))
         },
-        onError: err => {
-          showErrorToast(t(toTranslationKey(err)))
+        onError: error => {
+          showErrorToast(te(error))
         }
       }
     )
@@ -49,13 +49,10 @@ export const EmailConfirmationPage = () => {
 
   return (
     <>
-      <div className='flex flex-col gap-8'>
-        <div className='flex flex-col gap-4 text-center'>
-          <h1 className='text-xl font-semibold text-foreground'>
-            {t('email.confirmation.title')}
-          </h1>
-
-          <p className='text-base text-muted-foreground'>
+      <AuthRoot>
+        <AuthHeader>
+          <AuthTitle>{t('email.confirmation.title')}</AuthTitle>
+          <AuthDescription>
             {t('email.confirmation.description.start')}{' '}
             {email ? (
               <EmailLink email={email} />
@@ -63,15 +60,15 @@ export const EmailConfirmationPage = () => {
               t('email.confirmation.yourEmail')
             )}
             . {t('email.confirmation.description.end')}
-          </p>
-        </div>
+          </AuthDescription>
+        </AuthHeader>
 
         <EmailConfirmationForm
           isLoading={isPending}
           email={email}
-          onSubmit={handleSubmit}
+          onSubmit={handleResendVerificationEmail}
         />
-      </div>
+      </AuthRoot>
 
       <InvisibleReCaptcha ref={captchaRef} />
     </>

@@ -6,16 +6,16 @@ import { LanguageDropdown } from '@/components/LanguageDropdown'
 import { Spinner } from '@/components/Spinner'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
-import { CenteredPage, PageContent, TopRightControls } from './containers'
+import { LayoutContent, LayoutRoot, LayoutTopRightControls } from './Layout'
 
 export const PublicLayout = () => (
-  <CenteredPage>
-    <TopRightControls>
+  <LayoutRoot>
+    <LayoutTopRightControls>
       <ThemeToggle />
       <LanguageDropdown />
-    </TopRightControls>
+    </LayoutTopRightControls>
 
-    <PageContent className='max-w-7xl'>
+    <LayoutContent className='max-w-7xl'>
       <main className='mt-16'>
         <Suspense fallback={<Spinner />}>
           <Outlet />
@@ -25,6 +25,6 @@ export const PublicLayout = () => (
       <footer>
         <Copyright />
       </footer>
-    </PageContent>
-  </CenteredPage>
+    </LayoutContent>
+  </LayoutRoot>
 )

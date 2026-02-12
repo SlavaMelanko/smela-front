@@ -10,16 +10,14 @@ jest.unmock('@/components/InvisibleReCaptcha')
 jest.mock('react-google-recaptcha', () => {
   const React = jest.requireActual('react')
 
-  const MockReCAPTCHA = React.forwardRef((_, ref) => {
+  function MockReCAPTCHA({ ref }) {
     React.useImperativeHandle(ref, () => ({
       executeAsync: mockExecuteAsync,
       reset: mockReset
     }))
 
     return null
-  })
-
-  MockReCAPTCHA.displayName = 'MockReCAPTCHA'
+  }
 
   return { __esModule: true, default: MockReCAPTCHA }
 })
@@ -31,13 +29,11 @@ jest.mock('@/lib/async', () => ({
 }))
 
 jest.mock('@/hooks/useTheme', () => ({
-  __esModule: true,
-  default: () => ({ theme: 'dark' })
+  useTheme: () => ({ theme: 'dark' })
 }))
 
 jest.mock('@/hooks/useLocale', () => ({
-  __esModule: true,
-  default: () => ({ locale: 'uk' })
+  useLocale: () => ({ locale: 'uk' })
 }))
 
 import { InvisibleReCaptcha } from '../InvisibleReCaptcha'

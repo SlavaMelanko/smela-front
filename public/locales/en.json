@@ -1,14 +1,28 @@
 {
+  "add": "Add",
   "alreadyHaveAccount": "Already have an account?",
+  "back": "Back",
   "backend": {
     "auth/already-verified": "Invalid request. Please try logging in.",
     "auth/email-already-in-use": "Email is already taken.",
+    "auth/forbidden": "Access denied.",
     "auth/invalid-credentials": "Invalid email or password.",
     "auth/unauthorized": "Access denied. Please try logging in again.",
-    "auth/unverified-account": "Invalid email or password.",
-    "resource/not-found": "Access denied.",
+    "captcha/invalid-token": "Security verification failed. Please try again.",
+    "captcha/validation-failed": "Security verification failed. Please try again.",
+    "refresh-token/expired": "Session expired. Please log in again.",
+    "refresh-token/invalid": "Session expired. Please log in again.",
+    "refresh-token/missing": "Session expired. Please log in again.",
+    "refresh-token/revoked": "Session expired. Please log in again.",
+    "request/bad": "Invalid request.",
+    "request/content-length-mismatch": "Invalid request.",
+    "request/invalid-content-length": "Invalid request.",
+    "request/too-large": "Request is too large.",
+    "resource/conflict": "This resource already exists.",
+    "resource/not-found": "Resource not found.",
     "system/internal-error": "Something went wrong. Please try again later.",
     "token/already-used": "Invalid or expired link.",
+    "token/cancelled": "This invitation has been cancelled.",
     "token/deprecated": "Invalid or expired link.",
     "token/expired": "Invalid or expired link.",
     "token/not-found": "Invalid or expired link.",
@@ -18,15 +32,22 @@
   "captcha": {
     "error": "Security verification failed. Please try again."
   },
-  "companyName": "SMELA",
+  "contextMenu": {
+    "cancel": "Cancel",
+    "invite": "Invitation",
+    "open": "Open",
+    "resend": "Resend"
+  },
   "continueWithGoogle": "Continue with Google",
   "copyright": "© {{year}} {{companyName}}",
+  "createdAt": "Created at",
+  "details": "Details",
   "doNotHaveAccount": "Don't have an account?",
   "email": {
     "confirmation": {
       "cta": "Send again",
       "description": {
-        "end": "Check your inbox and click the link to finish signing up.",
+        "end": "Check your inbox to finish signing up.",
         "start": "We've sent a confirmation link to"
       },
       "success": "Confirmation email sent again.",
@@ -37,16 +58,14 @@
       "format": "Enter a valid email.",
       "required": "Email is required."
     },
-    "example": "your@email.com",
     "label": "Email",
-    "placeholder": "Email",
     "verification": {
       "error": {
         "general": "Email verification failed.",
         "invalidToken": "Invalid token."
       },
       "loading": "Verifying email...",
-      "success": "Email verified successfully."
+      "success": "Email verified."
     }
   },
   "error": {
@@ -55,7 +74,6 @@
       "message": "This is unexpected for us too. We'll take a closer look and handle it according to our current priorities. Thanks for your patience.",
       "title": "Oops! Something went wrong"
     },
-    "loading": "Failed to load data. Please try again.",
     "network": {
       "cta": "Try again",
       "message": {
@@ -79,24 +97,62 @@
   },
   "firstName": {
     "error": {
-      "max": "First name can’t be longer than 50 characters.",
+      "max": "First name can't be longer than 50 characters.",
       "min": "First name must be at least 2 characters.",
       "required": "First name is required."
     },
-    "example": "e.g. Jason",
-    "label": "First Name",
-    "placeholder": "Your first name"
+    "label": "First name"
   },
   "forgotYourPassword": "Forgot your password?",
+  "format": {
+    "date": {
+      "name": "Date format",
+      "values": {
+        "full": "Full",
+        "numeric": "Numeric",
+        "short": "Short"
+      }
+    },
+    "time": {
+      "name": "Time format",
+      "values": {
+        "12": "12-hour",
+        "24": "24-hour"
+      }
+    }
+  },
+  "general": "General",
+  "invite": {
+    "accept": {
+      "cta": "Join",
+      "description": "Set your password to join the team.",
+      "error": "Failed to accept invitation. The link may have expired.",
+      "success": "Welcome! Your account is ready.",
+      "title": "You're invited to",
+      "validating": "Validating invitation..."
+    },
+    "cta": "Invite",
+    "resend": {
+      "success": "Invitation resent."
+    },
+    "send": {
+      "cta": "Send invitation",
+      "success": "Invitation sent.",
+      "title": {
+        "admin": "Invite admin",
+        "member": "Invite member"
+      }
+    }
+  },
+  "invitedAt": "Invited at",
+  "invitedBy": "Invited by",
   "lastName": {
     "error": {
-      "max": "Last name can’t be longer than 50 characters.",
+      "max": "Last name can't be longer than 50 characters.",
       "min": "Last name must be at least 2 characters.",
       "required": "Last name is required."
     },
-    "example": "e.g. Statham",
-    "label": "Last Name",
-    "placeholder": "Your last name"
+    "label": "Last name"
   },
   "loading": "Loading...",
   "login": {
@@ -111,8 +167,8 @@
   "notifications": "Notifications",
   "or": "or",
   "pagination": {
-    "of": "of",
-    "rowsPerPage": "Rows per page:"
+    "limit": "Limit:",
+    "of": "of"
   },
   "password": {
     "error": {
@@ -120,10 +176,8 @@
       "required": "Password is required.",
       "strong": "Use at least: 1 uppercase letter, 1 number, 1 symbol."
     },
-    "label": "Password",
-    "placeholder": {
+    "label": {
       "default": "Password",
-      "masked": "••••••••",
       "new": "New password"
     },
     "reset": {
@@ -137,9 +191,28 @@
         "cta": "Set new password",
         "description": "Only one step left — create a new password.",
         "error": "Failed to reset password. Please try again.",
-        "success": "Your password has been reset successfully."
-      }
+        "success": "Password reset complete."
+      },
+      "title": "Reset password"
     }
+  },
+  "permissions": {
+    "name": "Permissions",
+    "values": {
+      "create": "Create",
+      "delete": "Delete",
+      "edit": "Edit",
+      "view": "View"
+    }
+  },
+  "personalDetails": "Personal details",
+  "position": {
+    "default": "Team member",
+    "error": {
+      "max": "Position can't be longer than 50 characters.",
+      "min": "Position must be at least 2 characters."
+    },
+    "label": "Position"
   },
   "pricing": {
     "cta": "Sign up now",
@@ -192,19 +265,17 @@
   },
   "processing": "Processing...",
   "profile": "Profile",
-  "role": {
-    "name": "Role",
-    "placeholder": "Select roles",
-    "values": {
-      "admin": "Admin",
-      "enterprise": "Enterprise",
-      "guest": "Guest",
-      "owner": "Owner",
-      "user": "User"
-    }
+  "save": "Save",
+  "searchBy": {
+    "teams": "Search by ID, name, website...",
+    "users": "Search by ID, name, email..."
   },
-  "searchBy": "Search by name, email, etc...",
+  "settings": {
+    "description": "Your app-wide preferences",
+    "title": "Settings"
+  },
   "sidebar": {
+    "admins": "Admins",
     "dashboard": "Dashboard",
     "documentation": "Documentation",
     "home": "Home",
@@ -213,6 +284,7 @@
     "residential": "Residential",
     "serpApi": "SERP API",
     "settings": "Settings",
+    "teams": "Teams",
     "users": "Users"
   },
   "signUp": "Sign up",
@@ -235,13 +307,71 @@
     "column_plural": "Columns",
     "filter": "Filter",
     "filter_plural": "Filters",
-    "users": {
-      "createdAt": "Created At",
+    "members": {
       "email": "Email",
       "id": "ID",
+      "invitedBy": "$t(invitedBy)",
+      "joinedAt": "Joined at",
       "name": "Name",
-      "role": "$t(role.name)",
+      "position": "Position",
       "status": "$t(status.name)"
+    },
+    "teams": {
+      "createdAt": "$t(createdAt)",
+      "id": "ID",
+      "name": "Name",
+      "updatedAt": "$t(updatedAt)",
+      "website": "Website"
+    },
+    "users": {
+      "createdAt": "$t(createdAt)",
+      "email": "Email",
+      "id": "ID",
+      "invitedAt": "$t(invitedAt)",
+      "invitedBy": "$t(invitedBy)",
+      "name": "Name",
+      "status": "$t(status.name)",
+      "updatedAt": "$t(updatedAt)"
+    }
+  },
+  "team": {
+    "add": {
+      "cta": "Create",
+      "success": "Team created.",
+      "title": "Add team"
+    },
+    "description": {
+      "error": {
+        "max": "Description can't exceed 500 characters."
+      },
+      "label": "Description"
+    },
+    "members": {
+      "empty": "No team members yet."
+    },
+    "name": {
+      "error": {
+        "max": "Team name can't exceed 100 characters.",
+        "min": "Team name must be at least 2 characters.",
+        "required": "Team name is required."
+      },
+      "label": "Name"
+    },
+    "tabs": {
+      "info": "Info",
+      "members": {
+        "label": "Members",
+        "withCount": "Members ({{count}})"
+      }
+    },
+    "update": {
+      "success": "Data updated."
+    },
+    "website": {
+      "error": {
+        "format": "Enter a valid URL."
+      },
+      "label": "Website"
     }
   },
   "termsAndPrivacy": {
@@ -253,6 +383,7 @@
     "privacy": "Privacy Policy",
     "terms": "Terms"
   },
+  "tryAgain": "Try again",
   "unit": {
     "traffic": {
       "gb": "GB",
@@ -260,5 +391,6 @@
       "mb": "MB",
       "tb": "TB"
     }
-  }
+  },
+  "updatedAt": "Updated at"
 }

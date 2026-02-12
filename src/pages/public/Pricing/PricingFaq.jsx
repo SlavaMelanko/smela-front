@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@/components/ui'
-import useLocale from '@/hooks/useLocale'
+import { useLocale } from '@/hooks/useLocale'
 
 export const PricingFaq = () => {
   const { t } = useLocale({ keyPrefix: 'pricing.faq' })

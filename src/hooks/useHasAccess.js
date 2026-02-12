@@ -1,6 +1,9 @@
 import { useCurrentUser } from '@/hooks/useAuth'
 
-const useHasAccess = ({ requireStatuses = [], requireRoles = [] } = {}) => {
+export const useHasAccess = ({
+  requireStatuses = [],
+  requireRoles = []
+} = {}) => {
   const { isFetching, isAuthenticated, user } = useCurrentUser()
 
   const hasRequiredStatus =
@@ -19,5 +22,3 @@ const useHasAccess = ({ requireStatuses = [], requireRoles = [] } = {}) => {
     role: user?.role || null
   }
 }
-
-export default useHasAccess

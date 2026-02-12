@@ -1,8 +1,8 @@
-import useLocale from '@/hooks/useLocale'
+import { SearchInput } from '@/components/inputs'
+import { ColumnVisibilityDropdown } from '@/components/table'
+import { useLocale } from '@/hooks/useLocale'
 
-import { ColumnVisibilityDropdown } from './ColumnVisibilityDropdown'
 import { FilterToggle } from './FilterToggle'
-import { SearchInput } from './SearchInput'
 
 export const Toolbar = ({
   columns,
@@ -17,7 +17,7 @@ export const Toolbar = ({
     <div className='flex max-h-11 items-center gap-4'>
       <SearchInput
         className='flex-1'
-        placeholder={t('searchBy')}
+        placeholder={t('searchBy.users')}
         value={searchValue}
         onChange={onSearchChange}
       />
