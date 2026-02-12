@@ -578,7 +578,7 @@ function SidebarMenuSub({ className, ...props }) {
       data-slot='sidebar-menu-sub'
       data-sidebar='menu-sub'
       className={cn(
-        'border-sidebar-border mx-3.5 translate-x-px gap-1 border-l px-2.5 py-0.5 group-data-[collapsible=icon]:hidden flex min-w-0 flex-col',
+        'border-sidebar-border ml-4 mr-2 translate-x-px gap-1 border-l pl-3 pr-1 py-0.5 group-data-[collapsible=icon]:hidden flex min-w-0 flex-col',
         className
       )}
       {...props}

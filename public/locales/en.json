@@ -207,6 +207,7 @@
   },
   "personalDetails": "Personal details",
   "position": {
+    "default": "Team member",
     "error": {
       "max": "Position can't be longer than 50 characters.",
       "min": "Position must be at least 2 characters."

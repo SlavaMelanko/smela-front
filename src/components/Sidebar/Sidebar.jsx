@@ -1,6 +1,7 @@
 import { ExternalLink } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
+import { TeamBadge } from '@/components/badges'
 import { Copyright } from '@/components/Copyright'
 import { ChevronIcon, Logo } from '@/components/icons'
 import {
@@ -33,7 +34,7 @@ const formatBadge = count => {
   return isNaN(num) || num <= 0 ? '0' : num > 9 ? '9+' : num
 }
 
-export const Sidebar = ({ items }) => {
+export const Sidebar = ({ items, team }) => {
   const { t } = useLocale()
   const { pathname } = useLocation()
   const navigate = useNavigate()
@@ -70,7 +71,7 @@ export const Sidebar = ({ items }) => {
                     <SidebarMenuItem>
                       <SidebarMenuButton render={<CollapsibleTrigger />}>
                         {item.icon && <item.icon />}
-                        <span>{t(item.title)}</span>
+                        <span className='truncate'>{t(item.title)}</span>
                         <ChevronIcon className='ml-auto group-data-open/collapsible:rotate-180' />
                       </SidebarMenuButton>
                       <CollapsibleContent>
@@ -88,7 +89,9 @@ export const Sidebar = ({ items }) => {
                                   isActive={isActive(subItem.url)}
                                   className='h-3/4'
                                 />
-                                <span>{t(subItem.title)}</span>
+                                <span className='truncate'>
+                                  {t(subItem.title)}
+                                </span>
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
                           ))}
@@ -107,7 +110,7 @@ export const Sidebar = ({ items }) => {
                         className='h-3/5'
                       />
                       {item.icon && <item.icon />}
-                      <span>{t(item.title)}</span>
+                      <span className='truncate'>{t(item.title)}</span>
                       {item.external && <ExternalLink />}
                     </SidebarMenuButton>
                     {item.badge && (
@@ -125,6 +128,7 @@ export const Sidebar = ({ items }) => {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
+        <TeamBadge team={team} />
         <Copyright />
       </SidebarFooter>
     </ShadcnSidebar>
