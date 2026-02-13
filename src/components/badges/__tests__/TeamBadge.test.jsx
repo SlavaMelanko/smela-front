@@ -30,19 +30,19 @@ describe('TeamBadge', () => {
     expect(screen.getByText('Team member')).toBeInTheDocument()
   })
 
-  it('renders as a link to /team', () => {
+  it('renders as a button', () => {
     renderWithProviders(<TeamBadge team={mockTeam} />)
 
-    const link = screen.getByRole('link')
+    const button = screen.getByRole('button')
 
-    expect(link).toHaveAttribute('href', '/team')
+    expect(button).toBeInTheDocument()
   })
 
   it('renders team icon', () => {
     renderWithProviders(<TeamBadge team={mockTeam} />)
 
-    const link = screen.getByRole('link')
-    const icon = link.querySelector('svg')
+    const button = screen.getByRole('button')
+    const icon = button.querySelector('svg')
 
     expect(icon).toBeInTheDocument()
     expect(icon).toHaveClass('lucide-users')
