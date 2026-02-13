@@ -1,9 +1,13 @@
 import { Users } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 import { useLocale } from '@/hooks/useLocale'
 
-const TeamBadgeRoot = ({ children }) => (
-  <div className='flex items-center gap-2 rounded-lg border border-sidebar-border bg-sidebar-accent/50 px-2 py-4'>
+const TeamBadgeRoot = ({ children, onClick }) => (
+  <div
+    className='flex items-center gap-2 cursor-pointer rounded-lg border border-sidebar-border bg-sidebar-accent/50 px-2 py-4 hover:bg-sidebar-accent'
+    onClick={onClick}
+  >
     {children}
   </div>
 )
@@ -38,9 +42,14 @@ const TeamBadgePosition = ({ position }) => {
 
 export const TeamBadge = ({ team }) => {
   const { t } = useLocale()
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate('/team')
+  }
 
   return (
-    <TeamBadgeRoot>
+    <TeamBadgeRoot onClick={handleClick}>
       <TeamBadgeIcon icon={Users} />
       <TeamBadgeContent>
         <TeamBadgeName>{team.name}</TeamBadgeName>

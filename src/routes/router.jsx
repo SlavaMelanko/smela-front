@@ -32,7 +32,11 @@ import {
 import { PrivacyPage, TermsPage } from '@/pages/legal'
 import { AdminsPage } from '@/pages/owner'
 import { PricingPage } from '@/pages/public'
-import { HomePage, SettingsPage as UserSettingsPage } from '@/pages/user'
+import {
+  HomePage,
+  SettingsPage as UserSettingsPage,
+  TeamPage as UserTeamPage
+} from '@/pages/user'
 
 import { ErrorBoundary } from './ErrorBoundary'
 import { PrivateRoute, PublicRoute } from './guards'
@@ -85,6 +89,7 @@ export const router = sentryCreateBrowserRouter([
     errorElement: <ErrorBoundary />,
     children: [
       { path: 'home', element: <HomePage /> },
+      { path: 'team', element: <UserTeamPage /> },
       { path: 'settings', element: <UserSettingsPage /> }
     ]
   },
