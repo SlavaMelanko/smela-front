@@ -7,6 +7,7 @@ import {
 
 import { defaultOptions } from '@/components/Pagination'
 import { teamApi } from '@/services/backend'
+import { Status } from '@/types'
 
 export const teamKeys = {
   all: () => ['teams'],
@@ -36,6 +37,49 @@ export const useTeams = (params = {}) => {
   })
 }
 
+export const useCreateTeam = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: data => teamApi.createTeam(data),
+    onMutate: async newTeam => {
+      await queryClient.cancelQueries({ queryKey: teamKeys.all() })
+
+      const previousTeams = queryClient.getQueryData(teamKeys.list({}))
+
+      queryClient.setQueryData(teamKeys.list({}), old => {
+        const now = new Date().toISOString()
+        const optimisticTeam = {
+          ...newTeam,
+          id: `temp-${now}`,
+          createdAt: now,
+          updatedAt: now
+        }
+
+        const teams = old?.teams ?? []
+
+        const pagination = old?.pagination ?? defaultOptions
+
+        return {
+          teams: [optimisticTeam, ...teams],
+          pagination: {
+            ...pagination,
+            total: pagination.total + 1
+          }
+        }
+      })
+
+      return { previousTeams }
+    },
+    onError: (_error, _newTeam, context) => {
+      queryClient.setQueryData(teamKeys.list({}), context.previousTeams)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: teamKeys.all() })
+    }
+  })
+}
+
 export const useTeam = (id, options = {}) => {
   return useQuery({
     queryKey: teamKeys.detail(id),
@@ -44,6 +88,17 @@ export const useTeam = (id, options = {}) => {
     enabled: !!id,
     ...teamQueryOptions,
     ...options
+  })
+}
+
+export const useUpdateTeam = teamId => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: data => teamApi.updateTeam(teamId, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: teamKeys.all() })
+    }
   })
 }
 
@@ -69,33 +124,36 @@ export const useTeamMember = (teamId, memberId, options = {}) => {
   })
 }
 
-export const useCreateTeam = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: data => teamApi.createTeam(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: teamKeys.all() })
-    }
-  })
-}
-
-export const useUpdateTeam = teamId => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: data => teamApi.updateTeam(teamId, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: teamKeys.all() })
-    }
-  })
-}
-
 export const useInviteMember = teamId => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: data => teamApi.inviteMember(teamId, data),
+    onMutate: async newMember => {
+      await queryClient.cancelQueries({ queryKey: teamKeys.members(teamId) })
+
+      const previousMembers = queryClient.getQueryData(teamKeys.members(teamId))
+
+      queryClient.setQueryData(teamKeys.members(teamId), old => {
+        const optimisticMember = {
+          ...newMember,
+          id: `temp-${Date.now()}`,
+          status: Status.PENDING
+        }
+
+        const members = old ?? []
+
+        return [optimisticMember, ...members]
+      })
+
+      return { previousMembers }
+    },
+    onError: (_error, _newMember, context) => {
+      queryClient.setQueryData(
+        teamKeys.members(teamId),
+        context.previousMembers
+      )
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: teamKeys.members(teamId) })
       queryClient.invalidateQueries({ queryKey: teamKeys.detail(teamId) })
