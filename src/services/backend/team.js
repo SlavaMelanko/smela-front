@@ -3,6 +3,7 @@ import { withQuery } from '@/lib/url'
 import apiClient from './apiClient'
 import {
   ADMIN_TEAMS_PATH,
+  buildPath,
   TEAM_MEMBER_PATH,
   TEAM_MEMBER_RESEND_INVITE_PATH,
   TEAM_MEMBERS_PATH,
@@ -21,53 +22,44 @@ export const teamApi = {
 
   // Verified user + admin operations
   getTeam(teamId) {
-    const url = TEAMS_PATH.replace(':teamId', teamId)
+    const path = buildPath(TEAMS_PATH, { teamId })
 
-    return apiClient.get(url)
+    return apiClient.get(path)
   },
 
   updateTeam(teamId, data) {
-    const url = TEAMS_PATH.replace(':teamId', teamId)
+    const path = buildPath(TEAMS_PATH, { teamId })
 
-    return apiClient.patch(url, data)
+    return apiClient.patch(path, data)
   },
 
   getMembers(teamId) {
-    const url = TEAM_MEMBERS_PATH.replace(':teamId', teamId)
+    const path = buildPath(TEAM_MEMBERS_PATH, { teamId })
 
-    return apiClient.get(url)
+    return apiClient.get(path)
   },
 
   inviteMember(teamId, data) {
-    const url = TEAM_MEMBERS_PATH.replace(':teamId', teamId)
+    const path = buildPath(TEAM_MEMBERS_PATH, { teamId })
 
-    return apiClient.post(url, data)
+    return apiClient.post(path, data)
   },
 
   getMember(teamId, memberId) {
-    const url = TEAM_MEMBER_PATH.replace(':teamId', teamId).replace(
-      ':memberId',
-      memberId
-    )
+    const path = buildPath(TEAM_MEMBER_PATH, { teamId, memberId })
 
-    return apiClient.get(url)
+    return apiClient.get(path)
   },
 
   updateMember(teamId, memberId, data) {
-    const url = TEAM_MEMBER_PATH.replace(':teamId', teamId).replace(
-      ':memberId',
-      memberId
-    )
+    const path = buildPath(TEAM_MEMBER_PATH, { teamId, memberId })
 
-    return apiClient.patch(url, data)
+    return apiClient.patch(path, data)
   },
 
   resendInvite(teamId, memberId) {
-    const url = TEAM_MEMBER_RESEND_INVITE_PATH.replace(
-      ':teamId',
-      teamId
-    ).replace(':memberId', memberId)
+    const path = buildPath(TEAM_MEMBER_RESEND_INVITE_PATH, { teamId, memberId })
 
-    return apiClient.post(url)
+    return apiClient.post(path)
   }
 }

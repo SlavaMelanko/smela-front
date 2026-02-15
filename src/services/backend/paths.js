@@ -27,3 +27,10 @@ export const TEAM_MEMBER_RESEND_INVITE_PATH = `${TEAM_MEMBER_PATH}/resend-invite
 // Owner endpoints
 export const OWNER_ADMINS_PATH = '/api/v1/owner/admins'
 export const OWNER_ADMINS_RESEND_INVITE_PATH = `${OWNER_ADMINS_PATH}/:adminId/resend-invite`
+
+export const buildPath = (template, params) => {
+  return Object.entries(params).reduce(
+    (url, [key, value]) => url.replace(`:${key}`, value),
+    template
+  )
+}
