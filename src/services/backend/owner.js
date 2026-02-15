@@ -13,6 +13,8 @@ export const ownerApi = {
   },
 
   resendAdminInvite(id) {
-    return apiClient.post(OWNER_ADMINS_RESEND_INVITE_PATH.replace(':id', id))
+    return apiClient.post(
+      OWNER_ADMINS_RESEND_INVITE_PATH.replace(':adminId', id)
+    )
   }
 }

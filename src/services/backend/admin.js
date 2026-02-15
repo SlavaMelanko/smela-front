@@ -38,16 +38,16 @@ export const adminApi = {
   },
 
   createTeamMember(teamId, data) {
-    const url = ADMIN_TEAMS_MEMBERS_PATH.replace(':id', teamId)
+    const url = ADMIN_TEAMS_MEMBERS_PATH.replace(':teamId', teamId)
 
     return apiClient.post(url, data)
   },
 
   resendTeamMemberInvite(teamId, memberId) {
-    const url = ADMIN_TEAMS_RESEND_INVITE_PATH.replace(':id', teamId).replace(
-      ':memberId',
-      memberId
-    )
+    const url = ADMIN_TEAMS_RESEND_INVITE_PATH.replace(
+      ':teamId',
+      teamId
+    ).replace(':memberId', memberId)
 
     return apiClient.post(url)
   }
