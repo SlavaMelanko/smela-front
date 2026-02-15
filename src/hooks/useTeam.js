@@ -11,7 +11,8 @@ import { Status } from '@/types'
 
 export const teamKeys = {
   all: () => ['teams'],
-  list: params => [...teamKeys.all(), 'list', params],
+  lists: () => [...teamKeys.all(), 'list'],
+  list: params => [...teamKeys.lists(), params],
   detail: id => [...teamKeys.all(), 'detail', id],
   members: teamId => [...teamKeys.all(), teamId, 'members'],
   member: (teamId, memberId) => [...teamKeys.all(), teamId, 'members', memberId]
@@ -97,7 +98,8 @@ export const useUpdateTeam = teamId => {
   return useMutation({
     mutationFn: data => teamApi.updateTeam(teamId, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: teamKeys.all() })
+      queryClient.invalidateQueries({ queryKey: teamKeys.detail(teamId) })
+      queryClient.invalidateQueries({ queryKey: teamKeys.lists() })
     }
   })
 }
