@@ -76,7 +76,7 @@ export const useCreateTeam = () => {
       queryClient.setQueryData(teamKeys.list({}), context.previousTeams)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: teamKeys.all() })
+      queryClient.invalidateQueries({ queryKey: teamKeys.lists() })
     }
   })
 }
@@ -177,17 +177,13 @@ export const useUpdateMember = (teamId, memberId) => {
       })
 
       queryClient.invalidateQueries({ queryKey: teamKeys.members(teamId) })
+      queryClient.invalidateQueries({ queryKey: teamKeys.detail(teamId) })
     }
   })
 }
 
 export const useResendInvite = teamId => {
-  const queryClient = useQueryClient()
-
   return useMutation({
-    mutationFn: memberId => teamApi.resendInvite(teamId, memberId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: teamKeys.members(teamId) })
-    }
+    mutationFn: memberId => teamApi.resendInvite(teamId, memberId)
   })
 }
