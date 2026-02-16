@@ -6,8 +6,8 @@ import {
 } from '@tanstack/react-query'
 
 import { defaultOptions } from '@/components/Pagination'
+import { UserStatus } from '@/lib/types'
 import { teamApi } from '@/services/backend'
-import { Status } from '@/types'
 
 export const teamKeys = {
   all: () => ['teams'],
@@ -140,12 +140,15 @@ export const useInviteMember = teamId => {
         const optimisticMember = {
           ...newMember,
           id: `temp-${Date.now()}`,
-          status: Status.PENDING
+          status: UserStatus.PENDING
         }
 
-        const members = old ?? []
+        const members = old?.members ?? []
 
-        return [optimisticMember, ...members]
+        return {
+          ...old,
+          members: [optimisticMember, ...members]
+        }
       })
 
       return { previousMembers }
