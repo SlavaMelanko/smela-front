@@ -1,7 +1,7 @@
 import { TeamAddForm } from '@/components/form'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
-import { useCreateTeam } from '@/hooks/useAdmin'
 import { useLocale } from '@/hooks/useLocale'
+import { useCreateTeam } from '@/hooks/useTeam'
 import { useToast } from '@/hooks/useToast'
 
 export const TeamAddDialog = ({ onClose }) => {

@@ -17,11 +17,20 @@ export const ME_PATH = '/api/v1/user/me'
 // Admin endpoints
 export const ADMIN_USERS_PATH = '/api/v1/admin/users'
 export const ADMIN_TEAMS_PATH = '/api/v1/admin/teams'
-export const ADMIN_TEAMS_MEMBERS_PATH = '/api/v1/admin/teams/:id/members'
-export const ADMIN_TEAMS_RESEND_INVITE_PATH =
-  '/api/v1/admin/teams/:id/members/:memberId/resend-invite'
+
+// Verified user/admin team operations
+export const TEAMS_PATH = '/api/v1/user/verified/teams/:teamId'
+export const TEAM_MEMBERS_PATH = `${TEAMS_PATH}/members`
+export const TEAM_MEMBER_PATH = `${TEAM_MEMBERS_PATH}/:memberId`
+export const TEAM_MEMBER_RESEND_INVITE_PATH = `${TEAM_MEMBER_PATH}/resend-invite`
 
 // Owner endpoints
 export const OWNER_ADMINS_PATH = '/api/v1/owner/admins'
-export const OWNER_ADMINS_RESEND_INVITE_PATH =
-  '/api/v1/owner/admins/:id/resend-invite'
+export const OWNER_ADMINS_RESEND_INVITE_PATH = `${OWNER_ADMINS_PATH}/:adminId/resend-invite`
+
+export const buildPath = (template, params) => {
+  return Object.entries(params).reduce(
+    (url, [key, value]) => url.replace(`:${key}`, value),
+    template
+  )
+}

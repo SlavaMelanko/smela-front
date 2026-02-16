@@ -1,7 +1,11 @@
 import { withQuery } from '@/lib/url'
 
 import apiClient from './apiClient'
-import { OWNER_ADMINS_PATH, OWNER_ADMINS_RESEND_INVITE_PATH } from './paths'
+import {
+  buildPath,
+  OWNER_ADMINS_PATH,
+  OWNER_ADMINS_RESEND_INVITE_PATH
+} from './paths'
 
 export const ownerApi = {
   getAdmins(params) {
@@ -12,7 +16,9 @@ export const ownerApi = {
     return apiClient.post(OWNER_ADMINS_PATH, data)
   },
 
-  resendAdminInvite(id) {
-    return apiClient.post(OWNER_ADMINS_RESEND_INVITE_PATH.replace(':id', id))
+  resendAdminInvite(adminId) {
+    const path = buildPath(OWNER_ADMINS_RESEND_INVITE_PATH, { adminId })
+
+    return apiClient.post(path)
   }
 }
