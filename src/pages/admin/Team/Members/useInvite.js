@@ -17,9 +17,14 @@ export const useInvite = teamId => {
           onClose={close}
           onSubmit={data => {
             close()
+
             inviteMember(data, {
-              onSuccess: () => showSuccessToast(t('invite.send.success')),
-              onError: error => showErrorToast(te(error))
+              onSuccess: () => {
+                showSuccessToast(t('invite.send.success'))
+              },
+              onError: error => {
+                showErrorToast(te(error))
+              }
             })
           }}
         />
