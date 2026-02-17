@@ -139,7 +139,7 @@ export const useInviteMember = teamId => {
       queryClient.setQueryData(teamKeys.members(teamId), old => {
         const optimisticMember = {
           ...newMember,
-          id: `temp-${Date.now()}`,
+          id: `...`,
           status: UserStatus.PENDING
         }
 
