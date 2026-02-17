@@ -131,6 +131,9 @@
       "title": "You're invited to",
       "validating": "Validating invitation..."
     },
+    "cancel": {
+      "success": "Invitation cancelled."
+    },
     "cta": "Invite",
     "resend": {
       "success": "Invitation resent."

@@ -1,4 +1,5 @@
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { MailIcon, Send, User, X } from 'lucide-react'
 import { useState } from 'react'
 
 import { InviteButton } from '@/components/buttons'
@@ -9,6 +10,7 @@ import { ColumnVisibilityDropdown, Table } from '@/components/table'
 import { useLocale } from '@/hooks/useLocale'
 import { useModal } from '@/hooks/useModal'
 import { useTeamMembers } from '@/hooks/useTeam'
+import { UserStatus } from '@/lib/types'
 
 import { defaultHiddenColumns, getColumns } from './columns'
 import { useInvite } from './useInvite'
@@ -33,13 +35,47 @@ export const Members = ({ teamId }) => {
     error,
     refetch
   } = useTeamMembers(teamId)
-  const { openInviteDialog } = useInvite(teamId)
+  const {
+    openInviteDialog,
+    handleResendInvite,
+    isResending,
+    handleCancelInvite,
+    isCancelling
+  } = useInvite(teamId)
 
   const openMemberProfile = member => {
     const close = openModal({
       children: <ProfileDialog profile={member} onClose={() => close()} />
     })
   }
+
+  const contextMenu = [
+    {
+      icon: User,
+      label: t('contextMenu.open'),
+      onClick: openMemberProfile
+    },
+    {
+      icon: MailIcon,
+      label: t('contextMenu.invite'),
+      isVisible: member => member.status === UserStatus.PENDING,
+      items: [
+        {
+          icon: Send,
+          label: t('contextMenu.resend'),
+          onClick: handleResendInvite,
+          disabled: isResending
+        },
+        {
+          icon: X,
+          label: t('contextMenu.cancel'),
+          onClick: handleCancelInvite,
+          variant: 'destructive',
+          disabled: isCancelling
+        }
+      ]
+    }
+  ]
 
   const columns = getColumns(t, formatDate)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
@@ -83,7 +119,11 @@ export const Members = ({ teamId }) => {
         <InviteButton label={t('invite.cta')} onClick={openInviteDialog} />
       </MembersToolbar>
 
-      <Table config={config} onRowClick={openMemberProfile} />
+      <Table
+        config={config}
+        onRowClick={openMemberProfile}
+        contextMenu={contextMenu}
+      />
     </MembersRoot>
   )
 }

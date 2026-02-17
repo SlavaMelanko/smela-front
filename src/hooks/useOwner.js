@@ -82,3 +82,14 @@ export const useResendAdminInvite = () => {
     mutationFn: ownerApi.resendAdminInvite
   })
 }
+
+export const useCancelAdminInvite = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ownerApi.cancelAdminInvite,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ownerKeys.admins() })
+    }
+  })
+}
