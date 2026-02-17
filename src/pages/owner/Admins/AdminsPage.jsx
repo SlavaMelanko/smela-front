@@ -38,7 +38,7 @@ export const AdminsPage = () => {
     openInviteDialog,
     handleResendInvite,
     isResending,
-    handleCancelInvitation,
+    handleCancelInvite,
     isCancelling
   } = useInvite()
 
@@ -84,7 +84,7 @@ export const AdminsPage = () => {
         {
           icon: X,
           label: t('contextMenu.cancel'),
-          onClick: handleCancelInvitation,
+          onClick: handleCancelInvite,
           variant: 'destructive',
           disabled: isCancelling
         }

@@ -4,6 +4,7 @@ import apiClient from './apiClient'
 import {
   ADMIN_TEAMS_PATH,
   buildPath,
+  TEAM_MEMBER_CANCEL_INVITE_PATH,
   TEAM_MEMBER_PATH,
   TEAM_MEMBER_RESEND_INVITE_PATH,
   TEAM_MEMBERS_PATH,
@@ -39,12 +40,6 @@ export const teamApi = {
     return apiClient.get(path)
   },
 
-  inviteMember(teamId, data) {
-    const path = buildPath(TEAM_MEMBERS_PATH, { teamId })
-
-    return apiClient.post(path, data)
-  },
-
   getMember(teamId, memberId) {
     const path = buildPath(TEAM_MEMBER_PATH, { teamId, memberId })
 
@@ -57,8 +52,20 @@ export const teamApi = {
     return apiClient.patch(path, data)
   },
 
+  inviteMember(teamId, data) {
+    const path = buildPath(TEAM_MEMBERS_PATH, { teamId })
+
+    return apiClient.post(path, data)
+  },
+
   resendInvite(teamId, memberId) {
     const path = buildPath(TEAM_MEMBER_RESEND_INVITE_PATH, { teamId, memberId })
+
+    return apiClient.post(path)
+  },
+
+  cancelInvite(teamId, memberId) {
+    const path = buildPath(TEAM_MEMBER_CANCEL_INVITE_PATH, { teamId, memberId })
 
     return apiClient.post(path)
   }

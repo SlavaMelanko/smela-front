@@ -179,8 +179,20 @@ export const useUpdateMember = (teamId, memberId) => {
   })
 }
 
-export const useResendInvite = teamId => {
+export const useResendMemberInvite = teamId => {
   return useMutation({
     mutationFn: memberId => teamApi.resendInvite(teamId, memberId)
+  })
+}
+
+export const useCancelMemberInvite = teamId => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: memberId => teamApi.cancelInvite(teamId, memberId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: teamKeys.members(teamId) })
+      queryClient.invalidateQueries({ queryKey: teamKeys.detail(teamId) })
+    }
   })
 }
