@@ -71,19 +71,12 @@ export const Members = ({ teamId }) => {
     )
   }
 
-  const availableColumns = config.getAllLeafColumns().map(column => ({
-    id: column.id,
-    label: t(`table.members.${column.id}`),
-    getIsVisible: () => column.getIsVisible(),
-    toggleVisibility: () => column.toggleVisibility()
-  }))
-
   return (
     <div className='flex flex-col gap-4'>
       <Toolbar>
         <ColumnVisibilityDropdown
-          label={t('table.column_plural')}
-          columns={availableColumns}
+          config={config}
+          createLabel={id => t(`table.members.${id}`)}
         />
         <InviteButton label={t('invite.cta')} onClick={openInviteDialog} />
       </Toolbar>

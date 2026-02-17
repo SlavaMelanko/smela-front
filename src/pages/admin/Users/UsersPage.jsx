@@ -91,13 +91,6 @@ export const UsersPage = () => {
     getSortedRowModel: sortedRowModel
   })
 
-  const availableColumns = config.getAllLeafColumns().map(column => ({
-    id: column.id,
-    label: t(`table.users.${column.id}`),
-    getIsVisible: () => column.getIsVisible(),
-    toggleVisibility: () => column.toggleVisibility()
-  }))
-
   if (isError) {
     return <ErrorState text={te(error)} onRetry={refetch} />
   }
@@ -111,7 +104,8 @@ export const UsersPage = () => {
       {/* Wrapper prevents PageContent gap when Filters is collapsed */}
       <div>
         <Toolbar
-          columns={availableColumns}
+          config={config}
+          createLabel={id => t(`table.users.${id}`)}
           showFilters={showFilters}
           onToggleFilters={toggleFilters}
           searchValue={searchValue}

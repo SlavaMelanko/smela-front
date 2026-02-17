@@ -131,13 +131,6 @@ export const AdminsPage = () => {
     getSortedRowModel: sortedRowModel
   })
 
-  const availableColumns = config.getAllLeafColumns().map(column => ({
-    id: column.id,
-    label: t(`table.users.${column.id}`),
-    getIsVisible: () => column.getIsVisible(),
-    toggleVisibility: () => column.toggleVisibility()
-  }))
-
   if (isError) {
     return <ErrorState text={te(error)} onRetry={refetch} />
   }
@@ -156,8 +149,8 @@ export const AdminsPage = () => {
           onChange={setSearchValue}
         />
         <ColumnVisibilityDropdown
-          label={t('table.column_plural')}
-          columns={availableColumns}
+          config={config}
+          createLabel={id => t(`table.users.${id}`)}
         />
         <InviteButton label={t('invite.cta')} onClick={openCreateAdminDialog} />
       </Toolbar>
