@@ -15,7 +15,11 @@ import { useInvite } from './useInvite'
 
 const coreRowModel = getCoreRowModel()
 
-const Toolbar = ({ children }) => (
+const MembersRoot = ({ children }) => (
+  <div className='flex flex-col gap-4'>{children}</div>
+)
+
+const MembersToolbar = ({ children }) => (
   <div className='flex min-h-11 justify-end gap-4'>{children}</div>
 )
 
@@ -70,16 +74,16 @@ export const Members = ({ teamId }) => {
   }
 
   return (
-    <div className='flex flex-col gap-4'>
-      <Toolbar>
+    <MembersRoot>
+      <MembersToolbar>
         <ColumnVisibilityDropdown
           config={config}
           createLabel={id => t(`table.members.${id}`)}
         />
         <InviteButton label={t('invite.cta')} onClick={openInviteDialog} />
-      </Toolbar>
+      </MembersToolbar>
 
       <Table config={config} onRowClick={openUserProfile} />
-    </div>
+    </MembersRoot>
   )
 }
