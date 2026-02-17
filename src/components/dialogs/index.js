@@ -1,5 +1,5 @@
 export { CreateAdminDialog } from './CreateAdminDialog'
 export { CreateMemberDialog } from './CreateMemberDialog'
+export { CreateTeamDialog } from './CreateTeamDialog'
 export { PricingSliderDialog } from './PricingSliderDialog'
 export { ProfileDialog } from './ProfileDialog'
-export { TeamAddDialog } from './TeamAddDialog'
