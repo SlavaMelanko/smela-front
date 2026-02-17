@@ -1,9 +1,8 @@
-import { PageContent } from '@/pages/Page'
+import { useCurrentUser } from '@/hooks/useAuth'
+import { TeamPage as SharedTeamPage } from '@/pages/shared/Team'
 
 export const TeamPage = () => {
-  return (
-    <PageContent>
-      <h1 className='text-xl font-bold'>TODO: team page</h1>
-    </PageContent>
-  )
+  const { team } = useCurrentUser()
+
+  return <SharedTeamPage teamId={team?.id} />
 }

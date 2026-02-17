@@ -28,8 +28,8 @@ export const getColumns = (t, formatDate) => {
     {
       accessorKey: 'invitedBy',
       header: label('invitedBy'),
-      accessorFn: row => row.invite?.inviterName,
-      cell: info => info.getValue() || ''
+      accessorFn: row => getFullName(row?.inviter),
+      cell: info => info.getValue() ?? ''
     },
     {
       accessorKey: 'invitedAt',
@@ -47,5 +47,6 @@ export const getColumns = (t, formatDate) => {
 
 export const defaultHiddenColumns = {
   id: false,
+  invitedBy: false,
   updatedAt: false
 }
