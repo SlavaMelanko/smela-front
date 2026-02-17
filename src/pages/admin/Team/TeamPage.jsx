@@ -88,7 +88,7 @@ export const TeamPage = () => {
           />
         </TabsContent>
         <TabsContent value={TeamTab.MEMBERS}>
-          <Members teamId={id} members={team.members ?? []} />
+          <Members teamId={id} />
         </TabsContent>
       </Tabs>
     </PageContent>

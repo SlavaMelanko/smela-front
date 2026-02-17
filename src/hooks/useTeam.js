@@ -143,12 +143,9 @@ export const useInviteMember = teamId => {
           status: UserStatus.PENDING
         }
 
-        const members = old?.members ?? []
+        const currentMembers = old?.members ?? []
 
-        return {
-          ...old,
-          members: [optimisticMember, ...members]
-        }
+        return { members: [optimisticMember, ...currentMembers] }
       })
 
       return { previousMembers }

@@ -2,13 +2,16 @@ import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import { useState } from 'react'
 
 import { InviteButton } from '@/components/buttons'
-import { CreateMemberDialog, ProfileDialog } from '@/components/dialogs'
-import { EmptyState } from '@/components/states'
+import { ProfileDialog } from '@/components/dialogs'
+import { Spinner } from '@/components/Spinner'
+import { EmptyState, ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
 import { useLocale } from '@/hooks/useLocale'
 import { useModal } from '@/hooks/useModal'
+import { useTeamMembers } from '@/hooks/useTeam'
 
 import { defaultHiddenColumns, getColumns } from './columns'
+import { useInvite } from './useInvite'
 
 const coreRowModel = getCoreRowModel()
 
@@ -16,14 +19,17 @@ const Toolbar = ({ children }) => (
   <div className='flex min-h-11 justify-end gap-4'>{children}</div>
 )
 
-export const Members = ({ teamId, members }) => {
-  const { t, formatDate } = useLocale()
+export const Members = ({ teamId }) => {
+  const { t, formatDate, te } = useLocale()
   const { openModal } = useModal()
-
-  const columns = getColumns(t, formatDate)
-  const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
-
-  const isEmpty = members.length === 0
+  const {
+    data: members,
+    isPending,
+    isError,
+    error,
+    refetch
+  } = useTeamMembers(teamId)
+  const { openInviteDialog } = useInvite(teamId)
 
   const openUserProfile = member => {
     const close = openModal({
@@ -31,27 +37,34 @@ export const Members = ({ teamId, members }) => {
     })
   }
 
-  const openCreateMemberDialog = () => {
-    const close = openModal({
-      children: <CreateMemberDialog teamId={teamId} onClose={() => close()} />
-    })
-  }
+  const columns = getColumns(t, formatDate)
+  const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
 
   // eslint-disable-next-line react-hooks/incompatible-library
   const config = useReactTable({
-    data: members,
+    data: members ?? [],
     columns,
     state: { columnVisibility },
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: coreRowModel
   })
 
+  if (isPending && !members) {
+    return <Spinner />
+  }
+
+  if (isError) {
+    return <ErrorState text={te(error)} onRetry={refetch} />
+  }
+
+  const isEmpty = members.length === 0
+
   if (isEmpty) {
     return (
       <EmptyState text={t('team.members.empty')}>
         <InviteButton
           label={t('invite.cta')}
-          onClick={openCreateMemberDialog}
+          onClick={openInviteDialog}
           hideTextOnMobile={false}
         />
       </EmptyState>
@@ -72,10 +85,7 @@ export const Members = ({ teamId, members }) => {
           label={t('table.column_plural')}
           columns={availableColumns}
         />
-        <InviteButton
-          label={t('invite.cta')}
-          onClick={openCreateMemberDialog}
-        />
+        <InviteButton label={t('invite.cta')} onClick={openInviteDialog} />
       </Toolbar>
 
       <Table config={config} onRowClick={openUserProfile} />
