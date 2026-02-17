@@ -34,12 +34,7 @@ export const getColumns = (t, formatDate) => {
     {
       accessorKey: 'invitedAt',
       header: label('invitedAt'),
-      accessorFn: row => row.invite?.invitedAt,
-      cell: info => (info.getValue() ? formatDate(info.getValue()) : '')
-    },
-    {
-      accessorKey: 'createdAt',
-      header: label('createdAt'),
+      accessorFn: row => row.createdAt,
       cell: info => formatDate(info.getValue())
     },
     {
@@ -52,6 +47,5 @@ export const getColumns = (t, formatDate) => {
 
 export const defaultHiddenColumns = {
   id: false,
-  invitedAt: false,
   updatedAt: false
 }
