@@ -6,6 +6,7 @@ import {
 } from '@tanstack/react-query'
 
 import { defaultOptions } from '@/components/Pagination'
+import { UserStatus } from '@/lib/types'
 import { ownerApi } from '@/services/backend'
 
 export const ownerKeys = {
@@ -40,6 +41,36 @@ export const useCreateAdmin = () => {
 
   return useMutation({
     mutationFn: ownerApi.createAdmin,
+    onMutate: async newAdmin => {
+      await queryClient.cancelQueries({ queryKey: ownerKeys.admins() })
+
+      const previousQueries = queryClient.getQueriesData({
+        queryKey: ownerKeys.admins()
+      })
+
+      queryClient.setQueriesData({ queryKey: ownerKeys.admins() }, old => {
+        const now = new Date().toISOString()
+        const optimisticAdmin = {
+          ...newAdmin,
+          id: '...',
+          status: UserStatus.PENDING,
+          createdAt: now,
+          updatedAt: now
+        }
+
+        return {
+          ...old,
+          admins: [optimisticAdmin, ...(old.admins ?? [])]
+        }
+      })
+
+      return { previousQueries }
+    },
+    onError: (_error, _newAdmin, context) => {
+      for (const [queryKey, data] of context.previousQueries) {
+        queryClient.setQueryData(queryKey, data)
+      }
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ownerKeys.admins() })
     }
