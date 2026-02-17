@@ -92,14 +92,6 @@ export const AdminsPage = () => {
     }
   ]
 
-  const changePage = page => {
-    setParams({ page })
-  }
-
-  const changeLimit = limit => {
-    setParams({ limit }, { resetPage: true })
-  }
-
   // eslint-disable-next-line react-hooks/incompatible-library
   const config = useReactTable({
     data: admins,
@@ -114,6 +106,14 @@ export const AdminsPage = () => {
     getCoreRowModel: coreRowModel,
     getSortedRowModel: sortedRowModel
   })
+
+  const changeLimit = limit => {
+    setParams({ limit }, { resetPage: true })
+  }
+
+  const changePage = page => {
+    setParams({ page })
+  }
 
   if (isError) {
     return <ErrorState text={te(error)} onRetry={refetch} />

@@ -35,7 +35,7 @@ export const Members = ({ teamId }) => {
   } = useTeamMembers(teamId)
   const { openInviteDialog } = useInvite(teamId)
 
-  const openUserProfile = member => {
+  const openMemberProfile = member => {
     const close = openModal({
       children: <ProfileDialog profile={member} onClose={() => close()} />
     })
@@ -83,7 +83,7 @@ export const Members = ({ teamId }) => {
         <InviteButton label={t('invite.cta')} onClick={openInviteDialog} />
       </MembersToolbar>
 
-      <Table config={config} onRowClick={openUserProfile} />
+      <Table config={config} onRowClick={openMemberProfile} />
     </MembersRoot>
   )
 }

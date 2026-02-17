@@ -18,6 +18,10 @@ export const Pagination = ({
   const canGoBack = page > 1
   const canGoForward = page < totalPages
 
+  const changeLimit = value => {
+    onLimitChange?.(Number(value))
+  }
+
   const goToPrevPage = () => {
     if (canGoBack) {
       onPageChange?.(page - 1)
@@ -28,10 +32,6 @@ export const Pagination = ({
     if (canGoForward) {
       onPageChange?.(page + 1)
     }
-  }
-
-  const changeLimit = value => {
-    onLimitChange?.(Number(value))
   }
 
   return (

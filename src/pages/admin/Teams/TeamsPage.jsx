@@ -8,7 +8,6 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { AddButton } from '@/components/buttons'
-import { TeamAddDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
 import { defaultOptions, Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
@@ -16,12 +15,12 @@ import { ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
 import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useLocale } from '@/hooks/useLocale'
-import { useModal } from '@/hooks/useModal'
 import { useTableParams } from '@/hooks/useTableParams'
 import { useTeams } from '@/hooks/useTeam'
 import { PageContent } from '@/pages/Page'
 
 import { defaultHiddenColumns, getColumns } from './columns'
+import { useManageTeams } from './useManageTeams'
 
 const coreRowModel = getCoreRowModel()
 const sortedRowModel = getSortedRowModel()
@@ -33,7 +32,7 @@ const Toolbar = ({ children }) => (
 export const TeamsPage = () => {
   const navigate = useNavigate()
   const { t, te, formatDate } = useLocale()
-  const { openModal } = useModal()
+  const { openCreateTeamDialog } = useManageTeams()
 
   const { params, apiParams, setParams } = useTableParams()
 
@@ -51,12 +50,6 @@ export const TeamsPage = () => {
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
   const [sorting, setSorting] = useState([])
 
-  const openCreateTeamDialog = () => {
-    const close = openModal({
-      children: <TeamAddDialog onClose={() => close()} />
-    })
-  }
-
   const viewTeam = team => navigate(`/admin/teams/${team.id}`)
 
   const contextMenu = [
@@ -66,14 +59,6 @@ export const TeamsPage = () => {
       onClick: viewTeam
     }
   ]
-
-  const changePage = page => {
-    setParams({ page })
-  }
-
-  const changeLimit = limit => {
-    setParams({ limit }, { resetPage: true })
-  }
 
   // eslint-disable-next-line react-hooks/incompatible-library
   const config = useReactTable({
@@ -89,6 +74,14 @@ export const TeamsPage = () => {
     getCoreRowModel: coreRowModel,
     getSortedRowModel: sortedRowModel
   })
+
+  const changeLimit = limit => {
+    setParams({ limit }, { resetPage: true })
+  }
+
+  const changePage = page => {
+    setParams({ page })
+  }
 
   if (isError) {
     return <ErrorState text={te(error)} onRetry={refetch} />
