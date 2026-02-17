@@ -13,7 +13,7 @@ export const getColumns = (t, formatDate) => {
       accessorKey: 'name',
       header: label('name'),
       accessorFn: row => getFullName(row),
-      cell: info => getFullName(info.row.original)
+      cell: info => info.getValue()
     },
     {
       accessorKey: 'email',

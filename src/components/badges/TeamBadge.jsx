@@ -23,7 +23,7 @@ const TeamBadgeContent = ({ children }) => (
 )
 
 const TeamBadgeName = ({ children }) => (
-  <span className='truncate text-base font-medium leading-tight text-sidebar-foreground'>
+  <span className='truncate text-left text-base font-medium leading-tight text-sidebar-foreground'>
     {children}
   </span>
 )

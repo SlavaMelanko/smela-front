@@ -5,7 +5,8 @@ import { useLocale } from '@/hooks/useLocale'
 import { FilterToggle } from './FilterToggle'
 
 export const Toolbar = ({
-  columns,
+  config,
+  createLabel,
   showFilters,
   onToggleFilters,
   searchValue,
@@ -26,10 +27,7 @@ export const Toolbar = ({
         isActive={showFilters}
         onToggle={onToggleFilters}
       />
-      <ColumnVisibilityDropdown
-        label={t('table.column_plural')}
-        columns={columns}
-      />
+      <ColumnVisibilityDropdown config={config} createLabel={createLabel} />
     </div>
   )
 }
