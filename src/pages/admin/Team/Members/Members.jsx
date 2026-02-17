@@ -49,17 +49,15 @@ export const Members = ({ teamId }) => {
     getCoreRowModel: coreRowModel
   })
 
-  if (isPending && !members) {
-    return <Spinner />
-  }
-
   if (isError) {
     return <ErrorState text={te(error)} onRetry={refetch} />
   }
 
-  const isEmpty = members.length === 0
+  if (isPending && !members) {
+    return <Spinner />
+  }
 
-  if (isEmpty) {
+  if (!members.length) {
     return (
       <EmptyState text={t('team.members.empty')}>
         <InviteButton
