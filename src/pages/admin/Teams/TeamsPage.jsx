@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { AddButton } from '@/components/buttons'
 import { SearchInput } from '@/components/inputs'
-import { defaultOptions, Pagination } from '@/components/Pagination'
+import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
@@ -43,8 +43,8 @@ export const TeamsPage = () => {
     handleSearch
   )
 
-  const { data, isPending, isError, error, refetch } = useTeams(apiParams)
-  const { teams = [], pagination = defaultOptions } = data ?? {}
+  const { teams, pagination, isPending, isError, error, refetch } =
+    useTeams(apiParams)
 
   const columns = getColumns(t, formatDate)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
@@ -87,7 +87,7 @@ export const TeamsPage = () => {
     return <ErrorState text={te(error)} onRetry={refetch} />
   }
 
-  if (isPending && !data) {
+  if (isPending && !teams.length) {
     return <Spinner />
   }
 

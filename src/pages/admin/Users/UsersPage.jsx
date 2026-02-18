@@ -8,7 +8,7 @@ import { User } from 'lucide-react'
 import { useState } from 'react'
 
 import { ProfileDialog } from '@/components/dialogs'
-import { defaultOptions, Pagination } from '@/components/Pagination'
+import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { Table } from '@/components/table'
@@ -40,8 +40,8 @@ export const UsersPage = () => {
     handleSearch
   )
 
-  const { data, isPending, isError, error, refetch } = useUsers(apiParams)
-  const { users = [], pagination = defaultOptions } = data ?? {}
+  const { users, pagination, isPending, isError, error, refetch } =
+    useUsers(apiParams)
 
   const columns = getColumns(t, formatDate)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
@@ -95,7 +95,7 @@ export const UsersPage = () => {
     return <ErrorState text={te(error)} onRetry={refetch} />
   }
 
-  if (isPending && !data) {
+  if (isPending && !users.length) {
     return <Spinner />
   }
 
