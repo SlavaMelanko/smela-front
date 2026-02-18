@@ -13,11 +13,10 @@ import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
-import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useLocale } from '@/hooks/useLocale'
 import { useModal } from '@/hooks/useModal'
 import { useAdmins } from '@/hooks/useOwner'
-import { useTableParams } from '@/hooks/useTableParams'
+import { useTableState } from '@/hooks/useTableState'
 import { UserStatus } from '@/lib/types'
 import { PageContent } from '@/pages/Page'
 
@@ -34,6 +33,10 @@ const Toolbar = ({ children }) => (
 export const AdminsPage = () => {
   const { t, te, formatDate } = useLocale()
   const { openModal } = useModal()
+
+  const { apiParams, setParams, searchValue, setSearchValue } = useTableState()
+  const { admins, pagination, isPending, isError, error, refetch } =
+    useAdmins(apiParams)
   const {
     openInviteDialog,
     handleResendInvite,
@@ -41,18 +44,6 @@ export const AdminsPage = () => {
     handleCancelInvite,
     isCancelling
   } = useInvite()
-
-  const { params, apiParams, setParams } = useTableParams()
-
-  const handleSearch = value =>
-    setParams({ search: value || null }, { resetPage: true })
-  const { searchValue, setSearchValue } = useDebouncedSearch(
-    params.search,
-    handleSearch
-  )
-
-  const { admins, pagination, isPending, isError, error, refetch } =
-    useAdmins(apiParams)
 
   const columns = getColumns(t, formatDate)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)

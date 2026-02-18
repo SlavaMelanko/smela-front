@@ -2,6 +2,8 @@ import { useSearchParams } from 'react-router-dom'
 
 import { isValidLimit, Limit } from '@/components/Pagination'
 
+import { useDebouncedSearch } from './useDebouncedSearch'
+
 const parseArrayParam = value => {
   if (!value) {
     return []
@@ -22,7 +24,7 @@ const parseLimit = limitStr => {
   return isValidLimit(limit) ? limit : Limit.SM
 }
 
-export const useTableParams = () => {
+export const useTableState = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   // Read: parse URL into structured state
@@ -64,6 +66,13 @@ export const useTableParams = () => {
     })
   }
 
+  const handleSearch = value =>
+    setParams({ search: value || null }, { resetPage: true })
+  const { searchValue, setSearchValue } = useDebouncedSearch(
+    params.search,
+    handleSearch
+  )
+
   // API params: transform for backend consumption
   const apiParams = {
     ...(params.search && { search: params.search }),
@@ -72,5 +81,5 @@ export const useTableParams = () => {
     limit: params.limit
   }
 
-  return { params, apiParams, setParams }
+  return { params, apiParams, setParams, searchValue, setSearchValue }
 }

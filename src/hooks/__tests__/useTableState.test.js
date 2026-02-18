@@ -3,17 +3,27 @@ import { useSearchParams } from 'react-router-dom'
 
 import { Limit } from '@/components/Pagination'
 
-import { useTableParams } from '../useTableParams'
+import { useDebouncedSearch } from '../useDebouncedSearch'
+import { useTableState } from '../useTableState'
 
 jest.mock('react-router-dom', () => ({
   useSearchParams: jest.fn()
 }))
 
-describe('useTableParams', () => {
+jest.mock('../useDebouncedSearch', () => ({
+  useDebouncedSearch: jest.fn()
+}))
+
+describe('useTableState', () => {
   let mockSearchParams
   let mockSetSearchParams
 
   beforeEach(() => {
+    useDebouncedSearch.mockReturnValue({
+      searchValue: '',
+      setSearchValue: jest.fn()
+    })
+
     mockSearchParams = new URLSearchParams()
     mockSetSearchParams = jest.fn(updater => {
       if (typeof updater === 'function') {
@@ -27,7 +37,7 @@ describe('useTableParams', () => {
   })
 
   it('returns default values when URL has no params (Admins table scenario)', () => {
-    const { result } = renderHook(() => useTableParams())
+    const { result } = renderHook(() => useTableState())
 
     expect(result.current.params).toEqual({
       search: '',
@@ -49,7 +59,7 @@ describe('useTableParams', () => {
 
     useSearchParams.mockReturnValue([mockSearchParams, mockSetSearchParams])
 
-    const { result } = renderHook(() => useTableParams())
+    const { result } = renderHook(() => useTableState())
 
     expect(result.current.params).toEqual({
       search: 'john',
@@ -67,7 +77,7 @@ describe('useTableParams', () => {
   })
 
   it('updates page param without resetting (pagination)', () => {
-    const { result } = renderHook(() => useTableParams())
+    const { result } = renderHook(() => useTableState())
 
     act(() => {
       result.current.setParams({ page: 3 })
@@ -81,7 +91,7 @@ describe('useTableParams', () => {
     mockSearchParams = new URLSearchParams('page=5&statuses=active')
     useSearchParams.mockReturnValue([mockSearchParams, mockSetSearchParams])
 
-    const { result } = renderHook(() => useTableParams())
+    const { result } = renderHook(() => useTableState())
 
     act(() => {
       result.current.setParams({ statuses: ['pending'] }, { resetPage: true })
@@ -95,7 +105,7 @@ describe('useTableParams', () => {
     mockSearchParams = new URLSearchParams('search=test&statuses=active')
     useSearchParams.mockReturnValue([mockSearchParams, mockSetSearchParams])
 
-    const { result } = renderHook(() => useTableParams())
+    const { result } = renderHook(() => useTableState())
 
     act(() => {
       result.current.setParams({ search: '', statuses: [] })
@@ -103,5 +113,17 @@ describe('useTableParams', () => {
 
     expect(mockSearchParams.get('search')).toBeNull()
     expect(mockSearchParams.get('statuses')).toBeNull()
+  })
+
+  it('returns searchValue defaulting to empty string', () => {
+    const { result } = renderHook(() => useTableState())
+
+    expect(result.current.searchValue).toBe('')
+  })
+
+  it('returns setSearchValue as a function', () => {
+    const { result } = renderHook(() => useTableState())
+
+    expect(typeof result.current.setSearchValue).toBe('function')
   })
 })
