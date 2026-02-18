@@ -13,10 +13,9 @@ import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { Table } from '@/components/table'
 import { useUsers } from '@/hooks/useAdmin'
-import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useLocale } from '@/hooks/useLocale'
 import { useModal } from '@/hooks/useModal'
-import { useTableParams } from '@/hooks/useTableParams'
+import { useTableState } from '@/hooks/useTableState'
 import { PageContent } from '@/pages/Page'
 
 import { defaultHiddenColumns, getColumns } from './columns'
@@ -31,15 +30,8 @@ export const UsersPage = () => {
   const { t, te, formatDate } = useLocale()
   const { openModal } = useModal()
 
-  const { params, apiParams, setParams } = useTableParams()
-
-  const handleSearch = value =>
-    setParams({ search: value || null }, { resetPage: true })
-  const { searchValue, setSearchValue } = useDebouncedSearch(
-    params.search,
-    handleSearch
-  )
-
+  const { params, apiParams, setParams, searchValue, setSearchValue } =
+    useTableState()
   const { users, pagination, isPending, isError, error, refetch } =
     useUsers(apiParams)
 

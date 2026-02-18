@@ -29,16 +29,13 @@ export const useTeams = (params = {}) => {
   const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: teamKeys.list(params),
     queryFn: () => teamApi.listTeams(params),
-    select: data => ({
-      teams: data?.teams ?? [],
-      pagination: data?.pagination ?? defaultOptions
-    }),
     placeholderData: keepPreviousData,
     ...teamQueryOptions
   })
 
   return {
-    ...data,
+    teams: data?.teams ?? [],
+    pagination: data?.pagination ?? defaultOptions,
     isPending,
     isError,
     error,

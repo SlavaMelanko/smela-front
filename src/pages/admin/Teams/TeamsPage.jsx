@@ -13,9 +13,8 @@ import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
-import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useLocale } from '@/hooks/useLocale'
-import { useTableParams } from '@/hooks/useTableParams'
+import { useTableState } from '@/hooks/useTableState'
 import { useTeams } from '@/hooks/useTeam'
 import { PageContent } from '@/pages/Page'
 
@@ -32,19 +31,11 @@ const Toolbar = ({ children }) => (
 export const TeamsPage = () => {
   const navigate = useNavigate()
   const { t, te, formatDate } = useLocale()
-  const { openCreateTeamDialog } = useManageTeams()
 
-  const { params, apiParams, setParams } = useTableParams()
-
-  const handleSearch = value =>
-    setParams({ search: value || null }, { resetPage: true })
-  const { searchValue, setSearchValue } = useDebouncedSearch(
-    params.search,
-    handleSearch
-  )
-
+  const { apiParams, setParams, searchValue, setSearchValue } = useTableState()
   const { teams, pagination, isPending, isError, error, refetch } =
     useTeams(apiParams)
+  const { openCreateTeamDialog } = useManageTeams()
 
   const columns = getColumns(t, formatDate)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
