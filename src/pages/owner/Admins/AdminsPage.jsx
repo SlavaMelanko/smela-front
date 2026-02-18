@@ -3,7 +3,6 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { MailIcon, Send, User, X } from 'lucide-react'
 import { useState } from 'react'
 
 import { InviteButton } from '@/components/buttons'
@@ -13,11 +12,14 @@ import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
+import {
+  createInviteItem,
+  createOpenItem
+} from '@/components/table/contextMenuItems'
 import { useLocale } from '@/hooks/useLocale'
 import { useModal } from '@/hooks/useModal'
 import { useAdmins } from '@/hooks/useOwner'
 import { useTableState } from '@/hooks/useTableState'
-import { UserStatus } from '@/lib/types'
 import { PageContent } from '@/pages/Page'
 
 import { defaultHiddenColumns, getColumns } from './columns'
@@ -56,31 +58,13 @@ export const AdminsPage = () => {
   }
 
   const contextMenu = [
-    {
-      icon: User,
-      label: t('contextMenu.open'),
-      onClick: openAdminProfile
-    },
-    {
-      icon: MailIcon,
-      label: t('contextMenu.invite'),
-      isVisible: admin => admin.status === UserStatus.PENDING,
-      items: [
-        {
-          icon: Send,
-          label: t('contextMenu.resend'),
-          onClick: handleResendInvite,
-          disabled: isResending
-        },
-        {
-          icon: X,
-          label: t('contextMenu.cancel'),
-          onClick: handleCancelInvite,
-          variant: 'destructive',
-          disabled: isCancelling
-        }
-      ]
-    }
+    createOpenItem(t, openAdminProfile),
+    createInviteItem(t, {
+      handleResendInvite,
+      isResending,
+      handleCancelInvite,
+      isCancelling
+    })
   ]
 
   // eslint-disable-next-line react-hooks/incompatible-library

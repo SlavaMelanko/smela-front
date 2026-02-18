@@ -1,5 +1,4 @@
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { MailIcon, Send, User, X } from 'lucide-react'
 import { useState } from 'react'
 
 import { InviteButton } from '@/components/buttons'
@@ -7,10 +6,13 @@ import { ProfileDialog } from '@/components/dialogs'
 import { Spinner } from '@/components/Spinner'
 import { EmptyState, ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
+import {
+  createInviteItem,
+  createOpenItem
+} from '@/components/table/contextMenuItems'
 import { useLocale } from '@/hooks/useLocale'
 import { useModal } from '@/hooks/useModal'
 import { useTeamMembers } from '@/hooks/useTeam'
-import { UserStatus } from '@/lib/types'
 
 import { defaultHiddenColumns, getColumns } from './columns'
 import { useInvite } from './useInvite'
@@ -50,31 +52,13 @@ export const Members = ({ teamId }) => {
   }
 
   const contextMenu = [
-    {
-      icon: User,
-      label: t('contextMenu.open'),
-      onClick: openMemberProfile
-    },
-    {
-      icon: MailIcon,
-      label: t('contextMenu.invite'),
-      isVisible: member => member.status === UserStatus.PENDING,
-      items: [
-        {
-          icon: Send,
-          label: t('contextMenu.resend'),
-          onClick: handleResendInvite,
-          disabled: isResending
-        },
-        {
-          icon: X,
-          label: t('contextMenu.cancel'),
-          onClick: handleCancelInvite,
-          variant: 'destructive',
-          disabled: isCancelling
-        }
-      ]
-    }
+    createOpenItem(t, openMemberProfile),
+    createInviteItem(t, {
+      handleResendInvite,
+      isResending,
+      handleCancelInvite,
+      isCancelling
+    })
   ]
 
   const columns = getColumns(t, formatDate)

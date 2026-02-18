@@ -4,7 +4,6 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { User } from 'lucide-react'
 import { useState } from 'react'
 
 import { ProfileDialog } from '@/components/dialogs'
@@ -12,6 +11,7 @@ import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { Table } from '@/components/table'
+import { createOpenItem } from '@/components/table/contextMenuItems'
 import { useUsers } from '@/hooks/useAdmin'
 import { useLocale } from '@/hooks/useLocale'
 import { useModal } from '@/hooks/useModal'
@@ -48,13 +48,7 @@ export const UsersPage = () => {
     })
   }
 
-  const contextMenu = [
-    {
-      icon: User,
-      label: t('contextMenu.open'),
-      onClick: openUserProfile
-    }
-  ]
+  const contextMenu = [createOpenItem(t, openUserProfile)]
 
   // eslint-disable-next-line react-hooks/incompatible-library
   const config = useReactTable({
