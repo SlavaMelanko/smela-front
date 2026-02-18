@@ -13,6 +13,7 @@ import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
+import { createOpenItem } from '@/components/table/contextMenuItems'
 import { useLocale } from '@/hooks/useLocale'
 import { useTableState } from '@/hooks/useTableState'
 import { useTeams } from '@/hooks/useTeam'
@@ -43,13 +44,7 @@ export const TeamsPage = () => {
 
   const viewTeam = team => navigate(`/admin/teams/${team.id}`)
 
-  const contextMenu = [
-    {
-      icon: Users,
-      label: t('contextMenu.open'),
-      onClick: viewTeam
-    }
-  ]
+  const contextMenu = [createOpenItem(t, viewTeam, Users)]
 
   // eslint-disable-next-line react-hooks/incompatible-library
   const config = useReactTable({
