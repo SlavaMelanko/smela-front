@@ -1,9 +1,14 @@
-import { PageContent } from '@/pages/Page'
+import { Navigate } from 'react-router-dom'
+
+import { useCurrentUser } from '@/hooks/useAuth'
+import { TeamPage as SharedTeamPage } from '@/pages/shared/Team'
 
 export const TeamPage = () => {
-  return (
-    <PageContent>
-      <h1 className='text-xl font-bold'>TODO: team page</h1>
-    </PageContent>
-  )
+  const { team } = useCurrentUser()
+
+  if (!team) {
+    return <Navigate to='/not-found' replace />
+  }
+
+  return <SharedTeamPage teamId={team.id} />
 }

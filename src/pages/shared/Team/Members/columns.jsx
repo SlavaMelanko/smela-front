@@ -31,6 +31,7 @@ export const getColumns = (t, formatDate) => {
     {
       accessorKey: 'invitedBy',
       header: label('invitedBy'),
+      accessorFn: row => getFullName(row?.inviter),
       cell: info => info.getValue() ?? ''
     },
     {
