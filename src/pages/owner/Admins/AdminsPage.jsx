@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { InviteButton } from '@/components/buttons'
 import { ProfileDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
-import { defaultOptions, Pagination } from '@/components/Pagination'
+import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
@@ -51,8 +51,8 @@ export const AdminsPage = () => {
     handleSearch
   )
 
-  const { data, isPending, isError, error, refetch } = useAdmins(apiParams)
-  const { admins = [], pagination = defaultOptions } = data ?? {}
+  const { admins, pagination, isPending, isError, error, refetch } =
+    useAdmins(apiParams)
 
   const columns = getColumns(t, formatDate)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
@@ -119,7 +119,7 @@ export const AdminsPage = () => {
     return <ErrorState text={te(error)} onRetry={refetch} />
   }
 
-  if (isPending && !data) {
+  if (isPending && !admins.length) {
     return <Spinner />
   }
 

@@ -19,7 +19,7 @@ const adminQueryOptions = {
 }
 
 export const useUsers = (params = {}) => {
-  return useQuery({
+  const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: adminKeys.usersList(params),
     queryFn: () => adminApi.getUsers(params),
     select: data => ({
@@ -29,6 +29,14 @@ export const useUsers = (params = {}) => {
     placeholderData: keepPreviousData,
     ...adminQueryOptions
   })
+
+  return {
+    ...data,
+    isPending,
+    isError,
+    error,
+    refetch
+  }
 }
 
 export const useUser = (id, options = {}) => {

@@ -24,7 +24,7 @@ const ownerQueryOptions = {
 }
 
 export const useAdmins = (params = {}) => {
-  return useQuery({
+  const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: ownerKeys.adminsList(params),
     queryFn: () => ownerApi.getAdmins(params),
     select: data => ({
@@ -34,6 +34,14 @@ export const useAdmins = (params = {}) => {
     placeholderData: keepPreviousData,
     ...ownerQueryOptions
   })
+
+  return {
+    ...data,
+    isPending,
+    isError,
+    error,
+    refetch
+  }
 }
 
 export const useCreateAdmin = () => {
