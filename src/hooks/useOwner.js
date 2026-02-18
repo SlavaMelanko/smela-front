@@ -27,16 +27,13 @@ export const useAdmins = (params = {}) => {
   const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: ownerKeys.adminsList(params),
     queryFn: () => ownerApi.getAdmins(params),
-    select: data => ({
-      admins: data?.admins ?? [],
-      pagination: data?.pagination ?? defaultOptions
-    }),
     placeholderData: keepPreviousData,
     ...ownerQueryOptions
   })
 
   return {
-    ...data,
+    admins: data?.admins ?? [],
+    pagination: data?.pagination ?? defaultOptions,
     isPending,
     isError,
     error,
