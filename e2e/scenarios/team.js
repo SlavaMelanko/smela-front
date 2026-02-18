@@ -19,9 +19,7 @@ export const fillTeamAddFormAndSubmit = async (
 export const updateTeamNameAndSubmit = async (page, newName, t) => {
   const nameInput = page.getByLabel(t.team.name.label)
 
-  await nameInput.click()
-  await nameInput.fill('')
-  await nameInput.pressSequentially(newName)
+  await nameInput.fill(newName)
 
   await page.getByRole('button', { name: t.save }).click()
 }

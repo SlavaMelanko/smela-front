@@ -3,7 +3,7 @@ import { test } from '@playwright/test'
 export const waitForApiCall = async (page, options, timeout = 30000) => {
   const { path, status, method, validateResponse, validateRequest } = options
 
-  return test.step(`Waiting for ${path}`, async () => {
+  return test.step(`Waiting for ${method} ${path}`, async () => {
     const response = await page.waitForResponse(
       async response => {
         let matches = response.url().includes(path)

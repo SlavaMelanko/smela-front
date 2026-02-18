@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 
 import { HttpStatus } from '../src/lib/net'
-import { ADMIN_TEAMS_PATH } from '../src/services/backend/paths'
+import { ADMIN_TEAMS_PATH, TEAMS_PATH } from '../src/services/backend/paths'
 import { expect, test } from './config/fixtures'
 import {
   fillTeamAddFormAndSubmit,
@@ -56,7 +56,10 @@ test.describe.serial('Admin: Teams Management', () => {
     ])
 
     await fillTeamAddFormAndSubmit(page, newTeam, t)
-    await apiPromises
+
+    const [{ body: createdTeam }] = await apiPromises
+
+    newTeam.id = createdTeam?.team?.id ?? createdTeam?.id
 
     // Verify success toast
     await expect(page.getByText(t.team.add.success)).toBeVisible()
@@ -82,20 +85,28 @@ test.describe.serial('Admin: Teams Management', () => {
     await page.goto('/admin/teams')
     await pageLoadPromise
 
-    // Click on the team row to open details
+    // Click on the team row to open details, wait for team detail to load
+    const teamPath = TEAMS_PATH.replace(':teamId', newTeam.id)
+
+    const detailPromise = waitForApiCall(page, {
+      path: teamPath,
+      method: 'GET',
+      status: HttpStatus.OK
+    })
+
     await page.getByRole('row', { name: new RegExp(newTeam.name) }).click()
+    await detailPromise
 
     // Update the team name
     const editedName = `${newTeam.name} Edited`
 
-    const updatePromise = waitForApiCall(page, {
-      path: ADMIN_TEAMS_PATH,
-      method: 'PATCH',
-      status: HttpStatus.OK
-    })
+    const updatePromises = waitForApiCalls(page, [
+      { path: teamPath, method: 'PATCH', status: HttpStatus.OK },
+      { path: teamPath, method: 'GET', status: HttpStatus.OK } // invalidation after update
+    ])
 
     await updateTeamNameAndSubmit(page, editedName, t)
-    await updatePromise
+    await updatePromises
 
     // Verify success toast
     await expect(page.getByText(t.team.update.success)).toBeVisible()
