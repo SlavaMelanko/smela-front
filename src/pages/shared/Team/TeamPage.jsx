@@ -50,8 +50,6 @@ export const TeamPage = ({ teamId, backPath }) => {
     return <Spinner />
   }
 
-  const membersCount = team.members?.length ?? 0
-
   const tabs = [
     {
       value: TeamTab.INFO,
@@ -62,8 +60,8 @@ export const TeamPage = ({ teamId, backPath }) => {
       value: TeamTab.MEMBERS,
       icon: Users,
       label: () =>
-        membersCount > 0
-          ? t('team.tabs.members.withCount', { count: membersCount })
+        team.memberCount > 0
+          ? t('team.tabs.members.withCount', { count: team.memberCount })
           : t('team.tabs.members.label')
     }
   ]
