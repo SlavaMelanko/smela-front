@@ -38,8 +38,7 @@ export const useTeams = (params = {}) => {
   })
 
   return {
-    teams: data?.teams ?? [],
-    pagination: data?.pagination ?? defaultOptions,
+    ...data,
     isPending,
     isError,
     error,

@@ -31,8 +31,7 @@ export const useUsers = (params = {}) => {
   })
 
   return {
-    users: data?.users ?? [],
-    pagination: data?.pagination ?? defaultOptions,
+    ...data,
     isPending,
     isError,
     error,

@@ -36,8 +36,7 @@ export const useAdmins = (params = {}) => {
   })
 
   return {
-    admins: data?.admins ?? [],
-    pagination: data?.pagination ?? defaultOptions,
+    ...data,
     isPending,
     isError,
     error,
