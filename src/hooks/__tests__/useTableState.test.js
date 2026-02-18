@@ -115,15 +115,18 @@ describe('useTableState', () => {
     expect(mockSearchParams.get('statuses')).toBeNull()
   })
 
-  it('returns searchValue defaulting to empty string', () => {
+  it('integrates with useDebouncedSearch correctly', () => {
+    const mockSetSearchValue = jest.fn()
+
+    useDebouncedSearch.mockReturnValue({
+      searchValue: 'test query',
+      setSearchValue: mockSetSearchValue
+    })
+
     const { result } = renderHook(() => useTableState())
 
-    expect(result.current.searchValue).toBe('')
-  })
-
-  it('returns setSearchValue as a function', () => {
-    const { result } = renderHook(() => useTableState())
-
-    expect(typeof result.current.setSearchValue).toBe('function')
+    expect(result.current.searchValue).toBe('test query')
+    expect(result.current.setSearchValue).toBe(mockSetSearchValue)
+    expect(useDebouncedSearch).toHaveBeenCalledWith('', expect.any(Function))
   })
 })
