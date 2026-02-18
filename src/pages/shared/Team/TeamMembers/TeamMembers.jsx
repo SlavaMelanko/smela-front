@@ -15,19 +15,19 @@ import { useModal } from '@/hooks/useModal'
 import { useTeamMembers } from '@/hooks/useTeam'
 
 import { defaultHiddenColumns, getColumns } from './columns'
-import { useInvite } from './useInvite'
+import { useInvite } from './useTeamMembersInvite'
 
 const coreRowModel = getCoreRowModel()
 
-const MembersRoot = ({ children }) => (
+const TeamMembersRoot = ({ children }) => (
   <div className='flex flex-col gap-4'>{children}</div>
 )
 
-const MembersToolbar = ({ children }) => (
+const TeamMembersToolbar = ({ children }) => (
   <div className='flex min-h-11 justify-end gap-4'>{children}</div>
 )
 
-export const Members = ({ teamId }) => {
+export const TeamMembers = ({ teamId }) => {
   const { t, formatDate, te } = useLocale()
   const { openModal } = useModal()
   const {
@@ -94,20 +94,20 @@ export const Members = ({ teamId }) => {
   }
 
   return (
-    <MembersRoot>
-      <MembersToolbar>
+    <TeamMembersRoot>
+      <TeamMembersToolbar>
         <ColumnVisibilityDropdown
           config={config}
           createLabel={id => t(`table.members.${id}`)}
         />
         <InviteButton label={t('invite.cta')} onClick={openInviteDialog} />
-      </MembersToolbar>
+      </TeamMembersToolbar>
 
       <Table
         config={config}
         onRowClick={openMemberProfile}
         contextMenu={contextMenu}
       />
-    </MembersRoot>
+    </TeamMembersRoot>
   )
 }

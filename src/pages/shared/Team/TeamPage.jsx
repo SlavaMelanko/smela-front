@@ -11,8 +11,8 @@ import { useTeam, useUpdateTeam } from '@/hooks/useTeam'
 import { useToast } from '@/hooks/useToast'
 import { PageContent } from '@/pages/Page'
 
-import { Members } from './Members'
 import { TeamInfoForm } from './TeamInfoForm'
+import { TeamMembers } from './TeamMembers'
 
 const TeamTab = {
   INFO: 'info',
@@ -87,7 +87,7 @@ export const TeamPage = ({ teamId, backPath }) => {
           />
         </TabsContent>
         <TabsContent value={TeamTab.MEMBERS}>
-          <Members teamId={teamId} />
+          <TeamMembers teamId={teamId} />
         </TabsContent>
       </Tabs>
     </PageContent>
