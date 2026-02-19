@@ -4,7 +4,9 @@ import { Switch } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
 
 export const PermissionRoot = ({ children }) => (
-  <div className='grid grid-cols-3 items-center gap-4'>{children}</div>
+  <div className='grid grid-cols-3 items-center justify-items-center gap-4'>
+    {children}
+  </div>
 )
 
 const PermissionAction = ({ children }) => (
@@ -44,7 +46,7 @@ export const PermissionRow = ({ resource, control }) => {
 
   return (
     <PermissionRoot>
-      <div className='font-medium'>
+      <div className='justify-self-start font-medium'>
         {t(`permissions.resources.values.${resource}`)}
       </div>
 

@@ -9,7 +9,7 @@ const PermissionHeader = () => {
 
   return (
     <PermissionRoot>
-      <span className='text-base leading-normal text-muted-foreground'>
+      <span className='justify-self-start text-base leading-normal text-muted-foreground'>
         {t('permissions.resources.name')}
       </span>
       <span className='text-base leading-normal text-muted-foreground'>
