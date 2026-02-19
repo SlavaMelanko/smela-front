@@ -123,17 +123,19 @@ describe('UserInvitationForm', () => {
       expect(
         screen.getByText(en.permissions.resources.values.users)
       ).toBeInTheDocument()
+
       expect(
         screen.getByText(en.permissions.resources.values.teams)
       ).toBeInTheDocument()
 
-      // Should have View and Manage labels for each resource (4 total)
+      // Header renders column labels once
       expect(
-        screen.getAllByText(en.permissions.actions.values.view)
-      ).toHaveLength(2)
+        screen.getByText(en.permissions.actions.values.view)
+      ).toBeInTheDocument()
+
       expect(
-        screen.getAllByText(en.permissions.actions.values.manage)
-      ).toHaveLength(2)
+        screen.getByText(en.permissions.actions.values.manage)
+      ).toBeInTheDocument()
     })
 
     it('includes permissions data in form submission', async () => {

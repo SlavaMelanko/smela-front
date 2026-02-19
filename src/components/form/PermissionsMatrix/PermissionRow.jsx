@@ -3,7 +3,7 @@ import { useController } from 'react-hook-form'
 import { Switch } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
 
-const PermissionRoot = ({ children }) => (
+export const PermissionRoot = ({ children }) => (
   <div className='grid grid-cols-3 items-center gap-4 py-2'>{children}</div>
 )
 
@@ -54,7 +54,6 @@ export const PermissionRow = ({ resource, control }) => {
           onCheckedChange={handleViewChange}
           aria-label={t('permissions.actions.values.view')}
         />
-        <span>{t('permissions.actions.values.view')}</span>
       </PermissionAction>
 
       <PermissionAction>
@@ -63,7 +62,6 @@ export const PermissionRow = ({ resource, control }) => {
           onCheckedChange={handleManageChange}
           aria-label={t('permissions.actions.values.manage')}
         />
-        <span>{t('permissions.actions.values.manage')}</span>
       </PermissionAction>
     </PermissionRoot>
   )
