@@ -1,15 +1,14 @@
 import { useForm } from 'react-hook-form'
 
 import {
-  FormBoolController,
   FormField,
   FormFields,
   FormGroup,
   FormRoot,
-  FormRow,
+  PermissionsMatrix,
   SubmitButton
 } from '@/components/form'
-import { Input, Switch } from '@/components/ui'
+import { Input } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
 
 import { defaultConfig, FieldName, getDefaultValues, resolver } from './schema'
@@ -86,58 +85,11 @@ export const UserInvitationForm = ({
         </FormFields>
       </FormGroup>
 
-      <FormGroup legend={t('permissions.name')}>
-        <FormFields>
-          <FormRow>
-            <FormBoolController
-              name={FieldName.PERMISSIONS_VIEW}
-              label={t('permissions.values.view')}
-              control={control}
-              render={({ field }) => (
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              )}
-            />
-            <FormBoolController
-              name={FieldName.PERMISSIONS_EDIT}
-              label={t('permissions.values.edit')}
-              control={control}
-              render={({ field }) => (
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              )}
-            />
-          </FormRow>
-          <FormRow>
-            <FormBoolController
-              name={FieldName.PERMISSIONS_CREATE}
-              label={t('permissions.values.create')}
-              control={control}
-              render={({ field }) => (
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              )}
-            />
-            <FormBoolController
-              name={FieldName.PERMISSIONS_DELETE}
-              label={t('permissions.values.delete')}
-              control={control}
-              render={({ field }) => (
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              )}
-            />
-          </FormRow>
-        </FormFields>
-      </FormGroup>
+      {config.permissions && (
+        <FormGroup legend={t('permissions.name')}>
+          <PermissionsMatrix control={control} />
+        </FormGroup>
+      )}
 
       <SubmitButton isLoading={isSubmitting || isLoading}>
         {t('invite.send.cta')}

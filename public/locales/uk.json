@@ -200,12 +200,20 @@
     }
   },
   "permissions": {
+    "actions": {
+      "name": "Дії",
+      "values": {
+        "manage": "Керування",
+        "view": "Перегляд"
+      }
+    },
     "name": "Права доступу",
-    "values": {
-      "create": "Створення",
-      "delete": "Видалення",
-      "edit": "Редагування",
-      "view": "Перегляд"
+    "resources": {
+      "name": "Ресурси",
+      "values": {
+        "teams": "Команди",
+        "users": "Користувачі"
+      }
     }
   },
   "personalDetails": "Персональні дані",

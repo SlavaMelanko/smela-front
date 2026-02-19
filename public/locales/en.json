@@ -200,12 +200,20 @@
     }
   },
   "permissions": {
+    "actions": {
+      "name": "Actions",
+      "values": {
+        "manage": "Manage",
+        "view": "View"
+      }
+    },
     "name": "Permissions",
-    "values": {
-      "create": "Create",
-      "delete": "Delete",
-      "edit": "Edit",
-      "view": "View"
+    "resources": {
+      "name": "Resources",
+      "values": {
+        "teams": "Teams",
+        "users": "Users"
+      }
     }
   },
   "personalDetails": "Personal details",
