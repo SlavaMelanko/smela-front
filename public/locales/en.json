@@ -200,12 +200,14 @@
     }
   },
   "permissions": {
-    "name": "Permissions",
-    "values": {
-      "create": "Create",
-      "delete": "Delete",
-      "edit": "Edit",
+    "actions": {
+      "manage": "Manage",
       "view": "View"
+    },
+    "name": "Permissions",
+    "resources": {
+      "teams": "Teams",
+      "users": "Users"
     }
   },
   "personalDetails": "Personal details",
