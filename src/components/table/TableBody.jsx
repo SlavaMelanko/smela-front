@@ -1,4 +1,5 @@
 import { flexRender } from '@tanstack/react-table'
+import { memo } from 'react'
 
 import {
   ContextMenu,
@@ -15,12 +16,15 @@ import {
 } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-const RowCells = ({ row }) =>
+const RowCells = memo(({ row }) =>
   row.getVisibleCells().map(cell => (
     <TableCell key={cell.id} className='text-center'>
       {flexRender(cell.column.columnDef.cell, cell.getContext())}
     </TableCell>
   ))
+)
+
+RowCells.displayName = 'RowCells'
 
 const MenuItem = ({ item, row }) => {
   if (item.items) {
@@ -71,7 +75,7 @@ const MenuItem = ({ item, row }) => {
   )
 }
 
-const TableRowContent = ({ row, onRowClick, contextMenu }) => {
+const TableRowContent = memo(({ row, onRowClick, contextMenu }) => {
   const visibleItems = contextMenu?.filter(
     item => item.isVisible?.(row.original) ?? true
   )
@@ -101,7 +105,9 @@ const TableRowContent = ({ row, onRowClick, contextMenu }) => {
       </ContextMenuContent>
     </ContextMenu>
   )
-}
+})
+
+TableRowContent.displayName = 'TableRowContent'
 
 export const TableBody = ({ config, onRowClick, contextMenu }) => (
   <TableBodyRoot>
