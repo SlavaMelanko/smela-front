@@ -65,7 +65,7 @@
         "invalidToken": "Invalid token."
       },
       "loading": "Verifying email...",
-      "success": "Email verified."
+      "success": "Welcome! Your account is ready."
     }
   },
   "error": {
