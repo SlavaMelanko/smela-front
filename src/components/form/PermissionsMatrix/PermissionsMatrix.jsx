@@ -26,10 +26,10 @@ export const PermissionsMatrix = ({
   control,
   resources = DEFAULT_RESOURCES
 }) => (
-  <>
+  <div className='flex flex-col gap-4'>
     <PermissionHeader />
     {resources.map(resource => (
       <PermissionRow key={resource} resource={resource} control={control} />
     ))}
-  </>
+  </div>
 )

@@ -4,7 +4,7 @@ import { Switch } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
 
 export const PermissionRoot = ({ children }) => (
-  <div className='grid grid-cols-3 items-center gap-4 py-2'>{children}</div>
+  <div className='grid grid-cols-3 items-center gap-4'>{children}</div>
 )
 
 const PermissionAction = ({ children }) => (
