@@ -30,7 +30,7 @@ export const userMenuItems = [
     title: 'sidebar.documentation',
     icon: BookOpen,
     external: true,
-    url: 'https://docs.smela.com'
+    url: 'https://google.com'
   },
   {
     title: 'sidebar.settings',
