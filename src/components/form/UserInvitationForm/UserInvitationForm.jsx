@@ -5,12 +5,12 @@ import {
   FormFields,
   FormGroup,
   FormRoot,
+  PermissionsMatrix,
   SubmitButton
 } from '@/components/form'
 import { Input } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
 
-import { PermissionsMatrix } from '../PermissionsMatrix'
 import { defaultConfig, FieldName, getDefaultValues, resolver } from './schema'
 
 export const UserInvitationForm = ({
