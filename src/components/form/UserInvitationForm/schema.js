@@ -4,11 +4,7 @@ export const FieldName = {
   FIRST_NAME: 'firstName',
   LAST_NAME: 'lastName',
   EMAIL: 'email',
-  POSITION: 'position',
-  PERMISSIONS_VIEW: 'permissions.view',
-  PERMISSIONS_CREATE: 'permissions.create',
-  PERMISSIONS_EDIT: 'permissions.edit',
-  PERMISSIONS_DELETE: 'permissions.delete'
+  POSITION: 'position'
 }
 
 export const getDefaultValues = () => ({
@@ -17,10 +13,14 @@ export const getDefaultValues = () => ({
   [FieldName.EMAIL]: '',
   [FieldName.POSITION]: '',
   permissions: {
-    view: true,
-    create: true,
-    edit: true,
-    delete: true
+    users: {
+      view: true,
+      manage: true
+    },
+    teams: {
+      view: true,
+      manage: false
+    }
   }
 })
 

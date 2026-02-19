@@ -201,13 +201,19 @@
   },
   "permissions": {
     "actions": {
-      "manage": "Manage",
-      "view": "View"
+      "name": "Actions",
+      "values": {
+        "manage": "Manage",
+        "view": "View"
+      }
     },
     "name": "Permissions",
     "resources": {
-      "teams": "Teams",
-      "users": "Users"
+      "name": "Resources",
+      "values": {
+        "teams": "Teams",
+        "users": "Users"
+      }
     }
   },
   "personalDetails": "Personal details",

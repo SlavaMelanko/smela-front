@@ -201,13 +201,19 @@
   },
   "permissions": {
     "actions": {
-      "manage": "Керування",
-      "view": "Перегляд"
+      "name": "Дії",
+      "values": {
+        "manage": "Керування",
+        "view": "Перегляд"
+      }
     },
     "name": "Права доступу",
     "resources": {
-      "teams": "Команди",
-      "users": "Користувачі"
+      "name": "Ресурси",
+      "values": {
+        "teams": "Команди",
+        "users": "Користувачі"
+      }
     }
   },
   "personalDetails": "Персональні дані",
