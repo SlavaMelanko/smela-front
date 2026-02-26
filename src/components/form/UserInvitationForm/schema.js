@@ -15,7 +15,7 @@ export const getDefaultValues = () => ({
   permissions: {
     users: {
       view: true,
-      manage: true
+      manage: false
     },
     teams: {
       view: true,

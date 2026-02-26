@@ -5,12 +5,17 @@ import {
   buildPath,
   OWNER_ADMINS_CANCEL_INVITE_PATH,
   OWNER_ADMINS_PATH,
+  OWNER_ADMINS_PERMISSIONS_PATH,
   OWNER_ADMINS_RESEND_INVITE_PATH
 } from './paths'
 
 export const ownerApi = {
   getAdmins(params) {
     return apiClient.get(withQuery(OWNER_ADMINS_PATH, params))
+  },
+
+  getAdminPermissions() {
+    return apiClient.get(OWNER_ADMINS_PERMISSIONS_PATH)
   },
 
   createAdmin(data) {

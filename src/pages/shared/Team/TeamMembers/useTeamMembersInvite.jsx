@@ -22,6 +22,7 @@ export const useInvite = teamId => {
     const close = openModal({
       children: (
         <CreateMemberDialog
+          teamId={teamId}
           onClose={() => close()}
           onSubmit={data => {
             close()

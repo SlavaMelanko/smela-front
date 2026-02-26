@@ -156,7 +156,7 @@ describe('UserInvitationForm', () => {
 
       // Verify default permission values
       expect(submittedData.permissions).toEqual({
-        users: { view: true, manage: true },
+        users: { view: true, manage: false },
         teams: { view: true, manage: false }
       })
     })

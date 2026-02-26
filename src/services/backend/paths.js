@@ -24,9 +24,11 @@ export const TEAM_MEMBERS_PATH = `${TEAMS_PATH}/members`
 export const TEAM_MEMBER_PATH = `${TEAM_MEMBERS_PATH}/:memberId`
 export const TEAM_MEMBER_RESEND_INVITE_PATH = `${TEAM_MEMBER_PATH}/resend-invite`
 export const TEAM_MEMBER_CANCEL_INVITE_PATH = `${TEAM_MEMBER_PATH}/cancel-invite`
+export const TEAM_MEMBERS_PERMISSIONS_PATH = `${TEAM_MEMBERS_PATH}/permissions`
 
 // Owner endpoints
 export const OWNER_ADMINS_PATH = '/api/v1/owner/admins'
+export const OWNER_ADMINS_PERMISSIONS_PATH = `${OWNER_ADMINS_PATH}/permissions`
 export const OWNER_ADMINS_RESEND_INVITE_PATH = `${OWNER_ADMINS_PATH}/:adminId/resend-invite`
 export const OWNER_ADMINS_CANCEL_INVITE_PATH = `${OWNER_ADMINS_PATH}/:adminId/cancel-invite`
 
