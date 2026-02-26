@@ -14,6 +14,7 @@ export const SearchInput = ({
     <Input
       id='search'
       name='search'
+      type='search'
       placeholder={placeholder}
       autoComplete='on'
       aria-label='Search'
