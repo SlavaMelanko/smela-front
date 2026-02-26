@@ -9,7 +9,7 @@ export const FormRoot = ({ children, className, ...props }) => (
 export const FormGroup = ({ children, className, legend }) => (
   <fieldset className={cn('rounded-lg border border-border p-4', className)}>
     {legend && (
-      <legend className='-mx-2 px-2 text-sm font-medium text-muted-foreground'>
+      <legend className='-mx-2 px-2 text-xs text-muted-foreground'>
         {legend}
       </legend>
     )}

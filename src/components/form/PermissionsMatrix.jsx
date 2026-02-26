@@ -3,8 +3,6 @@ import { useController } from 'react-hook-form'
 import { Spinner, Switch } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
 
-const ACTIONS = ['view', 'manage']
-
 const PermissionRoot = ({ children }) => (
   <div className='grid grid-cols-3 items-center justify-items-center gap-4'>
     {children}
@@ -23,7 +21,7 @@ const PermissionHeader = () => {
       <span className='justify-self-start text-base leading-normal text-muted-foreground'>
         {t('permissions.resources.name')}
       </span>
-      {ACTIONS.map(action => (
+      {['view', 'manage'].map(action => (
         <span
           key={action}
           className='text-base leading-normal text-muted-foreground'
@@ -35,25 +33,38 @@ const PermissionHeader = () => {
   )
 }
 
-const PermissionRow = ({ resource, control }) => {
+const PermissionState = ({ action, checked, onCheckedChange }) => {
+  const { t } = useLocale()
+
+  return (
+    <PermissionAction>
+      <Switch
+        checked={checked}
+        onCheckedChange={onCheckedChange}
+        aria-label={t(`permissions.actions.values.${action}`)}
+      />
+    </PermissionAction>
+  )
+}
+
+const PermissionRow = ({ resourceName, resourceData, control }) => {
   const { t } = useLocale()
 
   const { field: viewField } = useController({
-    name: `permissions.${resource}.view`,
+    name: `permissions.${resourceName}.view`,
     control,
-    defaultValue: true
+    defaultValue: resourceData.view
   })
 
   const { field: manageField } = useController({
-    name: `permissions.${resource}.manage`,
+    name: `permissions.${resourceName}.manage`,
     control,
-    defaultValue: false
+    defaultValue: resourceData.manage
   })
 
   const handleViewChange = checked => {
     viewField.onChange(checked)
 
-    // If view is disabled, disable manage too
     if (!checked && manageField.value) {
       manageField.onChange(false)
     }
@@ -62,7 +73,6 @@ const PermissionRow = ({ resource, control }) => {
   const handleManageChange = checked => {
     manageField.onChange(checked)
 
-    // If manage is enabled, enable view too
     if (checked && !viewField.value) {
       viewField.onChange(true)
     }
@@ -71,20 +81,20 @@ const PermissionRow = ({ resource, control }) => {
   return (
     <PermissionRoot>
       <div className='justify-self-start font-medium'>
-        {t(`permissions.resources.values.${resource}`)}
+        {t(`permissions.resources.values.${resourceName}`)}
       </div>
 
-      {ACTIONS.map(action => (
-        <PermissionAction key={action}>
-          <Switch
-            checked={action === 'view' ? viewField.value : manageField.value}
-            onCheckedChange={
-              action === 'view' ? handleViewChange : handleManageChange
-            }
-            aria-label={t(`permissions.actions.values.${action}`)}
-          />
-        </PermissionAction>
-      ))}
+      <PermissionState
+        action='view'
+        checked={viewField.value}
+        onCheckedChange={handleViewChange}
+      />
+
+      <PermissionState
+        action='manage'
+        checked={manageField.value}
+        onCheckedChange={handleManageChange}
+      />
     </PermissionRoot>
   )
 }
@@ -100,7 +110,12 @@ export const PermissionsMatrix = ({ control, permissions, isLoading }) => {
     <div className='flex flex-col gap-4'>
       <PermissionHeader />
       {resources.map(resource => (
-        <PermissionRow key={resource} resource={resource} control={control} />
+        <PermissionRow
+          key={resource}
+          resourceName={resource}
+          resourceData={permissions[resource]}
+          control={control}
+        />
       ))}
     </div>
   )
