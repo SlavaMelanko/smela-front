@@ -13,11 +13,7 @@ import { useLocale } from '@/hooks/useLocale'
 
 import { defaultConfig, FieldName, getDefaultValues, resolver } from './schema'
 
-export const UserInvitationForm = ({
-  isLoading,
-  onSubmit,
-  customConfig = {}
-}) => {
+export const InviteForm = ({ isLoading, onSubmit, customConfig = {} }) => {
   const { t } = useLocale()
   const config = { ...defaultConfig, ...customConfig }
 

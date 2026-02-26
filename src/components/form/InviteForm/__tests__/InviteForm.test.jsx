@@ -4,11 +4,11 @@ import userEvent from '@testing-library/user-event'
 import { renderWithProviders } from '@/tests'
 import en from '$/locales/en.json'
 
-import { UserInvitationForm } from '..'
+import { InviteForm } from '..'
 
 const renderForm = ({ onSubmit = jest.fn(), customConfig } = {}) => {
   renderWithProviders(
-    <UserInvitationForm
+    <InviteForm
       isLoading={false}
       onSubmit={onSubmit}
       customConfig={customConfig}
@@ -25,7 +25,7 @@ const renderForm = ({ onSubmit = jest.fn(), customConfig } = {}) => {
   }
 }
 
-describe('UserInvitationForm', () => {
+describe('InviteForm', () => {
   let user
 
   beforeEach(() => {
