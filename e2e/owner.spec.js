@@ -132,6 +132,62 @@ test.describe.serial('Owner: Admin Invitation', () => {
   })
 })
 
+test.describe('Owner: Admins Table Column Visibility', () => {
+  test('toggling hidden columns keeps data aligned with headers', async ({
+    page,
+    t,
+    login
+  }) => {
+    await login(ownerCredentials)
+
+    const apiPromise = waitForApiCall(page, {
+      path: OWNER_ADMINS_PATH,
+      status: HttpStatus.OK
+    })
+
+    await page.goto('/owner/admins')
+    await apiPromise
+
+    const columnsButton = page.getByRole('button', {
+      name: t.table.column_plural
+    })
+
+    await expect(columnsButton).toBeVisible()
+
+    // ID column is hidden by default — header should not exist yet
+    await expect(
+      page.getByRole('columnheader', { name: t.table.users.id })
+    ).not.toBeVisible()
+
+    // Show the ID column
+    await columnsButton.click()
+    await page.getByRole('menuitemcheckbox', { name: t.table.users.id }).click()
+    await columnsButton.click()
+
+    // Header and first data cell in same column position must align
+    await expect(
+      page.getByRole('columnheader', { name: t.table.users.id })
+    ).toBeVisible()
+
+    const headers = page.getByRole('columnheader')
+    const firstRow = page.getByRole('row').nth(1)
+    const cells = firstRow.getByRole('cell')
+
+    await expect(headers).toHaveCount(await cells.count())
+
+    // Hide the ID column again
+    await columnsButton.click()
+    await page.getByRole('menuitemcheckbox', { name: t.table.users.id }).click()
+    await columnsButton.click()
+
+    await expect(
+      page.getByRole('columnheader', { name: t.table.users.id })
+    ).not.toBeVisible()
+
+    await expect(headers).toHaveCount(await cells.count())
+  })
+})
+
 test.describe('Owner: Admins Page Error Handling', () => {
   test('displays error state when admins API fails', async ({
     page,
