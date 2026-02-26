@@ -1,6 +1,6 @@
 import { useController } from 'react-hook-form'
 
-import { Switch } from '@/components/ui'
+import { Spinner, Switch } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
 
 const ACTIONS = ['view', 'manage']
@@ -89,7 +89,11 @@ const PermissionRow = ({ resource, control }) => {
   )
 }
 
-export const PermissionsMatrix = ({ control, permissions }) => {
+export const PermissionsMatrix = ({ control, permissions, isLoading }) => {
+  if (isLoading && !permissions) {
+    return <Spinner />
+  }
+
   const resources = permissions ? Object.keys(permissions) : []
 
   return (
