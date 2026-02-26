@@ -11,11 +11,16 @@ import {
 import { Input } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
 
-import { defaultConfig, FieldName, getDefaultValues, resolver } from './schema'
+import {
+  defaultFieldsConfig,
+  FieldName,
+  getDefaultValues,
+  resolver
+} from './schema'
 
-export const InviteForm = ({ isLoading, onSubmit, customConfig = {} }) => {
+export const InviteForm = ({ isLoading, onSubmit, fieldsConfig = {} }) => {
   const { t } = useLocale()
-  const config = { ...defaultConfig, ...customConfig }
+  const fields = { ...defaultFieldsConfig, ...fieldsConfig }
 
   const {
     register,
@@ -30,7 +35,7 @@ export const InviteForm = ({ isLoading, onSubmit, customConfig = {} }) => {
   const submit = data => {
     const result = { ...data }
 
-    Object.entries(config).forEach(([key, visible]) => {
+    Object.entries(fields).forEach(([key, visible]) => {
       if (!visible) {
         delete result[key]
       }
@@ -68,7 +73,7 @@ export const InviteForm = ({ isLoading, onSubmit, customConfig = {} }) => {
             <Input {...register(FieldName.EMAIL)} />
           </FormField>
 
-          {config[FieldName.POSITION] && (
+          {fields[FieldName.POSITION] && (
             <FormField
               label={t('position.label')}
               name={FieldName.POSITION}
@@ -81,7 +86,7 @@ export const InviteForm = ({ isLoading, onSubmit, customConfig = {} }) => {
         </FormFields>
       </FormGroup>
 
-      {config.permissions && (
+      {fields.permissions && (
         <FormGroup legend={t('permissions.name')}>
           <PermissionsMatrix control={control} />
         </FormGroup>

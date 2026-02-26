@@ -6,12 +6,12 @@ import en from '$/locales/en.json'
 
 import { InviteForm } from '..'
 
-const renderForm = ({ onSubmit = jest.fn(), customConfig } = {}) => {
+const renderForm = ({ onSubmit = jest.fn(), fieldsConfig } = {}) => {
   renderWithProviders(
     <InviteForm
       isLoading={false}
       onSubmit={onSubmit}
-      customConfig={customConfig}
+      fieldsConfig={fieldsConfig}
     />
   )
 
@@ -39,9 +39,9 @@ describe('InviteForm', () => {
       expect(positionInput).toBeInTheDocument()
     })
 
-    it('hides position field when customConfig.position is false', () => {
+    it('hides position field when fieldsConfig.position is false', () => {
       const { positionInput } = renderForm({
-        customConfig: { position: false }
+        fieldsConfig: { position: false }
       })
 
       expect(positionInput).not.toBeInTheDocument()
@@ -53,9 +53,9 @@ describe('InviteForm', () => {
       expect(permissionsSection).toBeInTheDocument()
     })
 
-    it('hides permissions section when customConfig.permissions is false', () => {
+    it('hides permissions section when fieldsConfig.permissions is false', () => {
       const { permissionsSection } = renderForm({
-        customConfig: { permissions: false }
+        fieldsConfig: { permissions: false }
       })
 
       expect(permissionsSection).not.toBeInTheDocument()
@@ -95,7 +95,7 @@ describe('InviteForm', () => {
       const onSubmit = jest.fn()
       const { firstNameInput, emailInput, submitButton } = renderForm({
         onSubmit,
-        customConfig: { position: false }
+        fieldsConfig: { position: false }
       })
 
       await user.type(firstNameInput, 'John')

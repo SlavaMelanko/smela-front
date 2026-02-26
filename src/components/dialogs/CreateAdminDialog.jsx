@@ -11,7 +11,7 @@ export const CreateAdminDialog = ({ onClose, onSubmit }) => {
         <DialogTitle>{t('invite.send.title.admin')}</DialogTitle>
       </DialogHeader>
       <DialogBody>
-        <InviteForm onSubmit={onSubmit} customConfig={{ position: false }} />
+        <InviteForm onSubmit={onSubmit} fieldsConfig={{ position: false }} />
       </DialogBody>
     </>
   )
