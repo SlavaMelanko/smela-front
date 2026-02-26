@@ -12,8 +12,7 @@ export const getDefaultValues = () => ({
   [FieldName.FIRST_NAME]: '',
   [FieldName.LAST_NAME]: '',
   [FieldName.EMAIL]: '',
-  [FieldName.POSITION]: '',
-  [FieldName.PERMISSIONS]: {}
+  [FieldName.POSITION]: ''
 })
 
 export const resolver = createResolver({

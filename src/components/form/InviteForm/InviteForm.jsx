@@ -41,10 +41,10 @@ export const InviteForm = ({
 
   useEffect(() => {
     if (defaultPermissions) {
-      reset({
-        ...getDefaultValues(),
-        [FieldName.PERMISSIONS]: defaultPermissions
-      })
+      reset(
+        { [FieldName.PERMISSIONS]: defaultPermissions },
+        { keepValues: true }
+      )
     }
   }, [defaultPermissions, reset])
 
