@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import {
@@ -18,7 +19,12 @@ import {
   resolver
 } from './schema'
 
-export const InviteForm = ({ isLoading, onSubmit, fieldsConfig = {} }) => {
+export const InviteForm = ({
+  isPermissionsLoading,
+  onSubmit,
+  defaultPermissions,
+  fieldsConfig = {}
+}) => {
   const { t } = useLocale()
   const fields = { ...defaultFieldsConfig, ...fieldsConfig }
 
@@ -26,11 +32,21 @@ export const InviteForm = ({ isLoading, onSubmit, fieldsConfig = {} }) => {
     register,
     control,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting }
   } = useForm({
     resolver,
     defaultValues: getDefaultValues()
   })
+
+  useEffect(() => {
+    if (defaultPermissions) {
+      reset({
+        ...getDefaultValues(),
+        [FieldName.PERMISSIONS]: defaultPermissions
+      })
+    }
+  }, [defaultPermissions, reset])
 
   const removeHiddenFields = data => {
     const result = { ...data }
@@ -94,7 +110,10 @@ export const InviteForm = ({ isLoading, onSubmit, fieldsConfig = {} }) => {
         </FormGroup>
       )}
 
-      <SubmitButton isLoading={isSubmitting || isLoading}>
+      <SubmitButton
+        isLoading={isSubmitting}
+        disabled={isPermissionsLoading && !defaultPermissions}
+      >
         {t('invite.send.cta')}
       </SubmitButton>
     </FormRoot>

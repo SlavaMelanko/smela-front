@@ -41,12 +41,14 @@ const PermissionRow = ({ resource, control }) => {
 
   const { field: viewField } = useController({
     name: `permissions.${resource}.view`,
-    control
+    control,
+    defaultValue: true
   })
 
   const { field: manageField } = useController({
     name: `permissions.${resource}.manage`,
-    control
+    control,
+    defaultValue: false
   })
 
   const handleViewChange = checked => {

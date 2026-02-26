@@ -8,11 +8,7 @@ import { InviteForm } from '..'
 
 const renderForm = ({ onSubmit = jest.fn(), fieldsConfig } = {}) => {
   renderWithProviders(
-    <InviteForm
-      isLoading={false}
-      onSubmit={onSubmit}
-      fieldsConfig={fieldsConfig}
-    />
+    <InviteForm onSubmit={onSubmit} fieldsConfig={fieldsConfig} />
   )
 
   return {

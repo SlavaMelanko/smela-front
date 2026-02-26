@@ -1,9 +1,12 @@
 import { InviteForm } from '@/components/form'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
+import { useTeamMemberPermissions } from '@/hooks/useTeam'
 
-export const CreateMemberDialog = ({ onClose, onSubmit }) => {
+export const CreateMemberDialog = ({ onClose, onSubmit, teamId }) => {
   const { t } = useLocale()
+  const { data: defaultPermissions, isPending: isPermissionsLoading } =
+    useTeamMemberPermissions(teamId)
 
   return (
     <>
@@ -11,7 +14,11 @@ export const CreateMemberDialog = ({ onClose, onSubmit }) => {
         <DialogTitle>{t('invite.send.title.member')}</DialogTitle>
       </DialogHeader>
       <DialogBody>
-        <InviteForm onSubmit={onSubmit} />
+        <InviteForm
+          onSubmit={onSubmit}
+          defaultPermissions={defaultPermissions}
+          isPermissionsLoading={isPermissionsLoading}
+        />
       </DialogBody>
     </>
   )

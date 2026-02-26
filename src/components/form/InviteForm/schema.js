@@ -13,16 +13,7 @@ export const getDefaultValues = () => ({
   [FieldName.LAST_NAME]: '',
   [FieldName.EMAIL]: '',
   [FieldName.POSITION]: '',
-  [FieldName.PERMISSIONS]: {
-    users: {
-      view: true,
-      manage: false
-    },
-    teams: {
-      view: true,
-      manage: false
-    }
-  }
+  [FieldName.PERMISSIONS]: {}
 })
 
 export const resolver = createResolver({
