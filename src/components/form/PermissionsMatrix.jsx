@@ -3,7 +3,6 @@ import { useController } from 'react-hook-form'
 import { Switch } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
 
-const DEFAULT_RESOURCES = ['users', 'teams']
 const ACTIONS = ['view', 'manage']
 
 const PermissionRoot = ({ children }) => (
@@ -90,14 +89,15 @@ const PermissionRow = ({ resource, control }) => {
   )
 }
 
-export const PermissionsMatrix = ({
-  control,
-  resources = DEFAULT_RESOURCES
-}) => (
-  <div className='flex flex-col gap-4'>
-    <PermissionHeader />
-    {resources.map(resource => (
-      <PermissionRow key={resource} resource={resource} control={control} />
-    ))}
-  </div>
-)
+export const PermissionsMatrix = ({ control, permissions }) => {
+  const resources = permissions ? Object.keys(permissions) : []
+
+  return (
+    <div className='flex flex-col gap-4'>
+      <PermissionHeader />
+      {resources.map(resource => (
+        <PermissionRow key={resource} resource={resource} control={control} />
+      ))}
+    </div>
+  )
+}

@@ -104,9 +104,12 @@ export const InviteForm = ({
         </FormFields>
       </FormGroup>
 
-      {fields[FieldName.PERMISSIONS] && (
+      {fields[FieldName.PERMISSIONS] && defaultPermissions && (
         <FormGroup legend={t('permissions.name')}>
-          <PermissionsMatrix control={control} />
+          <PermissionsMatrix
+            control={control}
+            permissions={defaultPermissions}
+          />
         </FormGroup>
       )}
 

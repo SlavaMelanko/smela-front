@@ -6,9 +6,18 @@ import en from '$/locales/en.json'
 
 import { InviteForm } from '..'
 
+const defaultPermissions = {
+  users: { view: true, manage: false },
+  teams: { view: true, manage: false }
+}
+
 const renderForm = ({ onSubmit = jest.fn(), fieldsConfig } = {}) => {
   renderWithProviders(
-    <InviteForm onSubmit={onSubmit} fieldsConfig={fieldsConfig} />
+    <InviteForm
+      onSubmit={onSubmit}
+      fieldsConfig={fieldsConfig}
+      defaultPermissions={defaultPermissions}
+    />
   )
 
   return {
