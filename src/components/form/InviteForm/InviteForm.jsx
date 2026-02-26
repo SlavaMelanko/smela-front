@@ -32,7 +32,7 @@ export const InviteForm = ({ isLoading, onSubmit, fieldsConfig = {} }) => {
     defaultValues: getDefaultValues()
   })
 
-  const submit = data => {
+  const removeHiddenFields = data => {
     const result = { ...data }
 
     Object.entries(fields).forEach(([key, visible]) => {
@@ -41,8 +41,10 @@ export const InviteForm = ({ isLoading, onSubmit, fieldsConfig = {} }) => {
       }
     })
 
-    return onSubmit(result)
+    return result
   }
+
+  const submit = data => onSubmit(removeHiddenFields(data))
 
   return (
     <FormRoot onSubmit={handleSubmit(submit)}>
