@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import {
@@ -11,37 +12,55 @@ import {
 import { Input } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
 
-import { defaultConfig, FieldName, getDefaultValues, resolver } from './schema'
+import {
+  defaultFieldsConfig,
+  FieldName,
+  getDefaultValues,
+  resolver
+} from './schema'
 
-export const UserInvitationForm = ({
-  isLoading,
+export const InviteForm = ({
+  isPermissionsLoading,
   onSubmit,
-  customConfig = {}
+  defaultPermissions,
+  fieldsConfig = {}
 }) => {
   const { t } = useLocale()
-  const config = { ...defaultConfig, ...customConfig }
+  const fields = { ...defaultFieldsConfig, ...fieldsConfig }
 
   const {
     register,
     control,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting }
   } = useForm({
     resolver,
     defaultValues: getDefaultValues()
   })
 
-  const submit = data => {
+  useEffect(() => {
+    if (defaultPermissions) {
+      reset(
+        { [FieldName.PERMISSIONS]: defaultPermissions },
+        { keepValues: true }
+      )
+    }
+  }, [defaultPermissions, reset])
+
+  const removeHiddenFields = data => {
     const result = { ...data }
 
-    Object.entries(config).forEach(([key, visible]) => {
+    Object.entries(fields).forEach(([key, visible]) => {
       if (!visible) {
         delete result[key]
       }
     })
 
-    return onSubmit(result)
+    return result
   }
+
+  const submit = data => onSubmit(removeHiddenFields(data))
 
   return (
     <FormRoot onSubmit={handleSubmit(submit)}>
@@ -72,7 +91,7 @@ export const UserInvitationForm = ({
             <Input {...register(FieldName.EMAIL)} />
           </FormField>
 
-          {config[FieldName.POSITION] && (
+          {fields[FieldName.POSITION] && (
             <FormField
               label={t('position.label')}
               name={FieldName.POSITION}
@@ -85,13 +104,20 @@ export const UserInvitationForm = ({
         </FormFields>
       </FormGroup>
 
-      {config.permissions && (
+      {fields[FieldName.PERMISSIONS] && (
         <FormGroup legend={t('permissions.name')}>
-          <PermissionsMatrix control={control} />
+          <PermissionsMatrix
+            control={control}
+            permissions={defaultPermissions}
+            isLoading={isPermissionsLoading}
+          />
         </FormGroup>
       )}
 
-      <SubmitButton isLoading={isSubmitting || isLoading}>
+      <SubmitButton
+        isLoading={isSubmitting}
+        disabled={isPermissionsLoading && !defaultPermissions}
+      >
         {t('invite.send.cta')}
       </SubmitButton>
     </FormRoot>

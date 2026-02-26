@@ -15,7 +15,18 @@ export const teamKeys = {
   list: params => [...teamKeys.lists(), params],
   detail: id => [...teamKeys.all(), 'detail', id],
   members: teamId => [...teamKeys.all(), teamId, 'members'],
-  member: (teamId, memberId) => [...teamKeys.all(), teamId, 'members', memberId]
+  member: (teamId, memberId) => [
+    ...teamKeys.all(),
+    teamId,
+    'members',
+    memberId
+  ],
+  memberPermissions: teamId => [
+    ...teamKeys.all(),
+    teamId,
+    'members',
+    'permissions'
+  ]
 }
 
 // Team queries need fresh data for real-time collaboration visibility.
@@ -117,6 +128,16 @@ export const useTeamMembers = (teamId, options = {}) => {
     enabled: !!teamId,
     ...teamQueryOptions,
     ...options
+  })
+}
+
+export const useTeamMemberPermissions = teamId => {
+  return useQuery({
+    queryKey: teamKeys.memberPermissions(teamId),
+    queryFn: () => teamApi.getMemberPermissions(teamId),
+    select: data => data?.permissions,
+    enabled: !!teamId,
+    ...teamQueryOptions
   })
 }
 

@@ -1,9 +1,12 @@
-import { UserInvitationForm } from '@/components/form'
+import { FieldName, InviteForm } from '@/components/form/InviteForm'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
+import { useAdminPermissions } from '@/hooks/useOwner'
 
 export const CreateAdminDialog = ({ onClose, onSubmit }) => {
   const { t } = useLocale()
+  const { data: defaultPermissions, isPending: isPermissionsLoading } =
+    useAdminPermissions()
 
   return (
     <>
@@ -11,9 +14,11 @@ export const CreateAdminDialog = ({ onClose, onSubmit }) => {
         <DialogTitle>{t('invite.send.title.admin')}</DialogTitle>
       </DialogHeader>
       <DialogBody>
-        <UserInvitationForm
+        <InviteForm
           onSubmit={onSubmit}
-          customConfig={{ position: false }}
+          defaultPermissions={defaultPermissions}
+          isPermissionsLoading={isPermissionsLoading}
+          fieldsConfig={{ [FieldName.POSITION]: false }}
         />
       </DialogBody>
     </>

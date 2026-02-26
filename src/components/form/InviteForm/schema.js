@@ -4,24 +4,15 @@ export const FieldName = {
   FIRST_NAME: 'firstName',
   LAST_NAME: 'lastName',
   EMAIL: 'email',
-  POSITION: 'position'
+  POSITION: 'position',
+  PERMISSIONS: 'permissions'
 }
 
 export const getDefaultValues = () => ({
   [FieldName.FIRST_NAME]: '',
   [FieldName.LAST_NAME]: '',
   [FieldName.EMAIL]: '',
-  [FieldName.POSITION]: '',
-  permissions: {
-    users: {
-      view: true,
-      manage: true
-    },
-    teams: {
-      view: true,
-      manage: false
-    }
-  }
+  [FieldName.POSITION]: ''
 })
 
 export const resolver = createResolver({
@@ -31,10 +22,10 @@ export const resolver = createResolver({
   [FieldName.POSITION]: rules.position
 })
 
-export const defaultConfig = {
+export const defaultFieldsConfig = {
   [FieldName.FIRST_NAME]: true,
   [FieldName.LAST_NAME]: true,
   [FieldName.EMAIL]: true,
   [FieldName.POSITION]: true,
-  permissions: true
+  [FieldName.PERMISSIONS]: true
 }

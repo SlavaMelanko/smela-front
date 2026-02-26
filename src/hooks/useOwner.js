@@ -12,7 +12,8 @@ import { ownerApi } from '@/services/backend'
 export const ownerKeys = {
   all: () => ['owner'],
   admins: () => [...ownerKeys.all(), 'admins'],
-  adminsList: params => [...ownerKeys.admins(), 'list', params]
+  adminsList: params => [...ownerKeys.admins(), 'list', params],
+  adminPermissions: () => [...ownerKeys.admins(), 'permissions']
 }
 
 // Owner queries need fresh data — new registrations or user updates
@@ -39,6 +40,15 @@ export const useAdmins = (params = {}) => {
     error,
     refetch
   }
+}
+
+export const useAdminPermissions = () => {
+  return useQuery({
+    queryKey: ownerKeys.adminPermissions(),
+    queryFn: ownerApi.getAdminPermissions,
+    select: data => data?.permissions,
+    ...ownerQueryOptions
+  })
 }
 
 export const useCreateAdmin = () => {
