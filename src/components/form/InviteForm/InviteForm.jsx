@@ -86,7 +86,7 @@ export const InviteForm = ({ isLoading, onSubmit, fieldsConfig = {} }) => {
         </FormFields>
       </FormGroup>
 
-      {fields.permissions && (
+      {fields[FieldName.PERMISSIONS] && (
         <FormGroup legend={t('permissions.name')}>
           <PermissionsMatrix control={control} />
         </FormGroup>
