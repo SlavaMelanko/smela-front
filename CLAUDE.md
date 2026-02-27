@@ -31,7 +31,7 @@ All pnpm scripts are defined in `package.json`. Key workflows:
 ### Development
 
 - Development server, production builds, and preview: `dev`, `build`, `preview`
-- Build analysis: `build:analyze` opens bundle visualization
+- Build analysis: `bundle:analyze` opens bundle visualization
 
 ### Testing
 
