@@ -35,21 +35,21 @@ All pnpm scripts are defined in `package.json`. Key workflows:
 
 ### Testing
 
-- Unit tests: `ut` (all tests), `ut:cov` (with coverage)
+- Unit tests: `test` (all tests), `coverage` (with coverage)
 - E2E tests: `e2e` (headless), `e2e:ui` (interactive mode)
-- Run single test: `pnpm run ut -- path/to/test.spec.js`
+- Run single test: `pnpm run test -- path/to/test.spec.js`
 - E2E tests require running backend, database, and pre-registered admin/user
   accounts
 
 ### Code Quality
 
-- Linting: `lint`
-- Formatting: `format`
+- Linting: `lint` (check only), `lint:fix` (fix issues)
+- Formatting: `format` (check only), `format:fix` (fix formatting)
+- Check everything: `check` (runs format:fix, lint:fix, and test)
 
 ### Storybook
 
 - Component library: `stories` (opens browser on port 6006)
-- Build validation: `stories:build` (validates Storybook builds correctly)
 
 ## Architecture Overview
 
