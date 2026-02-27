@@ -40,7 +40,11 @@ const PermissionState = ({ action, checked, onCheckedChange }) => {
     <PermissionAction>
       <Switch
         checked={checked}
-        onCheckedChange={onCheckedChange}
+        onClick={() => {
+          if (onCheckedChange) {
+            onCheckedChange(!checked)
+          }
+        }}
         aria-label={t(`permissions.actions.values.${action}`)}
       />
     </PermissionAction>
@@ -65,6 +69,7 @@ const PermissionRow = ({ resourceName, resourceData, control }) => {
   const handleViewChange = checked => {
     viewField.onChange(checked)
 
+    // If view is disabled, disable manage too
     if (!checked && manageField.value) {
       manageField.onChange(false)
     }
@@ -73,6 +78,7 @@ const PermissionRow = ({ resourceName, resourceData, control }) => {
   const handleManageChange = checked => {
     manageField.onChange(checked)
 
+    // If manage is enabled, enable view too
     if (checked && !viewField.value) {
       viewField.onChange(true)
     }
