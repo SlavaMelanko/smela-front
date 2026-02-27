@@ -45,11 +45,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build Storybook
-        run: pnpm run stories:build
+      - name: Check formatting
+        run: pnpm run format
+
+      - name: Check linting
+        run: pnpm run lint
 
       - name: Run tests with coverage
-        run: pnpm run ut:cov
+        run: pnpm run coverage
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5

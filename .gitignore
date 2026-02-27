@@ -32,8 +32,7 @@ dist-ssr
 *.sw?
 
 # Playwright
-/test-results/
-/playwright-report/
+/e2e/artifacts/
 /blob-report/
 /playwright/.cache/
 .playwright-mcp/
