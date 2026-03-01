@@ -1,4 +1,3 @@
-import { StatusBadge } from '@/components/badges'
 import { ChevronIcon } from '@/components/icons'
 import {
   Button,
@@ -10,6 +9,8 @@ import {
 } from '@/components/ui'
 import { allUserStatuses } from '@/lib/types'
 import { cn } from '@/lib/utils'
+
+import { StatusBadge } from './StatusBadge'
 
 export const StatusDropdown = ({ className, value, onChange }) => (
   <DropdownMenu>

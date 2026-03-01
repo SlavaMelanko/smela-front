@@ -1,8 +1,9 @@
 import { screen } from '@testing-library/react'
 
-import { getUserStatusTextColor, UserStatus } from '@/lib/types'
+import { UserStatus } from '@/lib/types'
 import { renderWithProviders } from '@/tests'
 
+import { getStatusTextColor } from '../colors'
 import { StatusBadge } from '../StatusBadge'
 
 describe('StatusBadge', () => {
@@ -23,7 +24,7 @@ describe('StatusBadge', () => {
   ])('applies correct color for %s status', (status, label) => {
     renderWithProviders(<StatusBadge status={status} />)
 
-    expect(screen.getByText(label)).toHaveClass(getUserStatusTextColor(status))
+    expect(screen.getByText(label)).toHaveClass(getStatusTextColor(status))
   })
 
   it('renders translation key for unknown status', () => {

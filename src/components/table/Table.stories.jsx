@@ -5,7 +5,7 @@ import {
 } from '@tanstack/react-table'
 import { useState } from 'react'
 
-import { StatusBadge } from '@/components/badges'
+import { StatusBadge } from '@/components/UserStatus'
 import { Role, UserStatus } from '@/lib/types'
 
 import { Table } from '.'

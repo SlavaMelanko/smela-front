@@ -1,6 +1,7 @@
 import { useLocale } from '@/hooks/useLocale'
-import { getUserStatusTextColor } from '@/lib/types'
 import { cn } from '@/lib/utils'
+
+import { getStatusTextColor } from './colors'
 
 export const StatusBadge = ({ status }) => {
   const { t } = useLocale()
@@ -10,10 +11,7 @@ export const StatusBadge = ({ status }) => {
   }
 
   return (
-    <span
-      className={cn(getUserStatusTextColor(status))}
-      data-testid='status-badge'
-    >
+    <span className={cn(getStatusTextColor(status))} data-testid='status-badge'>
       {t(`status.values.${status}`)}
     </span>
   )

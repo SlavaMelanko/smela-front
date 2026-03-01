@@ -1,4 +1,4 @@
-import { StatusBadge } from '@/components/badges'
+import { StatusBadge } from '@/components/UserStatus'
 import { getFullName } from '@/lib/format/user'
 
 export const getColumns = (t, formatDate) => {

@@ -5,7 +5,7 @@ import { UserStatus } from '@/lib/types'
 import { StatusDropdown } from '.'
 
 export default {
-  title: 'Components/StatusDropdown',
+  title: 'Components/UserStatus',
   component: StatusDropdown,
   parameters: { layout: 'fullscreen' },
   decorators: [
