@@ -26,13 +26,3 @@ const InteractiveStatusDropdown = ({ initialStatus }) => {
 export const Default = {
   render: () => <InteractiveStatusDropdown initialStatus={UserStatus.ACTIVE} />
 }
-
-export const New = {
-  render: () => <InteractiveStatusDropdown initialStatus={UserStatus.NEW} />
-}
-
-export const Suspended = {
-  render: () => (
-    <InteractiveStatusDropdown initialStatus={UserStatus.SUSPENDED} />
-  )
-}

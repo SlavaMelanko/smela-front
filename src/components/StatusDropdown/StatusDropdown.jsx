@@ -16,8 +16,12 @@ const statuses = Object.values(UserStatus)
 export const StatusDropdown = ({ className, value, onChange }) => (
   <DropdownMenu>
     <DropdownMenuTrigger
-      className={cn(className)}
-      render={<Button variant='outline' className='min-w-36 justify-between' />}
+      render={
+        <Button
+          variant='outline'
+          className={cn('min-w-36 justify-between', className)}
+        />
+      }
     >
       <StatusBadge status={value} />
       <ChevronIcon className='hidden group-aria-expanded/button:rotate-180 sm:block' />
