@@ -9,6 +9,8 @@ export const UserStatus = {
   PENDING: 'pending'
 }
 
+export const allUserStatuses = Object.values(UserStatus)
+
 export const userActiveStatuses = [
   UserStatus.VERIFIED,
   UserStatus.TRIAL,

@@ -8,10 +8,8 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger
 } from '@/components/ui'
-import { UserStatus } from '@/lib/types'
+import { allUserStatuses } from '@/lib/types'
 import { cn } from '@/lib/utils'
-
-const statuses = Object.values(UserStatus)
 
 export const StatusDropdown = ({ className, value, onChange }) => (
   <DropdownMenu>
@@ -29,7 +27,7 @@ export const StatusDropdown = ({ className, value, onChange }) => (
 
     <DropdownMenuContent align='end' className='min-w-(--anchor-width)'>
       <DropdownMenuRadioGroup value={value} onValueChange={onChange}>
-        {statuses.map(status => (
+        {allUserStatuses.map(status => (
           <DropdownMenuRadioItem key={status} value={status}>
             <StatusBadge status={status} />
           </DropdownMenuRadioItem>

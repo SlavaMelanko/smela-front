@@ -1,7 +1,7 @@
 import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { UserStatus } from '@/lib/types'
+import { allUserStatuses, UserStatus } from '@/lib/types'
 import { renderWithProviders } from '@/tests'
 
 import { StatusDropdown } from '../StatusDropdown'
@@ -36,7 +36,7 @@ describe('StatusDropdown', () => {
 
     const menu = screen.getByRole('menu')
 
-    Object.values(UserStatus).forEach(status => {
+    allUserStatuses.forEach(status => {
       expect(
         within(menu).getByRole('menuitemradio', {
           name: new RegExp(status, 'i')

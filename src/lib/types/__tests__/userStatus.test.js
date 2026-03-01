@@ -1,5 +1,6 @@
 import {
   adminActiveStatuses,
+  allUserStatuses,
   getUserStatusBackgroundColor,
   getUserStatusTextColor,
   userActiveStatuses,
@@ -23,7 +24,7 @@ describe('adminActiveStatuses', () => {
 })
 
 describe('getUserStatusBackgroundColor', () => {
-  it.each(Object.values(UserStatus))('returns bg class for %s', status => {
+  it.each(allUserStatuses)('returns bg class for %s', status => {
     expect(getUserStatusBackgroundColor(status)).toMatch(/^bg-/)
   })
 
@@ -33,7 +34,7 @@ describe('getUserStatusBackgroundColor', () => {
 })
 
 describe('getUserStatusTextColor', () => {
-  it.each(Object.values(UserStatus))('returns text class for %s', status => {
+  it.each(allUserStatuses)('returns text class for %s', status => {
     expect(getUserStatusTextColor(status)).toMatch(/^text-/)
   })
 

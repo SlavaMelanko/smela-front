@@ -1,5 +1,5 @@
 import { useCurrentUser, useLogout } from '@/hooks/useAuth'
-import { Role, UserStatus } from '@/lib/types'
+import { allUserStatuses, Role, UserStatus } from '@/lib/types'
 
 import { Header } from '.'
 
@@ -23,7 +23,7 @@ export default {
     },
     status: {
       control: 'select',
-      options: Object.values(UserStatus)
+      options: allUserStatuses
     }
   },
   args: {
