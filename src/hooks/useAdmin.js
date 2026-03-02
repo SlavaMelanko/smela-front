@@ -59,7 +59,7 @@ export const useUpdateUser = id => {
     mutationFn: data => adminApi.updateUser(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: adminKeys.userDetail(id) })
-      queryClient.invalidateQueries({ queryKey: adminKeys.usersList() })
+      queryClient.invalidateQueries({ queryKey: adminKeys.users() })
     }
   })
 }
