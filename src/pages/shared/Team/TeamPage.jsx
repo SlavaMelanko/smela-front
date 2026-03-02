@@ -1,6 +1,7 @@
 import { Info, Users } from 'lucide-react'
 
 import { BackButton } from '@/components/buttons'
+import { TeamInfoForm } from '@/components/form'
 import { TeamPageHeader } from '@/components/PageHeader'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
@@ -11,7 +12,6 @@ import { useTeam, useUpdateTeam } from '@/hooks/useTeam'
 import { useToast } from '@/hooks/useToast'
 import { PageContent } from '@/pages/Page'
 
-import { TeamInfoForm } from './TeamInfoForm'
 import { TeamMembers } from './TeamMembers'
 
 const TeamTab = {
