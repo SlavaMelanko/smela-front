@@ -33,7 +33,7 @@ export const TeamPage = ({ teamId, backPath }) => {
   const submit = data => {
     updateTeam(data, {
       onSuccess: () => {
-        showSuccessToast(t('update.success', { name: team.name }))
+        showSuccessToast(t('update.success', { name: data.name }))
       },
       onError: error => {
         showErrorToast(te(error))

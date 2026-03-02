@@ -21,7 +21,11 @@ export const AdminPage = () => {
   const submit = data => {
     updateAdmin(data, {
       onSuccess: () => {
-        showSuccessToast(t('update.success', { name: getFullName(admin) }))
+        const updatedAdmin = { ...admin, ...data }
+
+        showSuccessToast(
+          t('update.success', { name: getFullName(updatedAdmin) })
+        )
       },
       onError: error => {
         showErrorToast(te(error))
