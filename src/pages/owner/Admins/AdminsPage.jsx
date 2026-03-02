@@ -4,9 +4,9 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { InviteButton } from '@/components/buttons'
-import { ProfileDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
 import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
@@ -17,7 +17,6 @@ import {
   createOpenItem
 } from '@/components/table/contextMenuItems'
 import { useLocale } from '@/hooks/useLocale'
-import { useModal } from '@/hooks/useModal'
 import { useAdmins } from '@/hooks/useOwner'
 import { useTableState } from '@/hooks/useTableState'
 import { PageContent } from '@/pages/Page'
@@ -34,7 +33,7 @@ const Toolbar = ({ children }) => (
 
 export const AdminsPage = () => {
   const { t, te, formatDate } = useLocale()
-  const { openModal } = useModal()
+  const navigate = useNavigate()
 
   const { apiParams, setParams, searchValue, setSearchValue } = useTableState()
   const { admins, pagination, isPending, isError, error, refetch } =
@@ -51,11 +50,7 @@ export const AdminsPage = () => {
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
   const [sorting, setSorting] = useState([])
 
-  const openAdminProfile = admin => {
-    const close = openModal({
-      children: <ProfileDialog profile={admin} onClose={() => close()} />
-    })
-  }
+  const openAdminProfile = admin => navigate(`/owner/admins/${admin.id}`)
 
   const contextMenu = [
     createOpenItem(t, openAdminProfile),

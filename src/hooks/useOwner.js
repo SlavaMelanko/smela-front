@@ -13,6 +13,7 @@ export const ownerKeys = {
   all: () => ['owner'],
   admins: () => [...ownerKeys.all(), 'admins'],
   adminsList: params => [...ownerKeys.admins(), 'list', params],
+  adminDetail: id => [...ownerKeys.admins(), 'detail', id],
   adminPermissions: () => [...ownerKeys.admins(), 'permissions']
 }
 
@@ -22,6 +23,28 @@ const ownerQueryOptions = {
   staleTime: 0,
   gcTime: 60 * 1000, // 1 minute
   refetchOnWindowFocus: true
+}
+
+export const useAdmin = id => {
+  return useQuery({
+    queryKey: ownerKeys.adminDetail(id),
+    queryFn: () => ownerApi.getAdmin(id),
+    select: data => data?.admin,
+    enabled: !!id,
+    ...ownerQueryOptions
+  })
+}
+
+export const useUpdateAdmin = id => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: data => ownerApi.updateAdmin(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ownerKeys.adminDetail(id) })
+      queryClient.invalidateQueries({ queryKey: ownerKeys.adminsList() })
+    }
+  })
 }
 
 export const useAdmins = (params = {}) => {

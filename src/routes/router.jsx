@@ -30,7 +30,7 @@ import {
   NotFoundErrorPage
 } from '@/pages/errors'
 import { PrivacyPage, TermsPage } from '@/pages/legal'
-import { AdminsPage } from '@/pages/owner'
+import { AdminPage, AdminsPage } from '@/pages/owner'
 import { PricingPage } from '@/pages/public'
 import {
   HomePage,
@@ -123,7 +123,10 @@ export const router = sentryCreateBrowserRouter([
       </PrivateRoute>
     ),
     errorElement: <ErrorBoundary />,
-    children: [{ path: 'admins', element: <AdminsPage /> }]
+    children: [
+      { path: 'admins', element: <AdminsPage /> },
+      { path: 'admins/:id', element: <AdminPage /> }
+    ]
   },
   {
     path: 'errors',

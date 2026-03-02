@@ -1,10 +1,10 @@
-import { ChevronLeft, Info, Users } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { Info, Users } from 'lucide-react'
 
+import { BackButton } from '@/components/buttons'
 import { TeamPageHeader } from '@/components/PageHeader'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
-import { Button, Tabs, TabsContent, TabsLine } from '@/components/ui'
+import { Tabs, TabsContent, TabsLine } from '@/components/ui'
 import { useHashTab } from '@/hooks/useHashTab'
 import { useLocale } from '@/hooks/useLocale'
 import { useTeam, useUpdateTeam } from '@/hooks/useTeam'
@@ -20,7 +20,6 @@ const TeamTab = {
 }
 
 export const TeamPage = ({ teamId, backPath }) => {
-  const navigate = useNavigate()
   const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
   const [activeTab, setActiveTab] = useHashTab(
@@ -70,10 +69,7 @@ export const TeamPage = ({ teamId, backPath }) => {
     <PageContent>
       {backPath && (
         <div className='flex'>
-          <Button variant='ghost' onClick={() => navigate(backPath)}>
-            <ChevronLeft className='size-4' />
-            {t('back')}
-          </Button>
+          <BackButton to={backPath} />
         </div>
       )}
       <TeamPageHeader name={team.name} website={team.website} />

@@ -1,5 +1,10 @@
 {
   "add": "Add",
+  "admin": {
+    "update": {
+      "success": "Admin updated."
+    }
+  },
   "alreadyHaveAccount": "Already have an account?",
   "back": "Back",
   "backend": {
@@ -300,6 +305,10 @@
   },
   "signUp": "Sign up",
   "status": {
+    "error": {
+      "invalid": "Select a valid status.",
+      "required": "Status is required."
+    },
     "name": "Status",
     "placeholder": "Select statuses",
     "values": {
