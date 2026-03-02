@@ -54,6 +54,7 @@ export const UserInfoForm = ({ user, isSubmitting, onSubmit }) => {
             label={t('lastName.label')}
             name={FieldName.LAST_NAME}
             error={errors[FieldName.LAST_NAME]}
+            optional
           >
             <Input {...register(FieldName.LAST_NAME)} />
           </FormField>
