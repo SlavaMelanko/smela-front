@@ -4,10 +4,6 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Input } from '@/components/ui'
-import { StatusDropdown } from '@/components/UserStatus'
-import { useLocale } from '@/hooks/useLocale'
-
 import {
   FormController,
   FormField,
@@ -15,7 +11,11 @@ import {
   FormRoot,
   FormRow,
   SubmitButton
-} from '../index'
+} from '@/components/form'
+import { Input } from '@/components/ui'
+import { StatusDropdown } from '@/components/UserStatus'
+import { useLocale } from '@/hooks/useLocale'
+
 import { FieldName, getDefaultValues, getValues, resolver } from './schema'
 
 export const UserInfoForm = ({ user, isSubmitting, onSubmit }) => {
