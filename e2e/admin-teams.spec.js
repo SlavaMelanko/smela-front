@@ -109,7 +109,9 @@ test.describe.serial('Admin: Teams Management', () => {
     await updatePromises
 
     // Verify success toast
-    await expect(page.getByText(t.team.update.success)).toBeVisible()
+    await expect(
+      page.getByText(t.update.success.replace('{{name}}', editedName))
+    ).toBeVisible()
 
     // Verify updated name in page header and form field
     await expect(page.getByRole('heading', { name: editedName })).toBeVisible()
