@@ -1,5 +1,5 @@
 import { Dialog, dialogContentVariants } from '@/components/ui/dialog'
-import { Role, UserStatus } from '@/lib/types'
+import { allUserStatuses, Role, UserStatus } from '@/lib/types'
 
 import { PricingSliderDialog, ProfileDialog } from '.'
 
@@ -32,7 +32,7 @@ export const UserProfile = {
     },
     status: {
       control: 'select',
-      options: Object.values(UserStatus)
+      options: allUserStatuses
     }
   },
   args: {

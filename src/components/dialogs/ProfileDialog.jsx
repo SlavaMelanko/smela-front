@@ -1,6 +1,6 @@
-import { StatusBadge } from '@/components/badges'
 import { EmailLink } from '@/components/links'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
+import { StatusBadge } from '@/components/UserStatus'
 import { useLocale } from '@/hooks/useLocale'
 
 const Row = ({ children }) => (
