@@ -21,11 +21,7 @@ export const UserPage = () => {
   const submit = data => {
     updateUser(data, {
       onSuccess: () => {
-        const updatedUser = { ...user, ...data }
-
-        showSuccessToast(
-          t('update.success', { name: getFullName(updatedUser) })
-        )
+        showSuccessToast(t('update.success', { name: getFullName(data) }))
       },
       onError: error => {
         showErrorToast(te(error))
