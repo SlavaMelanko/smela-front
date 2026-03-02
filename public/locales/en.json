@@ -412,5 +412,10 @@
       "tb": "TB"
     }
   },
-  "updatedAt": "Updated at"
+  "updatedAt": "Updated at",
+  "user": {
+    "update": {
+      "success": "User updated."
+    }
+  }
 }

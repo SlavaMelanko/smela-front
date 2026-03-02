@@ -42,7 +42,7 @@ export const useUpdateAdmin = id => {
     mutationFn: data => ownerApi.updateAdmin(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ownerKeys.adminDetail(id) })
-      queryClient.invalidateQueries({ queryKey: ownerKeys.adminsList() })
+      queryClient.invalidateQueries({ queryKey: ownerKeys.admins() })
     }
   })
 }
