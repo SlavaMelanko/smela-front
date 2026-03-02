@@ -23,7 +23,7 @@ export const StatusDropdown = ({ className, value, onChange }) => (
       }
     >
       <StatusBadge status={value} />
-      <ChevronIcon className='hidden group-aria-expanded/button:rotate-180 sm:block' />
+      <ChevronIcon className='group-aria-expanded/button:rotate-180' />
     </DropdownMenuTrigger>
 
     <DropdownMenuContent align='end' className='min-w-(--anchor-width)'>
