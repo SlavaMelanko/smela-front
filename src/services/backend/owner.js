@@ -3,6 +3,7 @@ import { withQuery } from '@/lib/url'
 import apiClient from './apiClient'
 import {
   buildPath,
+  OWNER_ADMIN_PATH,
   OWNER_ADMINS_CANCEL_INVITE_PATH,
   OWNER_ADMINS_PATH,
   OWNER_ADMINS_PERMISSIONS_PATH,
@@ -12,6 +13,12 @@ import {
 export const ownerApi = {
   getAdmins(params) {
     return apiClient.get(withQuery(OWNER_ADMINS_PATH, params))
+  },
+
+  getAdmin(adminId) {
+    const path = buildPath(OWNER_ADMIN_PATH, { adminId })
+
+    return apiClient.get(path)
   },
 
   getAdminPermissions() {
