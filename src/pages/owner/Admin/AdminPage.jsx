@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
 
+import { BackButton } from '@/components/buttons'
 import { UserPageHeader } from '@/components/PageHeader'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
@@ -22,6 +23,9 @@ export const AdminPage = () => {
 
   return (
     <PageContent>
+      <div className='flex'>
+        <BackButton to='/owner/admins' />
+      </div>
       <UserPageHeader
         firstName={admin.firstName}
         lastName={admin.lastName}
