@@ -14,6 +14,7 @@ import {
   SettingsPage as AdminSettingsPage,
   TeamPage,
   TeamsPage,
+  UserPage,
   UsersPage
 } from '@/pages/admin'
 import {
@@ -107,6 +108,7 @@ export const router = sentryCreateBrowserRouter([
     children: [
       { path: 'dashboard', element: <DashboardPage /> },
       { path: 'users', element: <UsersPage /> },
+      { path: 'users/:id', element: <UserPage /> },
       { path: 'teams', element: <TeamsPage /> },
       { path: 'teams/:id', element: <TeamPage /> },
       { path: 'settings', element: <AdminSettingsPage /> }

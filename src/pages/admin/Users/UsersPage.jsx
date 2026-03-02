@@ -5,8 +5,8 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { ProfileDialog } from '@/components/dialogs'
 import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
@@ -14,7 +14,6 @@ import { Table } from '@/components/table'
 import { createOpenItem } from '@/components/table/contextMenuItems'
 import { useUsers } from '@/hooks/useAdmin'
 import { useLocale } from '@/hooks/useLocale'
-import { useModal } from '@/hooks/useModal'
 import { useTableState } from '@/hooks/useTableState'
 import { PageContent } from '@/pages/Page'
 
@@ -28,7 +27,7 @@ const sortedRowModel = getSortedRowModel()
 
 export const UsersPage = () => {
   const { t, te, formatDate } = useLocale()
-  const { openModal } = useModal()
+  const navigate = useNavigate()
 
   const { params, apiParams, setParams, searchValue, setSearchValue } =
     useTableState()
@@ -42,11 +41,7 @@ export const UsersPage = () => {
 
   const toggleFilters = () => setShowFilters(prev => !prev)
 
-  const openUserProfile = user => {
-    const close = openModal({
-      children: <ProfileDialog profile={user} onClose={() => close()} />
-    })
-  }
+  const openUserProfile = user => navigate(`/admin/users/${user.id}`)
 
   const contextMenu = [createOpenItem(t, openUserProfile)]
 

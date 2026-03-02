@@ -1,4 +1,9 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient
+} from '@tanstack/react-query'
 
 import { defaultOptions } from '@/components/Pagination'
 import { adminApi } from '@/services/backend'
@@ -40,8 +45,21 @@ export const useUser = (id, options = {}) => {
   return useQuery({
     queryKey: adminKeys.userDetail(id),
     queryFn: () => adminApi.getUserById(id),
+    select: data => data?.user,
     enabled: !!id,
     ...adminQueryOptions,
     ...options
+  })
+}
+
+export const useUpdateUser = id => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: data => adminApi.updateUser(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: adminKeys.userDetail(id) })
+      queryClient.invalidateQueries({ queryKey: adminKeys.usersList() })
+    }
   })
 }

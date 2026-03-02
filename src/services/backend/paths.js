@@ -16,6 +16,7 @@ export const ME_PATH = '/api/v1/user/me'
 
 // Admin endpoints
 export const ADMIN_USERS_PATH = '/api/v1/admin/users'
+export const ADMIN_USER_PATH = `${ADMIN_USERS_PATH}/:userId`
 export const ADMIN_TEAMS_PATH = '/api/v1/admin/teams'
 
 // Verified user/admin team operations
