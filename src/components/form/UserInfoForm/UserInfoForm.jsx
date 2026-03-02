@@ -60,10 +60,6 @@ export const UserInfoForm = ({ user, isSubmitting, onSubmit }) => {
         </FormRow>
 
         <FormRow>
-          <FormField label={t('email.label')} name='email' optional>
-            <Input value={user?.email ?? ''} disabled readOnly />
-          </FormField>
-
           <FormController
             name={FieldName.STATUS}
             label={t('status.name')}
