@@ -1,5 +1,7 @@
 import * as yup from 'yup'
 
+import { allUserStatuses } from '@/lib/types'
+
 import {
   DescriptionConstraint,
   EmailConstraint,
@@ -70,3 +72,8 @@ export const description = errorMessage =>
 export const position = optionalStr()
   .min(NameConstraint.MIN_LENGTH, 'position.error.min')
   .max(NameConstraint.MAX_LENGTH, 'position.error.max')
+
+export const status = yup
+  .string()
+  .required('status.error.required')
+  .oneOf(allUserStatuses, 'status.error.invalid')
