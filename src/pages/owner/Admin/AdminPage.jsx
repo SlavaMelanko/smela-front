@@ -8,6 +8,7 @@ import { ErrorState } from '@/components/states'
 import { useLocale } from '@/hooks/useLocale'
 import { useAdmin, useUpdateAdmin } from '@/hooks/useOwner'
 import { useToast } from '@/hooks/useToast'
+import { getFullName } from '@/lib/format/user'
 import { PageContent } from '@/pages/Page'
 
 export const AdminPage = () => {
@@ -20,7 +21,11 @@ export const AdminPage = () => {
   const submit = data => {
     updateAdmin(data, {
       onSuccess: () => {
-        showSuccessToast(t('admin.update.success'))
+        const updatedAdmin = { ...admin, ...data }
+
+        showSuccessToast(
+          t('update.success', { name: getFullName(updatedAdmin) })
+        )
       },
       onError: error => {
         showErrorToast(te(error))

@@ -1,10 +1,5 @@
 {
   "add": "Додати",
-  "admin": {
-    "update": {
-      "success": "Адміна оновлено."
-    }
-  },
   "alreadyHaveAccount": "Вже свій?",
   "back": "Назад",
   "backend": {
@@ -46,7 +41,6 @@
   "continueWithGoogle": "Продовжити з Google",
   "copyright": "© {{year}} {{companyName}}",
   "createdAt": "Створено",
-  "details": "Деталі",
   "doNotHaveAccount": "Новенький тут?",
   "email": {
     "confirmation": {
@@ -384,9 +378,6 @@
         "withCount": "Учасники ({{count}})"
       }
     },
-    "update": {
-      "success": "Дані оновлено."
-    },
     "website": {
       "error": {
         "format": "Введіть правильну URL-адресу."
@@ -412,10 +403,8 @@
       "tb": "ТБ"
     }
   },
-  "updatedAt": "Оновлено",
-  "user": {
-    "update": {
-      "success": "Користувача оновлено."
-    }
-  }
+  "update": {
+    "success": "{{name}} оновлено."
+  },
+  "updatedAt": "Оновлено"
 }

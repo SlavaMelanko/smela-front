@@ -1,10 +1,5 @@
 {
   "add": "Add",
-  "admin": {
-    "update": {
-      "success": "Admin updated."
-    }
-  },
   "alreadyHaveAccount": "Already have an account?",
   "back": "Back",
   "backend": {
@@ -46,7 +41,6 @@
   "continueWithGoogle": "Continue with Google",
   "copyright": "© {{year}} {{companyName}}",
   "createdAt": "Created at",
-  "details": "Details",
   "doNotHaveAccount": "Don't have an account?",
   "email": {
     "confirmation": {
@@ -384,9 +378,6 @@
         "withCount": "Members ({{count}})"
       }
     },
-    "update": {
-      "success": "Data updated."
-    },
     "website": {
       "error": {
         "format": "Enter a valid URL."
@@ -412,10 +403,8 @@
       "tb": "TB"
     }
   },
-  "updatedAt": "Updated at",
-  "user": {
-    "update": {
-      "success": "User updated."
-    }
-  }
+  "update": {
+    "success": "{{name}} updated."
+  },
+  "updatedAt": "Updated at"
 }
