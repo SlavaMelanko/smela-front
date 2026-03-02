@@ -1,5 +1,10 @@
 {
   "add": "Додати",
+  "admin": {
+    "update": {
+      "success": "Адміна оновлено."
+    }
+  },
   "alreadyHaveAccount": "Вже свій?",
   "back": "Назад",
   "backend": {

@@ -21,6 +21,12 @@ export const ownerApi = {
     return apiClient.get(path)
   },
 
+  updateAdmin(adminId, data) {
+    const path = buildPath(OWNER_ADMIN_PATH, { adminId })
+
+    return apiClient.patch(path, data)
+  },
+
   getAdminPermissions() {
     return apiClient.get(OWNER_ADMINS_PERMISSIONS_PATH)
   },

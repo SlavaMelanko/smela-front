@@ -35,6 +35,18 @@ export const useAdmin = id => {
   })
 }
 
+export const useUpdateAdmin = id => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: data => ownerApi.updateAdmin(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ownerKeys.adminDetail(id) })
+      queryClient.invalidateQueries({ queryKey: ownerKeys.adminsList() })
+    }
+  })
+}
+
 export const useAdmins = (params = {}) => {
   const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: ownerKeys.adminsList(params),
