@@ -1,5 +1,7 @@
 import { User } from 'lucide-react'
 
+import { getFullName } from '@/lib/format/user'
+
 import {
   PageHeader,
   PageHeaderContent,
@@ -8,14 +10,12 @@ import {
   PageHeaderTitle
 } from './PageHeader'
 
-export const UserPageHeader = ({ firstName, lastName, email }) => (
+export const UserPageHeader = ({ user }) => (
   <PageHeader>
     <PageHeaderIcon icon={User} />
     <PageHeaderContent>
-      <PageHeaderTitle>
-        {firstName} {lastName}
-      </PageHeaderTitle>
-      <PageHeaderEmail email={email} />
+      <PageHeaderTitle>{getFullName(user)}</PageHeaderTitle>
+      <PageHeaderEmail email={user?.email} />
     </PageHeaderContent>
   </PageHeader>
 )

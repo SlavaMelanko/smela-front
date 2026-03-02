@@ -26,11 +26,7 @@ export const AdminPage = () => {
       <div className='flex'>
         <BackButton to='/owner/admins' />
       </div>
-      <UserPageHeader
-        firstName={admin.firstName}
-        lastName={admin.lastName}
-        email={admin.email}
-      />
+      <UserPageHeader user={admin} />
     </PageContent>
   )
 }
