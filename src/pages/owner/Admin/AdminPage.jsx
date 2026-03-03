@@ -1,3 +1,4 @@
+import { User } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 
 import { BackButton } from '@/components/buttons'
@@ -5,16 +6,26 @@ import { UserInfoForm } from '@/components/form'
 import { UserPageHeader } from '@/components/PageHeader'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
+import { Tabs, TabsContent, TabsLine } from '@/components/ui'
+import { useHashTab } from '@/hooks/useHashTab'
 import { useLocale } from '@/hooks/useLocale'
 import { useAdmin, useUpdateAdmin } from '@/hooks/useOwner'
 import { useToast } from '@/hooks/useToast'
 import { getFullName } from '@/lib/format/user'
 import { PageContent } from '@/pages/Page'
 
+const UserTab = {
+  PERSONAL_DETAILS: 'personal-details'
+}
+
 export const AdminPage = () => {
   const { id } = useParams()
   const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
+  const [activeTab, setActiveTab] = useHashTab(
+    Object.values(UserTab),
+    UserTab.PERSONAL_DETAILS
+  )
   const { data: admin, isPending, isError, error, refetch } = useAdmin(id)
   const { mutate: updateAdmin, isPending: isUpdating } = useUpdateAdmin(id)
 
@@ -37,13 +48,30 @@ export const AdminPage = () => {
     return <Spinner />
   }
 
+  const tabs = [
+    {
+      value: UserTab.PERSONAL_DETAILS,
+      icon: User,
+      label: () => t('profile')
+    }
+  ]
+
   return (
     <PageContent>
       <div className='flex'>
         <BackButton to='/owner/admins' />
       </div>
       <UserPageHeader user={admin} />
-      <UserInfoForm user={admin} isSubmitting={isUpdating} onSubmit={submit} />
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <TabsLine tabs={tabs} />
+        <TabsContent value={UserTab.PERSONAL_DETAILS}>
+          <UserInfoForm
+            user={admin}
+            isSubmitting={isUpdating}
+            onSubmit={submit}
+          />
+        </TabsContent>
+      </Tabs>
     </PageContent>
   )
 }
