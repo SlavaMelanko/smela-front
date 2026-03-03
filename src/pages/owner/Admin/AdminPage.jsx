@@ -58,7 +58,7 @@ export const AdminPage = () => {
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsLine tabs={tabs} />
         <TabsContent value={UserTab.PROFILE}>
-          <ProfileTab id={id} />
+          <ProfileTab admin={admin} />
         </TabsContent>
         <TabsContent value={UserTab.PERMISSIONS}>
           <PermissionsTab />

@@ -1,14 +1,15 @@
 import { UserInfoForm } from '@/components/form'
 import { useLocale } from '@/hooks/useLocale'
-import { useAdmin, useUpdateAdmin } from '@/hooks/useOwner'
+import { useUpdateAdmin } from '@/hooks/useOwner'
 import { useToast } from '@/hooks/useToast'
 import { getFullName } from '@/lib/format/user'
 
-export const ProfileTab = ({ id }) => {
+export const ProfileTab = ({ admin }) => {
   const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
-  const { data: admin, isPending: isUpdating } = useAdmin(id)
-  const { mutate: updateAdmin } = useUpdateAdmin(id)
+  const { mutate: updateAdmin, isPending: isUpdating } = useUpdateAdmin(
+    admin.id
+  )
 
   const submit = data => {
     updateAdmin(data, {
