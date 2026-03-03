@@ -1,4 +1,4 @@
-import { User } from 'lucide-react'
+import { User, Users } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 
 import { BackButton } from '@/components/buttons'
@@ -15,7 +15,8 @@ import { getFullName } from '@/lib/format/user'
 import { PageContent } from '@/pages/Page'
 
 const UserTab = {
-  PERSONAL_DETAILS: 'personal-details'
+  PROFILE: 'profile',
+  MEMBERSHIP: 'membership'
 }
 
 export const UserPage = () => {
@@ -24,7 +25,7 @@ export const UserPage = () => {
   const { showSuccessToast, showErrorToast } = useToast()
   const [activeTab, setActiveTab] = useHashTab(
     Object.values(UserTab),
-    UserTab.PERSONAL_DETAILS
+    UserTab.PROFILE
   )
   const { data: user, isPending, isError, error, refetch } = useUser(id)
   const { mutate: updateUser, isPending: isUpdating } = useUpdateUser(id)
@@ -50,9 +51,14 @@ export const UserPage = () => {
 
   const tabs = [
     {
-      value: UserTab.PERSONAL_DETAILS,
+      value: UserTab.PROFILE,
       icon: User,
       label: () => t('profile')
+    },
+    {
+      value: UserTab.MEMBERSHIP,
+      icon: Users,
+      label: () => t('membership')
     }
   ]
 
@@ -64,12 +70,15 @@ export const UserPage = () => {
       <UserPageHeader user={user} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsLine tabs={tabs} />
-        <TabsContent value={UserTab.PERSONAL_DETAILS}>
+        <TabsContent value={UserTab.PROFILE}>
           <UserInfoForm
             user={user}
             isSubmitting={isUpdating}
             onSubmit={submit}
           />
+        </TabsContent>
+        <TabsContent value={UserTab.MEMBERSHIP}>
+          <p>user membership</p>
         </TabsContent>
       </Tabs>
     </PageContent>

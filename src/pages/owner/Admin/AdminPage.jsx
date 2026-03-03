@@ -1,4 +1,4 @@
-import { User } from 'lucide-react'
+import { Key, User } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 
 import { BackButton } from '@/components/buttons'
@@ -15,7 +15,8 @@ import { getFullName } from '@/lib/format/user'
 import { PageContent } from '@/pages/Page'
 
 const UserTab = {
-  PERSONAL_DETAILS: 'personal-details'
+  PROFILE: 'profile',
+  PERMISSIONS: 'permissions'
 }
 
 export const AdminPage = () => {
@@ -24,7 +25,7 @@ export const AdminPage = () => {
   const { showSuccessToast, showErrorToast } = useToast()
   const [activeTab, setActiveTab] = useHashTab(
     Object.values(UserTab),
-    UserTab.PERSONAL_DETAILS
+    UserTab.PROFILE
   )
   const { data: admin, isPending, isError, error, refetch } = useAdmin(id)
   const { mutate: updateAdmin, isPending: isUpdating } = useUpdateAdmin(id)
@@ -50,9 +51,14 @@ export const AdminPage = () => {
 
   const tabs = [
     {
-      value: UserTab.PERSONAL_DETAILS,
+      value: UserTab.PROFILE,
       icon: User,
       label: () => t('profile')
+    },
+    {
+      value: UserTab.PERMISSIONS,
+      icon: Key,
+      label: () => t('permissions.name')
     }
   ]
 
@@ -64,12 +70,15 @@ export const AdminPage = () => {
       <UserPageHeader user={admin} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsLine tabs={tabs} />
-        <TabsContent value={UserTab.PERSONAL_DETAILS}>
+        <TabsContent value={UserTab.PROFILE}>
           <UserInfoForm
             user={admin}
             isSubmitting={isUpdating}
             onSubmit={submit}
           />
+        </TabsContent>
+        <TabsContent value={UserTab.PERMISSIONS}>
+          <p>user permissions</p>
         </TabsContent>
       </Tabs>
     </PageContent>
