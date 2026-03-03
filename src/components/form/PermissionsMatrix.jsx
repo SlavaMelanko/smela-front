@@ -18,14 +18,11 @@ const PermissionHeader = () => {
 
   return (
     <PermissionRoot>
-      <span className='justify-self-start text-base leading-normal text-muted-foreground'>
+      <span className='justify-self-start leading-normal text-muted-foreground'>
         {t('permissions.resources.name')}
       </span>
       {['view', 'manage'].map(action => (
-        <span
-          key={action}
-          className='text-base leading-normal text-muted-foreground'
-        >
+        <span key={action} className='leading-normal text-muted-foreground'>
           {t(`permissions.actions.values.${action}`)}
         </span>
       ))}
