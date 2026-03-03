@@ -14,6 +14,8 @@ import { useToast } from '@/hooks/useToast'
 import { getFullName } from '@/lib/format/user'
 import { PageContent } from '@/pages/Page'
 
+import { PermissionsTab } from './PermissionsTab'
+
 const UserTab = {
   PROFILE: 'profile',
   PERMISSIONS: 'permissions'
@@ -78,7 +80,7 @@ export const AdminPage = () => {
           />
         </TabsContent>
         <TabsContent value={UserTab.PERMISSIONS}>
-          <p>user permissions</p>
+          <PermissionsTab />
         </TabsContent>
       </Tabs>
     </PageContent>
