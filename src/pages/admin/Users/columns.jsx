@@ -26,6 +26,12 @@ export const getColumns = (t, formatDate) => {
       cell: info => <StatusBadge status={info.getValue()} />
     },
     {
+      accessorKey: 'team',
+      header: label('team'),
+      accessorFn: row => row.team?.name ?? '',
+      cell: info => info.getValue()
+    },
+    {
       accessorKey: 'createdAt',
       header: label('createdAt'),
       cell: info => formatDate(info.getValue())

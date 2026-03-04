@@ -1,5 +1,5 @@
 import { User, Users } from 'lucide-react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 import { BackButton } from '@/components/buttons'
 import { UserPageHeader } from '@/components/PageHeader'
@@ -19,14 +19,35 @@ const UserTab = {
   MEMBERSHIP: 'membership'
 }
 
+const getUserTabIds = hasMembership => {
+  const tabIds = [UserTab.PROFILE]
+
+  if (hasMembership) {
+    tabIds.push(UserTab.MEMBERSHIP)
+  }
+
+  return tabIds
+}
+
 export const UserPage = () => {
   const { id } = useParams()
+  const { state } = useLocation()
   const { t, te } = useLocale()
+  const {
+    data: user,
+    isPending,
+    isError,
+    error,
+    refetch
+  } = useUser(id, {
+    initialData: state?.user ? { user: state.user } : undefined
+  })
+
+  const hasMembership = !isPending && !!user?.team
   const [activeTab, setActiveTab] = useHashTab(
-    Object.values(UserTab),
+    getUserTabIds(hasMembership),
     UserTab.PROFILE
   )
-  const { data: user, isPending, isError, error, refetch } = useUser(id)
 
   if (isError) {
     return <ErrorState text={te(error)} onRetry={refetch} />
@@ -42,11 +63,15 @@ export const UserPage = () => {
       icon: User,
       label: () => t('profile')
     },
-    {
-      value: UserTab.MEMBERSHIP,
-      icon: Users,
-      label: () => t('membership')
-    }
+    ...(hasMembership
+      ? [
+          {
+            value: UserTab.MEMBERSHIP,
+            icon: Users,
+            label: () => t('membership')
+          }
+        ]
+      : [])
   ]
 
   return (
@@ -60,9 +85,11 @@ export const UserPage = () => {
         <TabsContent value={UserTab.PROFILE}>
           <ProfileTab user={user} />
         </TabsContent>
-        <TabsContent value={UserTab.MEMBERSHIP}>
-          <MembershipTab />
-        </TabsContent>
+        {hasMembership && (
+          <TabsContent value={UserTab.MEMBERSHIP}>
+            <MembershipTab />
+          </TabsContent>
+        )}
       </Tabs>
     </PageContent>
   )

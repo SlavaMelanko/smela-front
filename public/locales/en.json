@@ -346,6 +346,7 @@
       "invitedBy": "$t(invitedBy)",
       "name": "Name",
       "status": "$t(status.name)",
+      "team": "Team",
       "updatedAt": "$t(updatedAt)"
     }
   },
