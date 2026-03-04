@@ -69,7 +69,7 @@ export const TeamPage = ({ teamId, backPath }) => {
     <PageContent>
       {backPath && (
         <div className='flex'>
-          <BackButton to={backPath} />
+          <BackButton />
         </div>
       )}
       <TeamPageHeader name={team.name} website={team.website} />
