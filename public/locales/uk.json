@@ -148,6 +148,7 @@
   },
   "invitedAt": "Запрошено",
   "invitedBy": "Запросив",
+  "joinedAt": "Приєднався",
   "lastName": {
     "error": {
       "max": "Прізвище не може бути довше 50 символів.",
@@ -326,7 +327,7 @@
       "email": "Email",
       "id": "ID",
       "invitedBy": "$t(invitedBy)",
-      "joinedAt": "Приєднався",
+      "joinedAt": "$t(joinedAt)",
       "name": "Ім'я",
       "position": "Посада",
       "status": "$t(status.name)"
@@ -371,7 +372,8 @@
         "min": "Назва команди має містити щонайменше 2 символи.",
         "required": "Назва команди обовʼязкова."
       },
-      "label": "Назва"
+      "label": "Назва",
+      "label2": "Команда"
     },
     "tabs": {
       "info": "Інфо",

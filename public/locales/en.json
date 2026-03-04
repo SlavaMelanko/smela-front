@@ -148,6 +148,7 @@
   },
   "invitedAt": "Invited at",
   "invitedBy": "Invited by",
+  "joinedAt": "Joined at",
   "lastName": {
     "error": {
       "max": "Last name can't be longer than 50 characters.",
@@ -326,7 +327,7 @@
       "email": "Email",
       "id": "ID",
       "invitedBy": "$t(invitedBy)",
-      "joinedAt": "Joined at",
+      "joinedAt": "$(joinedAt)",
       "name": "Name",
       "position": "Position",
       "status": "$t(status.name)"
@@ -371,7 +372,8 @@
         "min": "Team name must be at least 2 characters.",
         "required": "Team name is required."
       },
-      "label": "Name"
+      "label": "Name",
+      "label2": "Team"
     },
     "tabs": {
       "info": "Info",

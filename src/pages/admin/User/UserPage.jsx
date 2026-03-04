@@ -77,7 +77,7 @@ export const UserPage = () => {
   return (
     <PageContent>
       <div className='flex'>
-        <BackButton to='/admin/users' />
+        <BackButton />
       </div>
       <UserPageHeader user={user} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
@@ -87,7 +87,7 @@ export const UserPage = () => {
         </TabsContent>
         {hasMembership && (
           <TabsContent value={UserTab.MEMBERSHIP}>
-            <MembershipTab />
+            <MembershipTab user={user} />
           </TabsContent>
         )}
       </Tabs>

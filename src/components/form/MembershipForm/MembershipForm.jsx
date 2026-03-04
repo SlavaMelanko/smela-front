@@ -12,13 +12,15 @@ import {
   FormRow,
   SubmitButton
 } from '@/components/form'
+import { Link } from '@/components/links'
 import { TextSeparator } from '@/components/Separator'
-import { Input, Textarea } from '@/components/ui'
+import { Input } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
+import { getFullName } from '@/lib/format'
 
 import { FieldName, getDefaultValues, getValues, resolver } from './schema'
 
-export const TeamInfoForm = ({ team, isSubmitting, onSubmit }) => {
+export const MembershipForm = ({ member, team, isSubmitting, onSubmit }) => {
   const { t, formatDate } = useLocale()
 
   const {
@@ -32,50 +34,40 @@ export const TeamInfoForm = ({ team, isSubmitting, onSubmit }) => {
   })
 
   useEffect(() => {
-    if (team) {
-      reset(getValues(team))
+    if (member) {
+      reset(getValues(member))
     }
-  }, [team, reset])
+  }, [member, reset])
 
   return (
     <FormRoot onSubmit={handleSubmit(onSubmit)}>
       <FormFields>
         <FormRow>
-          <FormField
-            label={t('team.name.label')}
-            name={FieldName.NAME}
-            error={errors[FieldName.NAME]}
-          >
-            <Input {...register(FieldName.NAME)} />
+          <FormField label={t('team.name.label2')} optional>
+            <FormReadOnly>
+              <Link to={`/admin/teams/${team.id}`}>{team.name}</Link>
+            </FormReadOnly>
           </FormField>
 
           <FormField
-            label={t('team.website.label')}
-            name={FieldName.WEBSITE}
-            error={errors[FieldName.WEBSITE]}
+            label={t('position.label')}
+            name={FieldName.POSITION}
+            error={errors[FieldName.POSITION]}
             optional
           >
-            <Input {...register(FieldName.WEBSITE)} placeholder='https://' />
+            <Input {...register(FieldName.POSITION)} />
           </FormField>
         </FormRow>
-
-        <FormField
-          label={t('team.description.label')}
-          name={FieldName.DESCRIPTION}
-          error={errors[FieldName.DESCRIPTION]}
-          optional
-        >
-          <Textarea {...register(FieldName.DESCRIPTION)} />
-        </FormField>
 
         <TextSeparator />
 
         <FormRow forceColumns>
-          <FormField label={t('createdAt')} optional>
-            <FormReadOnly>{formatDate(team.createdAt)}</FormReadOnly>
+          <FormField label={t('invitedBy')} optional>
+            <FormReadOnly>{getFullName(member?.inviter)}</FormReadOnly>
           </FormField>
-          <FormField label={t('updatedAt')} optional>
-            <FormReadOnly>{formatDate(team.updatedAt)}</FormReadOnly>
+
+          <FormField label={t('joinedAt')} optional>
+            <FormReadOnly>{formatDate(member?.joinedAt)}</FormReadOnly>
           </FormField>
         </FormRow>
 

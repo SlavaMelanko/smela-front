@@ -52,7 +52,7 @@ export const AdminPage = () => {
   return (
     <PageContent>
       <div className='flex'>
-        <BackButton to='/owner/admins' />
+        <BackButton />
       </div>
       <UserPageHeader user={admin} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
