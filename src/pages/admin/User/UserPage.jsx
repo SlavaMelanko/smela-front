@@ -43,7 +43,7 @@ export const UserPage = () => {
     initialData: state?.user ? { user: state.user } : undefined
   })
 
-  const hasMembership = !!(state?.user?.team || (!isPending && user?.team))
+  const hasMembership = !isPending && !!user?.team
   const [activeTab, setActiveTab] = useHashTab(
     getUserTabIds(hasMembership),
     UserTab.PROFILE
