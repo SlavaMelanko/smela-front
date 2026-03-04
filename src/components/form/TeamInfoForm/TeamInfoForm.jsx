@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import {
   FormField,
   FormFields,
+  FormReadOnly,
   FormRoot,
   FormRow,
   SubmitButton
@@ -68,10 +69,10 @@ export const TeamInfoForm = ({ team, isSubmitting, onSubmit }) => {
 
         <FormRow forceColumns>
           <FormField label={t('createdAt')} optional>
-            <p className='text-base'>{formatDate(team.createdAt)}</p>
+            <FormReadOnly>{formatDate(team.createdAt)}</FormReadOnly>
           </FormField>
           <FormField label={t('updatedAt')} optional>
-            <p className='text-base'>{formatDate(team.updatedAt)}</p>
+            <FormReadOnly>{formatDate(team.updatedAt)}</FormReadOnly>
           </FormField>
         </FormRow>
 

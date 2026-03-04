@@ -8,6 +8,7 @@ import {
   FormController,
   FormField,
   FormFields,
+  FormReadOnly,
   FormRoot,
   FormRow,
   SubmitButton
@@ -73,10 +74,10 @@ export const UserInfoForm = ({ user, isSubmitting, onSubmit }) => {
 
         <FormRow forceColumns>
           <FormField label={t('createdAt')} optional>
-            <p className='text-base'>{formatDate(user?.createdAt)}</p>
+            <FormReadOnly>{formatDate(user?.createdAt)}</FormReadOnly>
           </FormField>
           <FormField label={t('updatedAt')} optional>
-            <p className='text-base'>{formatDate(user?.updatedAt)}</p>
+            <FormReadOnly>{formatDate(user?.updatedAt)}</FormReadOnly>
           </FormField>
         </FormRow>
 
