@@ -327,7 +327,7 @@
       "email": "Email",
       "id": "ID",
       "invitedBy": "$t(invitedBy)",
-      "joinedAt": "$(joinedAt)",
+      "joinedAt": "$t(joinedAt)",
       "name": "Name",
       "position": "Position",
       "status": "$t(status.name)"
