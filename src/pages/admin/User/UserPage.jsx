@@ -87,7 +87,7 @@ export const UserPage = () => {
         </TabsContent>
         {hasMembership && (
           <TabsContent value={UserTab.MEMBERSHIP}>
-            <MembershipTab />
+            <MembershipTab user={user} />
           </TabsContent>
         )}
       </Tabs>
