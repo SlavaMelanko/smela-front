@@ -12,6 +12,7 @@ import {
   FormRow,
   SubmitButton
 } from '@/components/form'
+import { TextSeparator } from '@/components/Separator'
 import { Input, Textarea } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
 
@@ -66,6 +67,8 @@ export const TeamInfoForm = ({ team, isSubmitting, onSubmit }) => {
         >
           <Textarea {...register(FieldName.DESCRIPTION)} />
         </FormField>
+
+        <TextSeparator />
 
         <FormRow forceColumns>
           <FormField label={t('createdAt')} optional>

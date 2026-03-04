@@ -13,6 +13,7 @@ import {
   FormRow,
   SubmitButton
 } from '@/components/form'
+import { TextSeparator } from '@/components/Separator'
 import { Input } from '@/components/ui'
 import { StatusDropdown } from '@/components/UserStatus'
 import { useLocale } from '@/hooks/useLocale'
@@ -71,6 +72,8 @@ export const UserInfoForm = ({ user, isSubmitting, onSubmit }) => {
             )}
           />
         </FormRow>
+
+        <TextSeparator />
 
         <FormRow forceColumns>
           <FormField label={t('createdAt')} optional>
