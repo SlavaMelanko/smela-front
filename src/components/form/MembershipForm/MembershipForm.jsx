@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import {
   FormField,
   FormFields,
+  FormReadOnly,
   FormRoot,
   FormRow,
   SubmitButton
@@ -42,7 +43,9 @@ export const MembershipForm = ({ member, team, isSubmitting, onSubmit }) => {
       <FormFields>
         <FormRow>
           <FormField label={t('team.name.label2')} optional>
-            <Link to={`/admin/teams/${team.id}`}>{team.name}</Link>
+            <FormReadOnly>
+              <Link to={`/admin/teams/${team.id}`}>{team.name}</Link>
+            </FormReadOnly>
           </FormField>
 
           <FormField
@@ -57,11 +60,11 @@ export const MembershipForm = ({ member, team, isSubmitting, onSubmit }) => {
 
         <FormRow forceColumns>
           <FormField label={t('invitedBy')} optional>
-            <p className='text-base'>{getFullName(member?.inviter)}</p>
+            <FormReadOnly>{getFullName(member?.inviter)}</FormReadOnly>
           </FormField>
 
           <FormField label={t('joinedAt')} optional>
-            <p className='text-base'>{formatDate(member?.joinedAt)}</p>
+            <FormReadOnly>{formatDate(member?.joinedAt)}</FormReadOnly>
           </FormField>
         </FormRow>
 
