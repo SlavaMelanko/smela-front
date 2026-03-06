@@ -11,21 +11,14 @@ import { teamApi } from '@/services/backend'
 
 export const teamKeys = {
   all: () => ['teams'],
-  lists: () => [...teamKeys.all(), 'list'],
-  list: params => [...teamKeys.lists(), params],
-  detail: id => [...teamKeys.all(), 'detail', id],
-  members: teamId => [...teamKeys.all(), teamId, 'members'],
-  member: (teamId, memberId) => [
-    ...teamKeys.all(),
-    teamId,
-    'members',
-    memberId
-  ],
-  memberPermissions: teamId => [
-    ...teamKeys.all(),
-    teamId,
-    'members',
-    'permissions'
+  teams: () => [...teamKeys.all(), 'teams'],
+  teamsList: params => [...teamKeys.teams(), 'list', params],
+  team: id => [...teamKeys.teams(), id],
+  members: teamId => [...teamKeys.team(teamId), 'members'],
+  member: (teamId, memberId) => [...teamKeys.members(teamId), memberId],
+  memberDefaultPermissions: teamId => [
+    ...teamKeys.members(teamId),
+    'defaultPermissions'
   ]
 }
 
@@ -38,7 +31,7 @@ const teamQueryOptions = {
 
 export const useTeams = (params = {}) => {
   const { data, isPending, isError, error, refetch } = useQuery({
-    queryKey: teamKeys.list(params),
+    queryKey: teamKeys.teamsList(params),
     queryFn: () => teamApi.listTeams(params),
     placeholderData: keepPreviousData,
     ...teamQueryOptions
@@ -62,9 +55,9 @@ export const useCreateTeam = () => {
     onMutate: async newTeam => {
       await queryClient.cancelQueries({ queryKey: teamKeys.all() })
 
-      const previousTeams = queryClient.getQueryData(teamKeys.list({}))
+      const previousTeams = queryClient.getQueryData(teamKeys.teamsList({}))
 
-      queryClient.setQueryData(teamKeys.list({}), old => {
+      queryClient.setQueryData(teamKeys.teamsList({}), old => {
         const now = new Date().toISOString()
         const optimisticTeam = {
           ...newTeam,
@@ -89,17 +82,17 @@ export const useCreateTeam = () => {
       return { previousTeams }
     },
     onError: (_error, _newTeam, context) => {
-      queryClient.setQueryData(teamKeys.list({}), context.previousTeams)
+      queryClient.setQueryData(teamKeys.teamsList({}), context.previousTeams)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: teamKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: teamKeys.teams() })
     }
   })
 }
 
 export const useTeam = (id, options = {}) => {
   return useQuery({
-    queryKey: teamKeys.detail(id),
+    queryKey: teamKeys.team(id),
     queryFn: () => teamApi.getTeam(id),
     select: data => data?.team,
     enabled: !!id,
@@ -114,8 +107,8 @@ export const useUpdateTeam = teamId => {
   return useMutation({
     mutationFn: data => teamApi.updateTeam(teamId, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: teamKeys.detail(teamId) })
-      queryClient.invalidateQueries({ queryKey: teamKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: teamKeys.team(teamId) })
+      queryClient.invalidateQueries({ queryKey: teamKeys.teams() })
     }
   })
 }
@@ -131,9 +124,9 @@ export const useTeamMembers = (teamId, options = {}) => {
   })
 }
 
-export const useTeamMemberPermissions = teamId => {
+export const useTeamMemberDefaultPermissions = teamId => {
   return useQuery({
-    queryKey: teamKeys.memberPermissions(teamId),
+    queryKey: teamKeys.memberDefaultPermissions(teamId),
     queryFn: () => teamApi.getMemberDefaultPermissions(teamId),
     select: data => data?.permissions,
     enabled: !!teamId,
@@ -184,7 +177,7 @@ export const useInviteMember = teamId => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: teamKeys.members(teamId) })
-      queryClient.invalidateQueries({ queryKey: teamKeys.detail(teamId) })
+      queryClient.invalidateQueries({ queryKey: teamKeys.team(teamId) })
     }
   })
 }
@@ -200,7 +193,7 @@ export const useUpdateMember = (teamId, memberId) => {
       })
 
       queryClient.invalidateQueries({ queryKey: teamKeys.members(teamId) })
-      queryClient.invalidateQueries({ queryKey: teamKeys.detail(teamId) })
+      queryClient.invalidateQueries({ queryKey: teamKeys.team(teamId) })
     }
   })
 }
@@ -218,7 +211,7 @@ export const useCancelMemberInvite = teamId => {
     mutationFn: memberId => teamApi.cancelInvite(teamId, memberId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: teamKeys.members(teamId) })
-      queryClient.invalidateQueries({ queryKey: teamKeys.detail(teamId) })
+      queryClient.invalidateQueries({ queryKey: teamKeys.team(teamId) })
     }
   })
 }
