@@ -61,7 +61,7 @@ export const AdminPage = () => {
           <ProfileTab admin={admin} />
         </TabsContent>
         <TabsContent value={UserTab.PERMISSIONS}>
-          <PermissionsTab />
+          <PermissionsTab adminId={id} />
         </TabsContent>
       </Tabs>
     </PageContent>

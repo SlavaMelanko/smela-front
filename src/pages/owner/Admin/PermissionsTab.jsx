@@ -3,11 +3,18 @@ import { useForm } from 'react-hook-form'
 
 import { FormRoot, PermissionsMatrix, SubmitButton } from '@/components/form'
 import { useLocale } from '@/hooks/useLocale'
-import { useAdminPermissions } from '@/hooks/useOwner'
+import {
+  useAdminPermissions,
+  useUpdateAdminPermissions
+} from '@/hooks/useOwner'
+import { useToast } from '@/hooks/useToast'
 
-export const PermissionsTab = () => {
-  const { t } = useLocale()
-  const { data: permissions, isPending } = useAdminPermissions()
+export const PermissionsTab = ({ adminId }) => {
+  const { t, te } = useLocale()
+  const { showSuccessToast, showErrorToast } = useToast()
+  const { data: permissions, isPending } = useAdminPermissions(adminId)
+  const { mutate: updatePermissions, isPending: isUpdating } =
+    useUpdateAdminPermissions(adminId)
 
   const {
     control,
@@ -22,15 +29,26 @@ export const PermissionsTab = () => {
     }
   }, [permissions, reset])
 
+  const submit = data => {
+    updatePermissions(data, {
+      onSuccess: () => {
+        showSuccessToast(t('update.success'))
+      },
+      onError: error => {
+        showErrorToast(te(error))
+      }
+    })
+  }
+
   return (
-    <FormRoot onSubmit={handleSubmit(() => {})}>
+    <FormRoot onSubmit={handleSubmit(submit)}>
       <PermissionsMatrix
         control={control}
         permissions={permissions}
         isLoading={isPending}
       />
       <div className='flex justify-end'>
-        <SubmitButton isLoading={false} disabled={!isDirty}>
+        <SubmitButton isLoading={isUpdating} disabled={!isDirty}>
           {t('save')}
         </SubmitButton>
       </div>

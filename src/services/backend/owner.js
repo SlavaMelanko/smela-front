@@ -4,9 +4,10 @@ import apiClient from './apiClient'
 import {
   buildPath,
   OWNER_ADMIN_PATH,
+  OWNER_ADMIN_PERMISSIONS_PATH,
   OWNER_ADMINS_CANCEL_INVITE_PATH,
+  OWNER_ADMINS_DEFAULT_PERMISSIONS_PATH,
   OWNER_ADMINS_PATH,
-  OWNER_ADMINS_PERMISSIONS_PATH,
   OWNER_ADMINS_RESEND_INVITE_PATH
 } from './paths'
 
@@ -27,8 +28,20 @@ export const ownerApi = {
     return apiClient.patch(path, data)
   },
 
-  getAdminPermissions() {
-    return apiClient.get(OWNER_ADMINS_PERMISSIONS_PATH)
+  getAdminDefaultPermissions() {
+    return apiClient.get(OWNER_ADMINS_DEFAULT_PERMISSIONS_PATH)
+  },
+
+  getAdminPermissions(adminId) {
+    const path = buildPath(OWNER_ADMIN_PERMISSIONS_PATH, { adminId })
+
+    return apiClient.get(path)
+  },
+
+  updateAdminPermissions(adminId, data) {
+    const path = buildPath(OWNER_ADMIN_PERMISSIONS_PATH, { adminId })
+
+    return apiClient.patch(path, data)
   },
 
   createAdmin(data) {
