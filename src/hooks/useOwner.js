@@ -13,9 +13,9 @@ export const ownerKeys = {
   all: () => ['owner'],
   admins: () => [...ownerKeys.all(), 'admins'],
   adminsList: params => [...ownerKeys.admins(), 'list', params],
-  adminDetail: id => [...ownerKeys.admins(), 'detail', id],
+  admin: id => [...ownerKeys.admins(), id],
   adminDefaultPermissions: () => [...ownerKeys.admins(), 'defaultPermissions'],
-  adminPermissions: id => [...ownerKeys.admins(), 'permissions', id]
+  adminPermissions: id => [...ownerKeys.admin(id), 'permissions']
 }
 
 // Owner queries need fresh data — new registrations or user updates
@@ -24,28 +24,6 @@ const ownerQueryOptions = {
   staleTime: 0,
   gcTime: 60 * 1000, // 1 minute
   refetchOnWindowFocus: true
-}
-
-export const useAdmin = id => {
-  return useQuery({
-    queryKey: ownerKeys.adminDetail(id),
-    queryFn: () => ownerApi.getAdmin(id),
-    select: data => data?.admin,
-    enabled: !!id,
-    ...ownerQueryOptions
-  })
-}
-
-export const useUpdateAdmin = id => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: data => ownerApi.updateAdmin(id, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ownerKeys.adminDetail(id) })
-      queryClient.invalidateQueries({ queryKey: ownerKeys.admins() })
-    }
-  })
 }
 
 export const useAdmins = (params = {}) => {
@@ -64,6 +42,84 @@ export const useAdmins = (params = {}) => {
     error,
     refetch
   }
+}
+
+export const useAdmin = id => {
+  return useQuery({
+    queryKey: ownerKeys.admin(id),
+    queryFn: () => ownerApi.getAdmin(id),
+    select: data => data?.admin,
+    enabled: !!id,
+    ...ownerQueryOptions
+  })
+}
+
+export const useUpdateAdmin = id => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: data => ownerApi.updateAdmin(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ownerKeys.admins() })
+    }
+  })
+}
+
+export const useCreateAdmin = () => {
+  const queryClient = useQueryClient()
+  const queryKey = ownerKeys.admins()
+
+  return useMutation({
+    mutationFn: ownerApi.createAdmin,
+    onMutate: async newAdmin => {
+      await queryClient.cancelQueries({ queryKey })
+
+      const previous = queryClient.getQueriesData({ queryKey })
+
+      queryClient.setQueriesData({ queryKey }, old => {
+        const now = new Date().toISOString()
+        const optimisticAdmin = {
+          ...newAdmin,
+          id: '...',
+          status: UserStatus.PENDING,
+          createdAt: now,
+          updatedAt: now
+        }
+
+        return {
+          ...old,
+          admins: [optimisticAdmin, ...(old.admins ?? [])]
+        }
+      })
+
+      return { previous }
+    },
+    onError: (_error, _newAdmin, context) => {
+      for (const [queryKey, data] of context.previous) {
+        queryClient.setQueryData(queryKey, data)
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey })
+    }
+  })
+}
+
+export const useResendAdminInvite = () => {
+  return useMutation({
+    mutationFn: ownerApi.resendAdminInvite
+  })
+}
+
+export const useCancelAdminInvite = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ownerApi.cancelAdminInvite,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ownerKeys.admins() })
+    }
+  })
 }
 
 export const useAdminDefaultPermissions = () => {
@@ -87,71 +143,21 @@ export const useAdminPermissions = id => {
 
 export const useUpdateAdminPermissions = id => {
   const queryClient = useQueryClient()
+  const queryKey = ownerKeys.adminPermissions(id)
 
   return useMutation({
     mutationFn: data => ownerApi.updateAdminPermissions(id, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ownerKeys.adminPermissions(id)
-      })
-    }
-  })
-}
+    onMutate: async data => {
+      await queryClient.cancelQueries({ queryKey })
 
-export const useCreateAdmin = () => {
-  const queryClient = useQueryClient()
+      const previous = queryClient.getQueryData(queryKey)
 
-  return useMutation({
-    mutationFn: ownerApi.createAdmin,
-    onMutate: async newAdmin => {
-      await queryClient.cancelQueries({ queryKey: ownerKeys.admins() })
+      queryClient.setQueryData(queryKey, data)
 
-      const previousQueries = queryClient.getQueriesData({
-        queryKey: ownerKeys.admins()
-      })
-
-      queryClient.setQueriesData({ queryKey: ownerKeys.admins() }, old => {
-        const now = new Date().toISOString()
-        const optimisticAdmin = {
-          ...newAdmin,
-          id: '...',
-          status: UserStatus.PENDING,
-          createdAt: now,
-          updatedAt: now
-        }
-
-        return {
-          ...old,
-          admins: [optimisticAdmin, ...(old.admins ?? [])]
-        }
-      })
-
-      return { previousQueries }
+      return { previous }
     },
-    onError: (_error, _newAdmin, context) => {
-      for (const [queryKey, data] of context.previousQueries) {
-        queryClient.setQueryData(queryKey, data)
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ownerKeys.admins() })
-    }
-  })
-}
-
-export const useResendAdminInvite = () => {
-  return useMutation({
-    mutationFn: ownerApi.resendAdminInvite
-  })
-}
-
-export const useCancelAdminInvite = () => {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: ownerApi.cancelAdminInvite,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ownerKeys.admins() })
+    onError: (_error, _data, context) => {
+      queryClient.setQueryData(queryKey, context.previous)
     }
   })
 }
