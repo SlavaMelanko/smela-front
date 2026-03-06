@@ -32,7 +32,7 @@ export const PermissionsTab = ({ adminId }) => {
   const submit = data => {
     updatePermissions(data, {
       onSuccess: () => {
-        showSuccessToast(t('update.success'))
+        showSuccessToast(t('changesSaved'))
       },
       onError: error => {
         showErrorToast(te(error))
