@@ -7,8 +7,8 @@ import {
   TEAM_MEMBER_CANCEL_INVITE_PATH,
   TEAM_MEMBER_PATH,
   TEAM_MEMBER_RESEND_INVITE_PATH,
+  TEAM_MEMBERS_DEFAULT_PERMISSIONS_PATH,
   TEAM_MEMBERS_PATH,
-  TEAM_MEMBERS_PERMISSIONS_PATH,
   TEAMS_PATH
 } from './paths'
 
@@ -41,8 +41,8 @@ export const teamApi = {
     return apiClient.get(path)
   },
 
-  getMemberPermissions(teamId) {
-    const path = buildPath(TEAM_MEMBERS_PERMISSIONS_PATH, { teamId })
+  getMemberDefaultPermissions(teamId) {
+    const path = buildPath(TEAM_MEMBERS_DEFAULT_PERMISSIONS_PATH, { teamId })
 
     return apiClient.get(path)
   },

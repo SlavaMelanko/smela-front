@@ -14,7 +14,8 @@ export const ownerKeys = {
   admins: () => [...ownerKeys.all(), 'admins'],
   adminsList: params => [...ownerKeys.admins(), 'list', params],
   adminDetail: id => [...ownerKeys.admins(), 'detail', id],
-  adminPermissions: () => [...ownerKeys.admins(), 'permissions']
+  adminDefaultPermissions: () => [...ownerKeys.admins(), 'defaultPermissions'],
+  adminPermissions: id => [...ownerKeys.admins(), 'permissions', id]
 }
 
 // Owner queries need fresh data — new registrations or user updates
@@ -65,12 +66,35 @@ export const useAdmins = (params = {}) => {
   }
 }
 
-export const useAdminPermissions = () => {
+export const useAdminDefaultPermissions = () => {
   return useQuery({
-    queryKey: ownerKeys.adminPermissions(),
-    queryFn: ownerApi.getAdminPermissions,
+    queryKey: ownerKeys.adminDefaultPermissions(),
+    queryFn: ownerApi.getAdminDefaultPermissions,
     select: data => data?.permissions,
     ...ownerQueryOptions
+  })
+}
+
+export const useAdminPermissions = id => {
+  return useQuery({
+    queryKey: ownerKeys.adminPermissions(id),
+    queryFn: () => ownerApi.getAdminPermissions(id),
+    select: data => data?.permissions,
+    enabled: !!id,
+    ...ownerQueryOptions
+  })
+}
+
+export const useUpdateAdminPermissions = id => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: data => ownerApi.updateAdminPermissions(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ownerKeys.adminPermissions(id)
+      })
+    }
   })
 }
 

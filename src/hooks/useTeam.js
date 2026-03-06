@@ -134,7 +134,7 @@ export const useTeamMembers = (teamId, options = {}) => {
 export const useTeamMemberPermissions = teamId => {
   return useQuery({
     queryKey: teamKeys.memberPermissions(teamId),
-    queryFn: () => teamApi.getMemberPermissions(teamId),
+    queryFn: () => teamApi.getMemberDefaultPermissions(teamId),
     select: data => data?.permissions,
     enabled: !!teamId,
     ...teamQueryOptions
