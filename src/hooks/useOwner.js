@@ -158,6 +158,9 @@ export const useUpdateAdminPermissions = id => {
     },
     onError: (_error, _data, context) => {
       queryClient.setQueryData(queryKey, context.previous)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey })
     }
   })
 }

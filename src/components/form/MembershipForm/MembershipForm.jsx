@@ -62,12 +62,12 @@ export const MembershipForm = ({ member, team, isSubmitting, onSubmit }) => {
         <TextSeparator />
 
         <FormRow forceColumns>
-          <FormField label={t('invitedBy')} optional>
-            <FormReadOnly>{getFullName(member?.inviter)}</FormReadOnly>
-          </FormField>
-
           <FormField label={t('joinedAt')} optional>
             <FormReadOnly>{formatDate(member?.joinedAt)}</FormReadOnly>
+          </FormField>
+
+          <FormField label={t('invitedBy')} optional>
+            <FormReadOnly>{getFullName(member?.inviter)}</FormReadOnly>
           </FormField>
         </FormRow>
 
