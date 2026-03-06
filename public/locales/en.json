@@ -32,6 +32,7 @@
   "captcha": {
     "error": "Security verification failed. Please try again."
   },
+  "changesSaved": "Changes saved successfully.",
   "contextMenu": {
     "cancel": "Cancel",
     "invite": "Invitation",
@@ -406,9 +407,6 @@
       "mb": "MB",
       "tb": "TB"
     }
-  },
-  "update": {
-    "success": "{{name}} updated."
   },
   "updatedAt": "Updated at"
 }

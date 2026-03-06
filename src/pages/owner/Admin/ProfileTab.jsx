@@ -2,7 +2,6 @@ import { UserInfoForm } from '@/components/form'
 import { useLocale } from '@/hooks/useLocale'
 import { useUpdateAdmin } from '@/hooks/useOwner'
 import { useToast } from '@/hooks/useToast'
-import { getFullName } from '@/lib/format/user'
 
 export const ProfileTab = ({ admin }) => {
   const { t, te } = useLocale()
@@ -14,7 +13,7 @@ export const ProfileTab = ({ admin }) => {
   const submit = data => {
     updateAdmin(data, {
       onSuccess: () => {
-        showSuccessToast(t('update.success', { name: getFullName(data) }))
+        showSuccessToast(t('changesSaved'))
       },
       onError: error => {
         showErrorToast(te(error))

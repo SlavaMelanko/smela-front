@@ -2,7 +2,6 @@ import { MembershipForm } from '@/components/form'
 import { useLocale } from '@/hooks/useLocale'
 import { useTeamMember, useUpdateMember } from '@/hooks/useTeam'
 import { useToast } from '@/hooks/useToast'
-import { getFullName } from '@/lib/format'
 
 export const MembershipTab = ({ user }) => {
   const { t, te } = useLocale()
@@ -16,7 +15,7 @@ export const MembershipTab = ({ user }) => {
   const submit = data => {
     updateMember(data, {
       onSuccess: () => {
-        showSuccessToast(t('update.success', { name: getFullName(user) }))
+        showSuccessToast(t('changesSaved'))
       },
       onError: error => {
         showErrorToast(te(error))
