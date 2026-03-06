@@ -33,9 +33,10 @@ export const PermissionsTab = ({ adminId }) => {
     updatePermissions(data, {
       onSuccess: () => {
         showSuccessToast(t('update.success'))
-        reset(data)
       },
-      onError: error => showErrorToast(te(error))
+      onError: error => {
+        showErrorToast(te(error))
+      }
     })
   }
 
