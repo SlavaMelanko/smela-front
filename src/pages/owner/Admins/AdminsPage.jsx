@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { InviteButton } from '@/components/buttons'
 import { SearchInput } from '@/components/inputs'
+import { PageContent } from '@/components/PageContent'
 import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
@@ -19,7 +20,6 @@ import {
 import { useLocale } from '@/hooks/useLocale'
 import { useAdmins } from '@/hooks/useOwner'
 import { useTableState } from '@/hooks/useTableState'
-import { PageContent } from '@/pages/Page'
 
 import { defaultHiddenColumns, getColumns } from './columns'
 import { useInvite } from './useInvite'
