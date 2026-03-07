@@ -1,5 +1,5 @@
 import { wrapCreateBrowserRouterV6 } from '@sentry/react'
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 
 import {
   AuthLayout,
@@ -35,8 +35,11 @@ import { AdminPage, AdminsPage } from '@/pages/owner'
 import { PricingPage } from '@/pages/public'
 import {
   HomePage,
+  MemberPage,
   SettingsPage as UserSettingsPage,
-  TeamPage as UserTeamPage
+  TeamInfoPage,
+  TeamLayout,
+  TeamMembersPage
 } from '@/pages/user'
 
 import { ErrorBoundary } from './ErrorBoundary'
@@ -90,7 +93,16 @@ export const router = sentryCreateBrowserRouter([
     errorElement: <ErrorBoundary />,
     children: [
       { path: 'home', element: <HomePage /> },
-      { path: 'team', element: <UserTeamPage /> },
+      {
+        path: 'team',
+        element: <TeamLayout />,
+        children: [
+          { index: true, element: <Navigate to='info' replace /> },
+          { path: 'info', element: <TeamInfoPage /> },
+          { path: 'members', element: <TeamMembersPage /> }
+        ]
+      },
+      { path: 'team/members/:id', element: <MemberPage /> },
       { path: 'settings', element: <UserSettingsPage /> }
     ]
   },

@@ -27,7 +27,7 @@ const TeamMembersToolbar = ({ children }) => (
   <div className='flex min-h-11 justify-end gap-4'>{children}</div>
 )
 
-export const TeamMembers = ({ teamId }) => {
+export const TeamMembers = ({ teamId, onRowClick }) => {
   const { t, formatDate, te } = useLocale()
   const { openModal } = useModal()
   const {
@@ -51,8 +51,10 @@ export const TeamMembers = ({ teamId }) => {
     })
   }
 
+  const handleRowClick = onRowClick ?? openMemberProfile
+
   const contextMenu = [
-    createOpenItem(t, openMemberProfile),
+    createOpenItem(t, handleRowClick),
     createInviteItem(t, {
       handleResendInvite,
       isResending,
@@ -105,7 +107,7 @@ export const TeamMembers = ({ teamId }) => {
 
       <Table
         config={config}
-        onRowClick={openMemberProfile}
+        onRowClick={handleRowClick}
         contextMenu={contextMenu}
       />
     </TeamMembersRoot>
