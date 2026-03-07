@@ -1,11 +1,10 @@
-import { Info, Users } from 'lucide-react'
-
 import { BackButton } from '@/components/buttons'
 import { TeamInfoForm } from '@/components/form'
 import { PageContent } from '@/components/PageContent'
 import { TeamPageHeader } from '@/components/PageHeader'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
+import { getTeamTabs, TeamTab } from '@/components/team/tabs'
 import { Tabs, TabsContent, TabsLine } from '@/components/ui'
 import { useHashTab } from '@/hooks/useHashTab'
 import { useLocale } from '@/hooks/useLocale'
@@ -13,11 +12,6 @@ import { useTeam, useUpdateTeam } from '@/hooks/useTeam'
 import { useToast } from '@/hooks/useToast'
 
 import { TeamMembers } from './TeamMembers'
-
-const TeamTab = {
-  INFO: 'info',
-  MEMBERS: 'members'
-}
 
 export const TeamPage = ({ teamId, backPath }) => {
   const { t, te } = useLocale()
@@ -49,21 +43,7 @@ export const TeamPage = ({ teamId, backPath }) => {
     return <Spinner />
   }
 
-  const tabs = [
-    {
-      value: TeamTab.INFO,
-      icon: Info,
-      label: () => t('team.tabs.info')
-    },
-    {
-      value: TeamTab.MEMBERS,
-      icon: Users,
-      label: () =>
-        team.memberCount > 0
-          ? t('team.tabs.members.withCount', { count: team.memberCount })
-          : t('team.tabs.members.label')
-    }
-  ]
+  const tabs = getTeamTabs(team, t)
 
   return (
     <PageContent>
