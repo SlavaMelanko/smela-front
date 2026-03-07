@@ -25,7 +25,7 @@ export const TeamPage = () => {
   const { data: team, isPending, isError, error, refetch } = useTeam(teamId)
   const { mutate: updateTeam, isPending: isUpdating } = useUpdateTeam(teamId)
 
-  const submit = data => {
+  const handleUpdateTeam = data => {
     updateTeam(data, {
       onSuccess: () => {
         showSuccessToast(t('changesSaved'))
@@ -58,7 +58,7 @@ export const TeamPage = () => {
           <TeamInfoForm
             team={team}
             isSubmitting={isUpdating}
-            onSubmit={submit}
+            onSubmit={handleUpdateTeam}
           />
         </TabsContent>
         <TabsContent value={TeamTab.MEMBERS}>
