@@ -1,7 +1,7 @@
+import { PageContent } from '@/components/PageContent'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui'
 import { useHashTab } from '@/hooks/useHashTab'
 import { useLocale } from '@/hooks/useLocale'
-import { PageContent } from '@/pages/Page'
 
 import EnterpriseTab from './EnterpriseTab'
 import { PricingFaq } from './PricingFaq'

@@ -7,6 +7,7 @@ import {
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { PageContent } from '@/components/PageContent'
 import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
@@ -15,7 +16,6 @@ import { createOpenItem } from '@/components/table/contextMenuItems'
 import { useUsers } from '@/hooks/useAdmin'
 import { useLocale } from '@/hooks/useLocale'
 import { useTableState } from '@/hooks/useTableState'
-import { PageContent } from '@/pages/Page'
 
 import { defaultHiddenColumns, getColumns } from './columns'
 import { Filters } from './Filters'

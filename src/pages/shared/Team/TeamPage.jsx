@@ -2,6 +2,7 @@ import { Info, Users } from 'lucide-react'
 
 import { BackButton } from '@/components/buttons'
 import { TeamInfoForm } from '@/components/form'
+import { PageContent } from '@/components/PageContent'
 import { TeamPageHeader } from '@/components/PageHeader'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
@@ -10,7 +11,6 @@ import { useHashTab } from '@/hooks/useHashTab'
 import { useLocale } from '@/hooks/useLocale'
 import { useTeam, useUpdateTeam } from '@/hooks/useTeam'
 import { useToast } from '@/hooks/useToast'
-import { PageContent } from '@/pages/Page'
 
 import { TeamMembers } from './TeamMembers'
 
