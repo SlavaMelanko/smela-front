@@ -1,1 +1,2 @@
-export { TeamPage } from './TeamPage'
+export { TeamInfoPage } from './TeamInfoPage'
+export { TeamMembersPage } from './TeamMembersPage'
