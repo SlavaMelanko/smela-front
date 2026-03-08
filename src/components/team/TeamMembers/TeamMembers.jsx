@@ -1,8 +1,8 @@
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { InviteButton } from '@/components/buttons'
-import { ProfileDialog } from '@/components/dialogs'
 import { Spinner } from '@/components/Spinner'
 import { EmptyState, ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
@@ -11,7 +11,6 @@ import {
   createOpenItem
 } from '@/components/table/contextMenuItems'
 import { useLocale } from '@/hooks/useLocale'
-import { useModal } from '@/hooks/useModal'
 import { useTeamMembers } from '@/hooks/useTeam'
 
 import { defaultHiddenColumns, getColumns } from './columns'
@@ -29,7 +28,7 @@ const TeamMembersToolbar = ({ children }) => (
 
 export const TeamMembers = ({ teamId }) => {
   const { t, formatDate, te } = useLocale()
-  const { openModal } = useModal()
+  const navigate = useNavigate()
   const {
     data: members,
     isPending,
@@ -45,11 +44,7 @@ export const TeamMembers = ({ teamId }) => {
     isCancelling
   } = useInvite(teamId)
 
-  const openMemberProfile = member => {
-    const close = openModal({
-      children: <ProfileDialog profile={member} onClose={() => close()} />
-    })
-  }
+  const openMemberProfile = member => navigate(`/admin/users/${member.id}`)
 
   const contextMenu = [
     createOpenItem(t, openMemberProfile),
