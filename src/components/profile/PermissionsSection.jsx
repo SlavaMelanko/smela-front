@@ -11,8 +11,8 @@ import { useLocale } from '@/hooks/useLocale'
 import { useToast } from '@/hooks/useToast'
 
 export const PermissionsSection = ({
-  permissions,
   isLoading,
+  permissions,
   update,
   isUpdating
 }) => {

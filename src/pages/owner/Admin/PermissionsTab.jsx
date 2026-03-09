@@ -12,8 +12,8 @@ export const PermissionsTab = ({ adminId }) => {
 
   return (
     <PermissionsSection
-      permissions={permissions}
       isLoading={isLoading}
+      permissions={permissions}
       update={update}
       isUpdating={isUpdating}
     />
