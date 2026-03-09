@@ -1,9 +1,5 @@
 import { cn } from '@/lib/utils'
 
-export const FormActions = ({ children, isDirty }) => (
-  <div className={cn('flex justify-end', !isDirty && 'hidden')}>{children}</div>
-)
-
 export const FormRoot = ({ children, className, ...props }) => (
   <form className={cn('flex flex-col gap-8', className)} {...props}>
     {children}
@@ -83,4 +79,8 @@ export const FormError = ({ message, className }) => (
   >
     {message}
   </div>
+)
+
+export const FormActions = ({ children, isDirty }) => (
+  <div className={cn('flex justify-end', !isDirty && 'hidden')}>{children}</div>
 )
