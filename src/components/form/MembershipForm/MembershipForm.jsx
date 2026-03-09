@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import {
+  FormActions,
   FormField,
   FormFields,
   FormReadOnly,
@@ -71,11 +72,9 @@ export const MembershipForm = ({ member, team, isSubmitting, onSubmit }) => {
           </FormField>
         </FormRow>
 
-        <div className='flex justify-end'>
-          <SubmitButton isLoading={isSubmitting} disabled={!isDirty}>
-            {t('save')}
-          </SubmitButton>
-        </div>
+        <FormActions isDirty={isDirty}>
+          <SubmitButton isLoading={isSubmitting}>{t('save')}</SubmitButton>
+        </FormActions>
       </FormFields>
     </FormRoot>
   )

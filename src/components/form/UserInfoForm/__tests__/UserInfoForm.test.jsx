@@ -27,7 +27,7 @@ const renderForm = ({
   return {
     firstNameInput: screen.getByLabelText(en.firstName.label, { exact: false }),
     lastNameInput: screen.getByLabelText(en.lastName.label, { exact: false }),
-    saveButton: screen.getByRole('button', { name: en.save })
+    saveButton: screen.queryByRole('button', { name: en.save })
   }
 }
 
@@ -38,18 +38,17 @@ describe('UserInfoForm', () => {
     user = userEvent.setup()
   })
 
-  it('renders firstName, lastName inputs and save button', () => {
-    const { firstNameInput, lastNameInput, saveButton } = renderForm()
+  it('renders firstName and lastName inputs', () => {
+    const { firstNameInput, lastNameInput } = renderForm()
 
     expect(firstNameInput).toBeInTheDocument()
     expect(lastNameInput).toBeInTheDocument()
-    expect(saveButton).toBeInTheDocument()
   })
 
-  it('save button is disabled when form is not dirty', () => {
+  it('save button is hidden when form is not dirty', () => {
     const { saveButton } = renderForm()
 
-    expect(saveButton).toBeDisabled()
+    expect(saveButton?.closest('.hidden')).toBeTruthy()
   })
 
   it('populates fields when user prop is provided', () => {

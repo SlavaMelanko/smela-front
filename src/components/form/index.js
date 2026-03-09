@@ -1,4 +1,11 @@
-export { FormFields, FormGroup, FormReadOnly, FormRoot, FormRow } from './Form'
+export {
+  FormActions,
+  FormFields,
+  FormGroup,
+  FormReadOnly,
+  FormRoot,
+  FormRow
+} from './Form'
 export { FormBoolController } from './FormBoolController'
 export { FormController } from './FormController'
 export { FormField } from './FormField'

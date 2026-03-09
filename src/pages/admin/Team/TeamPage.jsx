@@ -5,7 +5,12 @@ import { PageContent } from '@/components/PageContent'
 import { TeamPageHeader } from '@/components/PageHeader'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
-import { getTeamTabs, TeamInfo, TeamMembers, TeamTab } from '@/components/team'
+import {
+  getTeamTabs,
+  TeamInfoSection,
+  TeamMembersSection,
+  TeamTab
+} from '@/components/team'
 import { Tabs, TabsContent, TabsLine } from '@/components/ui'
 import { useHashTab } from '@/hooks/useHashTab'
 import { useLocale } from '@/hooks/useLocale'
@@ -41,10 +46,10 @@ export const TeamPage = () => {
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsLine tabs={tabs} />
         <TabsContent value={TeamTab.INFO}>
-          <TeamInfo team={team} />
+          <TeamInfoSection team={team} />
         </TabsContent>
         <TabsContent value={TeamTab.MEMBERS}>
-          <TeamMembers
+          <TeamMembersSection
             teamId={teamId}
             onRowClick={member => navigate(`/admin/users/${member.id}`)}
           />

@@ -80,3 +80,7 @@ export const FormError = ({ message, className }) => (
     {message}
   </div>
 )
+
+export const FormActions = ({ children, isDirty }) => (
+  <div className={cn('flex justify-end', !isDirty && 'hidden')}>{children}</div>
+)
