@@ -1,7 +1,12 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { FormRoot, PermissionsMatrix, SubmitButton } from '@/components/form'
+import {
+  FormActions,
+  FormRoot,
+  PermissionsMatrix,
+  SubmitButton
+} from '@/components/form'
 import { useLocale } from '@/hooks/useLocale'
 import {
   useAdminPermissions,
@@ -47,11 +52,9 @@ export const PermissionsTab = ({ adminId }) => {
         permissions={permissions}
         isLoading={isPending}
       />
-      <div className='flex justify-end'>
-        <SubmitButton isLoading={isUpdating} disabled={!isDirty}>
-          {t('save')}
-        </SubmitButton>
-      </div>
+      <FormActions isDirty={isDirty}>
+        <SubmitButton isLoading={isUpdating}>{t('save')}</SubmitButton>
+      </FormActions>
     </FormRoot>
   )
 }
