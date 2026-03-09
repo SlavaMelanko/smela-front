@@ -3,7 +3,7 @@ import { useLocale } from '@/hooks/useLocale'
 import { useUpdateTeam } from '@/hooks/useTeam'
 import { useToast } from '@/hooks/useToast'
 
-export const TeamInfo = ({ team }) => {
+export const TeamInfoSection = ({ team }) => {
   const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
   const { mutate: updateTeam, isPending: isUpdating } = useUpdateTeam(team.id)

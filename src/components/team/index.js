@@ -1,3 +1,3 @@
 export { getTeamTabs, TeamTab } from './tabs'
-export { TeamInfo } from './TeamInfo'
-export { TeamMembers } from './TeamMembers'
+export { TeamInfoSection } from './TeamInfoSection'
+export { TeamMembersSection } from './TeamMembersSection'
