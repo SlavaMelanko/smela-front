@@ -1,40 +1,26 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { BackButton } from '@/components/buttons'
-import { TeamInfoForm } from '@/components/form'
 import { PageContent } from '@/components/PageContent'
 import { TeamPageHeader } from '@/components/PageHeader'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
-import { getTeamTabs, TeamMembers, TeamTab } from '@/components/team'
+import { getTeamTabs, TeamInfo, TeamMembers, TeamTab } from '@/components/team'
 import { Tabs, TabsContent, TabsLine } from '@/components/ui'
 import { useHashTab } from '@/hooks/useHashTab'
 import { useLocale } from '@/hooks/useLocale'
-import { useTeam, useUpdateTeam } from '@/hooks/useTeam'
-import { useToast } from '@/hooks/useToast'
+import { useTeam } from '@/hooks/useTeam'
 
 export const TeamPage = () => {
   const { id: teamId } = useParams()
+  const navigate = useNavigate()
   const { t, te } = useLocale()
-  const { showSuccessToast, showErrorToast } = useToast()
   const [activeTab, setActiveTab] = useHashTab(
     Object.values(TeamTab),
     TeamTab.INFO
   )
 
   const { data: team, isPending, isError, error, refetch } = useTeam(teamId)
-  const { mutate: updateTeam, isPending: isUpdating } = useUpdateTeam(teamId)
-
-  const handleUpdateTeam = data => {
-    updateTeam(data, {
-      onSuccess: () => {
-        showSuccessToast(t('changesSaved'))
-      },
-      onError: error => {
-        showErrorToast(te(error))
-      }
-    })
-  }
 
   if (isError) {
     return <ErrorState text={te(error)} onRetry={refetch} />
@@ -55,14 +41,13 @@ export const TeamPage = () => {
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsLine tabs={tabs} />
         <TabsContent value={TeamTab.INFO}>
-          <TeamInfoForm
-            team={team}
-            isSubmitting={isUpdating}
-            onSubmit={handleUpdateTeam}
-          />
+          <TeamInfo team={team} />
         </TabsContent>
         <TabsContent value={TeamTab.MEMBERS}>
-          <TeamMembers teamId={teamId} />
+          <TeamMembers
+            teamId={teamId}
+            onRowClick={member => navigate(`/admin/users/${member.id}`)}
+          />
         </TabsContent>
       </Tabs>
     </PageContent>
