@@ -1,14 +1,14 @@
 import { useNavigate, useOutletContext } from 'react-router-dom'
 
-import { TeamMembers } from '@/components/team/TeamMembers'
+import { TeamMembers } from '@/components/team'
 
 export const TeamMembersPage = () => {
-  const { teamId } = useOutletContext()
+  const { team } = useOutletContext()
   const navigate = useNavigate()
 
   return (
     <TeamMembers
-      teamId={teamId}
+      teamId={team.id}
       onRowClick={member => navigate(`/team/members/${member.id}`)}
     />
   )
