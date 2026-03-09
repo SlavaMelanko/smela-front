@@ -29,7 +29,7 @@ export const TeamLayout = () => {
     isError,
     error,
     refetch
-  } = useTeam(currentTeam?.id, { enabled: !!currentTeam })
+  } = useTeam(currentTeam?.id)
 
   if (!currentTeam) {
     return <Navigate to='/not-found' replace />
@@ -43,18 +43,15 @@ export const TeamLayout = () => {
     return <Spinner />
   }
 
-  const tabs = getTeamTabs(team, t)
-  const activeTab = getActiveTab(location.pathname)
-
   return (
     <PageContent>
       <TeamPageHeader name={team.name} website={team.website} />
       <Tabs
-        value={activeTab}
+        value={getActiveTab(location.pathname)}
         onValueChange={value => navigate(`/team/${value}`)}
       >
-        <TabsLine tabs={tabs} />
-        <Outlet context={{ team, teamId: currentTeam.id }} />
+        <TabsLine tabs={getTeamTabs(team, t)} />
+        <Outlet context={{ team }} />
       </Tabs>
     </PageContent>
   )

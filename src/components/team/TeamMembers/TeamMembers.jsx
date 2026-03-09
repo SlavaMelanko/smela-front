@@ -1,6 +1,5 @@
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import { InviteButton } from '@/components/buttons'
 import { Spinner } from '@/components/Spinner'
@@ -26,9 +25,8 @@ const TeamMembersToolbar = ({ children }) => (
   <div className='flex min-h-11 justify-end gap-4'>{children}</div>
 )
 
-export const TeamMembers = ({ teamId }) => {
+export const TeamMembers = ({ teamId, onRowClick }) => {
   const { t, formatDate, te } = useLocale()
-  const navigate = useNavigate()
   const {
     data: members,
     isPending,
@@ -44,7 +42,7 @@ export const TeamMembers = ({ teamId }) => {
     isCancelling
   } = useInvite(teamId)
 
-  const openMemberProfile = member => navigate(`/admin/users/${member.id}`)
+  const openMemberProfile = onRowClick
 
   const contextMenu = [
     createOpenItem(t, openMemberProfile),
