@@ -32,7 +32,7 @@ const Toolbar = ({ children }) => (
 )
 
 export const AdminsPage = () => {
-  const { t, te, formatDate } = useLocale()
+  const { t, formatDate } = useLocale()
   const navigate = useNavigate()
 
   const { apiParams, setParams, searchValue, setSearchValue } = useTableState()
@@ -86,7 +86,7 @@ export const AdminsPage = () => {
   }
 
   if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+    return <ErrorState error={error} onRetry={refetch} />
   }
 
   if (isPending && !admins.length) {

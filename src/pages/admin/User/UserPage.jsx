@@ -21,7 +21,7 @@ import { ProfileTab } from './ProfileTab'
 export const UserPage = () => {
   const { id } = useParams()
   const { state } = useLocation()
-  const { t, te } = useLocale()
+  const { t } = useLocale()
   const {
     data: user,
     isPending,
@@ -39,7 +39,7 @@ export const UserPage = () => {
   )
 
   if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+    return <ErrorState error={error} onRetry={refetch} />
   }
 
   if (isPending && !user) {

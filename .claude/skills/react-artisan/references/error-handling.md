@@ -91,7 +91,7 @@ const UserDashboard = () => {
   })
 
   if (error) {
-    return <ErrorState text={t('errors.loadFailed')} onRetry={refetch} />
+    return <ErrorState error={error} onRetry={refetch} />
   }
 
   return <Dashboard data={data} />

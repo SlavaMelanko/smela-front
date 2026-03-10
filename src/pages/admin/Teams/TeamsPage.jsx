@@ -31,7 +31,7 @@ const Toolbar = ({ children }) => (
 
 export const TeamsPage = () => {
   const navigate = useNavigate()
-  const { t, te, formatDate } = useLocale()
+  const { t, formatDate } = useLocale()
 
   const { apiParams, setParams, searchValue, setSearchValue } = useTableState()
   const { teams, pagination, isPending, isError, error, refetch } =
@@ -70,7 +70,7 @@ export const TeamsPage = () => {
   }
 
   if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+    return <ErrorState error={error} onRetry={refetch} />
   }
 
   if (isPending && !teams.length) {
