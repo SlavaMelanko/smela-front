@@ -1,9 +1,13 @@
-import { Key, User } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 
 import { BackButton } from '@/components/buttons'
 import { PageContent } from '@/components/PageContent'
 import { UserPageHeader } from '@/components/PageHeader'
+import {
+  getAdminTabs,
+  getAdminTabValues,
+  ProfileTab as Tab
+} from '@/components/profile'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { Tabs, TabsContent, TabsLine } from '@/components/ui'
@@ -14,18 +18,10 @@ import { useAdmin } from '@/hooks/useOwner'
 import { PermissionsTab } from './PermissionsTab'
 import { ProfileTab } from './ProfileTab'
 
-const UserTab = {
-  PROFILE: 'profile',
-  PERMISSIONS: 'permissions'
-}
-
 export const AdminPage = () => {
   const { id } = useParams()
   const { t, te } = useLocale()
-  const [activeTab, setActiveTab] = useHashTab(
-    Object.values(UserTab),
-    UserTab.PROFILE
-  )
+  const [activeTab, setActiveTab] = useHashTab(getAdminTabValues(), Tab.PROFILE)
   const { data: admin, isPending, isError, error, refetch } = useAdmin(id)
 
   if (isError) {
@@ -36,19 +32,6 @@ export const AdminPage = () => {
     return <Spinner />
   }
 
-  const tabs = [
-    {
-      value: UserTab.PROFILE,
-      icon: User,
-      label: () => t('profile')
-    },
-    {
-      value: UserTab.PERMISSIONS,
-      icon: Key,
-      label: () => t('permissions.name')
-    }
-  ]
-
   return (
     <PageContent>
       <div className='flex'>
@@ -56,11 +39,11 @@ export const AdminPage = () => {
       </div>
       <UserPageHeader user={admin} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsLine tabs={tabs} />
-        <TabsContent value={UserTab.PROFILE}>
+        <TabsLine tabs={getAdminTabs(t)} />
+        <TabsContent value={Tab.PROFILE}>
           <ProfileTab admin={admin} />
         </TabsContent>
-        <TabsContent value={UserTab.PERMISSIONS}>
+        <TabsContent value={Tab.PERMISSIONS}>
           <PermissionsTab adminId={id} />
         </TabsContent>
       </Tabs>
