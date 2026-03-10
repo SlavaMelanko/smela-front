@@ -108,7 +108,6 @@ export const useUpdateTeam = teamId => {
     mutationFn: data => teamApi.updateTeam(teamId, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: teamKeys.team(teamId) })
-      queryClient.invalidateQueries({ queryKey: teamKeys.teams() })
     }
   })
 }
