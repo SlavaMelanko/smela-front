@@ -25,7 +25,11 @@ const TeamMembersToolbar = ({ children }) => (
   <div className='flex min-h-11 justify-end gap-4'>{children}</div>
 )
 
-export const TeamMembersSection = ({ teamId, onRowClick }) => {
+export const TeamMembersSection = ({
+  teamId,
+  onRowClick,
+  queryOptions = {}
+}) => {
   const { t, formatDate } = useLocale()
   const {
     data: members,
@@ -33,7 +37,7 @@ export const TeamMembersSection = ({ teamId, onRowClick }) => {
     isError,
     error,
     refetch
-  } = useTeamMembers(teamId)
+  } = useTeamMembers(teamId, queryOptions)
   const {
     openInviteDialog,
     handleResendInvite,

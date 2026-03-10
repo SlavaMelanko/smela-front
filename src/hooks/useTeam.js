@@ -6,6 +6,7 @@ import {
 } from '@tanstack/react-query'
 
 import { defaultOptions } from '@/components/Pagination'
+import { authKeys } from '@/hooks/useAuth'
 import { UserStatus } from '@/lib/types'
 import { teamApi } from '@/services/backend'
 
@@ -22,11 +23,18 @@ export const teamKeys = {
   ]
 }
 
-// Team queries need fresh data for real-time collaboration visibility.
+// Admin: always fresh — browsing multiple teams in real time.
 const teamQueryOptions = {
   staleTime: 0,
   gcTime: 60 * 1000,
   refetchOnWindowFocus: true
+}
+
+// User: less strict — team data is not expected to change often, and can be kept in cache.
+export const userTeamQueryOptions = {
+  ...teamQueryOptions,
+  staleTime: 100 * 1000, // 100 seconds
+  gcTime: 5 * 60 * 1000 // 5 minutes
 }
 
 export const useTeams = (params = {}) => {
@@ -106,8 +114,15 @@ export const useUpdateTeam = teamId => {
 
   return useMutation({
     mutationFn: data => teamApi.updateTeam(teamId, data),
-    onSuccess: () => {
+    onSuccess: data => {
       queryClient.invalidateQueries({ queryKey: teamKeys.team(teamId) })
+      queryClient.setQueryData(authKeys.user(), old => {
+        if (!old?.team) {
+          return old
+        }
+
+        return { ...old, team: { ...old.team, name: data.team.name } }
+      })
     }
   })
 }

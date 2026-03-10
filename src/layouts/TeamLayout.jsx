@@ -9,7 +9,7 @@ import { getTeamTabs, TeamTab } from '@/components/team'
 import { Tabs, TabsLine } from '@/components/ui'
 import { useCurrentUser } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
-import { useTeam } from '@/hooks/useTeam'
+import { userTeamQueryOptions, useTeam } from '@/hooks/useTeam'
 
 // Handles /team/info AND /team/members/:id — index 1 is always the tab segment
 const getActiveTab = pathname => {
@@ -30,7 +30,7 @@ export const TeamLayout = () => {
     isError,
     error,
     refetch
-  } = useTeam(currentTeam?.id)
+  } = useTeam(currentTeam?.id, userTeamQueryOptions)
 
   if (!currentTeam) {
     return <Navigate to='/not-found' replace />
