@@ -1,6 +1,7 @@
 import { useNavigate, useOutletContext } from 'react-router-dom'
 
 import { TeamMembersSection } from '@/components/team'
+import { userTeamQueryOptions } from '@/hooks/useTeam'
 
 export const TeamMembersPage = () => {
   const { team } = useOutletContext()
@@ -10,6 +11,7 @@ export const TeamMembersPage = () => {
     <TeamMembersSection
       teamId={team.id}
       onRowClick={member => navigate(`/team/members/${member.id}`)}
+      queryOptions={userTeamQueryOptions}
     />
   )
 }

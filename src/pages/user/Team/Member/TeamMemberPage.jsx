@@ -14,7 +14,7 @@ import { Tabs, TabsContent, TabsLine } from '@/components/ui'
 import { useCurrentUser } from '@/hooks/useAuth'
 import { useHashTab } from '@/hooks/useHashTab'
 import { useLocale } from '@/hooks/useLocale'
-import { useTeamMember } from '@/hooks/useTeam'
+import { userTeamQueryOptions, useTeamMember } from '@/hooks/useTeam'
 
 import { MembershipTab } from './MembershipTab'
 import { ProfileTab } from './ProfileTab'
@@ -30,7 +30,7 @@ export const TeamMemberPage = () => {
     isError,
     error,
     refetch
-  } = useTeamMember(team?.id, id)
+  } = useTeamMember(team?.id, id, userTeamQueryOptions)
 
   const [activeTab, setActiveTab] = useHashTab(
     getUserTabValues(true),
