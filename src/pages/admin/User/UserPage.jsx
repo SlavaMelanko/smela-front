@@ -1,9 +1,13 @@
-import { User, Users } from 'lucide-react'
 import { useLocation, useParams } from 'react-router-dom'
 
 import { BackButton } from '@/components/buttons'
 import { PageContent } from '@/components/PageContent'
 import { UserPageHeader } from '@/components/PageHeader'
+import {
+  getUserTabs,
+  getUserTabValues,
+  ProfileTab as Tab
+} from '@/components/profile'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { Tabs, TabsContent, TabsLine } from '@/components/ui'
@@ -13,21 +17,6 @@ import { useLocale } from '@/hooks/useLocale'
 
 import { MembershipTab } from './MembershipTab'
 import { ProfileTab } from './ProfileTab'
-
-const UserTab = {
-  PROFILE: 'profile',
-  MEMBERSHIP: 'membership'
-}
-
-const getUserTabIds = hasMembership => {
-  const tabIds = [UserTab.PROFILE]
-
-  if (hasMembership) {
-    tabIds.push(UserTab.MEMBERSHIP)
-  }
-
-  return tabIds
-}
 
 export const UserPage = () => {
   const { id } = useParams()
@@ -45,8 +34,8 @@ export const UserPage = () => {
 
   const hasMembership = !isPending && !!user?.team
   const [activeTab, setActiveTab] = useHashTab(
-    getUserTabIds(hasMembership),
-    UserTab.PROFILE
+    getUserTabValues(hasMembership),
+    Tab.PROFILE
   )
 
   if (isError) {
@@ -57,23 +46,6 @@ export const UserPage = () => {
     return <Spinner />
   }
 
-  const tabs = [
-    {
-      value: UserTab.PROFILE,
-      icon: User,
-      label: () => t('profile')
-    },
-    ...(hasMembership
-      ? [
-          {
-            value: UserTab.MEMBERSHIP,
-            icon: Users,
-            label: () => t('membership')
-          }
-        ]
-      : [])
-  ]
-
   return (
     <PageContent>
       <div className='flex'>
@@ -81,12 +53,12 @@ export const UserPage = () => {
       </div>
       <UserPageHeader user={user} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsLine tabs={tabs} />
-        <TabsContent value={UserTab.PROFILE}>
+        <TabsLine tabs={getUserTabs(hasMembership, t)} />
+        <TabsContent value={Tab.PROFILE}>
           <ProfileTab user={user} />
         </TabsContent>
         {hasMembership && (
-          <TabsContent value={UserTab.MEMBERSHIP}>
+          <TabsContent value={Tab.MEMBERSHIP}>
             <MembershipTab user={user} team={user?.team} />
           </TabsContent>
         )}
