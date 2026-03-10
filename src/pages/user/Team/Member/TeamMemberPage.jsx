@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 
 import { BackButton } from '@/components/buttons'
 import { PageContent } from '@/components/PageContent'
@@ -37,6 +37,10 @@ export const TeamMemberPage = () => {
     Tab.PROFILE
   )
 
+  if (!team) {
+    return <Navigate to='/not-found' replace />
+  }
+
   if (isError) {
     return <ErrorState text={te(error)} onRetry={refetch} />
   }
@@ -54,7 +58,7 @@ export const TeamMemberPage = () => {
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsLine tabs={getUserTabs(true, t)} />
         <TabsContent value={Tab.PROFILE}>
-          <ProfileTab member={member} teamId={team?.id} />
+          <ProfileTab member={member} teamId={team.id} />
         </TabsContent>
         <TabsContent value={Tab.MEMBERSHIP}>
           <MembershipTab member={member} team={team} />
