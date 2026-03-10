@@ -25,7 +25,11 @@ const TeamMembersToolbar = ({ children }) => (
   <div className='flex min-h-11 justify-end gap-4'>{children}</div>
 )
 
-export const TeamMembersSection = ({ teamId, onRowClick, queryOptions }) => {
+export const TeamMembersSection = ({
+  teamId,
+  onRowClick,
+  queryOptions = {}
+}) => {
   const { t, formatDate } = useLocale()
   const {
     data: members,

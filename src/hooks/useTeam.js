@@ -121,7 +121,7 @@ export const useUpdateTeam = teamId => {
           return old
         }
 
-        return { ...old, team: { ...old.team, name: data.team.name } }
+        return { ...old, team: { ...old.team, ...data.team } }
       })
     }
   })
