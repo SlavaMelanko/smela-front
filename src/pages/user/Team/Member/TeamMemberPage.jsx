@@ -58,7 +58,7 @@ export const TeamMemberPage = () => {
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsLine tabs={getUserTabs(true, t)} />
         <TabsContent value={Tab.PROFILE}>
-          <ProfileTab member={member} teamId={team.id} />
+          <ProfileTab member={member} team={team} />
         </TabsContent>
         <TabsContent value={Tab.MEMBERSHIP}>
           <MembershipTab member={member} team={team} />
