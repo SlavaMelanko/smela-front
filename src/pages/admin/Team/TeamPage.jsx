@@ -35,8 +35,6 @@ export const TeamPage = () => {
     return <Spinner />
   }
 
-  const tabs = getTeamTabs(team, t)
-
   return (
     <PageContent>
       <div className='flex'>
@@ -44,7 +42,7 @@ export const TeamPage = () => {
       </div>
       <TeamPageHeader name={team.name} website={team.website} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsLine tabs={tabs} />
+        <TabsLine tabs={getTeamTabs(team, t)} />
         <TabsContent value={TeamTab.INFO}>
           <TeamInfoSection team={team} />
         </TabsContent>

@@ -1,5 +1,6 @@
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
+import { BackButton } from '@/components/buttons'
 import { PageContent } from '@/components/PageContent'
 import { TeamPageHeader } from '@/components/PageHeader'
 import { Spinner } from '@/components/Spinner'
@@ -45,6 +46,9 @@ export const TeamLayout = () => {
 
   return (
     <PageContent>
+      <div className='flex'>
+        <BackButton />
+      </div>
       <TeamPageHeader name={team.name} website={team.website} />
       <Tabs
         value={getActiveTab(location.pathname)}

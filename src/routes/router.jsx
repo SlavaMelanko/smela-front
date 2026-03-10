@@ -36,9 +36,9 @@ import { AdminPage, AdminsPage } from '@/pages/owner'
 import { PricingPage } from '@/pages/public'
 import {
   HomePage,
-  MemberPage,
   SettingsPage as UserSettingsPage,
   TeamInfoPage,
+  TeamMemberPage,
   TeamMembersPage
 } from '@/pages/user'
 
@@ -102,7 +102,7 @@ export const router = sentryCreateBrowserRouter([
           { path: 'members', element: <TeamMembersPage /> }
         ]
       },
-      { path: 'team/members/:id', element: <MemberPage /> },
+      { path: 'team/members/:id', element: <TeamMemberPage /> },
       { path: 'settings', element: <UserSettingsPage /> }
     ]
   },

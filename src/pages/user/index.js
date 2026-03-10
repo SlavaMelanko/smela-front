@@ -1,3 +1,3 @@
 export { HomePage } from './Home'
 export { SettingsPage } from './Settings'
-export { MemberPage, TeamInfoPage, TeamMembersPage } from './Team'
+export { TeamInfoPage, TeamMemberPage, TeamMembersPage } from './Team'

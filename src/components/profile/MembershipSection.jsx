@@ -2,7 +2,13 @@ import { MembershipForm } from '@/components/form'
 import { useLocale } from '@/hooks/useLocale'
 import { useToast } from '@/hooks/useToast'
 
-export const MembershipSection = ({ member, team, update, isUpdating }) => {
+export const MembershipSection = ({
+  member,
+  team,
+  teamLink,
+  update,
+  isUpdating
+}) => {
   const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
 
@@ -21,6 +27,7 @@ export const MembershipSection = ({ member, team, update, isUpdating }) => {
     <MembershipForm
       member={member}
       team={team}
+      teamLink={teamLink}
       isSubmitting={isUpdating}
       onSubmit={handleUpdate}
     />
