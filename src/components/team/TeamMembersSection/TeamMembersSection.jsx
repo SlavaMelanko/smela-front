@@ -26,7 +26,7 @@ const TeamMembersToolbar = ({ children }) => (
 )
 
 export const TeamMembersSection = ({ teamId, onRowClick }) => {
-  const { t, formatDate, te } = useLocale()
+  const { t, formatDate } = useLocale()
   const {
     data: members,
     isPending,
@@ -67,7 +67,7 @@ export const TeamMembersSection = ({ teamId, onRowClick }) => {
   })
 
   if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+    return <ErrorState error={error} onRetry={refetch} />
   }
 
   if (isPending && !members) {

@@ -14,7 +14,7 @@ const UsersPage = () => {
   })
 
   if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+    return <ErrorState error={error} onRetry={refetch} />
   }
 
   if (isPending) {
@@ -48,7 +48,7 @@ const UsersPage = () => {
   })
 
   if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+    return <ErrorState error={error} onRetry={refetch} />
   }
 
   if (isPending && !data) {
@@ -98,7 +98,7 @@ const TeamPage = () => {
   })
 
   if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+    return <ErrorState error={error} onRetry={refetch} />
   }
 
   if (isPending && !team) {

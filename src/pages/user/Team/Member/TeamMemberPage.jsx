@@ -22,7 +22,7 @@ import { ProfileTab } from './ProfileTab'
 export const TeamMemberPage = () => {
   const { id } = useParams()
   const { team } = useCurrentUser()
-  const { t, te } = useLocale()
+  const { t } = useLocale()
 
   const {
     data: member,
@@ -42,7 +42,7 @@ export const TeamMemberPage = () => {
   }
 
   if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+    return <ErrorState error={error} onRetry={refetch} />
   }
 
   if (isPending && !member) {

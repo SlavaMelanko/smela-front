@@ -22,7 +22,7 @@ export const TeamLayout = () => {
   const { team: currentTeam } = useCurrentUser()
   const location = useLocation()
   const navigate = useNavigate()
-  const { t, te } = useLocale()
+  const { t } = useLocale()
 
   const {
     data: team,
@@ -37,7 +37,7 @@ export const TeamLayout = () => {
   }
 
   if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+    return <ErrorState error={error} onRetry={refetch} />
   }
 
   if (isPending && !team) {

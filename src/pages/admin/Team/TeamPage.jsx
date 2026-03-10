@@ -19,7 +19,7 @@ import { useTeam } from '@/hooks/useTeam'
 export const TeamPage = () => {
   const { id: teamId } = useParams()
   const navigate = useNavigate()
-  const { t, te } = useLocale()
+  const { t } = useLocale()
   const [activeTab, setActiveTab] = useHashTab(
     Object.values(TeamTab),
     TeamTab.INFO
@@ -28,7 +28,7 @@ export const TeamPage = () => {
   const { data: team, isPending, isError, error, refetch } = useTeam(teamId)
 
   if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+    return <ErrorState error={error} onRetry={refetch} />
   }
 
   if (isPending && !team) {

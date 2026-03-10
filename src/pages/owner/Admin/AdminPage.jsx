@@ -20,12 +20,12 @@ import { ProfileTab } from './ProfileTab'
 
 export const AdminPage = () => {
   const { id } = useParams()
-  const { t, te } = useLocale()
+  const { t } = useLocale()
   const [activeTab, setActiveTab] = useHashTab(getAdminTabValues(), Tab.PROFILE)
   const { data: admin, isPending, isError, error, refetch } = useAdmin(id)
 
   if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+    return <ErrorState error={error} onRetry={refetch} />
   }
 
   if (isPending && !admin) {

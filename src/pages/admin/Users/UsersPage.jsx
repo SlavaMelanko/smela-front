@@ -26,7 +26,7 @@ const filteredRowModel = getFilteredRowModel()
 const sortedRowModel = getSortedRowModel()
 
 export const UsersPage = () => {
-  const { t, te, formatDate } = useLocale()
+  const { t, formatDate } = useLocale()
   const navigate = useNavigate()
 
   const { params, apiParams, setParams, searchValue, setSearchValue } =
@@ -74,7 +74,7 @@ export const UsersPage = () => {
   }
 
   if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+    return <ErrorState error={error} onRetry={refetch} />
   }
 
   if (isPending && !users.length) {
