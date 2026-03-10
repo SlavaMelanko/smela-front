@@ -21,7 +21,13 @@ import { getFullName } from '@/lib/format'
 
 import { FieldName, getDefaultValues, getValues, resolver } from './schema'
 
-export const MembershipForm = ({ member, team, isSubmitting, onSubmit }) => {
+export const MembershipForm = ({
+  member,
+  team,
+  teamLink,
+  isSubmitting,
+  onSubmit
+}) => {
   const { t, formatDate } = useLocale()
 
   const {
@@ -46,7 +52,7 @@ export const MembershipForm = ({ member, team, isSubmitting, onSubmit }) => {
         <FormRow>
           <FormField label={t('team.name.label2')} optional>
             <FormReadOnly>
-              <Link to={`/admin/teams/${team.id}`}>{team.name}</Link>
+              <Link to={teamLink}>{team.name}</Link>
             </FormReadOnly>
           </FormField>
 
