@@ -14,7 +14,6 @@ import {
   SubmitButton
 } from '@/components/form'
 import { Link } from '@/components/links'
-import { TextSeparator } from '@/components/Separator'
 import { Input } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
 import { getFullName } from '@/lib/format'
@@ -65,8 +64,6 @@ export const MembershipForm = ({
             <Input {...register(FieldName.POSITION)} />
           </FormField>
         </FormRow>
-
-        <TextSeparator />
 
         <FormRow forceColumns>
           <FormField label={t('joinedAt')} optional>
