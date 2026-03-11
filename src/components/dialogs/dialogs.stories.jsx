@@ -1,7 +1,6 @@
 import { Dialog, dialogContentVariants } from '@/components/ui/dialog'
-import { allUserStatuses, Role, UserStatus } from '@/lib/types'
 
-import { PricingSliderDialog, ProfileDialog } from '.'
+import { PricingSliderDialog } from '.'
 
 // Wrapper with Dialog context for Base UI components
 const DialogWrapper = ({ size, children }) => (
@@ -22,38 +21,6 @@ export default {
     }
   },
   args: { size: 'md' }
-}
-
-export const UserProfile = {
-  argTypes: {
-    role: {
-      control: 'select',
-      options: Object.values(Role)
-    },
-    status: {
-      control: 'select',
-      options: allUserStatuses
-    }
-  },
-  args: {
-    role: Role.ADMIN,
-    status: UserStatus.ACTIVE
-  },
-  render: ({ size, role, status }) => (
-    <DialogWrapper size={size}>
-      <ProfileDialog
-        profile={{
-          id: 'usr_12345',
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john.doe@example.com',
-          role,
-          status
-        }}
-        onClose={noop}
-      />
-    </DialogWrapper>
-  )
 }
 
 export const PricingSlider = {

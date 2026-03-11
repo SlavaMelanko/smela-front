@@ -207,7 +207,7 @@ export const useAcceptInvite = () => {
   })
 }
 
-export const useUpdateUser = () => {
+export const useUpdateCurrentUser = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
