@@ -17,6 +17,7 @@ import {
   createInviteItem,
   createOpenItem
 } from '@/components/table/contextMenuItems'
+import { useCurrentUser } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
 import { useAdmins } from '@/hooks/useOwner'
 import { useTableState } from '@/hooks/useTableState'
@@ -33,6 +34,7 @@ const Toolbar = ({ children }) => (
 
 export const AdminsPage = () => {
   const { t, formatDate } = useLocale()
+  const { user: self } = useCurrentUser()
   const navigate = useNavigate()
 
   const { apiParams, setParams, searchValue, setSearchValue } = useTableState()
@@ -46,7 +48,7 @@ export const AdminsPage = () => {
     isCancelling
   } = useInvite()
 
-  const columns = getColumns(t, formatDate)
+  const columns = getColumns(t, formatDate, self?.id)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
   const [sorting, setSorting] = useState([])
 
