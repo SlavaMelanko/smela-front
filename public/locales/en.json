@@ -286,6 +286,7 @@
     "teams": "Search by ID, name, website...",
     "users": "Search by ID, name, email..."
   },
+  "security": "Security",
   "settings": {
     "description": "Your app-wide preferences",
     "title": "Settings"

@@ -4,6 +4,8 @@ export { ProfileSection } from './ProfileSection'
 export {
   getAdminTabs,
   getAdminTabValues,
+  getProfileTabs,
+  getProfileTabValues,
   getUserTabs,
   getUserTabValues,
   ProfileTab

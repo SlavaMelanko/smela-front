@@ -1,8 +1,8 @@
 import { PageContent } from '@/components/PageContent'
 import { ProfilePageHeader } from '@/components/PageHeader'
 import {
-  getUserTabs,
-  getUserTabValues,
+  getProfileTabs,
+  getProfileTabValues,
   ProfileTab as Tab
 } from '@/components/profile'
 import { Spinner } from '@/components/Spinner'
@@ -12,16 +12,15 @@ import { useCurrentUser } from '@/hooks/useAuth'
 import { useHashTab } from '@/hooks/useHashTab'
 import { useLocale } from '@/hooks/useLocale'
 
-import { MembershipTab } from './MembershipTab'
 import { ProfileTab } from './ProfileTab'
+import { SecurityTab } from './SecurityTab'
 
 export const ProfilePage = () => {
   const { t } = useLocale()
-  const { user: me, team: myTeam, isPending, isError, error } = useCurrentUser()
+  const { user: me, isPending, isError, error } = useCurrentUser()
 
-  const hasMembership = !isPending && !!myTeam
   const [activeTab, setActiveTab] = useHashTab(
-    getUserTabValues(hasMembership),
+    getProfileTabValues(),
     Tab.PROFILE
   )
 
@@ -37,15 +36,13 @@ export const ProfilePage = () => {
     <PageContent>
       <ProfilePageHeader user={me} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsLine tabs={getUserTabs(hasMembership, t)} />
+        <TabsLine tabs={getProfileTabs(t)} />
         <TabsContent value={Tab.PROFILE}>
           <ProfileTab user={me} />
         </TabsContent>
-        {hasMembership && (
-          <TabsContent value={Tab.MEMBERSHIP}>
-            <MembershipTab user={me} team={myTeam} />
-          </TabsContent>
-        )}
+        <TabsContent value={Tab.SECURITY}>
+          <SecurityTab />
+        </TabsContent>
       </Tabs>
     </PageContent>
   )
