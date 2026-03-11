@@ -2,7 +2,7 @@ import { YouBadge } from '@/components/badges'
 import { StatusBadge } from '@/components/UserStatus'
 import { getFullName } from '@/lib/format/user'
 
-export const getColumns = (t, formatDate, selfId) => {
+export const getColumns = (t, formatDate, meId) => {
   const label = key => t(`table.members.${key}`)
 
   return [
@@ -17,7 +17,7 @@ export const getColumns = (t, formatDate, selfId) => {
       cell: info => (
         <>
           {info.getValue()}
-          {info.row.original.id === selfId && <YouBadge />}
+          {info.row.original.id === meId && <YouBadge />}
         </>
       )
     },

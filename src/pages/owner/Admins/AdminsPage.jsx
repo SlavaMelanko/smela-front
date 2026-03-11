@@ -34,7 +34,7 @@ const Toolbar = ({ children }) => (
 
 export const AdminsPage = () => {
   const { t, formatDate } = useLocale()
-  const { user: self } = useCurrentUser()
+  const { user: me } = useCurrentUser()
   const navigate = useNavigate()
 
   const { apiParams, setParams, searchValue, setSearchValue } = useTableState()
@@ -48,7 +48,7 @@ export const AdminsPage = () => {
     isCancelling
   } = useInvite()
 
-  const columns = getColumns(t, formatDate, self?.id)
+  const columns = getColumns(t, formatDate, me?.id)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
   const [sorting, setSorting] = useState([])
 

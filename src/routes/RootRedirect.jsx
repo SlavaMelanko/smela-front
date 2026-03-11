@@ -10,7 +10,7 @@ import {
 } from '@/lib/types'
 
 export const RootRedirect = () => {
-  const { isFetching, isAuthenticated, user, isError } = useCurrentUser()
+  const { isFetching, isAuthenticated, user: me, isError } = useCurrentUser()
 
   if (isError) {
     return <Navigate to='/login' replace />
@@ -24,13 +24,13 @@ export const RootRedirect = () => {
     return <Navigate to='/login' replace />
   }
 
-  const status = user?.status
+  const status = me?.status
 
   if (isAuthenticated && status === UserStatus.NEW) {
     return <Navigate to='/email-confirmation' replace />
   }
 
-  const role = user?.role
+  const role = me?.role
 
   if (
     isAuthenticated &&

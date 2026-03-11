@@ -22,7 +22,7 @@ import { ProfileTab } from './ProfileTab'
 export const TeamMemberPage = () => {
   const { id } = useParams()
   const { state } = useLocation()
-  const { team } = useCurrentUser()
+  const { team: myTeam } = useCurrentUser()
   const { t } = useLocale()
 
   const {
@@ -31,7 +31,7 @@ export const TeamMemberPage = () => {
     isError,
     error,
     refetch
-  } = useTeamMember(team?.id, id, {
+  } = useTeamMember(myTeam?.id, id, {
     ...userTeamQueryOptions,
     initialData: state?.member ? { member: state.member } : undefined
   })
@@ -41,7 +41,7 @@ export const TeamMemberPage = () => {
     Tab.PROFILE
   )
 
-  if (!team) {
+  if (!myTeam) {
     return <Navigate to='/not-found' replace />
   }
 
@@ -62,10 +62,10 @@ export const TeamMemberPage = () => {
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsLine tabs={getUserTabs(true, t)} />
         <TabsContent value={Tab.PROFILE}>
-          <ProfileTab member={member} team={team} />
+          <ProfileTab member={member} team={myTeam} />
         </TabsContent>
         <TabsContent value={Tab.MEMBERSHIP}>
-          <MembershipTab member={member} team={team} />
+          <MembershipTab member={member} team={myTeam} />
         </TabsContent>
       </Tabs>
     </PageContent>

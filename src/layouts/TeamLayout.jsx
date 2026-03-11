@@ -19,7 +19,7 @@ const getActiveTab = pathname => {
 }
 
 export const TeamLayout = () => {
-  const { team: currentTeam } = useCurrentUser()
+  const { team: myTeam } = useCurrentUser()
   const location = useLocation()
   const navigate = useNavigate()
   const { t } = useLocale()
@@ -30,9 +30,9 @@ export const TeamLayout = () => {
     isError,
     error,
     refetch
-  } = useTeam(currentTeam?.id, userTeamQueryOptions)
+  } = useTeam(myTeam?.id, userTeamQueryOptions)
 
-  if (!currentTeam) {
+  if (!myTeam) {
     return <Navigate to='/not-found' replace />
   }
 

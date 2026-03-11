@@ -5,13 +5,13 @@ import { useCurrentUser } from '@/hooks/useAuth'
 import { userActiveStatuses } from '@/lib/types'
 
 export const PublicRoute = ({ children }) => {
-  const { isFetching, isAuthenticated, user } = useCurrentUser()
+  const { isFetching, isAuthenticated, user: me } = useCurrentUser()
 
   if (isFetching) {
     return <Spinner />
   }
 
-  if (isAuthenticated && userActiveStatuses.includes(user?.status)) {
+  if (isAuthenticated && userActiveStatuses.includes(me?.status)) {
     return <Navigate to='/' replace />
   }
 
