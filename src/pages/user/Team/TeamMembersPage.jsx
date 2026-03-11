@@ -10,7 +10,9 @@ export const TeamMembersPage = () => {
   return (
     <TeamMembersSection
       teamId={team.id}
-      onRowClick={member => navigate(`/team/members/${member.id}`)}
+      onRowClick={member =>
+        navigate(`/team/members/${member.id}`, { state: { member } })
+      }
       queryOptions={userTeamQueryOptions}
     />
   )

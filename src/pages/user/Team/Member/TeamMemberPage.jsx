@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router-dom'
+import { Navigate, useLocation, useParams } from 'react-router-dom'
 
 import { BackButton } from '@/components/buttons'
 import { PageContent } from '@/components/PageContent'
@@ -21,6 +21,7 @@ import { ProfileTab } from './ProfileTab'
 
 export const TeamMemberPage = () => {
   const { id } = useParams()
+  const { state } = useLocation()
   const { team } = useCurrentUser()
   const { t } = useLocale()
 
@@ -30,7 +31,10 @@ export const TeamMemberPage = () => {
     isError,
     error,
     refetch
-  } = useTeamMember(team?.id, id, userTeamQueryOptions)
+  } = useTeamMember(team?.id, id, {
+    ...userTeamQueryOptions,
+    initialData: state?.member ? { member: state.member } : undefined
+  })
 
   const [activeTab, setActiveTab] = useHashTab(
     getUserTabValues(true),

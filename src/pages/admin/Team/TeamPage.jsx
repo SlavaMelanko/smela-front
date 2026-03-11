@@ -49,7 +49,9 @@ export const TeamPage = () => {
         <TabsContent value={TeamTab.MEMBERS}>
           <TeamMembersSection
             teamId={teamId}
-            onRowClick={member => navigate(`/admin/users/${member.id}`)}
+            onRowClick={member =>
+              navigate(`/admin/users/${member.id}`, { state: { user: member } })
+            }
           />
         </TabsContent>
       </Tabs>
