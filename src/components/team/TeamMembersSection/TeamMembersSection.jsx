@@ -9,6 +9,7 @@ import {
   createInviteItem,
   createOpenItem
 } from '@/components/table/contextMenuItems'
+import { useCurrentUser } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
 import { useTeamMembers } from '@/hooks/useTeam'
 
@@ -31,6 +32,7 @@ export const TeamMembersSection = ({
   queryOptions = {}
 }) => {
   const { t, formatDate } = useLocale()
+  const { user } = useCurrentUser()
   const {
     data: members,
     isPending,
@@ -58,7 +60,7 @@ export const TeamMembersSection = ({
     })
   ]
 
-  const columns = getColumns(t, formatDate)
+  const columns = getColumns(t, formatDate, user?.id)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
 
   // eslint-disable-next-line react-hooks/incompatible-library
