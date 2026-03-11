@@ -22,7 +22,7 @@ const getRoleIcon = role => {
 }
 
 export const UserPageHeader = ({ user }) => {
-  const { user: self } = useCurrentUser()
+  const { user: me } = useCurrentUser()
 
   return (
     <PageHeader>
@@ -30,7 +30,7 @@ export const UserPageHeader = ({ user }) => {
       <PageHeaderContent>
         <PageHeaderTitle>
           {getFullName(user)}
-          {user?.id === self?.id && <YouBadge className='text-lg' />}
+          {user?.id === me?.id && <YouBadge className='text-lg' />}
         </PageHeaderTitle>
         <PageHeaderEmail email={user?.email} />
       </PageHeaderContent>
