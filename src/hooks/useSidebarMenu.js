@@ -2,9 +2,9 @@ import { menuByRole, userMenuItems } from '@/components/Sidebar'
 import { useCurrentUser } from '@/hooks/useAuth'
 
 export const useSidebarMenu = () => {
-  const { user, team } = useCurrentUser()
+  const { user: me, team } = useCurrentUser()
 
-  const items = user?.role ? (menuByRole[user.role] ?? userMenuItems) : []
+  const items = me?.role ? (menuByRole[me.role] ?? userMenuItems) : []
 
   return { items, team }
 }

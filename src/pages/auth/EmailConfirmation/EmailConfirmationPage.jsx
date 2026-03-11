@@ -18,10 +18,10 @@ export const EmailConfirmationPage = () => {
   const { mutate: resendVerificationEmail, isPending } =
     useResendVerificationEmail()
   const { showSuccessToast, showErrorToast } = useToast()
-  const { user: self } = useCurrentUser()
+  const { user: me } = useCurrentUser()
   const { captchaRef, getCaptchaToken } = useCaptcha()
 
-  const email = location.state?.email || self?.email
+  const email = location.state?.email || me?.email
 
   const handleResendVerificationEmail = async data => {
     const token = await getCaptchaToken()
