@@ -32,7 +32,7 @@ export const TeamMembersSection = ({
   queryOptions = {}
 }) => {
   const { t, formatDate } = useLocale()
-  const { user } = useCurrentUser()
+  const { user: self } = useCurrentUser()
   const {
     data: members,
     isPending,
@@ -60,7 +60,7 @@ export const TeamMembersSection = ({
     })
   ]
 
-  const columns = getColumns(t, formatDate, user?.id)
+  const columns = getColumns(t, formatDate, self?.id)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
 
   // eslint-disable-next-line react-hooks/incompatible-library
