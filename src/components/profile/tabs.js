@@ -10,7 +10,7 @@ export const getAdminTabs = t => [
   {
     value: ProfileTab.PROFILE,
     icon: User,
-    label: () => t('profile')
+    label: () => t('profile.title')
   },
   {
     value: ProfileTab.PERMISSIONS,
@@ -26,7 +26,7 @@ export const getUserTabs = (hasMembership, t) => {
     {
       value: ProfileTab.PROFILE,
       icon: User,
-      label: () => t('profile')
+      label: () => t('profile.title')
     }
   ]
 

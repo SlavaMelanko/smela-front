@@ -1,9 +1,6 @@
-import { ShieldCheck, User } from 'lucide-react'
-
 import { YouBadge } from '@/components/badges'
 import { useCurrentUser } from '@/hooks/useAuth'
 import { getFullName } from '@/lib/format/user'
-import { Role } from '@/lib/types'
 
 import {
   PageHeader,
@@ -12,14 +9,7 @@ import {
   PageHeaderIcon,
   PageHeaderTitle
 } from './PageHeader'
-
-const getRoleIcon = role => {
-  if (role === Role.ADMIN) {
-    return ShieldCheck
-  }
-
-  return User
-}
+import { getRoleIcon } from './utils'
 
 export const UserPageHeader = ({ user }) => {
   const { user: me } = useCurrentUser()

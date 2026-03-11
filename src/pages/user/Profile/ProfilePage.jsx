@@ -1,5 +1,5 @@
 import { PageContent } from '@/components/PageContent'
-import { UserPageHeader } from '@/components/PageHeader'
+import { ProfilePageHeader } from '@/components/PageHeader'
 import {
   getUserTabs,
   getUserTabValues,
@@ -35,7 +35,7 @@ export const ProfilePage = () => {
 
   return (
     <PageContent>
-      <UserPageHeader user={me} />
+      <ProfilePageHeader user={me} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsLine tabs={getUserTabs(hasMembership, t)} />
         <TabsContent value={Tab.PROFILE}>

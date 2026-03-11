@@ -277,7 +277,10 @@
     }
   },
   "processing": "Processing...",
-  "profile": "Profile",
+  "profile": {
+    "description": "Your profile settings",
+    "title": "Profile"
+  },
   "save": "Save",
   "searchBy": {
     "teams": "Search by ID, name, website...",

@@ -19,7 +19,7 @@ export const UserProfileDropdown = ({ user }) => {
 
   const menu = [
     {
-      label: 'profile',
+      label: 'profile.title',
       icon: <User className='size-4' />,
       onClick: () => {
         navigate('/profile')

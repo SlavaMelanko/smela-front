@@ -13,13 +13,14 @@ export const authKeys = {
   invitation: token => [...authKeys.all(), 'invitation', token]
 }
 
-export const useCurrentUser = () => {
+export const useCurrentUser = (options = {}) => {
   const hasAccessToken = !!accessTokenStorage.get()
 
   const query = useQuery({
     queryKey: authKeys.user(),
     queryFn: userApi.getCurrentUser,
-    enabled: hasAccessToken
+    enabled: hasAccessToken,
+    ...options
   })
 
   return {
