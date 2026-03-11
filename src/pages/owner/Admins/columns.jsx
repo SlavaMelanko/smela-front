@@ -16,7 +16,7 @@ export const getColumns = (t, formatDate, selfId) => {
       accessorFn: row => getFullName(row),
       cell: info => (
         <>
-          {getFullName(info.row.original)}
+          {info.getValue()}
           {info.row.original.id === selfId && <YouBadge />}
         </>
       ),
