@@ -70,9 +70,11 @@ export const MembershipForm = ({
             <FormReadOnly>{formatDate(member?.joinedAt)}</FormReadOnly>
           </FormField>
 
-          <FormField label={t('invitedBy')} optional>
-            <FormReadOnly>{getFullName(member?.inviter)}</FormReadOnly>
-          </FormField>
+          {member?.inviter && (
+            <FormField label={t('invitedBy')} optional>
+              <FormReadOnly>{getFullName(member?.inviter)}</FormReadOnly>
+            </FormField>
+          )}
         </FormRow>
 
         <FormActions isDirty={isDirty}>
