@@ -1,7 +1,8 @@
+import { YouBadge } from '@/components/badges'
 import { StatusBadge } from '@/components/UserStatus'
 import { getFullName } from '@/lib/format/user'
 
-export const getColumns = (t, formatDate) => {
+export const getColumns = (t, formatDate, selfId) => {
   const label = key => t(`table.users.${key}`)
 
   return [
@@ -13,7 +14,12 @@ export const getColumns = (t, formatDate) => {
       accessorKey: 'name',
       header: label('name'),
       accessorFn: row => getFullName(row),
-      cell: info => getFullName(info.row.original),
+      cell: info => (
+        <>
+          {getFullName(info.row.original)}
+          {info.row.original.id === selfId && <YouBadge />}
+        </>
+      ),
       sortingFn: 'alphanumeric'
     },
     {
