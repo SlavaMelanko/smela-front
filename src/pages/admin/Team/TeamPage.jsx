@@ -22,7 +22,7 @@ export const TeamPage = () => {
   const { t } = useLocale()
   const [activeTab, setActiveTab] = useHashTab(
     Object.values(TeamTab),
-    TeamTab.INFO
+    TeamTab.GENERAL
   )
 
   const { data: team, isPending, isError, error, refetch } = useTeam(teamId)
@@ -43,7 +43,7 @@ export const TeamPage = () => {
       <TeamPageHeader name={team.name} website={team.website} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsLine tabs={getTeamTabs(team, t)} />
-        <TabsContent value={TeamTab.INFO}>
+        <TabsContent value={TeamTab.GENERAL}>
           <TeamInfoSection team={team} />
         </TabsContent>
         <TabsContent value={TeamTab.MEMBERS}>

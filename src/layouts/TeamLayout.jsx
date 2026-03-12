@@ -15,7 +15,7 @@ import { userTeamQueryOptions, useTeam } from '@/hooks/useTeam'
 const getActiveTab = pathname => {
   const segment = pathname.split('/').filter(Boolean)[1]
 
-  return Object.values(TeamTab).includes(segment) ? segment : TeamTab.INFO
+  return Object.values(TeamTab).includes(segment) ? segment : TeamTab.GENERAL
 }
 
 export const TeamLayout = () => {
