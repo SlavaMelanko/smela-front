@@ -23,3 +23,7 @@ export const resolver = createResolver({
   [FieldName.LAST_NAME]: rules.lastName.optional,
   [FieldName.STATUS]: rules.status
 })
+
+export const defaultFieldsConfig = Object.fromEntries(
+  Object.values(FieldName).map(name => [name, true])
+)

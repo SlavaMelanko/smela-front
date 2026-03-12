@@ -2,6 +2,7 @@ import { Key, Lock, User, Users } from 'lucide-react'
 
 export const ProfileTab = {
   PROFILE: 'profile',
+  GENERAL: 'general',
   SECURITY: 'security',
   MEMBERSHIP: 'membership',
   PERMISSIONS: 'permissions'
@@ -47,9 +48,9 @@ export const getUserTabValues = hasMembership =>
 
 export const getProfileTabs = t => [
   {
-    value: ProfileTab.PROFILE,
+    value: ProfileTab.GENERAL,
     icon: User,
-    label: () => t('profile.title')
+    label: () => t('general')
   },
   {
     value: ProfileTab.SECURITY,

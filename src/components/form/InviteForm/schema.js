@@ -22,10 +22,6 @@ export const resolver = createResolver({
   [FieldName.POSITION]: rules.position
 })
 
-export const defaultFieldsConfig = {
-  [FieldName.FIRST_NAME]: true,
-  [FieldName.LAST_NAME]: true,
-  [FieldName.EMAIL]: true,
-  [FieldName.POSITION]: true,
-  [FieldName.PERMISSIONS]: true
-}
+export const defaultFieldsConfig = Object.fromEntries(
+  Object.values(FieldName).map(name => [name, true])
+)
