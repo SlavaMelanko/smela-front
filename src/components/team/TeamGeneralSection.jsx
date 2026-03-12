@@ -1,9 +1,9 @@
-import { TeamInfoForm } from '@/components/form'
+import { TeamGeneralForm } from '@/components/form'
 import { useLocale } from '@/hooks/useLocale'
 import { useUpdateTeam } from '@/hooks/useTeam'
 import { useToast } from '@/hooks/useToast'
 
-export const TeamInfoSection = ({ team }) => {
+export const TeamGeneralSection = ({ team }) => {
   const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
   const { mutate: updateTeam, isPending: isUpdating } = useUpdateTeam(team.id)
@@ -20,7 +20,7 @@ export const TeamInfoSection = ({ team }) => {
   }
 
   return (
-    <TeamInfoForm
+    <TeamGeneralForm
       team={team}
       isSubmitting={isUpdating}
       onSubmit={handleUpdateTeam}

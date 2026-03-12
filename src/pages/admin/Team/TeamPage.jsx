@@ -7,7 +7,7 @@ import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import {
   getTeamTabs,
-  TeamInfoSection,
+  TeamGeneralSection,
   TeamMembersSection,
   TeamTab
 } from '@/components/team'
@@ -22,7 +22,7 @@ export const TeamPage = () => {
   const { t } = useLocale()
   const [activeTab, setActiveTab] = useHashTab(
     Object.values(TeamTab),
-    TeamTab.INFO
+    TeamTab.GENERAL
   )
 
   const { data: team, isPending, isError, error, refetch } = useTeam(teamId)
@@ -43,8 +43,8 @@ export const TeamPage = () => {
       <TeamPageHeader name={team.name} website={team.website} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsLine tabs={getTeamTabs(team, t)} />
-        <TabsContent value={TeamTab.INFO}>
-          <TeamInfoSection team={team} />
+        <TabsContent value={TeamTab.GENERAL}>
+          <TeamGeneralSection team={team} />
         </TabsContent>
         <TabsContent value={TeamTab.MEMBERS}>
           <TeamMembersSection

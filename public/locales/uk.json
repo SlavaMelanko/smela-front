@@ -381,7 +381,7 @@
       "label2": "Команда"
     },
     "tabs": {
-      "info": "Інфо",
+      "general": "Загальне",
       "members": {
         "label": "Учасники",
         "withCount": "Учасники ({{count}})"

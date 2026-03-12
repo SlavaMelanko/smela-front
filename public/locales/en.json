@@ -381,7 +381,7 @@
       "label2": "Team"
     },
     "tabs": {
-      "info": "Info",
+      "general": "General",
       "members": {
         "label": "Members",
         "withCount": "Members ({{count}})"

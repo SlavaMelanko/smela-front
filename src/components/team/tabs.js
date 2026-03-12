@@ -1,15 +1,15 @@
 import { Info, Users } from 'lucide-react'
 
 export const TeamTab = {
-  INFO: 'info',
+  GENERAL: 'general',
   MEMBERS: 'members'
 }
 
 export const getTeamTabs = (team, t) => [
   {
-    value: TeamTab.INFO,
+    value: TeamTab.GENERAL,
     icon: Info,
-    label: () => t('team.tabs.info')
+    label: () => t('team.tabs.general')
   },
   {
     value: TeamTab.MEMBERS,

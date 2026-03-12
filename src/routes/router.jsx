@@ -38,7 +38,7 @@ import {
   HomePage,
   ProfilePage,
   SettingsPage as UserSettingsPage,
-  TeamInfoPage,
+  TeamGeneralPage,
   TeamMemberPage,
   TeamMembersPage
 } from '@/pages/user'
@@ -98,8 +98,8 @@ export const router = sentryCreateBrowserRouter([
         path: 'team',
         element: <TeamLayout />,
         children: [
-          { index: true, element: <Navigate to='info' replace /> },
-          { path: 'info', element: <TeamInfoPage /> },
+          { index: true, element: <Navigate to='general' replace /> },
+          { path: 'general', element: <TeamGeneralPage /> },
           { path: 'members', element: <TeamMembersPage /> }
         ]
       },
