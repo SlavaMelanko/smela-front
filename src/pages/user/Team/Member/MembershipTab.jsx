@@ -1,8 +1,8 @@
 import { MembershipSection } from '@/components/profile'
-import { useUpdateMember } from '@/hooks/useTeam'
+import { useUpdateMembership } from '@/hooks/useTeam'
 
 export const MembershipTab = ({ team, member }) => {
-  const { mutate: update, isPending: isUpdating } = useUpdateMember(
+  const { mutate: update, isPending: isUpdating } = useUpdateMembership(
     team?.id,
     member?.id
   )

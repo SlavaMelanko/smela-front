@@ -196,7 +196,7 @@ export const useInviteMember = teamId => {
   })
 }
 
-export const useUpdateMember = (teamId, memberId) => {
+export const useUpdateMembership = (teamId, memberId) => {
   const queryClient = useQueryClient()
 
   return useMutation({
