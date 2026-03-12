@@ -9,6 +9,7 @@ import {
   PermissionsMatrix,
   SubmitButton
 } from '@/components/form'
+import { removeHiddenFields } from '@/components/form/utils'
 import { Input } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
 
@@ -48,19 +49,7 @@ export const InviteForm = ({
     }
   }, [defaultPermissions, reset])
 
-  const removeHiddenFields = data => {
-    const result = { ...data }
-
-    Object.entries(fields).forEach(([key, visible]) => {
-      if (!visible) {
-        delete result[key]
-      }
-    })
-
-    return result
-  }
-
-  const submit = data => onSubmit(removeHiddenFields(data))
+  const submit = data => onSubmit(removeHiddenFields(data, fields))
 
   return (
     <FormRoot onSubmit={handleSubmit(submit)}>

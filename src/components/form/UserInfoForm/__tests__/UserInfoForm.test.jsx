@@ -5,7 +5,7 @@ import { UserStatus } from '@/lib/types'
 import { renderWithProviders } from '@/tests'
 import en from '$/locales/en.json'
 
-import { UserInfoForm } from '..'
+import { FieldName, UserInfoForm } from '..'
 
 const mockUser = {
   firstName: 'John',
@@ -129,6 +129,78 @@ describe('UserInfoForm', () => {
         }),
         expect.anything()
       )
+    })
+  })
+
+  describe('field visibility', () => {
+    it('shows all fields by default', () => {
+      renderWithProviders(
+        <UserInfoForm
+          user={mockUser}
+          isSubmitting={false}
+          onSubmit={jest.fn()}
+        />
+      )
+
+      expect(
+        screen.getByLabelText(en.firstName.label, { exact: false })
+      ).toBeInTheDocument()
+
+      expect(
+        screen.getByLabelText(en.lastName.label, { exact: false })
+      ).toBeInTheDocument()
+
+      expect(screen.getByText(en.status.name)).toBeInTheDocument()
+    })
+
+    it('hides status field when fieldsConfig.status is false', () => {
+      renderWithProviders(
+        <UserInfoForm
+          user={mockUser}
+          isSubmitting={false}
+          onSubmit={jest.fn()}
+          fieldsConfig={{ [FieldName.STATUS]: false }}
+        />
+      )
+
+      expect(screen.queryByText(en.status.name)).not.toBeInTheDocument()
+      expect(
+        screen.getByLabelText(en.firstName.label, { exact: false })
+      ).toBeInTheDocument()
+    })
+
+    it('excludes hidden fields from submission', async () => {
+      const onSubmit = jest.fn()
+      const user = userEvent.setup()
+
+      // Provide a user with a valid status so RHF validation passes, then hide the field
+      renderWithProviders(
+        <UserInfoForm
+          user={mockUser}
+          isSubmitting={false}
+          onSubmit={onSubmit}
+          fieldsConfig={{ [FieldName.STATUS]: false }}
+        />
+      )
+
+      const firstNameInput = screen.getByLabelText(en.firstName.label, {
+        exact: false
+      })
+
+      // Make form dirty so the save button becomes visible
+      await user.clear(firstNameInput)
+      await user.type(firstNameInput, 'Jane')
+
+      const saveButton = screen.queryByRole('button', { name: en.save })
+
+      await user.click(saveButton)
+
+      await waitFor(() => {
+        expect(onSubmit).toHaveBeenCalledWith(
+          expect.not.objectContaining({ status: expect.anything() }),
+          expect.anything()
+        )
+      })
     })
   })
 

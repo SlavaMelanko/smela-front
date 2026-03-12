@@ -14,13 +14,26 @@ import {
   FormRow,
   SubmitButton
 } from '@/components/form'
+import { removeHiddenFields } from '@/components/form/utils'
 import { Input } from '@/components/ui'
 import { StatusDropdown } from '@/components/UserStatus'
 import { useLocale } from '@/hooks/useLocale'
 
-import { FieldName, getDefaultValues, getValues, resolver } from './schema'
+import {
+  defaultFieldsConfig,
+  FieldName,
+  getDefaultValues,
+  getValues,
+  resolver
+} from './schema'
 
-export const UserInfoForm = ({ user, isSubmitting, onSubmit }) => {
+export const UserInfoForm = ({
+  user,
+  isSubmitting,
+  onSubmit,
+  fieldsConfig = {}
+}) => {
+  const fields = { ...defaultFieldsConfig, ...fieldsConfig }
   const { t, formatDate } = useLocale()
 
   const {
@@ -40,8 +53,11 @@ export const UserInfoForm = ({ user, isSubmitting, onSubmit }) => {
     }
   }, [user, reset])
 
+  const submit = (data, event) =>
+    onSubmit(removeHiddenFields(data, fields), event)
+
   return (
-    <FormRoot onSubmit={handleSubmit(onSubmit)}>
+    <FormRoot onSubmit={handleSubmit(submit)}>
       <FormFields>
         <FormRow>
           <FormField
@@ -62,16 +78,18 @@ export const UserInfoForm = ({ user, isSubmitting, onSubmit }) => {
           </FormField>
         </FormRow>
 
-        <FormRow>
-          <FormController
-            name={FieldName.STATUS}
-            label={t('status.name')}
-            control={control}
-            render={({ field }) => (
-              <StatusDropdown value={field.value} onChange={field.onChange} />
-            )}
-          />
-        </FormRow>
+        {fields[FieldName.STATUS] && (
+          <FormRow>
+            <FormController
+              name={FieldName.STATUS}
+              label={t('status.name')}
+              control={control}
+              render={({ field }) => (
+                <StatusDropdown value={field.value} onChange={field.onChange} />
+              )}
+            />
+          </FormRow>
+        )}
 
         <FormRow forceColumns>
           <FormField label={t('createdAt')} optional>
