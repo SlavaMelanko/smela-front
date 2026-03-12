@@ -1,4 +1,4 @@
-import { ProfileSection } from '@/components/profile'
+import { FieldName, ProfileSection } from '@/components/profile'
 import { useUpdateMember } from '@/hooks/useTeam'
 
 export const ProfileTab = ({ team, member }) => {
@@ -8,6 +8,11 @@ export const ProfileTab = ({ team, member }) => {
   )
 
   return (
-    <ProfileSection user={member} update={mutate} isUpdating={isUpdating} />
+    <ProfileSection
+      user={member}
+      update={mutate}
+      isUpdating={isUpdating}
+      fieldsConfig={{ [FieldName.STATUS]: false }}
+    />
   )
 }

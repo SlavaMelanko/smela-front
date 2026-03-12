@@ -10,3 +10,4 @@ export {
   getUserTabValues,
   ProfileTab
 } from './tabs'
+export { FieldName } from '@/components/form/UserInfoForm'
