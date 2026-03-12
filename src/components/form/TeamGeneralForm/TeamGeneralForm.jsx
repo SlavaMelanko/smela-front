@@ -18,7 +18,7 @@ import { useLocale } from '@/hooks/useLocale'
 
 import { FieldName, getDefaultValues, getValues, resolver } from './schema'
 
-export const TeamInfoForm = ({ team, isSubmitting, onSubmit }) => {
+export const TeamGeneralForm = ({ team, isSubmitting, onSubmit }) => {
   const { t, formatDate } = useLocale()
 
   const {

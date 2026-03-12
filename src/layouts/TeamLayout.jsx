@@ -11,7 +11,7 @@ import { useCurrentUser } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
 import { userTeamQueryOptions, useTeam } from '@/hooks/useTeam'
 
-// Handles /team/info AND /team/members/:id — index 1 is always the tab segment
+// Handles /team/general AND /team/members/:id — index 1 is always the tab segment
 const getActiveTab = pathname => {
   const segment = pathname.split('/').filter(Boolean)[1]
 

@@ -7,7 +7,7 @@ import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import {
   getTeamTabs,
-  TeamInfoSection,
+  TeamGeneralSection,
   TeamMembersSection,
   TeamTab
 } from '@/components/team'
@@ -44,7 +44,7 @@ export const TeamPage = () => {
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsLine tabs={getTeamTabs(team, t)} />
         <TabsContent value={TeamTab.GENERAL}>
-          <TeamInfoSection team={team} />
+          <TeamGeneralSection team={team} />
         </TabsContent>
         <TabsContent value={TeamTab.MEMBERS}>
           <TeamMembersSection

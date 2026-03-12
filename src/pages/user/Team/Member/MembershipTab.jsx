@@ -11,7 +11,7 @@ export const MembershipTab = ({ team, member }) => {
     <MembershipSection
       member={member}
       team={team}
-      teamLink='/team/info'
+      teamLink='/team/general'
       update={update}
       isUpdating={isUpdating}
     />
