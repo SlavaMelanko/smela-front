@@ -375,9 +375,9 @@
       "remove": {
         "cta": "Remove",
         "description": "Are you sure you want to remove {{name}} from the team?",
+        "success": "Member removed from the team.",
         "title": "Remove team member"
-      },
-      "removed": "Member removed from the team."
+      }
     },
     "name": {
       "error": {

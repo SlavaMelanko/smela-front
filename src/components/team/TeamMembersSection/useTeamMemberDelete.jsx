@@ -11,7 +11,7 @@ export const useDelete = teamId => {
   const handleDeleteMember = member => {
     deleteMember(member.id, {
       onSuccess: () => {
-        showSuccessToast(t('team.members.removed'))
+        showSuccessToast(t('team.members.remove.success'))
       },
       onError: error => {
         showErrorToast(te(error))
