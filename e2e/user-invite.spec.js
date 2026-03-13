@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker'
 
 import { HttpStatus } from '../src/lib/net'
 import {
+  TEAM_MEMBER_CANCEL_INVITE_PATH,
   TEAM_MEMBERS_DEFAULT_PERMISSIONS_PATH,
   TEAM_MEMBERS_PATH,
   TEAMS_PATH
@@ -19,6 +20,7 @@ const userCredentials = {
 test.describe.serial('User: Team Members', () => {
   // Shared state across serial tests
   let teamId
+  let invitedMemberId
 
   const firstName = faker.person.firstName()
   const lastName = faker.person.lastName()
@@ -150,7 +152,9 @@ test.describe.serial('User: Team Members', () => {
     ])
 
     await fillMemberInviteFormAndSubmit(page, newMember, t)
-    await apiPromises
+    const [{ body: createdMember }] = await apiPromises
+
+    invitedMemberId = createdMember?.member?.id ?? createdMember?.id
 
     // Verify success toast
     await expect(page.getByText(t.invite.send.success)).toBeVisible()
@@ -170,6 +174,53 @@ test.describe.serial('User: Team Members', () => {
 
     await expect(memberRow).toBeVisible()
     await expect(memberRow.getByText(t.status.values.pending)).toBeVisible()
+
+    await logOut(page, t)
+  })
+
+  test('cancels the pending invitation', async ({ page, t, login }) => {
+    await login(userCredentials)
+
+    const membersPath = TEAM_MEMBERS_PATH.replace(':teamId', teamId)
+
+    const membersPromise = waitForApiCall(page, {
+      path: membersPath,
+      method: 'GET',
+      status: HttpStatus.OK
+    })
+
+    await page.goto('/team/members')
+    await membersPromise
+
+    // Right-click the invited member's row to open context menu
+    const memberRow = page.getByRole('row', {
+      name: new RegExp(newMember.email)
+    })
+
+    await memberRow.click({ button: 'right' })
+
+    // Hover over the Invitation submenu, then click Cancel
+    await page.getByRole('menuitem', { name: t.contextMenu.invite }).hover()
+
+    // Register API watchers before triggering the action
+    const cancelPath = TEAM_MEMBER_CANCEL_INVITE_PATH.replace(
+      ':teamId',
+      teamId
+    ).replace(':memberId', invitedMemberId)
+
+    const apiPromises = waitForApiCalls(page, [
+      { path: cancelPath, method: 'POST', status: HttpStatus.OK },
+      { path: membersPath, method: 'GET', status: HttpStatus.OK }
+    ])
+
+    await page.getByRole('menuitem', { name: t.contextMenu.cancel }).click()
+    await apiPromises
+
+    // Verify success toast
+    await expect(page.getByText(t.invite.cancel.success)).toBeVisible()
+
+    // Verify member status changed to Archived
+    await expect(memberRow.getByText(t.status.values.archived)).toBeVisible()
 
     await logOut(page, t)
   })
