@@ -93,11 +93,23 @@ test.describe.serial('User: Team Members', () => {
 
     teamId = teamDetailBody?.team?.id
 
+    const membersTab = page.getByRole('tab', {
+      name: new RegExp(t.team.tabs.members.label)
+    })
+    const initialMemberCount = teamDetailBody?.team?.memberCount
+    const initialTabLabel = t.team.tabs.members.withCount.replace(
+      '{{count}}',
+      initialMemberCount
+    )
+
+    await expect(membersTab).toHaveText(initialTabLabel)
+
     // Navigate to Members tab
     const membersPromise = waitForApiCall(page, {
       path: TEAM_MEMBERS_PATH.replace(':teamId', teamId),
       method: 'GET',
-      status: HttpStatus.OK
+      status: HttpStatus.OK,
+      validateResponse: body => Array.isArray(body?.members)
     })
 
     await page.getByRole('tab', { name: t.team.tabs.members.label }).click()
@@ -118,11 +130,17 @@ test.describe.serial('User: Team Members', () => {
       page.getByRole('heading', { name: t.invite.send.title.member })
     ).toBeVisible()
 
-    // Wait for POST (invite) and GET (refetch members list)
+    // Wait for POST (invite), team invalidation GET, and members refetch GET
     const apiPromises = waitForApiCalls(page, [
       {
         path: TEAM_MEMBERS_PATH.replace(':teamId', teamId),
+        method: 'POST',
         status: HttpStatus.CREATED
+      },
+      {
+        path: TEAMS_PATH.replace(':teamId', teamId),
+        method: 'GET',
+        status: HttpStatus.OK
       },
       {
         path: TEAM_MEMBERS_PATH.replace(':teamId', teamId),
@@ -136,6 +154,14 @@ test.describe.serial('User: Team Members', () => {
 
     // Verify success toast
     await expect(page.getByText(t.invite.send.success)).toBeVisible()
+
+    // Members tab count should increment by 1
+    const expectedTabLabel = t.team.tabs.members.withCount.replace(
+      '{{count}}',
+      initialMemberCount + 1
+    )
+
+    await expect(membersTab).toHaveText(expectedTabLabel)
 
     // Verify new member appears in table with Pending status
     const memberRow = page.getByRole('row', {
