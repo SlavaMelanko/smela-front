@@ -202,12 +202,7 @@ export const useUpdateTeamMember = (teamId, memberId) => {
   return useMutation({
     mutationFn: data => teamApi.updateMember(teamId, memberId, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: teamKeys.member(teamId, memberId)
-      })
-
       queryClient.invalidateQueries({ queryKey: teamKeys.members(teamId) })
-      queryClient.invalidateQueries({ queryKey: teamKeys.team(teamId) })
     }
   })
 }
