@@ -370,7 +370,8 @@
       "label": "Description"
     },
     "members": {
-      "empty": "No team members yet."
+      "empty": "No team members yet.",
+      "removed": "Member removed from the team."
     },
     "name": {
       "error": {

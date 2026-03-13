@@ -115,7 +115,11 @@ export const useUpdateTeam = teamId => {
   return useMutation({
     mutationFn: data => teamApi.updateTeam(teamId, data),
     onSuccess: data => {
-      queryClient.invalidateQueries({ queryKey: teamKeys.team(teamId) })
+      queryClient.invalidateQueries({
+        queryKey: teamKeys.team(teamId),
+        exact: true
+      })
+
       queryClient.setQueryData(authKeys.user(), old => {
         if (!old?.team) {
           return old
@@ -190,7 +194,6 @@ export const useInviteMember = teamId => {
       )
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: teamKeys.members(teamId) })
       queryClient.invalidateQueries({ queryKey: teamKeys.team(teamId) })
     }
   })
@@ -240,7 +243,60 @@ export const useCancelMemberInvite = teamId => {
     mutationFn: memberId => teamApi.cancelInvite(teamId, memberId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: teamKeys.members(teamId) })
-      queryClient.invalidateQueries({ queryKey: teamKeys.team(teamId) })
+    }
+  })
+}
+
+export const useDeleteMember = teamId => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: memberId => teamApi.deleteMember(teamId, memberId),
+    onMutate: async memberId => {
+      await queryClient.cancelQueries({ queryKey: teamKeys.members(teamId) })
+      await queryClient.cancelQueries({
+        queryKey: teamKeys.team(teamId),
+        exact: true
+      })
+
+      const previousMembers = queryClient.getQueryData(teamKeys.members(teamId))
+      const previousTeam = queryClient.getQueryData(teamKeys.team(teamId))
+
+      queryClient.setQueryData(teamKeys.members(teamId), old => {
+        const currentMembers = old?.members ?? []
+
+        return { members: currentMembers.filter(m => m.id !== memberId) }
+      })
+
+      queryClient.setQueryData(teamKeys.team(teamId), old => {
+        if (!old?.team) {
+          return old
+        }
+
+        return {
+          team: {
+            ...old.team,
+            memberCount: Math.max(0, old.team.memberCount - 1)
+          }
+        }
+      })
+
+      return { previousMembers, previousTeam }
+    },
+    onError: (_error, _memberId, context) => {
+      queryClient.setQueryData(
+        teamKeys.members(teamId),
+        context.previousMembers
+      )
+
+      queryClient.setQueryData(teamKeys.team(teamId), context.previousTeam)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: teamKeys.members(teamId) })
+      queryClient.invalidateQueries({
+        queryKey: teamKeys.team(teamId),
+        exact: true
+      })
     }
   })
 }

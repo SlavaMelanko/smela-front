@@ -6,6 +6,7 @@ import { Spinner } from '@/components/Spinner'
 import { EmptyState, ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
 import {
+  createDeleteMemberItem,
   createInviteItem,
   createOpenItem
 } from '@/components/table/contextMenuItems'
@@ -14,6 +15,7 @@ import { useLocale } from '@/hooks/useLocale'
 import { useTeamMembers } from '@/hooks/useTeam'
 
 import { defaultHiddenColumns, getColumns } from './columns'
+import { useDelete } from './useTeamMemberDelete'
 import { useInvite } from './useTeamMembersInvite'
 
 const coreRowModel = getCoreRowModel()
@@ -47,6 +49,7 @@ export const TeamMembersSection = ({
     handleCancelInvite,
     isCancelling
   } = useInvite(teamId)
+  const { handleDeleteMember, isDeleting } = useDelete(teamId)
 
   const openMemberProfile = onRowClick
 
@@ -57,7 +60,8 @@ export const TeamMembersSection = ({
       isResending,
       handleCancelInvite,
       isCancelling
-    })
+    }),
+    createDeleteMemberItem(t, { handleDeleteMember, isDeleting })
   ]
 
   const columns = getColumns(t, formatDate, me?.id)
