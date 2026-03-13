@@ -35,6 +35,7 @@
   "changesSaved": "Changes saved successfully.",
   "contextMenu": {
     "cancel": "Cancel",
+    "delete": "Delete",
     "invite": "Invitation",
     "open": "Open",
     "resend": "Resend"

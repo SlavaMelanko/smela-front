@@ -1,4 +1,4 @@
-import { MailIcon, Send, User, X } from 'lucide-react'
+import { MailIcon, Send, Trash2, User, X } from 'lucide-react'
 
 import { UserStatus } from '@/lib/types'
 
@@ -30,4 +30,15 @@ export const createInviteItem = (
       disabled: isCancelling
     }
   ]
+})
+
+export const createDeleteMemberItem = (
+  t,
+  { handleDeleteMember, isDeleting }
+) => ({
+  icon: Trash2,
+  label: t('contextMenu.delete'),
+  onClick: handleDeleteMember,
+  variant: 'destructive',
+  disabled: isDeleting
 })
