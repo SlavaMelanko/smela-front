@@ -196,13 +196,33 @@ export const useInviteMember = teamId => {
   })
 }
 
-export const useUpdateTeamMember = (teamId, memberId) => {
+export const useUpdateTeamMember = (teamId, memberId, selfId) => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: data => teamApi.updateMember(teamId, memberId, data),
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: teamKeys.members(teamId) })
+
+      // Sync /me cache to avoid a full refetch and UI blink
+      if (memberId === selfId) {
+        queryClient.setQueryData(authKeys.user(), cached => {
+          if (!cached) {
+            return cached
+          }
+
+          return {
+            ...cached,
+            ...(variables.member && {
+              user: { ...cached.user, ...variables.member }
+            }),
+            ...(variables.membership &&
+              cached.team && {
+                team: { ...cached.team, ...variables.membership }
+              })
+          }
+        })
+      }
     }
   })
 }
