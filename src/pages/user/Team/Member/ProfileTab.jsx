@@ -1,16 +1,20 @@
 import { FieldName, ProfileSection } from '@/components/profile'
-import { useUpdateMembership } from '@/hooks/useTeam'
+import { useCurrentUser } from '@/hooks/useAuth'
+import { useUpdateTeamMember } from '@/hooks/useTeam'
 
 export const ProfileTab = ({ team, member }) => {
-  const { mutate, isPending: isUpdating } = useUpdateMembership(
+  const { user: me } = useCurrentUser()
+  const { mutate, isPending: isUpdating } = useUpdateTeamMember(
     team?.id,
-    member?.id
+    member?.id,
+    me?.id
   )
+  const update = (data, options) => mutate({ member: data }, options)
 
   return (
     <ProfileSection
       user={member}
-      update={mutate}
+      update={update}
       isUpdating={isUpdating}
       fieldsConfig={{ [FieldName.STATUS]: false }}
     />
