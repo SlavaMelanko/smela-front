@@ -29,6 +29,7 @@
     "token/type-mismatch": "Invalid or expired link.",
     "validation/error": "Invalid request."
   },
+  "cancel": "Cancel",
   "captcha": {
     "error": "Security verification failed. Please try again."
   },
@@ -371,6 +372,11 @@
     },
     "members": {
       "empty": "No team members yet.",
+      "remove": {
+        "cta": "Remove",
+        "description": "Are you sure you want to remove {{name}} from the team?",
+        "title": "Remove team member"
+      },
       "removed": "Member removed from the team."
     },
     "name": {

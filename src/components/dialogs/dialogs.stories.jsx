@@ -1,6 +1,6 @@
 import { Dialog, dialogContentVariants } from '@/components/ui/dialog'
 
-import { PricingSliderDialog } from '.'
+import { PricingSliderDialog, RemoveTeamMemberDialog } from '.'
 
 // Wrapper with Dialog context for Base UI components
 const DialogWrapper = ({ size, children }) => (
@@ -21,6 +21,19 @@ export default {
     }
   },
   args: { size: 'md' }
+}
+
+export const RemoveTeamMember = {
+  args: { size: 'sm' },
+  render: ({ size }) => (
+    <DialogWrapper size={size}>
+      <RemoveTeamMemberDialog
+        member={{ firstName: 'John', lastName: 'Doe' }}
+        onClose={noop}
+        onConfirm={noop}
+      />
+    </DialogWrapper>
+  )
 }
 
 export const PricingSlider = {
