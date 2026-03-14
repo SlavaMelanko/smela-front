@@ -1,11 +1,8 @@
-import { UserMinus } from 'lucide-react'
-
 import {
   Button,
   Item,
   ItemActions,
   ItemContent,
-  ItemMedia,
   ItemTitle
 } from '@/components/ui'
 import { useDeleteTeamMember } from '@/hooks/useDeleteTeamMember'
@@ -17,11 +14,8 @@ export const RemoveMemberItem = ({ member, teamId }) => {
 
   return (
     <Item variant='outline' className='border-destructive/20'>
-      <ItemMedia variant='icon' className='text-muted-foreground'>
-        <UserMinus />
-      </ItemMedia>
       <ItemContent>
-        <ItemTitle className='text-base text-muted-foreground'>
+        <ItemTitle className='text-base leading-normal font-normal'>
           {t('team.members.remove.title')}
         </ItemTitle>
       </ItemContent>
