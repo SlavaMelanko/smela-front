@@ -4,7 +4,7 @@ import { useModal } from '@/hooks/useModal'
 import { useDeleteMember } from '@/hooks/useTeam'
 import { useToast } from '@/hooks/useToast'
 
-export const useDelete = teamId => {
+export const useDeleteTeamMember = teamId => {
   const { t, te } = useLocale()
   const { openModal } = useModal()
   const { showSuccessToast, showErrorToast } = useToast()
@@ -19,7 +19,6 @@ export const useDelete = teamId => {
           onClose={() => close()}
           onConfirm={() => {
             close()
-
             deleteMember(member.id, {
               onSuccess: () => {
                 showSuccessToast(t('team.members.remove.success'))

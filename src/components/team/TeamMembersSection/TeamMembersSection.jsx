@@ -11,11 +11,11 @@ import {
   createOpenItem
 } from '@/components/table/contextMenuItems'
 import { useCurrentUser } from '@/hooks/useAuth'
+import { useDeleteTeamMember } from '@/hooks/useDeleteTeamMember'
 import { useLocale } from '@/hooks/useLocale'
 import { useTeamMembers } from '@/hooks/useTeam'
 
 import { defaultHiddenColumns, getColumns } from './columns'
-import { useDelete } from './useTeamMemberDelete'
 import { useInvite } from './useTeamMembersInvite'
 
 const coreRowModel = getCoreRowModel()
@@ -49,7 +49,7 @@ export const TeamMembersSection = ({
     handleCancelInvite,
     isCancelling
   } = useInvite(teamId)
-  const { handleDeleteMember, isDeleting } = useDelete(teamId)
+  const { handleDeleteMember, isDeleting } = useDeleteTeamMember(teamId)
 
   const openMemberProfile = onRowClick
 
