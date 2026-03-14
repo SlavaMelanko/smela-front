@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker'
 import { HttpStatus } from '../src/lib/net'
 import {
   TEAM_MEMBER_CANCEL_INVITE_PATH,
+  TEAM_MEMBER_PATH,
   TEAM_MEMBERS_DEFAULT_PERMISSIONS_PATH,
   TEAM_MEMBERS_PATH,
   TEAMS_PATH
@@ -258,6 +259,57 @@ test.describe.serial('User: Team Members', () => {
     ).toBeVisible()
 
     await page.keyboard.press('Escape')
+
+    await logOut(page, t)
+  })
+
+  test('removes the invited member and verifies they are gone from the table', async ({
+    page,
+    t,
+    login
+  }) => {
+    await login(userCredentials)
+
+    const membersPath = TEAM_MEMBERS_PATH.replace(':teamId', teamId)
+
+    const membersPromise = waitForApiCall(page, {
+      path: membersPath,
+      method: 'GET',
+      status: HttpStatus.OK
+    })
+
+    await page.goto('/team/members')
+    await membersPromise
+
+    const memberRow = page.getByRole('row', {
+      name: new RegExp(newMember.email)
+    })
+
+    await memberRow.click({ button: 'right' })
+    await expect(
+      page.getByRole('menuitem', { name: t.contextMenu.delete })
+    ).toBeVisible()
+
+    const deletePath = TEAM_MEMBER_PATH.replace(':teamId', teamId).replace(
+      ':memberId',
+      invitedMemberId
+    )
+
+    const apiPromises = waitForApiCalls(page, [
+      { path: deletePath, method: 'DELETE', status: HttpStatus.OK },
+      { path: membersPath, method: 'GET', status: HttpStatus.OK }
+    ])
+
+    await page.getByRole('menuitem', { name: t.contextMenu.delete }).click()
+
+    // Confirm in the dialog
+    await page.getByRole('button', { name: t.team.members.remove.cta }).click()
+
+    await apiPromises
+
+    await expect(page.getByText(t.team.members.remove.success)).toBeVisible()
+
+    await expect(memberRow).not.toBeVisible()
 
     await logOut(page, t)
   })
