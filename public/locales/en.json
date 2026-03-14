@@ -29,12 +29,14 @@
     "token/type-mismatch": "Invalid or expired link.",
     "validation/error": "Invalid request."
   },
+  "cancel": "Cancel",
   "captcha": {
     "error": "Security verification failed. Please try again."
   },
   "changesSaved": "Changes saved successfully.",
   "contextMenu": {
     "cancel": "Cancel",
+    "delete": "Delete",
     "invite": "Invitation",
     "open": "Open",
     "resend": "Resend"
@@ -369,7 +371,13 @@
       "label": "Description"
     },
     "members": {
-      "empty": "No team members yet."
+      "empty": "No team members yet.",
+      "remove": {
+        "cta": "Remove",
+        "description": "Are you sure you want to remove {{name}} from the team?",
+        "success": "Member removed from the team.",
+        "title": "Remove team member"
+      }
     },
     "name": {
       "error": {

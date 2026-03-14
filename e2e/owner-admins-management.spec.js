@@ -9,7 +9,7 @@ import { auth } from '../src/tests/data'
 import { expect, test } from './config/fixtures'
 import {
   fillAcceptInviteFormAndSubmit,
-  fillInviteFormAndSubmit,
+  fillAdminInviteFormAndSubmit,
   logOut
 } from './scenarios'
 import { generateEmail, waitForApiCall, waitForApiCalls } from './utils'
@@ -130,7 +130,7 @@ test.describe.serial('Owner: Admin Invitation', () => {
       { path: OWNER_ADMINS_PATH, status: HttpStatus.OK }
     ])
 
-    await fillInviteFormAndSubmit(page, newAdmin, t)
+    await fillAdminInviteFormAndSubmit(page, newAdmin, t)
     await apiPromises
 
     // Verify success toast

@@ -59,6 +59,12 @@ export const teamApi = {
     return apiClient.patch(path, data)
   },
 
+  deleteMember(teamId, memberId) {
+    const path = buildPath(TEAM_MEMBER_PATH, { teamId, memberId })
+
+    return apiClient.delete(path)
+  },
+
   inviteMember(teamId, data) {
     const path = buildPath(TEAM_MEMBERS_PATH, { teamId })
 

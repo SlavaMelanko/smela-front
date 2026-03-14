@@ -95,8 +95,13 @@ const TableRowContent = ({ row, onRowClick, contextMenu }) => {
         <RowCells row={row} />
       </ContextMenuTrigger>
       <ContextMenuContent>
-        {visibleItems.map(item => (
-          <MenuItem key={item.label} item={item} row={row} />
+        {visibleItems.map((item, index) => (
+          <div key={item.label}>
+            {item.variant === 'destructive' && index > 0 && (
+              <ContextMenuSeparator />
+            )}
+            <MenuItem item={item} row={row} />
+          </div>
         ))}
       </ContextMenuContent>
     </ContextMenu>
