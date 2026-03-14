@@ -2,6 +2,8 @@ import { MembershipForm } from '@/components/form'
 import { useLocale } from '@/hooks/useLocale'
 import { useToast } from '@/hooks/useToast'
 
+import { TextSeparator } from '../Separator'
+
 export const MembershipSection = ({
   member,
   team,
@@ -24,12 +26,15 @@ export const MembershipSection = ({
   }
 
   return (
-    <MembershipForm
-      member={member}
-      team={team}
-      teamLink={teamLink}
-      isSubmitting={isUpdating}
-      onSubmit={handleUpdate}
-    />
+    <>
+      <MembershipForm
+        member={member}
+        team={team}
+        teamLink={teamLink}
+        isSubmitting={isUpdating}
+        onSubmit={handleUpdate}
+      />
+      <TextSeparator />
+    </>
   )
 }

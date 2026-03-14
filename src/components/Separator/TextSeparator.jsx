@@ -1,15 +1,14 @@
 import { Separator } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-export const TextSeparator = ({ text, className }) => (
-  <div className={cn('relative', className)}>
-    <div className='absolute inset-0 flex items-center'>
-      <Separator className='w-full' />
-    </div>
-    <div className='relative flex justify-center'>
-      <span className='bg-background text-muted-foreground px-2 text-sm'>
+export const TextSeparator = ({ text, align = 'center', className }) => (
+  <div className={cn('flex items-center', className)}>
+    <Separator className={cn('flex-1', align === 'left' && 'max-w-4')} />
+    {text && (
+      <span className='text-muted-foreground shrink-0 px-2 text-sm'>
         {text}
       </span>
-    </div>
+    )}
+    <Separator className={cn('flex-1', align === 'right' && 'max-w-4')} />
   </div>
 )
