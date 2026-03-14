@@ -1,4 +1,4 @@
-import { MailIcon, Send, Trash2, User, X } from 'lucide-react'
+import { MailIcon, Send, User, UserMinus, X } from 'lucide-react'
 
 import { UserStatus } from '@/lib/types'
 
@@ -36,7 +36,7 @@ export const createDeleteMemberItem = (
   t,
   { handleDeleteMember, isDeleting, meId }
 ) => ({
-  icon: Trash2,
+  icon: UserMinus,
   label: t('contextMenu.delete'),
   onClick: handleDeleteMember,
   variant: 'destructive',
