@@ -34,11 +34,12 @@ export const createInviteItem = (
 
 export const createDeleteMemberItem = (
   t,
-  { handleDeleteMember, isDeleting }
+  { handleDeleteMember, isDeleting, meId }
 ) => ({
   icon: Trash2,
   label: t('contextMenu.delete'),
   onClick: handleDeleteMember,
   variant: 'destructive',
-  disabled: isDeleting
+  disabled: isDeleting,
+  isVisible: member => member.id !== meId
 })

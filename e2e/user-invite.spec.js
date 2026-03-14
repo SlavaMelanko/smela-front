@@ -224,4 +224,41 @@ test.describe.serial('User: Team Members', () => {
 
     await logOut(page, t)
   })
+
+  test('delete option is hidden for own row but visible for other members', async ({
+    page,
+    t,
+    login
+  }) => {
+    await login(userCredentials)
+
+    await page.goto('/team/members')
+
+    // Own row — delete item should NOT appear in context menu
+    const ownRow = page.getByRole('row', {
+      name: new RegExp(userCredentials.email)
+    })
+
+    await ownRow.click({ button: 'right' })
+    await expect(
+      page.getByRole('menuitem', { name: t.contextMenu.delete })
+    ).not.toBeVisible()
+
+    // Close context menu
+    await page.keyboard.press('Escape')
+
+    // Another member's row — delete item should appear in context menu
+    const otherRow = page.getByRole('row', {
+      name: new RegExp(newMember.email)
+    })
+
+    await otherRow.click({ button: 'right' })
+    await expect(
+      page.getByRole('menuitem', { name: t.contextMenu.delete })
+    ).toBeVisible()
+
+    await page.keyboard.press('Escape')
+
+    await logOut(page, t)
+  })
 })

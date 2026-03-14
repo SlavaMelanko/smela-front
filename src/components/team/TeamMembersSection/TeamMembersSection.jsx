@@ -61,7 +61,7 @@ export const TeamMembersSection = ({
       handleCancelInvite,
       isCancelling
     }),
-    createDeleteMemberItem(t, { handleDeleteMember, isDeleting })
+    createDeleteMemberItem(t, { handleDeleteMember, isDeleting, meId: me?.id })
   ]
 
   const columns = getColumns(t, formatDate, me?.id)
