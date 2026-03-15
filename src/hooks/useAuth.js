@@ -228,7 +228,7 @@ export const useUpdateCurrentUser = () => {
 
         return {
           ...cachedUser,
-          ...newUserData
+          user: { ...cachedUser.user, ...newUserData }
         }
       })
 
@@ -242,7 +242,8 @@ export const useUpdateCurrentUser = () => {
       }
     },
     meta: {
-      invalidatesQueries: authKeys.user()
+      invalidatesQueries: authKeys.user(),
+      refetchType: 'none'
     }
   })
 }
