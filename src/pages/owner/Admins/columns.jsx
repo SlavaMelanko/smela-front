@@ -49,8 +49,8 @@ export const getColumns = (t, formatDate, meId) => {
       cell: info => formatDate(info.getValue())
     },
     {
-      accessorKey: 'lastActiveAt',
-      header: label('lastActivity'),
+      accessorKey: 'lastActive',
+      header: label('lastActive'),
       cell: info => <LastActiveBadge date={info.getValue()} />
     }
   ]
@@ -60,5 +60,5 @@ export const defaultHiddenColumns = {
   id: false,
   invitedBy: false,
   updatedAt: false,
-  lastActiveAt: false
+  lastActive: false
 }

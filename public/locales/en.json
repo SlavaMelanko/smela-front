@@ -158,10 +158,10 @@
     "hour_one": "{{count}} hour ago",
     "hour_other": "{{count}} hours ago",
     "justNow": "Just now",
+    "label": "Last active",
     "minute_one": "{{count}} minute ago",
     "minute_other": "{{count}} minutes ago"
   },
-  "lastActivity": "Last activity",
   "lastName": {
     "error": {
       "max": "Last name can't be longer than 50 characters.",
@@ -362,7 +362,7 @@
       "id": "ID",
       "invitedAt": "$t(invitedAt)",
       "invitedBy": "$t(invitedBy)",
-      "lastActivity": "$t(lastActivity)",
+      "lastActive": "$t(lastActive.label)",
       "name": "Name",
       "status": "$t(status.name)",
       "team": "Team",

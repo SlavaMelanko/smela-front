@@ -162,12 +162,12 @@
     "hour_one": "{{count}} годину тому",
     "hour_other": "{{count}} годин тому",
     "justNow": "Щойно",
+    "label": "Остання активність",
     "minute_few": "{{count}} хвилини тому",
     "minute_many": "{{count}} хвилин тому",
     "minute_one": "{{count}} хвилину тому",
     "minute_other": "{{count}} хвилин тому"
   },
-  "lastActivity": "Остання активність",
   "lastName": {
     "error": {
       "max": "Прізвище не може бути довше 50 символів.",
@@ -368,7 +368,7 @@
       "id": "ID",
       "invitedAt": "$t(invitedAt)",
       "invitedBy": "$t(invitedBy)",
-      "lastActivity": "$t(lastActivity)",
+      "lastActive": "$t(lastActive.label)",
       "name": "Ім'я",
       "status": "$t(status.name)",
       "team": "Команда",
