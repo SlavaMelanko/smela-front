@@ -351,6 +351,7 @@
       "id": "ID",
       "invitedBy": "$t(invitedBy)",
       "joinedAt": "$t(joinedAt)",
+      "lastActive": "$t(lastActive.label)",
       "name": "Ім'я",
       "position": "Посада",
       "status": "$t(status.name)"
