@@ -152,6 +152,22 @@
   "invitedAt": "Запрошено",
   "invitedBy": "Запросив",
   "joinedAt": "Приєднався",
+  "lastActive": {
+    "day_few": "{{count}} дні тому",
+    "day_many": "{{count}} днів тому",
+    "day_one": "{{count}} день тому",
+    "day_other": "{{count}} днів тому",
+    "hour_few": "{{count}} години тому",
+    "hour_many": "{{count}} годин тому",
+    "hour_one": "{{count}} годину тому",
+    "hour_other": "{{count}} годин тому",
+    "justNow": "Щойно",
+    "minute_few": "{{count}} хвилини тому",
+    "minute_many": "{{count}} хвилин тому",
+    "minute_one": "{{count}} хвилину тому",
+    "minute_other": "{{count}} хвилин тому"
+  },
+  "lastActivity": "Остання активність",
   "lastName": {
     "error": {
       "max": "Прізвище не може бути довше 50 символів.",
@@ -352,6 +368,7 @@
       "id": "ID",
       "invitedAt": "$t(invitedAt)",
       "invitedBy": "$t(invitedBy)",
+      "lastActivity": "$t(lastActivity)",
       "name": "Ім'я",
       "status": "$t(status.name)",
       "team": "Команда",

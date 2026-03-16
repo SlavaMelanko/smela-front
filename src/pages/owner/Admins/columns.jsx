@@ -1,4 +1,4 @@
-import { YouBadge } from '@/components/badges'
+import { LastActiveBadge, YouBadge } from '@/components/badges'
 import { StatusBadge } from '@/components/UserStatus'
 import { getFullName } from '@/lib/format/user'
 
@@ -47,6 +47,11 @@ export const getColumns = (t, formatDate, meId) => {
       accessorKey: 'updatedAt',
       header: label('updatedAt'),
       cell: info => formatDate(info.getValue())
+    },
+    {
+      accessorKey: 'lastActiveAt',
+      header: label('lastActivity'),
+      cell: info => <LastActiveBadge date={info.getValue()} />
     }
   ]
 }
@@ -54,5 +59,6 @@ export const getColumns = (t, formatDate, meId) => {
 export const defaultHiddenColumns = {
   id: false,
   invitedBy: false,
-  updatedAt: false
+  updatedAt: false,
+  lastActiveAt: false
 }
