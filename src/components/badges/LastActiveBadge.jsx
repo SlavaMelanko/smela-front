@@ -1,13 +1,8 @@
 import { useLocale } from '@/hooks/useLocale'
+import { timeSince } from '@/lib/format'
 
 const getLastActiveKey = date => {
-  const parsed =
-    typeof date === 'string' || typeof date === 'number' ? new Date(date) : date
-
-  const seconds = Math.floor((Date.now() - parsed.getTime()) / 1000)
-  const minutes = Math.floor(seconds / 60)
-  const hours = Math.floor(minutes / 60)
-  const days = Math.floor(hours / 24)
+  const { seconds, minutes, hours, days } = timeSince(date)
 
   if (seconds < 60) {
     return { key: 'lastActive.justNow' }
@@ -25,7 +20,7 @@ const getLastActiveKey = date => {
     return { key: 'lastActive.day', count: days }
   }
 
-  return { date: parsed }
+  return {}
 }
 
 export const LastActiveBadge = ({ date }) => {
@@ -35,11 +30,11 @@ export const LastActiveBadge = ({ date }) => {
     return null
   }
 
-  const { key, count, date: fallbackDate } = getLastActiveKey(date)
+  const { key, count } = getLastActiveKey(date)
 
   const label = key
     ? t(key, count !== undefined ? { count } : undefined)
-    : formatDate(fallbackDate)
+    : formatDate(date)
 
   return <span>{label}</span>
 }

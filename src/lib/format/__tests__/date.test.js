@@ -1,4 +1,47 @@
-import { datePreset, formatDate } from '../date'
+import { datePreset, formatDate, timeSince } from '../date'
+
+describe('timeSince', () => {
+  it('returns seconds for a date 30 seconds ago', () => {
+    const date = new Date(Date.now() - 30 * 1000)
+
+    expect(timeSince(date)).toMatchObject({
+      seconds: 30,
+      minutes: 0,
+      hours: 0,
+      days: 0
+    })
+  })
+
+  it('returns minutes for a date 5 minutes ago', () => {
+    const date = new Date(Date.now() - 5 * 60 * 1000)
+
+    expect(timeSince(date)).toMatchObject({ minutes: 5, hours: 0, days: 0 })
+  })
+
+  it('returns hours for a date 3 hours ago', () => {
+    const date = new Date(Date.now() - 3 * 60 * 60 * 1000)
+
+    expect(timeSince(date)).toMatchObject({ hours: 3, days: 0 })
+  })
+
+  it('returns days for a date 7 days ago', () => {
+    const date = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+
+    expect(timeSince(date)).toMatchObject({ days: 7 })
+  })
+
+  it('accepts an ISO string', () => {
+    const date = new Date(Date.now() - 60 * 1000)
+
+    expect(timeSince(date.toISOString())).toMatchObject({ minutes: 1 })
+  })
+
+  it('accepts a timestamp', () => {
+    const date = Date.now() - 60 * 1000
+
+    expect(timeSince(date)).toMatchObject({ minutes: 1 })
+  })
+})
 
 describe('formatDate', () => {
   const testDate = '2025-07-04T00:00:00Z'
