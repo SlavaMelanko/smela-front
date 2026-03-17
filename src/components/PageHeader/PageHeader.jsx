@@ -8,11 +8,7 @@ export const PageHeader = ({ children }) => (
   <div className='flex items-end justify-between'>{children}</div>
 )
 
-export const PageHeaderLeft = ({ children, className }) => (
-  <div className={cn('flex items-center gap-3', className)}>{children}</div>
-)
-
-export const PageHeaderRight = ({ children, className }) => (
+export const PageHeaderGroup = ({ children, className }) => (
   <div className={cn('flex items-center gap-3', className)}>{children}</div>
 )
 

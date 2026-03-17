@@ -7,9 +7,8 @@ import {
   PageHeader,
   PageHeaderContent,
   PageHeaderEmail,
+  PageHeaderGroup,
   PageHeaderIcon,
-  PageHeaderLeft,
-  PageHeaderRight,
   PageHeaderTitle
 } from './PageHeader'
 import { getRoleIcon } from './utils'
@@ -33,7 +32,7 @@ export const UserPageHeader = ({ user }) => {
 
   return (
     <PageHeader>
-      <PageHeaderLeft>
+      <PageHeaderGroup>
         <PageHeaderIcon icon={getRoleIcon(user?.role)} />
         <PageHeaderContent>
           <PageHeaderTitle>
@@ -42,11 +41,11 @@ export const UserPageHeader = ({ user }) => {
           </PageHeaderTitle>
           <PageHeaderEmail email={user?.email} />
         </PageHeaderContent>
-      </PageHeaderLeft>
+      </PageHeaderGroup>
       {!isMe && user?.lastActive && (
-        <PageHeaderRight className='hidden sm:flex'>
+        <PageHeaderGroup className='hidden sm:flex'>
           <LastActiveInfo date={user.lastActive} />
-        </PageHeaderRight>
+        </PageHeaderGroup>
       )}
     </PageHeader>
   )
