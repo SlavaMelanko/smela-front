@@ -152,6 +152,16 @@
   "invitedAt": "Invited at",
   "invitedBy": "Invited by",
   "joinedAt": "Joined at",
+  "lastActive": {
+    "day_one": "{{count}} day ago",
+    "day_other": "{{count}} days ago",
+    "hour_one": "{{count}} hour ago",
+    "hour_other": "{{count}} hours ago",
+    "justNow": "Just now",
+    "label": "Last active",
+    "minute_one": "{{count}} minute ago",
+    "minute_other": "{{count}} minutes ago"
+  },
   "lastName": {
     "error": {
       "max": "Last name can't be longer than 50 characters.",
@@ -335,6 +345,7 @@
       "id": "ID",
       "invitedBy": "$t(invitedBy)",
       "joinedAt": "$t(joinedAt)",
+      "lastActive": "$t(lastActive.label)",
       "name": "Name",
       "position": "Position",
       "status": "$t(status.name)"
@@ -352,6 +363,7 @@
       "id": "ID",
       "invitedAt": "$t(invitedAt)",
       "invitedBy": "$t(invitedBy)",
+      "lastActive": "$t(lastActive.label)",
       "name": "Name",
       "status": "$t(status.name)",
       "team": "Team",
@@ -376,7 +388,7 @@
         "cta": "Remove",
         "description": "Are you sure you want to remove {{name}} from the team?",
         "success": "Member removed from the team.",
-        "title": "Remove team member"
+        "title": "Remove team member from team"
       }
     },
     "name": {

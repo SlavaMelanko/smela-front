@@ -5,6 +5,7 @@ import {
   PageHeader,
   PageHeaderContent,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderIcon,
   PageHeaderTitle
 } from './PageHeader'
@@ -15,13 +16,15 @@ export const ProfilePageHeader = ({ user }) => {
 
   return (
     <PageHeader>
-      <PageHeaderIcon icon={getRoleIcon(user?.role)} />
-      <PageHeaderContent>
-        <PageHeaderTitle>{getFullName(user)}</PageHeaderTitle>
-        <PageHeaderDescription>
-          {t('profile.description')}
-        </PageHeaderDescription>
-      </PageHeaderContent>
+      <PageHeaderGroup>
+        <PageHeaderIcon icon={getRoleIcon(user?.role)} />
+        <PageHeaderContent>
+          <PageHeaderTitle>{getFullName(user)}</PageHeaderTitle>
+          <PageHeaderDescription>
+            {t('profile.description')}
+          </PageHeaderDescription>
+        </PageHeaderContent>
+      </PageHeaderGroup>
     </PageHeader>
   )
 }
