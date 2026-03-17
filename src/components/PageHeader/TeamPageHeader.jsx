@@ -4,16 +4,19 @@ import {
   PageHeader,
   PageHeaderContent,
   PageHeaderIcon,
+  PageHeaderLeft,
   PageHeaderTitle,
   PageHeaderWebsite
 } from './PageHeader'
 
 export const TeamPageHeader = ({ name, website }) => (
   <PageHeader>
-    <PageHeaderIcon icon={Users} />
-    <PageHeaderContent>
-      <PageHeaderTitle>{name}</PageHeaderTitle>
-      <PageHeaderWebsite url={website} />
-    </PageHeaderContent>
+    <PageHeaderLeft>
+      <PageHeaderIcon icon={Users} />
+      <PageHeaderContent>
+        <PageHeaderTitle>{name}</PageHeaderTitle>
+        <PageHeaderWebsite url={website} />
+      </PageHeaderContent>
+    </PageHeaderLeft>
   </PageHeader>
 )

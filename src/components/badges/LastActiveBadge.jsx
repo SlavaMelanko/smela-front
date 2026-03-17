@@ -23,7 +23,7 @@ const getLastActiveKey = date => {
   return {}
 }
 
-export const LastActiveBadge = ({ date }) => {
+export const LastActiveBadge = ({ date, className }) => {
   const { t, formatDate } = useLocale()
 
   if (!date) {
@@ -36,5 +36,5 @@ export const LastActiveBadge = ({ date }) => {
     ? t(key, count !== undefined ? { count } : undefined)
     : formatDate(date)
 
-  return <span>{label}</span>
+  return <span className={className}>{label}</span>
 }

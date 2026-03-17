@@ -1,5 +1,6 @@
-import { YouBadge } from '@/components/badges'
+import { LastActiveBadge, YouBadge } from '@/components/badges'
 import { useCurrentUser } from '@/hooks/useAuth'
+import { useLocale } from '@/hooks/useLocale'
 import { getFullName } from '@/lib/format/user'
 
 import {
@@ -7,23 +8,46 @@ import {
   PageHeaderContent,
   PageHeaderEmail,
   PageHeaderIcon,
+  PageHeaderLeft,
+  PageHeaderRight,
   PageHeaderTitle
 } from './PageHeader'
 import { getRoleIcon } from './utils'
 
+const LastActiveInfo = ({ date }) => {
+  const { t } = useLocale()
+
+  return (
+    <div className='flex gap-1'>
+      <span className='text-sm text-muted-foreground'>
+        {t('lastActive.label')}:
+      </span>
+      <LastActiveBadge date={date} className='text-sm text-muted-foreground' />
+    </div>
+  )
+}
+
 export const UserPageHeader = ({ user }) => {
   const { user: me } = useCurrentUser()
+  const isMe = user?.id === me?.id
 
   return (
     <PageHeader>
-      <PageHeaderIcon icon={getRoleIcon(user?.role)} />
-      <PageHeaderContent>
-        <PageHeaderTitle>
-          {getFullName(user)}
-          {user?.id === me?.id && <YouBadge className='text-lg' />}
-        </PageHeaderTitle>
-        <PageHeaderEmail email={user?.email} />
-      </PageHeaderContent>
+      <PageHeaderLeft>
+        <PageHeaderIcon icon={getRoleIcon(user?.role)} />
+        <PageHeaderContent>
+          <PageHeaderTitle>
+            {getFullName(user)}
+            {isMe && <YouBadge className='text-lg' />}
+          </PageHeaderTitle>
+          <PageHeaderEmail email={user?.email} />
+        </PageHeaderContent>
+      </PageHeaderLeft>
+      {!isMe && user?.lastActive && (
+        <PageHeaderRight className='hidden sm:flex'>
+          <LastActiveInfo date={user.lastActive} />
+        </PageHeaderRight>
+      )}
     </PageHeader>
   )
 }

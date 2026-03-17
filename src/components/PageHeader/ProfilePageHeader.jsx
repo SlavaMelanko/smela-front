@@ -6,6 +6,7 @@ import {
   PageHeaderContent,
   PageHeaderDescription,
   PageHeaderIcon,
+  PageHeaderLeft,
   PageHeaderTitle
 } from './PageHeader'
 import { getRoleIcon } from './utils'
@@ -15,13 +16,15 @@ export const ProfilePageHeader = ({ user }) => {
 
   return (
     <PageHeader>
-      <PageHeaderIcon icon={getRoleIcon(user?.role)} />
-      <PageHeaderContent>
-        <PageHeaderTitle>{getFullName(user)}</PageHeaderTitle>
-        <PageHeaderDescription>
-          {t('profile.description')}
-        </PageHeaderDescription>
-      </PageHeaderContent>
+      <PageHeaderLeft>
+        <PageHeaderIcon icon={getRoleIcon(user?.role)} />
+        <PageHeaderContent>
+          <PageHeaderTitle>{getFullName(user)}</PageHeaderTitle>
+          <PageHeaderDescription>
+            {t('profile.description')}
+          </PageHeaderDescription>
+        </PageHeaderContent>
+      </PageHeaderLeft>
     </PageHeader>
   )
 }
