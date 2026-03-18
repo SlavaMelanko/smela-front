@@ -214,7 +214,8 @@
       "title": "Reset password"
     },
     "update": {
-      "cta": "Update password"
+      "cta": "Update password",
+      "hint": "Updating your password will sign you out of all other devices."
     }
   },
   "permissions": {

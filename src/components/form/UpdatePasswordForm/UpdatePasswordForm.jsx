@@ -49,6 +49,10 @@ export const UpdatePasswordForm = ({ isSubmitting, onSubmit }) => {
           </FormField>
         </FormRow>
 
+        <p className='text-muted-foreground text-sm'>
+          {t('password.update.hint')}
+        </p>
+
         <FormActions isDirty={isDirty}>
           <SubmitButton isLoading={isSubmitting}>
             {t('password.update.cta')}
