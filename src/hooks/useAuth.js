@@ -208,6 +208,11 @@ export const useAcceptInvite = () => {
   })
 }
 
+export const useUpdatePassword = () =>
+  useMutation({
+    mutationFn: userApi.updatePassword
+  })
+
 export const useUpdateCurrentUser = () => {
   const queryClient = useQueryClient()
 

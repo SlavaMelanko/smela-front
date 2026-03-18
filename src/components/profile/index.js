@@ -10,4 +10,5 @@ export {
   getUserTabValues,
   ProfileTab
 } from './tabs'
+export { UpdatePasswordSection } from './UpdatePasswordSection'
 export { FieldName } from '@/components/form/UserInfoForm'

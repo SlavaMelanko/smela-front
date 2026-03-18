@@ -7,6 +7,7 @@
     "auth/email-already-in-use": "Email is already taken.",
     "auth/forbidden": "Access denied.",
     "auth/invalid-credentials": "Invalid email or password.",
+    "auth/invalid-password": "Current password is incorrect.",
     "auth/unauthorized": "Access denied. Please try logging in again.",
     "captcha/invalid-token": "Security verification failed. Please try again.",
     "captcha/validation-failed": "Security verification failed. Please try again.",
@@ -191,9 +192,11 @@
     "error": {
       "min": "Password must be at least 8 characters.",
       "required": "Password is required.",
+      "same": "Must differ from current password.",
       "strong": "Use at least: 1 uppercase letter, 1 number, 1 symbol."
     },
     "label": {
+      "current": "Current password",
       "default": "Password",
       "new": "New password"
     },
@@ -211,6 +214,10 @@
         "success": "Password reset complete."
       },
       "title": "Reset password"
+    },
+    "update": {
+      "cta": "Update password",
+      "hint": "Updating your password will sign you out of all other devices except this one."
     }
   },
   "permissions": {
