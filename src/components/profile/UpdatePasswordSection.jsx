@@ -8,9 +8,10 @@ export const UpdatePasswordSection = () => {
   const { showSuccessToast, showErrorToast } = useToast()
   const { mutate: updatePassword, isPending } = useUpdatePassword()
 
-  const submit = data => {
+  const submit = (data, reset) => {
     updatePassword(data, {
       onSuccess: () => {
+        reset()
         showSuccessToast(t('changesSaved'))
       },
       onError: error => {

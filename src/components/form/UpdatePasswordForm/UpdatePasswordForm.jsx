@@ -22,6 +22,7 @@ export const UpdatePasswordForm = ({ isSubmitting, onSubmit }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isDirty }
   } = useForm({
     resolver,
@@ -29,7 +30,7 @@ export const UpdatePasswordForm = ({ isSubmitting, onSubmit }) => {
   })
 
   return (
-    <FormRoot onSubmit={handleSubmit(onSubmit)}>
+    <FormRoot onSubmit={handleSubmit(data => onSubmit(data, reset))}>
       <FormFields>
         <FormRow>
           <FormField
