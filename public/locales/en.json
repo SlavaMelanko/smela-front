@@ -215,7 +215,7 @@
     },
     "update": {
       "cta": "Update password",
-      "hint": "Updating your password will sign you out of all other devices."
+      "hint": "Updating your password will sign you out of all other devices except this one."
     }
   },
   "permissions": {
