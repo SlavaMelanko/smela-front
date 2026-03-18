@@ -125,6 +125,7 @@ export const router = sentryCreateBrowserRouter([
       { path: 'users/:id', element: <UserPage /> },
       { path: 'teams', element: <TeamsPage /> },
       { path: 'teams/:id', element: <TeamPage /> },
+      { path: 'profile', element: <ProfilePage /> },
       { path: 'settings', element: <AdminSettingsPage /> }
     ]
   },
