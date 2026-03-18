@@ -51,7 +51,7 @@ export const UpdatePasswordForm = ({ isSubmitting, onSubmit }) => {
 
         <FormActions isDirty={isDirty}>
           <SubmitButton isLoading={isSubmitting}>
-            {t('password.label.update')}
+            {t('password.update.cta')}
           </SubmitButton>
         </FormActions>
       </FormFields>

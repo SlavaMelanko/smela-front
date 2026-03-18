@@ -196,8 +196,7 @@
     "label": {
       "current": "Current password",
       "default": "Password",
-      "new": "New password",
-      "update": "Update password"
+      "new": "New password"
     },
     "reset": {
       "rememberYourPassword": "Remember your password?",
@@ -213,6 +212,9 @@
         "success": "Password reset complete."
       },
       "title": "Reset password"
+    },
+    "update": {
+      "cta": "Update password"
     }
   },
   "permissions": {
