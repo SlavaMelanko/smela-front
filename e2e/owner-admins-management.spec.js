@@ -3,7 +3,8 @@ import { faker } from '@faker-js/faker'
 import { HttpStatus } from '../src/lib/net'
 import {
   ACCEPT_INVITE_PATH,
-  OWNER_ADMINS_PATH
+  OWNER_ADMINS_PATH,
+  UPDATE_PASSWORD_PATH
 } from '../src/services/backend/paths'
 import { auth } from '../src/tests/data'
 import { expect, test } from './config/fixtures'
@@ -205,6 +206,47 @@ test.describe.serial('Owner: Admin Invitation', () => {
     await expect(adminRow.getByText(t.status.values.active)).toBeVisible()
 
     await logOut(page, t)
+  })
+
+  test('invited admin can update password via security tab', async ({
+    page,
+    t,
+    login
+  }) => {
+    await login({ email: newAdmin.email, password: newAdmin.password })
+
+    // Open profile menu and navigate to Profile
+    await page.getByRole('button', { name: 'Profile menu' }).click()
+    await page.getByRole('menuitem', { name: t.profile.title }).click()
+
+    await page.waitForURL('**/profile*')
+
+    // General tab should be active by default — verify it is visible
+    await expect(page.getByRole('tab', { name: t.general })).toBeVisible()
+
+    // Switch to Security tab
+    await page.getByRole('tab', { name: t.security }).click()
+
+    const updatedPassword = newAdmin.password + '1'
+
+    const apiPromise = waitForApiCall(page, {
+      path: UPDATE_PASSWORD_PATH,
+      status: HttpStatus.OK
+    })
+
+    await page.getByLabel(t.password.label.current).fill(newAdmin.password)
+
+    await page.getByLabel(t.password.label.new).fill(updatedPassword)
+
+    await page.getByRole('button', { name: t.password.update.cta }).click()
+
+    await apiPromise
+
+    await expect(page.getByText(t.changesSaved)).toBeVisible()
+
+    // Verify the new password works by logging out and logging back in
+    await logOut(page, t)
+    await login({ email: newAdmin.email, password: updatedPassword })
   })
 })
 
