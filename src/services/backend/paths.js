@@ -13,6 +13,7 @@ export const LOGOUT_PATH = '/api/v1/auth/logout'
 
 // User endpoints
 export const ME_PATH = '/api/v1/user/me'
+export const UPDATE_PASSWORD_PATH = '/api/v1/user/me/password'
 
 // Admin endpoints
 export const ADMIN_USERS_PATH = '/api/v1/admin/users'

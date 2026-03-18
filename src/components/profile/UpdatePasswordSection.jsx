@@ -1,10 +1,12 @@
 import { UpdatePasswordForm } from '@/components/form'
+import { useUpdatePassword } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
 import { useToast } from '@/hooks/useToast'
 
-export const UpdatePasswordSection = ({ updatePassword, isUpdating }) => {
+export const UpdatePasswordSection = () => {
   const { t, te } = useLocale()
   const { showSuccessToast, showErrorToast } = useToast()
+  const { mutate: updatePassword, isPending } = useUpdatePassword()
 
   const submit = data => {
     updatePassword(data, {
@@ -17,5 +19,5 @@ export const UpdatePasswordSection = ({ updatePassword, isUpdating }) => {
     })
   }
 
-  return <UpdatePasswordForm isSubmitting={isUpdating} onSubmit={submit} />
+  return <UpdatePasswordForm isSubmitting={isPending} onSubmit={submit} />
 }
