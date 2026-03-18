@@ -194,8 +194,10 @@
       "strong": "Use at least: 1 uppercase letter, 1 number, 1 symbol."
     },
     "label": {
+      "current": "Current password",
       "default": "Password",
-      "new": "New password"
+      "new": "New password",
+      "update": "Update password"
     },
     "reset": {
       "rememberYourPassword": "Remember your password?",
