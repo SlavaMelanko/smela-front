@@ -11,3 +11,13 @@ export const fillNewPasswordFormAndSubmit = async (page, newPassword, t) => {
 
   await page.getByRole('button', { name: t.password.reset.set.cta }).click()
 }
+
+export const fillUpdatePasswordFormAndSubmit = async (
+  page,
+  { currentPassword, newPassword },
+  t
+) => {
+  await page.getByLabel(t.password.label.current).fill(currentPassword)
+  await page.getByLabel(t.password.label.new).fill(newPassword)
+  await page.getByRole('button', { name: t.password.update.cta }).click()
+}

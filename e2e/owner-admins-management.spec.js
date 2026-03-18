@@ -11,6 +11,7 @@ import { expect, test } from './config/fixtures'
 import {
   fillAcceptInviteFormAndSubmit,
   fillAdminInviteFormAndSubmit,
+  fillUpdatePasswordFormAndSubmit,
   logOut
 } from './scenarios'
 import { generateEmail, waitForApiCall, waitForApiCalls } from './utils'
@@ -234,11 +235,11 @@ test.describe.serial('Owner: Admin Invitation', () => {
       status: HttpStatus.OK
     })
 
-    await page.getByLabel(t.password.label.current).fill(newAdmin.password)
-
-    await page.getByLabel(t.password.label.new).fill(updatedPassword)
-
-    await page.getByRole('button', { name: t.password.update.cta }).click()
+    await fillUpdatePasswordFormAndSubmit(
+      page,
+      { currentPassword: newAdmin.password, newPassword: updatedPassword },
+      t
+    )
 
     await apiPromise
 
@@ -247,6 +248,8 @@ test.describe.serial('Owner: Admin Invitation', () => {
     // Verify the new password works by logging out and logging back in
     await logOut(page, t)
     await login({ email: newAdmin.email, password: updatedPassword })
+
+    await logOut(page, t)
   })
 })
 
