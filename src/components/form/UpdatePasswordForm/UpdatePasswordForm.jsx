@@ -37,10 +37,7 @@ export const UpdatePasswordForm = ({ isSubmitting, onSubmit }) => {
             name={FieldName.CURRENT_PASSWORD}
             error={errors[FieldName.CURRENT_PASSWORD]}
           >
-            <PasswordInput
-              {...register(FieldName.CURRENT_PASSWORD)}
-              autoComplete='current-password'
-            />
+            <PasswordInput {...register(FieldName.CURRENT_PASSWORD)} />
           </FormField>
 
           <FormField
@@ -48,10 +45,7 @@ export const UpdatePasswordForm = ({ isSubmitting, onSubmit }) => {
             name={FieldName.NEW_PASSWORD}
             error={errors[FieldName.NEW_PASSWORD]}
           >
-            <PasswordInput
-              {...register(FieldName.NEW_PASSWORD)}
-              autoComplete='new-password'
-            />
+            <PasswordInput {...register(FieldName.NEW_PASSWORD)} />
           </FormField>
         </FormRow>
 
