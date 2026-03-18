@@ -6,7 +6,7 @@ import { Role } from '@/lib/types'
 
 import { ProfileDropdown } from './ProfileDropdown'
 
-const getPathToProfile = role => {
+const getProfilePath = role => {
   switch (role) {
     case Role.ADMIN:
     case Role.OWNER:
@@ -33,7 +33,7 @@ export const UserProfileDropdown = ({ user }) => {
       label: 'profile.title',
       icon: <User className='size-4' />,
       onClick: () => {
-        navigate(getPathToProfile(user?.role))
+        navigate(getProfilePath(user?.role))
       }
     },
     {
