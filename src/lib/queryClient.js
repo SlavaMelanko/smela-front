@@ -16,9 +16,27 @@ const redirectToNetworkErrorPage = error => {
   }
 }
 
+const redirectToLogin = reason => {
+  const path = '/login'
+
+  if (!window.location.pathname.includes(path)) {
+    window.location.href = withQuery(path, { reason })
+  }
+}
+
 const handleError = error => {
   if (isNetworkError(error)) {
     redirectToNetworkErrorPage(error)
+
+    return
+  }
+
+  if (
+    error?.status === HttpStatus.BAD_REQUEST &&
+    error?.code === 'refresh-token/missing'
+  ) {
+    queryClient.clear()
+    redirectToLogin('sessionExpired')
 
     return
   }
