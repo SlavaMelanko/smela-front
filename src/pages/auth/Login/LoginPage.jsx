@@ -61,7 +61,7 @@ export const LoginPage = () => {
     <>
       <AuthRoot>
         {searchParams.get('reason') && (
-          <Alert title={t(`error.${searchParams.get('reason')}`)} />
+          <Alert title={t(`backend.${searchParams.get('reason')}`)} />
         )}
 
         <div className='flex flex-col gap-2'>

@@ -36,7 +36,7 @@ const handleError = error => {
     error?.code === 'refresh-token/missing'
   ) {
     queryClient.clear()
-    redirectToLogin('sessionExpired')
+    redirectToLogin(error.code)
 
     return
   }
