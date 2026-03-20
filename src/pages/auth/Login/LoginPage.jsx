@@ -1,5 +1,6 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
+import { Alert } from '@/components/Alert'
 import { GoogleIcon } from '@/components/icons'
 import { InvisibleReCaptcha } from '@/components/InvisibleReCaptcha'
 import { ForgotYourPasswordPrompt, SignupPrompt } from '@/components/prompts'
@@ -16,6 +17,7 @@ import { LoginForm } from './Form'
 export const LoginPage = () => {
   const { t, te } = useLocale()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { mutate: logInWithEmail, isPending: isEmailPending } = useLogin()
   const { mutate: logInWithGoogle, isPending: isGooglePending } =
     useLoginWithGoogle()
@@ -58,6 +60,10 @@ export const LoginPage = () => {
   return (
     <>
       <AuthRoot>
+        {searchParams.get('reason') && (
+          <Alert title={t(`backend.${searchParams.get('reason')}`)} />
+        )}
+
         <div className='flex flex-col gap-2'>
           <LoginForm isLoading={isEmailPending} onSubmit={handleLogin} />
 
