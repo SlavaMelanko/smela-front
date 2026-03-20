@@ -1,12 +1,7 @@
 import { withQuery } from '@/lib/url'
 
 import apiClient from './apiClient'
-import {
-  ADMIN_TEAMS_MEMBERS_PATH,
-  ADMIN_TEAMS_PATH,
-  ADMIN_TEAMS_RESEND_INVITE_PATH,
-  ADMIN_USERS_PATH
-} from './paths'
+import { ADMIN_USER_PATH, ADMIN_USERS_PATH, buildPath } from './paths'
 
 export const adminApi = {
   getUsers(params) {
@@ -14,41 +9,14 @@ export const adminApi = {
   },
 
   getUserById(id) {
-    return apiClient.get(`${ADMIN_USERS_PATH}/${id}`)
+    const path = buildPath(ADMIN_USER_PATH, { userId: id })
+
+    return apiClient.get(path)
   },
 
-  getTeams(params) {
-    return apiClient.get(withQuery(ADMIN_TEAMS_PATH, params))
-  },
+  updateUser(id, data) {
+    const path = buildPath(ADMIN_USER_PATH, { userId: id })
 
-  getTeamById(id) {
-    return apiClient.get(`${ADMIN_TEAMS_PATH}/${id}`)
-  },
-
-  createTeam(data) {
-    return apiClient.post(ADMIN_TEAMS_PATH, data)
-  },
-
-  updateTeam(id, data) {
-    return apiClient.patch(`${ADMIN_TEAMS_PATH}/${id}`, data)
-  },
-
-  deleteTeam(id) {
-    return apiClient.delete(`${ADMIN_TEAMS_PATH}/${id}`)
-  },
-
-  createTeamMember(teamId, data) {
-    const url = ADMIN_TEAMS_MEMBERS_PATH.replace(':id', teamId)
-
-    return apiClient.post(url, data)
-  },
-
-  resendTeamMemberInvite(teamId, memberId) {
-    const url = ADMIN_TEAMS_RESEND_INVITE_PATH.replace(':id', teamId).replace(
-      ':memberId',
-      memberId
-    )
-
-    return apiClient.post(url)
+    return apiClient.patch(path, data)
   }
 }

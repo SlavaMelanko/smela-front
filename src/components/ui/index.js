@@ -4,6 +4,7 @@ export {
   AccordionItem,
   AccordionTrigger
 } from './accordion'
+export { Alert, AlertDescription, AlertTitle } from './alert'
 export { Avatar, AvatarFallback, AvatarImage, AvatarStatus } from './avatar'
 export { Badge } from './badge'
 export { Button } from './button'
@@ -48,6 +49,7 @@ export {
   DialogBody,
   DialogClose,
   DialogContent,
+  DialogControls,
   DialogDescription,
   DialogFooter,
   DialogHeader,
@@ -72,6 +74,18 @@ export {
   DropdownMenuTrigger
 } from './dropdown-menu'
 export { Input } from './input'
+export {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemFooter,
+  ItemGroup,
+  ItemHeader,
+  ItemMedia,
+  ItemSeparator,
+  ItemTitle
+} from './item'
 export {
   MultiSelect,
   MultiSelectContent,

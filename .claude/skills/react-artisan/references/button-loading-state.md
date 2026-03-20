@@ -84,7 +84,7 @@ const SubmitButton = () => {
 ```jsx
 const { mutate, isPending } = useMutation({
   mutationFn: updateProfile,
-  onSuccess: () => toast.success(t('profile.updated'))
+  onSuccess: () => toast.success(t('changesSaved'))
 })
 
 <Button

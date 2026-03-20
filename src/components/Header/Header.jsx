@@ -9,7 +9,7 @@ import { useNotifications } from '@/hooks/useNotifications'
 import { UserProfileDropdown } from './UserProfileDropdown'
 
 export const Header = () => {
-  const { user } = useCurrentUser()
+  const { user: me } = useCurrentUser()
   const { inboxNotifications, openNotificationPanel } = useNotifications()
 
   return (
@@ -30,7 +30,7 @@ export const Header = () => {
           <LanguageDropdown />
         </div>
 
-        <UserProfileDropdown user={user} />
+        <UserProfileDropdown user={me} />
       </nav>
     </header>
   )

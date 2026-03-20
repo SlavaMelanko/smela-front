@@ -1,7 +1,8 @@
+import { getStatusBgColor, getStatusTextColor } from '@/components/UserStatus'
+
 import {
   adminActiveStatuses,
-  getUserStatusBackgroundColor,
-  getUserStatusTextColor,
+  allUserStatuses,
   userActiveStatuses,
   UserStatus
 } from '../userStatus'
@@ -22,22 +23,22 @@ describe('adminActiveStatuses', () => {
   })
 })
 
-describe('getUserStatusBackgroundColor', () => {
-  it.each(Object.values(UserStatus))('returns bg class for %s', status => {
-    expect(getUserStatusBackgroundColor(status)).toMatch(/^bg-/)
+describe('getStatusBgColor', () => {
+  it.each(allUserStatuses)('returns bg class for %s', status => {
+    expect(getStatusBgColor(status)).toMatch(/^bg-/)
   })
 
   it('returns fallback for unknown status', () => {
-    expect(getUserStatusBackgroundColor('unknown')).toBe('bg-muted-foreground')
+    expect(getStatusBgColor('unknown')).toBe('bg-muted-foreground')
   })
 })
 
-describe('getUserStatusTextColor', () => {
-  it.each(Object.values(UserStatus))('returns text class for %s', status => {
-    expect(getUserStatusTextColor(status)).toMatch(/^text-/)
+describe('getStatusTextColor', () => {
+  it.each(allUserStatuses)('returns text class for %s', status => {
+    expect(getStatusTextColor(status)).toMatch(/^text-/)
   })
 
   it('returns fallback for unknown status', () => {
-    expect(getUserStatusTextColor('unknown')).toBe('text-muted-foreground')
+    expect(getStatusTextColor('unknown')).toBe('text-muted-foreground')
   })
 })

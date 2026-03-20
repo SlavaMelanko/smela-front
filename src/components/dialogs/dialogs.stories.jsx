@@ -1,7 +1,6 @@
 import { Dialog, dialogContentVariants } from '@/components/ui/dialog'
-import { Role, UserStatus } from '@/lib/types'
 
-import { PricingSliderDialog, ProfileDialog } from '.'
+import { PricingSliderDialog, RemoveTeamMemberDialog } from '.'
 
 // Wrapper with Dialog context for Base UI components
 const DialogWrapper = ({ size, children }) => (
@@ -24,33 +23,14 @@ export default {
   args: { size: 'md' }
 }
 
-export const UserProfile = {
-  argTypes: {
-    role: {
-      control: 'select',
-      options: Object.values(Role)
-    },
-    status: {
-      control: 'select',
-      options: Object.values(UserStatus)
-    }
-  },
-  args: {
-    role: Role.ADMIN,
-    status: UserStatus.ACTIVE
-  },
-  render: ({ size, role, status }) => (
+export const RemoveTeamMember = {
+  args: { size: 'sm' },
+  render: ({ size }) => (
     <DialogWrapper size={size}>
-      <ProfileDialog
-        profile={{
-          id: 'usr_12345',
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john.doe@example.com',
-          role,
-          status
-        }}
+      <RemoveTeamMemberDialog
+        member={{ firstName: 'John', lastName: 'Doe' }}
         onClose={noop}
+        onConfirm={noop}
       />
     </DialogWrapper>
   )

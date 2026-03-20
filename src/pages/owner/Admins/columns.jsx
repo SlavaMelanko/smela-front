@@ -1,7 +1,8 @@
-import { StatusBadge } from '@/components/badges'
+import { LastActiveBadge, YouBadge } from '@/components/badges'
+import { StatusBadge } from '@/components/UserStatus'
 import { getFullName } from '@/lib/format/user'
 
-export const getColumns = (t, formatDate) => {
+export const getColumns = (t, formatDate, meId) => {
   const label = key => t(`table.users.${key}`)
 
   return [
@@ -13,7 +14,12 @@ export const getColumns = (t, formatDate) => {
       accessorKey: 'name',
       header: label('name'),
       accessorFn: row => getFullName(row),
-      cell: info => getFullName(info.row.original),
+      cell: info => (
+        <>
+          {info.getValue()}
+          {info.row.original.id === meId && <YouBadge />}
+        </>
+      ),
       sortingFn: 'alphanumeric'
     },
     {
@@ -28,30 +34,31 @@ export const getColumns = (t, formatDate) => {
     {
       accessorKey: 'invitedBy',
       header: label('invitedBy'),
-      accessorFn: row => row.invite?.inviterName,
-      cell: info => info.getValue() || ''
+      accessorFn: row => getFullName(row?.inviter),
+      cell: info => info.getValue() ?? ''
     },
     {
       accessorKey: 'invitedAt',
       header: label('invitedAt'),
-      accessorFn: row => row.invite?.invitedAt,
-      cell: info => (info.getValue() ? formatDate(info.getValue()) : '')
-    },
-    {
-      accessorKey: 'createdAt',
-      header: label('createdAt'),
+      accessorFn: row => row.createdAt,
       cell: info => formatDate(info.getValue())
     },
     {
       accessorKey: 'updatedAt',
       header: label('updatedAt'),
       cell: info => formatDate(info.getValue())
+    },
+    {
+      accessorKey: 'lastActive',
+      header: label('lastActive'),
+      cell: info => <LastActiveBadge date={info.getValue()} />
     }
   ]
 }
 
 export const defaultHiddenColumns = {
   id: false,
-  invitedAt: false,
-  updatedAt: false
+  invitedBy: false,
+  updatedAt: false,
+  lastActive: false
 }

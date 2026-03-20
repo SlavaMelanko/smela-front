@@ -8,20 +8,19 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { AddButton } from '@/components/buttons'
-import { TeamAddDialog } from '@/components/dialogs'
 import { SearchInput } from '@/components/inputs'
-import { defaultOptions, Pagination } from '@/components/Pagination'
+import { PageContent } from '@/components/PageContent'
+import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { ColumnVisibilityDropdown, Table } from '@/components/table'
-import { useTeams } from '@/hooks/useAdmin'
-import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
+import { createOpenItem } from '@/components/table/contextMenuItems'
 import { useLocale } from '@/hooks/useLocale'
-import { useModal } from '@/hooks/useModal'
-import { useTableParams } from '@/hooks/useTableParams'
-import { PageContent } from '@/pages/Page'
+import { useTableState } from '@/hooks/useTableState'
+import { useTeams } from '@/hooks/useTeam'
 
 import { defaultHiddenColumns, getColumns } from './columns'
+import { useManageTeams } from './useManageTeams'
 
 const coreRowModel = getCoreRowModel()
 const sortedRowModel = getSortedRowModel()
@@ -32,48 +31,20 @@ const Toolbar = ({ children }) => (
 
 export const TeamsPage = () => {
   const navigate = useNavigate()
-  const { t, te, formatDate } = useLocale()
-  const { openModal } = useModal()
+  const { t, formatDate } = useLocale()
 
-  const { params, apiParams, setParams } = useTableParams()
-
-  const handleSearch = value =>
-    setParams({ search: value || null }, { resetPage: true })
-  const { searchValue, setSearchValue } = useDebouncedSearch(
-    params.search,
-    handleSearch
-  )
-
-  const { data, isPending, isError, error, refetch } = useTeams(apiParams)
-  const { teams = [], pagination = defaultOptions } = data ?? {}
+  const { apiParams, setParams, searchValue, setSearchValue } = useTableState()
+  const { teams, pagination, isPending, isError, error, refetch } =
+    useTeams(apiParams)
+  const { openCreateTeamDialog } = useManageTeams()
 
   const columns = getColumns(t, formatDate)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
   const [sorting, setSorting] = useState([])
 
-  const openCreateTeamDialog = () => {
-    const close = openModal({
-      children: <TeamAddDialog onClose={() => close()} />
-    })
-  }
-
   const viewTeam = team => navigate(`/admin/teams/${team.id}`)
 
-  const contextMenu = [
-    {
-      icon: Users,
-      label: t('contextMenu.open'),
-      onClick: viewTeam
-    }
-  ]
-
-  const changePage = page => {
-    setParams({ page })
-  }
-
-  const changeLimit = limit => {
-    setParams({ limit }, { resetPage: true })
-  }
+  const contextMenu = [createOpenItem(t, viewTeam, Users)]
 
   // eslint-disable-next-line react-hooks/incompatible-library
   const config = useReactTable({
@@ -90,18 +61,19 @@ export const TeamsPage = () => {
     getSortedRowModel: sortedRowModel
   })
 
-  const availableColumns = config.getAllLeafColumns().map(column => ({
-    id: column.id,
-    label: t(`table.teams.${column.id}`),
-    getIsVisible: () => column.getIsVisible(),
-    toggleVisibility: () => column.toggleVisibility()
-  }))
-
-  if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+  const changeLimit = limit => {
+    setParams({ limit }, { resetPage: true })
   }
 
-  if (isPending && !data) {
+  const changePage = page => {
+    setParams({ page })
+  }
+
+  if (isError) {
+    return <ErrorState error={error} onRetry={refetch} />
+  }
+
+  if (isPending && !teams.length) {
     return <Spinner />
   }
 
@@ -115,8 +87,8 @@ export const TeamsPage = () => {
           onChange={setSearchValue}
         />
         <ColumnVisibilityDropdown
-          label={t('table.column_plural')}
-          columns={availableColumns}
+          config={config}
+          createLabel={id => t(`table.teams.${id}`)}
         />
         <AddButton label={t('add')} onClick={openCreateTeamDialog} />
       </Toolbar>

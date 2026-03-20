@@ -1,94 +1,58 @@
-import { ChevronLeft, Info, Users } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 
+import { BackButton } from '@/components/buttons'
+import { PageContent } from '@/components/PageContent'
 import { TeamPageHeader } from '@/components/PageHeader'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
-import { Button, Tabs, TabsContent, TabsLine } from '@/components/ui'
-import { useTeam, useUpdateTeam } from '@/hooks/useAdmin'
+import {
+  getTeamTabs,
+  TeamGeneralSection,
+  TeamMembersSection,
+  TeamTab
+} from '@/components/team'
+import { Tabs, TabsContent, TabsLine } from '@/components/ui'
 import { useHashTab } from '@/hooks/useHashTab'
 import { useLocale } from '@/hooks/useLocale'
-import { useToast } from '@/hooks/useToast'
-import { PageContent } from '@/pages/Page'
-
-import { Members } from './Members'
-import { TeamInfoForm } from './TeamInfoForm'
-
-const TeamTab = {
-  INFO: 'info',
-  MEMBERS: 'members'
-}
+import { useTeam } from '@/hooks/useTeam'
 
 export const TeamPage = () => {
-  const { id } = useParams()
+  const { id: teamId } = useParams()
   const navigate = useNavigate()
-  const { t, te } = useLocale()
-  const { showSuccessToast, showErrorToast } = useToast()
+  const { t } = useLocale()
   const [activeTab, setActiveTab] = useHashTab(
     Object.values(TeamTab),
-    TeamTab.INFO
+    TeamTab.GENERAL
   )
 
-  const { data: team, isPending, isError, error, refetch } = useTeam(id)
-  const { mutate: updateTeam, isPending: isUpdating } = useUpdateTeam(id)
-
-  const submit = data => {
-    updateTeam(data, {
-      onSuccess: () => {
-        showSuccessToast(t('team.update.success'))
-      },
-      onError: error => {
-        showErrorToast(te(error))
-      }
-    })
-  }
+  const { data: team, isPending, isError, error, refetch } = useTeam(teamId)
 
   if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+    return <ErrorState error={error} onRetry={refetch} />
   }
 
   if (isPending && !team) {
     return <Spinner />
   }
 
-  const membersCount = team.members?.length ?? 0
-
-  const tabs = [
-    {
-      value: TeamTab.INFO,
-      icon: Info,
-      label: () => t('team.tabs.info')
-    },
-    {
-      value: TeamTab.MEMBERS,
-      icon: Users,
-      label: () =>
-        membersCount > 0
-          ? t('team.tabs.members.withCount', { count: membersCount })
-          : t('team.tabs.members.label')
-    }
-  ]
-
   return (
     <PageContent>
       <div className='flex'>
-        <Button variant='ghost' onClick={() => navigate('/admin/teams')}>
-          <ChevronLeft className='size-4' />
-          {t('back')}
-        </Button>
+        <BackButton />
       </div>
       <TeamPageHeader name={team.name} website={team.website} />
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsLine tabs={tabs} />
-        <TabsContent value={TeamTab.INFO}>
-          <TeamInfoForm
-            team={team}
-            isSubmitting={isUpdating}
-            onSubmit={submit}
-          />
+        <TabsLine tabs={getTeamTabs(team, t)} />
+        <TabsContent value={TeamTab.GENERAL}>
+          <TeamGeneralSection team={team} />
         </TabsContent>
         <TabsContent value={TeamTab.MEMBERS}>
-          <Members teamId={id} members={team.members ?? []} />
+          <TeamMembersSection
+            teamId={teamId}
+            onRowClick={member =>
+              navigate(`/admin/users/${member.id}`, { state: { user: member } })
+            }
+          />
         </TabsContent>
       </Tabs>
     </PageContent>

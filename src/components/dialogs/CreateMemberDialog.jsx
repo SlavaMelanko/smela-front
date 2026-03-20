@@ -1,25 +1,12 @@
-import { UserInvitationForm } from '@/components/form'
+import { InviteForm } from '@/components/form'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
-import { useCreateTeamMember } from '@/hooks/useAdmin'
 import { useLocale } from '@/hooks/useLocale'
-import { useToast } from '@/hooks/useToast'
+import { useTeamMemberDefaultPermissions } from '@/hooks/useTeam'
 
-export const CreateMemberDialog = ({ teamId, onClose }) => {
-  const { t, te } = useLocale()
-  const { showSuccessToast, showErrorToast } = useToast()
-  const { mutate: createMember, isPending } = useCreateTeamMember(teamId)
-
-  const onSubmit = data => {
-    createMember(data, {
-      onSuccess: () => {
-        showSuccessToast(t('invite.send.success'))
-        onClose()
-      },
-      onError: error => {
-        showErrorToast(te(error))
-      }
-    })
-  }
+export const CreateMemberDialog = ({ onClose, onSubmit, teamId }) => {
+  const { t } = useLocale()
+  const { data: defaultPermissions, isPending: isPermissionsLoading } =
+    useTeamMemberDefaultPermissions(teamId)
 
   return (
     <>
@@ -27,7 +14,11 @@ export const CreateMemberDialog = ({ teamId, onClose }) => {
         <DialogTitle>{t('invite.send.title.member')}</DialogTitle>
       </DialogHeader>
       <DialogBody>
-        <UserInvitationForm isLoading={isPending} onSubmit={onSubmit} />
+        <InviteForm
+          onSubmit={onSubmit}
+          defaultPermissions={defaultPermissions}
+          isPermissionsLoading={isPermissionsLoading}
+        />
       </DialogBody>
     </>
   )

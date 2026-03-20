@@ -1,12 +1,12 @@
 import { Multiselect } from '@/components/inputs'
 import { useLocale } from '@/hooks/useLocale'
-import { UserStatus } from '@/lib/types'
+import { allUserStatuses } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 export const Filters = ({ isShow, params, setParams }) => {
   const { t } = useLocale()
 
-  const statusOptions = Object.values(UserStatus).map(status => ({
+  const statusOptions = allUserStatuses.map(status => ({
     label: t(`status.values.${status}`),
     value: status
   }))

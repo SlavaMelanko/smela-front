@@ -2,9 +2,14 @@ import { Globe } from 'lucide-react'
 
 import { Link } from '@/components/links'
 import { EmailLink } from '@/components/links/EmailLink'
+import { cn } from '@/lib/utils'
 
 export const PageHeader = ({ children }) => (
-  <div className='flex items-center gap-3'>{children}</div>
+  <div className='flex items-end justify-between'>{children}</div>
+)
+
+export const PageHeaderGroup = ({ children, className }) => (
+  <div className={cn('flex items-center gap-3', className)}>{children}</div>
 )
 
 export const PageHeaderIcon = ({ icon: Icon }) => (

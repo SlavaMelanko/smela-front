@@ -1,5 +1,11 @@
 import { fn } from 'storybook/test'
 
+export const authKeys = {
+  all: () => ['auth'],
+  user: () => [...authKeys.all(), 'user'],
+  invitation: token => [...authKeys.all(), 'invitation', token]
+}
+
 export const useCurrentUser = fn(() => ({
   isPending: false,
   isFetching: false,

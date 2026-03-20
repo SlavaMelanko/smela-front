@@ -1,25 +1,12 @@
-import { UserInvitationForm } from '@/components/form'
+import { FieldName, InviteForm } from '@/components/form/InviteForm'
 import { DialogBody, DialogHeader, DialogTitle } from '@/components/ui'
 import { useLocale } from '@/hooks/useLocale'
-import { useCreateAdmin } from '@/hooks/useOwner'
-import { useToast } from '@/hooks/useToast'
+import { useAdminDefaultPermissions } from '@/hooks/useOwner'
 
-export const CreateAdminDialog = ({ onClose }) => {
-  const { t, te } = useLocale()
-  const { showSuccessToast, showErrorToast } = useToast()
-  const { mutate: createAdmin, isPending } = useCreateAdmin()
-
-  const onSubmit = data => {
-    createAdmin(data, {
-      onSuccess: () => {
-        showSuccessToast(t('invite.send.success'))
-        onClose()
-      },
-      onError: error => {
-        showErrorToast(te(error))
-      }
-    })
-  }
+export const CreateAdminDialog = ({ onClose, onSubmit }) => {
+  const { t } = useLocale()
+  const { data: defaultPermissions, isPending: isPermissionsLoading } =
+    useAdminDefaultPermissions()
 
   return (
     <>
@@ -27,10 +14,11 @@ export const CreateAdminDialog = ({ onClose }) => {
         <DialogTitle>{t('invite.send.title.admin')}</DialogTitle>
       </DialogHeader>
       <DialogBody>
-        <UserInvitationForm
-          isLoading={isPending}
+        <InviteForm
           onSubmit={onSubmit}
-          customConfig={{ position: false }}
+          defaultPermissions={defaultPermissions}
+          isPermissionsLoading={isPermissionsLoading}
+          fieldsConfig={{ [FieldName.POSITION]: false }}
         />
       </DialogBody>
     </>

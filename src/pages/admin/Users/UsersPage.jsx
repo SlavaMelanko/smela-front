@@ -4,20 +4,18 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { User } from 'lucide-react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { ProfileDialog } from '@/components/dialogs'
-import { defaultOptions, Pagination } from '@/components/Pagination'
+import { PageContent } from '@/components/PageContent'
+import { Pagination } from '@/components/Pagination'
 import { Spinner } from '@/components/Spinner'
 import { ErrorState } from '@/components/states'
 import { Table } from '@/components/table'
+import { createOpenItem } from '@/components/table/contextMenuItems'
 import { useUsers } from '@/hooks/useAdmin'
-import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useLocale } from '@/hooks/useLocale'
-import { useModal } from '@/hooks/useModal'
-import { useTableParams } from '@/hooks/useTableParams'
-import { PageContent } from '@/pages/Page'
+import { useTableState } from '@/hooks/useTableState'
 
 import { defaultHiddenColumns, getColumns } from './columns'
 import { Filters } from './Filters'
@@ -28,20 +26,13 @@ const filteredRowModel = getFilteredRowModel()
 const sortedRowModel = getSortedRowModel()
 
 export const UsersPage = () => {
-  const { t, te, formatDate } = useLocale()
-  const { openModal } = useModal()
+  const { t, formatDate } = useLocale()
+  const navigate = useNavigate()
 
-  const { params, apiParams, setParams } = useTableParams()
-
-  const handleSearch = value =>
-    setParams({ search: value || null }, { resetPage: true })
-  const { searchValue, setSearchValue } = useDebouncedSearch(
-    params.search,
-    handleSearch
-  )
-
-  const { data, isPending, isError, error, refetch } = useUsers(apiParams)
-  const { users = [], pagination = defaultOptions } = data ?? {}
+  const { params, apiParams, setParams, searchValue, setSearchValue } =
+    useTableState()
+  const { users, pagination, isPending, isError, error, refetch } =
+    useUsers(apiParams)
 
   const columns = getColumns(t, formatDate)
   const [columnVisibility, setColumnVisibility] = useState(defaultHiddenColumns)
@@ -50,27 +41,10 @@ export const UsersPage = () => {
 
   const toggleFilters = () => setShowFilters(prev => !prev)
 
-  const openUserProfile = user => {
-    const close = openModal({
-      children: <ProfileDialog profile={user} onClose={() => close()} />
-    })
-  }
+  const openUserProfile = user =>
+    navigate(`/admin/users/${user.id}`, { state: { user } })
 
-  const contextMenu = [
-    {
-      icon: User,
-      label: t('contextMenu.open'),
-      onClick: openUserProfile
-    }
-  ]
-
-  const changePage = page => {
-    setParams({ page })
-  }
-
-  const changeLimit = limit => {
-    setParams({ limit }, { resetPage: true })
-  }
+  const contextMenu = [createOpenItem(t, openUserProfile)]
 
   // eslint-disable-next-line react-hooks/incompatible-library
   const config = useReactTable({
@@ -91,18 +65,19 @@ export const UsersPage = () => {
     getSortedRowModel: sortedRowModel
   })
 
-  const availableColumns = config.getAllLeafColumns().map(column => ({
-    id: column.id,
-    label: t(`table.users.${column.id}`),
-    getIsVisible: () => column.getIsVisible(),
-    toggleVisibility: () => column.toggleVisibility()
-  }))
-
-  if (isError) {
-    return <ErrorState text={te(error)} onRetry={refetch} />
+  const changeLimit = limit => {
+    setParams({ limit }, { resetPage: true })
   }
 
-  if (isPending && !data) {
+  const changePage = page => {
+    setParams({ page })
+  }
+
+  if (isError) {
+    return <ErrorState error={error} onRetry={refetch} />
+  }
+
+  if (isPending && !users.length) {
     return <Spinner />
   }
 
@@ -111,7 +86,8 @@ export const UsersPage = () => {
       {/* Wrapper prevents PageContent gap when Filters is collapsed */}
       <div>
         <Toolbar
-          columns={availableColumns}
+          config={config}
+          createLabel={id => t(`table.users.${id}`)}
           showFilters={showFilters}
           onToggleFilters={toggleFilters}
           searchValue={searchValue}

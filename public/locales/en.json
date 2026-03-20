@@ -7,6 +7,7 @@
     "auth/email-already-in-use": "Email is already taken.",
     "auth/forbidden": "Access denied.",
     "auth/invalid-credentials": "Invalid email or password.",
+    "auth/invalid-password": "Current password is incorrect.",
     "auth/unauthorized": "Access denied. Please try logging in again.",
     "captcha/invalid-token": "Security verification failed. Please try again.",
     "captcha/validation-failed": "Security verification failed. Please try again.",
@@ -29,11 +30,14 @@
     "token/type-mismatch": "Invalid or expired link.",
     "validation/error": "Invalid request."
   },
+  "cancel": "Cancel",
   "captcha": {
     "error": "Security verification failed. Please try again."
   },
+  "changesSaved": "Changes saved successfully.",
   "contextMenu": {
     "cancel": "Cancel",
+    "delete": "Delete",
     "invite": "Invitation",
     "open": "Open",
     "resend": "Resend"
@@ -41,7 +45,6 @@
   "continueWithGoogle": "Continue with Google",
   "copyright": "© {{year}} {{companyName}}",
   "createdAt": "Created at",
-  "details": "Details",
   "doNotHaveAccount": "Don't have an account?",
   "email": {
     "confirmation": {
@@ -65,7 +68,7 @@
         "invalidToken": "Invalid token."
       },
       "loading": "Verifying email...",
-      "success": "Email verified."
+      "success": "Welcome! Your account is ready."
     }
   },
   "error": {
@@ -131,6 +134,9 @@
       "title": "You're invited to",
       "validating": "Validating invitation..."
     },
+    "cancel": {
+      "success": "Invitation cancelled."
+    },
     "cta": "Invite",
     "resend": {
       "success": "Invitation resent."
@@ -146,6 +152,17 @@
   },
   "invitedAt": "Invited at",
   "invitedBy": "Invited by",
+  "joinedAt": "Joined at",
+  "lastActive": {
+    "day_one": "{{count}} day ago",
+    "day_other": "{{count}} days ago",
+    "hour_one": "{{count}} hour ago",
+    "hour_other": "{{count}} hours ago",
+    "justNow": "Just now",
+    "label": "Last active",
+    "minute_one": "{{count}} minute ago",
+    "minute_other": "{{count}} minutes ago"
+  },
   "lastName": {
     "error": {
       "max": "Last name can't be longer than 50 characters.",
@@ -163,6 +180,7 @@
     "noun": "Logout",
     "verb": "Log out"
   },
+  "membership": "Membership",
   "noNewNotifications": "No new notifications.",
   "notifications": "Notifications",
   "or": "or",
@@ -174,9 +192,11 @@
     "error": {
       "min": "Password must be at least 8 characters.",
       "required": "Password is required.",
+      "same": "Must differ from current password.",
       "strong": "Use at least: 1 uppercase letter, 1 number, 1 symbol."
     },
     "label": {
+      "current": "Current password",
       "default": "Password",
       "new": "New password"
     },
@@ -194,15 +214,27 @@
         "success": "Password reset complete."
       },
       "title": "Reset password"
+    },
+    "update": {
+      "cta": "Update password",
+      "hint": "Updating your password will sign you out of all other devices except this one."
     }
   },
   "permissions": {
+    "actions": {
+      "name": "Actions",
+      "values": {
+        "manage": "Manage",
+        "view": "View"
+      }
+    },
     "name": "Permissions",
-    "values": {
-      "create": "Create",
-      "delete": "Delete",
-      "edit": "Edit",
-      "view": "View"
+    "resources": {
+      "name": "Resources",
+      "values": {
+        "teams": "Teams",
+        "users": "Users"
+      }
     }
   },
   "personalDetails": "Personal details",
@@ -264,12 +296,16 @@
     }
   },
   "processing": "Processing...",
-  "profile": "Profile",
+  "profile": {
+    "description": "Your profile settings",
+    "title": "Profile"
+  },
   "save": "Save",
   "searchBy": {
     "teams": "Search by ID, name, website...",
     "users": "Search by ID, name, email..."
   },
+  "security": "Security",
   "settings": {
     "description": "Your app-wide preferences",
     "title": "Settings"
@@ -289,6 +325,10 @@
   },
   "signUp": "Sign up",
   "status": {
+    "error": {
+      "invalid": "Select a valid status.",
+      "required": "Status is required."
+    },
     "name": "Status",
     "placeholder": "Select statuses",
     "values": {
@@ -311,7 +351,8 @@
       "email": "Email",
       "id": "ID",
       "invitedBy": "$t(invitedBy)",
-      "joinedAt": "Joined at",
+      "joinedAt": "$t(joinedAt)",
+      "lastActive": "$t(lastActive.label)",
       "name": "Name",
       "position": "Position",
       "status": "$t(status.name)"
@@ -329,8 +370,10 @@
       "id": "ID",
       "invitedAt": "$t(invitedAt)",
       "invitedBy": "$t(invitedBy)",
+      "lastActive": "$t(lastActive.label)",
       "name": "Name",
       "status": "$t(status.name)",
+      "team": "Team",
       "updatedAt": "$t(updatedAt)"
     }
   },
@@ -347,7 +390,13 @@
       "label": "Description"
     },
     "members": {
-      "empty": "No team members yet."
+      "empty": "No team members yet.",
+      "remove": {
+        "cta": "Remove",
+        "description": "Are you sure you want to remove {{name}} from the team?",
+        "success": "Member removed from the team.",
+        "title": "Remove team member from team"
+      }
     },
     "name": {
       "error": {
@@ -355,17 +404,15 @@
         "min": "Team name must be at least 2 characters.",
         "required": "Team name is required."
       },
-      "label": "Name"
+      "label": "Name",
+      "label2": "Team"
     },
     "tabs": {
-      "info": "Info",
+      "general": "General",
       "members": {
         "label": "Members",
         "withCount": "Members ({{count}})"
       }
-    },
-    "update": {
-      "success": "Data updated."
     },
     "website": {
       "error": {
@@ -392,5 +439,6 @@
       "tb": "TB"
     }
   },
-  "updatedAt": "Updated at"
+  "updatedAt": "Updated at",
+  "you": "You"
 }

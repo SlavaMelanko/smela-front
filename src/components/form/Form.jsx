@@ -9,7 +9,7 @@ export const FormRoot = ({ children, className, ...props }) => (
 export const FormGroup = ({ children, className, legend }) => (
   <fieldset className={cn('rounded-lg border border-border p-4', className)}>
     {legend && (
-      <legend className='-mx-2 px-2 text-sm font-medium text-muted-foreground'>
+      <legend className='-mx-2 px-2 text-xs text-muted-foreground'>
         {legend}
       </legend>
     )}
@@ -63,6 +63,10 @@ export const FormInputWrapper = ({ children }) => (
   <div className='flex w-full flex-col'>{children}</div>
 )
 
+export const FormReadOnly = ({ children }) => (
+  <div className='flex h-11 items-center text-base'>{children}</div>
+)
+
 export const FormError = ({ message, className }) => (
   <div
     className={cn(
@@ -75,4 +79,8 @@ export const FormError = ({ message, className }) => (
   >
     {message}
   </div>
+)
+
+export const FormActions = ({ children, isDirty }) => (
+  <div className={cn('flex justify-end', !isDirty && 'hidden')}>{children}</div>
 )

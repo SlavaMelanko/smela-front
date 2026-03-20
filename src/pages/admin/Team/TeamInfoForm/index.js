@@ -1,1 +1,0 @@
-export { TeamInfoForm } from './TeamInfoForm'

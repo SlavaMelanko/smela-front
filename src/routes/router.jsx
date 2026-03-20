@@ -1,11 +1,12 @@
 import { wrapCreateBrowserRouterV6 } from '@sentry/react'
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 
 import {
   AuthLayout,
   ErrorLayout,
   LegalLayout,
   PublicLayout,
+  TeamLayout,
   UserLayout
 } from '@/layouts'
 import { adminActiveStatuses, Role, userActiveStatuses } from '@/lib/types'
@@ -14,6 +15,7 @@ import {
   SettingsPage as AdminSettingsPage,
   TeamPage,
   TeamsPage,
+  UserPage,
   UsersPage
 } from '@/pages/admin'
 import {
@@ -30,9 +32,16 @@ import {
   NotFoundErrorPage
 } from '@/pages/errors'
 import { PrivacyPage, TermsPage } from '@/pages/legal'
-import { AdminsPage } from '@/pages/owner'
+import { AdminPage, AdminsPage } from '@/pages/owner'
 import { PricingPage } from '@/pages/public'
-import { HomePage, SettingsPage as UserSettingsPage } from '@/pages/user'
+import {
+  HomePage,
+  ProfilePage,
+  SettingsPage as UserSettingsPage,
+  TeamGeneralPage,
+  TeamMemberPage,
+  TeamMembersPage
+} from '@/pages/user'
 
 import { ErrorBoundary } from './ErrorBoundary'
 import { PrivateRoute, PublicRoute } from './guards'
@@ -85,6 +94,17 @@ export const router = sentryCreateBrowserRouter([
     errorElement: <ErrorBoundary />,
     children: [
       { path: 'home', element: <HomePage /> },
+      {
+        path: 'team',
+        element: <TeamLayout />,
+        children: [
+          { index: true, element: <Navigate to='general' replace /> },
+          { path: 'general', element: <TeamGeneralPage /> },
+          { path: 'members', element: <TeamMembersPage /> }
+        ]
+      },
+      { path: 'team/members/:id', element: <TeamMemberPage /> },
+      { path: 'profile', element: <ProfilePage /> },
       { path: 'settings', element: <UserSettingsPage /> }
     ]
   },
@@ -102,8 +122,10 @@ export const router = sentryCreateBrowserRouter([
     children: [
       { path: 'dashboard', element: <DashboardPage /> },
       { path: 'users', element: <UsersPage /> },
+      { path: 'users/:id', element: <UserPage /> },
       { path: 'teams', element: <TeamsPage /> },
       { path: 'teams/:id', element: <TeamPage /> },
+      { path: 'profile', element: <ProfilePage /> },
       { path: 'settings', element: <AdminSettingsPage /> }
     ]
   },
@@ -118,7 +140,10 @@ export const router = sentryCreateBrowserRouter([
       </PrivateRoute>
     ),
     errorElement: <ErrorBoundary />,
-    children: [{ path: 'admins', element: <AdminsPage /> }]
+    children: [
+      { path: 'admins', element: <AdminsPage /> },
+      { path: 'admins/:id', element: <AdminPage /> }
+    ]
   },
   {
     path: 'errors',

@@ -7,6 +7,7 @@
     "auth/email-already-in-use": "Електронна адреса вже зайнята.",
     "auth/forbidden": "Доступ заборонено.",
     "auth/invalid-credentials": "Невірна електронна адреса або пароль.",
+    "auth/invalid-password": "Поточний пароль невірний.",
     "auth/unauthorized": "Доступ заборонено. Увійдіть щоб продовжити.",
     "captcha/invalid-token": "Помилка перевірки безпеки. Спробуйте ще раз.",
     "captcha/validation-failed": "Помилка перевірки безпеки. Спробуйте ще раз.",
@@ -29,11 +30,14 @@
     "token/type-mismatch": "Недійсне або прострочене посилання.",
     "validation/error": "Невалідний запит."
   },
+  "cancel": "Скасувати",
   "captcha": {
     "error": "Помилка перевірки безпеки. Спробуйте ще раз."
   },
+  "changesSaved": "Зміни успішно збережено.",
   "contextMenu": {
     "cancel": "Скасувати",
+    "delete": "Видалити",
     "invite": "Запрошення",
     "open": "Відкрити",
     "resend": "Надіслати повторно"
@@ -41,7 +45,6 @@
   "continueWithGoogle": "Продовжити з Google",
   "copyright": "© {{year}} {{companyName}}",
   "createdAt": "Створено",
-  "details": "Деталі",
   "doNotHaveAccount": "Новенький тут?",
   "email": {
     "confirmation": {
@@ -65,7 +68,7 @@
         "invalidToken": "Недійсний токен."
       },
       "loading": "Підтверджуємо електронну пошту...",
-      "success": "Електронну пошту підтверджено."
+      "success": "Вітаю! Ваш обліковий запис готовий."
     }
   },
   "error": {
@@ -127,9 +130,12 @@
       "cta": "Приєднатися",
       "description": "Встановіть пароль, щоб приєднатися до команди.",
       "error": "Не вдалося прийняти запрошення. Посилання могло застаріти.",
-      "success": "Ласкаво просимо! Ваш обліковий запис готовий.",
+      "success": "Вітаю! Ваш обліковий запис готовий.",
       "title": "Вас запрошено до",
       "validating": "Перевірка запрошення..."
+    },
+    "cancel": {
+      "success": "Запрошення скасовано."
     },
     "cta": "Запросити",
     "resend": {
@@ -146,6 +152,23 @@
   },
   "invitedAt": "Запрошено",
   "invitedBy": "Запросив",
+  "joinedAt": "Приєднався",
+  "lastActive": {
+    "day_few": "{{count}} дні тому",
+    "day_many": "{{count}} днів тому",
+    "day_one": "{{count}} день тому",
+    "day_other": "{{count}} днів тому",
+    "hour_few": "{{count}} години тому",
+    "hour_many": "{{count}} годин тому",
+    "hour_one": "{{count}} годину тому",
+    "hour_other": "{{count}} годин тому",
+    "justNow": "Щойно",
+    "label": "Остання активність",
+    "minute_few": "{{count}} хвилини тому",
+    "minute_many": "{{count}} хвилин тому",
+    "minute_one": "{{count}} хвилину тому",
+    "minute_other": "{{count}} хвилин тому"
+  },
   "lastName": {
     "error": {
       "max": "Прізвище не може бути довше 50 символів.",
@@ -163,6 +186,7 @@
     "noun": "Вийти",
     "verb": "Вийти"
   },
+  "membership": "Членство",
   "noNewNotifications": "Нових сповіщень немає.",
   "notifications": "Сповіщення",
   "or": "або",
@@ -174,9 +198,11 @@
     "error": {
       "min": "Пароль має містити щонайменше 8 символів.",
       "required": "Пароль обовʼязковий.",
+      "same": "Має відрізнятися від поточного.",
       "strong": "Використайте щонайменше: 1 велику літеру, 1 цифру, 1 символ."
     },
     "label": {
+      "current": "Поточний пароль",
       "default": "Пароль",
       "new": "Новий пароль"
     },
@@ -194,15 +220,27 @@
         "success": "Пароль змінено."
       },
       "title": "Скинути пароль"
+    },
+    "update": {
+      "cta": "Оновити пароль",
+      "hint": "Після зміни пароля ви вийдете з усіх інших пристроїв, окрім цього."
     }
   },
   "permissions": {
+    "actions": {
+      "name": "Дії",
+      "values": {
+        "manage": "Керування",
+        "view": "Перегляд"
+      }
+    },
     "name": "Права доступу",
-    "values": {
-      "create": "Створення",
-      "delete": "Видалення",
-      "edit": "Редагування",
-      "view": "Перегляд"
+    "resources": {
+      "name": "Ресурси",
+      "values": {
+        "teams": "Команди",
+        "users": "Користувачі"
+      }
     }
   },
   "personalDetails": "Персональні дані",
@@ -264,12 +302,16 @@
     }
   },
   "processing": "В процесі...",
-  "profile": "Профіль",
+  "profile": {
+    "description": "Налаштування профілю",
+    "title": "Профіль"
+  },
   "save": "Зберегти",
   "searchBy": {
     "teams": "Шукати за ID, назвою, сайтом...",
     "users": "Шукати за ID, ім'ям, email..."
   },
+  "security": "Безпека",
   "settings": {
     "description": "Ваші налаштування для всього застосунку",
     "title": "Налаштування"
@@ -289,6 +331,10 @@
   },
   "signUp": "Зареєструватися",
   "status": {
+    "error": {
+      "invalid": "Виберіть правильний статус.",
+      "required": "Статус обовʼязковий."
+    },
     "name": "Статус",
     "placeholder": "Виберіть статуси",
     "values": {
@@ -311,7 +357,8 @@
       "email": "Email",
       "id": "ID",
       "invitedBy": "$t(invitedBy)",
-      "joinedAt": "Приєднався",
+      "joinedAt": "$t(joinedAt)",
+      "lastActive": "$t(lastActive.label)",
       "name": "Ім'я",
       "position": "Посада",
       "status": "$t(status.name)"
@@ -329,8 +376,10 @@
       "id": "ID",
       "invitedAt": "$t(invitedAt)",
       "invitedBy": "$t(invitedBy)",
+      "lastActive": "$t(lastActive.label)",
       "name": "Ім'я",
       "status": "$t(status.name)",
+      "team": "Команда",
       "updatedAt": "$t(updatedAt)"
     }
   },
@@ -347,7 +396,13 @@
       "label": "Опис"
     },
     "members": {
-      "empty": "Учасників команди поки немає."
+      "empty": "Учасників команди поки немає.",
+      "remove": {
+        "cta": "Видалити",
+        "description": "Ви впевнені, що хочете видалити {{name}} з команди?",
+        "success": "Учасник видалений з команди.",
+        "title": "Видалити учасника з команди"
+      }
     },
     "name": {
       "error": {
@@ -355,17 +410,15 @@
         "min": "Назва команди має містити щонайменше 2 символи.",
         "required": "Назва команди обовʼязкова."
       },
-      "label": "Назва"
+      "label": "Назва",
+      "label2": "Команда"
     },
     "tabs": {
-      "info": "Інфо",
+      "general": "Загальне",
       "members": {
         "label": "Учасники",
         "withCount": "Учасники ({{count}})"
       }
-    },
-    "update": {
-      "success": "Дані оновлено."
     },
     "website": {
       "error": {
@@ -392,5 +445,6 @@
       "tb": "ТБ"
     }
   },
-  "updatedAt": "Оновлено"
+  "updatedAt": "Оновлено",
+  "you": "Ви"
 }

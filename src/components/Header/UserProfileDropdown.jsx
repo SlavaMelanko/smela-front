@@ -1,16 +1,24 @@
 import { LogOut, MessageCircleQuestion, User } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
-import { ProfileDialog } from '@/components/dialogs'
 import { useLogout } from '@/hooks/useAuth'
-import { useModal } from '@/hooks/useModal'
+import { Role } from '@/lib/types'
 
 import { ProfileDropdown } from './ProfileDropdown'
+
+const getProfilePath = role => {
+  switch (role) {
+    case Role.ADMIN:
+    case Role.OWNER:
+      return '/admin/profile'
+    default:
+      return '/profile'
+  }
+}
 
 export const UserProfileDropdown = ({ user }) => {
   const navigate = useNavigate()
   const { mutate: logOut } = useLogout()
-  const { openModal } = useModal()
 
   const handleLogOut = () => {
     logOut(undefined, {
@@ -20,17 +28,13 @@ export const UserProfileDropdown = ({ user }) => {
     })
   }
 
-  const openProfileDialog = () => {
-    const close = openModal({
-      children: <ProfileDialog profile={user} onClose={() => close()} />
-    })
-  }
-
   const menu = [
     {
-      label: 'profile',
+      label: 'profile.title',
       icon: <User className='size-4' />,
-      onClick: openProfileDialog
+      onClick: () => {
+        navigate(getProfilePath(user?.role))
+      }
     },
     {
       label: 'support',

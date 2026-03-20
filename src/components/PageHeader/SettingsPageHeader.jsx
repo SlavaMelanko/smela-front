@@ -4,16 +4,19 @@ import {
   PageHeader,
   PageHeaderContent,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderIcon,
   PageHeaderTitle
 } from './PageHeader'
 
 export const SettingsPageHeader = ({ title, description }) => (
   <PageHeader>
-    <PageHeaderIcon icon={Settings} />
-    <PageHeaderContent>
-      <PageHeaderTitle>{title}</PageHeaderTitle>
-      <PageHeaderDescription>{description}</PageHeaderDescription>
-    </PageHeaderContent>
+    <PageHeaderGroup>
+      <PageHeaderIcon icon={Settings} />
+      <PageHeaderContent>
+        <PageHeaderTitle>{title}</PageHeaderTitle>
+        <PageHeaderDescription>{description}</PageHeaderDescription>
+      </PageHeaderContent>
+    </PageHeaderGroup>
   </PageHeader>
 )

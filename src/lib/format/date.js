@@ -17,6 +17,20 @@ export const datePreset = {
   }
 }
 
+export const parseDate = date =>
+  typeof date === 'string' || typeof date === 'number' ? new Date(date) : date
+
+export const timeSince = date => {
+  const parsed = parseDate(date)
+
+  const seconds = Math.floor((Date.now() - parsed.getTime()) / 1000)
+  const minutes = Math.floor(seconds / 60)
+  const hours = Math.floor(minutes / 60)
+  const days = Math.floor(hours / 24)
+
+  return { seconds, minutes, hours, days }
+}
+
 export const formatDate = (
   date,
   locale = 'en',
@@ -26,10 +40,7 @@ export const formatDate = (
     return ''
   }
 
-  const parsed =
-    typeof date === 'string' || typeof date === 'number' ? new Date(date) : date
-
-  return new Intl.DateTimeFormat(locale, options).format(parsed)
+  return new Intl.DateTimeFormat(locale, options).format(parseDate(date))
 }
 
 export const formatTime = (date, locale = 'en', hour12 = false) => {
@@ -37,12 +48,9 @@ export const formatTime = (date, locale = 'en', hour12 = false) => {
     return ''
   }
 
-  const parsed =
-    typeof date === 'string' || typeof date === 'number' ? new Date(date) : date
-
   return new Intl.DateTimeFormat(locale, {
     hour: 'numeric',
     minute: '2-digit',
     hour12
-  }).format(parsed)
+  }).format(parseDate(date))
 }

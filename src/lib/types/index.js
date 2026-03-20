@@ -1,8 +1,7 @@
 export { Role } from './role'
 export {
   adminActiveStatuses,
-  getUserStatusBackgroundColor,
-  getUserStatusTextColor,
+  allUserStatuses,
   userActiveStatuses,
   UserStatus
 } from './userStatus'

@@ -1,11 +1,11 @@
 import { Settings } from 'lucide-react'
 
+import { PageContent } from '@/components/PageContent'
 import { SettingsPageHeader } from '@/components/PageHeader'
 import { DateTimeSettings } from '@/components/settings'
 import { Tabs, TabsContent, TabsLine } from '@/components/ui'
 import { useHashTab } from '@/hooks/useHashTab'
 import { useLocale } from '@/hooks/useLocale'
-import { PageContent } from '@/pages/Page'
 
 const SettingsTab = {
   GENERAL: 'general'

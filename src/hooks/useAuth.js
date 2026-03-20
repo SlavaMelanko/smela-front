@@ -13,13 +13,14 @@ export const authKeys = {
   invitation: token => [...authKeys.all(), 'invitation', token]
 }
 
-export const useCurrentUser = () => {
+export const useCurrentUser = (options = {}) => {
   const hasAccessToken = !!accessTokenStorage.get()
 
   const query = useQuery({
     queryKey: authKeys.user(),
     queryFn: userApi.getCurrentUser,
-    enabled: hasAccessToken
+    enabled: hasAccessToken,
+    ...options
   })
 
   return {
@@ -207,7 +208,12 @@ export const useAcceptInvite = () => {
   })
 }
 
-export const useUpdateUser = () => {
+export const useUpdatePassword = () =>
+  useMutation({
+    mutationFn: userApi.updatePassword
+  })
+
+export const useUpdateCurrentUser = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
@@ -227,7 +233,7 @@ export const useUpdateUser = () => {
 
         return {
           ...cachedUser,
-          ...newUserData
+          user: { ...cachedUser.user, ...newUserData }
         }
       })
 
@@ -241,7 +247,8 @@ export const useUpdateUser = () => {
       }
     },
     meta: {
-      invalidatesQueries: authKeys.user()
+      invalidatesQueries: authKeys.user(),
+      refetchType: 'none'
     }
   })
 }

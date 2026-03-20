@@ -3,6 +3,7 @@ import { Users } from 'lucide-react'
 import {
   PageHeader,
   PageHeaderContent,
+  PageHeaderGroup,
   PageHeaderIcon,
   PageHeaderTitle,
   PageHeaderWebsite
@@ -10,10 +11,12 @@ import {
 
 export const TeamPageHeader = ({ name, website }) => (
   <PageHeader>
-    <PageHeaderIcon icon={Users} />
-    <PageHeaderContent>
-      <PageHeaderTitle>{name}</PageHeaderTitle>
-      <PageHeaderWebsite url={website} />
-    </PageHeaderContent>
+    <PageHeaderGroup>
+      <PageHeaderIcon icon={Users} />
+      <PageHeaderContent>
+        <PageHeaderTitle>{name}</PageHeaderTitle>
+        <PageHeaderWebsite url={website} />
+      </PageHeaderContent>
+    </PageHeaderGroup>
   </PageHeader>
 )

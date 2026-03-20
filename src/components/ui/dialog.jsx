@@ -67,7 +67,7 @@ function DialogHeader({
     <div
       data-slot='dialog-header'
       className={cn(
-        'flex items-center justify-between gap-4 border-b border-border px-6 py-4',
+        'flex h-14 items-center justify-between gap-4 border-b border-border px-6',
         className
       )}
       {...props}
@@ -135,6 +135,16 @@ function DialogFooter({ className, borderTop = false, ...props }) {
   )
 }
 
+function DialogControls({ className, ...props }) {
+  return (
+    <div
+      data-slot='dialog-controls'
+      className={cn('flex items-center justify-end gap-3 pt-4', className)}
+      {...props}
+    />
+  )
+}
+
 function DialogClose({ ...props }) {
   return <DialogPrimitive.Close data-slot='dialog-close' {...props} />
 }
@@ -146,6 +156,7 @@ export {
   DialogClose,
   DialogContent,
   dialogContentVariants,
+  DialogControls,
   DialogDescription,
   DialogFooter,
   DialogHeader,
